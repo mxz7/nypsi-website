@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif;
+}
+
+body {
+    background-color: #36393f;
+}
+
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    display: none !important;
+}
+
+nav {
+    background-color: #1c1e20;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 0.4rem;
+    padding-bottom: 0.6rem;
+    position: fixed;
+    z-index: 69;
+    box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.2);
+}
+
+.navlink {
+    /*background: linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(128,0,0,1) 100%);*/
+    background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgb(109, 109, 109) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: whitesmoke;
+    font-size: 2rem;
+    font-weight: 300;
+    transition: 0.3s;
+}
+
+.navlink:hover {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.main {
+    font-size: 3rem;
+    margin: 0rem 5rem;
+    text-transform: lowercase;
+}
+
+#intro {
+    background-color: #1c1e20;
+    width: 100%;
+    height: 80vh;
+    text-align: center;
+    padding-top: 12rem;
+}
+
+#intro h1 {
+    font-size: 25rem;
+    font-weight: 500;
+    color: whitesmoke;
+    transition: 0.5s ease;
+    text-shadow: 0px 0px 1.5rem rgba(0, 0, 0, 0);
+}
+
+#intro h1:hover {
+    text-shadow: 0px 0px 1.5rem rgba(0, 0, 0, 0.5);
+}
+
+#intro p {
+    bottom: 1rem;
+    position: absolute;
+    border: solid whitesmoke;
+    border-width: 0 0.2rem 0.2rem 0;
+    display: inline-block;
+    padding: 0.3rem;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+#introbottom {
+    width: 100%;
+    height: 50px;
+    background-color: #1c1e20;
+    border-bottom-left-radius: 90%;
+    border-bottom-right-radius: 90%;
+}
+
+svg {
+    width: 100%;
+}
+
+#content {
+    display: flex;
+    min-height: 20000rem; /*change this later lol*/
+    color: white;
+}
+
+#content h1 {
+    font-weight: 500;
+    font-size: 4rem;
+    margin: 5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+#content h2 {
+    font-weight: 500;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+#content hr {
+    border: 0;
+    height: 1px;
+    background: #1c1e20;
+    box-shadow: 0px 0px 0.1rem black;
+    margin: 2rem;
+}
+
+.side {
+    flex: 1;
+}
+
+.left {
+    order: 1
+}
+
+.right {
+    order: 3
+}
+
+#maincontent {
+    order: 2;
+    flex: 4;
+    padding: 0rem 5rem;
+}
+
+.feature {
+    display: flex;
+}
+
+.feature li {
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin: 0.5rem 1rem;
+    color: rgb(226, 226, 226);
+}
+
+.feature img {
+    width: 25rem;
+}
