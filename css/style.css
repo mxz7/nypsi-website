@@ -85,7 +85,7 @@ nav {
     text-shadow: 0px 0px 1.5rem rgba(0, 0, 0, 0.5);
 }
 
-#intro p {
+#intro a {
     bottom: 1rem;
     position: absolute;
     border: solid whitesmoke;
@@ -110,8 +110,8 @@ svg {
 
 #content {
     display: flex;
-    min-height: 250rem; /*change this later lol*/
     color: white;
+    margin-bottom: 10rem;
 }
 
 #content h1 {
@@ -162,7 +162,9 @@ svg {
     font-size: 1.1rem;
     font-weight: 300;
     margin: 0.5rem 1rem;
+    margin-left: 1.2rem;
     color: rgb(226, 226, 226);
+    overflow-x: visible;
 }
 
 .feature img {
@@ -222,6 +224,7 @@ footer {
     .feature li {
         font-size: 0.8rem;
         margin: 0.25rem 0.5rem;
+        overflow-x: hidden;
     }
 
     .feature img {
