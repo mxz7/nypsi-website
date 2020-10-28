@@ -201,12 +201,13 @@ footer {
         font-size: 9rem;
     }
 
-    #empty {
+    .empty {
         display: none;
     }
 
     #maincontent {
         padding: 0rem 1.5rem;
+        width: 100%;
     }
 
     #content h1 {
