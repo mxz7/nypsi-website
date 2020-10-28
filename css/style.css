@@ -8,6 +8,7 @@
     text-decoration: none;
     font-family: 'Rubik', sans-serif;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
