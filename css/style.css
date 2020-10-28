@@ -14,6 +14,14 @@ body {
     background-color: #2f3238;
 }
 
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    background-color: #101113;
+    padding: 0.1rem;
+    border-radius: 0.3rem;
+}
+
 .preload * {
     -webkit-transition: none !important;
     -moz-transition: none !important;
@@ -173,4 +181,10 @@ footer {
     font-size: 2.5rem;
     padding-top: 2rem;
     box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (min-width: 375px) and (orientation: portrait) {
+    #intro h1 {
+        font-size: 1rem;
+    }
 }
