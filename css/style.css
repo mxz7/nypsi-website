@@ -208,12 +208,13 @@ footer {
     }
 
     #maincontent {
-        padding: 0rem 1.5rem;
+        padding: 0rem 0.5rem;
         width: 100%;
     }
 
     #content h1 {
         font-size: 3rem;
+        margin: 5rem 0rem;
     }
 
     #content h2 {
@@ -228,6 +229,6 @@ footer {
     }
 
     .feature img {
-        width: 13rem;
+        width: 12rem;
     }
 }
