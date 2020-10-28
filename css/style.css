@@ -182,16 +182,22 @@ footer {
 
 @media only screen and (min-width: 375px) and (orientation: portrait) {
 
+    nav {
+        padding-top: 0.2rem;
+        padding-bottom: 0.3rem;
+    }
+
     .navlink {
         font-size: 1.5rem;
     }
 
     .main {
         font-size: 2.5rem;
+        margin: 0rem 2.5rem;
     }
 
     #intro h1 {
-        font-size: 10rem;
+        font-size: 9rem;
     }
 
     #empty {
