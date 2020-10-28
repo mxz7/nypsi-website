@@ -7,10 +7,11 @@
     margin: 0;
     text-decoration: none;
     font-family: 'Rubik', sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
-    background-color: #36393f;
+    background-color: #2f3238;
 }
 
 .preload * {
@@ -100,7 +101,7 @@ svg {
 
 #content {
     display: flex;
-    min-height: 20000rem; /*change this later lol*/
+    min-height: 250rem; /*change this later lol*/
     color: white;
 }
 
@@ -144,6 +145,10 @@ svg {
     padding: 0rem 5rem;
 }
 
+#maincontent img {
+    border-radius: 0.5rem;
+}
+
 .feature {
     display: flex;
 }
@@ -157,4 +162,15 @@ svg {
 
 .feature img {
     width: 25rem;
+}
+
+footer {
+    width: 100%;
+    min-height: 13rem;
+    background-color: #1c1e20;
+    color: white;
+    text-align: center;
+    font-size: 2.5rem;
+    padding-top: 2rem;
+    box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.2);
 }
