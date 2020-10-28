@@ -33,7 +33,7 @@ code {
 
 nav {
     background-color: #1c1e20;
-    width: 100%;
+    width: 100vw;
     text-align: center;
     text-transform: uppercase;
     padding-top: 0.4rem;
@@ -193,7 +193,7 @@ footer {
 
     .main {
         font-size: 2.5rem;
-        margin: 0rem 2.5rem;
+        margin: 0rem 1rem;
     }
 
     #intro h1 {
@@ -214,6 +214,7 @@ footer {
 
     #content h2 {
         font-size: 1.8rem;
+        text-align: center;
     }
 
     .feature li {
