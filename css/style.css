@@ -168,8 +168,9 @@ svg {
 }
 
 .feature img {
-    width: 25rem;
+    max-width: 25rem;
     border-radius: 0.5rem;
+    max-height: 20rem;
 }
 
 footer {
