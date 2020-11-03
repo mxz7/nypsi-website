@@ -45,7 +45,6 @@ nav {
 }
 
 .navlink {
-    /*background: linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(128,0,0,1) 100%);*/
     background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgb(109, 109, 109) 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -70,7 +69,7 @@ nav {
     width: 100%;
     height: 80vh;
     text-align: center;
-    padding-top: 12rem;
+    padding-top: 10rem;
 }
 
 #intro h1 {
@@ -79,10 +78,16 @@ nav {
     color: whitesmoke;
     transition: 0.5s ease;
     text-shadow: 0px 0px 1.5rem rgba(0, 0, 0, 0);
+    margin-bottom: 5rem;
 }
 
 #intro h1:hover {
     text-shadow: 0px 0px 1.5rem rgba(0, 0, 0, 0.5);
+}
+
+#intro p {
+    font-size: 1.5rem;
+    color: whitesmoke
 }
 
 #intro a {
@@ -175,13 +180,40 @@ svg {
 
 footer {
     width: 100%;
-    min-height: 13rem;
+    min-height: 7rem;
     background-color: #1c1e20;
     color: white;
     text-align: center;
-    font-size: 2.5rem;
-    padding-top: 2rem;
+    font-size: 2rem;
+    padding-top: 4rem;
     box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.2);
+}
+
+footer a {
+    background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgb(109, 109, 109) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: whitesmoke;
+    font-size: 2rem;
+    font-weight: 300;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+#fun-2, #fun-3, #fun-4, #fun-5 {
+    display: none;
+}
+
+a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.fun {
+    min-height: 20rem;
 }
 
 @media only screen and (min-width: 375px) and (orientation: portrait) {
@@ -231,5 +263,9 @@ footer {
 
     .feature img {
         width: 12rem;
+    }
+
+    .fun {
+        min-height: 12rem;
     }
 }
