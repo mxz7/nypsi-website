@@ -1,5 +1,7 @@
 # nypsi
 
+#### status: complete
+
 ### 🍟 url
 [nypsi.xyz](https://nypsi.xyz)
 
