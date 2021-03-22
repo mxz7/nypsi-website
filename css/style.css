@@ -203,7 +203,7 @@ footer a:hover {
     color: rgba(255, 255, 255, 0.2);
 }
 
-#fun-2, #fun-3, #fun-4, #fun-5, #fun-6, #fun-7 {
+.hidden {
     display: none;
 }
 
