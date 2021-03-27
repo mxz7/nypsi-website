@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
 
 * {
     padding: 0;
     margin: 0;
     text-decoration: none;
-    font-family: 'Rubik', sans-serif;
+    font-family: "Rubik", sans-serif;
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 code {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: 1rem;
     background-color: #101113;
     padding: 0.1rem;
@@ -45,7 +45,7 @@ nav {
 }
 
 .navlink {
-    background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgb(109, 109, 109) 100%);
+    background: linear-gradient(45deg, rgba(255, 255, 255, 1) 0%, rgb(109, 109, 109) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     color: whitesmoke;
@@ -87,7 +87,7 @@ nav {
 
 #intro p {
     font-size: 1.5rem;
-    color: whitesmoke
+    color: whitesmoke;
 }
 
 #intro a {
@@ -146,18 +146,18 @@ svg {
 }
 
 .left {
-    order: 1
+    order: 1;
 }
 
 .right {
-    order: 3
+    order: 3;
 }
 
 #maincontent {
     order: 2;
     flex: 4;
     padding: 0rem 5rem;
-}   
+}
 
 .feature {
     display: flex;
@@ -190,7 +190,7 @@ footer {
 }
 
 footer a {
-    background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgb(109, 109, 109) 100%);
+    background: linear-gradient(45deg, rgba(255, 255, 255, 1) 0%, rgb(109, 109, 109) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     color: whitesmoke;
@@ -217,7 +217,6 @@ a {
 }
 
 @media only screen and (min-width: 375px) and (orientation: portrait) {
-
     nav {
         padding-top: 0.2rem;
         padding-bottom: 0.3rem;
