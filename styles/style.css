@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;300;400&family=Roboto:wght@300;400&display=swap');
+
+:root {
+    --bg-color: #1c1e26;
+    --bg-color-two: #181920;
+    --white-text-color: #BBBBBB;
+    --complimentary-one: #f73333;
+    --complimentary-two: #ff5656;
+}
+
+* {
+    text-decoration: none;
+    margin: 0rem;
+    padding: 0rem;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    display: none !important;
+}
+
+body {
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    min-width: 100%;
+    padding-bottom: 5rem;
+}
+
+main {
+    display: flex;
+    min-height: 120vh;
+}
+
+#features {
+    display: flex;
+}
+
+.left {
+    order: 1;
+    flex: 1;
+}
+
+.right {
+    order: 3;
+    flex: 1;
+}
+
+.center {
+    order: 2;
+    flex: 2;
+    padding: 0rem 3rem;
+}
+
+.hero {
+    font-family: "Roboto Mono", monospace;
+    font-size: 10rem;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 20vh;
+    color: var(--white-text-color);
+    text-shadow: 0px 0px 0.5rem rgba(0, 0, 0, 0.2);
+    animation: fade-in 2s ease-in;
+}
+
+.sub-hero {
+    font-family: "Roboto Mono", monospace;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: var(--white-text-color);
+    text-shadow: 0px 0px 0.5rem rgba(0, 0, 0, 0.2);
+    animation: fade-in 2s ease-in;
+}
+
+.hero-links {
+    margin: 0.7rem;
+    text-align: center;
+    color: var(--white-text-color);
+    font-family: "Roboto Mono", monospace;
+    font-size: 1rem;
+    animation: fade-in-slow 3s ease-in;
+    padding-bottom: 0.5rem;
+}
+
+.hero-links * {
+    margin: 0rem 1rem;
+    color: var(--white-text-color);
+    padding-bottom: 0.2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+    /* text-decoration: underline solid var(--white-text-color) transparent; */
+    transition: 0.5s ease-out;
+}
+
+.hero-links *:hover {
+    color: white;
+    border-bottom: 2px solid var(--complimentary-two);
+}
+
+hr {
+    background: linear-gradient(to right, var(--complimentary-one), var(--complimentary-two));
+    height: 2px;
+    border: none;
+    animation: hr-in 2s ease-out;
+    margin: auto;
+}
+
+.cards-container {
+    order: 2;
+    flex: 7;
+}
+
+.cards-hero {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+}
+
+.row {
+    order: 2;
+    flex: 4;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-flow: wrap;
+    align-items: flex-start;
+
+    padding: 1rem;
+
+    animation: fade-in 4s ease-out;
+}
+
+.card h1 {
+    font-family: "Roboto Mono", monospace;
+    color: var(--white-text-color);
+
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    padding: 0.75rem;
+    border-radius: 0.7rem;
+    background-color: var(--bg-color-two);
+    max-width: 25%;
+    margin: 2rem;
+}
+
+.card ul {
+    margin: 1rem;
+    font-family: "Roboto Mono", monospace;
+    color: var(--white-text-color);
+}
+
+.card li {
+    margin: 0.5rem;
+}
+
+.card img {
+    border-radius: 0.7rem;
+    width: 100%;
+
+    box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.links {
+    position: absolute;
+    padding: 1rem;
+
+    animation: fade-in-slow 5s;
+}
+
+.links img {
+    width: 1.5rem;
+    margin: 0.5rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--bg-color-two);
+    border-radius: 1rem;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes fade-in-slow {
+    0% {
+        opacity: 0%;
+    }
+    40% {
+        opacity: 0%
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes hr-in {
+    0% {
+        width: 0%
+    }
+    40% {
+        width: 0%
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 300px) and (orientation: portrait) {
+    .left {
+        display: none;
+    }
+
+    .center {
+        padding: 1rem;
+    }
+
+    .right {
+        display: none;
+    }
+
+    .hero {
+        font-size: 5rem;
+        margin-top: 2rem;
+    }
+
+    .cards-hero {
+        font-size: 3rem;
+    }
+
+    .hero-links * {
+        display: block;
+        margin: 1rem;
+    }
+
+    .nypsi {
+        margin: 0;
+    }
+
+    .card {
+        max-width: 90%;
+        margin: 1.5rem 0rem;
+    }
+
+    .card h1 {
+        font-size: 1.5rem;
+    }
+
+    .links {
+        display: none;
+    }
+}
