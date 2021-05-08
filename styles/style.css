@@ -127,7 +127,7 @@ hr {
     flex: 4;
 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-direction: row;
     flex-flow: wrap;
     padding: 1rem;
