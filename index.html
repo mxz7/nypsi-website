@@ -1,333 +1,60 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <link rel="icon" href="content/icon.png" />
-        <title>nypsi</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:type" content="nypsi.xyz" />
-        <meta property="og:title" content="nypsi" />
-        <meta property="og:description" content="modern and simple discord bot" />
-        <meta property="og:url" content="https://nypsi.xyz" />
-        <meta name="theme-color" content="#fffffe" />
-        <meta name="description" content="Modern and simple discord bot" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script src="js/script.js"></script>
-    </head>
 
-    <body class="preload" onselectstart="return false">
-        <nav>
-            <a href="https://top.gg/bot/678711738845102087/vote" class="navlink" draggable="false"
-                >vote</a
-            >
-            <a href="#features" class="navlink main" draggable="false">nypsi</a>
-            <a href="http://invite.nypsi.xyz" class="navlink" draggable="false">invite</a>
-        </nav>
+<head>
+    <title>nypsi</title>
+    <link rel="icon" href="content/icon.png">
+    <link rel="stylesheet" type="text/css" href="styles/style.css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:type" content="nypsi.xyz" />
+    <meta property="og:title" content="nypsi" />
+    <meta property="og:description" content="the best discord bot 😏" />
+    <meta property="og:url" content="https://nypsi.xyz" />
+    <meta name="theme-color" content="#fffffe" />
+    <meta name="description" content="the best discord bot 😏" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+    <script src="js/script.js"></script>
+</head>
 
-        <div id="intro">
-            <h1 draggable="false">nypsi</h1>
+<body class="preload" onselectstart="return false">
 
-            <p><i>powerful discord bot with many uses</i></p>
+    <div class="links">
+        <a href="https://github.com/tekoh/nypsi"><img src="content/github-logo.png"></a>
+        <a href="https://top.gg/bot/678711738845102087"><img src="content/topgg.png"></a>
+        <a href="https://tekoh.net"><img src="content/tekoh.png"></a>
+    </div>
 
-            <a href="#features"></a>
-        </div>
+    <main>
+        <div class="left"></div>
+        <div class="center">
 
-        <svg width="500" height="80" viewBox="0 0 500 80" preserveAspectRatio="none">
-            <path d="M0,0 L0,40 Q250,80 500,40 L500,0 Z" fill="#1c1e20" />
-        </svg>
+            <h1 class="hero">nypsi</h1>
+            <h2 class="sub-hero"><i>the best discord bot (;</i></h2>
 
-        <div id="content">
-            <div class="side left empty"></div>
+            <hr>
 
-            <div class="side right empty"></div>
-
-            <div id="maincontent">
-                <h1 id="features">features</h1>
-
-                <h2>countdown 📅</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>completely customisable message</li>
-                            <li>countdown up to 2 years from now</li>
-                            <li>multiple countdowns per server</li>
-                            <li>amazing for birthdays</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/countdown-1.png">
-                    </div>
-                </div>
-                
-                <hr />
-
-                <h2>member counter 📊</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>fully customisable member counter</li>
-                            <li>completely free</li>
-                            <li>able to seperate humans from bots</li>
-                            <li>updates every 10 minutes</li>
-                            <li>easy one command setup</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/membercount-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>mention history 💬</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>see who ghost pinged you</li>
-                            <li>see up to 5 of your previous mentions</li>
-                            <li>cant be used to bypass chat filter</li>
-                            <li>compact message content to prevent spamming</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/mentions-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>chat reactions 🗣</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>fastest typer wins 😏</li>
-                            <li>completely customisable</li>
-                            <li>impossible to copy paste phrase</li>
-                            <li>create a custom word list</li>
-                            <li>can start randomly or on command</li>
-                        </ul>
-                    </div>
-                    <div class="side right">
-                        <img src="content/chatreaction-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>christmas countdown 🎅</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>works all year round 🎄</li>
-                            <li>fully customisable 🎄</li>
-                            <li>easy one command setup 🎄</li>
-                            <li>updates every night [3am utc] 🎄</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/christmas-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>minecraft name history ️⛏️</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>works as you would expect</li>
-                            <li>results are in pages</li>
-                            <li>supports previous usernames</li>
-                            <li>can also show server information</li>
-                            <li>skin support with $skin</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/minecraft-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>realistic gambling 💸</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>many realistic gambling commands [$help money]</li>
-                            <li>earn a large multiplier by playing more</li>
-                            <li>works just as it should in real life</li>
-                            <li>voting rewards</li>
-                            <li>prestige system</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/gambling-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>powerful moderation 🔨</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>able to punish multiple users in single command</li>
-                            <li>always online - almost 100% uptime 24/7</li>
-                            <li>easy management of cases</li>
-                            <li>can delete all data and start over</li>
-                            <li>easy setup</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/mod-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>custom snipe filter 🔫</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>keep your snipe command moderated</li>
-                            <li>easy add/remove from filter</li>
-                            <li>easy setup</li>
-                            <li>works on $snipe and $esnipe</li>
-                            <li>filters server invites by default</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/sf-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>social media 💬</h2>
-                <div class="feature">
-                    <div class="side left">
-                        <ul>
-                            <li>link different accounts</li>
-                            <li>easy to add/remove accounts</li>
-                            <li>works across all servers</li>
-                            <li>clickable links</li>
-                            <li>showcase your different accounts</li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/socials-1.png" draggable="false" />
-                    </div>
-                </div>
-
-                <hr />
-
-                <h2>fun commands 🎮</h2>
-                <div class="feature fun">
-                    <div class="side left">
-                        <ul>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-1');"
-                                    >$ddos (fake) - ddos someone</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-2');"
-                                    >$pp - calculate your pp size</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-3');"
-                                    >$boob - calculate your boob size</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-4');"
-                                    >$gay - calculate how gay you are</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-5');"
-                                    >$love - measure your love with another person</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-6');"
-                                    >$height - accurate prediction of your height</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-7');"
-                                    >$iq - accurate prediction of your iq</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-8');"
-                                    >$slut - measure how much of a slut you are</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    draggable="false"
-                                    href="javascript:void(0);"
-                                    onclick="changeImage('fun-9');"
-                                    >$furry - measure how much of a furry you are</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="side right">
-                        <img src="content/fun-1.png" draggable="false" id="fun-1" />
-                        <img src="content/fun-2.png" class="hidden" draggable="false" id="fun-2" />
-                        <img src="content/fun-3.png" class="hidden" draggable="false" id="fun-3" />
-                        <img src="content/fun-4.png" class="hidden" draggable="false" id="fun-4" />
-                        <img src="content/fun-5.png" class="hidden" draggable="false" id="fun-5" />
-                        <img src="content/fun-6.png" class="hidden" draggable="false" id="fun-6" />
-                        <img src="content/fun-7.png" class="hidden" draggable="false" id="fun-7" />
-                        <img src="content/fun-8.png" class="hidden" draggable="false" id="fun-8" />
-                        <img src="content/fun-9.png" class="hidden" draggable="false" id="fun-9" />
-                    </div>
-                </div>
+            <div class="hero-links">
+                <a href="http://discord.nypsi.xyz">discord</a>
+                <a href="http://invite.nypsi.xyz">invite</a>
+                <a href="#features">features</a>
             </div>
+
+        </div>
+        <div class="right"></div>
+    </main>
+
+    <div id="features">
+        <div class="left"></div>
+
+        <div class="cards-container">
+
+            <h1 class="cards-hero hero">features</h1>
+
+            <div class="row"></div>
         </div>
 
-        <footer>
-            <a href="https://github.com/tekoh/nypsi" draggable="false">github</a> •
-            <a href="https://discord.gg/hJTDNST" draggable="false">support server</a> •
-            <a href="https://top.gg/bot/678711738845102087" draggable="false">top.gg</a> •
-            <a href="https://tekoh.net" draggable="false">tekoh.net</a>
-        </footer>
-    </body>
+        <div class="right"></div>
+    </div>
+</body>
+
 </html>
