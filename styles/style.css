@@ -150,7 +150,7 @@ hr {
     border-radius: 0.7rem;
     background-color: var(--bg-color-two);
     max-width: 25%;
-    margin: 1rem;
+    margin: 2rem;
 }
 
 .card ul {
@@ -253,6 +253,7 @@ hr {
 
     .card {
         max-width: 90%;
+        margin: 1.5rem 0rem;
     }
 
     .card h1 {
