@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;300;400&family=Roboto:wght@300;400&display=swap');
+
+:root {
+    --bg-color: #1c1e26;
+    --bg-color-two: #181920;
+    --white-text-color: #BBBBBB;
+    --complimentary-one: #f73333;
+    --complimentary-two: #ff5656;
+}
+
+* {
+    text-decoration: none;
+    margin: 0rem;
+    padding: 0rem;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    display: none !important;
+}
+
+@media only screen and (min-width: 300px) and (orientation: portrait) {
+
+}
+
+body {
+    background-color: var(--bg-color);
+    min-height: 100%;
+    min-width: 100%;
+    padding-bottom: 70vh;
+}
+
+main {
+    display: flex;
+}
+
+.left {
+    order: 1;
+    flex: 1;
+}
+
+.right {
+    order: 3;
+    flex: 1;
+}
+
+.center {
+    order: 2;
+    flex: 2;
+    padding: 0rem 3rem;
+}
+
+.hero {
+    font-family: "Roboto Mono", monospace;
+    font-size: 10rem;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 20vh;
+    color: var(--white-text-color);
+    text-shadow: 0px 0px 0.5rem rgba(0, 0, 0, 0.2);
+    animation: fade-in 2s ease-in;
+}
+
+.sub-hero {
+    font-family: "Roboto Mono", monospace;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: var(--white-text-color);
+    text-shadow: 0px 0px 0.5rem rgba(0, 0, 0, 0.2);
+    animation: fade-in 2s ease-in;
+}
+
+.hero-links {
+    margin: 0.7rem;
+    text-align: center;
+    color: var(--white-text-color);
+    font-family: "Roboto Mono", monospace;
+    font-size: 1rem;
+    animation: fade-in-slow 3s ease-in;
+    padding-bottom: 0.5rem;
+}
+
+.hero-links *, a {
+    margin: 0rem 1rem;
+    color: var(--white-text-color);
+    padding-bottom: 0.2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+    /* text-decoration: underline solid var(--white-text-color) transparent; */
+    transition: 0.5s ease-out;
+}
+
+.hero-links *:hover, a:hover {
+    color: white;
+    border-bottom: 2px solid var(--complimentary-two);
+}
+
+hr {
+    background: linear-gradient(to right, var(--complimentary-one), var(--complimentary-two));
+    height: 2px;
+    border: none;
+    animation: hr-in 2s ease-out;
+    margin: auto;
+}
+
+.fake-link {
+    cursor: pointer;
+}
+
+.nypsi {
+    margin-top: 10rem;
+
+    font-family: "Roboto Mono", monospace;
+    color: var(--white-text-color);
+    text-align: center;
+
+    animation: fade-in-slow 4s ease-in;
+}
+
+.nypsi h1 {
+    padding-bottom: 0.3rem;
+
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+.other {
+    font-size: 1rem;
+    font-family: "Roboto Mono", monospace;
+    text-align: center;
+    padding: 1rem;
+
+    position: absolute;
+    left: 50%;
+    bottom: 1%;
+    transform: translate(-50%, 10%);
+    margin: 0 auto;
+
+    animation: fade-in-slow 5s ease-in;
+}
+
+#links {
+    margin-top: 40vh;
+    animation: fade-in-slow 5s;
+}
+
+.other-header {
+    font-size: 5rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--bg-color-two);
+    border-radius: 1rem;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes fade-in-slow {
+    0% {
+        opacity: 0%;
+    }
+    40% {
+        opacity: 0%
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes hr-in {
+    0% {
+        width: 0%
+    }
+    40% {
+        width: 0%
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 300px) and (orientation: portrait) {
+    .left {
+        display: none;
+    }
+
+    .center {
+        padding: 1rem;
+    }
+
+    .right {
+        display: none;
+    }
+
+    .hero {
+        font-size: 5rem;
+        margin-top: 2rem;
+    }
+
+    .hero-links * {
+        display: block;
+        margin: 1rem;
+    }
+
+    .nypsi {
+        margin: 0;
+    }
+}
