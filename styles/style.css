@@ -133,6 +133,8 @@ hr {
 
     overflow: visible;
     padding: 1rem;
+
+    animation: fade-in 4s ease-out;
 }
 
 .card h1 {
