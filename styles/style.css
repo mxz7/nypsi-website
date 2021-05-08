@@ -25,17 +25,19 @@
     display: none !important;
 }
 
-@media only screen and (min-width: 300px) and (orientation: portrait) {
-
-}
-
 body {
     background-color: var(--bg-color);
-    min-height: 100%;
+    min-height: 100vh;
     min-width: 100%;
+    padding-bottom: 5rem;
 }
 
 main {
+    display: flex;
+    min-height: 120vh;
+}
+
+#features {
     display: flex;
 }
 
@@ -110,6 +112,61 @@ hr {
     margin: auto;
 }
 
+.cards-container {
+    order: 2;
+    flex: 4;
+}
+
+.cards-hero {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+}
+
+.row {
+    order: 2;
+    flex: 4;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-flow: wrap;
+
+    overflow: visible;
+    padding: 1rem;
+}
+
+.card h1 {
+    font-family: "Roboto Mono", monospace;
+    color: var(--white-text-color);
+
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 0.7rem;
+    background-color: var(--bg-color-two);
+    max-width: 30%;
+}
+
+.card ul {
+    margin: 1rem;
+    font-family: "Roboto Mono", monospace;
+    color: var(--white-text-color);
+}
+
+.card li {
+    margin: 0.5rem;
+}
+
+.card img {
+    border-radius: 0.7rem;
+    width: 100%;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -177,6 +234,10 @@ hr {
         margin-top: 2rem;
     }
 
+    .cards-hero {
+        font-size: 3rem;
+    }
+
     .hero-links * {
         display: block;
         margin: 1rem;
@@ -184,5 +245,13 @@ hr {
 
     .nypsi {
         margin: 0;
+    }
+
+    .card {
+        max-width: 90%;
+    }
+
+    .card h1 {
+        font-size: 1.5rem;
     }
 }
