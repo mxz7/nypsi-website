@@ -115,23 +115,6 @@ hr {
     cursor: pointer;
 }
 
-.nypsi {
-    margin-top: 10rem;
-
-    font-family: "Roboto Mono", monospace;
-    color: var(--white-text-color);
-    text-align: center;
-
-    animation: fade-in-slow 4s ease-in;
-}
-
-.nypsi h1 {
-    padding-bottom: 0.3rem;
-
-    font-size: 3rem;
-    font-weight: 300;
-}
-
 .other {
     font-size: 1rem;
     font-family: "Roboto Mono", monospace;
