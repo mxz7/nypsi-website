@@ -33,7 +33,6 @@ body {
     background-color: var(--bg-color);
     min-height: 100%;
     min-width: 100%;
-    padding-bottom: 70vh;
 }
 
 main {
@@ -109,34 +108,6 @@ hr {
     border: none;
     animation: hr-in 2s ease-out;
     margin: auto;
-}
-
-.fake-link {
-    cursor: pointer;
-}
-
-.other {
-    font-size: 1rem;
-    font-family: "Roboto Mono", monospace;
-    text-align: center;
-    padding: 1rem;
-
-    position: absolute;
-    left: 50%;
-    bottom: 1%;
-    transform: translate(-50%, 10%);
-    margin: 0 auto;
-
-    animation: fade-in-slow 5s ease-in;
-}
-
-#links {
-    margin-top: 40vh;
-    animation: fade-in-slow 5s;
-}
-
-.other-header {
-    font-size: 5rem;
 }
 
 /* width */
