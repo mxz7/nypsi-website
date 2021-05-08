@@ -130,6 +130,8 @@ hr {
     justify-content: space-evenly;
     flex-direction: row;
     flex-flow: wrap;
+    align-items: flex-start;
+
     padding: 1rem;
 
     animation: fade-in 4s ease-out;
