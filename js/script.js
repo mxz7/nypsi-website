@@ -83,7 +83,7 @@ const cards = [
                     <ul>
                         <li>updates to real life value</li>
                         <li>virtual investments</li>
-                        <li>currently uses bitcoin and dogecoin</li>
+                        <li>currently uses bitcoin and ethereum</li>
                         <li><i>doge to the moon</i> 🌙</li>
                     </ul>
 
@@ -99,19 +99,7 @@ const cards = [
                     </ul>
 
                     <img src="content/prestige-1.png">
-                </div>`,
-    `<div class="card">
-                    <h1>seasonal economy 💸</h1>
-
-                    <ul>
-                        <li>money rewards at end of season</li>
-                        <li>seasons last 3 months</li>
-                        <li>competitive & fast paced</li>
-                        <li><i>earn irl money</i> 😳</li>
-                    </ul>
-
-                    <img src="content/eco-1.png">
-                </div>`,
+                </div>`
 ]
 
 $(window).on("load", function () {
