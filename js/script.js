@@ -99,6 +99,17 @@ const cards = [
                     </ul>
 
                     <img src="content/prestige-1.png">
+                </div>`,
+    `<div class="card">
+                    <h1>karma system 🔮</h1>
+
+                    <ul>
+                        <li>earn karma for using nypsi</li>
+                        <li>spend your karma in the karmashop</li>
+                        <li><i>earn premium benefits</i> 😏</li>
+                    </ul>
+
+                    <img src="content/karma-1.png">
                 </div>`
 ]
 
