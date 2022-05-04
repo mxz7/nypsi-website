@@ -110,6 +110,17 @@ const cards = [
                     </ul>
 
                     <img src="content/karma-1.png">
+                </div>`,
+    `<div class="card">
+                    <h1>wordle 📖</h1>
+
+                    <ul>
+                        <li>play wordle on discord</li>
+                        <li>i hope ur good at word games</li>
+                        <li><i>im shit at them</i> 🙁</li>
+                    </ul>
+
+                    <img src="content/wordle-1.png">
                 </div>`
 ]
 
