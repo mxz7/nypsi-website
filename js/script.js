@@ -132,6 +132,17 @@ const cards = [
                     </ul>
 
                     <img src="content/auction-1.png">
+                </div>`,
+                `<div class="card">
+                    <h1>surveys 📖</h1>
+
+                    <ul>
+                        <li>create surveys easily to take in information</li>
+                        <li>see popular results after the survey has ended</li>
+                        <li><i>your fav ice cream flavour better be cookie dough</i> 😡</li>
+                    </ul>
+
+                    <img src="content/survey-1.png">
                 </div>`
 ]
 
