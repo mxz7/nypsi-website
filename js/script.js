@@ -121,6 +121,28 @@ const cards = [
                     </ul>
 
                     <img src="content/wordle-1.png">
+                </div>`,
+                `<div class="card">
+                    <h1>auctions 📑</h1>
+
+                    <ul>
+                        <li>sell your items to other people at your own price</li>
+                        <li>find items at cheap prices and flip them for more</li>
+                        <li><i>yes there is lots of overpriced stuff too</i> 🙁</li>
+                    </ul>
+
+                    <img src="content/auction-1.png">
+                </div>`,
+                `<div class="card">
+                    <h1>surveys 📖</h1>
+
+                    <ul>
+                        <li>create surveys easily to take in information</li>
+                        <li>see popular results after the survey has ended</li>
+                        <li><i>your fav ice cream flavour better be cookie dough</i> 😡</li>
+                    </ul>
+
+                    <img src="content/survey-1.png">
                 </div>`
 ]
 
