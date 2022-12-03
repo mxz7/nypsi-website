@@ -131,7 +131,7 @@ const cards = [
                         <li><i>achievements for getting to the top</i> 😏</li>
                     </ul>
 
-                    <img src="content/survey-1.png">
+                    <img src="content/dragon_tower.jpg">
                 </div>`
 ]
 
