@@ -22,17 +22,6 @@ const cards = [
                     <img src="content/countdown-1.png">
                 </div>`,
     `<div class="card">
-                    <h1>minecraft ⛏</h1>
-
-                    <ul>
-                        <li>view name history for minecraft accounts</li>
-                        <li>view skins for minecraft accounts</li>
-                        <li><i>best game to ever be made</i> 🙏</li>
-                    </ul>
-
-                    <img src="content/minecraft-1.png">
-                </div>`,
-    `<div class="card">
                     <h1>chat reactions 🗣</h1>
 
                     <ul>
@@ -134,12 +123,12 @@ const cards = [
                     <img src="content/auction-1.png">
                 </div>`,
                 `<div class="card">
-                    <h1>surveys 📖</h1>
+                    <h1>dragon tower 🐲</h1>
 
                     <ul>
-                        <li>create surveys easily to take in information</li>
-                        <li>see popular results after the survey has ended</li>
-                        <li><i>your fav ice cream flavour better be cookie dough</i> 😡</li>
+                        <li>just like the popular stake game</li>
+                        <li>find rare gems to increase your payout</li>
+                        <li><i>achievements for getting to the top</i> 😏</li>
                     </ul>
 
                     <img src="content/survey-1.png">
