@@ -123,16 +123,26 @@ const cards = [
                     <img src="content/auction-1.png">
                 </div>`,
                 `<div class="card">
-                    <h1>dragon tower 🐲</h1>
+                    <h1>reaction roles 🕵️</h1>
 
                     <ul>
-                        <li>just like the popular stake game</li>
-                        <li>find rare gems to increase your payout</li>
-                        <li><i>achievements for getting to the top</i> 😏</li>
+                        <li>incredibly fast and easy setup</li>
+                        <li>up to 15 roles per message</li>
+                        <li><i>literally amazing</i> 😏</li>
                     </ul>
 
-                    <img src="content/dragon_tower.jpg">
-                </div>`
+                    <img src="content/reactionroles-1.jpg">
+                </div>`,`<div class="card">
+                <h1>dragon tower 🐲</h1>
+
+                <ul>
+                    <li>just like the popular stake game</li>
+                    <li>find rare gems to increase your payout</li>
+                    <li><i>achievements for getting to the top</i> 😏</li>
+                </ul>
+
+                <img src="content/dragon_tower.jpg">
+            </div>`
 ]
 
 $(window).on("load", function () {
