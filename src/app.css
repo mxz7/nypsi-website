@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.hover-effect {
+  transition: scale 0.3s;
+}
+
+.hover-effect:hover {
+  scale: 110%;
+}
+
 .hover-effect::after {
   content: "";
   display: block;
