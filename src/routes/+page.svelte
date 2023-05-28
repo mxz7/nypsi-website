@@ -16,15 +16,15 @@
 
     <div class="flex flex-col sm:flex-row justify-center items-center mt-2">
       <a href="https://discord.com/invite/hJTDNST" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
-        <p class="text-white text-2xl font-bold mt-2">discord</p>
+        <p class="text-white text-2xl font-bold mt-2 hover-effect">discord</p>
       </a>
 
       <a href="https://docs.nypsi.xyz/" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
-        <p class="text-white text-2xl font-bold mt-2">docs</p>
+        <p class="text-white text-2xl font-bold mt-2 hover-effect">docs</p>
       </a>
 
       <a href="#features" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
-        <p class="text-white text-2xl font-bold mt-2">features</p>
+        <p class="text-white text-2xl font-bold mt-2 hover-effect">features</p>
       </a>
 
       <a
@@ -32,11 +32,11 @@
         target="_blank"
         class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4"
       >
-        <p class="text-white text-2xl font-bold mt-2">invite</p>
+        <p class="text-white text-2xl font-bold mt-2 hover-effect">invite</p>
       </a>
 
       <a href="https://ko-fi.com/tekoh/tiers" class="flex flex-col justify-center items-center">
-        <p class="text-white text-2xl font-bold mt-2">donate</p>
+        <p class="text-white text-2xl font-bold mt-2 hover-effect">donate</p>
       </a>
     </div>
   </div>

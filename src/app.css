@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.hover-effect::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 3px;
+  background: rgb(239, 68, 68);
+  border-radius: 9999px;
+  transition: width 0.2s ease-in;
+}
+
+.hover-effect:hover::after {
+  width: 100%;
+}
