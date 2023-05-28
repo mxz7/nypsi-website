@@ -25,10 +25,7 @@
             <p class="text-white text-2xl font-bold mt-2">docs</p>
           </a>
 
-          <a
-            href="https://statcord.com/bot/678711738845102087"
-            class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4"
-          >
+          <a href="#features" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
             <p class="text-white text-2xl font-bold mt-2">features</p>
           </a>
 
