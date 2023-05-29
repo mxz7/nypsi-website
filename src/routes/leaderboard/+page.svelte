@@ -30,7 +30,7 @@
 </header>
 
 <div class="flex flex-row mt-10 overflow-x-auto text-white sm:p-3 overflow-y-hidden">
-  <MiniLeaderboard data={balance} />
-  <MiniLeaderboard data={balance} />
-  <MiniLeaderboard data={balance} />
+  <MiniLeaderboard data={balance} title="top balance" />
+  <MiniLeaderboard data={balance} title="another one" />
+  <MiniLeaderboard data={balance} title="last one !!" />
 </div>

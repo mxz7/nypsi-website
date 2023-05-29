@@ -1,9 +1,10 @@
 <script lang="ts">
   export let data: { user: string; value: number }[];
+  export let title: string;
 </script>
 
 <div class="mx-5 sm:grow">
-  <h2 class="text-center text-xl font-bold sm:text-3xl">top balance</h2>
+  <h2 class="text-center text-xl font-bold sm:text-3xl">{title}</h2>
   <table class="mt-1 text-sm sm:text-xl mx-auto">
     <tbody>
       {#each data as { user, value }}
