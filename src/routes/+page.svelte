@@ -1,28 +1,24 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { getCommandsData } from "../lib/functions/getCommandsData";
 
   let commands = 0;
 
   onMount(() => {
-    async function fetchCommandsToday() {
-      const res = await fetch("/api/commands").then((res) => res.json());
-
-      const total: number = res?.total;
-
-      if (!total) return 0;
-      return total;
-    }
-
     (async () => {
-      commands = await fetchCommandsToday().catch(() => 0);
+      commands = await getCommandsData()
+        .then((r) => r?.total || 0)
+        .catch(() => 0);
 
       if (commands !== 0) {
         (document.querySelector("#command-count") as HTMLElement).style.opacity = "100%";
       }
 
       setInterval(async () => {
-        commands = await fetchCommandsToday().catch(() => 0);
-      }, 5000);
+        commands = await getCommandsData()
+          .then((r) => r?.total || 0)
+          .catch(() => 0);
+      }, 7500);
     })();
   });
 </script>
