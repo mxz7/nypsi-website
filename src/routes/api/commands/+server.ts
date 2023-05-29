@@ -1,7 +1,5 @@
-import { API } from "$env/static/private";
-
 export const GET = async ({ getClientAddress }) => {
-  const res = await fetch(`${API}/commands-today`, {
+  const res = await fetch(`${process.env.API || "http://localhost:6969"}/commands-today`, {
     headers: {
       "X-Forwarded-For": getClientAddress()
     }
