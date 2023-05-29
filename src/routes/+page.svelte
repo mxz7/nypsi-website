@@ -1,3 +1,32 @@
+<script lang="ts">
+  import { onMount } from "svelte";
+
+  let commands = 0;
+
+  onMount(() => {
+    async function fetchCommandsToday() {
+      const res = await fetch("/api/commands").then((res) => res.json());
+
+      const total: number = res?.total;
+
+      if (!total) return 0;
+      return total;
+    }
+
+    (async () => {
+      commands = await fetchCommandsToday().catch(() => 0);
+
+      if (commands !== 0) {
+        (document.querySelector("#command-count") as HTMLElement).style.opacity = "100%";
+      }
+
+      setInterval(async () => {
+        commands = await fetchCommandsToday().catch(() => 0);
+      }, 5000);
+    })();
+  });
+</script>
+
 <svelte:head>
   <title>nypsi</title>
   <meta
@@ -6,6 +35,10 @@
   the best discord bot. includes gambling, economy, items, fake cryptocurrency, moderation, reaction roles, channel stats"
   />
 </svelte:head>
+
+<div id="command-count" class="w-full text-center pt-2 opacity-0 duration-1000 ease-in">
+  <p class="text-gray-400"><span class="text-red-500">{commands.toLocaleString()}</span> commands today</p>
+</div>
 
 <div class="h-screen flex justify-center items-center">
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/3 text-center">
