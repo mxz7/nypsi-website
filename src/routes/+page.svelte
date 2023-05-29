@@ -49,25 +49,25 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">prestige system</h3>
-        <p class="text-gray-400">gain experience and prestige to get better rewards and earn more!</p>
+        <p class="text-gray-400">gain xp through gambling to prestige, unlocking rewards and increasing your vote rewards</p>
       </div>
 
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">mention history</h3>
-        <p class="text-gray-400">keep track of your pings, check who ghost pinged you, can store up to 15 mentions.</p>
+        <p class="text-gray-400">keep track of your pings, check who ghost pinged you, can store up to 15 mentions</p>
       </div>
 
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">cryptocurrency</h3>
         <p class="text-gray-400">
-          buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains Ethereum and Bitcoin. lose money
+          buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains ethereum and bitcoin. lose money
           simulator.
         </p>
       </div>
 
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">wordle</h3>
-        <p class="text-gray-400">play the popular Worlde game on discord. guess the word and test your smarts.</p>
+        <p class="text-gray-400">play the popular wordle game on discord. guess the word and test your smarts.</p>
       </div>
 
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
@@ -89,8 +89,8 @@
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">gambling</h3>
         <p class="text-gray-400">
-          gamble all of your money away, or win big. contains the most popular games: blackjack, roulette, slots, coinflip,
-          rock paper scissors, higher lower and more.
+          gamble all of your money away, or win big. contains the most popular games: blackjack, mines, slots, dragon tower &
+          more.
         </p>
       </div>
 
@@ -105,8 +105,7 @@
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">seasons</h3>
         <p class="text-gray-400">
-          to keep people from getting unfathomably rich, seasons are added. seasons reset your money and items, but you keep
-          your prestige. seasons last 3 months, so get ready to grind!
+          every few months a new season will start, (real money) rewards are given to top players from the last season
         </p>
       </div>
 
@@ -120,14 +119,14 @@
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">karma system</h3>
         <p class="text-gray-400">
-          get karma by generally doing commands and then, when a karma shop opens, spend it and get rewards.
+          earn karma from interacting with the bot, spend it in the karma shop on premium membership & rare items
         </p>
       </div>
 
       <div class="bg-gray-800 rounded-lg shadow-md p-6">
         <h3 class="text-2xl font-bold text-white mb-4">moderation</h3>
         <p class="text-gray-400">
-          very powerful moderation commands, with a lot of features. contains all of the commands you would ever need!
+          fully fledged & capable moderation system. case tracking, chat filter, mass kick (owner only) etc.
         </p>
       </div>
     </div>
