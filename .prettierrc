@@ -1,0 +1,9 @@
+{
+  "trailingComma": "none",
+  "printWidth": 125,
+  "plugins": ["prettier-plugin-svelte"],
+  "pluginSearchDirs": ["."],
+  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }],
+  "tabWidth": 2,
+  "endOfLine": "lf"
+}
