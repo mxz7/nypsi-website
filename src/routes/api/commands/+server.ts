@@ -3,7 +3,9 @@ export const GET = async ({ getClientAddress }) => {
     headers: {
       "X-Forwarded-For": getClientAddress()
     }
-  });
+  }).catch(() => null);
+
+  if (!res) return new Response("https://http.cat/500", { status: 500 });
 
   return new Response(JSON.stringify(await res.json()), { status: 200 });
 };
