@@ -41,3 +41,96 @@
     </div>
   </div>
 </div>
+
+
+<section id="features" class="bg-gray-900 py-12">
+  <div class="mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-white mb-12">features</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">prestige system</h3>
+        <p class="text-gray-400">
+          gain experience and prestige to get better rewards and earn more! 
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">mention history</h3>
+        <p class="text-gray-400">
+          keep track of your pings, check who ghost pinged you, can store up to 15 mentions.
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">cryptocurrency</h3>
+        <p class="text-gray-400">
+          buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains Ethereum and Bitcoin. lose money simulator.
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">wordle</h3>
+        <p class="text-gray-400">
+        play the popular Worlde game on discord. guess the word and test your smarts. 
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">street racing</h3>
+        <p class="text-gray-400">
+          start and race in races with cars to earn money. contains a lot of cars: toyota supra m4, tesla model x, corsa 2003, skyline gtr. 
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">inventory system</h3>
+        <p class="text-gray-400">
+          get items, sell them, keep em' and be greedy, use them to bully others and flex. contains x items with more being added.
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">gambling</h3>
+        <p class="text-gray-400">
+          gamble all of your money away, or win big. contains the most popular games: blackjack, roulette, slots, coinflip, rock paper scissors, higher lower and more. 
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">workers</h3>
+        <p class="text-gray-400">
+          earn easy money by buying workers and upgrading them. this is the easiest way to earn money, just sit back and relax.
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">seasons</h3>
+        <p class="text-gray-400">
+          to keep people from getting unfathomably rich, seasons are added. seasons reset your money and items, but you keep your prestige. seasons last 3 months, so get ready to grind!
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">auctions</h3>
+        <p class="text-gray-400">
+          sell and buy items from other people by the price they set. depends on supply and demand of the item.
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">karma system</h3>
+        <p class="text-gray-400">
+          get karma by generally doing commands and then, when a karma shop opens, spend it and get rewards.
+        </p>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-bold text-white mb-4">moderation</h3>
+        <p class="text-gray-400">
+          very powerful moderation commands, with a lot of features. contains all of the commands you would ever need!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
