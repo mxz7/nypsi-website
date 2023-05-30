@@ -6,7 +6,7 @@
 
   onMount(() => {
     (async () => {
-      commands = await getCommandsData()
+      commands = await getCommandsData(fetch)
         .then((r) => r?.total || 0)
         .catch(() => 0);
 
@@ -15,7 +15,7 @@
       }
 
       setInterval(async () => {
-        commands = await getCommandsData()
+        commands = await getCommandsData(fetch)
           .then((r) => r?.total || 0)
           .catch(() => 0);
       }, 7500);
