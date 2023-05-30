@@ -16,7 +16,7 @@
   });
 </script>
 
-<div class="mt-10 w-full p-4 sm:px-48">
+<div id="items" class="mt-10 w-full p-4 sm:px-48">
   <form class="m-2 p-3 flex flex-row bg-gray-950 bg-opacity-50 w-fit rounded-md">
     <div class="flex justify-center items-center mr-1">
       <img src="/search.png" alt="" class="w-4 h-4" />
