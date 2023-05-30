@@ -1,4 +1,5 @@
 <script>
+  import ItemList from "$lib/components/ItemList.svelte";
   import MiniLeaderboard from "../../lib/components/MiniLeaderboard.svelte";
 
   let balance = [
@@ -17,6 +18,8 @@
 
     // Add more dummy
   ].slice(0, 10); // Display only top 10 entries
+
+  export let data;
 </script>
 
 <svelte:head>
@@ -34,3 +37,5 @@
   <MiniLeaderboard data={balance} title="another one" />
   <MiniLeaderboard data={balance} title="last one !!" />
 </div>
+
+<ItemList items={data.items} />
