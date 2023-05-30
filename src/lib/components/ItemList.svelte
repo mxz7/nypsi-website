@@ -30,7 +30,7 @@
     />
   </form>
 
-  <div class="flex flex-row flex-wrap">
+  <div class="flex flex-row flex-wrap justify-center">
     {#each filteredItems as item}
       <ItemIcon {item} />
     {/each}
