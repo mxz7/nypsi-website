@@ -6,12 +6,12 @@
 
   $: filteredItems = items.filter((i) => {
     if (searchTerm.length == 0) return true;
-    if (i.name.includes(searchTerm)) return true;
-    if (i.id.includes(searchTerm)) return true;
-    if (i.role.includes(searchTerm)) return true;
+    if (i.name.includes(searchTerm.toLowerCase())) return true;
+    if (i.id.includes(searchTerm.toLowerCase())) return true;
+    if (i.role.includes(searchTerm.toLowerCase())) return true;
     if (i.aliases)
       for (const alias of i.aliases) {
-        if (alias.includes(searchTerm)) return true;
+        if (alias.includes(searchTerm.toLowerCase())) return true;
       }
   });
 </script>
