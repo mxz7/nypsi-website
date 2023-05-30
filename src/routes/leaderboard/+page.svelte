@@ -19,6 +19,9 @@
   {#if data.balance}
     <MiniLeaderboard data={data.balance} title="top balance" />
   {/if}
+  {#if data.prestige}
+    <MiniLeaderboard data={data.prestige} title="top prestige" />
+  {/if}
   {#if data.commands}
     <MiniLeaderboard data={data.commands} title="daily active users" />
   {/if}

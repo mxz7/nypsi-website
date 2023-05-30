@@ -13,17 +13,17 @@ export async function GET({ getClientAddress }) {
     });
   }
 
-  if (await kv.exists("top-balances")) {
-    return json(await kv.get("top-balances"));
+  if (await kv.exists("top-prestiges")) {
+    return json(await kv.get("top-prestiges"));
   }
 
   const query = await prisma.economy
     .findMany({
       where: {
-        AND: [{ money: { gt: 0 } }, { user: { blacklisted: false } }]
+        AND: [{ prestige: { gt: 0 } }, { user: { blacklisted: false } }]
       },
       select: {
-        money: true,
+        prestige: true,
         banned: true,
         user: {
           select: {
@@ -32,7 +32,7 @@ export async function GET({ getClientAddress }) {
         }
       },
       orderBy: {
-        money: "desc"
+        prestige: "desc"
       },
       take: 10
     })
@@ -45,14 +45,14 @@ export async function GET({ getClientAddress }) {
         count++;
         const user = x.user.lastKnownTag.split("#")[0];
         return {
-          value: `$${x.money.toLocaleString()}`,
+          value: `${x.prestige.toLocaleString()}`,
           username: user.length > 12 ? `${user.slice(0, 10).trim()}..` : user,
           position: count
         };
       });
     });
 
-  await kv.set("top-balances", JSON.stringify(query), { ex: 300 });
+  await kv.set("top-prestiges", JSON.stringify(query), { ex: 300 });
 
   return json(query);
 }
