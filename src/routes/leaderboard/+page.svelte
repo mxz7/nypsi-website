@@ -2,23 +2,6 @@
   import ItemList from "$lib/components/ItemList.svelte";
   import MiniLeaderboard from "../../lib/components/MiniLeaderboard.svelte";
 
-  let balance = [
-    { user: "kestas", value: 5000000 },
-    { user: "max", value: 400000 },
-    { user: "psychotic", value: 1 },
-    { user: "kestas", value: 5000000 },
-    { user: "max", value: 400000 },
-    { user: "psychotic", value: 1 },
-    { user: "kestas", value: 5000000 },
-    { user: "max", value: 400000 },
-    { user: "psychotic", value: 1 },
-    { user: "kestas", value: 5000000 },
-    { user: "max", value: 400000 },
-    { user: "psychotic", value: 1 }
-
-    // Add more dummy
-  ].slice(0, 10); // Display only top 10 entries
-
   export let data;
 </script>
 
@@ -33,9 +16,12 @@
 </header>
 
 <div class="flex flex-row mt-10 overflow-x-auto text-white sm:p-3 overflow-y-hidden">
-  <MiniLeaderboard data={balance} title="top balance" />
-  <MiniLeaderboard data={balance} title="another one" />
-  <MiniLeaderboard data={balance} title="last one !!" />
+  {#if data.balance}
+    <MiniLeaderboard data={data.balance} title="top balance" />
+  {/if}
+  {#if data.commands}
+    <MiniLeaderboard data={data.commands} title="daily active users" />
+  {/if}
 </div>
 
 <ItemList items={data.items} />
