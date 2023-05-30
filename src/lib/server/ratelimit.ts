@@ -1,8 +1,8 @@
 import { Ratelimit } from "@upstash/ratelimit";
-import { kv } from "@vercel/kv";
+import redis from "./redis";
 
 const rateLimiter = new Ratelimit({
-  redis: kv,
+  redis: redis,
   limiter: Ratelimit.slidingWindow(5, "10 s")
 });
 
