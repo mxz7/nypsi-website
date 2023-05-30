@@ -14,8 +14,12 @@ export async function GET({ getClientAddress }) {
 
   const query = await prisma.economy
     .findMany({
+      where: {
+        AND: [{ money: { gt: 0 } }, { user: { blacklisted: false } }]
+      },
       select: {
         money: true,
+        banned: true,
         user: {
           select: {
             lastKnownTag: true
@@ -27,11 +31,14 @@ export async function GET({ getClientAddress }) {
       },
       take: 250
     })
-    .then((r) =>
-      r.map((x) => {
-        return { money: `$${x.money.toLocaleString()}`, user: x.user };
-      })
-    );
+    .then((r) => {
+      r.forEach((user) => {
+        if (user.banned && user.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
+      });
+      return r.map((x) => {
+        return { money: `$${x.money.toLocaleString()}`, username: x.user.lastKnownTag.split("#")[0] };
+      });
+    });
 
   return json(query);
 }
