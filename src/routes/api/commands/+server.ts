@@ -1,4 +1,15 @@
+import rateLimiter from "$lib/server/ratelimit.js";
+
 export const GET = async ({ getClientAddress }) => {
+  const rateLimitAttempt = await rateLimiter.limit(getClientAddress());
+
+  if (!rateLimitAttempt.success) {
+    const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
+    return new Response(JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }), {
+      status: 429
+    });
+  }
+
   const res = await fetch(`${process.env.API || "http://localhost:6969"}/commands-today`, {
     headers: {
       "X-Forwarded-For": getClientAddress()
