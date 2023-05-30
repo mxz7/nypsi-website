@@ -36,6 +36,15 @@
   <p class="text-gray-400"><span class="text-red-500">{commands.toLocaleString()}</span> commands today</p>
 </div>
 
+<div class="hidden sm:flex flex-row items-center absolute top-2 left-2 p-3">
+  <a href="https://discord.com/invite/hJTDNST" class="h-8 w-8 mr-3 flex items-center justify-center">
+    <img class="max-w-full max-h-full object-contain w-auto h-auto" src="/discord.png" alt="" />
+  </a>
+  <a href="https://github.com/tekoh/nypsi" class="h-8 w-8 flex items-center justify-center">
+    <img class="max-w-full max-h-full object-contain w-auto h-auto" src="/github.png" alt="" />
+  </a>
+</div>
+
 <div class="h-screen flex justify-center items-center">
   <div class="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
     <h1 class="text-white text-9xl font-bold">nypsi</h1>
@@ -44,8 +53,15 @@
     <div class="w-3/4 h-1 bg-red-500 rounded-full mt-3 m-auto sm:w-full" />
 
     <div class="flex flex-col sm:flex-row justify-center items-center mt-2">
-      <a href="https://discord.com/invite/hJTDNST" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
+      <a
+        href="https://discord.com/invite/hJTDNST"
+        class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4 sm:hidden"
+      >
         <p class="text-white text-2xl font-bold mt-2 hover-effect">discord</p>
+      </a>
+
+      <a href="/leaderboard" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
+        <p class="text-white text-2xl font-bold mt-2 hover-effect">leaderboards</p>
       </a>
 
       <a href="https://docs.nypsi.xyz/" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
