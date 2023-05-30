@@ -2,7 +2,7 @@ import { inPlaceSort } from "fast-sort";
 import { parse } from "twemoji-parser";
 
 export async function load() {
-  const items: { id: string; name: string; emoji: string; aliases: string[] }[] = Object.values(
+  const items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] = Object.values(
     JSON.parse(await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) => r.text()))
   );
 

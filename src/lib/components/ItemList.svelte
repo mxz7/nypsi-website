@@ -1,7 +1,19 @@
 <script lang="ts">
   import ItemIcon from "./ItemIcon.svelte";
 
-  export let items: { id: string; name: string; emoji: string; aliases: string[] }[];
+  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
+  let searchTerm = "";
+
+  $: filteredItems = items.filter((i) => {
+    if (searchTerm.length == 0) return true;
+    if (i.name.includes(searchTerm)) return true;
+    if (i.id.includes(searchTerm)) return true;
+    if (i.role.includes(searchTerm)) return true;
+    if (i.aliases)
+      for (const alias of i.aliases) {
+        if (alias.includes(searchTerm)) return true;
+      }
+  });
 </script>
 
 <div class="mt-10 w-full p-4">
@@ -14,11 +26,12 @@
       type="search"
       name="search"
       placeholder="search"
+      bind:value={searchTerm}
     />
   </form>
 
   <div class="flex flex-row flex-wrap">
-    {#each items as item}
+    {#each filteredItems as item}
       <ItemIcon {item} />
     {/each}
   </div>
