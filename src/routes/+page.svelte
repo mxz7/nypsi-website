@@ -14,11 +14,11 @@
         (document.querySelector("#command-count") as HTMLElement).style.opacity = "100%";
       }
 
-      setInterval(async () => {
-        commands = await getCommandsData(fetch)
-          .then((r) => r?.total || 0)
-          .catch(() => 0);
-      }, 7500);
+      // setInterval(async () => {
+      //   commands = await getCommandsData(fetch)
+      //     .then((r) => r?.total || 0)
+      //     .catch(() => 0);
+      // }, 7500);
     })();
   });
 </script>
