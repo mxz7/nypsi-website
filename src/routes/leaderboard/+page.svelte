@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-  <title>nypsi leaderboards</title>
+  <title>nypsi item leaderboard</title>
   <meta name="description" content="leaderboards for the nypsi discord bot" />
 </svelte:head>
 
