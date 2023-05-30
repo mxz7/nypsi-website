@@ -1,65 +1,41 @@
-<svelte:head>
-  <title>nypsi leaderboard</title>
-  <meta name="description" content="leaderboard for the nypsi bot" />
-</svelte:head>
-
 <script>
+  import ItemList from "$lib/components/ItemList.svelte";
+  import MiniLeaderboard from "../../lib/components/MiniLeaderboard.svelte";
+
   let balance = [
-    { name: 'kestas', bal: 5000000 },
-    { name: 'max', bal: 400000 },
-    { name: 'psychotic', bal: 1 },
+    { user: "kestas", value: 5000000 },
+    { user: "max", value: 400000 },
+    { user: "psychotic", value: 1 },
+    { user: "kestas", value: 5000000 },
+    { user: "max", value: 400000 },
+    { user: "psychotic", value: 1 },
+    { user: "kestas", value: 5000000 },
+    { user: "max", value: 400000 },
+    { user: "psychotic", value: 1 },
+    { user: "kestas", value: 5000000 },
+    { user: "max", value: 400000 },
+    { user: "psychotic", value: 1 }
+
     // Add more dummy
   ].slice(0, 10); // Display only top 10 entries
 
-  let prestige = [
-    { name: 'kestas', pres: 69 },
-    { name: 'max', pres: 42 },
-    { name: 'psychotic', pres: 3 },
-    // Add more dummy
-  ].slice(0, 10); // Display only top 10 entries
+  export let data;
 </script>
 
-<div class="h-screen flex justify-center items-center">
-  <div class="flex flex-col text-center">
-    <h1 class="text-white text-6xl font-bold">leaderboard</h1>
-    <div class="w-3/4 h-1 bg-red-500 rounded-full mt-3 m-auto lg:w-full"></div>
+<svelte:head>
+  <title>nypsi leaderboards</title>
+  <meta name="description" content="leaderboards for the nypsi discord bot" />
+</svelte:head>
 
-    <div class="flex mt-8">
-      <div class="w-1/2 mx-10">
-        <h2 class="text-white text-3xl font-bold">Top Bal</h2>
-        <div class="w-3/4 h-1 bg-red-500 rounded-full mt-3 m-auto lg:w-1/2"></div>
+<header class="text-center mt-5">
+  <h1 class="text-white text-5xl font-bold">leaderboards</h1>
+  <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
+</header>
 
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-8">
-          <thead>
-          </thead>
-          <tbody>
-            {#each balance as { name, bal }}
-            <tr>
-              <td class="border px-4 py-2 text-white">{name}</td>
-              <td class="border px-4 py-2 text-white">{bal}</td>
-            </tr>
-            {/each}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="w-1/2">
-        <h2 class="text-white text-3xl font-bold">Top Pres</h2>
-        <div class="w-3/4 h-1 bg-red-500 rounded-full mt-3 m-auto lg:w-1/2"></div>
-
-        <table class="table-auto mt-8">
-          <thead>
-          </thead>
-          <tbody>
-            {#each prestige as { name, pres }}
-            <tr>
-              <td class="border px-4 py-2 text-white">{name}</td>
-              <td class="border px-4 py-2 text-white">{pres}</td>
-            </tr>
-            {/each}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+<div class="flex flex-row mt-10 overflow-x-auto text-white sm:p-3 overflow-y-hidden">
+  <MiniLeaderboard data={balance} title="top balance" />
+  <MiniLeaderboard data={balance} title="another one" />
+  <MiniLeaderboard data={balance} title="last one !!" />
 </div>
+
+<ItemList items={data.items} />
