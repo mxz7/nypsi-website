@@ -23,7 +23,7 @@
     <MiniLeaderboard data={data.prestige} title="top prestige" />
   {/if}
   {#if data.commands}
-    <MiniLeaderboard data={data.commands} title="daily active users" />
+    <MiniLeaderboard data={data.commands} title="daily active users" valueSuffix="cmds" />
   {/if}
 </div>
 
