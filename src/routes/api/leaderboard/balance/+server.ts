@@ -34,7 +34,7 @@ export async function GET({ getClientAddress }) {
       orderBy: {
         money: "desc"
       },
-      take: 10
+      take: 50
     })
     .then((r) => {
       let count = 0;
