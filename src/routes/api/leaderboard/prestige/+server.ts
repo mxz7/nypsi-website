@@ -1,7 +1,7 @@
 import prisma from "$lib/server/database";
 import rateLimiter from "$lib/server/ratelimit.js";
+import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
-import { kv } from "@vercel/kv";
 
 export async function GET({ getClientAddress }) {
   const rateLimitAttempt = await rateLimiter.limit(getClientAddress());
@@ -13,8 +13,8 @@ export async function GET({ getClientAddress }) {
     });
   }
 
-  if (await kv.exists("top-prestiges")) {
-    return json(await kv.get("top-prestiges"));
+  if (await redis.exists("top-prestiges")) {
+    return json(await redis.get("top-prestiges"));
   }
 
   const query = await prisma.economy
@@ -52,7 +52,7 @@ export async function GET({ getClientAddress }) {
       });
     });
 
-  await kv.set("top-prestiges", JSON.stringify(query), { ex: 300 });
+  await redis.set("top-prestiges", JSON.stringify(query), { ex: 300 });
 
   return json(query);
 }
