@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let data: { username: string; value: string; position: string }[];
+  import type { LeaderboardData } from "$lib/types/LeaderboardData";
+
+  export let data: LeaderboardData;
   export let title: string;
   export let valueSuffix = "";
 </script>
