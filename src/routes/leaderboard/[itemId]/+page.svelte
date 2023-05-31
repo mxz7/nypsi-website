@@ -60,7 +60,10 @@
               <td class="px-1 py-1 text-gray-400">#{position}</td>
               <td class="px-4 py-1">{username}</td>
               <td class="px-4 py-1 text-right"
-                >{value} <span class="opacity-75">{item.plural ? item.plural : `${item.name}s`}</span></td
+                >{value}
+                <span class="opacity-75"
+                  >{parseInt(value) > 1 ? (item.plural ? item.plural : `${item.name}s`) : item.name}</span
+                ></td
               >
             </tr>
           {/each}
