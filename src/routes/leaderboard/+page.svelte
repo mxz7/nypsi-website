@@ -9,8 +9,6 @@
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { onMount } from "svelte";
 
-  $: loading = true;
-
   let balance: LeaderboardData | undefined;
   let prestige: LeaderboardData | undefined;
   let activeUsers: LeaderboardData | undefined;
