@@ -7,7 +7,14 @@ export default async function getItems() {
     const data = JSON.parse(localStorage.getItem("items") as string);
 
     if (data.saved > Date.now() - ms("1 hour"))
-      return JSON.parse(localStorage.getItem("items") as string).data as { value: string; username: string };
+      return JSON.parse(localStorage.getItem("items") as string).data as {
+        id: string;
+        name: string;
+        emoji: string;
+        aliases: string[];
+        role: string;
+        plural?: string | undefined;
+      }[];
   }
 
   const items: { id: string; name: string; emoji: string; aliases: string[]; role: string; plural?: string }[] =
