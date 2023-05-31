@@ -38,6 +38,12 @@
       if (attempts > 5) break;
     }
 
+    (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
+
+    setTimeout(() => {
+      (document.querySelector("#loadingpage") as HTMLElement).style.display = "none";
+    }, 750);
+
     attempts = 0;
 
     while (!activeUsers) {
@@ -48,8 +54,6 @@
 
       if (attempts > 5) break;
     }
-
-    loading = false;
   });
 </script>
 
@@ -58,25 +62,23 @@
   <meta name="description" content="leaderboards for the nypsi discord bot" />
 </svelte:head>
 
-{#if loading}
-  <LoadingIcon />
-{:else}
-  <header class="text-center mt-5">
-    <h1 class="text-white text-5xl font-bold">leaderboards</h1>
-    <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
-  </header>
+<LoadingIcon />
 
-  <div class="flex flex-row mt-10 overflow-x-auto text-white sm:p-3 overflow-y-hidden">
-    {#if balance}
-      <MiniLeaderboard data={balance} title="top balance" />
-    {/if}
-    {#if prestige}
-      <MiniLeaderboard data={prestige} title="top prestige" />
-    {/if}
-    {#if activeUsers}
-      <MiniLeaderboard data={activeUsers} title="daily active users" />
-    {/if}
-  </div>
+<header class="text-center mt-5">
+  <h1 class="text-white text-5xl font-bold">leaderboards</h1>
+  <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
+</header>
 
-  <ItemList />
-{/if}
+<div class="flex flex-row mt-10 overflow-x-auto text-white sm:p-3 overflow-y-hidden">
+  {#if balance}
+    <MiniLeaderboard data={balance} title="top balance" />
+  {/if}
+  {#if prestige}
+    <MiniLeaderboard data={prestige} title="top prestige" />
+  {/if}
+  {#if activeUsers}
+    <MiniLeaderboard data={activeUsers} title="daily active users" />
+  {/if}
+</div>
+
+<ItemList />
