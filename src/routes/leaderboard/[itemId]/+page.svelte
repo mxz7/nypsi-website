@@ -48,21 +48,25 @@
   </header>
 
   <div class="mt-10 px-5 sm:px-24">
-    <table class="mt-1 sm:text-xl mx-auto text-gray-200 w-full sm:w-1/2">
-      <tbody>
-        {#each itemData.slice(0, 100) as { username, value, position }}
-          <tr
-            class="bg-gray-950 border-b-[8px] border-gray-900 border-opacity-100 bg-opacity-20 hover:scale-105 duration-200 ease-in"
-          >
-            <td class="px-1 py-1 text-gray-400">#{position}</td>
-            <td class="px-4 py-1">{username}</td>
-            <td class="px-4 py-1 text-right"
-              >{value} <span class="opacity-75">{item.plural ? item.plural : `${item.name}s`}</span></td
+    {#if itemData.length === 0}
+      <h2 class="m-auto text-lg font-bold text-gray-400 mt-12 text-center">nobody has a {item.name}</h2>
+    {:else}
+      <table class="mt-1 sm:text-xl mx-auto text-gray-200 w-full sm:w-1/2">
+        <tbody>
+          {#each itemData.slice(0, 100) as { username, value, position }}
+            <tr
+              class="bg-gray-950 border-b-[8px] border-gray-900 border-opacity-100 bg-opacity-20 hover:scale-105 duration-200 ease-in"
             >
-          </tr>
-        {/each}
-      </tbody>
-    </table>
+              <td class="px-1 py-1 text-gray-400">#{position}</td>
+              <td class="px-4 py-1">{username}</td>
+              <td class="px-4 py-1 text-right"
+                >{value} <span class="opacity-75">{item.plural ? item.plural : `${item.name}s`}</span></td
+              >
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {/if}
   </div>
 {:else}
   <h2
