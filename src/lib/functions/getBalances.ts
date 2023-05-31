@@ -6,7 +6,7 @@ export default async function getBalances(
 ) {
   if (
     localStorage.getItem("top-balances") &&
-    JSON.parse(localStorage.getItem("top-balances") as string).stored < Date.now() - ms("5 minutes")
+    JSON.parse(localStorage.getItem("top-balances") as string).stored < Date.now() - ms("15 minutes")
   ) {
     return JSON.parse(localStorage.getItem("top-balances") as string).data as LeaderboardData;
   }

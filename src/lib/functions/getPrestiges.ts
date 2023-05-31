@@ -6,7 +6,7 @@ export default async function getPrestiges(
 ) {
   if (
     localStorage.getItem("top-prestiges") &&
-    JSON.parse(localStorage.getItem("top-prestiges") as string).stored < Date.now() - ms("5 minutes")
+    JSON.parse(localStorage.getItem("top-prestiges") as string).stored < Date.now() - ms("15 minutes")
   ) {
     return JSON.parse(localStorage.getItem("top-prestiges") as string).data as LeaderboardData;
   }
