@@ -50,7 +50,7 @@ export async function GET({ getClientAddress, params }) {
         const user = x.economy.user.lastKnownTag.split("#")[0];
         return {
           value: `${x.amount.toLocaleString()}`,
-          username: user.length > 12 ? `${user.slice(0, 10).trim()}..` : user,
+          username: user.length > 25 ? `${user.slice(0, 10).trim()}..` : user,
           position: count
         };
       });
