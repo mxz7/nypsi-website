@@ -41,7 +41,7 @@ export default async function getItems() {
 
   inPlaceSort(items).asc((i) => i.name);
 
-  localStorage.setItem("items", JSON.stringify({ items, saved: Date.now() }));
+  localStorage.setItem("items", JSON.stringify({ data: items, saved: Date.now() }));
 
   return items;
 }
