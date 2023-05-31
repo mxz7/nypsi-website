@@ -1,7 +1,9 @@
 <script lang="ts">
+  import getItems from "$lib/functions/getItems";
+  import { onMount } from "svelte";
   import ItemIcon from "./ItemIcon.svelte";
 
-  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
+  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] = [];
   let searchTerm = "";
 
   $: filteredItems = items.filter((i) => {
@@ -13,6 +15,17 @@
       for (const alias of i.aliases) {
         if (alias.includes(searchTerm.toLowerCase())) return true;
       }
+  });
+
+  onMount(async () => {
+    let attempts = 0;
+
+    while (items.length === 0) {
+      attempts++;
+      items = ((await getItems()) as { id: string; name: string; emoji: string; aliases: string[]; role: string }[]) || [];
+
+      if (attempts > 5) break;
+    }
   });
 </script>
 
