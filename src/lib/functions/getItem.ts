@@ -7,7 +7,7 @@ export default async function getItem(
 ) {
   if (
     localStorage.getItem(`top-item-${itemId}`) &&
-    JSON.parse(localStorage.getItem(`top-item-${itemId}`) as string).stored < Date.now() - ms("5 minutes")
+    JSON.parse(localStorage.getItem(`top-item-${itemId}`) as string).stored < Date.now() - ms("15 minutes")
   ) {
     return JSON.parse(localStorage.getItem(`top-item-${itemId}`) as string).data as LeaderboardData;
   }

@@ -1,7 +1,15 @@
 import { inPlaceSort } from "fast-sort";
+import ms from "ms";
 import { parse } from "twemoji-parser";
 
 export default async function getItems() {
+  if (localStorage.getItem("items")) {
+    const data = JSON.parse(localStorage.getItem("items") as string);
+
+    if (data.saved > Date.now() - ms("1 hour"))
+      return JSON.parse(localStorage.getItem("items") as string).data as { value: string; username: string };
+  }
+
   const items: { id: string; name: string; emoji: string; aliases: string[]; role: string; plural?: string }[] =
     Object.values(
       JSON.parse(await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) => r.text()))
@@ -32,6 +40,8 @@ export default async function getItems() {
   }
 
   inPlaceSort(items).asc((i) => i.name);
+
+  localStorage.setItem("items", JSON.stringify({ items, saved: Date.now() }));
 
   return items;
 }
