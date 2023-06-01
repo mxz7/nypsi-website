@@ -2,6 +2,14 @@
   import SeasonButton from "$lib/components/SeasonButton.svelte";
 </script>
 
+<svelte:head>
+  <title>nypsi seasons</title>
+  <meta
+    name="description"
+    content="nypsi has a seasonal economy. meaning that the economy is reset every few months, with the top 10 players receiving rewards"
+  />
+</svelte:head>
+
 <div class="h-screen flex justify-center items-center">
   <div class="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
     <h1 class="text-white text-4xl font-bold">seasons</h1>

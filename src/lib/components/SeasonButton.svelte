@@ -3,7 +3,7 @@
 </script>
 
 <a
-  href="/season/{number}"
+  href="/seasons/{number}"
   class="p-4 bg-gray-950 text-lg bg-opacity-20 flex justify-center items-center m-1 sm:m-1.5 rounded-md duration-200 ease-in hover:scale-105 border border-transparent hover:border-gray-500"
 >
   <p class="text-white text-center sm:text-xl">{number}</p>
