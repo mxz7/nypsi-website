@@ -32,6 +32,11 @@ export async function GET({ getClientAddress, params, setHeaders }) {
           select: {
             user: {
               select: {
+                Preferences: {
+                  select: {
+                    leaderboards: true
+                  }
+                },
                 lastKnownTag: true
               }
             },
@@ -54,7 +59,7 @@ export async function GET({ getClientAddress, params, setHeaders }) {
         const user = x.economy.user.lastKnownTag.split("#")[0];
         return {
           value: `${x.amount.toLocaleString()}`,
-          username: user.length > 25 ? `${user.slice(0, 10).trim()}..` : user,
+          username: x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
           position: count
         };
       });
