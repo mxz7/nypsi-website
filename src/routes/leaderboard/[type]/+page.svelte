@@ -2,27 +2,63 @@
   import { page } from "$app/stores";
   import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
   import LoadingIcon from "$lib/components/LoadingIcon.svelte";
+  import getBalances from "$lib/functions/getBalances";
+  import { getCommandsData } from "$lib/functions/getCommandsData";
   import getItem from "$lib/functions/getItem";
   import getItems from "$lib/functions/getItems";
+  import getPrestiges from "$lib/functions/getPrestiges";
   import sleep from "$lib/functions/sleep";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { onMount } from "svelte";
 
   let item: { id: string; name: string; emoji: string; aliases: string[]; role: string; plural?: string } | undefined;
-  let itemData: LeaderboardData | undefined;
+  let data: LeaderboardData | undefined;
+  let title = "";
 
   onMount(async () => {
     let attempts = 0;
 
-    item = (await getItems()).find((i) => i.id === $page.params.itemId);
+    item = (await getItems()).find((i) => i.id === $page.params.type);
 
-    while (!itemData) {
-      attempts++;
-      itemData = (await getItem(fetch, $page.params.itemId)) || undefined;
+    if (item) {
+      title = `${item.plural ? item.plural : item.name} leaderboard`;
+      while (!data) {
+        attempts++;
+        data = (await getItem(fetch, $page.params.type)) || undefined;
 
-      await sleep(500);
+        await sleep(500);
 
-      if (attempts > 15) break;
+        if (attempts > 15) break;
+      }
+    } else if ($page.params.type === "balance") {
+      title = "top balance";
+      while (!data) {
+        attempts++;
+        data = (await getBalances(fetch)) || undefined;
+
+        await sleep(500);
+
+        if (attempts > 15) break;
+      }
+    } else if ($page.params.type === "prestige") {
+      title = "top prestige";
+      while (!data) {
+        attempts++;
+        data = (await getPrestiges(fetch)) || undefined;
+
+        await sleep(500);
+
+        if (attempts > 15) break;
+      }
+    } else if ($page.params.type === "activeusers") {
+      while (!data) {
+        attempts++;
+        data = (await getCommandsData(fetch).then((r) => r?.users.splice(0, 5))) || undefined;
+
+        await sleep(500);
+
+        if (attempts > 15) break;
+      }
     }
 
     (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
@@ -40,20 +76,26 @@
 
 <LoadingIcon />
 
-{#if item && itemData}
+{#if data}
   <header class="text-center mt-5 sm:w-full">
     <h1 class="text-white text-2xl sm:text-4xl font-bold">
-      {item.plural ? item.plural : `${item.name}s`} leaderboard
+      {title}
     </h1>
     <div class="w-3/4 sm:w-1/2 h-1 bg-red-500 rounded-full mt-3 m-auto" />
   </header>
 
   <div class="mt-10 px-5 sm:px-24">
-    {#if itemData.length === 0}
-      <h2 class="m-auto text-lg font-bold text-gray-400 mt-12 text-center">nobody has a {item.name}</h2>
+    {#if data.length === 0}
+      <h2 class="m-auto text-lg font-bold text-gray-400 mt-12 text-center">
+        {#if item}
+          nobody has a {item.name}
+        {:else}
+          no data
+        {/if}
+      </h2>
     {:else}
       <BigLeaderboard
-        data={itemData}
+        {data}
         suffix={(value) => {
           if (!item) return "";
           return parseInt(value) > 1 ? (item.plural ? item.plural : `${item.name}s`) : item.name;
