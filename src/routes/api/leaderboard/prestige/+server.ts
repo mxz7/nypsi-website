@@ -31,6 +31,11 @@ export async function GET({ getClientAddress, setHeaders }) {
         banned: true,
         user: {
           select: {
+            Preferences: {
+              select: {
+                leaderboards: true
+              }
+            },
             lastKnownTag: true
           }
         }
@@ -38,7 +43,7 @@ export async function GET({ getClientAddress, setHeaders }) {
       orderBy: {
         prestige: "desc"
       },
-      take: 50
+      take: 100
     })
     .then((r) => {
       let count = 0;
@@ -50,7 +55,7 @@ export async function GET({ getClientAddress, setHeaders }) {
         const user = x.user.lastKnownTag.split("#")[0];
         return {
           value: `${x.prestige.toLocaleString()}`,
-          username: user.length > 12 ? `${user.slice(0, 10).trim()}..` : user,
+          username: x.user.Preferences?.leaderboards ? user : "[hidden]",
           position: count
         };
       });
