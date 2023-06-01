@@ -151,6 +151,8 @@
         <h3 class="text-2xl font-bold text-white mb-4">seasons</h3>
         <p class="text-gray-400">
           every few months a new season will start, (real money) rewards are given to top players from the last season
+          <br />
+          <a class="text-sky-300 underline" href="/seasons">view season history here</a>
         </p>
       </div>
 
