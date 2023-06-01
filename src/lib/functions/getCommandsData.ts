@@ -19,7 +19,7 @@ export async function getCommandsData(
     };
   });
 
-  return res as { total: number; users: { username: string; value: string }[] };
+  return res as { total: number; users: { username: string; value: string; position: number }[] };
 }
 
 export async function getTopCommands(

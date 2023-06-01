@@ -1,17 +1,18 @@
 <script lang="ts">
   import ItemList from "$lib/components/ItemList.svelte";
+  import LeaderboardButton from "$lib/components/LeaderboardButton.svelte";
   import LoadingIcon from "$lib/components/LoadingIcon.svelte";
   import MiniLeaderboard from "$lib/components/MiniLeaderboard.svelte";
   import getBalances from "$lib/functions/getBalances";
-  import { getCommandsData } from "$lib/functions/getCommandsData";
   import getPrestiges from "$lib/functions/getPrestiges";
+  import getStreaks from "$lib/functions/getStreaks";
   import sleep from "$lib/functions/sleep";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { onMount } from "svelte";
 
   let balance: LeaderboardData | undefined;
   let prestige: LeaderboardData | undefined;
-  let activeUsers: LeaderboardData | undefined;
+  let streaks: LeaderboardData | undefined;
 
   onMount(async () => {
     let attempts = 0;
@@ -36,22 +37,22 @@
       if (attempts > 5) break;
     }
 
-    (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
-
-    setTimeout(() => {
-      (document.querySelector("#loadingpage") as HTMLElement).style.display = "none";
-    }, 750);
-
     attempts = 0;
 
-    while (!activeUsers) {
+    while (!streaks) {
       attempts++;
-      activeUsers = ((await getCommandsData(fetch))?.users as LeaderboardData) || undefined;
+      streaks = ((await getStreaks(fetch)) as LeaderboardData) || undefined;
 
       await sleep(500);
 
       if (attempts > 5) break;
     }
+
+    (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
+
+    setTimeout(() => {
+      (document.querySelector("#loadingpage") as HTMLElement).style.display = "none";
+    }, 750);
   });
 </script>
 
@@ -74,9 +75,22 @@
   {#if prestige}
     <MiniLeaderboard data={prestige} title="top prestige" />
   {/if}
-  {#if activeUsers}
-    <MiniLeaderboard data={activeUsers} title="daily active users" />
+  {#if streaks}
+    <MiniLeaderboard data={streaks} title="top daily streak" valueSuffix="days" />
   {/if}
 </div>
 
 <ItemList />
+
+<div class="mt-7 mb-7">
+  <h2 class="text-2xl sm:text-4xl text-center text-white font-bold">other</h2>
+  <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
+
+  <div class="mt-4 flex flex-row flex-wrap justify-center">
+    <LeaderboardButton text="balance" key="balance" />
+    <LeaderboardButton text="prestige" key="prestige" />
+    <LeaderboardButton text="daily streak" key="streak" />
+    <LeaderboardButton text="active users" key="aciveusers" />
+    <LeaderboardButton text="wordle wins" key="wordle" />
+  </div>
+</div>
