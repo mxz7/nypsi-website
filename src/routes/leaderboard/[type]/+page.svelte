@@ -70,7 +70,7 @@
       while (!data) {
         attempts++;
         data = (await getStreaks(fetch)) || undefined;
-        suffix = (value: string) => (parseInt(value) > 1 ? "days" : "day");
+        suffix = (value: string) => (parseInt(value.replaceAll(",", "")) > 1 ? "days" : "day");
 
         await sleep(500);
 
@@ -81,7 +81,7 @@
       while (!data) {
         attempts++;
         data = (await getWordles(fetch)) || undefined;
-        suffix = (value: string) => (parseInt(value) > 1 ? "wins" : "win");
+        suffix = (value: string) => (parseInt(value.replaceAll(",", "")) > 1 ? "wins" : "win");
 
         await sleep(500);
 
