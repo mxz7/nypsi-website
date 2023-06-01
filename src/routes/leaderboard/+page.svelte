@@ -1,5 +1,6 @@
 <script lang="ts">
   import ItemList from "$lib/components/ItemList.svelte";
+  import LeaderboardButton from "$lib/components/LeaderboardButton.svelte";
   import LoadingIcon from "$lib/components/LoadingIcon.svelte";
   import MiniLeaderboard from "$lib/components/MiniLeaderboard.svelte";
   import getBalances from "$lib/functions/getBalances";
@@ -80,3 +81,14 @@
 </div>
 
 <ItemList />
+
+<div class="mt-7 mb-7">
+  <h2 class="text-2xl text-center text-white font-bold">other</h2>
+  <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
+
+  <div class="mt-4 flex flex-row flex-wrap justify-center">
+    <LeaderboardButton text="top balance" key="balance" />
+    <LeaderboardButton text="top prestige" key="prestige" />
+    <LeaderboardButton text="active users" key="aciveusers" />
+  </div>
+</div>
