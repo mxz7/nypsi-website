@@ -1,5 +1,6 @@
 <script>
   import SeasonButton from "$lib/components/SeasonButton.svelte";
+  import seasons from "$lib/data/seasons";
 </script>
 
 <svelte:head>
@@ -17,12 +18,9 @@
     <div class="w-3/4 h-1 bg-red-500 rounded-full mt-3 m-auto sm:w-full" />
 
     <div class="mt-4 flex flex-row flex-wrap justify-center">
-      <SeasonButton number={1} />
-      <SeasonButton number={2} />
-      <SeasonButton number={3} />
-      <SeasonButton number={4} />
-      <SeasonButton number={5} />
-      <SeasonButton number={6} />
+      {#each Array.from(Object.keys(seasons)) as season}
+        <SeasonButton number={season} />
+      {/each}
     </div>
   </div>
 </div>
