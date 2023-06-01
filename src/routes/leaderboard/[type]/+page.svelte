@@ -7,6 +7,7 @@
   import getItem from "$lib/functions/getItem";
   import getItems from "$lib/functions/getItems";
   import getPrestiges from "$lib/functions/getPrestiges";
+  import getStreaks from "$lib/functions/getStreaks";
   import sleep from "$lib/functions/sleep";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { onMount } from "svelte";
@@ -14,6 +15,10 @@
   let item: { id: string; name: string; emoji: string; aliases: string[]; role: string; plural?: string } | undefined;
   let data: LeaderboardData | undefined;
   let title = "";
+  let suffix = (value: string) => {
+    if (!item) return "";
+    return parseInt(value) > 1 ? (item.plural ? item.plural : `${item.name}s`) : item.name;
+  };
 
   onMount(async () => {
     let attempts = 0;
@@ -59,6 +64,17 @@
 
         if (attempts > 15) break;
       }
+    } else if ($page.params.type === "streak") {
+      title = "top daily streak";
+      while (!data) {
+        attempts++;
+        data = (await getStreaks(fetch)) || undefined;
+        suffix = (value: string) => (parseInt(value) > 1 ? "days" : "day");
+
+        await sleep(500);
+
+        if (attempts > 15) break;
+      }
     }
 
     (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
@@ -94,13 +110,7 @@
         {/if}
       </h2>
     {:else}
-      <BigLeaderboard
-        {data}
-        suffix={(value) => {
-          if (!item) return "";
-          return parseInt(value) > 1 ? (item.plural ? item.plural : `${item.name}s`) : item.name;
-        }}
-      />
+      <BigLeaderboard {data} {suffix} />
     {/if}
   </div>
 {:else}

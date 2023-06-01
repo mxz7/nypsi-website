@@ -87,8 +87,9 @@
   <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
 
   <div class="mt-4 flex flex-row flex-wrap justify-center">
-    <LeaderboardButton text="top balance" key="balance" />
-    <LeaderboardButton text="top prestige" key="prestige" />
+    <LeaderboardButton text="balance" key="balance" />
+    <LeaderboardButton text="prestige" key="prestige" />
+    <LeaderboardButton text="daily streak" key="streak" />
     <LeaderboardButton text="active users" key="aciveusers" />
   </div>
 </div>
