@@ -96,7 +96,7 @@
         </h2>
 
         {#if season.winners}
-          <div class="text-white mt-16">
+          <div class="text-white mt-16 text-left">
             <MiniLeaderboard
               concatUser={false}
               data={season.winners.map((i) => {
