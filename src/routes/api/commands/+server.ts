@@ -1,6 +1,6 @@
 import rateLimiter from "$lib/server/ratelimit.js";
 
-export const GET = async ({ getClientAddress }) => {
+export const GET = async ({ getClientAddress, setHeaders }) => {
   const rateLimitAttempt = await rateLimiter.limit(getClientAddress());
 
   if (!rateLimitAttempt.success) {
@@ -9,6 +9,10 @@ export const GET = async ({ getClientAddress }) => {
       status: 429
     });
   }
+
+  setHeaders({
+    "cache-control": "max-age=120"
+  });
 
   const res = await fetch(`${process.env.API || "http://localhost:6969"}/commands-today`, {
     headers: {
