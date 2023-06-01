@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
   import LoadingIcon from "$lib/components/LoadingIcon.svelte";
   import getItem from "$lib/functions/getItem";
   import getItems from "$lib/functions/getItems";
@@ -51,24 +52,13 @@
     {#if itemData.length === 0}
       <h2 class="m-auto text-lg font-bold text-gray-400 mt-12 text-center">nobody has a {item.name}</h2>
     {:else}
-      <table class="mt-1 sm:text-xl mx-auto text-gray-200 w-full sm:w-1/2">
-        <tbody>
-          {#each itemData.slice(0, 100) as { username, value, position }}
-            <tr
-              class="bg-gray-950 border-b-[8px] border-gray-900 border-opacity-100 bg-opacity-20 hover:scale-105 duration-200 ease-in"
-            >
-              <td class="px-1 py-1 text-gray-400">#{position}</td>
-              <td class="px-4 py-1">{username}</td>
-              <td class="px-4 py-1 text-right"
-                >{value}
-                <span class="opacity-75"
-                  >{parseInt(value) > 1 ? (item.plural ? item.plural : `${item.name}s`) : item.name}</span
-                ></td
-              >
-            </tr>
-          {/each}
-        </tbody>
-      </table>
+      <BigLeaderboard
+        data={itemData}
+        suffix={(value) => {
+          if (!item) return "";
+          return parseInt(value) > 1 ? (item.plural ? item.plural : `${item.name}s`) : item.name;
+        }}
+      />
     {/if}
   </div>
 {:else}
