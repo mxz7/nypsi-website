@@ -8,6 +8,7 @@
   import getItems from "$lib/functions/getItems";
   import getPrestiges from "$lib/functions/getPrestiges";
   import getStreaks from "$lib/functions/getStreaks";
+  import getWordles from "$lib/functions/getWordles";
   import sleep from "$lib/functions/sleep";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { onMount } from "svelte";
@@ -70,6 +71,17 @@
         attempts++;
         data = (await getStreaks(fetch)) || undefined;
         suffix = (value: string) => (parseInt(value) > 1 ? "days" : "day");
+
+        await sleep(500);
+
+        if (attempts > 15) break;
+      }
+    } else if ($page.params.type === "wordle") {
+      title = "top wordle wins";
+      while (!data) {
+        attempts++;
+        data = (await getWordles(fetch)) || undefined;
+        suffix = (value: string) => (parseInt(value) > 1 ? "wins" : "win");
 
         await sleep(500);
 
