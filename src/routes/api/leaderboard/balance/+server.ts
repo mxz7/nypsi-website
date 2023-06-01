@@ -3,7 +3,7 @@ import rateLimiter from "$lib/server/ratelimit.js";
 import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 
-export async function GET({ getClientAddress }) {
+export async function GET({ getClientAddress, setHeaders }) {
   const rateLimitAttempt = await rateLimiter.limit(getClientAddress());
 
   if (!rateLimitAttempt.success) {
@@ -12,6 +12,10 @@ export async function GET({ getClientAddress }) {
       status: 429
     });
   }
+
+  setHeaders({
+    "cache-control": "max-age=120"
+  });
 
   if (await redis.exists("top-balances")) {
     return json(await redis.get("top-balances"));
