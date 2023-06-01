@@ -83,7 +83,7 @@
 <ItemList />
 
 <div class="mt-7 mb-7">
-  <h2 class="text-2xl text-center text-white font-bold">other</h2>
+  <h2 class="text-2xl sm:text-4xl text-center text-white font-bold">other</h2>
   <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
 
   <div class="mt-4 flex flex-row flex-wrap justify-center">
