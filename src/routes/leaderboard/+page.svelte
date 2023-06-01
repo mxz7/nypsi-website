@@ -4,15 +4,15 @@
   import LoadingIcon from "$lib/components/LoadingIcon.svelte";
   import MiniLeaderboard from "$lib/components/MiniLeaderboard.svelte";
   import getBalances from "$lib/functions/getBalances";
-  import { getCommandsData } from "$lib/functions/getCommandsData";
   import getPrestiges from "$lib/functions/getPrestiges";
+  import getStreaks from "$lib/functions/getStreaks";
   import sleep from "$lib/functions/sleep";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { onMount } from "svelte";
 
   let balance: LeaderboardData | undefined;
   let prestige: LeaderboardData | undefined;
-  let activeUsers: LeaderboardData | undefined;
+  let streaks: LeaderboardData | undefined;
 
   onMount(async () => {
     let attempts = 0;
@@ -37,22 +37,22 @@
       if (attempts > 5) break;
     }
 
-    (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
-
-    setTimeout(() => {
-      (document.querySelector("#loadingpage") as HTMLElement).style.display = "none";
-    }, 750);
-
     attempts = 0;
 
-    while (!activeUsers) {
+    while (!streaks) {
       attempts++;
-      activeUsers = ((await getCommandsData(fetch))?.users as LeaderboardData) || undefined;
+      streaks = ((await getStreaks(fetch)) as LeaderboardData) || undefined;
 
       await sleep(500);
 
       if (attempts > 5) break;
     }
+
+    (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
+
+    setTimeout(() => {
+      (document.querySelector("#loadingpage") as HTMLElement).style.display = "none";
+    }, 750);
   });
 </script>
 
@@ -75,8 +75,8 @@
   {#if prestige}
     <MiniLeaderboard data={prestige} title="top prestige" />
   {/if}
-  {#if activeUsers}
-    <MiniLeaderboard data={activeUsers} title="daily active users" />
+  {#if streaks}
+    <MiniLeaderboard data={streaks} title="top daily streak" valueSuffix="days" />
   {/if}
 </div>
 
