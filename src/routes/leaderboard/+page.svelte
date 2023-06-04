@@ -76,7 +76,7 @@
     <MiniLeaderboard data={prestige} title="top prestige" />
   {/if}
   {#if streaks}
-    <MiniLeaderboard data={streaks} title="top daily streak" valueSuffix="days" />
+    <MiniLeaderboard data={streaks} title="top daily streak" />
   {/if}
 </div>
 
