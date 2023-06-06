@@ -1,0 +1,21 @@
+import type { LeaderboardData } from "$lib/types/LeaderboardData";
+import ms from "ms";
+
+export default async function getNetworths(
+  fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
+) {
+  if (
+    localStorage.getItem("top-networth") &&
+    JSON.parse(localStorage.getItem("top-networth") as string).stored < Date.now() - ms("15 minutes")
+  ) {
+    return JSON.parse(localStorage.getItem("top-networth") as string).data as LeaderboardData;
+  }
+
+  const data = await fetch("/api/leaderboard/networth").then((r) => r.json());
+
+  if (!Array.isArray(data)) return null;
+
+  localStorage.setItem("top-networth", JSON.stringify({ data, date: Date.now() }));
+
+  return data as LeaderboardData;
+}

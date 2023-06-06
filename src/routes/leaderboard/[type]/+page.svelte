@@ -7,6 +7,7 @@
   import { getCommandsData } from "$lib/functions/getCommandsData";
   import getItem from "$lib/functions/getItem";
   import getItems from "$lib/functions/getItems";
+  import getNetworths from "$lib/functions/getNetworths";
   import getPrestiges from "$lib/functions/getPrestiges";
   import getStreaks from "$lib/functions/getStreaks";
   import getWordles from "$lib/functions/getWordles";
@@ -83,6 +84,16 @@
         attempts++;
         data = (await getWordles(fetch)) || undefined;
         suffix = (value: string) => (parseInt(value.replaceAll(",", "")) > 1 ? "wins" : "win");
+
+        await sleep(500);
+
+        if (attempts > 15) break;
+      }
+    } else if ($page.params.type === "networth") {
+      title = "top net worth";
+      while (!data) {
+        attempts++;
+        data = (await getNetworths(fetch)) || undefined;
 
         await sleep(500);
 
