@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
   import LoadingIcon from "$lib/components/LoadingIcon.svelte";
@@ -94,6 +95,13 @@
     setTimeout(() => {
       (document.querySelector("#loadingpage") as HTMLElement).style.display = "none";
     }, 750);
+
+    if (!data) {
+      console.log("https://http.cat/308");
+      setTimeout(() => {
+        return goto("/leaderboard");
+      }, 1000);
+    }
   });
 </script>
 
