@@ -4,8 +4,8 @@
 
 <a
   href="/seasons/{number}"
-  class="p-4 bg-gray-950 text-lg bg-opacity-20 flex justify-center items-center m-1 sm:m-1.5 rounded-md duration-200 ease-in hover:scale-105 border border-transparent hover:border-gray-500"
+  class="m-1 flex items-center justify-center rounded-md border border-transparent bg-gray-950 bg-opacity-20 p-4 text-lg duration-200 ease-in hover:scale-105 hover:border-gray-500 sm:m-1.5"
 >
-  <p class="text-white text-center sm:text-xl">{number}</p>
+  <p class="text-center text-white sm:text-xl">{number}</p>
   <!-- <img class="max-w-full max-h-full object-contain w-auto h-auto" src={item.emoji} alt="" /> -->
 </a>

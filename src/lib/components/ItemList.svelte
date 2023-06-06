@@ -30,12 +30,12 @@
 </script>
 
 <div id="items" class="mt-10 w-full p-4 sm:px-48">
-  <form class="m-2 p-3 flex flex-row bg-gray-950 bg-opacity-50 w-fit rounded-md">
-    <div class="flex justify-center items-center mr-1">
-      <img src="/search.png" alt="" class="w-4 h-4" />
+  <form class="m-2 flex w-fit flex-row rounded-md bg-gray-950 bg-opacity-50 p-3">
+    <div class="mr-1 flex items-center justify-center">
+      <img src="/search.png" alt="" class="h-4 w-4" />
     </div>
     <input
-      class="ml-2 bg-transparent border-none focus:border-none focus:outline-none text-gray-400 placeholder:text-gray-400"
+      class="ml-2 border-none bg-transparent text-gray-400 placeholder:text-gray-400 focus:border-none focus:outline-none"
       type="search"
       name="search"
       placeholder="search"

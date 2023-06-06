@@ -11,19 +11,19 @@
 </svelte:head>
 
 <div class="w-full">
-  <div class="text-center w-full mt-16">
+  <div class="mt-16 w-full text-center">
     {#if season}
-      <h1 class="text-white text-4xl font-bold">season {$page.params.season}</h1>
+      <h1 class="text-4xl font-bold text-white">season {$page.params.season}</h1>
 
-      <div class="w-52 h-1 bg-red-500 rounded-full mt-3 m-auto" />
+      <div class="m-auto mt-3 h-1 w-52 rounded-full bg-red-500" />
 
       {#if season.ended}
-        <h2 class="text-lg text-gray-400 font-bold mt-3">
+        <h2 class="mt-3 text-lg font-bold text-gray-400">
           {season.started.toLocaleDateString()} - {season.ended.toLocaleDateString()}
         </h2>
 
         {#if season.winners}
-          <div class="text-white mt-16 text-left">
+          <div class="mt-16 text-left text-white">
             <MiniLeaderboard
               concatUser={false}
               data={season.winners.map((i) => {
@@ -38,12 +38,12 @@
           </div>
         {/if}
       {:else}
-        <h2 class="text-lg text-gray-400 font-bold mt-3">
+        <h2 class="mt-3 text-lg font-bold text-gray-400">
           started on {season.started.toLocaleDateString()}
         </h2>
       {/if}
     {:else}
-      <h1 class="text-gray-400 text-4xl font-bold underline"><a href="/seasons">invalid season</a></h1>
+      <h1 class="text-4xl font-bold text-gray-400 underline"><a href="/seasons">invalid season</a></h1>
     {/if}
   </div>
 </div>

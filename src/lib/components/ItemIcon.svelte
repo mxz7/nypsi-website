@@ -4,8 +4,8 @@
 
 <a
   href="/leaderboard/{item.id}"
-  class="p-3 bg-gray-950 bg-opacity-20 w-12 h-12 sm:w-16 sm:h-16 flex justify-center items-center m-1 sm:m-1.5 rounded-md duration-200 ease-in hover:scale-105 border border-transparent hover:border-gray-500"
+  class="m-1 flex h-12 w-12 items-center justify-center rounded-md border border-transparent bg-gray-950 bg-opacity-20 p-3 duration-200 ease-in hover:scale-105 hover:border-gray-500 sm:m-1.5 sm:h-16 sm:w-16"
 >
   <!-- <p>{item.id}</p> -->
-  <img class="max-w-full max-h-full object-contain w-auto h-auto" src={item.emoji} alt="" />
+  <img class="h-auto max-h-full w-auto max-w-full object-contain" src={item.emoji} alt="" />
 </a>

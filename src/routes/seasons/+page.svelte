@@ -11,11 +11,11 @@
   />
 </svelte:head>
 
-<div class="h-screen flex justify-center items-center">
-  <div class="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-    <h1 class="text-white text-4xl font-bold">seasons</h1>
+<div class="flex h-screen items-center justify-center">
+  <div class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center">
+    <h1 class="text-4xl font-bold text-white">seasons</h1>
 
-    <div class="w-3/4 h-1 bg-red-500 rounded-full mt-3 m-auto sm:w-full" />
+    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-full" />
 
     <div class="mt-4 flex flex-row flex-wrap justify-center">
       {#each Array.from(Object.keys(seasons)) as season}
