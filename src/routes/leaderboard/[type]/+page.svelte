@@ -124,16 +124,16 @@
 <LoadingIcon />
 
 {#if data}
-  <header class="text-center mt-5 sm:w-full">
-    <h1 class="text-white text-2xl sm:text-4xl font-bold">
+  <header class="mt-5 text-center sm:w-full">
+    <h1 class="text-2xl font-bold text-white sm:text-4xl">
       {title}
     </h1>
-    <div class="w-3/4 sm:w-1/2 h-1 bg-red-500 rounded-full mt-3 m-auto" />
+    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-1/2" />
   </header>
 
   <div class="mt-10 px-5 sm:px-24">
     {#if data.length === 0}
-      <h2 class="m-auto text-lg font-bold text-gray-400 mt-12 text-center">
+      <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
         {#if item}
           nobody has a {item.name}
         {:else}
@@ -146,8 +146,8 @@
   </div>
 {:else}
   <h2
-    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xl font-bold w-full px-5 text-center"
+    class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 transform px-5 text-center text-xl font-bold text-white"
   >
-    invalid item, please select one from the <a href="/leaderboard#items" class="underline text-sky-300">list</a>
+    invalid item, please select one from the <a href="/leaderboard#items" class="text-sky-300 underline">list</a>
   </h2>
 {/if}

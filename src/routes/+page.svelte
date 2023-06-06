@@ -32,56 +32,56 @@
   />
 </svelte:head>
 
-<div id="command-count" class="w-full text-center pt-2 opacity-0 duration-1000 ease-in">
+<div id="command-count" class="w-full pt-2 text-center opacity-0 duration-1000 ease-in">
   <p class="text-gray-400"><span class="text-red-500">{commands.toLocaleString()}</span> commands today</p>
 </div>
 
-<div class="hidden sm:flex flex-row items-center absolute top-2 left-2 p-3">
-  <a href="https://discord.com/invite/hJTDNST" class="h-8 w-8 mr-3 flex items-center justify-center">
-    <img class="max-w-full max-h-full object-contain w-auto h-auto" src="/discord.png" alt="" />
+<div class="absolute left-2 top-2 hidden flex-row items-center p-3 sm:flex">
+  <a href="https://discord.com/invite/hJTDNST" class="mr-3 flex h-8 w-8 items-center justify-center">
+    <img class="h-auto max-h-full w-auto max-w-full object-contain" src="/discord.png" alt="" />
   </a>
-  <a href="https://github.com/tekoh/nypsi" class="h-8 w-8 flex items-center justify-center">
-    <img class="max-w-full max-h-full object-contain w-auto h-auto" src="/github.png" alt="" />
+  <a href="https://github.com/tekoh/nypsi" class="flex h-8 w-8 items-center justify-center">
+    <img class="h-auto max-h-full w-auto max-w-full object-contain" src="/github.png" alt="" />
   </a>
 </div>
 
-<div class="h-screen flex justify-center items-center">
-  <div class="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-    <h1 class="text-white text-9xl font-bold">nypsi</h1>
-    <p class="text-gray-400 text-2xl font-bold mt-5">the best discord bot</p>
+<div class="flex h-screen items-center justify-center">
+  <div class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center">
+    <h1 class="text-9xl font-bold text-white">nypsi</h1>
+    <p class="mt-5 text-2xl font-bold text-gray-400">the best discord bot</p>
 
-    <div class="w-3/4 h-1 bg-red-500 rounded-full mt-3 m-auto sm:w-full" />
+    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-full" />
 
-    <div class="flex flex-col sm:flex-row justify-center items-center mt-2">
+    <div class="mt-2 flex flex-col items-center justify-center sm:flex-row">
       <a
         href="https://discord.com/invite/hJTDNST"
-        class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4 sm:hidden"
+        class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4 sm:hidden"
       >
-        <p class="text-white text-2xl font-bold mt-2 hover-effect">discord</p>
+        <p class="hover-effect mt-2 text-2xl font-bold text-white">discord</p>
       </a>
 
-      <a href="/leaderboard" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
-        <p class="text-white text-2xl font-bold mt-2 hover-effect">leaderboards</p>
+      <a href="/leaderboard" class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4">
+        <p class="hover-effect mt-2 text-2xl font-bold text-white">leaderboards</p>
       </a>
 
-      <a href="https://docs.nypsi.xyz/" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
-        <p class="text-white text-2xl font-bold mt-2 hover-effect">docs</p>
+      <a href="https://docs.nypsi.xyz/" class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4">
+        <p class="hover-effect mt-2 text-2xl font-bold text-white">docs</p>
       </a>
 
-      <a href="#features" class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4">
-        <p class="text-white text-2xl font-bold mt-2 hover-effect">features</p>
+      <a href="#features" class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4">
+        <p class="hover-effect mt-2 text-2xl font-bold text-white">features</p>
       </a>
 
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
         target="_blank"
-        class="flex flex-col justify-center items-center mb-4 sm:mb-0 sm:mr-4"
+        class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4"
       >
-        <p class="text-white text-2xl font-bold mt-2 hover-effect">invite</p>
+        <p class="hover-effect mt-2 text-2xl font-bold text-white">invite</p>
       </a>
 
-      <a href="https://ko-fi.com/tekoh/tiers" class="flex flex-col justify-center items-center">
-        <p class="text-white text-2xl font-bold mt-2 hover-effect">donate</p>
+      <a href="https://ko-fi.com/tekoh/tiers" class="flex flex-col items-center justify-center">
+        <p class="hover-effect mt-2 text-2xl font-bold text-white">donate</p>
       </a>
     </div>
   </div>
@@ -89,66 +89,66 @@
 
 <section id="features" class="bg-gray-900 py-12">
   <div class="mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-white mb-12">features</h2>
+    <h2 class="mb-12 text-4xl font-bold text-white">features</h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">prestige system</h3>
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">prestige system</h3>
         <p class="text-gray-400">gain xp through gambling to prestige, unlocking rewards and increasing your vote rewards</p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">mention history</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">mention history</h3>
         <p class="text-gray-400">keep track of your pings, check who ghost pinged you, can store up to 15 mentions</p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">cryptocurrency</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">cryptocurrency</h3>
         <p class="text-gray-400">
           buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains ethereum and bitcoin. lose money
           simulator.
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">wordle</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">wordle</h3>
         <p class="text-gray-400">play the popular wordle game on discord. guess the word and test your smarts.</p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">street racing</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">street racing</h3>
         <p class="text-gray-400">
           start and race in races with cars to earn money. contains a lot of cars: toyota supra m4, tesla model x, corsa
           2003, skyline gtr.
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">inventory system</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">inventory system</h3>
         <p class="text-gray-400">
           get items, sell them, keep em' and be greedy, use them to bully others and flex. contains a lot of items with more
           being added.
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">gambling</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">gambling</h3>
         <p class="text-gray-400">
           gamble all of your money away, or win big. contains the most popular games: blackjack, mines, slots, dragon tower &
           more.
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">workers</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">workers</h3>
         <p class="text-gray-400">
           earn easy money by buying workers and upgrading them. this is the easiest way to earn money, just sit back and
           relax.
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">seasons</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">seasons</h3>
         <p class="text-gray-400">
           every few months a new season will start, (real money) rewards are given to top players from the last season
           <br />
@@ -156,22 +156,22 @@
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">auctions</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">auctions</h3>
         <p class="text-gray-400">
           sell and buy items from other people by the price they set. depends on supply and demand of the item.
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">karma system</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">karma system</h3>
         <p class="text-gray-400">
           earn karma from interacting with the bot, spend it in the karma shop on premium membership & rare items
         </p>
       </div>
 
-      <div class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-2xl font-bold text-white mb-4">moderation</h3>
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">moderation</h3>
         <p class="text-gray-400">
           fully fledged & capable moderation system. case tracking, chat filter, mass kick (owner only) etc.
         </p>

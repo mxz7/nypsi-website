@@ -55,9 +55,9 @@
 
 <!-- <LoadingIcon /> -->
 
-<header class="text-center mt-5">
-  <h1 class="text-white text-5xl font-bold">leaderboards</h1>
-  <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" />
+<header class="mt-5 text-center">
+  <h1 class="text-5xl font-bold text-white">leaderboards</h1>
+  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-96" />
 </header>
 
 <!-- <div class="flex flex-row mt-10 overflow-x-auto text-white sm:p-3 overflow-y-hidden">
@@ -72,7 +72,7 @@
   {/if}
 </div> -->
 
-<div class="mt-7 mb-7">
+<div class="mb-7 mt-7">
   <!-- <h2 class="text-2xl sm:text-4xl text-center text-white font-bold">other</h2>
   <div class="w-3/4 sm:w-96 h-1 bg-red-500 rounded-full mt-3 m-auto" /> -->
 
