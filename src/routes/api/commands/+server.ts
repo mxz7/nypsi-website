@@ -11,7 +11,7 @@ export const GET = async ({ getClientAddress, setHeaders }) => {
   }
 
   setHeaders({
-    "cache-control": "max-age=120"
+    "cache-control": "max-age=300"
   });
 
   const res = await fetch(`${process.env.API || "http://localhost:6969"}/commands-today`, {

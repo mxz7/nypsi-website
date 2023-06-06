@@ -14,7 +14,7 @@ export async function GET({ getClientAddress, setHeaders }) {
   }
 
   setHeaders({
-    "cache-control": "max-age=120"
+    "cache-control": "max-age=300"
   });
 
   if (await redis.exists("top-streaks")) {

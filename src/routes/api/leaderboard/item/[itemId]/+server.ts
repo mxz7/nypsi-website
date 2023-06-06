@@ -14,7 +14,7 @@ export async function GET({ getClientAddress, params, setHeaders }) {
   }
 
   setHeaders({
-    "cache-control": "max-age=120"
+    "cache-control": "max-age=300"
   });
 
   if (await redis.exists(`top-item-${params.itemId}`)) {
