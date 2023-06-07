@@ -8,9 +8,12 @@ export async function GET({ getClientAddress, params, setHeaders }) {
 
   if (!rateLimitAttempt.success) {
     const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
-    return new Response(JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }), {
-      status: 429
-    });
+    return new Response(
+      JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }),
+      {
+        status: 429
+      }
+    );
   }
 
   setHeaders({
@@ -24,7 +27,11 @@ export async function GET({ getClientAddress, params, setHeaders }) {
   const query = await prisma.inventory
     .findMany({
       where: {
-        AND: [{ item: params.itemId }, { amount: { gt: 0 } }, { economy: { user: { blacklisted: false } } }]
+        AND: [
+          { item: params.itemId },
+          { amount: { gt: 0 } },
+          { economy: { user: { blacklisted: false } } }
+        ]
       },
       select: {
         amount: true,
@@ -52,7 +59,8 @@ export async function GET({ getClientAddress, params, setHeaders }) {
     .then((r) => {
       let count = 0;
       r.forEach((user) => {
-        if (user.economy.banned && user.economy.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
+        if (user.economy.banned && user.economy.banned.getTime() > Date.now())
+          r.splice(r.indexOf(user), 1);
       });
       return r.map((x) => {
         count++;

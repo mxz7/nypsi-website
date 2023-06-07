@@ -70,4 +70,6 @@ export default {
   "6": {
     started: new Date("2023-06-01")
   }
-} as { [key: string]: { started: Date; ended?: Date; winners?: { username: string; value: string }[] } };
+} as {
+  [key: string]: { started: Date; ended?: Date; winners?: { username: string; value: string }[] };
+};

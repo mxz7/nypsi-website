@@ -3,7 +3,7 @@ module.exports = {
   plugins: [require("prettier-plugin-svelte"), require("prettier-plugin-tailwindcss")],
   overrides: [{ files: "*.svelte", options: { parser: "svelte" } }],
   trailingComma: "none",
-  printWidth: 125,
+  printWidth: 100,
   tabWidth: 2,
   endOfLine: "lf"
 };
