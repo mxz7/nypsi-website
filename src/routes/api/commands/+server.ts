@@ -5,9 +5,12 @@ export const GET = async ({ getClientAddress, setHeaders }) => {
 
   if (!rateLimitAttempt.success) {
     const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
-    return new Response(JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }), {
-      status: 429
-    });
+    return new Response(
+      JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }),
+      {
+        status: 429
+      }
+    );
   }
 
   setHeaders({

@@ -17,10 +17,20 @@ export default async function getItems() {
       }[];
   }
 
-  const items: { id: string; name: string; emoji: string; aliases: string[]; role: string; plural?: string }[] =
-    Object.values(
-      JSON.parse(await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) => r.text()))
-    );
+  const items: {
+    id: string;
+    name: string;
+    emoji: string;
+    aliases: string[];
+    role: string;
+    plural?: string;
+  }[] = Object.values(
+    JSON.parse(
+      await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) =>
+        r.text()
+      )
+    )
+  );
 
   for (const item of items) {
     let thumbnail = "";
