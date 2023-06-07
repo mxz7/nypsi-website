@@ -3,14 +3,8 @@
   import { page } from "$app/stores";
   import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
   import LoadingIcon from "$lib/components/LoadingIcon.svelte";
-  import getBalances from "$lib/functions/getBalances";
   import { getCommandsData } from "$lib/functions/getCommandsData";
-  import getItem from "$lib/functions/getItem";
   import getItems from "$lib/functions/getItems";
-  import getNetworths from "$lib/functions/getNetworths";
-  import getPrestiges from "$lib/functions/getPrestiges";
-  import getStreaks from "$lib/functions/getStreaks";
-  import getWordles from "$lib/functions/getWordles";
   import sleep from "$lib/functions/sleep";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { onMount } from "svelte";
@@ -32,33 +26,18 @@
       title = `${item.plural ? item.plural : item.name} leaderboard`;
       while (!data) {
         attempts++;
-        data = (await getItem(fetch, $page.params.type)) || undefined;
-
-        await sleep(500);
-
-        if (attempts > 15) break;
-      }
-    } else if ($page.params.type === "balance") {
-      title = "top balance";
-      while (!data) {
-        attempts++;
-        data = (await getBalances(fetch)) || undefined;
-
-        await sleep(500);
-
-        if (attempts > 15) break;
-      }
-    } else if ($page.params.type === "prestige") {
-      title = "top prestige";
-      while (!data) {
-        attempts++;
-        data = (await getPrestiges(fetch)) || undefined;
+        data =
+          (await fetch(`/api/leaderboard/item/${item.id}`)
+            .then((r) => r.json())
+            .catch(() => {})) || undefined;
 
         await sleep(500);
 
         if (attempts > 15) break;
       }
     } else if ($page.params.type === "activeusers") {
+      title = "top active users";
+      suffix = (value) => (parseInt(value) > 1 ? "cmds" : "cmd");
       while (!data) {
         attempts++;
         data = (await getCommandsData(fetch).then((r) => r?.users.splice(0, 5))) || undefined;
@@ -67,38 +46,28 @@
 
         if (attempts > 15) break;
       }
-    } else if ($page.params.type === "streak") {
-      title = "top daily streak";
-      while (!data) {
-        attempts++;
-        data = (await getStreaks(fetch)) || undefined;
-        suffix = (value: string) => (parseInt(value.replaceAll(",", "")) > 1 ? "days" : "day");
-
-        await sleep(500);
-
-        if (attempts > 15) break;
+    } else {
+      switch ($page.params.type) {
+        case "balance":
+          title = "top balance";
+          break;
+        case "networth":
+          title = "top net worth";
+          break;
+        case "prestige":
+          title = "top prestige";
+          break;
+        case "wordle":
+          title = "top wordle wins";
+          break;
+        case "streak":
+          title = "top daily streak";
+          break;
       }
-    } else if ($page.params.type === "wordle") {
-      title = "top wordle wins";
-      while (!data) {
-        attempts++;
-        data = (await getWordles(fetch)) || undefined;
-        suffix = (value: string) => (parseInt(value.replaceAll(",", "")) > 1 ? "wins" : "win");
 
-        await sleep(500);
-
-        if (attempts > 15) break;
-      }
-    } else if ($page.params.type === "networth") {
-      title = "top net worth";
-      while (!data) {
-        attempts++;
-        data = (await getNetworths(fetch)) || undefined;
-
-        await sleep(500);
-
-        if (attempts > 15) break;
-      }
+      data = await fetch(`/api/leaderboard/${$page.params.type}`)
+        .then((r) => r.json())
+        .catch(() => {});
     }
 
     (document.querySelector("#loadingpage") as HTMLElement).style.opacity = "0%";
@@ -111,7 +80,7 @@
       console.log("https://http.cat/308");
       setTimeout(() => {
         return goto("/leaderboard");
-      }, 1000);
+      }, 3000);
     }
   });
 </script>
