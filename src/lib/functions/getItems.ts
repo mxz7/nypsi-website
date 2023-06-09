@@ -1,9 +1,10 @@
+import { browser } from "$app/environment";
 import { inPlaceSort } from "fast-sort";
 import ms from "ms";
 import { parse } from "twemoji-parser";
 
 export default async function getItems() {
-  if (localStorage.getItem("items")) {
+  if (browser && localStorage.getItem("items")) {
     const data = JSON.parse(localStorage.getItem("items") as string);
 
     if (data.saved > Date.now() - ms("1 hour"))
@@ -25,11 +26,7 @@ export default async function getItems() {
     role: string;
     plural?: string;
   }[] = Object.values(
-    JSON.parse(
-      await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) =>
-        r.text()
-      )
-    )
+    JSON.parse(await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) => r.text()))
   );
 
   for (const item of items) {
@@ -58,7 +55,7 @@ export default async function getItems() {
 
   inPlaceSort(items).asc((i) => i.name);
 
-  localStorage.setItem("items", JSON.stringify({ data: items, saved: Date.now() }));
+  if (browser) localStorage.setItem("items", JSON.stringify({ data: items, saved: Date.now() }));
 
   return items;
 }
