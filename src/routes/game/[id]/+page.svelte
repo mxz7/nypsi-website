@@ -1,8 +1,18 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import { fade, fly } from "svelte/transition";
 
   export let data;
 </script>
+
+<svelte:head>
+  <title>nypsi game: {$page.params.id}</title>
+  <meta
+    name="description"
+    content="
+  view game information"
+  />
+</svelte:head>
 
 <div class="mt-8 flex flex-col justify-center">
   {#await data.streamed.game}
