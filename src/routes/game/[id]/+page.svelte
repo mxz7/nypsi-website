@@ -1,6 +1,4 @@
 <script lang="ts">
-  import dayjs from "dayjs";
-
   export let data;
 </script>
 
@@ -66,14 +64,16 @@
         {/if}
       </div>
 
-      <div class="mt-5">
+      <div class="mt-5 text-center text-gray-300">
         {#if game.win}
-          <p class="text-center text-gray-300">
+          <p>
             bet ${game.bet.toLocaleString()} and won ${game.earned.toLocaleString()}{game.xpEarned >
             0
               ? `(${game.xpEarned.toLocaleString()}xp)`
               : ""}
           </p>
+        {:else}
+          <p>bet ${game.bet.toLocaleString()}</p>
         {/if}
 
         <p class=" text-center text-gray-300">
