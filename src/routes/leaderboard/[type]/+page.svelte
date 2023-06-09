@@ -1,4 +1,7 @@
 <script lang="ts">
+  import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
+  import SkeletonLeaderboard from "$lib/components/SkeletonLeaderboard.svelte";
+
   export let data;
 </script>
 
@@ -9,17 +12,15 @@
 
 {#if data.title}
   <header class="mt-5 text-center sm:w-full">
-    <h1 class="text-2xl font-bold text-white sm:text-4xl">
+    <h1 class="text-4xl font-bold text-white sm:text-5xl">
       {data.title}
     </h1>
     <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-1/2" />
   </header>
-
-  {#await data.test}
-    <p>loading..</p>
-  {:then value}
-    <p>{value}</p>
-    <!-- <div class="mt-10 px-5 sm:px-24">
+  <div class="mt-10 px-5 sm:px-24">
+    {#await data.streamed.data}
+      <SkeletonLeaderboard />
+    {:then value}
       {#if value.length === 0}
         <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
           {#if data.item}
@@ -29,10 +30,12 @@
           {/if}
         </h2>
       {:else}
-        <BigLeaderboard data={value} suffix={data.suffix} />
+        <BigLeaderboard data={value} suffix={() => ""} />
       {/if}
-    </div> -->
-  {/await}
+    {:catch error}
+      <p class="text-center text-xl text-red-600">error: {error}</p>
+    {/await}
+  </div>
 {:else}
   <h2
     class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 transform px-5 text-center text-xl font-bold text-white"

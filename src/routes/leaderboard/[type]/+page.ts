@@ -5,14 +5,15 @@ export const load = async ({ fetch, params }) => {
   const item = (await getItems()).find((i) => i.id === params.type);
 
   let title = "";
+  let suffix: (value: string) => string = () => "";
 
   const getData = async () => {
     if (item) {
-      return fetch(`/api/leaderboard/item/${item.id}`);
+      return fetch(`/api/leaderboard/item/${item.id}`).then((r) => r.json());
     } else if (params.type === "activeusers") {
       return getCommandsData(fetch).then((r) => r?.users.splice(0, 5));
     } else {
-      return fetch(`/api/leaderboard/${params.type}`);
+      return fetch(`/api/leaderboard/${params.type}`).then((r) => r.json());
     }
   };
 
@@ -20,7 +21,7 @@ export const load = async ({ fetch, params }) => {
     title = `${item.plural ? item.plural : item.name} leaderboard`;
   } else if (params.type === "activeusers") {
     title = "top active users";
-    // suffix = (value) => (parseInt(value) > 1 ? "cmds" : "cmd");
+    suffix = (value) => (parseInt(value) > 1 ? "cmds" : "cmd");
   } else {
     switch (params.type) {
       case "balance":
@@ -41,13 +42,5 @@ export const load = async ({ fetch, params }) => {
     }
   }
 
-  const testStream = async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(1);
-      }, 3000);
-    });
-  };
-
-  return { title, item, test: testStream() };
+  return { title, item, suffix, streamed: { data: getData() } };
 };
