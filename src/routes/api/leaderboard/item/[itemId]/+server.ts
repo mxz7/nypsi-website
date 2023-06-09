@@ -1,23 +1,10 @@
 import prisma from "$lib/server/database.js";
-import rateLimiter from "$lib/server/ratelimit.js";
 import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 
-export async function GET({ getClientAddress, params, setHeaders }) {
-  const rateLimitAttempt = await rateLimiter.limit(getClientAddress());
-
-  if (!rateLimitAttempt.success) {
-    const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
-    return new Response(
-      JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }),
-      {
-        status: 429
-      }
-    );
-  }
-
+export async function GET({ params, setHeaders }) {
   setHeaders({
-    "cache-control": "max-age=300"
+    "cache-control": "max-age=300",
   });
 
   if (await redis.exists(`top-item-${params.itemId}`)) {
@@ -30,8 +17,8 @@ export async function GET({ getClientAddress, params, setHeaders }) {
         AND: [
           { item: params.itemId },
           { amount: { gt: 0 } },
-          { economy: { user: { blacklisted: false } } }
-        ]
+          { economy: { user: { blacklisted: false } } },
+        ],
       },
       select: {
         amount: true,
@@ -41,20 +28,20 @@ export async function GET({ getClientAddress, params, setHeaders }) {
               select: {
                 Preferences: {
                   select: {
-                    leaderboards: true
-                  }
+                    leaderboards: true,
+                  },
                 },
-                lastKnownTag: true
-              }
+                lastKnownTag: true,
+              },
             },
-            banned: true
-          }
-        }
+            banned: true,
+          },
+        },
       },
       orderBy: {
-        amount: "desc"
+        amount: "desc",
       },
-      take: 100
+      take: 100,
     })
     .then((r) => {
       let count = 0;
@@ -68,7 +55,7 @@ export async function GET({ getClientAddress, params, setHeaders }) {
         return {
           value: `${x.amount.toLocaleString()}`,
           username: x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
-          position: count
+          position: count,
         };
       });
     });

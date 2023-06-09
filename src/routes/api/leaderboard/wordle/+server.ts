@@ -1,24 +1,11 @@
 import prisma from "$lib/server/database";
-import rateLimiter from "$lib/server/ratelimit.js";
 import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
 
-export async function GET({ getClientAddress, setHeaders }) {
-  const rateLimitAttempt = await rateLimiter.limit(getClientAddress());
-
-  if (!rateLimitAttempt.success) {
-    const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
-    return new Response(
-      JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }),
-      {
-        status: 429
-      }
-    );
-  }
-
+export async function GET({ setHeaders }) {
   setHeaders({
-    "cache-control": "max-age=300"
+    "cache-control": "max-age=300",
   });
 
   // if (await redis.exists("top-wordles")) {
@@ -28,7 +15,7 @@ export async function GET({ getClientAddress, setHeaders }) {
   const query = await prisma.wordleStats
     .findMany({
       where: {
-        user: { blacklisted: false }
+        user: { blacklisted: false },
       },
       select: {
         win1: true,
@@ -41,13 +28,13 @@ export async function GET({ getClientAddress, setHeaders }) {
           select: {
             Preferences: {
               select: {
-                leaderboards: true
-              }
+                leaderboards: true,
+              },
             },
-            lastKnownTag: true
-          }
-        }
-      }
+            lastKnownTag: true,
+          },
+        },
+      },
     })
     .then((r) => {
       let count = 0;
@@ -56,7 +43,7 @@ export async function GET({ getClientAddress, setHeaders }) {
           const user = x.user.lastKnownTag.split("#")[0];
           return {
             value: x.win1 + x.win2 + x.win3 + x.win4 + x.win5 + x.win6,
-            username: x.user.Preferences?.leaderboards ? user : "[hidden]"
+            username: x.user.Preferences?.leaderboards ? user : "[hidden]",
           };
         })
         .filter((x) => x.value > 0);
@@ -68,7 +55,7 @@ export async function GET({ getClientAddress, setHeaders }) {
         return {
           value: x.value.toLocaleString(),
           username: x.username,
-          position: count
+          position: count,
         };
       });
     });
