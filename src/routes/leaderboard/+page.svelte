@@ -56,7 +56,7 @@
 <!-- <LoadingIcon /> -->
 
 <header class="mt-5 text-center">
-  <h1 class="text-5xl font-bold text-white">leaderboards</h1>
+  <h1 class="text-4xl font-bold text-white sm:text-5xl">leaderboards</h1>
   <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-96" />
 </header>
 
