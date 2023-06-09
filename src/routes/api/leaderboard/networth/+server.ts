@@ -1,23 +1,10 @@
 import prisma from "$lib/server/database";
-import rateLimiter from "$lib/server/ratelimit.js";
 import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 
-export async function GET({ getClientAddress, setHeaders }) {
-  const rateLimitAttempt = await rateLimiter.limit(getClientAddress());
-
-  if (!rateLimitAttempt.success) {
-    const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
-    return new Response(
-      JSON.stringify({ error: `Too many requests. Please try again in ${timeRemaining} seconds.` }),
-      {
-        status: 429
-      }
-    );
-  }
-
+export async function GET({ setHeaders }) {
   setHeaders({
-    "cache-control": "max-age=300"
+    "cache-control": "max-age=300",
   });
 
   if (await redis.exists("top-networth")) {
@@ -27,7 +14,7 @@ export async function GET({ getClientAddress, setHeaders }) {
   const query = await prisma.economy
     .findMany({
       where: {
-        AND: [{ netWorth: { gt: 0 } }, { user: { blacklisted: false } }]
+        AND: [{ netWorth: { gt: 0 } }, { user: { blacklisted: false } }],
       },
       select: {
         netWorth: true,
@@ -36,17 +23,17 @@ export async function GET({ getClientAddress, setHeaders }) {
           select: {
             Preferences: {
               select: {
-                leaderboards: true
-              }
+                leaderboards: true,
+              },
             },
-            lastKnownTag: true
-          }
-        }
+            lastKnownTag: true,
+          },
+        },
       },
       orderBy: {
-        netWorth: "desc"
+        netWorth: "desc",
       },
-      take: 100
+      take: 100,
     })
     .then((r) => {
       let count = 0;
@@ -59,7 +46,7 @@ export async function GET({ getClientAddress, setHeaders }) {
         return {
           value: `$${x.netWorth.toLocaleString()}`,
           username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-          position: count
+          position: count,
         };
       });
     });
