@@ -9,10 +9,10 @@
   <tbody>
     {#each data.slice(0, 100) as { username, value, position }}
       <tr
-        class="border-b-[8px] border-gray-900 border-opacity-100 bg-gray-950 bg-opacity-20 duration-200 ease-in hover:scale-105"
+        class="flex border-b-[8px] border-gray-900 border-opacity-100 bg-gray-950 bg-opacity-20 duration-200 ease-in hover:scale-105"
       >
         <td class="px-1 py-1 text-gray-400">#{position}</td>
-        <td class="px-4 py-1">{username}</td>
+        <td class="grow px-4 py-1">{username}</td>
         <td class="px-4 py-1 text-right"
           >{value}
           <span class="opacity-75">{suffix(value)}</span></td

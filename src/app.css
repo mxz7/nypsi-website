@@ -37,6 +37,10 @@ tr:nth-child(1) {
   scale: 105%;
 }
 
+tr:nth-child(1) div {
+  background-color: rgb(239, 68, 68);
+}
+
 tr:nth-child(1):hover {
   scale: 110%;
 }
