@@ -79,8 +79,8 @@
             <p>bet ${game.bet.toLocaleString()}</p>
           {/if}
 
-          <p class=" text-center text-gray-300">
-            played by <span class="font-bold text-red-500 opacity-75">{game.username}</span> on {new Date(
+          <p class="mt-3 text-center text-gray-300">
+            played by <span class="font-bold text-red-500">{game.username}</span> on {new Date(
               game.date
             ).toLocaleDateString()} at {new Date(game.date).toLocaleTimeString()}
           </p>

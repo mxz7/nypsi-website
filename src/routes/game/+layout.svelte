@@ -15,7 +15,7 @@
     >
       <!-- svelte-ignore a11y-autofocus -->
       <input
-        class="ml-2 bg-transparent text-red-500 placeholder:text-gray-400 focus:outline-none"
+        class="ml-2 bg-transparent text-gray-300 placeholder:text-gray-400 focus:outline-none"
         type="text"
         name="id"
         placeholder="enter a game id"
@@ -25,7 +25,7 @@
         autocapitalize="off"
         autofocus={true}
       />
-      <input class="text-gray-400 hover:cursor-pointer" type="submit" value="find" />
+      <input class="mr-2 text-gray-500 hover:cursor-pointer" type="submit" value="find" />
     </form>
   </div>
 
