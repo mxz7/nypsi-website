@@ -3,7 +3,8 @@
   import { onMount } from "svelte";
   import ItemIcon from "./ItemIcon.svelte";
 
-  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] = [];
+  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
+    [];
   let searchTerm = "";
 
   $: filteredItems = items.filter((i) => {
@@ -22,7 +23,14 @@
 
     while (items.length === 0) {
       attempts++;
-      items = ((await getItems()) as { id: string; name: string; emoji: string; aliases: string[]; role: string }[]) || [];
+      items =
+        ((await getItems()) as {
+          id: string;
+          name: string;
+          emoji: string;
+          aliases: string[];
+          role: string;
+        }[]) || [];
 
       if (attempts > 5) break;
     }
