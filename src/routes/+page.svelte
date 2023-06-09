@@ -120,9 +120,20 @@
 
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
-        <h3 class="mb-4 text-2xl font-bold text-white">prestige system</h3>
+        <h3 class="mb-4 text-2xl font-bold text-white">seasonal economy</h3>
         <p class="text-gray-400">
-          gain xp through gambling to prestige, unlocking rewards and increasing your vote rewards
+          every few months a new season will start, (real money) rewards are given to top players
+          from the last season
+          <br />
+          <a class="text-sky-300 underline" href="/seasons">view season history here</a>
+        </p>
+      </div>
+
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">auctions</h3>
+        <p class="text-gray-400">
+          sell and buy items from other people by the price they set. depends on supply and demand
+          of the item.
         </p>
       </div>
 
@@ -130,14 +141,6 @@
         <h3 class="mb-4 text-2xl font-bold text-white">mention history</h3>
         <p class="text-gray-400">
           keep track of your pings, check who ghost pinged you, can store up to 15 mentions
-        </p>
-      </div>
-
-      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
-        <h3 class="mb-4 text-2xl font-bold text-white">cryptocurrency</h3>
-        <p class="text-gray-400">
-          buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains ethereum
-          and bitcoin. lose money simulator.
         </p>
       </div>
 
@@ -153,6 +156,21 @@
         <p class="text-gray-400">
           start and race in races with cars to earn money. contains a lot of cars: toyota supra m4,
           tesla model x, corsa 2003, skyline gtr.
+        </p>
+      </div>
+
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">cryptocurrency</h3>
+        <p class="text-gray-400">
+          buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains ethereum
+          and bitcoin. lose money simulator.
+        </p>
+      </div>
+
+      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-white">prestige system</h3>
+        <p class="text-gray-400">
+          gain xp through gambling to prestige, unlocking rewards and increasing your vote rewards
         </p>
       </div>
 
@@ -177,24 +195,6 @@
         <p class="text-gray-400">
           earn easy money by buying workers and upgrading them. this is the easiest way to earn
           money, just sit back and relax.
-        </p>
-      </div>
-
-      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
-        <h3 class="mb-4 text-2xl font-bold text-white">seasons</h3>
-        <p class="text-gray-400">
-          every few months a new season will start, (real money) rewards are given to top players
-          from the last season
-          <br />
-          <a class="text-sky-300 underline" href="/seasons">view season history here</a>
-        </p>
-      </div>
-
-      <div class="rounded-lg bg-gray-800 p-6 shadow-md">
-        <h3 class="mb-4 text-2xl font-bold text-white">auctions</h3>
-        <p class="text-gray-400">
-          sell and buy items from other people by the price they set. depends on supply and demand
-          of the item.
         </p>
       </div>
 
