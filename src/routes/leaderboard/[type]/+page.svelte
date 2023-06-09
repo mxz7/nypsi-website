@@ -1,6 +1,7 @@
 <script lang="ts">
   import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
   import SkeletonLeaderboard from "$lib/components/SkeletonLeaderboard.svelte";
+  import { fly } from "svelte/transition";
 
   export let data;
 </script>
@@ -19,7 +20,9 @@
   </header>
   <div class="mt-10 px-5 sm:px-24">
     {#await data.streamed.data}
-      <SkeletonLeaderboard />
+      <div out:fly={{ y: 5, duration: 300 }}>
+        <SkeletonLeaderboard />
+      </div>
     {:then value}
       {#if value.length === 0}
         <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
@@ -30,7 +33,9 @@
           {/if}
         </h2>
       {:else}
-        <BigLeaderboard data={value} suffix={() => ""} />
+        <div in:fly={{ y: 60, duration: 1000 }}>
+          <BigLeaderboard data={value} suffix={() => ""} />
+        </div>
       {/if}
     {:catch error}
       <p class="text-center text-xl text-red-600">error: {error}</p>
