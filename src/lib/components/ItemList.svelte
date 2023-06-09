@@ -1,39 +1,31 @@
 <script lang="ts">
+  import { searchTerm } from "$lib/data/stores";
   import getItems from "$lib/functions/getItems";
   import { onMount } from "svelte";
   import ItemIcon from "./ItemIcon.svelte";
 
   export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
     [];
-  let searchTerm = "";
 
   $: filteredItems = items.filter((i) => {
-    if (searchTerm.length == 0) return true;
-    if (i.name.includes(searchTerm.toLowerCase())) return true;
-    if (i.id.includes(searchTerm.toLowerCase())) return true;
-    if (i.role.includes(searchTerm.toLowerCase())) return true;
+    if ($searchTerm.length == 0) return true;
+    if (i.name.includes($searchTerm.toLowerCase())) return true;
+    if (i.id.includes($searchTerm.toLowerCase())) return true;
+    if (i.role.includes($searchTerm.toLowerCase())) return true;
     if (i.aliases)
       for (const alias of i.aliases) {
-        if (alias.includes(searchTerm.toLowerCase())) return true;
+        if (alias.includes($searchTerm.toLowerCase())) return true;
       }
   });
 
   onMount(async () => {
-    let attempts = 0;
-
-    while (items.length === 0) {
-      attempts++;
-      items =
-        ((await getItems()) as {
-          id: string;
-          name: string;
-          emoji: string;
-          aliases: string[];
-          role: string;
-        }[]) || [];
-
-      if (attempts > 5) break;
-    }
+    items = (await getItems()) as {
+      id: string;
+      name: string;
+      emoji: string;
+      aliases: string[];
+      role: string;
+    }[];
   });
 </script>
 
@@ -47,7 +39,7 @@
       type="search"
       name="search"
       placeholder="search"
-      bind:value={searchTerm}
+      bind:value={$searchTerm}
     />
   </form>
 
