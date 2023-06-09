@@ -5,7 +5,7 @@
   let searched: string = $page.params.id;
 </script>
 
-<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-3/4">
+<div class="mt-44">
   <div class="mt-6 flex justify-center">
     <form
       class="m-2 flex w-fit flex-row rounded-md bg-gray-950 bg-opacity-50 p-3"
