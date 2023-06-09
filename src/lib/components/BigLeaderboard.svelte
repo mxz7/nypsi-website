@@ -15,7 +15,7 @@
         <td class="grow px-4 py-1">{username}</td>
         <td class="px-4 py-1 text-right"
           >{value}
-          <span class="opacity-75">{suffix(value)}</span></td
+          <span class="hidden opacity-75 sm:inline">{suffix(value)}</span></td
         >
       </tr>
     {/each}
