@@ -72,7 +72,7 @@
             <p>
               bet ${game.bet.toLocaleString()} and won ${game.earned.toLocaleString()}{game.xpEarned >
               0
-                ? `(${game.xpEarned.toLocaleString()}xp)`
+                ? ` (${game.xpEarned.toLocaleString()}xp)`
                 : ""}
             </p>
           {:else}
