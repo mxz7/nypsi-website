@@ -34,12 +34,15 @@
     <div class="mr-1 flex items-center justify-center">
       <img src="/search.png" alt="" class="h-4 w-4" />
     </div>
+    <!-- svelte-ignore a11y-autofocus -->
     <input
       class="ml-2 border-none bg-transparent text-gray-400 placeholder:text-gray-400 focus:border-none focus:outline-none"
       type="search"
       name="search"
       placeholder="search"
       bind:value={$searchTerm}
+      autocapitalize="off"
+      autofocus
     />
   </form>
 
