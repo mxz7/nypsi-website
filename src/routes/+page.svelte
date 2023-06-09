@@ -33,16 +33,44 @@
 </svelte:head>
 
 <div id="command-count" class="w-full pt-2 text-center opacity-0 duration-1000 ease-in">
-  <p class="text-gray-400"><span class="text-red-500">{commands.toLocaleString()}</span> commands today</p>
+  <p class="text-gray-400">
+    <span class="text-red-500">{commands.toLocaleString()}</span> commands today
+  </p>
 </div>
 
 <div class="absolute left-2 top-2 hidden flex-row items-center p-3 sm:flex">
-  <a href="https://discord.com/invite/hJTDNST" class="mr-3 flex h-8 w-8 items-center justify-center">
+  <a
+    href="https://discord.com/invite/hJTDNST"
+    class="mr-3 flex h-8 w-8 items-center justify-center"
+  >
     <img class="h-auto max-h-full w-auto max-w-full object-contain" src="/discord.png" alt="" />
   </a>
   <a href="https://github.com/tekoh/nypsi" class="flex h-8 w-8 items-center justify-center">
     <img class="h-auto max-h-full w-auto max-w-full object-contain" src="/github.png" alt="" />
   </a>
+</div>
+
+<div class="absolute left-0 top-0 z-0 h-screen w-[98vw]">
+  <div class="relative h-full w-full">
+    <div class="absolute bottom-7 right-5 h-10 w-10">
+      <a
+        class="block rounded-full bg-gray-950 bg-opacity-25 p-2 shadow-lg ring-1 ring-gray-950 ring-opacity-25 duration-500 hover:ring-gray-800 sm:hover:scale-125"
+        href="#features"
+      >
+        <svg
+          class="h-6 w-6 text-red-500 text-opacity-75"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
+    </div>
+  </div>
 </div>
 
 <div class="flex h-screen items-center justify-center">
@@ -64,12 +92,11 @@
         <p class="hover-effect mt-2 text-2xl font-bold text-white">leaderboards</p>
       </a>
 
-      <a href="https://docs.nypsi.xyz/" class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4">
+      <a
+        href="https://docs.nypsi.xyz/"
+        class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4"
+      >
         <p class="hover-effect mt-2 text-2xl font-bold text-white">docs</p>
-      </a>
-
-      <a href="#features" class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4">
-        <p class="hover-effect mt-2 text-2xl font-bold text-white">features</p>
       </a>
 
       <a
@@ -94,63 +121,70 @@
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">prestige system</h3>
-        <p class="text-gray-400">gain xp through gambling to prestige, unlocking rewards and increasing your vote rewards</p>
+        <p class="text-gray-400">
+          gain xp through gambling to prestige, unlocking rewards and increasing your vote rewards
+        </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">mention history</h3>
-        <p class="text-gray-400">keep track of your pings, check who ghost pinged you, can store up to 15 mentions</p>
+        <p class="text-gray-400">
+          keep track of your pings, check who ghost pinged you, can store up to 15 mentions
+        </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">cryptocurrency</h3>
         <p class="text-gray-400">
-          buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains ethereum and bitcoin. lose money
-          simulator.
+          buy and sell fake cryptocurrency, updates to real cryptocurrency value, contains ethereum
+          and bitcoin. lose money simulator.
         </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">wordle</h3>
-        <p class="text-gray-400">play the popular wordle game on discord. guess the word and test your smarts.</p>
+        <p class="text-gray-400">
+          play the popular wordle game on discord. guess the word and test your smarts.
+        </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">street racing</h3>
         <p class="text-gray-400">
-          start and race in races with cars to earn money. contains a lot of cars: toyota supra m4, tesla model x, corsa
-          2003, skyline gtr.
+          start and race in races with cars to earn money. contains a lot of cars: toyota supra m4,
+          tesla model x, corsa 2003, skyline gtr.
         </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">inventory system</h3>
         <p class="text-gray-400">
-          get items, sell them, keep em' and be greedy, use them to bully others and flex. contains a lot of items with more
-          being added.
+          get items, sell them, keep em' and be greedy, use them to bully others and flex. contains
+          a lot of items with more being added.
         </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">gambling</h3>
         <p class="text-gray-400">
-          gamble all of your money away, or win big. contains the most popular games: blackjack, mines, slots, dragon tower &
-          more.
+          gamble all of your money away, or win big. contains the most popular games: blackjack,
+          mines, slots, dragon tower & more.
         </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">workers</h3>
         <p class="text-gray-400">
-          earn easy money by buying workers and upgrading them. this is the easiest way to earn money, just sit back and
-          relax.
+          earn easy money by buying workers and upgrading them. this is the easiest way to earn
+          money, just sit back and relax.
         </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">seasons</h3>
         <p class="text-gray-400">
-          every few months a new season will start, (real money) rewards are given to top players from the last season
+          every few months a new season will start, (real money) rewards are given to top players
+          from the last season
           <br />
           <a class="text-sky-300 underline" href="/seasons">view season history here</a>
         </p>
@@ -159,21 +193,24 @@
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">auctions</h3>
         <p class="text-gray-400">
-          sell and buy items from other people by the price they set. depends on supply and demand of the item.
+          sell and buy items from other people by the price they set. depends on supply and demand
+          of the item.
         </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">karma system</h3>
         <p class="text-gray-400">
-          earn karma from interacting with the bot, spend it in the karma shop on premium membership & rare items
+          earn karma from interacting with the bot, spend it in the karma shop on premium membership
+          & rare items
         </p>
       </div>
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-white">moderation</h3>
         <p class="text-gray-400">
-          fully fledged & capable moderation system. case tracking, chat filter, mass kick (owner only) etc.
+          fully fledged & capable moderation system. case tracking, chat filter, mass kick (owner
+          only) etc.
         </p>
       </div>
     </div>
