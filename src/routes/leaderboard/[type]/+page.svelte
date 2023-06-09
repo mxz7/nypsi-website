@@ -34,7 +34,7 @@
         </h2>
       {:else}
         <div in:fly={{ y: 60, duration: 1000 }}>
-          <BigLeaderboard data={value} suffix={() => ""} />
+          <BigLeaderboard data={value} suffix={data.suffix} />
         </div>
       {/if}
     {:catch error}
