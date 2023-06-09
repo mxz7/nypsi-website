@@ -54,7 +54,7 @@
   <div class="relative h-full w-full">
     <div class="absolute bottom-7 right-5 h-10 w-10">
       <a
-        class="block rounded-full bg-gray-950 bg-opacity-25 p-2 shadow-lg ring-1 ring-gray-950 ring-opacity-25 duration-500 hover:ring-gray-800 sm:hover:scale-125"
+        class="block animate-pulse rounded-full bg-gray-950 bg-opacity-25 p-2 shadow-lg ring-1 ring-gray-950 ring-opacity-25 duration-500 hover:ring-gray-800 sm:hover:scale-125"
         href="#features"
       >
         <svg
