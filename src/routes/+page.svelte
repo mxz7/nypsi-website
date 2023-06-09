@@ -38,7 +38,7 @@
   </p>
 </div>
 
-<div class="absolute left-2 top-2 hidden flex-row items-center p-3 sm:flex">
+<div class="absolute left-2 top-2 z-20 hidden flex-row items-center p-3 sm:flex">
   <a
     href="https://discord.com/invite/hJTDNST"
     class="mr-3 flex h-8 w-8 items-center justify-center"
