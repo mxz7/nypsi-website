@@ -36,7 +36,7 @@ export async function GET({ setHeaders, params }) {
       return {
         ok: Boolean(r),
         bet: Number(r?.bet),
-        date: r?.date,
+        date: r?.date.getTime(),
         earned: Number(r?.earned),
         game: r?.game,
         id: r?.id,
