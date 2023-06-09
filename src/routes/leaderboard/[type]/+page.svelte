@@ -33,7 +33,7 @@
           {/if}
         </h2>
       {:else}
-        <div in:fly={{ y: 60, duration: 1000 }}>
+        <div in:fly={{ y: 30, duration: 500, delay: 300 }}>
           <BigLeaderboard data={value} suffix={data.suffix} />
         </div>
       {/if}
