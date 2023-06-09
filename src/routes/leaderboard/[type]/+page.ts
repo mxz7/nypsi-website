@@ -18,7 +18,7 @@ export const load = async ({ fetch, params }) => {
   };
 
   if (item) {
-    title = `${item.plural ? item.plural : item.name} leaderboard`;
+    title = `${item.name} leaderboard`;
   } else if (params.type === "activeusers") {
     title = "top active users";
     suffix = (value) => (parseInt(value) > 1 ? "cmds" : "cmd");
