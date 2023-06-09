@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
   import SkeletonLeaderboard from "$lib/components/SkeletonLeaderboard.svelte";
   import { fly } from "svelte/transition";
@@ -7,8 +8,8 @@
 </script>
 
 <svelte:head>
-  <title>nypsi leaderboard</title>
-  <meta name="description" content="leaderboards for the nypsi discord bot" />
+  <title>nypsi {$page.params.type} leaderboard</title>
+  <meta name="description" content="nypsi discord bot leaderboard" />
 </svelte:head>
 
 {#if data.title}

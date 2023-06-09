@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-  <title>nypsi season winners</title>
+  <title>nypsi season {$page.params.season} winners</title>
 </svelte:head>
 
 <div class="w-full">
@@ -30,7 +30,7 @@
                 return {
                   username: i.username,
                   value: i.value,
-                  position: season.winners ? season.winners?.indexOf(i) + 1 : 0
+                  position: season.winners ? season.winners?.indexOf(i) + 1 : 0,
                 };
               })}
               title="winners"
@@ -43,7 +43,9 @@
         </h2>
       {/if}
     {:else}
-      <h1 class="text-4xl font-bold text-gray-400 underline"><a href="/seasons">invalid season</a></h1>
+      <h1 class="text-4xl font-bold text-gray-400 underline">
+        <a href="/seasons">invalid season</a>
+      </h1>
     {/if}
   </div>
 </div>
