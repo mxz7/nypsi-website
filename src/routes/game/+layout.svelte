@@ -21,7 +21,7 @@
         placeholder="enter a game id"
         bind:value={searched}
         required
-        autocomplete="off"
+        autocorrect="off"
         autocapitalize="off"
         autofocus={true}
       />
