@@ -15,7 +15,7 @@
     .url;
 </script>
 
-<div class="flex w-full items-center justify-center text-center text-gray-500 opacity-25">
+<div class="flex w-full items-center justify-center text-center text-gray-500 opacity-50">
   <p class="mr-16">player</p>
   <p class="ml-16">nypsi</p>
 </div>
