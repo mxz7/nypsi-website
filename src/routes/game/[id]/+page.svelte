@@ -1,5 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import RockPaperScissors from "$lib/components/outcomes/RockPaperScissors.svelte";
+  import Slots from "$lib/components/outcomes/Slots.svelte";
   import { fade, fly } from "svelte/transition";
 
   export let data;
@@ -36,37 +38,13 @@
       {#if game.ok}
         <div class="my-3">
           {#if game.game === "slots"}
-            <div class="flex w-full items-center justify-center">
-              <img
-                src="https://cdn.discordapp.com/emojis/{game.outcome
-                  ?.split('**|**')[0]
-                  .split(':')[2]
-                  .replace('>', '')}"
-                alt=""
-                class="h-14 w-14"
-              />
-              <p class="mx-3 text-5xl text-gray-200">-</p>
-              <img
-                src="https://cdn.discordapp.com/emojis/{game.outcome
-                  ?.split('**|**')[1]
-                  .split(':')[2]
-                  .replace('>', '')}"
-                alt=""
-                class="h-14 w-14"
-              />
-              <p class="mx-3 text-5xl text-gray-200">-</p>
-              <img
-                src="https://cdn.discordapp.com/emojis/{game.outcome
-                  ?.split('**|**')[2]
-                  .split(':')[2]
-                  .replace('>', '')}"
-                alt=""
-                class="h-14 w-14"
-              />
-            </div>
+            <Slots outcome={game.outcome} />
+          {:else if game.game === "rps"}
+            <RockPaperScissors outcome={game.outcome} />
           {/if}
         </div>
         <div class="text-center text-xl">
+          <p class="text-xs text-white">{game.outcome}</p>
           {#if game.win}
             <p class="font-bold text-green-400">won</p>
             <p class="text-lg text-green-400 opacity-75">
