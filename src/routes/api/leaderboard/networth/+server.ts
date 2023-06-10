@@ -33,7 +33,7 @@ export async function GET({ setHeaders }) {
       orderBy: {
         netWorth: "desc",
       },
-      take: 100,
+      take: 25,
     })
     .then((r) => {
       let count = 0;
