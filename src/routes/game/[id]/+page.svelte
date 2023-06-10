@@ -92,7 +92,7 @@
           </p>
         </div>
       {:else}
-        <p class="text-xl font-bold text-white">unknown game</p>
+        <p class="text-center text-xl font-bold text-white">unknown game</p>
       {/if}
     </div>
   {/await}
