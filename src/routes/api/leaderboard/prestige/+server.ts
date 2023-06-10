@@ -33,7 +33,7 @@ export async function GET({ setHeaders }) {
       orderBy: {
         prestige: "desc",
       },
-      take: 100,
+      take: 25,
     })
     .then((r) => {
       let count = 0;
