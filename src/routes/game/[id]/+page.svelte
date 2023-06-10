@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import Blackjack from "$lib/components/outcomes/Blackjack.svelte";
-  import RockPaperScissors from "$lib/components/outcomes/RockPaperScissors.svelte";
-  import Scratch from "$lib/components/outcomes/Scratch.svelte";
-  import Slots from "$lib/components/outcomes/Slots.svelte";
+  import Blackjack from "$lib/components/games/Blackjack.svelte";
+  import RockPaperScissors from "$lib/components/games/RockPaperScissors.svelte";
+  import Scratch from "$lib/components/games/Scratch.svelte";
+  import Slots from "$lib/components/games/Slots.svelte";
   import { fade, fly } from "svelte/transition";
 
   export let data;
