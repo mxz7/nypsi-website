@@ -4,6 +4,7 @@
   import RockPaperScissors from "$lib/components/games/RockPaperScissors.svelte";
   import Scratch from "$lib/components/games/Scratch.svelte";
   import Slots from "$lib/components/games/Slots.svelte";
+  import Tower from "$lib/components/games/Tower.svelte";
   import { fade, fly } from "svelte/transition";
 
   export let data;
@@ -47,10 +48,12 @@
             <Blackjack outcome={game.outcome} />
           {:else if game.game.includes("scratch")}
             <Scratch {game} />
+          {:else if game.game === "tower"}
+            <Tower outcome={game.outcome} />
           {/if}
         </div>
         <div class="text-center text-xl">
-          <!-- <p class="text-xs text-white">{game.outcome}</p> -->
+          <p class="text-xs text-white">{game.outcome}</p>
           {#if game.win && !game.game.includes("scratch")}
             <p class="font-bold text-green-400">won</p>
 

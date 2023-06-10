@@ -3,7 +3,7 @@
 
   export let data: {
     style: 1 | 2 | 3 | 4;
-    emoji?: { name: string; id?: string; animated: boolean };
+    emoji?: { name: string; id?: string; animated?: boolean };
   };
 
   let background = "#1f2937";
