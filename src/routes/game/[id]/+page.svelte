@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import Blackjack from "$lib/components/games/Blackjack.svelte";
+  import Mines from "$lib/components/games/Mines.svelte";
   import RockPaperScissors from "$lib/components/games/RockPaperScissors.svelte";
   import Scratch from "$lib/components/games/Scratch.svelte";
   import Slots from "$lib/components/games/Slots.svelte";
@@ -50,6 +51,8 @@
             <Scratch {game} />
           {:else if game.game === "tower"}
             <Tower outcome={game.outcome} />
+          {:else if game.game === "mines"}
+            <Mines outcome={JSON.parse(game.outcome.slice(6))} />
           {/if}
         </div>
         <div class="text-center text-xl">
