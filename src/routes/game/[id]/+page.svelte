@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import Blackjack from "$lib/components/outcomes/Blackjack.svelte";
   import RockPaperScissors from "$lib/components/outcomes/RockPaperScissors.svelte";
+  import Scratch from "$lib/components/outcomes/Scratch.svelte";
   import Slots from "$lib/components/outcomes/Slots.svelte";
   import { fade, fly } from "svelte/transition";
 
@@ -44,29 +45,32 @@
             <RockPaperScissors outcome={game.outcome} />
           {:else if game.game === "blackjack"}
             <Blackjack outcome={game.outcome} />
+          {:else if game.game.includes("scratch")}
+            <Scratch {game} />
           {/if}
         </div>
         <div class="text-center text-xl">
           <!-- <p class="text-xs text-white">{game.outcome}</p> -->
-          {#if game.win}
+          {#if game.win && !game.game.includes("scratch")}
             <p class="font-bold text-green-400">won</p>
+
             <p class="text-lg text-green-400 opacity-75">
               ${(game.earned - game.bet).toLocaleString()} profit
             </p>
-          {:else}
+          {:else if !game.win && !game.game.includes("scratch")}
             <p class=" text-red-500">lost</p>
           {/if}
         </div>
 
         <div class="mt-5 text-center text-gray-300">
-          {#if game.win}
+          {#if game.win && !game.game.includes("scratch")}
             <p>
               bet ${game.bet.toLocaleString()} and won ${game.earned.toLocaleString()}{game.xpEarned >
               0
                 ? ` (${game.xpEarned.toLocaleString()}xp)`
                 : ""}
             </p>
-          {:else}
+          {:else if !game.game.includes("scratch")}
             <p>bet ${game.bet.toLocaleString()}</p>
           {/if}
 
