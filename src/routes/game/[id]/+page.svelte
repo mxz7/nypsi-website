@@ -3,6 +3,7 @@
   import Blackjack from "$lib/components/games/Blackjack.svelte";
   import Mines from "$lib/components/games/Mines.svelte";
   import RockPaperScissors from "$lib/components/games/RockPaperScissors.svelte";
+  import Roulette from "$lib/components/games/Roulette.svelte";
   import Scratch from "$lib/components/games/Scratch.svelte";
   import Slots from "$lib/components/games/Slots.svelte";
   import Tower from "$lib/components/games/Tower.svelte";
@@ -53,6 +54,8 @@
             <Tower outcome={game.outcome} />
           {:else if game.game === "mines"}
             <Mines outcome={JSON.parse(game.outcome.slice(6))} />
+          {:else if game.game === "roulette"}
+            <Roulette outcome={game.outcome} />
           {/if}
         </div>
         <div class="text-center text-xl">
