@@ -17,13 +17,6 @@
   dealerCards.shift();
   const dealerTotal = parseInt(dealerCards.pop()?.replace("(", "").replace(")", "") as string);
 
-  console.log(playerCardsText);
-  console.log(playerCards);
-  console.log(playerTotal);
-  console.log(dealerCardsText);
-  console.log(dealerCards);
-  console.log(dealerTotal);
-
   while (dealerCards.length > playerCards.length) {
     playerCards.unshift("invisible");
   }
