@@ -56,10 +56,12 @@
             <Mines outcome={JSON.parse(game.outcome.slice(6))} />
           {:else if game.game === "roulette"}
             <Roulette outcome={game.outcome} />
+          {:else}
+            <p class="text-center text-white">game: {game.game}<br />outcome: {game.outcome}</p>
           {/if}
         </div>
         <div class="text-center text-xl">
-          <p class="text-xs text-white">{game.outcome}</p>
+          <!-- <p class="text-xs text-white">{game.outcome}</p> -->
           {#if game.win && !game.game.includes("scratch")}
             <p class="font-bold text-green-400">won</p>
 
