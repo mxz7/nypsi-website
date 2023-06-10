@@ -73,7 +73,7 @@
           {/if}
         </div>
 
-        <div class="mt-5 text-center text-gray-300">
+        <div class="mt-5 px-2 text-center text-gray-300">
           {#if game.win && !game.game.includes("scratch")}
             <p>
               bet ${game.bet.toLocaleString()} and won ${game.earned.toLocaleString()}{game.xpEarned >
