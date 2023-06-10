@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import Blackjack from "$lib/components/outcomes/Blackjack.svelte";
   import RockPaperScissors from "$lib/components/outcomes/RockPaperScissors.svelte";
   import Slots from "$lib/components/outcomes/Slots.svelte";
   import { fade, fly } from "svelte/transition";
@@ -41,10 +42,12 @@
             <Slots outcome={game.outcome} />
           {:else if game.game === "rps"}
             <RockPaperScissors outcome={game.outcome} />
+          {:else if game.game === "blackjack"}
+            <Blackjack outcome={game.outcome} />
           {/if}
         </div>
         <div class="text-center text-xl">
-          <p class="text-xs text-white">{game.outcome}</p>
+          <!-- <p class="text-xs text-white">{game.outcome}</p> -->
           {#if game.win}
             <p class="font-bold text-green-400">won</p>
             <p class="text-lg text-green-400 opacity-75">
