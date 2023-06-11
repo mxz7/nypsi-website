@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fade } from "svelte/transition";
+
   export let data;
 </script>
 
@@ -15,7 +17,10 @@
   <div />
 {:then data}
   {#if data.server_count}
-    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+    <div
+      in:fade={{ duration: 500 }}
+      class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform"
+    >
       <p class="text-gray-400">
         used by
         <span class="font-semibold text-red-500">{data.server_count.toLocaleString()}</span> servers
