@@ -1,23 +1,5 @@
 <script lang="ts">
-  let commands = 0;
-
-  // onMount(() => {
-  //   (async () => {
-  //     commands = await getCommandsData(fetch)
-  //       .then((r) => r?.total || 0)
-  //       .catch(() => 0);
-
-  //     if (commands !== 0) {
-  //       (document.querySelector("#command-count") as HTMLElement).style.opacity = "100%";
-  //     }
-
-  //     // setInterval(async () => {
-  //     //   commands = await getCommandsData(fetch)
-  //     //     .then((r) => r?.total || 0)
-  //     //     .catch(() => 0);
-  //     // }, 7500);
-  //   })();
-  // });
+  export let data;
 </script>
 
 <svelte:head>
@@ -29,23 +11,18 @@
   />
 </svelte:head>
 
-<!-- <div id="command-count" class="w-full pt-2 text-center opacity-0 duration-1000 ease-in">
-  <p class="text-gray-400">
-    <span class="text-red-500">{commands.toLocaleString()}</span> commands today
-  </p>
-</div>
-
-<div class="absolute left-2 top-2 z-20 hidden flex-row items-center p-3 sm:flex">
-  <a
-    href="https://discord.com/invite/hJTDNST"
-    class="mr-3 flex h-8 w-8 items-center justify-center"
-  >
-    <img class="h-auto max-h-full w-auto max-w-full object-contain" src="/discord.png" alt="" />
-  </a>
-  <a href="https://github.com/tekoh/nypsi" class="flex h-8 w-8 items-center justify-center">
-    <img class="h-auto max-h-full w-auto max-w-full object-contain" src="/github.png" alt="" />
-  </a>
-</div> -->
+{#await data.streamed.topgg}
+  <div />
+{:then data}
+  {#if data.server_count}
+    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+      <p class="text-gray-400">
+        used by
+        <span class="font-semibold text-red-500">{data.server_count.toLocaleString()}</span> servers
+      </p>
+    </div>
+  {/if}
+{/await}
 
 <div class="absolute bottom-7 right-5 h-10 w-10">
   <a
