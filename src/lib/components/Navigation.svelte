@@ -33,7 +33,7 @@
     </a>
 
     <div
-      class="mt-2 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-gray-200"
+      class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-gray-200"
     >
       <a class="hover-effect" href="/leaderboard">leaderboards</a>
       <a class="hover-effect" href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>

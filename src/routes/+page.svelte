@@ -68,8 +68,8 @@
 
 <div class="flex h-screen items-center justify-center">
   <div class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center">
-    <h1 class="text-9xl font-bold text-white">nypsi</h1>
-    <p class="mt-5 text-2xl font-bold text-gray-400">the best discord bot</p>
+    <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
+    <p class="mt-5 text-xl font-bold text-gray-400">the best discord bot</p>
 
     <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-full" />
 
@@ -77,7 +77,7 @@
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
         target="_blank"
-        class="mb-4 flex flex-col items-center justify-center text-2xl font-semibold text-white duration-300 hover:scale-125 sm:mb-0 sm:mr-4"
+        class="flex flex-col items-center justify-center text-center text-2xl font-semibold text-white duration-300 hover:scale-125 md:text-3xl"
       >
         add to your server
       </a>
