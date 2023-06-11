@@ -11,7 +11,7 @@ export const GET = async ({ setHeaders }) => {
     return json(await redis.get("server-count"));
   }
 
-  const res = await fetch("https://top.gg/api/bots/678711738845102087stats", {
+  const res = await fetch("https://top.gg/api/bots/678711738845102087/stats", {
     headers: {
       Authorization: TOPGG_TOKEN,
     },
