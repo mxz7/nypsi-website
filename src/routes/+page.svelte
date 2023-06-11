@@ -50,27 +50,23 @@
   </a>
 </div>
 
-<div class="absolute left-0 top-0 z-0 h-screen w-[98vw]">
-  <div class="relative h-full w-full">
-    <div class="absolute bottom-7 right-5 h-10 w-10">
-      <a
-        class="block animate-pulse rounded-full bg-gray-950 bg-opacity-25 p-2 shadow-lg ring-1 ring-gray-950 ring-opacity-25 duration-500 hover:ring-gray-800 sm:hover:scale-125"
-        href="#features"
-      >
-        <svg
-          class="h-6 w-6 text-red-500 text-opacity-75"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </a>
-    </div>
-  </div>
+<div class="absolute bottom-7 right-5 h-10 w-10">
+  <a
+    class="block animate-pulse rounded-full bg-gray-950 bg-opacity-25 p-2 shadow-lg ring-1 ring-gray-950 ring-opacity-25 duration-500 hover:ring-gray-800 sm:hover:scale-125"
+    href="#features"
+  >
+    <svg
+      class="h-6 w-6 text-red-500 text-opacity-75"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </a>
 </div>
 
 <div class="flex h-screen items-center justify-center">
