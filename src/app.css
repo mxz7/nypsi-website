@@ -6,19 +6,11 @@
   scroll-behavior: smooth;
 }
 
-.hover-effect {
-  transition: scale 0.3s;
-}
-
-.hover-effect:hover {
-  scale: 110%;
-}
-
 .hover-effect::after {
   content: "";
   display: block;
   width: 0;
-  height: 3px;
+  height: 2px;
   background: rgb(239, 68, 68);
   border-radius: 9999px;
   transition: width 0.2s ease-in, left 0.2s ease-in;
