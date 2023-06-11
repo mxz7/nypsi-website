@@ -88,6 +88,7 @@
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3">
         <a href="/leaderboard">leaderboards</a>
         <a href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
+        <a href="https://docs.nypsi.xyz" target="_blank">docs</a>
         <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="text-red-500">donate</a>
       </div>
     </div>
