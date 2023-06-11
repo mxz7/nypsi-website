@@ -1,26 +1,23 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { getCommandsData } from "../lib/functions/getCommandsData";
-
   let commands = 0;
 
-  onMount(() => {
-    (async () => {
-      commands = await getCommandsData(fetch)
-        .then((r) => r?.total || 0)
-        .catch(() => 0);
+  // onMount(() => {
+  //   (async () => {
+  //     commands = await getCommandsData(fetch)
+  //       .then((r) => r?.total || 0)
+  //       .catch(() => 0);
 
-      if (commands !== 0) {
-        (document.querySelector("#command-count") as HTMLElement).style.opacity = "100%";
-      }
+  //     if (commands !== 0) {
+  //       (document.querySelector("#command-count") as HTMLElement).style.opacity = "100%";
+  //     }
 
-      // setInterval(async () => {
-      //   commands = await getCommandsData(fetch)
-      //     .then((r) => r?.total || 0)
-      //     .catch(() => 0);
-      // }, 7500);
-    })();
-  });
+  //     // setInterval(async () => {
+  //     //   commands = await getCommandsData(fetch)
+  //     //     .then((r) => r?.total || 0)
+  //     //     .catch(() => 0);
+  //     // }, 7500);
+  //   })();
+  // });
 </script>
 
 <svelte:head>
@@ -32,7 +29,7 @@
   />
 </svelte:head>
 
-<div id="command-count" class="w-full pt-2 text-center opacity-0 duration-1000 ease-in">
+<!-- <div id="command-count" class="w-full pt-2 text-center opacity-0 duration-1000 ease-in">
   <p class="text-gray-400">
     <span class="text-red-500">{commands.toLocaleString()}</span> commands today
   </p>
@@ -48,7 +45,7 @@
   <a href="https://github.com/tekoh/nypsi" class="flex h-8 w-8 items-center justify-center">
     <img class="h-auto max-h-full w-auto max-w-full object-contain" src="/github.png" alt="" />
   </a>
-</div>
+</div> -->
 
 <div class="absolute bottom-7 right-5 h-10 w-10">
   <a
@@ -71,40 +68,18 @@
 
 <div class="flex h-screen items-center justify-center">
   <div class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center">
-    <h1 class="text-9xl font-bold text-white">nypsi</h1>
-    <p class="mt-5 text-2xl font-bold text-gray-400">the best discord bot</p>
+    <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
+    <p class="mt-5 text-xl font-bold text-gray-400">the best discord bot</p>
 
     <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-full" />
 
     <div class="mt-2 flex flex-col items-center justify-center sm:flex-row">
       <a
-        href="https://discord.com/invite/hJTDNST"
-        class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4 sm:hidden"
-      >
-        <p class="hover-effect mt-2 text-2xl font-bold text-white">discord</p>
-      </a>
-
-      <a href="/leaderboard" class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4">
-        <p class="hover-effect mt-2 text-2xl font-bold text-white">leaderboards</p>
-      </a>
-
-      <a
-        href="https://docs.nypsi.xyz/"
-        class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4"
-      >
-        <p class="hover-effect mt-2 text-2xl font-bold text-white">docs</p>
-      </a>
-
-      <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
         target="_blank"
-        class="mb-4 flex flex-col items-center justify-center sm:mb-0 sm:mr-4"
+        class="flex flex-col items-center justify-center text-center text-2xl font-semibold text-white duration-300 hover:scale-125 md:text-3xl"
       >
-        <p class="hover-effect mt-2 text-2xl font-bold text-white">invite</p>
-      </a>
-
-      <a href="https://ko-fi.com/tekoh/tiers" class="flex flex-col items-center justify-center">
-        <p class="hover-effect mt-2 text-2xl font-bold text-white">donate</p>
+        add to your server
       </a>
     </div>
   </div>
