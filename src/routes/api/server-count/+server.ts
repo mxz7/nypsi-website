@@ -4,7 +4,7 @@ import { json } from "@sveltejs/kit";
 
 export const GET = async ({ setHeaders }) => {
   setHeaders({
-    "cache-control": "max-age=300",
+    "cache-control": "max-age=60",
   });
 
   if (await redis.exists("server-count")) {
