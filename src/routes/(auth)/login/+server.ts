@@ -1,4 +1,8 @@
-import { DISCORD_OAUTH_CLIENTID, DISCORD_OAUTH_SECRET } from "$env/static/private";
+import {
+  DISCORD_OAUTH_CLIENTID,
+  DISCORD_OAUTH_REDIRECT,
+  DISCORD_OAUTH_SECRET,
+} from "$env/static/private";
 import { PUBLIC_OAUTH_URL } from "$env/static/public";
 import { error, redirect } from "@sveltejs/kit";
 
@@ -12,7 +16,7 @@ export const GET = async ({ url, fetch, cookies }) => {
         client_id: DISCORD_OAUTH_CLIENTID,
         client_secret: DISCORD_OAUTH_SECRET,
         grant_type: "authorization_code",
-        redirect_uri: "http://localhost:5173/login",
+        redirect_uri: DISCORD_OAUTH_REDIRECT,
         code,
         scope: "identify",
       }),
