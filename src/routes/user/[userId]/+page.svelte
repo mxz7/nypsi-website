@@ -101,7 +101,11 @@
               </p>
             </div>
             <p class="mb-2 text-xs text-gray-300 lg:text-base">
-              season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
+              {#if userData.Economy.prestige}
+                prestige {userData.Economy.prestige.toLocaleString()}
+              {:else}
+                season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
+              {/if}
             </p>
             <p class="flex items-center text-gray-200">
               <img
