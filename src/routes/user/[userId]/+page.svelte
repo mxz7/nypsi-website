@@ -108,7 +108,7 @@
                 >${userData.Economy.bank.toLocaleString()} / ${userData.Economy.bankStorage.toLocaleString()}</span
               >
             </p>
-            <p class="flex items-center text-gray-200">
+            <p class="mt-2 flex items-center text-gray-200">
               <img
                 src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
                 alt=""
