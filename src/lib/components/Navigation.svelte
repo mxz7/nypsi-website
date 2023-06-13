@@ -19,8 +19,8 @@
   }
 </script>
 
-<nav class="sticky z-30 max-h-14 w-full shadow-lg">
-  <div class="flex w-full flex-row">
+<nav class="sticky z-30 h-16 w-full shadow-lg">
+  <div class="flex h-full w-full flex-row">
     <div class="flex grow flex-row items-center p-3 align-middle">
       <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
         <img src="/nypsi_transparent.png" alt="nypsi icon" class="h-8" />
@@ -82,17 +82,21 @@
         >
       </button>
     </div>
-    <div class="flex items-center justify-center">
+    <div class="mr-3 hidden items-center justify-center md:flex">
       {#if user.authenticated}
-        <button class="rounded-full">
+        <a href="/me" class="h-10 w-10 rounded-full">
           <img
-            class="rounded-full"
+            class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
             src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
             alt=""
           />
-        </button>
+        </a>
       {:else}
-        <p>not logged in</p>
+        <a
+          href="/login"
+          class="rounded bg-gray-950 bg-opacity-50 p-2 px-3 text-sm font-semibold text-gray-200"
+          >log in</a
+        >
       {/if}
     </div>
   </div>
