@@ -132,6 +132,10 @@ export const GET = async ({ params, setHeaders }) => {
     query.Economy.Inventory = query.Economy.Inventory.map((i) => {
       return { item: i.item, amount: Number(i.amount) as unknown as bigint };
     });
+    if (query.Economy.EconomyGuild?.balance)
+      query.Economy.EconomyGuild.balance = Number(
+        query.Economy.EconomyGuild?.balance
+      ) as unknown as bigint;
   }
 
   return json(query);
