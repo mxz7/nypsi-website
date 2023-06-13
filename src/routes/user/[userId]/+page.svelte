@@ -1,7 +1,7 @@
 <script lang="ts">
   import seasons from "$lib/data/seasons.js";
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
 
   export let data;
 
@@ -62,7 +62,10 @@
       <p class="text-xl font-bold text-gray-300">{userData.message}</p>
     </div>
   {:else if !userData.message}
-    <div class=" xl:[20vw] mx-3 mt-7 flex flex-col sm:mx-auto sm:w-[50vw] md:w-[40vw]">
+    <div
+      in:fly={{ y: 25, delay: 300, duration: 500 }}
+      class=" xl:[20vw] mx-3 mt-7 flex flex-col sm:mx-auto sm:w-[50vw] md:w-[40vw]"
+    >
       <div class="flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
         <div class="flex w-full flex-row text-sm">
           <div class="flex w-20 flex-col lg:w-44">
