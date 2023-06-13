@@ -4,7 +4,7 @@ import {
   DISCORD_OAUTH_SECRET,
 } from "$env/static/private";
 import { PUBLIC_OAUTH_URL } from "$env/static/public";
-import { error, redirect } from "@sveltejs/kit";
+import { error, json, redirect } from "@sveltejs/kit";
 
 export const GET = async ({ url, fetch, cookies }) => {
   const code = url.searchParams.get("code");
@@ -61,7 +61,7 @@ export const GET = async ({ url, fetch, cookies }) => {
     cookies.set("discord_access_token", res.access_token, { expires: accessTokenExpire });
     cookies.set("discord_refresh_token", res.refresh_token, { expires: refreshTokenExpire });
 
-    throw redirect(302, "/");
+    return json({ access_token: res.access_token, refresh_token: res.refresh_token });
   }
   throw redirect(302, PUBLIC_OAUTH_URL);
 };
