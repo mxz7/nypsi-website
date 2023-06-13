@@ -1,6 +1,6 @@
 import { dev } from "$app/environment";
 import rateLimiter from "$lib/server/ratelimit";
-import type User from "$lib/types/User";
+import type { User, UserSession } from "$lib/types/User";
 
 import { error } from "@sveltejs/kit";
 
@@ -21,7 +21,7 @@ export const handle = async ({ event, resolve }) => {
     }
   } else if (!event.url.pathname.startsWith("/api")) {
     event.locals.getUser = async (cookies, fetch) => {
-      const user: { authenticated: boolean } & User = { authenticated: false };
+      const user: UserSession = { authenticated: false };
 
       if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
         const res = await fetch(`/login?refresh=${cookies.get("discord_refresh_token")}`).then(
@@ -42,11 +42,11 @@ export const handle = async ({ event, resolve }) => {
           throw error(400, { message: "something went wrong", ...userRequest });
         }
 
-        user.authenticated = true;
-        user.avatar = userRequest.avatar;
-        user.discriminator = userRequest.discriminator;
-        user.username = userRequest.username;
-        user.id = userRequest.id;
+        (user as unknown as User).authenticated = true;
+        (user as unknown as User).avatar = userRequest.avatar;
+        (user as unknown as User).discriminator = userRequest.discriminator;
+        (user as unknown as User).username = userRequest.username;
+        (user as unknown as User).id = userRequest.id;
       } else if (cookies.get("discord_access_token")) {
         const userRequest = await fetch("https://discord.com/api/users/@me", {
           headers: { Authorization: `Bearer ${cookies.get("discord_access_token")}` },
@@ -57,11 +57,11 @@ export const handle = async ({ event, resolve }) => {
           throw error(400, { message: "something went wrong", ...userRequest });
         }
 
-        user.authenticated = true;
-        user.avatar = userRequest.avatar;
-        user.discriminator = userRequest.discriminator;
-        user.username = userRequest.username;
-        user.id = userRequest.id;
+        (user as unknown as User).authenticated = true;
+        (user as unknown as User).avatar = userRequest.avatar;
+        (user as unknown as User).discriminator = userRequest.discriminator;
+        (user as unknown as User).username = userRequest.username;
+        (user as unknown as User).id = userRequest.id;
       }
 
       return user;

@@ -1,7 +1,9 @@
 <script lang="ts">
+  import type { UserSession } from "$lib/types/User";
   import { fly } from "svelte/transition";
 
   $: dropDownVisible = false;
+  export let user: UserSession;
 
   function handleMenuOpen() {
     if (dropDownVisible) return handleMenuClose();
@@ -17,12 +19,13 @@
   }
 </script>
 
-<nav class="sticky z-30 w-full shadow-lg">
-  <div class="flex w-full flex-row items-center p-3 align-middle">
-    <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
-      <img src="/nypsi_transparent.png" alt="nypsi icon" class="h-8" />
+<nav class="sticky z-30 max-h-14 w-full shadow-lg">
+  <div class="flex w-full flex-row">
+    <div class="flex grow flex-row items-center p-3 align-middle">
+      <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
+        <img src="/nypsi_transparent.png" alt="nypsi icon" class="h-8" />
 
-      <!-- <p
+        <!-- <p
         in:fade={{ duration: 200 }}
         out:fade={{ duration: 200 }}
         style="opacity: {$page.url.pathname === '/' ? '0' : '100'}%;"
@@ -30,53 +33,68 @@
       >
         nypsi
       </p> -->
-    </a>
+      </a>
 
-    <div
-      class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-gray-200"
-    >
-      <a class="hover-effect" href="/leaderboard">leaderboards</a>
-      <a class="hover-effect" href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
-      <a class="hover-effect" href="https://docs.nypsi.xyz" target="_blank">docs</a>
-      <a
-        class="hover-effect duration-300 hover:scale-110 hover:text-red-500"
-        href="https://ko-fi.com/tekoh/tiers"
-        target="_blank">donate</a
+      <div
+        class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-gray-200"
       >
-    </div>
-
-    <div class="flex grow justify-center text-center md:hidden">
-      {#if dropDownVisible}
-        <a
-          in:fly={{ duration: 200, y: -10 }}
-          out:fly={{ duration: 200, y: -10 }}
-          href="/"
-          class="mt-2 text-center font-semibold text-white">home</a
+        <a class="hover-effect" href="/leaderboard">leaderboards</a>
+        <a class="hover-effect" href="https://discord.com/invite/hJTDNST" target="_blank">discord</a
         >
+        <a class="hover-effect" href="https://docs.nypsi.xyz" target="_blank">docs</a>
+        <a
+          class="hover-effect duration-300 hover:scale-110 hover:text-red-500"
+          href="https://ko-fi.com/tekoh/tiers"
+          target="_blank">donate</a
+        >
+      </div>
+
+      <div class="flex grow justify-center text-center md:hidden">
+        {#if dropDownVisible}
+          <a
+            in:fly={{ duration: 200, y: -10 }}
+            out:fly={{ duration: 200, y: -10 }}
+            href="/"
+            class="mt-2 text-center font-semibold text-white">home</a
+          >
+        {/if}
+      </div>
+
+      <button
+        type="button"
+        class="rounded p-1 duration-200 hover:bg-gray-800 md:hidden"
+        on:click={() => {
+          handleMenuOpen();
+        }}
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="h-6 w-6 text-gray-400"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill-rule="evenodd"
+            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+            clip-rule="evenodd"
+          /></svg
+        >
+      </button>
+    </div>
+    <div class="flex items-center justify-center">
+      {#if user.authenticated}
+        <button class="rounded-full">
+          <img
+            class="rounded-full"
+            src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
+            alt=""
+          />
+        </button>
+      {:else}
+        <p>not logged in</p>
       {/if}
     </div>
-
-    <button
-      type="button"
-      class="rounded p-1 duration-200 hover:bg-gray-800 md:hidden"
-      on:click={() => {
-        handleMenuOpen();
-      }}
-    >
-      <span class="sr-only">Open main menu</span>
-      <svg
-        class="h-6 w-6 text-gray-400"
-        aria-hidden="true"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        ><path
-          fill-rule="evenodd"
-          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-          clip-rule="evenodd"
-        /></svg
-      >
-    </button>
   </div>
 
   {#if dropDownVisible}

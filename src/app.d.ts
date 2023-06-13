@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type User from "$lib/types/User";
+import type { UserSession } from "$lib/types/User";
 import type { Cookies } from "@sveltejs/kit";
 
 // for information about these interfaces
@@ -11,11 +11,7 @@ declare global {
       getUser(
         cookies: Cookies,
         fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
-      ): Promise<
-        {
-          authenticated: boolean;
-        } & User
-      >;
+      ): Promise<UserSession>;
     }
     // interface PageData {}
     // interface Platform {}
