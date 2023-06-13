@@ -62,59 +62,61 @@
       <p class="text-xl font-bold text-gray-300">{userData.message}</p>
     </div>
   {:else if !userData.message}
-    <div class="mx-3 mt-10 flex flex-col rounded bg-gray-950 bg-opacity-25 p-4">
-      <div class="flex w-full flex-row text-sm">
-        <div class="flex w-20 flex-col">
-          <img class="rounded-full" src={userData.avatar} alt="" />
-          <div class="mt-2 flex flex-row flex-wrap">
-            {#await data.streamed.items then items}
-              {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
-                {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-                  <img class="h-4" src={items.find((i) => i.id === gem)?.emoji} alt="" />
-                {/if}
-              {/each}
-            {/await}
+    <div class="mx-3 mt-7 flex flex-row">
+      <div class="flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
+        <div class="flex w-full flex-row text-sm">
+          <div class="flex w-20 flex-col">
+            <img class="rounded-full" src={userData.avatar} alt="" />
+            <div class="mt-2 flex flex-row flex-wrap">
+              {#await data.streamed.items then items}
+                {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
+                  {#if userData.Economy.Inventory.find((i) => i.item === gem)}
+                    <img class="h-4" src={items.find((i) => i.id === gem)?.emoji} alt="" />
+                  {/if}
+                {/each}
+              {/await}
+            </div>
           </div>
-        </div>
-        <div class="ml-4 flex flex-col">
-          <div class="flex flex-row items-center text-xl font-bold text-white">
-            {#if premiumEmoji}
-              <img class="-ml-2 h-6" src={premiumEmoji} alt="" />
-            {/if}
+          <div class="ml-4 flex flex-col">
+            <div class="flex flex-row items-center text-xl font-bold text-white">
+              {#if premiumEmoji}
+                <img class="-ml-2 h-6" src={premiumEmoji} alt="" />
+              {/if}
 
-            <p style="color: {premiumColour}; !important" class="line-clamp-1">
-              {userData.lastKnownTag}
+              <p style="color: {premiumColour}; !important" class="line-clamp-1">
+                {userData.lastKnownTag}
+              </p>
+            </div>
+            <p class="mb-2 text-xs text-gray-300">
+              season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
+            </p>
+            <p class="flex items-center text-gray-200">
+              <img
+                src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
+                alt=""
+                class="mr-1 inline h-4"
+              />
+              <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
+            </p>
+            <p class="flex items-center text-gray-200">
+              <img
+                src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
+                alt=""
+                class="mr-1 inline h-4"
+              />
+              <span class="font-semibold"
+                >${userData.Economy.bank.toLocaleString()} / ${userData.Economy.bankStorage.toLocaleString()}</span
+              >
+            </p>
+            <p class="flex items-center text-gray-200">
+              <img
+                src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
+                alt=""
+                class="mr-1 inline h-4"
+              />
+              <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
             </p>
           </div>
-          <p class="mb-2 text-xs text-gray-300">
-            season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
-          </p>
-          <p class="flex items-center text-gray-200">
-            <img
-              src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
-              alt=""
-              class="mr-1 inline h-4"
-            />
-            <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
-          </p>
-          <p class="flex items-center text-gray-200">
-            <img
-              src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
-              alt=""
-              class="mr-1 inline h-4"
-            />
-            <span class="font-semibold"
-              >${userData.Economy.bank.toLocaleString()} / ${userData.Economy.bankStorage.toLocaleString()}</span
-            >
-          </p>
-          <p class="flex items-center text-gray-200">
-            <img
-              src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
-              alt=""
-              class="mr-1 inline h-4"
-            />
-            <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
-          </p>
         </div>
       </div>
     </div>
