@@ -124,6 +124,8 @@ export const GET = async ({ params, setHeaders }) => {
 
   if (!query) throw error(404, { message: "user not found" });
 
+  query.lastKnownTag = query.lastKnownTag.split("#")[0];
+
   if (query.Economy) {
     query.Economy.money = Number(query.Economy.money) as unknown as bigint;
     query.Economy.bank = Number(query.Economy.bank) as unknown as bigint;
