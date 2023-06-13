@@ -35,7 +35,32 @@ export const GET = async ({ url, fetch, cookies }) => {
     cookies.set("discord_refresh_token", res.refresh_token, { expires: refreshTokenExpire });
 
     throw redirect(302, "/");
-  }
+  } else if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
+    const res = await fetch("https://discord.com/api/oauth2/token", {
+      method: "post",
+      body: new URLSearchParams({
+        client_id: DISCORD_OAUTH_CLIENTID,
+        client_secret: DISCORD_OAUTH_SECRET,
+        grant_type: "refresh_token",
+        redirect_uri: DISCORD_OAUTH_REDIRECT,
+        refresh_token: cookies.get("discord_refresh_token") as string,
+        scope: "identify",
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then((r) => r.json());
 
+    if (res.error) {
+      console.error(res);
+      throw error(400, { message: "something went wrong", ...res });
+    }
+
+    const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
+    const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+
+    cookies.set("discord_access_token", res.access_token, { expires: accessTokenExpire });
+    cookies.set("discord_refresh_token", res.refresh_token, { expires: refreshTokenExpire });
+
+    throw redirect(302, "/");
+  }
   throw redirect(302, PUBLIC_OAUTH_URL);
 };
