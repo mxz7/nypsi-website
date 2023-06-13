@@ -62,6 +62,25 @@ export const GET = async ({ params, setHeaders }) => {
             select: {
               guildName: true,
               level: true,
+              balance: true,
+              xp: true,
+              members: {
+                orderBy: {
+                  joinedAt: "desc",
+                },
+                select: {
+                  economy: {
+                    select: {
+                      user: {
+                        select: {
+                          lastKnownTag: true,
+                          id: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
           Game: {
