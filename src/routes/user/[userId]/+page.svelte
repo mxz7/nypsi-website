@@ -91,7 +91,7 @@
             </div>
           </div>
           <div class="ml-4 flex flex-col lg:text-lg">
-            <div class="flex flex-row items-center text-3xl font-bold text-white">
+            <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
               {#if premiumEmoji}
                 <img class="-ml-2 h-7" src={premiumEmoji} alt="" />
               {/if}
@@ -132,15 +132,15 @@
           </div>
         </div>
       </div>
-      <div class="mt-5 flex w-full flex-row rounded bg-gray-950 bg-opacity-25 p-4">
-        <div class="flex grow flex-col text-center">
+      <div class="mt-4 flex w-full flex-row">
+        <div class="mr-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
           <h1 class="text-white lg:text-xl">favourite command</h1>
           <p class="line-clamp-1 text-sm text-gray-300 lg:text-base">
             ${userData.CommandUse[0].command}
             ({userData.CommandUse[0].uses.toLocaleString()} uses)
           </p>
         </div>
-        <div class="flex grow flex-col text-center">
+        <div class="ml-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
           <h1 class="text-white lg:text-xl">daily streak</h1>
           <p class="text-sm text-gray-300 lg:text-base">
             {userData.Economy.dailyStreak.toLocaleString()}
