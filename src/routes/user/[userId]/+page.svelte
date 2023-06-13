@@ -81,13 +81,15 @@
           <div class="flex w-20 flex-col lg:w-44">
             <img class="rounded-full" src={userData.avatar} alt="" />
             <div class="mt-2 flex flex-row flex-wrap">
-              {#await data.streamed.items then items}
-                {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
-                  {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-                    <img class="h-4 lg:h-6" src={items.find((i) => i.id === gem)?.emoji} alt="" />
-                  {/if}
-                {/each}
-              {/await}
+              {#if userData.Economy}
+                {#await data.streamed.items then items}
+                  {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
+                    {#if userData.Economy.Inventory.find((i) => i.item === gem)}
+                      <img class="h-4 lg:h-6" src={items.find((i) => i.id === gem)?.emoji} alt="" />
+                    {/if}
+                  {/each}
+                {/await}
+              {/if}
             </div>
           </div>
           <div class="ml-4 flex flex-col lg:text-lg">
@@ -100,43 +102,45 @@
                 {userData.lastKnownTag}
               </p>
             </div>
-            <p class="mb-2 text-xs text-gray-300 lg:text-base">
-              {#if userData.Economy.prestige}
-                prestige {userData.Economy.prestige.toLocaleString()}
-              {:else}
-                season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
-              {/if}
-            </p>
-            <p class="flex items-center text-gray-200">
-              <img
-                src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
-                alt=""
-                class="mr-1 inline h-4 lg:h-6"
-              />
-              <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
-            </p>
-            <p class="flex items-center text-gray-200">
-              <img
-                src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
-                alt=""
-                class="mr-1 inline h-4 lg:h-6"
-              />
-              <span class="font-semibold"
-                >${userData.Economy.bank.toLocaleString()} / ${(
-                  userData.Economy.bankStorage +
-                  userData.Economy.xp * 1000 +
-                  15000
-                ).toLocaleString()}</span
-              >
-            </p>
-            <p class="mt-2 flex items-center text-gray-200">
-              <img
-                src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
-                alt=""
-                class="mr-1 inline h-4 lg:h-6"
-              />
-              <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
-            </p>
+            {#if userData.Economy}
+              <p class="mb-2 text-xs text-gray-300 lg:text-base">
+                {#if userData.Economy.prestige}
+                  prestige {userData.Economy.prestige.toLocaleString()}
+                {:else}
+                  season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
+                {/if}
+              </p>
+              <p class="flex items-center text-gray-200">
+                <img
+                  src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
+                  alt=""
+                  class="mr-1 inline h-4 lg:h-6"
+                />
+                <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
+              </p>
+              <p class="flex items-center text-gray-200">
+                <img
+                  src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
+                  alt=""
+                  class="mr-1 inline h-4 lg:h-6"
+                />
+                <span class="font-semibold"
+                  >${userData.Economy.bank.toLocaleString()} / ${(
+                    userData.Economy.bankStorage +
+                    userData.Economy.xp * 1000 +
+                    15000
+                  ).toLocaleString()}</span
+                >
+              </p>
+              <p class="mt-2 flex items-center text-gray-200">
+                <img
+                  src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
+                  alt=""
+                  class="mr-1 inline h-4 lg:h-6"
+                />
+                <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
+              </p>
+            {/if}
           </div>
         </div>
       </div>

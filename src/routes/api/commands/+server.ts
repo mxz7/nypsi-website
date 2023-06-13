@@ -22,7 +22,7 @@ export const GET = async ({ getClientAddress, setHeaders }) => {
   res.users = res.users.slice(0, 5).map((i: { user: string; amount: number }) => {
     count++;
     return {
-      username: i.user.length > 12 ? `${i.user.slice(0, 10).trim()}..` : i.user,
+      user: { username: i.user.length > 12 ? `${i.user.slice(0, 10).trim()}..` : i.user },
       value: i.amount.toLocaleString(),
       position: count,
     };

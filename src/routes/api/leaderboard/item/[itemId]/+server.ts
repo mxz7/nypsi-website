@@ -21,6 +21,7 @@ export async function GET({ params, setHeaders }) {
         ],
       },
       select: {
+        userId: true,
         amount: true,
         economy: {
           select: {
@@ -54,7 +55,10 @@ export async function GET({ params, setHeaders }) {
         const user = x.economy.user.lastKnownTag.split("#")[0];
         return {
           value: `${x.amount.toLocaleString()}`,
-          username: x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
+          user: {
+            username: x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
+            id: x.economy.user.Preferences?.leaderboards ? x.userId : undefined,
+          },
           position: count,
         };
       });
