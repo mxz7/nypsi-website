@@ -95,7 +95,7 @@
       {:else}
         <a
           href="/login"
-          class="rounded bg-gray-950 bg-opacity-50 p-2 px-3 text-sm font-semibold text-gray-200"
+          class="rounded bg-gray-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-gray-200"
           >log in</a
         >
       {/if}
