@@ -4,6 +4,7 @@
   import { fade, fly } from "svelte/transition";
 
   export let data;
+  let title = "nypsi profile";
 
   let premiumEmoji = "";
   let premiumColour = "";
@@ -12,6 +13,8 @@
     const userData = await Promise.resolve(data.streamed.userData);
 
     if (userData?.message) return;
+
+    title = `${userData.lastKnownTag}'s profile`;
 
     switch (userData.Premium?.level) {
       case 1:
@@ -37,6 +40,13 @@
     }
   });
 </script>
+
+<svelte:head>
+  <meta name="og:title" content={title} />
+  <meta name="og:description" content="" />
+
+  <title>{title}</title>
+</svelte:head>
 
 {#await data.streamed.userData}
   <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
