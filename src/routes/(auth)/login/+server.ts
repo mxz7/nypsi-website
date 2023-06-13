@@ -8,6 +8,7 @@ import { error, redirect } from "@sveltejs/kit";
 
 export const GET = async ({ url, fetch, cookies }) => {
   const code = url.searchParams.get("code");
+  const refresh = url.searchParams.get("refresh");
 
   if (code) {
     const res = await fetch("https://discord.com/api/oauth2/token", {
@@ -35,7 +36,7 @@ export const GET = async ({ url, fetch, cookies }) => {
     cookies.set("discord_refresh_token", res.refresh_token, { expires: refreshTokenExpire });
 
     throw redirect(302, "/");
-  } else if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
+  } else if (refresh) {
     const res = await fetch("https://discord.com/api/oauth2/token", {
       method: "post",
       body: new URLSearchParams({
@@ -43,7 +44,7 @@ export const GET = async ({ url, fetch, cookies }) => {
         client_secret: DISCORD_OAUTH_SECRET,
         grant_type: "refresh_token",
         redirect_uri: DISCORD_OAUTH_REDIRECT,
-        refresh_token: cookies.get("discord_refresh_token") as string,
+        refresh_token: refresh,
         scope: "identify",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
