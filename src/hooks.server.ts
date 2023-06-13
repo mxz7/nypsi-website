@@ -12,7 +12,9 @@ export const handle = async ({ event, resolve }) => {
       const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
       return new Response(
         JSON.stringify({
-          error: `Too many requests. Please try again in ${timeRemaining} seconds.`,
+          message: `Too many requests. Please try again in ${timeRemaining} seconds.`,
+          error: 429,
+          status: 429,
         }),
         {
           status: 429,
