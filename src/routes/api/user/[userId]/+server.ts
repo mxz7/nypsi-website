@@ -80,6 +80,7 @@ export const GET = async ({ params, setHeaders }) => {
         },
       },
       lastKnownTag: true,
+      avatar: true,
       WordleStats: {
         select: {
           history: true,

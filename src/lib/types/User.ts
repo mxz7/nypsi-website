@@ -52,6 +52,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
     level: number;
   };
   lastKnownTag: string;
+  avatar: string;
   WordleStats?: {
     history: number[];
     lose: number;
