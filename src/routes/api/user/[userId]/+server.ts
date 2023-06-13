@@ -1,8 +1,12 @@
 import prisma from "$lib/server/database.js";
 import { error, json } from "@sveltejs/kit";
 
-export const GET = async ({ params }) => {
+export const GET = async ({ params, setHeaders }) => {
   const userId = params.userId;
+
+  setHeaders({
+    "cache-control": "max-age=600",
+  });
 
   if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
 
