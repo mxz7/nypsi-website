@@ -62,39 +62,39 @@
       <p class="text-xl font-bold text-gray-300">{userData.message}</p>
     </div>
   {:else if !userData.message}
-    <div class="mx-3 mt-7 flex flex-row">
+    <div class=" xl:[20vw] mx-3 mt-7 flex flex-col sm:mx-auto sm:w-[50vw] md:w-[40vw]">
       <div class="flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
         <div class="flex w-full flex-row text-sm">
-          <div class="flex w-20 flex-col">
+          <div class="flex w-20 flex-col lg:w-44">
             <img class="rounded-full" src={userData.avatar} alt="" />
             <div class="mt-2 flex flex-row flex-wrap">
               {#await data.streamed.items then items}
                 {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
                   {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-                    <img class="h-4" src={items.find((i) => i.id === gem)?.emoji} alt="" />
+                    <img class="h-4 lg:h-6" src={items.find((i) => i.id === gem)?.emoji} alt="" />
                   {/if}
                 {/each}
               {/await}
             </div>
           </div>
-          <div class="ml-4 flex flex-col">
-            <div class="flex flex-row items-center text-xl font-bold text-white">
+          <div class="ml-4 flex flex-col lg:text-lg">
+            <div class="flex flex-row items-center text-3xl font-bold text-white">
               {#if premiumEmoji}
-                <img class="-ml-2 h-6" src={premiumEmoji} alt="" />
+                <img class="-ml-2 h-7" src={premiumEmoji} alt="" />
               {/if}
 
               <p style="color: {premiumColour}; !important" class="line-clamp-1">
                 {userData.lastKnownTag}
               </p>
             </div>
-            <p class="mb-2 text-xs text-gray-300">
+            <p class="mb-2 text-xs text-gray-300 lg:text-base">
               season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
             </p>
             <p class="flex items-center text-gray-200">
               <img
                 src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
                 alt=""
-                class="mr-1 inline h-4"
+                class="mr-1 inline h-4 lg:h-6"
               />
               <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
             </p>
@@ -102,7 +102,7 @@
               <img
                 src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
                 alt=""
-                class="mr-1 inline h-4"
+                class="mr-1 inline h-4 lg:h-6"
               />
               <span class="font-semibold"
                 >${userData.Economy.bank.toLocaleString()} / ${userData.Economy.bankStorage.toLocaleString()}</span
@@ -112,11 +112,26 @@
               <img
                 src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
                 alt=""
-                class="mr-1 inline h-4"
+                class="mr-1 inline h-4 lg:h-6"
               />
               <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
             </p>
           </div>
+        </div>
+      </div>
+      <div class="mt-5 flex w-full flex-row rounded bg-gray-950 bg-opacity-25 p-4">
+        <div class="flex grow flex-col text-center">
+          <h1 class="text-white lg:text-xl">favourite command</h1>
+          <p class="line-clamp-1 text-sm text-gray-300 lg:text-base">
+            ${userData.CommandUse[0].command}
+            ({userData.CommandUse[0].uses.toLocaleString()} uses)
+          </p>
+        </div>
+        <div class="flex grow flex-col text-center">
+          <h1 class="text-white lg:text-xl">daily streak</h1>
+          <p class="text-sm text-gray-300 lg:text-base">
+            {userData.Economy.dailyStreak.toLocaleString()}
+          </p>
         </div>
       </div>
     </div>

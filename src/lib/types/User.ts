@@ -54,6 +54,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
     banned: Date;
     netWorth: number;
     prestige: number;
+    dailyStreak: number;
   };
   Premium?: {
     level: number;
