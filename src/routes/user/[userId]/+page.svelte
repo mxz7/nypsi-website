@@ -122,7 +122,11 @@
                 class="mr-1 inline h-4 lg:h-6"
               />
               <span class="font-semibold"
-                >${userData.Economy.bank.toLocaleString()} / ${userData.Economy.bankStorage.toLocaleString()}</span
+                >${userData.Economy.bank.toLocaleString()} / ${(
+                  userData.Economy.bankStorage +
+                  userData.Economy.xp * 1000 +
+                  15000
+                ).toLocaleString()}</span
               >
             </p>
             <p class="mt-2 flex items-center text-gray-200">

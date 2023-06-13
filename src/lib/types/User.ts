@@ -55,6 +55,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
     netWorth: number;
     prestige: number;
     dailyStreak: number;
+    xp: number;
   };
   Premium?: {
     level: number;

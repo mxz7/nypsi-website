@@ -51,6 +51,7 @@ export const GET = async ({ params, setHeaders }) => {
           bankStorage: true,
           banned: true,
           dailyStreak: true,
+          xp: true,
           Inventory: {
             select: {
               item: true,
