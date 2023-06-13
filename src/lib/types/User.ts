@@ -21,10 +21,11 @@ interface BaseUserApiResponse {
 }
 
 interface ErrorUserApiResponse extends BaseUserApiResponse {
-  message: string;
+  message: "boobs";
 }
 
 interface UserApiResponsexd extends BaseUserApiResponse {
+  message: undefined;
   CommandUse: {
     command: string;
     uses: number;
@@ -44,7 +45,13 @@ interface UserApiResponsexd extends BaseUserApiResponse {
       guildName: string;
       level: number;
     };
+    Inventory: {
+      item: string;
+    }[];
     money: number;
+    bank: number;
+    bankStorage: number;
+    banned: Date;
     netWorth: number;
     prestige: number;
   };

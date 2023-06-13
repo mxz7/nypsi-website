@@ -51,6 +51,14 @@ export const GET = async ({ params, setHeaders }) => {
           bankStorage: true,
           banned: true,
           dailyStreak: true,
+          Inventory: {
+            where: {
+              OR: [{ item: { contains: "_gem" } }, { item: { contains: "_heart" } }],
+            },
+            select: {
+              item: true,
+            },
+          },
           EconomyGuild: {
             select: {
               guildName: true,
