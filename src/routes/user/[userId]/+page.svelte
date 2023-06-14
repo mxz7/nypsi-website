@@ -492,7 +492,7 @@
         >
           <h1 class="text-center text-white lg:text-xl">recent games</h1>
           <div
-            class="mx-4 mt-4 flex max-h-64 flex-col overflow-scroll px-4 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
+            class="mx-4 mt-4 flex max-h-64 flex-col overflow-scroll px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
           >
             {#each userData.Economy.Game as game}
               <a
