@@ -81,9 +81,11 @@
   {:else if !userData.message}
     <div
       in:fly={{ y: 25, delay: 300, duration: 500 }}
-      class=" xl:[20vw] mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw] md:w-[40vw]"
+      class="xl:[20vw] md:w-[40vw mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]"
     >
-      <div class="flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
+      <div
+        class="flex w-full flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+      >
         <div class="flex w-full flex-row text-sm">
           <div class="flex w-20 flex-col lg:w-44">
             <img loading="lazy" class="rounded-full" src={userData.avatar} alt="" />
@@ -161,13 +163,17 @@
       </div>
 
       {#if userData.blacklisted}
-        <div class="mt-4 rounded bg-gray-950 bg-opacity-25 p-4">
+        <div
+          class="mt-4 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="text-center text-red-500 lg:text-lg">
             {userData.lastKnownTag.split("#")[0]} is blacklisted from nypsi
           </h1>
         </div>
       {:else if dayjs(userData?.Economy?.banned).isAfter(dayjs())}
-        <div class="mt-4 rounded bg-gray-950 bg-opacity-25 p-4">
+        <div
+          class="mt-4 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="text-center text-sm text-red-500 lg:text-lg">
             {userData.lastKnownTag.split("#")[0]} is economy banned until {new Date(
               userData.Economy.banned
@@ -177,7 +183,9 @@
       {/if}
 
       <div class="mt-4 flex w-full flex-row">
-        <div class="mr-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
+        <div
+          class="mr-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="text-white lg:text-xl">favourite command</h1>
           <p class="line-clamp-1 text-sm text-gray-300 lg:text-base">
             ${userData.CommandUse[0].command}
@@ -185,7 +193,9 @@
           </p>
         </div>
 
-        <div class="ml-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
+        <div
+          class="ml-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="text-white lg:text-xl">daily streak</h1>
           <p class="text-sm text-gray-300 lg:text-base">
             {(userData.Economy?.dailyStreak || 0).toLocaleString()}
@@ -194,7 +204,9 @@
       </div>
 
       {#if userData.Economy.EconomyGuildMember?.guild}
-        <div class="mt-4 flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
+        <div
+          class="mt-4 flex w-full flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="w-full text-center text-lg text-gray-100 lg:text-2xl">
             {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy
               .EconomyGuildMember.guild.level}]
@@ -218,7 +230,7 @@
           <div class="mt-4 flex w-full flex-row flex-wrap justify-center">
             {#each userData.Economy.EconomyGuildMember.guild.members as member}
               <a
-                class="mb-2 mr-2 rounded bg-gray-950 bg-opacity-50 p-1 text-xs text-gray-300 duration-300 hover:text-red-500 lg:text-sm"
+                class="mb-2 mr-2 rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-1 text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 hover:text-red-500 lg:text-sm"
                 href="/user/{member.economy.user.id}">{member.economy.user.lastKnownTag}</a
               >
             {/each}
@@ -231,7 +243,7 @@
           <p>loading items...</p>
         {:then items}
           <div
-            class="mt-4 flex w-full flex-col justify-center rounded bg-gray-950 bg-opacity-25 p-4"
+            class="mt-4 flex w-full flex-col justify-center rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
           >
             <h1 class="mb-3 w-full text-center text-white lg:text-xl">inventory</h1>
             <div
@@ -240,7 +252,7 @@
               {#each inPlaceSort(userData.Economy.Inventory).asc((i) => i.item) as item}
                 <a
                   href="/leaderboard/{item.item}"
-                  class="mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-25 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 lg:text-sm"
+                  class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 lg:text-sm"
                 >
                   <div class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8">
                     <img
@@ -260,7 +272,9 @@
       {/if}
 
       {#if userData.WordleStats}
-        <div class="mx-auto mt-4 flex flex-col rounded bg-gray-950 bg-opacity-25 p-4">
+        <div
+          class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="mb-2 text-center text-white lg:mb-4 lg:text-xl">wordle</h1>
 
           <div class="flex w-full grow flex-row">
@@ -440,7 +454,9 @@
       {/if}
 
       <div class="mt-4 flex w-full flex-row">
-        <div class="mr-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
+        <div
+          class="mr-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="text-white lg:text-xl">last seen</h1>
           <p class="text-sm text-gray-300 lg:text-base">
             {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(1, "year"))}
@@ -453,7 +469,9 @@
           </p>
         </div>
 
-        <div class="ml-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
+        <div
+          class="ml-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
           <h1 class="text-white lg:text-xl">completion</h1>
           <p class="text-sm text-gray-300 lg:text-base">
             {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/achievements.json").then( (r) => r.json() )}
@@ -469,7 +487,9 @@
       </div>
 
       {#if userData.Economy.Game.length > 0}
-        <div class="mx-auto mt-4 flex flex-col rounded bg-gray-950 bg-opacity-25 p-4 lg:w-full">
+        <div
+          class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40 lg:w-full"
+        >
           <h1 class="text-center text-white lg:text-xl">recent games</h1>
           <div
             class="mx-4 mt-4 flex max-h-64 flex-col overflow-scroll px-4 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
@@ -478,7 +498,7 @@
               <a
                 href="/game/{game.id.toString(36)}"
                 style="color: {game.win ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)'};"
-                class="mt-3 flex w-full flex-col items-center justify-center rounded border border-gray-500 border-opacity-25 bg-gray-700 bg-opacity-5 p-2 px-4 align-middle lg:mt-0"
+                class="mt-3 flex w-full flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0"
               >
                 <h2 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h2>
 
