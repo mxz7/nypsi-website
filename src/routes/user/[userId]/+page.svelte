@@ -76,7 +76,7 @@
   {:else if !userData.message}
     <div
       in:fly={{ y: 25, delay: 300, duration: 500 }}
-      class=" xl:[20vw] mx-3 mt-7 flex flex-col sm:mx-auto sm:w-[50vw] md:w-[40vw]"
+      class=" xl:[20vw] mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw] md:w-[40vw]"
     >
       <div class="flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
         <div class="flex w-full flex-row text-sm">
