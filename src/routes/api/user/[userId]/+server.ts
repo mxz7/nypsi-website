@@ -29,6 +29,15 @@ export const GET = async ({ params, setHeaders }) => {
       id: userId,
     },
     select: {
+      lastCommand: true,
+      Achievements: {
+        where: {
+          completed: true,
+        },
+        select: {
+          achievementId: true,
+        },
+      },
       CommandUse: {
         select: {
           command: true,

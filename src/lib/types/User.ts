@@ -26,6 +26,8 @@ interface ErrorUserApiResponse extends BaseUserApiResponse {
 
 interface UserApiResponsexd extends BaseUserApiResponse {
   message: undefined;
+  lastCommand: number;
+  Achievements: { achievementId: string }[];
   blacklisted: boolean;
   CommandUse: {
     command: string;
@@ -37,7 +39,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
       upgradeId: string;
     }[];
     Game: {
-      date: Date;
+      date: number;
       game: string;
       win: number;
       id: number;
@@ -51,7 +53,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
         xp: number;
         balance: number;
         members: {
-          joinedAt: Date;
+          joinedAt: number;
           economy: {
             user: {
               lastKnownTag: string;
@@ -68,7 +70,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
     money: number;
     bank: number;
     bankStorage: number;
-    banned: Date;
+    banned: number;
     netWorth: number;
     prestige: number;
     dailyStreak: number;

@@ -47,3 +47,10 @@ export function MStoTime(ms: number, long = false) {
 
   return output.trim();
 }
+
+export function daysAgo(date: Date | number): number {
+  date = new Date(date);
+  const ms = Math.floor(Date.now() - date.getTime());
+
+  return Math.floor(ms / (24 * 60 * 60 * 1000));
+}
