@@ -103,7 +103,7 @@ export const GET = async ({ params, setHeaders }) => {
               earned: true,
             },
             where: {
-              date: { gte: dayjs().subtract(1, "day").toDate() },
+              date: { gte: dayjs().subtract(1, "week").toDate() },
             },
           },
           money: true,
