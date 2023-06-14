@@ -152,7 +152,7 @@ export const GET = async ({ params, setHeaders }) => {
     query.Economy.Game = query.Economy.Game.map((g) => {
       return {
         id: g.id,
-        win: g.id,
+        win: g.win,
         bet: Number(g.bet) as unknown as bigint,
         earned: Number(g.earned) as unknown as bigint,
         date: g.date,
