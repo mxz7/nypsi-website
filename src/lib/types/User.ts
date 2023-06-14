@@ -43,19 +43,22 @@ interface UserApiResponsexd extends BaseUserApiResponse {
       bet: number;
       earned: number;
     }[];
-    EconomyGuild?: {
-      guildName: string;
-      level: number;
-      xp: number;
-      balance: number;
-      members: {
-        Economy: {
-          User: {
-            lastKnownTag: string;
-            id: string;
+    EconomyGuildMember?: {
+      guild: {
+        guildName: string;
+        level: number;
+        xp: number;
+        balance: number;
+        members: {
+          joinedAt: Date;
+          economy: {
+            user: {
+              lastKnownTag: string;
+              id: string;
+            };
           };
-        };
-      }[];
+        }[];
+      };
     };
     Inventory: {
       item: string;

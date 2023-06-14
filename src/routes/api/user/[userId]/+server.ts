@@ -58,23 +58,28 @@ export const GET = async ({ params, setHeaders }) => {
               amount: true,
             },
           },
-          EconomyGuild: {
+          EconomyGuildMember: {
             select: {
-              guildName: true,
-              level: true,
-              balance: true,
-              xp: true,
-              members: {
-                orderBy: {
-                  joinedAt: "desc",
-                },
+              guild: {
                 select: {
-                  economy: {
+                  guildName: true,
+                  level: true,
+                  balance: true,
+                  xp: true,
+                  members: {
+                    orderBy: {
+                      joinedAt: "asc",
+                    },
                     select: {
-                      user: {
+                      joinedAt: true,
+                      economy: {
                         select: {
-                          lastKnownTag: true,
-                          id: true,
+                          user: {
+                            select: {
+                              lastKnownTag: true,
+                              id: true,
+                            },
+                          },
                         },
                       },
                     },
@@ -136,10 +141,20 @@ export const GET = async ({ params, setHeaders }) => {
     query.Economy.Inventory = query.Economy.Inventory.map((i) => {
       return { item: i.item, amount: Number(i.amount) as unknown as bigint };
     });
-    if (query.Economy.EconomyGuild?.balance)
-      query.Economy.EconomyGuild.balance = Number(
-        query.Economy.EconomyGuild?.balance
+    if (query.Economy.EconomyGuildMember?.guild)
+      query.Economy.EconomyGuildMember.guild.balance = Number(
+        query.Economy.EconomyGuildMember.guild?.balance
       ) as unknown as bigint;
+    query.Economy.Game = query.Economy.Game.map((g) => {
+      return {
+        id: g.id,
+        win: g.id,
+        bet: Number(g.bet) as unknown as bigint,
+        earned: Number(g.earned) as unknown as bigint,
+        date: g.date,
+        game: g.game,
+      };
+    });
   }
 
   return json(query);

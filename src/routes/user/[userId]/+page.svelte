@@ -144,6 +144,7 @@
           </div>
         </div>
       </div>
+
       <div class="mt-4 flex w-full flex-row">
         <div class="mr-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
           <h1 class="text-white lg:text-xl">favourite command</h1>
@@ -152,13 +153,47 @@
             ({userData.CommandUse[0].uses.toLocaleString()} uses)
           </p>
         </div>
+
         <div class="ml-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
           <h1 class="text-white lg:text-xl">daily streak</h1>
           <p class="text-sm text-gray-300 lg:text-base">
-            {userData.Economy.dailyStreak.toLocaleString()}
+            {(userData.Economy?.dailyStreak || 0).toLocaleString()}
           </p>
         </div>
       </div>
+
+      {#if userData.Economy.EconomyGuildMember?.guild}
+        <div class="mt-4 flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
+          <h1 class="w-full text-center text-lg text-gray-100 lg:text-2xl">
+            {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy
+              .EconomyGuildMember.guild.level}]
+          </h1>
+
+          <div class="mt-2 flex w-full flex-row">
+            <div class="flex grow flex-col text-center">
+              <h2 class="text-gray-200 lg:text-xl">balance</h2>
+              <p class="text-sm text-gray-300 lg:text-base">
+                ${userData.Economy.EconomyGuildMember.guild.balance.toLocaleString()}
+              </p>
+            </div>
+            <div class="flex grow flex-col text-center">
+              <h2 class="text-gray-200 lg:text-xl">xp</h2>
+              <p class="text-sm text-gray-300 lg:text-base">
+                {userData.Economy.EconomyGuildMember.guild.xp.toLocaleString()}xp
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 flex w-full flex-row flex-wrap justify-center">
+            {#each userData.Economy.EconomyGuildMember.guild.members as member}
+              <a
+                class="mb-2 mr-2 rounded bg-gray-950 bg-opacity-50 p-1 text-xs text-gray-300 duration-300 hover:text-red-500 lg:text-sm"
+                href="/user/{member.economy.user.id}">{member.economy.user.lastKnownTag}</a
+              >
+            {/each}
+          </div>
+        </div>
+      {/if}
     </div>
   {/if}
 {/await}
