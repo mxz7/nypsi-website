@@ -264,7 +264,7 @@
 
       {#if userData.WordleStats}
         <div class="mx-auto mt-4 flex flex-col rounded bg-gray-950 bg-opacity-25 p-4">
-          <h1 class="text-center text-white lg:text-xl">wordle</h1>
+          <h1 class="mb-2 text-center text-white lg:mb-4 lg:text-xl">wordle</h1>
 
           <div class="flex w-full grow flex-row">
             <div class="flex w-full flex-col justify-center">
