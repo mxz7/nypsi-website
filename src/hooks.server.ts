@@ -31,6 +31,8 @@ export const handle = async ({ event, resolve }) => {
         );
 
         if (res.error) {
+          cookies.delete("discord_access_token");
+          cookies.delete("discord_refresh_token");
           console.error(res.error);
           throw error(400, { message: "something went wrong", ...res });
         }
@@ -40,6 +42,8 @@ export const handle = async ({ event, resolve }) => {
         }).then((r) => r.json());
 
         if (userRequest.error) {
+          cookies.delete("discord_access_token");
+          cookies.delete("discord_refresh_token");
           console.error(userRequest.error);
           throw error(400, { message: "something went wrong", ...userRequest });
         }
@@ -55,6 +59,8 @@ export const handle = async ({ event, resolve }) => {
         }).then((r) => r.json());
 
         if (userRequest.error) {
+          cookies.delete("discord_access_token");
+          cookies.delete("discord_refresh_token");
           console.error(userRequest.error);
           throw error(400, { message: "something went wrong", ...userRequest });
         }
