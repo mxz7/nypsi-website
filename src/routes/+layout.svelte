@@ -4,16 +4,11 @@
   import GAnalytics from "$lib/components/GAnalytics.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
   import { inject } from "@vercel/analytics";
-  import { onMount } from "svelte";
   import "../app.css";
 
   export let data;
 
   inject({ mode: dev ? "development" : "production" });
-
-  onMount(() => {
-    console.log($page.url.toString());
-  });
 </script>
 
 <svelte:head>
