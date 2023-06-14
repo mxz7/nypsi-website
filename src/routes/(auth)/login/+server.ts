@@ -35,11 +35,9 @@ export const GET = async ({ url, fetch, cookies }) => {
 
     cookies.set("discord_access_token", res.access_token, {
       expires: accessTokenExpire,
-      sameSite: "strict",
     });
     cookies.set("discord_refresh_token", res.refresh_token, {
       expires: refreshTokenExpire,
-      sameSite: "strict",
     });
 
     throw redirect(302, "/");
@@ -66,11 +64,9 @@ export const GET = async ({ url, fetch, cookies }) => {
 
     cookies.set("discord_access_token", res.access_token, {
       expires: accessTokenExpire,
-      sameSite: "strict",
     });
     cookies.set("discord_refresh_token", res.refresh_token, {
       expires: refreshTokenExpire,
-      sameSite: "strict",
     });
 
     return json({ access_token: res.access_token, refresh_token: res.refresh_token });
