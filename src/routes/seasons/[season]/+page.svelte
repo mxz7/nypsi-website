@@ -25,10 +25,9 @@
         {#if season.winners}
           <div class="mt-16 text-left text-white">
             <MiniLeaderboard
-              concatUser={false}
               data={season.winners.map((i) => {
                 return {
-                  username: i.username,
+                  user: { username: i.username },
                   value: i.value,
                   position: season.winners ? season.winners?.indexOf(i) + 1 : 0,
                 };
