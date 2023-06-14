@@ -91,13 +91,18 @@
       <div class="flex w-full flex-col rounded bg-gray-950 bg-opacity-25 p-4">
         <div class="flex w-full flex-row text-sm">
           <div class="flex w-20 flex-col lg:w-44">
-            <img class="rounded-full" src={userData.avatar} alt="" />
+            <img loading="lazy" class="rounded-full" src={userData.avatar} alt="" />
             <div class="mt-2 flex flex-row flex-wrap">
               {#if userData.Economy}
                 {#await data.streamed.items then items}
                   {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
                     {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-                      <img class="h-4 lg:h-6" src={items.find((i) => i.id === gem)?.emoji} alt="" />
+                      <img
+                        loading="lazy"
+                        class="h-4 lg:h-6"
+                        src={items.find((i) => i.id === gem)?.emoji}
+                        alt=""
+                      />
                     {/if}
                   {/each}
                 {/await}
@@ -107,7 +112,7 @@
           <div class="ml-4 flex flex-col lg:text-lg">
             <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
               {#if premiumEmoji}
-                <img class="-ml-2 h-7" src={premiumEmoji} alt="" />
+                <img loading="lazy" class="-ml-2 h-7" src={premiumEmoji} alt="" />
               {/if}
 
               <p style="color: {premiumColour}; !important" class="line-clamp-1">
@@ -124,6 +129,7 @@
               </p>
               <p class="flex items-center text-gray-200">
                 <img
+                  loading="lazy"
                   src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
                   alt=""
                   class="mr-1 inline h-4 lg:h-6"
@@ -132,6 +138,7 @@
               </p>
               <p class="flex items-center text-gray-200">
                 <img
+                  loading="lazy"
                   src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
                   alt=""
                   class="mr-1 inline h-4 lg:h-6"
@@ -146,6 +153,7 @@
               </p>
               <p class="mt-2 flex items-center text-gray-200">
                 <img
+                  loading="lazy"
                   src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
                   alt=""
                   class="mr-1 inline h-4 lg:h-6"
@@ -240,6 +248,7 @@
                   class="mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-25 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 lg:text-sm"
                 >
                   <img
+                    loading="lazy"
                     class="w-6 lg:w-8"
                     src={items.find((i) => i.id === item.item)?.emoji}
                     alt=""
@@ -264,7 +273,11 @@
                   <div
                     class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
                   >
-                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/1118558624197902347.png"
+                      alt=""
+                    />
                     <p class="ml-2">{userData.WordleStats.win1.toLocaleString()}</p>
                   </div>
                 {/if}
@@ -272,8 +285,16 @@
                   <div
                     class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
                   >
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/1118558624197902347.png"
+                      alt=""
+                    />
                     <p class="ml-2">{userData.WordleStats.win2.toLocaleString()}</p>
                   </div>
                 {/if}
@@ -281,9 +302,21 @@
                   <div
                     class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
                   >
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/1118558624197902347.png"
+                      alt=""
+                    />
                     <p class="ml-2">{userData.WordleStats.win3.toLocaleString()}</p>
                   </div>
                 {/if}
@@ -291,10 +324,26 @@
                   <div
                     class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
                   >
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/1118558624197902347.png"
+                      alt=""
+                    />
                     <p class="ml-2">{userData.WordleStats.win4.toLocaleString()}</p>
                   </div>
                 {/if}
@@ -302,11 +351,31 @@
                   <div
                     class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
                   >
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/1118558624197902347.png"
+                      alt=""
+                    />
                     <p class="ml-2">{userData.WordleStats.win5.toLocaleString()}</p>
                   </div>
                 {/if}
@@ -314,12 +383,36 @@
                   <div
                     class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
                   >
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
-                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/987046773157691452.png"
+                      alt=""
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/1118558624197902347.png"
+                      alt=""
+                    />
                     <p class="ml-2">{userData.WordleStats.win6.toLocaleString()}</p>
                   </div>
                 {/if}
@@ -327,7 +420,11 @@
                   <div
                     class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
                   >
-                    <img src="https://cdn.discordapp.com/emojis/1118563689008734258.png" alt="" />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.discordapp.com/emojis/1118563689008734258.png"
+                      alt=""
+                    />
                     <p class="ml-2 text-red-500">{userData.WordleStats.lose.toLocaleString()}</p>
                   </div>
                 {/if}
