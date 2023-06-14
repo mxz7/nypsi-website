@@ -7,6 +7,8 @@
 
   export let data;
   let title = "nypsi profile";
+  let description = "view nypsi profile";
+  let avatar = "https://cdn.discordapp.com/embed/avatars/0.png";
 
   let premiumEmoji = "";
   let premiumColour = "";
@@ -19,6 +21,8 @@
     console.log(userData);
 
     title = `${userData.lastKnownTag}'s profile`;
+    description = `view ${userData.lastKnownTag}'s nypsi profile`;
+    avatar = userData.avatar;
 
     switch (userData.Premium?.level) {
       case 1:
@@ -47,7 +51,10 @@
 
 <svelte:head>
   <meta name="og:title" content={title} />
-  <meta name="og:description" content="" />
+  <meta name="description" content={description} />
+  <meta name="og:description" content={description} />
+  <meta name="og:site_name" content="nypsi" />
+  <meta name="og:image" content={avatar} />
 
   <title>{title}</title>
 </svelte:head>
