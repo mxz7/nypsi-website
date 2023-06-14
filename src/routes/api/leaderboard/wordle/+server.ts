@@ -18,6 +18,7 @@ export async function GET({ setHeaders }) {
         user: { blacklisted: false },
       },
       select: {
+        userId: true,
         win1: true,
         win2: true,
         win3: true,
@@ -43,7 +44,10 @@ export async function GET({ setHeaders }) {
           const user = x.user.lastKnownTag.split("#")[0];
           return {
             value: x.win1 + x.win2 + x.win3 + x.win4 + x.win5 + x.win6,
-            username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+            user: {
+              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+            },
           };
         })
         .filter((x) => x.value > 0);
@@ -54,7 +58,7 @@ export async function GET({ setHeaders }) {
         count++;
         return {
           value: x.value.toLocaleString(),
-          username: x.username,
+          user: { username: x.user.username, id: x.user.id },
           position: count,
         };
       });

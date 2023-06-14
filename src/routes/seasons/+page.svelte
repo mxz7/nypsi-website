@@ -9,6 +9,13 @@
     name="description"
     content="nypsi has a seasonal economy. meaning that the economy is reset every few months, with the top 10 players receiving rewards"
   />
+
+  <meta name="og:title" content="seasonal economy" />
+  <meta
+    name="og:description"
+    content="nypsi uses a seasonal economy. meaning that the economy is reset every few months, with the top 10 players receiving rewards"
+  />
+  <meta name="og:site_name" content="nypsi" />
 </svelte:head>
 
 <div class="flex h-screen items-center justify-center">

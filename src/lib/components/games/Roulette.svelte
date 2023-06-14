@@ -6,9 +6,6 @@
   const oneStr = outcome.split("**choice**")[1].split("**")[0].trim();
   const twoStr = outcome.split("**landed**")[1].trim();
 
-  console.log(oneStr);
-  console.log(twoStr);
-
   const one = parse(oneStr || "", {
     assetType: "png",
   })[0].url;
