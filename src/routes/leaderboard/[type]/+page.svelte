@@ -8,8 +8,17 @@
 </script>
 
 <svelte:head>
-  <title>nypsi {$page.params.type} leaderboard</title>
-  <meta name="description" content="nypsi discord bot leaderboard" />
+  <title>{$page.params.type} leaderboard</title>
+  <meta name="description" content="showing top 25 members for {$page.params.type}" />
+
+  <meta name="og:title" content="{$page.params.type} leaderboard" />
+  <meta name="og:description" content="showing top 25 members for {$page.params.type}" />
+  <meta name="og:site_name" content="nypsi" />
+  {#if data.item}
+    <meta name="og:image" content={data.item.emoji} />
+    <meta property="og:image:width" content="128" />
+    <meta property="og:image:height" content="128" />
+  {/if}
 </svelte:head>
 
 {#if data.title}

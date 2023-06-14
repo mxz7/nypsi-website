@@ -5,8 +5,6 @@
 
   const difficulty = outcome.split("difficulty: ")[1].split("\n")[0].trim();
 
-  console.log(outcome);
-
   const rows: { style: 1 | 2 | 3 | 4; emoji?: { id?: string; name: string } }[][] = outcome
     .split("bad click")[1]
     .trim()
