@@ -1,5 +1,6 @@
 import prisma from "$lib/server/database.js";
 import { error, json } from "@sveltejs/kit";
+import dayjs from "dayjs";
 
 export const GET = async ({ params, setHeaders }) => {
   const userId = params.userId;
@@ -100,6 +101,9 @@ export const GET = async ({ params, setHeaders }) => {
               date: true,
               bet: true,
               earned: true,
+            },
+            where: {
+              date: { gte: dayjs().subtract(1, "day").toDate() },
             },
           },
           money: true,
