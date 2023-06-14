@@ -16,6 +16,8 @@
 
     if (userData?.message) return;
 
+    console.log(userData);
+
     title = `${userData.lastKnownTag}'s profile`;
 
     switch (userData.Premium?.level) {
