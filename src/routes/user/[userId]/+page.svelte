@@ -1,5 +1,6 @@
 <script lang="ts">
   import seasons from "$lib/data/seasons.js";
+  import { MStoTime } from "$lib/functions/time.js";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
   import { onMount } from "svelte";
@@ -251,6 +252,99 @@
           </div>
         {/await}
       {/if}
+
+      {#if userData.WordleStats}
+        <div class="mx-auto mt-4 flex flex-col rounded bg-gray-950 bg-opacity-25 p-4">
+          <h1 class="text-center text-white lg:text-xl">wordle</h1>
+
+          <div class="flex w-full grow flex-row">
+            <div class="flex w-full flex-col justify-center">
+              <div class="w-full text-green-500 lg:text-lg">
+                {#if userData.WordleStats.win1}
+                  <div
+                    class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
+                  >
+                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <p class="ml-2">{userData.WordleStats.win1.toLocaleString()}</p>
+                  </div>
+                {/if}
+                {#if userData.WordleStats.win2}
+                  <div
+                    class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
+                  >
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <p class="ml-2">{userData.WordleStats.win2.toLocaleString()}</p>
+                  </div>
+                {/if}
+                {#if userData.WordleStats.win3}
+                  <div
+                    class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
+                  >
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <p class="ml-2">{userData.WordleStats.win3.toLocaleString()}</p>
+                  </div>
+                {/if}
+                {#if userData.WordleStats.win4}
+                  <div
+                    class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
+                  >
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <p class="ml-2">{userData.WordleStats.win4.toLocaleString()}</p>
+                  </div>
+                {/if}
+                {#if userData.WordleStats.win5}
+                  <div
+                    class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
+                  >
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <p class="ml-2">{userData.WordleStats.win5.toLocaleString()}</p>
+                  </div>
+                {/if}
+                {#if userData.WordleStats.win6}
+                  <div
+                    class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
+                  >
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/987046773157691452.png" alt="" />
+                    <img src="https://cdn.discordapp.com/emojis/1118558624197902347.png" alt="" />
+                    <p class="ml-2">{userData.WordleStats.win6.toLocaleString()}</p>
+                  </div>
+                {/if}
+                {#if userData.WordleStats.lose}
+                  <div
+                    class="flex max-w-fit flex-row items-center align-middle [&>img]:h-6 [&>img]:w-6 lg:[&>img]:h-8 lg:[&>img]:w-8"
+                  >
+                    <img src="https://cdn.discordapp.com/emojis/1118563689008734258.png" alt="" />
+                    <p class="ml-2 text-red-500">{userData.WordleStats.lose.toLocaleString()}</p>
+                  </div>
+                {/if}
+              </div>
+              <p class="mt-2 text-center text-xs text-gray-300 lg:text-sm">
+                average winning game takes {MStoTime(
+                  userData.WordleStats.history.reduce((a, b) => a + b) /
+                    userData.WordleStats.history.length
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
+      {/if}
     </div>
   {/if}
 {/await}
+<!-- https://cdn.discordapp.com/emojis/1118558624197902347.png
+https://cdn.discordapp.com/emojis/987046773157691452.png
+https://cdn.discordapp.com/emojis/1118563689008734258.png -->
