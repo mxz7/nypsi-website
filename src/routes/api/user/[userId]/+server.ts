@@ -93,7 +93,7 @@ export const GET = async ({ params, setHeaders }) => {
             orderBy: {
               date: "desc",
             },
-            take: 5,
+            take: 15,
             select: {
               game: true,
               win: true,
