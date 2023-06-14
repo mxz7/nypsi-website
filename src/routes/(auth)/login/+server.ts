@@ -33,8 +33,14 @@ export const GET = async ({ url, fetch, cookies }) => {
     const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
     const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
-    cookies.set("discord_access_token", res.access_token, { expires: accessTokenExpire });
-    cookies.set("discord_refresh_token", res.refresh_token, { expires: refreshTokenExpire });
+    cookies.set("discord_access_token", res.access_token, {
+      expires: accessTokenExpire,
+      sameSite: "strict",
+    });
+    cookies.set("discord_refresh_token", res.refresh_token, {
+      expires: refreshTokenExpire,
+      sameSite: "strict",
+    });
 
     throw redirect(302, "/");
   } else if (refresh) {
@@ -58,8 +64,14 @@ export const GET = async ({ url, fetch, cookies }) => {
     const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
     const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
-    cookies.set("discord_access_token", res.access_token, { expires: accessTokenExpire });
-    cookies.set("discord_refresh_token", res.refresh_token, { expires: refreshTokenExpire });
+    cookies.set("discord_access_token", res.access_token, {
+      expires: accessTokenExpire,
+      sameSite: "strict",
+    });
+    cookies.set("discord_refresh_token", res.refresh_token, {
+      expires: refreshTokenExpire,
+      sameSite: "strict",
+    });
 
     return json({ access_token: res.access_token, refresh_token: res.refresh_token });
   }
