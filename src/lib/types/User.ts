@@ -26,6 +26,7 @@ interface ErrorUserApiResponse extends BaseUserApiResponse {
 
 interface UserApiResponsexd extends BaseUserApiResponse {
   message: undefined;
+  blacklisted: boolean;
   CommandUse: {
     command: string;
     uses: number;

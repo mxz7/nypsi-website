@@ -1,5 +1,6 @@
 <script lang="ts">
   import seasons from "$lib/data/seasons.js";
+  import dayjs from "dayjs";
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
@@ -144,6 +145,22 @@
           </div>
         </div>
       </div>
+
+      {#if userData.blacklisted}
+        <div class="mt-4 rounded bg-gray-950 bg-opacity-25 p-4">
+          <h1 class="text-center text-red-500 lg:text-lg">
+            {userData.lastKnownTag.split("#")[0]} is blacklisted from nypsi
+          </h1>
+        </div>
+      {:else if dayjs(userData?.Economy?.banned).isAfter(dayjs())}
+        <div class="mt-4 rounded bg-gray-950 bg-opacity-25 p-4">
+          <h1 class="text-center text-sm text-red-500 lg:text-lg">
+            {userData.lastKnownTag.split("#")[0]} is economy banned until {new Date(
+              userData.Economy.banned
+            ).toLocaleDateString()}
+          </h1>
+        </div>
+      {/if}
 
       <div class="mt-4 flex w-full flex-row">
         <div class="mr-2 flex grow flex-col rounded bg-gray-950 bg-opacity-25 p-4 text-center">
