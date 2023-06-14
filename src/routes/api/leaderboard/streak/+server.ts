@@ -17,6 +17,7 @@ export async function GET({ setHeaders }) {
         AND: [{ money: { gt: 0 } }, { user: { blacklisted: false } }],
       },
       select: {
+        userId: true,
         dailyStreak: true,
         banned: true,
         user: {
@@ -45,7 +46,10 @@ export async function GET({ setHeaders }) {
         const user = x.user.lastKnownTag.split("#")[0];
         return {
           value: `${x.dailyStreak.toLocaleString()}`,
-          username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+          user: {
+            username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+            id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+          },
           position: count,
         };
       });

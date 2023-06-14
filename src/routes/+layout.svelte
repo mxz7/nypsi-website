@@ -5,11 +5,13 @@
   import { inject } from "@vercel/analytics";
   import "../app.css";
 
+  export let data;
+
   inject({ mode: dev ? "development" : "production" });
 </script>
 
 <GAnalytics />
 
-<Navigation />
+<Navigation user={data.user} />
 
 <slot />

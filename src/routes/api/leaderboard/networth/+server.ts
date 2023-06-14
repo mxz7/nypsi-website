@@ -17,6 +17,7 @@ export async function GET({ setHeaders }) {
         AND: [{ netWorth: { gt: 0 } }, { user: { blacklisted: false } }],
       },
       select: {
+        userId: true,
         netWorth: true,
         banned: true,
         user: {
@@ -45,7 +46,10 @@ export async function GET({ setHeaders }) {
         const user = x.user.lastKnownTag.split("#")[0];
         return {
           value: `$${x.netWorth.toLocaleString()}`,
-          username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+          user: {
+            username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+            id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+          },
           position: count,
         };
       });
