@@ -51,8 +51,6 @@
 <svelte:head>
   <meta name="og:title" content={title} />
   <meta name="description" content={description} />
-  <meta name="og:description" content={description} />
-  <meta name="og:site_name" content="nypsi" />
 
   <title>{title}</title>
 </svelte:head>
