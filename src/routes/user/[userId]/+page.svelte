@@ -1,6 +1,7 @@
 <script lang="ts">
   import seasons from "$lib/data/seasons.js";
   import dayjs from "dayjs";
+  import { inPlaceSort } from "fast-sort";
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
@@ -210,6 +211,33 @@
             {/each}
           </div>
         </div>
+      {/if}
+
+      {#if userData.Economy.Inventory.length > 0}
+        {#await data.streamed.items}
+          <p>loading items...</p>
+        {:then items}
+          <div
+            class="mt-4 flex w-full flex-col justify-center rounded bg-gray-950 bg-opacity-25 p-4"
+          >
+            <h1 class="mb-3 w-full text-center text-white lg:text-xl">inventory</h1>
+            <div class="mt-3 grid max-h-52 grid-flow-row grid-cols-2 gap-2 overflow-scroll">
+              {#each inPlaceSort(userData.Economy.Inventory).asc((i) => i.item) as item}
+                <a
+                  href="/leaderboard/{item.item}"
+                  class="mb-4 flex flex-row items-center justify-center align-middle text-xs text-gray-300 lg:text-sm"
+                >
+                  <img
+                    class="mr-2 w-4 lg:w-6"
+                    src={items.find((i) => i.id === item.item)?.emoji}
+                    alt=""
+                  />
+                  {items.find((i) => i.id === item.item)?.name} - {item.amount.toLocaleString()}
+                </a>
+              {/each}
+            </div>
+          </div>
+        {/await}
       {/if}
     </div>
   {/if}

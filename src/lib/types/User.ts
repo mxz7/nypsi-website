@@ -63,6 +63,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
     };
     Inventory: {
       item: string;
+      amount: number;
     }[];
     money: number;
     bank: number;
