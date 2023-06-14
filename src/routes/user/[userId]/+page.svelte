@@ -221,18 +221,21 @@
             class="mt-4 flex w-full flex-col justify-center rounded bg-gray-950 bg-opacity-25 p-4"
           >
             <h1 class="mb-3 w-full text-center text-white lg:text-xl">inventory</h1>
-            <div class="mt-3 grid max-h-52 grid-flow-row grid-cols-2 gap-2 overflow-scroll">
+            <div
+              class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-scroll"
+            >
               {#each inPlaceSort(userData.Economy.Inventory).asc((i) => i.item) as item}
                 <a
                   href="/leaderboard/{item.item}"
-                  class="mb-4 flex flex-row items-center justify-center align-middle text-xs text-gray-300 lg:text-sm"
+                  class="mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-25 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 lg:text-sm"
                 >
                   <img
-                    class="mr-2 w-4 lg:w-6"
+                    class="w-6 lg:w-8"
                     src={items.find((i) => i.id === item.item)?.emoji}
                     alt=""
                   />
-                  {items.find((i) => i.id === item.item)?.name} - {item.amount.toLocaleString()}
+                  <p class="my-1">{items.find((i) => i.id === item.item)?.name}</p>
+                  <p>{item.amount.toLocaleString()}</p>
                 </a>
               {/each}
             </div>
