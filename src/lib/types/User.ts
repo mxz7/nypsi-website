@@ -40,6 +40,8 @@ interface UserApiResponsexd extends BaseUserApiResponse {
       game: string;
       win: number;
       id: number;
+      bet: number;
+      earned: number;
     }[];
     EconomyGuild?: {
       guildName: string;

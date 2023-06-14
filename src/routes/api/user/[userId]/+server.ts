@@ -93,6 +93,8 @@ export const GET = async ({ params, setHeaders }) => {
               win: true,
               id: true,
               date: true,
+              bet: true,
+              earned: true,
             },
           },
           money: true,
