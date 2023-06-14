@@ -247,12 +247,14 @@
                   href="/leaderboard/{item.item}"
                   class="mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-25 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 lg:text-sm"
                 >
-                  <img
-                    loading="lazy"
-                    class="w-6 lg:w-8"
-                    src={items.find((i) => i.id === item.item)?.emoji}
-                    alt=""
-                  />
+                  <div class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8">
+                    <img
+                      loading="lazy"
+                      class="h-auto max-h-full w-auto max-w-full object-contain"
+                      src={items.find((i) => i.id === item.item)?.emoji}
+                      alt=""
+                    />
+                  </div>
                   <p class="my-1">{items.find((i) => i.id === item.item)?.name}</p>
                   <p>{item.amount.toLocaleString()}</p>
                 </a>
