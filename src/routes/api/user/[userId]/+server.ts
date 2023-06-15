@@ -29,6 +29,12 @@ export const GET = async ({ params, setHeaders }) => {
       id: userId,
     },
     select: {
+      Leaderboards: {
+        select: {
+          position: true,
+          leaderboard: true,
+        },
+      },
       lastCommand: true,
       Achievements: {
         where: {
