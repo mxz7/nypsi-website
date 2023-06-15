@@ -32,7 +32,7 @@ export async function GET({ params, setHeaders }) {
                     leaderboards: true,
                   },
                 },
-                lastKnownTag: true,
+                lastKnownUsername: true,
               },
             },
             banned: true,
@@ -52,7 +52,7 @@ export async function GET({ params, setHeaders }) {
       });
       return r.map((x) => {
         count++;
-        const user = x.economy.user.lastKnownTag.split("#")[0];
+        const user = x.economy.user.lastKnownUsername.split("#")[0];
         return {
           value: `${x.amount.toLocaleString()}`,
           user: {

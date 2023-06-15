@@ -27,6 +27,8 @@ interface ErrorUserApiResponse extends BaseUserApiResponse {
 interface UserApiResponsexd extends BaseUserApiResponse {
   message: undefined;
   lastCommand: number;
+  badges: string[];
+  Leaderboards: { position: number; leaderboard: string }[];
   Achievements: { achievementId: string }[];
   blacklisted: boolean;
   CommandUse: {
@@ -56,7 +58,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
           joinedAt: number;
           economy: {
             user: {
-              lastKnownTag: string;
+              lastKnownUsername: string;
               id: string;
             };
           };
@@ -79,7 +81,7 @@ interface UserApiResponsexd extends BaseUserApiResponse {
   Premium?: {
     level: number;
   };
-  lastKnownTag: string;
+  lastKnownUsername: string;
   avatar: string;
   WordleStats?: {
     history: number[];

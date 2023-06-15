@@ -1,8 +1,10 @@
 <script lang="ts">
+  import badges from "$lib/data/bages.js";
   import seasons from "$lib/data/seasons.js";
   import { MStoTime, daysAgo } from "$lib/functions/time.js";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
+  import Tooltip from "sv-tooltip";
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
@@ -20,8 +22,8 @@
 
     console.log(userData);
 
-    title = `${userData.lastKnownTag}'s profile`;
-    description = `view ${userData.lastKnownTag}'s nypsi profile`;
+    title = `${userData.lastKnownUsername}'s profile`;
+    description = `view ${userData.lastKnownUsername}'s nypsi profile`;
 
     switch (userData.Premium?.level) {
       case 1:
@@ -106,14 +108,14 @@
               {/if}
             </div>
           </div>
-          <div class="ml-4 flex flex-col lg:text-lg">
+          <div class="ml-2 flex flex-col lg:text-lg">
             <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
               {#if premiumEmoji}
-                <img loading="lazy" class="-ml-2 h-7" src={premiumEmoji} alt="" />
+                <img loading="lazy" class="-ml-2 h-5 lg:h-7" src={premiumEmoji} alt="" />
               {/if}
 
               <p style="color: {premiumColour}; !important" class="line-clamp-1">
-                {userData.lastKnownTag}
+                {userData.lastKnownUsername}
               </p>
             </div>
             {#if userData.Economy}
@@ -159,6 +161,17 @@
               </p>
             {/if}
           </div>
+
+          {#if userData.badges.length > 0}
+            <div class="grow" />
+            <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
+              {#each userData.badges as badge}
+                <Tooltip tip={badges.get(badge)?.text} left
+                  ><img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" /></Tooltip
+                >
+              {/each}
+            </div>
+          {/if}
         </div>
       </div>
 
@@ -167,7 +180,7 @@
           class="mt-4 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
         >
           <h1 class="text-center text-red-500 lg:text-lg">
-            {userData.lastKnownTag.split("#")[0]} is blacklisted from nypsi
+            {userData.lastKnownUsername.split("#")[0]} is blacklisted from nypsi
           </h1>
         </div>
       {:else if dayjs(userData?.Economy?.banned).isAfter(dayjs())}
@@ -175,7 +188,7 @@
           class="mt-4 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
         >
           <h1 class="text-center text-sm text-red-500 lg:text-lg">
-            {userData.lastKnownTag.split("#")[0]} is economy banned until {new Date(
+            {userData.lastKnownUsername.split("#")[0]} is economy banned until {new Date(
               userData.Economy.banned
             ).toLocaleDateString()}
           </h1>
@@ -231,7 +244,7 @@
             {#each userData.Economy.EconomyGuildMember.guild.members as member}
               <a
                 class="mb-2 mr-2 rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-1 text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 hover:text-red-500 lg:text-sm"
-                href="/user/{member.economy.user.id}">{member.economy.user.lastKnownTag}</a
+                href="/user/{member.economy.user.id}">{member.economy.user.lastKnownUsername}</a
               >
             {/each}
           </div>
@@ -264,6 +277,52 @@
                   </div>
                   <p class="my-1">{items.find((i) => i.id === item.item)?.name}</p>
                   <p>{item.amount.toLocaleString()}</p>
+                </a>
+              {/each}
+            </div>
+          </div>
+        {/await}
+      {/if}
+
+      {#if userData.Leaderboards.length > 0}
+        {#await data.streamed.items}
+          <p>loading items...</p>
+        {:then items}
+          <div
+            class="mt-4 flex w-full flex-col justify-center rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+          >
+            <h1 class="mb-3 w-full text-center text-white lg:text-xl">leaderboards</h1>
+            <div
+              class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
+            >
+              {#each inPlaceSort(userData.Leaderboards).asc((i) => i.position) as lb}
+                <a
+                  href="/leaderboard/{lb.leaderboard.replace('item-', '')}"
+                  class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 lg:text-sm"
+                >
+                  {#if lb.leaderboard.startsWith("item-")}
+                    <div
+                      class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8"
+                    >
+                      <img
+                        loading="lazy"
+                        class="h-auto max-h-full w-auto max-w-full object-contain"
+                        src={items.find((i) => i.id === lb.leaderboard.split("-")[1])?.emoji}
+                        alt=""
+                      />
+                    </div>
+                    <p class="my-1 {lb.position === 1 ? 'text-red-500' : ''}">
+                      {items.find((i) => i.id === lb.leaderboard.split("-")[1])?.name}
+                    </p>
+                  {:else}
+                    <p class="my-1">
+                      {lb.leaderboard}
+                    </p>
+                  {/if}
+
+                  <p class={lb.position === 1 ? "text-red-500" : ""}>
+                    #{lb.position}
+                  </p>
                 </a>
               {/each}
             </div>
