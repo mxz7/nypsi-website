@@ -27,6 +27,7 @@ interface ErrorUserApiResponse extends BaseUserApiResponse {
 interface UserApiResponsexd extends BaseUserApiResponse {
   message: undefined;
   lastCommand: number;
+  badges: string[];
   Leaderboards: { position: number; leaderboard: string }[];
   Achievements: { achievementId: string }[];
   blacklisted: boolean;
