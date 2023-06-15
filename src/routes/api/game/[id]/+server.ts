@@ -25,7 +25,7 @@ export async function GET({ setHeaders, params }) {
                     leaderboards: true,
                   },
                 },
-                lastKnownTag: true,
+                lastKnownUsername: true,
               },
             },
           },
@@ -44,7 +44,7 @@ export async function GET({ setHeaders, params }) {
         win: r?.win,
         xpEarned: r?.xpEarned,
         username: r?.economy?.user.Preferences?.leaderboards
-          ? r?.economy?.user.lastKnownTag.split("#")[0] || "[redacted]"
+          ? r?.economy?.user.lastKnownUsername.split("#")[0] || "[redacted]"
           : "[hidden]",
       };
     });

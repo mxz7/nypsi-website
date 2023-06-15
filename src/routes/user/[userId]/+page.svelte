@@ -20,8 +20,8 @@
 
     console.log(userData);
 
-    title = `${userData.lastKnownTag}'s profile`;
-    description = `view ${userData.lastKnownTag}'s nypsi profile`;
+    title = `${userData.lastKnownUsername}'s profile`;
+    description = `view ${userData.lastKnownUsername}'s nypsi profile`;
 
     switch (userData.Premium?.level) {
       case 1:
@@ -113,7 +113,7 @@
               {/if}
 
               <p style="color: {premiumColour}; !important" class="line-clamp-1">
-                {userData.lastKnownTag}
+                {userData.lastKnownUsername}
               </p>
             </div>
             {#if userData.Economy}
@@ -167,7 +167,7 @@
           class="mt-4 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
         >
           <h1 class="text-center text-red-500 lg:text-lg">
-            {userData.lastKnownTag.split("#")[0]} is blacklisted from nypsi
+            {userData.lastKnownUsername.split("#")[0]} is blacklisted from nypsi
           </h1>
         </div>
       {:else if dayjs(userData?.Economy?.banned).isAfter(dayjs())}
@@ -175,7 +175,7 @@
           class="mt-4 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
         >
           <h1 class="text-center text-sm text-red-500 lg:text-lg">
-            {userData.lastKnownTag.split("#")[0]} is economy banned until {new Date(
+            {userData.lastKnownUsername.split("#")[0]} is economy banned until {new Date(
               userData.Economy.banned
             ).toLocaleDateString()}
           </h1>
@@ -231,7 +231,7 @@
             {#each userData.Economy.EconomyGuildMember.guild.members as member}
               <a
                 class="mb-2 mr-2 rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-1 text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 hover:text-red-500 lg:text-sm"
-                href="/user/{member.economy.user.id}">{member.economy.user.lastKnownTag}</a
+                href="/user/{member.economy.user.id}">{member.economy.user.lastKnownUsername}</a
               >
             {/each}
           </div>

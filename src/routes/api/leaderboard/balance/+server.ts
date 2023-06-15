@@ -27,7 +27,7 @@ export async function GET({ setHeaders }) {
                 leaderboards: true,
               },
             },
-            lastKnownTag: true,
+            lastKnownUsername: true,
           },
         },
       },
@@ -43,7 +43,7 @@ export async function GET({ setHeaders }) {
       });
       return r.map((x) => {
         count++;
-        const user = x.user.lastKnownTag.split("#")[0];
+        const user = x.user.lastKnownUsername.split("#")[0];
         return {
           value: `$${x.money.toLocaleString()}`,
           user: {

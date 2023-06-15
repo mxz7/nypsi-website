@@ -86,7 +86,7 @@ export const GET = async ({ params, setHeaders }) => {
                         select: {
                           user: {
                             select: {
-                              lastKnownTag: true,
+                              lastKnownUsername: true,
                               id: true,
                             },
                           },
@@ -125,7 +125,7 @@ export const GET = async ({ params, setHeaders }) => {
           level: true,
         },
       },
-      lastKnownTag: true,
+      lastKnownUsername: true,
       avatar: true,
       WordleStats: {
         select: {
@@ -144,7 +144,7 @@ export const GET = async ({ params, setHeaders }) => {
 
   if (!query) throw error(404, { message: "user not found" });
 
-  query.lastKnownTag = query.lastKnownTag.split("#")[0];
+  query.lastKnownUsername = query.lastKnownUsername.split("#")[0];
 
   if (query.Economy) {
     query.Economy.money = Number(query.Economy.money) as unknown as bigint;
