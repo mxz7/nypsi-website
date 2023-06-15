@@ -32,7 +32,7 @@ export async function GET({ setHeaders }) {
                 leaderboards: true,
               },
             },
-            lastKnownTag: true,
+            lastKnownUsername: true,
           },
         },
       },
@@ -41,7 +41,7 @@ export async function GET({ setHeaders }) {
       let count = 0;
       const a = r
         .map((x) => {
-          const user = x.user.lastKnownTag.split("#")[0];
+          const user = x.user.lastKnownUsername.split("#")[0];
           return {
             value: x.win1 + x.win2 + x.win3 + x.win4 + x.win5 + x.win6,
             user: {

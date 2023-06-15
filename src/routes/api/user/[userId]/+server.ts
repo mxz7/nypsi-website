@@ -29,6 +29,13 @@ export const GET = async ({ params, setHeaders }) => {
       id: userId,
     },
     select: {
+      badges: true,
+      Leaderboards: {
+        select: {
+          position: true,
+          leaderboard: true,
+        },
+      },
       lastCommand: true,
       Achievements: {
         where: {
@@ -86,7 +93,7 @@ export const GET = async ({ params, setHeaders }) => {
                         select: {
                           user: {
                             select: {
-                              lastKnownTag: true,
+                              lastKnownUsername: true,
                               id: true,
                             },
                           },
@@ -125,7 +132,7 @@ export const GET = async ({ params, setHeaders }) => {
           level: true,
         },
       },
-      lastKnownTag: true,
+      lastKnownUsername: true,
       avatar: true,
       WordleStats: {
         select: {
@@ -144,7 +151,7 @@ export const GET = async ({ params, setHeaders }) => {
 
   if (!query) throw error(404, { message: "user not found" });
 
-  query.lastKnownTag = query.lastKnownTag.split("#")[0];
+  query.lastKnownUsername = query.lastKnownUsername.split("#")[0];
 
   if (query.Economy) {
     query.Economy.money = Number(query.Economy.money) as unknown as bigint;
@@ -154,10 +161,14 @@ export const GET = async ({ params, setHeaders }) => {
     query.Economy.Inventory = query.Economy.Inventory.map((i) => {
       return { item: i.item, amount: Number(i.amount) as unknown as bigint };
     });
-    if (query.Economy.EconomyGuildMember?.guild)
+    if (query.Economy.EconomyGuildMember?.guild) {
       query.Economy.EconomyGuildMember.guild.balance = Number(
         query.Economy.EconomyGuildMember.guild?.balance
       ) as unknown as bigint;
+      query.Economy.EconomyGuildMember.guild.xp = Number(
+        query.Economy.EconomyGuildMember.guild?.xp
+      ) as unknown as bigint;
+    }
     query.Economy.Game = query.Economy.Game.map((g) => {
       return {
         id: g.id,
