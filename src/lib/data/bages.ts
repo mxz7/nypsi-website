@@ -28,6 +28,13 @@ const badges = new Map([
       text: "og player",
     },
   ],
+  [
+    "highroller",
+    {
+      icon: "https://em-content.zobj.net/thumbs/240/twitter/351/money-with-wings_1f4b8.png",
+      text: "i've donated lots of money xd",
+    },
+  ],
 ]);
 
 export default badges;
