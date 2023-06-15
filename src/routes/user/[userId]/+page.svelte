@@ -284,6 +284,52 @@
         {/await}
       {/if}
 
+      {#if userData.Leaderboards.length > 0}
+        {#await data.streamed.items}
+          <p>loading items...</p>
+        {:then items}
+          <div
+            class="mt-4 flex w-full flex-col justify-center rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+          >
+            <h1 class="mb-3 w-full text-center text-white lg:text-xl">leaderboards</h1>
+            <div
+              class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
+            >
+              {#each inPlaceSort(userData.Leaderboards).asc((i) => i.position) as lb}
+                <a
+                  href="/leaderboard/{lb.leaderboard.replace('item-', '')}"
+                  class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 lg:text-sm"
+                >
+                  {#if lb.leaderboard.startsWith("item-")}
+                    <div
+                      class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8"
+                    >
+                      <img
+                        loading="lazy"
+                        class="h-auto max-h-full w-auto max-w-full object-contain"
+                        src={items.find((i) => i.id === lb.leaderboard.split("-")[1])?.emoji}
+                        alt=""
+                      />
+                    </div>
+                    <p class="my-1 {lb.position === 1 ? 'text-red-500' : ''}">
+                      {items.find((i) => i.id === lb.leaderboard.split("-")[1])?.name}
+                    </p>
+                  {:else}
+                    <p class="my-1">
+                      {lb.leaderboard}
+                    </p>
+                  {/if}
+
+                  <p class={lb.position === 1 ? "text-red-500" : ""}>
+                    #{lb.position}
+                  </p>
+                </a>
+              {/each}
+            </div>
+          </div>
+        {/await}
+      {/if}
+
       {#if userData.WordleStats}
         <div
           class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
