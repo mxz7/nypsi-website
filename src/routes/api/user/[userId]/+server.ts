@@ -154,10 +154,14 @@ export const GET = async ({ params, setHeaders }) => {
     query.Economy.Inventory = query.Economy.Inventory.map((i) => {
       return { item: i.item, amount: Number(i.amount) as unknown as bigint };
     });
-    if (query.Economy.EconomyGuildMember?.guild)
+    if (query.Economy.EconomyGuildMember?.guild) {
       query.Economy.EconomyGuildMember.guild.balance = Number(
         query.Economy.EconomyGuildMember.guild?.balance
       ) as unknown as bigint;
+      query.Economy.EconomyGuildMember.guild.xp = Number(
+        query.Economy.EconomyGuildMember.guild?.xp
+      ) as unknown as bigint;
+    }
     query.Economy.Game = query.Economy.Game.map((g) => {
       return {
         id: g.id,
