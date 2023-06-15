@@ -1,8 +1,10 @@
 <script lang="ts">
+  import badges from "$lib/data/bages.js";
   import seasons from "$lib/data/seasons.js";
   import { MStoTime, daysAgo } from "$lib/functions/time.js";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
+  import Tooltip from "sv-tooltip";
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
@@ -106,10 +108,10 @@
               {/if}
             </div>
           </div>
-          <div class="ml-4 flex flex-col lg:text-lg">
+          <div class="ml-2 flex flex-col lg:text-lg">
             <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
               {#if premiumEmoji}
-                <img loading="lazy" class="-ml-2 h-7" src={premiumEmoji} alt="" />
+                <img loading="lazy" class="-ml-2 h-5 lg:h-7" src={premiumEmoji} alt="" />
               {/if}
 
               <p style="color: {premiumColour}; !important" class="line-clamp-1">
@@ -159,6 +161,17 @@
               </p>
             {/if}
           </div>
+
+          {#if userData.badges.length > 0}
+            <div class="grow" />
+            <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
+              {#each userData.badges as badge}
+                <Tooltip tip={badges.get(badge)?.text} left
+                  ><img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" /></Tooltip
+                >
+              {/each}
+            </div>
+          {/if}
         </div>
       </div>
 
