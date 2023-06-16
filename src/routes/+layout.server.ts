@@ -6,7 +6,7 @@ import {
 import type { User, UserSession } from "$lib/types/User.js";
 import { error, redirect } from "@sveltejs/kit";
 
-export const load = async ({ cookies, fetch }) => {
+export const load = async ({ cookies, fetch, setHeaders }) => {
   const user: UserSession = { authenticated: false };
 
   if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
@@ -37,9 +37,13 @@ export const load = async ({ cookies, fetch }) => {
 
     cookies.set("discord_access_token", res.access_token, {
       expires: accessTokenExpire,
+      path: "/",
+      priority: "high",
     });
     cookies.set("discord_refresh_token", res.refresh_token, {
       expires: refreshTokenExpire,
+      path: "/",
+      priority: "high",
     });
 
     console.log(cookies.getAll());
@@ -47,13 +51,6 @@ export const load = async ({ cookies, fetch }) => {
     if (!res || res.error) {
       throw redirect(307, "/logout");
     }
-
-    cookies.set("discord_access_token", res.access_token, {
-      expires: accessTokenExpire,
-    });
-    cookies.set("discord_refresh_token", res.refresh_token, {
-      expires: refreshTokenExpire,
-    });
 
     const userRequest = await fetch("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${res.access_token}` },
