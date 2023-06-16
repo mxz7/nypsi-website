@@ -55,6 +55,9 @@ export const GET = async ({ url, fetch, cookies }) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then((r) => r.json());
 
+    console.log("refreshed");
+    console.log(res);
+
     if (res.error) {
       throw redirect(307, "/logout");
     }
