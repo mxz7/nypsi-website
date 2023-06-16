@@ -1,13 +1,5 @@
 import { dev } from "$app/environment";
-import {
-  DISCORD_OAUTH_CLIENTID,
-  DISCORD_OAUTH_REDIRECT,
-  DISCORD_OAUTH_SECRET,
-} from "$env/static/private";
 import rateLimiter from "$lib/server/ratelimit";
-import type { User, UserSession } from "$lib/types/User";
-
-import { error, redirect } from "@sveltejs/kit";
 
 export const handle = async ({ event, resolve }) => {
   if (!dev && event.url.pathname.startsWith("/api")) {

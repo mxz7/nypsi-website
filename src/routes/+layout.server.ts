@@ -6,7 +6,7 @@ import {
 import type { User, UserSession } from "$lib/types/User.js";
 import { error, redirect } from "@sveltejs/kit";
 
-export const load = async ({ cookies, fetch, setHeaders }) => {
+export const load = async ({ cookies, fetch }) => {
   const user: UserSession = { authenticated: false };
 
   if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
@@ -23,17 +23,12 @@ export const load = async ({ cookies, fetch, setHeaders }) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then((r) => r.json());
 
-    console.log(res);
-
     if (res.error) {
       throw redirect(307, "/logout");
     }
 
     const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
     const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
-
-    console.log(`old: ${cookies.get("discord_refresh_token")}`);
-    console.log(`new: ${res.refresh_token}`);
 
     cookies.set("discord_access_token", res.access_token, {
       expires: accessTokenExpire,
@@ -46,8 +41,6 @@ export const load = async ({ cookies, fetch, setHeaders }) => {
       priority: "high",
     });
 
-    console.log(cookies.getAll());
-
     if (!res || res.error) {
       throw redirect(307, "/logout");
     }
@@ -55,8 +48,6 @@ export const load = async ({ cookies, fetch, setHeaders }) => {
     const userRequest = await fetch("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${res.access_token}` },
     }).then((r) => r.json());
-
-    console.log(userRequest);
 
     if (userRequest.error) {
       cookies.delete("discord_access_token");
