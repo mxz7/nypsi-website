@@ -55,9 +55,6 @@ export const GET = async ({ url, fetch, cookies }) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then((r) => r.json());
 
-    console.log("refreshed");
-    console.log(res);
-
     if (res.error) {
       throw redirect(307, "/logout");
     }
@@ -72,7 +69,11 @@ export const GET = async ({ url, fetch, cookies }) => {
       expires: refreshTokenExpire,
     });
 
-    return json({ access_token: res.access_token, refresh_token: res.refresh_token });
+    return json({
+      access_token: res.access_token,
+      refresh_token: res.refresh_token,
+      expires_in: res.expires_in,
+    });
   }
   throw redirect(302, PUBLIC_OAUTH_URL);
 };

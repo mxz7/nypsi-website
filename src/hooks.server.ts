@@ -36,6 +36,16 @@ export const handle = async ({ event, resolve }) => {
           throw redirect(307, "/logout");
         }
 
+        const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
+        const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+
+        cookies.set("discord_access_token", res.access_token, {
+          expires: accessTokenExpire,
+        });
+        cookies.set("discord_refresh_token", res.refresh_token, {
+          expires: refreshTokenExpire,
+        });
+
         const userRequest = await fetch("https://discord.com/api/users/@me", {
           headers: { Authorization: `Bearer ${res.access_token}` },
         }).then((r) => r.json());
