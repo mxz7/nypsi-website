@@ -5,7 +5,7 @@
   const playerCards = playerCardsText
     .split("|")
     .map((i) => i.trim())
-    .map((i) => i.replace("♠", "S").replace("♣️", "C").replace("♦️", "D").replace("♥️", "H"));
+    .map((i) => i.replace("♠️", "S").replace("♣️", "C").replace("♦️", "D").replace("♥️", "H"));
   playerCards.shift();
   const playerTotal = parseInt(playerCards.pop()?.replace("(", "").replace(")", "") as string);
 
@@ -13,7 +13,7 @@
   const dealerCards = dealerCardsText
     .split("|")
     .map((i) => i.trim())
-    .map((i) => i.replace("♠", "S").replace("♣️", "C").replace("♦️", "D").replace("♥️", "H"));
+    .map((i) => i.replace("♠️", "S").replace("♣️", "C").replace("♦️", "D").replace("♥️", "H"));
   dealerCards.shift();
   const dealerTotal = parseInt(dealerCards.pop()?.replace("(", "").replace(")", "") as string);
 
