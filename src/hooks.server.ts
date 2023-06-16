@@ -1,4 +1,9 @@
 import { dev } from "$app/environment";
+import {
+  DISCORD_OAUTH_CLIENTID,
+  DISCORD_OAUTH_REDIRECT,
+  DISCORD_OAUTH_SECRET,
+} from "$env/static/private";
 import rateLimiter from "$lib/server/ratelimit";
 import type { User, UserSession } from "$lib/types/User";
 
@@ -26,18 +31,43 @@ export const handle = async ({ event, resolve }) => {
       const user: UserSession = { authenticated: false };
 
       if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
-        const res = await fetch(`/login?refresh=${cookies.get("discord_refresh_token")}`)
-          .then((r) => r.json())
-          .catch(() => {
-            /* boobs */
-          });
+        const res = await fetch("https://discord.com/api/oauth2/token", {
+          method: "post",
+          body: new URLSearchParams({
+            client_id: DISCORD_OAUTH_CLIENTID,
+            client_secret: DISCORD_OAUTH_SECRET,
+            grant_type: "refresh_token",
+            redirect_uri: DISCORD_OAUTH_REDIRECT,
+            refresh_token: cookies.get("discord_refresh_token") as string,
+            scope: "identify",
+          }),
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }).then((r) => r.json());
 
-        if (!res || res.error) {
+        console.log(res);
+
+        if (res.error) {
           throw redirect(307, "/logout");
         }
 
         const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
         const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+
+        console.log(`old: ${cookies.get("discord_refresh_token")}`);
+        console.log(`new: ${res.refresh_token}`);
+
+        cookies.set("discord_access_token", res.access_token, {
+          expires: accessTokenExpire,
+        });
+        cookies.set("discord_refresh_token", res.refresh_token, {
+          expires: refreshTokenExpire,
+        });
+
+        console.log(cookies.getAll());
+
+        if (!res || res.error) {
+          throw redirect(307, "/logout");
+        }
 
         cookies.set("discord_access_token", res.access_token, {
           expires: accessTokenExpire,
@@ -49,6 +79,8 @@ export const handle = async ({ event, resolve }) => {
         const userRequest = await fetch("https://discord.com/api/users/@me", {
           headers: { Authorization: `Bearer ${res.access_token}` },
         }).then((r) => r.json());
+
+        console.log(userRequest);
 
         if (userRequest.error) {
           cookies.delete("discord_access_token");
