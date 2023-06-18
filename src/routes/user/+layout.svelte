@@ -23,6 +23,8 @@
       minlength="2"
       maxlength="32"
       disabled={Boolean($navigating)}
+      pattern={String.raw`^[_\.\w0-9]{2,32}$`}
+      title="discord username"
     />
     <input
       class="mr-2 text-sm text-gray-500 hover:cursor-pointer"
@@ -33,7 +35,7 @@
   </form>
 </div>
 
-{#if data.error}
+{#if data.error === 429}
   <h2 transition:fade class="-mt-8 text-center text-red-500">you are being rate limited</h2>
 {/if}
 
