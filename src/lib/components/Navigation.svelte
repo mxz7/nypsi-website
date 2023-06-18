@@ -27,7 +27,7 @@
           <img src="/nypsi_transparent.png" alt="nypsi icon" class="h-8" />
         {:then user}
           {#if dropDownVisible && user && user.authenticated}
-            <a href="/user/me" class="h-8 rounded-full">
+            <a href="/user/{user.id}" class="h-8 rounded-full">
               <img
                 class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
                 src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
@@ -96,7 +96,7 @@
         >
       {:then user}
         {#if user.authenticated}
-          <a href="/user/me" class="h-10 w-10 rounded-full">
+          <a href="/user/{user.id}" class="h-10 w-10 rounded-full">
             <img
               class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
               src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
