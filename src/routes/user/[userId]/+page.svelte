@@ -13,6 +13,7 @@
   let description = "view nypsi profile";
 
   let premiumEmoji = "";
+  let premiumText = "";
   let premiumColour = "";
 
   onMount(async () => {
@@ -30,21 +31,25 @@
         premiumEmoji =
           "https://cdn.discordapp.com/emojis/1108083689478443058.webp?size=240&quality=lossless";
         premiumColour = "#ffaa57";
+        premiumText = "bronze";
         break;
       case 2:
         premiumEmoji =
           "https://cdn.discordapp.com/emojis/1108083725813686334.webp?size=240&quality=lossless";
         premiumColour = "#d1e2ee";
+        premiumText = "silver";
         break;
       case 3:
         premiumEmoji =
           "https://cdn.discordapp.com/emojis/1108083767236640818.webp?size=240&quality=lossless";
         premiumColour = "#ffd479";
+        premiumText = "gold";
         break;
       case 4:
         premiumEmoji =
           "https://cdn.discordapp.com/emojis/1108083805841002678.webp?size=240&quality=lossless";
         premiumColour = "#a3dbf0";
+        premiumText = "platinum";
         break;
     }
   });
@@ -110,10 +115,6 @@
           </div>
           <div class="ml-2 flex flex-col lg:text-lg">
             <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
-              {#if premiumEmoji}
-                <img loading="lazy" class="-ml-2 h-5 lg:h-7" src={premiumEmoji} alt="" />
-              {/if}
-
               <p style="color: {premiumColour}; !important" class="line-clamp-1">
                 {userData.lastKnownUsername}
               </p>
@@ -170,6 +171,11 @@
                   ><img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" /></Tooltip
                 >
               {/each}
+              {#if premiumEmoji}
+                <Tooltip tip="{premiumText} membership">
+                  <img loading="lazy" class="mb-2 h-4 lg:h-6" src={premiumEmoji} alt="" />
+                </Tooltip>
+              {/if}
             </div>
           {/if}
         </div>
