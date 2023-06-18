@@ -3,7 +3,7 @@
   import { fly } from "svelte/transition";
 
   $: dropDownVisible = false;
-  export let user: Promise<UserSession>;
+  export let user: UserSession;
 
   function handleMenuOpen() {
     if (dropDownVisible) return handleMenuClose();
@@ -23,21 +23,17 @@
   <div class="flex h-full w-full flex-row">
     <div class="flex grow flex-row items-center p-3 align-middle">
       <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
-        {#await user}
+        {#if dropDownVisible && user && user.authenticated}
+          <a href="/user/{user.id}" class="h-8 rounded-full">
+            <img
+              class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
+              src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
+              alt=""
+            />
+          </a>
+        {:else}
           <img src="/nypsi_transparent.png" alt="nypsi icon" class="h-8" />
-        {:then user}
-          {#if dropDownVisible && user && user.authenticated}
-            <a href="/user/{user.id}" class="h-8 rounded-full">
-              <img
-                class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-                src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
-                alt=""
-              />
-            </a>
-          {:else}
-            <img src="/nypsi_transparent.png" alt="nypsi icon" class="h-8" />
-          {/if}
-        {/await}
+        {/if}
       </a>
 
       <div
@@ -88,29 +84,21 @@
       </button>
     </div>
     <div class="mr-3 hidden items-center justify-center md:flex">
-      {#await user}
+      {#if user.authenticated}
+        <a href="/user/{user.id}" class="h-10 w-10 rounded-full">
+          <img
+            class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
+            src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
+            alt=""
+          />
+        </a>
+      {:else}
         <a
           href="/login"
           class="rounded bg-gray-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-gray-200"
           >log in</a
         >
-      {:then user}
-        {#if user.authenticated}
-          <a href="/user/{user.id}" class="h-10 w-10 rounded-full">
-            <img
-              class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-              src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
-              alt=""
-            />
-          </a>
-        {:else}
-          <a
-            href="/login"
-            class="rounded bg-gray-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-gray-200"
-            >log in</a
-          >
-        {/if}
-      {/await}
+      {/if}
     </div>
   </div>
 
@@ -122,13 +110,9 @@
     >
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3 [&>p]:m-3">
         <a href="/leaderboard">leaderboards</a>
-        {#await user}
+        {#if !user || !user.authenticated}
           <a href="/login">log in</a>
-        {:then user}
-          {#if !user || !user.authenticated}
-            <a href="/login">log in</a>
-          {/if}
-        {/await}
+        {/if}
         <a href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
         <a href="https://docs.nypsi.xyz" target="_blank">docs</a>
         <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="text-red-500">donate</a>

@@ -17,6 +17,6 @@
 
 <GAnalytics />
 
-<Navigation user={data.streamed.user} />
+<Navigation user={data.user} />
 
 <slot />

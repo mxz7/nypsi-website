@@ -5,8 +5,7 @@ import { redirect } from "@sveltejs/kit";
 export const load = async ({ parent, params, fetch }) => {
   let userId = params.userId;
   if (userId === "me") {
-    const { streamed } = await parent();
-    const user = await Promise.resolve(streamed.user);
+    const { user } = await parent();
     if (!user.authenticated) throw redirect(303, "/login");
 
     userId = user.id;
