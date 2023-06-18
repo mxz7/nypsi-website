@@ -30,6 +30,8 @@ export const load = async ({ cookies, fetch }) => {
     const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
     const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
+    console.log(cookies.getAll());
+
     cookies.set("discord_access_token", res.access_token, {
       expires: accessTokenExpire,
       path: "/",
@@ -40,6 +42,8 @@ export const load = async ({ cookies, fetch }) => {
       path: "/",
       priority: "high",
     });
+
+    console.log(cookies.getAll());
 
     if (!res || res.error) {
       throw redirect(307, "/logout");
