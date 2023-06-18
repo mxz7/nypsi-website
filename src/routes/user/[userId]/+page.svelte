@@ -92,6 +92,7 @@
     >
       <div
         class="flex w-full flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        id="user"
       >
         <div class="flex w-full flex-row text-sm">
           <div class="flex w-20 flex-col lg:w-44">
@@ -263,6 +264,7 @@
         {:then items}
           <div
             class="mt-4 flex w-full flex-col justify-center rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+            id="inventory"
           >
             <h1 class="mb-3 w-full text-center text-white lg:text-xl">inventory</h1>
             <div
@@ -329,6 +331,7 @@
         {:then items}
           <div
             class="mt-4 flex w-full flex-col justify-center rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+            id="leaderboards"
           >
             <h1 class="mb-3 w-full text-center text-white lg:text-xl">leaderboards</h1>
             <div
@@ -405,6 +408,7 @@
       {#if userData.WordleStats}
         <div
           class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+          id="wordle"
         >
           <h1 class="mb-2 text-center text-white lg:mb-4 lg:text-xl">wordle</h1>
 
