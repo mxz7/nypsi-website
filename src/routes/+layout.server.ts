@@ -80,5 +80,5 @@ export const load = async ({ cookies, fetch }) => {
     (user as unknown as User).id = userRequest.id;
   }
 
-  return { user };
+  return { user: user as UserSession };
 };

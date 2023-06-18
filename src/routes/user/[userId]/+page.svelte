@@ -1,58 +1,67 @@
 <script lang="ts">
   import badges from "$lib/data/bages.js";
   import seasons from "$lib/data/seasons.js";
+  import { userSearchTerm } from "$lib/data/stores.js";
   import { MStoTime, daysAgo } from "$lib/functions/time.js";
+  import type { UserApiResponse } from "$lib/types/User.js";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
   import Tooltip from "sv-tooltip";
-  import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
+
+  const premiumMap = new Map([
+    [
+      1,
+      {
+        emoji:
+          "https://cdn.discordapp.com/emojis/1108083689478443058.webp?size=240&quality=lossless",
+        text: "bronze",
+        colour: "#ffaa57",
+      },
+    ],
+    [
+      2,
+      {
+        emoji:
+          "https://cdn.discordapp.com/emojis/1108083725813686334.webp?size=240&quality=lossless",
+        colour: "#d1e2ee",
+        text: "silver",
+      },
+    ],
+    [
+      3,
+      {
+        emoji:
+          "https://cdn.discordapp.com/emojis/1108083767236640818.webp?size=240&quality=lossless",
+        colour: "#ffd479",
+        text: "gold",
+      },
+    ],
+    [
+      4,
+
+      {
+        emoji:
+          "https://cdn.discordapp.com/emojis/1108083805841002678.webp?size=240&quality=lossless",
+        colour: "#a3dbf0",
+        text: "platinum",
+      },
+    ],
+  ]);
 
   export let data;
   let title = "nypsi profile";
   let description = "view nypsi profile";
 
-  let premiumEmoji = "";
-  let premiumText = "";
-  let premiumColour = "";
+  async function updateTags(userData: Promise<UserApiResponse>) {
+    const data = await Promise.resolve(userData);
+    if (data.message) return;
+    title = `${data.lastKnownUsername}'s profile`;
+    description = `view ${data.lastKnownUsername}'s nypsi profile`;
+    $userSearchTerm = data.lastKnownUsername;
+  }
 
-  onMount(async () => {
-    const userData = await Promise.resolve(data.streamed.userData);
-
-    if (userData?.message) return;
-
-    console.log(userData);
-
-    title = `${userData.lastKnownUsername}'s profile`;
-    description = `view ${userData.lastKnownUsername}'s nypsi profile`;
-
-    switch (userData.Premium?.level) {
-      case 1:
-        premiumEmoji =
-          "https://cdn.discordapp.com/emojis/1108083689478443058.webp?size=240&quality=lossless";
-        premiumColour = "#ffaa57";
-        premiumText = "bronze";
-        break;
-      case 2:
-        premiumEmoji =
-          "https://cdn.discordapp.com/emojis/1108083725813686334.webp?size=240&quality=lossless";
-        premiumColour = "#d1e2ee";
-        premiumText = "silver";
-        break;
-      case 3:
-        premiumEmoji =
-          "https://cdn.discordapp.com/emojis/1108083767236640818.webp?size=240&quality=lossless";
-        premiumColour = "#ffd479";
-        premiumText = "gold";
-        break;
-      case 4:
-        premiumEmoji =
-          "https://cdn.discordapp.com/emojis/1108083805841002678.webp?size=240&quality=lossless";
-        premiumColour = "#a3dbf0";
-        premiumText = "platinum";
-        break;
-    }
-  });
+  $: updateTags(data.streamed.userData);
 </script>
 
 <svelte:head>
@@ -116,7 +125,11 @@
           </div>
           <div class="ml-2 flex flex-col lg:text-lg">
             <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
-              <p style="color: {premiumColour}; !important" class="line-clamp-1">
+              <p
+                style="color: {premiumMap.get(userData?.Premium?.level || 0)?.colour ||
+                  ''}; !important"
+                class="line-clamp-1"
+              >
                 {userData.lastKnownUsername}
               </p>
             </div>
@@ -172,9 +185,14 @@
                   ><img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" /></Tooltip
                 >
               {/each}
-              {#if premiumEmoji}
-                <Tooltip tip="{premiumText} membership" left>
-                  <img loading="lazy" class="mb-2 h-4 lg:h-6" src={premiumEmoji} alt="" />
+              {#if premiumMap.get(userData.Premium?.level || 0)}
+                <Tooltip tip="{premiumMap.get(userData.Premium?.level || 0)?.text} membership" left>
+                  <img
+                    loading="lazy"
+                    class="mb-2 h-4 lg:h-6"
+                    src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
+                    alt=""
+                  />
                 </Tooltip>
               {/if}
             </div>
