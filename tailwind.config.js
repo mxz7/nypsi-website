@@ -4,6 +4,4 @@ export default {
   theme: {
     extend: {},
   },
-  /* eslint-disable */
-  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };
