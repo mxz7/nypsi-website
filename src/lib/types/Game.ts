@@ -9,6 +9,7 @@ type Game = {
   win: number;
   xpEarned: number;
   username: string;
+  userId: string | undefined;
 };
 
 export default Game;

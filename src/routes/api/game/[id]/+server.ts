@@ -16,6 +16,7 @@ export async function GET({ setHeaders, params }) {
         id: true,
         outcome: true,
         win: true,
+        userId: true,
         economy: {
           select: {
             user: {
@@ -46,6 +47,7 @@ export async function GET({ setHeaders, params }) {
         username: r?.economy?.user.Preferences?.leaderboards
           ? r?.economy?.user.lastKnownUsername.split("#")[0] || "[redacted]"
           : "[hidden]",
+        userId: r?.economy?.user.Preferences?.leaderboards ? r.userId : null,
       };
     });
 
