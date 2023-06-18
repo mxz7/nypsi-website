@@ -82,9 +82,18 @@
           {/if}
 
           <p class="mt-3 text-center text-gray-300">
-            played by <span class="font-bold text-red-500">{game.username}</span> on {new Date(
+            played by
+            {#if game.userId}
+              <a
+                href="/user/{game.userId}"
+                class="font-bold text-red-500 underline-offset-4 hover:underline">{game.username}</a
+              >
+            {:else}
+              <span class="font-bold text-red-500">{game.username}</span>
+            {/if}
+            on {new Date(game.date).toLocaleDateString()} at {new Date(
               game.date
-            ).toLocaleDateString()} at {new Date(game.date).toLocaleTimeString()}
+            ).toLocaleTimeString()}
           </p>
         </div>
       {:else}
