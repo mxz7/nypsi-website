@@ -72,7 +72,7 @@
 </svelte:head>
 
 {#await data.streamed.userData}
-  <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
+  <div class="absolute left-1/2 top-1/4 mb-[100vh] -translate-x-1/2 -translate-y-1/2 transform">
     <div out:fade={{ duration: 300 }} class="flex items-center justify-center">
       <svg
         class="-ml-1 mr-3 h-10 w-10 animate-spin text-red-500"
