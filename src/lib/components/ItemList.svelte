@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { searchTerm } from "$lib/data/stores";
+  import { gameSearchTerm } from "$lib/data/stores";
   import getItems from "$lib/functions/getItems";
   import { onMount } from "svelte";
   import ItemIcon from "./ItemIcon.svelte";
@@ -8,13 +8,13 @@
     [];
 
   $: filteredItems = items.filter((i) => {
-    if ($searchTerm.length == 0) return true;
-    if (i.name.includes($searchTerm.toLowerCase())) return true;
-    if (i.id.includes($searchTerm.toLowerCase())) return true;
-    if (i.role.includes($searchTerm.toLowerCase())) return true;
+    if ($gameSearchTerm.length == 0) return true;
+    if (i.name.includes($gameSearchTerm.toLowerCase())) return true;
+    if (i.id.includes($gameSearchTerm.toLowerCase())) return true;
+    if (i.role.includes($gameSearchTerm.toLowerCase())) return true;
     if (i.aliases)
       for (const alias of i.aliases) {
-        if (alias.includes($searchTerm.toLowerCase())) return true;
+        if (alias.includes($gameSearchTerm.toLowerCase())) return true;
       }
   });
 
@@ -40,7 +40,7 @@
       type="search"
       name="search"
       placeholder="search"
-      bind:value={$searchTerm}
+      bind:value={$gameSearchTerm}
       autocapitalize="off"
     />
   </form>
