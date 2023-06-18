@@ -34,9 +34,11 @@ export const GET = async ({ url, fetch, cookies }) => {
 
     cookies.set("discord_access_token", res.access_token, {
       expires: accessTokenExpire,
+      path: "/",
     });
     cookies.set("discord_refresh_token", res.refresh_token, {
       expires: refreshTokenExpire,
+      path: "/",
     });
 
     throw redirect(302, "/");
