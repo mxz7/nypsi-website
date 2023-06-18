@@ -30,6 +30,7 @@ export const load = async ({ cookies, fetch }) => {
     const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
     const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
+    console.log("old");
     console.log(cookies.getAll());
 
     cookies.set("discord_access_token", res.access_token, {
@@ -43,9 +44,11 @@ export const load = async ({ cookies, fetch }) => {
       priority: "high",
     });
 
+    console.log("new");
     console.log(cookies.getAll());
 
     if (!res || res.error) {
+      console.log("error 1");
       throw redirect(307, "/logout");
     }
 
@@ -53,7 +56,10 @@ export const load = async ({ cookies, fetch }) => {
       headers: { Authorization: `Bearer ${res.access_token}` },
     }).then((r) => r.json());
 
+    console.log(userRequest);
+
     if (userRequest.error) {
+      console.log("error 2");
       cookies.delete("discord_access_token");
       cookies.delete("discord_refresh_token");
       console.error(userRequest.error);
