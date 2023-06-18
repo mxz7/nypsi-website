@@ -172,7 +172,7 @@
                 >
               {/each}
               {#if premiumEmoji}
-                <Tooltip tip="{premiumText} membership">
+                <Tooltip tip="{premiumText} membership" left>
                   <img loading="lazy" class="mb-2 h-4 lg:h-6" src={premiumEmoji} alt="" />
                 </Tooltip>
               {/if}
@@ -290,6 +290,39 @@
         {/await}
       {/if}
 
+      <div class="mt-4 flex w-full flex-row">
+        <div
+          class="mr-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
+          <h1 class="text-white lg:text-xl">last seen</h1>
+          <p class="text-sm text-gray-300 lg:text-base">
+            {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(1, "year"))}
+              {new Date(userData.lastCommand).toLocaleDateString()}
+            {:else if daysAgo(userData.lastCommand) <= 1}
+              today
+            {:else}
+              {daysAgo(userData.lastCommand).toLocaleString()} days ago
+            {/if}
+          </p>
+        </div>
+
+        <div
+          class="ml-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        >
+          <h1 class="text-white lg:text-xl">completion</h1>
+          <p class="text-sm text-gray-300 lg:text-base">
+            {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/achievements.json").then( (r) => r.json() )}
+              calculating...
+            {:then achievementData}
+              {(
+                (userData.Achievements.length / Object.keys(achievementData).length) *
+                100
+              ).toPrecision(3)}%
+            {/await}
+          </p>
+        </div>
+      </div>
+
       {#if userData.Leaderboards.length > 0}
         {#await data.streamed.items}
           <p>loading items...</p>
@@ -336,38 +369,38 @@
         {/await}
       {/if}
 
-      <div class="mt-4 flex w-full flex-row">
+      {#if userData.Economy.Game.length > 0}
         <div
-          class="mr-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+          class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40 lg:w-full"
         >
-          <h1 class="text-white lg:text-xl">last seen</h1>
-          <p class="text-sm text-gray-300 lg:text-base">
-            {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(1, "year"))}
-              {new Date(userData.lastCommand).toLocaleDateString()}
-            {:else if daysAgo(userData.lastCommand) <= 1}
-              today
-            {:else}
-              {daysAgo(userData.lastCommand).toLocaleString()} days ago
-            {/if}
-          </p>
-        </div>
+          <h1 class="text-center text-white lg:text-xl">recent games</h1>
+          <div
+            class="mx-4 mt-4 flex max-h-64 flex-col overflow-y-auto px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
+          >
+            {#each userData.Economy.Game as game}
+              <a
+                href="/game/{game.id.toString(36)}"
+                style="color: {game.win ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)'};"
+                class="mt-3 flex w-full flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0"
+              >
+                <h2 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h2>
 
-        <div
-          class="ml-2 flex grow flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 text-center duration-300 hover:border-opacity-20 hover:bg-opacity-40"
-        >
-          <h1 class="text-white lg:text-xl">completion</h1>
-          <p class="text-sm text-gray-300 lg:text-base">
-            {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/achievements.json").then( (r) => r.json() )}
-              calculating...
-            {:then achievementData}
-              {(
-                (userData.Achievements.length / Object.keys(achievementData).length) *
-                100
-              ).toPrecision(3)}%
-            {/await}
-          </p>
+                {#if !game.game.includes("scratch")}
+                  <p class="mt-2 text-center text-sm font-semibold lg:text-base">
+                    {game.win
+                      ? `+$${game.earned.toLocaleString()}`
+                      : `-$${game.bet.toLocaleString()}`}
+                  </p>
+                {/if}
+
+                <p class="mt-2 text-center text-xs text-gray-500">
+                  {game.id.toString(36)} | {new Date(game.date).toLocaleDateString()}
+                </p>
+              </a>
+            {/each}
+          </div>
         </div>
-      </div>
+      {/if}
 
       {#if userData.WordleStats}
         <div
@@ -547,39 +580,6 @@
                 </p>
               {/if}
             </div>
-          </div>
-        </div>
-      {/if}
-
-      {#if userData.Economy.Game.length > 0}
-        <div
-          class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40 lg:w-full"
-        >
-          <h1 class="text-center text-white lg:text-xl">recent games</h1>
-          <div
-            class="mx-4 mt-4 flex max-h-64 flex-col overflow-y-auto px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
-          >
-            {#each userData.Economy.Game as game}
-              <a
-                href="/game/{game.id.toString(36)}"
-                style="color: {game.win ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)'};"
-                class="mt-3 flex w-full flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0"
-              >
-                <h2 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h2>
-
-                {#if !game.game.includes("scratch")}
-                  <p class="mt-2 text-center text-sm font-semibold lg:text-base">
-                    {game.win
-                      ? `+$${game.earned.toLocaleString()}`
-                      : `-$${game.bet.toLocaleString()}`}
-                  </p>
-                {/if}
-
-                <p class="mt-2 text-center text-xs text-gray-500">
-                  {game.id.toString(36)} | {new Date(game.date).toLocaleDateString()}
-                </p>
-              </a>
-            {/each}
           </div>
         </div>
       {/if}
