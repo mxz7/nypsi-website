@@ -24,7 +24,6 @@ export const GET = async ({ url, fetch, cookies }) => {
     }).then((r) => r.json());
 
     if (res.error) {
-      console.log("2");
       console.error(res);
       throw error(400, { message: "something went wrong", ...res });
     }
