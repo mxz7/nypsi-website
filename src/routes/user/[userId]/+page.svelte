@@ -1,5 +1,5 @@
 <script lang="ts">
-  import badges from "$lib/data/bages.js";
+  import badges from "$lib/data/badges.js";
   import seasons from "$lib/data/seasons.js";
   import { userSearchTerm } from "$lib/data/stores.js";
   import { MStoTime, daysAgo } from "$lib/functions/time.js";
