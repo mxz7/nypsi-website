@@ -41,7 +41,7 @@ const badges = new Map([
       icon: "https://em-content.zobj.net/thumbs/240/twitter/351/fire_1f525.png",
       text: "og player",
       name: "og player",
-      description: "these people have been using nypsi since it very first started back in 2020. as a sign of appreciation they receive this badge (:<br>if you have been using nypsi since 2020, please contact me on discord (@tekoh.)"
+      description: "these people have been using nypsi since it very first started back in 2020. as a sign of appreciation they receive this badge (: \n if you have been using nypsi since 2020, please contact me on discord (@tekoh.)"
     },
   ],
   [
