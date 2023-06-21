@@ -33,12 +33,10 @@ export const load = async ({ cookies, fetch }) => {
     cookies.set("discord_access_token", res.access_token, {
       expires: accessTokenExpire,
       path: "/",
-      priority: "high",
     });
     cookies.set("discord_refresh_token", res.refresh_token, {
       expires: refreshTokenExpire,
       path: "/",
-      priority: "high",
     });
 
     if (!res || res.error) {
