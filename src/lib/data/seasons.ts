@@ -12,12 +12,12 @@ export default {
       { username: "morris <3", value: "$52,237,509" },
       { username: "deije", value: "$33,288,999" },
       { username: "Azorochi", value: "$31,424,039" },
-      { username: "Plasma3", value: "$28,540,100" }
-    ]
+      { username: "Plasma3", value: "$28,540,100" },
+    ],
   },
   "2": {
     started: new Date("2021-09-01"),
-    ended: new Date("2022-01-01")
+    ended: new Date("2022-01-01"),
   },
   "3": {
     started: new Date("2022-01-01"),
@@ -32,8 +32,8 @@ export default {
       { username: "Khyat", value: "$1,037,988,068" },
       { username: "aleph-riceboy", value: "$712,670,135" },
       { username: "strelec06", value: "$680,006,329" },
-      { username: "5th Place", value: "$626,444,444" }
-    ]
+      { username: "5th Place", value: "$626,444,444" },
+    ],
   },
   "4": {
     started: new Date("2022-08-01"),
@@ -48,8 +48,8 @@ export default {
       { username: "Mob.", value: "$797,257,511" },
       { username: "inkoth", value: "$730,922,051" },
       { username: "hill", value: "$651,902,928" },
-      { username: "Empheny", value: "$526,856,290" }
-    ]
+      { username: "Empheny", value: "$526,856,290" },
+    ],
   },
   "5": {
     started: new Date("2023-01-01"),
@@ -64,12 +64,12 @@ export default {
       { username: "Orion", value: "$4,803,391,042" },
       { username: "Kindred", value: "$4,121,912,195" },
       { username: "Cooler", value: "$2,661,086,832" },
-      { username: "— ۞ —", value: "$2,270,744,832" }
-    ]
+      { username: "— ۞ —", value: "$2,270,744,832" },
+    ],
   },
   "6": {
-    started: new Date("2023-06-01")
-  }
+    started: new Date("2023-06-01"),
+  },
 } as {
   [key: string]: { started: Date; ended?: Date; winners?: { username: string; value: string }[] };
 };

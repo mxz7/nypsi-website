@@ -3,7 +3,7 @@ import { Redis } from "@upstash/redis";
 
 const redis = new Redis({
   url: REDIS_URL,
-  token: REDIS_PASS
+  token: REDIS_PASS,
 });
 
 export default redis;
