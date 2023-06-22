@@ -10,7 +10,7 @@ export const load = async ({ url, fetch }) => {
     return;
   }
 
-  let res: { error?: number; status?: number; message?: string; id?: number; expire?: number };
+  let res: { error?: number; status?: number; message?: string; id?: number; expire?: number, lastKnownUsername: string };
 
   const fetchFromApi = async () => {
     const res = await fetch(`/api/usernametoid/${search}`).then((r) => r.json());
@@ -35,7 +35,7 @@ export const load = async ({ url, fetch }) => {
   if (res.error === 451) return res
 
   if (res.id) {
-    throw redirect(302, `/user/${res.id}`);
+    throw redirect(302, `/user/${res.lastKnownUsername}`);
   } else {
     throw redirect(302, "/user/unknown");
   }

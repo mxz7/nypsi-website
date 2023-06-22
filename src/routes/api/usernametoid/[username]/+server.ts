@@ -8,6 +8,7 @@ export const GET = async ({ params }) => {
     },
     select: {
       id: true,
+      lastKnownUsername: true,
       Preferences: {
         select: {
           leaderboards: true
