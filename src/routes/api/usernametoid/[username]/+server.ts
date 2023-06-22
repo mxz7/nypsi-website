@@ -16,8 +16,9 @@ export const GET = async ({ params }) => {
     },
   });
 
+  if (!query) return json({ status: 404, error: 404, message: "not found" });
+
   if (!query?.Preferences?.leaderboards) return json({status: 451, error: 451, message: "private profile"})
 
-  if (query) return json(query);
-  return json({ status: 404, error: 404, message: "not found" });
+   return json(query);
 };
