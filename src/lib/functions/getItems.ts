@@ -26,7 +26,11 @@ export default async function getItems() {
     role: string;
     plural?: string;
   }[] = Object.values(
-    JSON.parse(await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) => r.text()))
+    JSON.parse(
+      await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) =>
+        r.text()
+      )
+    )
   );
 
   for (const item of items) {
