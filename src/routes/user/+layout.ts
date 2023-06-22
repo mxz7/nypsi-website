@@ -32,6 +32,7 @@ export const load = async ({ url, fetch }) => {
   }
 
   if (res.error === 429) return res;
+  if (res.error === 451) return res
 
   if (res.id) {
     throw redirect(302, `/user/${res.id}`);
