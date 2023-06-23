@@ -51,3 +51,5 @@
 {/if}
 
 <slot />
+
+<div class="mt-24" />
