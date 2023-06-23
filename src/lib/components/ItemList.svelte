@@ -29,7 +29,7 @@
   });
 </script>
 
-<div id="items" class="mt-10 w-full p-4 sm:px-48">
+<div id="items" class="mt-10 w-full overflow-x-hidden sm:px-48">
   <form class="m-2 flex w-fit flex-row rounded-md bg-gray-950 bg-opacity-50 p-3">
     <div class="mr-1 flex items-center justify-center">
       <img src="/search.png" alt="" class="h-4 w-4" />
@@ -45,7 +45,7 @@
     />
   </form>
 
-  <div class="flex flex-row flex-wrap justify-center">
+  <div class="flex w-full flex-row flex-wrap justify-center gap-1">
     {#each filteredItems as item}
       <ItemIcon {item} />
     {/each}
