@@ -9,6 +9,8 @@ import { error, redirect } from "@sveltejs/kit";
 export const load = async ({ cookies, fetch }) => {
   const user: UserSession = { authenticated: false };
 
+  console.log(cookies.getAll());
+
   if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
     const res = await fetch("https://discord.com/api/oauth2/token", {
       method: "post",
