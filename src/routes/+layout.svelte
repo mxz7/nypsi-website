@@ -31,8 +31,6 @@
     }, 100);
   }
 
-  console.log(data);
-
   inject({ mode: dev ? "development" : "production" });
 </script>
 
