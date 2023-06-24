@@ -28,15 +28,12 @@ export const GET = async ({ url, fetch, cookies }) => {
       throw error(400, { message: "something went wrong", ...res });
     }
 
-    const accessTokenExpire = new Date(Date.now() + res.expires_in); // 10 minutes
-    const refreshTokenExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
-
     cookies.set("discord_access_token", res.access_token, {
-      expires: accessTokenExpire,
+      maxAge: res.expires_in / 2,
       path: "/",
     });
     cookies.set("discord_refresh_token", res.refresh_token, {
-      expires: refreshTokenExpire,
+      maxAge: 7.776e6, // 60 days
       path: "/",
     });
 
