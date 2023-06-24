@@ -12,6 +12,7 @@ export const load = async ({ cookies, fetch }) => {
   console.log(cookies.getAll());
 
   if (cookies.get("discord_refresh_token") && !cookies.get("discord_access_token")) {
+    console.log("refreshing");
     const res = await fetch("https://discord.com/api/oauth2/token", {
       method: "post",
       body: new URLSearchParams({
@@ -24,6 +25,8 @@ export const load = async ({ cookies, fetch }) => {
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then((r) => r.json());
+
+    console.log(res);
 
     if (res.error) {
       throw redirect(307, "/logout");
@@ -38,6 +41,8 @@ export const load = async ({ cookies, fetch }) => {
       path: "/",
     });
 
+    console.log(cookies.getAll());
+
     if (!res || res.error) {
       throw redirect(307, "/logout");
     }
@@ -45,6 +50,8 @@ export const load = async ({ cookies, fetch }) => {
     const userRequest = await fetch("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${res.access_token}` },
     }).then((r) => r.json());
+
+    console.log(userRequest);
 
     if (userRequest.error) {
       cookies.delete("discord_access_token");
