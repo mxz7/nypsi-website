@@ -8,6 +8,7 @@ import { error, redirect } from "@sveltejs/kit";
 
 export const GET = async ({ url, fetch, cookies }) => {
   const code = url.searchParams.get("code");
+  const redirectTo = url.searchParams.get("redirect");
 
   if (code) {
     const res = await fetch("https://discord.com/api/oauth2/token", {
@@ -37,8 +38,11 @@ export const GET = async ({ url, fetch, cookies }) => {
       path: "/",
     });
 
+    if (cookies.get("redirect_after_auth")) throw redirect(302, cookies.get("redirect_after_auth"));
     throw redirect(302, "/");
   }
+
+  if (redirectTo) cookies.set("redirect_after_auth", redirectTo, { maxAge: 60 });
 
   throw redirect(302, PUBLIC_OAUTH_URL);
 };
