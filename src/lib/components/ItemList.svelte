@@ -6,6 +6,7 @@
 
   export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
     [];
+  export let url: string;
 
   $: filteredItems = items.filter((i) => {
     if ($gameSearchTerm.length == 0) return true;
@@ -47,7 +48,7 @@
 
   <div class="flex w-full flex-row flex-wrap justify-center gap-1">
     {#each filteredItems as item}
-      <ItemIcon {item} />
+      <ItemIcon {item} {url} />
     {/each}
   </div>
 </div>

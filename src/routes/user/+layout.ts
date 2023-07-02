@@ -20,7 +20,7 @@ export const load = async ({ url, fetch }) => {
   };
 
   const fetchFromApi = async () => {
-    const res = await fetch(`/api/usernametoid/${search}`).then((r) => r.json());
+    const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
     if (res.error !== 429) {
       res.expire = dayjs().add(3, "hours").toDate().getTime();
       localStorage.setItem(`id-user-map-${search}`, JSON.stringify(res));
