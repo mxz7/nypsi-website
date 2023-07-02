@@ -2,7 +2,11 @@ import getItems from "$lib/functions/getItems.js";
 import { error } from "@sveltejs/kit";
 import type { ChartConfiguration } from "chart.js";
 
-export const load = async ({ params, fetch }) => {
+export const load = async ({ params, fetch, parent }) => {
+  const parentData = await parent();
+
+  if (!parentData.premium) return;
+
   const item = await getItems().then((items) => items.find((i) => i.id === params.item));
 
   if (!item) throw error(400, "invalid item");
