@@ -1,7 +1,7 @@
 import getItems from "$lib/functions/getItems";
 import prisma from "$lib/server/database.js";
 import { error, json } from "@sveltejs/kit";
-import type { ChartData } from "chart.js";
+import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
@@ -73,138 +73,96 @@ export const GET = async ({ params, setHeaders }) => {
     itemCounts.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
   }
 
-  const graphData: ChartData = {
-    labels: [],
-    datasets: [
-      {
-        yAxisID: "y1",
-        label: "auctions",
-        data: [],
-        fill: false,
-      },
-      {
-        yAxisID: "y1",
-        label: "offers",
-        data: [],
-        fill: false,
-      },
-      {
-        yAxisID: "y2",
-        label: "items in world",
-        data: [],
-        fill: true,
-      },
-    ],
-
-    // options: {
-    //   title: {
-    //     display: true,
-    //     text: `${items.find((i) => i.id === item)?.name} history`,
-    //   },
-    //   elements: {
-    //     point: {
-    //       radius: 0,
-    //     },
-    //   },
-    //   scales: {
-    //     yAxes: [
-    //       {
-    //         id: "y1",
-    //         display: true,
-    //         position: "left",
-    //         // stacked: true,
-    //         gridLines: {
-    //           display: true,
-    //         },
-    //         ticks: {
-    //           min: 0,
-    //         },
-    //       },
-    //       {
-    //         id: "y2",
-    //         display: true,
-    //         position: "right",
-    //         gridLines: {
-    //           display: false,
-    //         },
-    //         ticks: {
-    //           min: 0,
-    //           callback(val: string) {
-    //             return Number(val).toLocaleString();
-    //           },
-    //         },
-    //       },
-    //     ],
-    //   },
-    //   plugins: {
-    //     tickFormat: {
-    //       style: "currency",
-    //       currency: "USD",
-    //       minimumFractionDigits: 0,
-    //       //yAxisID: "y1",
-    //     },
-    //   },
-    // },
+  const graphData: ChartConfiguration = {
+    type: "line",
+    data: {
+      labels: [],
+      datasets: [
+        {
+          yAxisID: "y1",
+          label: "auctions",
+          data: [],
+          fill: false,
+        },
+        {
+          yAxisID: "y1",
+          label: "offers",
+          data: [],
+          fill: false,
+        },
+        {
+          yAxisID: "y2",
+          label: "items in world",
+          data: [],
+          fill: true,
+        },
+      ],
+    },
   };
 
   for (const key of auctionAverages.keys()) {
-    if (!graphData.labels?.includes(dayjs(key).format("YYYY-MM-DD")))
-      graphData.labels?.push(dayjs(key).format("YYYY-MM-DD"));
+    if (!graphData.data.labels.includes(dayjs(key).format("YYYY-MM-DD")))
+      graphData.data.labels.push(dayjs(key).format("YYYY-MM-DD"));
   }
 
   for (const key of offerAverages.keys()) {
-    if (!graphData.labels?.includes(dayjs(key).format("YYYY-MM-DD")))
-      graphData.labels?.push(dayjs(key).format("YYYY-MM-DD"));
+    if (!graphData.data.labels.includes(dayjs(key).format("YYYY-MM-DD")))
+      graphData.data.labels.push(dayjs(key).format("YYYY-MM-DD"));
   }
 
   for (const i of itemCount) {
-    if (!graphData.labels?.includes(dayjs(i.date).format("YYYY-MM-DD")))
-      graphData.labels?.push(dayjs(i.date).format("YYYY-MM-DD"));
+    if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
+      graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
   }
 
-  inPlaceSort(graphData.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
+  inPlaceSort(graphData.data.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
 
-  for (let i = 0; i < graphData.labels.length || 0; i++) {
-    if (!graphData.labels[i + 1]) break;
+  for (let i = 0; i < graphData.data.labels.length; i++) {
+    if (!graphData.data.labels[i + 1]) break;
 
-    const date1 = dayjs(graphData.labels[i] as string, "YYYY-MM-DD");
-    const date2 = dayjs(graphData.labels[i + 1] as string, "YYYY-MM-DD");
+    const date1 = dayjs(graphData.data.labels[i] as string, "YYYY-MM-DD");
+    const date2 = dayjs(graphData.data.labels[i + 1] as string, "YYYY-MM-DD");
 
     if (!date1.add(1, "day").isSame(date2)) {
-      graphData.labels.splice(i + 1, 0, date1.add(1, "day").format("YYYY-MM-DD"));
+      graphData.data.labels.splice(i + 1, 0, date1.add(1, "day").format("YYYY-MM-DD"));
     }
   }
 
-  for (const dateString of graphData.labels as string[]) {
-    const index = graphData.labels.indexOf(dateString);
+  for (const dateString of graphData.data.labels as string[]) {
+    const index = graphData.data.labels.indexOf(dateString);
 
     if (auctionAverages.has(dateString)) {
-      graphData.datasets[0].data.push(
-        auctionAverages.get(dateString).reduce((a, b) => a + b) /
-          auctionAverages.get(dateString).length
+      graphData.data.datasets[0].data.push(
+        Math.floor(
+          auctionAverages.get(dateString).reduce((a, b) => a + b) /
+            auctionAverages.get(dateString).length
+        )
       );
     } else if (index > 0) {
-      graphData.datasets[0].data.push(graphData.datasets[0].data[index - 1]);
+      graphData.data.datasets[0].data.push(graphData.data.datasets[0].data[index - 1]);
     } else {
-      graphData.datasets[0].data.push(0);
+      graphData.data.datasets[0].data.push(0);
     }
 
     if (offerAverages.has(dateString)) {
-      graphData.datasets[1].data.push(
-        offerAverages.get(dateString).reduce((a, b) => a + b) / offerAverages.get(dateString).length
+      graphData.data.datasets[1].data.push(
+        Math.floor(
+          offerAverages.get(dateString).reduce((a, b) => a + b) /
+            offerAverages.get(dateString).length
+        )
       );
     } else if (index > 0) {
-      graphData.datasets[1].data.push(graphData.datasets[1].data[index - 1]);
+      graphData.data.datasets[1].data.push(graphData.data.datasets[1].data[index - 1]);
     } else {
-      graphData.datasets[1].data.push(0);
+      graphData.data.datasets[1].data.push(0);
     }
 
     if (itemCounts.has(dateString)) {
-      graphData.datasets[2].data.push(itemCounts.get(dateString));
+      graphData.data.datasets[2].data.push(itemCounts.get(dateString));
     } else if (index > 0) {
-      graphData.datasets[2].data.push(graphData.datasets[2].data[index - 1]);
+      graphData.data.datasets[2].data.push(graphData.data.datasets[2].data[index - 1]);
     } else {
-      graphData.datasets[2].data.push(0);
+      graphData.data.datasets[2].data.push(0);
     }
   }
 
