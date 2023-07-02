@@ -62,13 +62,13 @@
 </script>
 
 <svelte:head>
-  <title>{data.item.name} leaderboard</title>
+  <title>{data.item.name} history</title>
   <meta
     name="description"
     content="showing auction/offers average and total item count for {data.item.name}"
   />
 
-  <meta name="og:title" content="{data.item.name} leaderboard" />
+  <meta name="og:title" content="{data.item.name} history" />
   <meta
     name="og:description"
     content="showing auction/offers average and total item count for {data.item.name}"
