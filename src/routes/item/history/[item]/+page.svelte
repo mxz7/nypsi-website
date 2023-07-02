@@ -1,5 +1,4 @@
 <script lang="ts">
-  import ItemList from "$lib/components/ItemList.svelte";
   import { Chart as ChartJs, registerables } from "chart.js";
 
   import { onMount } from "svelte";
@@ -77,7 +76,7 @@
     </div>
   </div>
 {:then}
-  <div class="mb-[40vh] flex justify-center">
+  <div class="flex justify-center">
     <div class=" w-[1100px] overflow-x-scroll p-4">
       <div class="h-full w-fit px-4 sm:w-full">
         <canvas
@@ -89,5 +88,5 @@
     </div>
   </div>
 
-  <ItemList url="/item/history" />
+  <!-- <ItemList url="/item/history" /> -->
 {/await}
