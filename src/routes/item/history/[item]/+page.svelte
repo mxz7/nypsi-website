@@ -17,6 +17,17 @@
       const chart = new ChartJs(chartCanvas, {
         ...chartData,
         options: {
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label(tooltipItem) {
+                  if (tooltipItem.dataset.label.includes("items in world"))
+                    return `in world: ${tooltipItem.formattedValue}`;
+                  return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
+                },
+              },
+            },
+          },
           maintainAspectRatio: false,
           elements: {
             line: {
