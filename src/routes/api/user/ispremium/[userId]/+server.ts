@@ -27,6 +27,9 @@ export const GET = async ({ params, setHeaders }) => {
     where: {
       userId,
     },
+    select: {
+      userId: true,
+    },
   });
 
   return json({ premium: Boolean(query) });
