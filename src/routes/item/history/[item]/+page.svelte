@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ItemList from "$lib/components/ItemList.svelte";
   import { Chart as ChartJs, registerables } from "chart.js";
 
   import { onMount } from "svelte";
@@ -31,7 +32,7 @@
               position: "right",
               ticks: {
                 callback(tickValue) {
-                  return Number(tickValue).toLocaleString();
+                  return Math.floor(Number(tickValue)).toLocaleString();
                 },
               },
             },
@@ -39,7 +40,7 @@
               position: "left",
               ticks: {
                 callback(tickValue) {
-                  return `$${Number(tickValue).toLocaleString()}`;
+                  return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
                 },
               },
             },
@@ -76,13 +77,17 @@
     </div>
   </div>
 {:then}
-  <div class="w-full overflow-x-scroll p-4 sm:p-12">
-    <div class="h-full w-fit px-4 sm:w-full">
-      <canvas
-        in:fade={{ delay: 300, duration: 250 }}
-        style="width: {/Android|iPhone/i.test(navigator.userAgent) ? '200vw' : '100%'};"
-        bind:this={chartCanvas}
-      />
+  <div class="mb-[40vh] flex justify-center">
+    <div class=" w-[1100px] overflow-x-scroll p-4">
+      <div class="h-full w-fit px-4 sm:w-full">
+        <canvas
+          in:fade={{ delay: 300, duration: 250 }}
+          style="width: {/Android|iPhone/i.test(navigator.userAgent) ? '150vw' : '100%'};"
+          bind:this={chartCanvas}
+        />
+      </div>
     </div>
   </div>
+
+  <ItemList url="/item/history" />
 {/await}

@@ -86,4 +86,4 @@
   </div>
 </div>
 
-<ItemList />
+<ItemList url="/leaderboard" />
