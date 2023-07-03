@@ -38,8 +38,15 @@ export const GET = async ({ url, fetch, cookies }) => {
       path: "/",
     });
 
-    if (cookies.get("redirect_after_auth")) throw redirect(302, cookies.get("redirect_after_auth"));
-    throw redirect(302, "/");
+    if (cookies.get("redirect_after_auth")) {
+      const redirectUrl = new URL(cookies.get("redirect_after_auth"));
+      cookies.delete("redirect_after_auth");
+
+      redirectUrl.searchParams.set("loggedin", "true");
+
+      throw redirect(302, redirectUrl.toString());
+    }
+    throw redirect(302, "/?loggedin=true");
   }
 
   if (redirectTo) cookies.set("redirect_after_auth", redirectTo, { maxAge: 60 });
