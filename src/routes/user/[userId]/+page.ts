@@ -5,16 +5,18 @@ import dayjs from "dayjs";
 
 export const ssr = false;
 
-export const load = async ({ parent, params, fetch }) => {
+export const load = async ({ parent, params, fetch, url }) => {
   let userId = params.userId;
 
   let data: Promise<UserApiResponse>;
 
   if (userId === "me") {
     const { user } = await parent();
-    if (!user.authenticated) throw redirect(303, "/login");
+    if (!user.authenticated)
+      throw redirect(302, "/login?redirect=" + encodeURIComponent(url.toString()));
 
     userId = user.id;
+    data = fetch(`/api/user/${userId}`).then((r) => r.json());
   } else if (userId.match(/^\d{17,19}$/)) {
     data = fetch(`/api/user/${userId}`).then((r) => r.json());
   } else {
@@ -52,7 +54,6 @@ export const load = async ({ parent, params, fetch }) => {
   return {
     base: 69,
     streamed: {
-      // @ts-expect-error weird shit wtf
       userData: data,
       items: getItems(),
     },
