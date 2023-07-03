@@ -6,7 +6,7 @@
   import Navigation from "$lib/components/Navigation.svelte";
   import { inject } from "@vercel/analytics";
   import { onMount } from "svelte";
-  import toast, { Toaster } from "svelte-french-toast";
+  import toast from "svelte-french-toast";
   import { fade } from "svelte/transition";
   import "../app.css";
 
@@ -57,8 +57,6 @@
 <svelte:head>
   <meta name="og:url" content={$page.url.toString()} />
 </svelte:head>
-
-<Toaster />
 
 <GAnalytics />
 
