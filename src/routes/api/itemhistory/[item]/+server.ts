@@ -18,7 +18,11 @@ export const GET = async ({ params, setHeaders }) => {
 
   const auctions = await prisma.auction.findMany({
     where: {
-      AND: [{ itemId: item, sold: true }],
+      AND: [
+        { itemId: item },
+        { sold: true },
+        { createdAt: { gte: dayjs().subtract(45, "days").toDate() } },
+      ],
     },
     select: {
       bin: true,
@@ -29,13 +33,21 @@ export const GET = async ({ params, setHeaders }) => {
 
   const offers = await prisma.offer.findMany({
     where: {
-      AND: [{ itemId: item }, { sold: true }],
+      AND: [
+        { itemId: item },
+        { sold: true },
+        { soldAt: { gte: dayjs().subtract(45, "days").toDate() } },
+      ],
     },
   });
 
   const itemCount = await prisma.graphMetrics.findMany({
     where: {
-      AND: [{ category: "item-count-" + item }, { userId: "global" }],
+      AND: [
+        { category: "item-count-" + item },
+        { userId: "global" },
+        { date: { gte: dayjs().subtract(45, "days").toDate() } },
+      ],
     },
   });
 
