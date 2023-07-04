@@ -32,7 +32,7 @@
 {:then data}
   {#if data.server_count}
     <div
-      in:fade={{ duration: 500 }}
+      in:fade={{ duration: 2500 }}
       class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform"
     >
       <p class="text-gray-400">
