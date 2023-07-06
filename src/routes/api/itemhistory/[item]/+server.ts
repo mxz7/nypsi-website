@@ -1,11 +1,12 @@
 import getItems from "$lib/functions/getItems";
 import prisma from "$lib/server/database.js";
+import type { GraphMetrics } from "@prisma/client";
 import { error, json } from "@sveltejs/kit";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export const GET = async ({ params, setHeaders }) => {
+export const GET = async ({ params, setHeaders, url }) => {
   const item = params.item;
 
   setHeaders({
@@ -51,6 +52,29 @@ export const GET = async ({ params, setHeaders }) => {
     },
   });
 
+  let userItemCount: GraphMetrics[] = [];
+
+  if (url.searchParams.get("user") && url.searchParams.get("user").match(/^\d{17,19}$/)) {
+    const userId = url.searchParams.get("user");
+
+    const privacyCheck = await prisma.preferences.findUnique({
+      where: { userId },
+      select: { leaderboards: true },
+    });
+
+    if (privacyCheck?.leaderboards) {
+      userItemCount = await prisma.graphMetrics.findMany({
+        where: {
+          AND: [
+            { userId },
+            { date: { gte: dayjs().subtract(45, "days").toDate() } },
+            { category: `user-item-${item}` },
+          ],
+        },
+      });
+    }
+  }
+
   if (auctions.length < 2 && offers.length < 2 && itemCount.length < 2) {
     throw error(204, { message: "not enough data" });
   }
@@ -85,6 +109,12 @@ export const GET = async ({ params, setHeaders }) => {
     itemCounts.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
   }
 
+  const userItemCounts = new Map<string, number>();
+
+  for (const item of userItemCount) {
+    userItemCounts.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
+  }
+
   const graphData: ChartConfiguration = {
     type: "line",
     data: {
@@ -112,6 +142,19 @@ export const GET = async ({ params, setHeaders }) => {
     },
   };
 
+  if (userItemCounts.size > 2)
+    graphData.data.datasets.push({
+      yAxisID: "y2",
+      label: await prisma.user
+        .findUnique({
+          where: { id: url.searchParams.get("user") },
+          select: { lastKnownUsername: true },
+        })
+        .then((q) => q?.lastKnownUsername || ""),
+      data: [],
+      fill: true,
+    });
+
   for (const key of auctionAverages.keys()) {
     if (!graphData.data.labels.includes(dayjs(key).format("YYYY-MM-DD")))
       graphData.data.labels.push(dayjs(key).format("YYYY-MM-DD"));
@@ -126,6 +169,12 @@ export const GET = async ({ params, setHeaders }) => {
     if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
       graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
   }
+
+  if (userItemCounts.size > 2)
+    for (const i of userItemCount) {
+      if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
+        graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
+    }
 
   inPlaceSort(graphData.data.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
 
@@ -175,6 +224,14 @@ export const GET = async ({ params, setHeaders }) => {
       graphData.data.datasets[2].data.push(graphData.data.datasets[2].data[index - 1]);
     } else {
       graphData.data.datasets[2].data.push(0);
+    }
+
+    if (userItemCounts.has(dateString) && userItemCounts.size > 2) {
+      graphData.data.datasets[3].data.push(userItemCounts.get(dateString));
+    } else if (index > 0) {
+      graphData.data.datasets[3].data.push(graphData.data.datasets[2].data[index - 1]);
+    } else {
+      graphData.data.datasets[3].data.push(0);
     }
   }
 
