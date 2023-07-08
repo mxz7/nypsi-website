@@ -228,8 +228,6 @@ export const GET = async ({ params, setHeaders, url }) => {
 
     if (userItemCounts.has(dateString) && userItemCounts.size > 2) {
       graphData.data.datasets[3].data.push(userItemCounts.get(dateString));
-    } else if (index > 0) {
-      graphData.data.datasets[3].data.push(graphData.data.datasets[2].data[index - 1]);
     } else {
       graphData.data.datasets[3].data.push(0);
     }
