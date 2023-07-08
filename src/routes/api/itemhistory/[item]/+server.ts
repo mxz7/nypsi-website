@@ -228,7 +228,7 @@ export const GET = async ({ params, setHeaders, url }) => {
 
     if (userItemCounts.has(dateString) && userItemCounts.size > 2) {
       graphData.data.datasets[3].data.push(userItemCounts.get(dateString));
-    } else {
+    } else if (userItemCounts.size > 2) {
       graphData.data.datasets[3].data.push(0);
     }
   }
