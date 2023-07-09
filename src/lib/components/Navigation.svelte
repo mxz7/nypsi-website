@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import type { UserSession } from "$lib/types/User";
   import { fly } from "svelte/transition";
 
@@ -100,7 +101,7 @@
         </a>
       {:else}
         <a
-          href="/login"
+          href="/login?redirect={encodeURIComponent($page.url.toString())}"
           class="rounded bg-gray-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-gray-200"
           >log in</a
         >
@@ -117,7 +118,7 @@
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3 [&>p]:m-3">
         <a href="/leaderboard">leaderboards</a>
         {#if !user || !user.authenticated}
-          <a href="/login">log in</a>
+          <a href="/login?redirect={encodeURIComponent($page.url.toString())}">log in</a>
         {/if}
         <a href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
         <a href="https://docs.nypsi.xyz" target="_blank">docs</a>
