@@ -53,7 +53,7 @@
   let title = "nypsi profile";
   let description = "view nypsi profile";
 
-  async function updateTags(userData: Promise<UserApiResponse>) {
+  async function updateTags(userData: Promise<UserApiResponse> | UserApiResponse) {
     const data = await Promise.resolve(userData);
     if (data.message !== "success") return;
 
@@ -180,31 +180,28 @@
               {/if}
             </div>
 
-            {#if userData.badges.length > 0}
+            {#if userData.badges.length > 0 || userData.Premium?.level > 0}
               <div class="grow" />
-              <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
-                {#each userData.badges as badge}
-                  <Tooltip tip={badges.get(badge)?.text} left>
-                    <a href="/badges#{badges.get(badge)?.name}" class="h-full w-full">
-                      <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
-                    </a>
-                  </Tooltip>
-                {/each}
-                {#if premiumMap.get(userData.Premium?.level || 0)}
-                  <Tooltip
-                    tip="{premiumMap.get(userData.Premium?.level || 0)?.text} membership"
-                    left
-                  >
-                    <img
-                      loading="lazy"
-                      class="mb-2 h-4 lg:h-6"
-                      src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
-                      alt=""
-                    />
-                  </Tooltip>
-                {/if}
-              </div>
             {/if}
+            <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
+              {#each userData.badges as badge}
+                <Tooltip tip={badges.get(badge)?.text} left>
+                  <a href="/badges#{badges.get(badge)?.name}" class="h-full w-full">
+                    <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
+                  </a>
+                </Tooltip>
+              {/each}
+              {#if premiumMap.get(userData.Premium?.level || 0)}
+                <Tooltip tip="{premiumMap.get(userData.Premium?.level || 0)?.text} membership" left>
+                  <img
+                    loading="lazy"
+                    class="mb-2 h-4 lg:h-6"
+                    src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
+                    alt=""
+                  />
+                </Tooltip>
+              {/if}
+            </div>
           </div>
         </div>
 
