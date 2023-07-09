@@ -181,5 +181,5 @@ export const GET = async ({ params, setHeaders }) => {
     });
   }
 
-  return json(query);
+  return json({ ...query, message: "success" });
 };
