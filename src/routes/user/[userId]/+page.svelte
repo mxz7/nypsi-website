@@ -66,10 +66,17 @@
 </script>
 
 <svelte:head>
-  <meta name="og:title" content={title} />
   <meta name="description" content={description} />
 
   <title>{title}</title>
+
+  <meta name="og:title" content="this is a test do not look" />
+  <meta
+    name="og:description"
+    content="test do not look {data.streamed.userData.lastKnownUsername}"
+  />
+  <meta name="og:image" content={data.streamed.userData.avatar} />
+  <meta name="og:site_name" content="nypsi" />
 </svelte:head>
 
 {#await data.streamed.userData}
