@@ -54,21 +54,11 @@ export const load = async ({ parent, params, fetch, url }) => {
     });
   }
 
-  if (navigator?.userAgent.includes("Mozilla")) {
-    return {
-      base: 69,
-      streamed: {
-        userData: data,
-        items: getItems(),
-      },
-    };
-  } else {
-    return {
-      base: 69,
-      streamed: {
-        userData: await Promise.resolve(data),
-        items: await getItems(),
-      },
-    };
-  }
+  return {
+    base: 69,
+    streamed: {
+      userData: data,
+      items: getItems(),
+    },
+  };
 };
