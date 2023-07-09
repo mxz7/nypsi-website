@@ -55,7 +55,8 @@
 
   async function updateTags(userData: Promise<UserApiResponse>) {
     const data = await Promise.resolve(userData);
-    if (data.message) return;
+    if (data.message !== "success") return;
+
     title = `${data.lastKnownUsername}'s profile`;
     description = `view ${data.lastKnownUsername}'s nypsi profile`;
     $userSearchTerm = data.lastKnownUsername;
@@ -90,11 +91,11 @@
     </div>
   </div>
 {:then userData}
-  {#if userData.message}
+  {#if userData.message !== "success"}
     <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
       <p class="text-xl font-bold text-gray-300">{userData.message}</p>
     </div>
-  {:else if !userData.message}
+  {:else}
     <div
       in:fly={{ y: 25, delay: 300, duration: 500 }}
       class="xl:[20vw] md:w-[40vw mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]"
