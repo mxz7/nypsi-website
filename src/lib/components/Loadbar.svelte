@@ -8,19 +8,19 @@
 
   $: if (
     $navigating &&
-    !interval //&&
-    // $navigating.to?.params?.userId &&
-    // $navigating.from?.route.id?.startsWith("/user")
+    !interval &&
+    $navigating.to?.route.id?.startsWith("/user") &&
+    $navigating.from?.route.id?.startsWith("/user")
   ) {
     loadingSize = 0;
     startedLoading = Date.now();
     interval = setInterval(() => {
-      if (startedLoading < Date.now() - 125) return;
+      if (startedLoading < Date.now() - 40) return;
       loadingSize += Math.floor(Math.random() * 10) + 5;
       if (loadingSize > 85) loadingSize = 85;
     }, 75);
   } else if (interval && !$navigating) {
-    if (startedLoading < Date.now() - 125) {
+    if (startedLoading < Date.now() - 40) {
       clearInterval(interval);
       interval = undefined;
       startedLoading = 0;
@@ -37,7 +37,7 @@
 
 {#if interval}
   <div
-    in:fade={{ delay: 150, duration: 50 }}
+    in:fade={{ delay: 50, duration: 50 }}
     out:fade={{ duration: 750 }}
     style="width: {loadingSize}%;"
     class="absolute top-[64px] h-[2px] w-0 rounded bg-red-500 duration-100"
