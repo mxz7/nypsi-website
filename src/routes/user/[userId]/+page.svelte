@@ -86,7 +86,7 @@
         >
           <div class="flex w-full flex-row text-sm">
             <div class="flex w-20 flex-col lg:w-44">
-              <img loading="lazy" class="rounded-full" src={userData.avatar} alt="" />
+              <img class="rounded-full" src={userData.avatar} alt="" />
               <div class="mt-2 flex flex-row flex-wrap">
                 {#if userData.Economy}
                   {#await data.streamed.items then items}
