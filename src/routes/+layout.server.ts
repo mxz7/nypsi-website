@@ -71,7 +71,6 @@ export const load = async ({ cookies, fetch, url }) => {
     (user as unknown as User).discriminator = userRequest.discriminator;
     (user as unknown as User).username = userRequest.username;
     (user as unknown as User).id = userRequest.id;
-    console.log(userRequest);
   }
 
   if (user.authenticated && !(user as User).id) {
