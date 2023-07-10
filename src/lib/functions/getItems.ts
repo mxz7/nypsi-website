@@ -46,6 +46,8 @@ export default async function getItems() {
       } else {
         thumbnail = thumbnail + ".png";
       }
+
+      thumbnail += "?size=80";
     } else {
       try {
         thumbnail = parse(item.emoji, { assetType: "png" })[0].url;
