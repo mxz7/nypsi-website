@@ -1,21 +1,14 @@
 import getItems from "$lib/functions/getItems";
 import prisma from "$lib/server/database.js";
 import type { GraphMetrics } from "@prisma/client";
-import { error, json } from "@sveltejs/kit";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export const GET = async ({ params, setHeaders, url }) => {
-  const item = params.item;
-
-  setHeaders({
-    "cache-control": "max-age=1200",
-  });
-
+export default async function getChartData(item: string, user?: string) {
   const items = await getItems();
 
-  if (!items.find((i) => i.id === item)) throw error(400, { message: "invalid item" });
+  if (!items.find((i) => i.id === item)) return "invalid item";
 
   const auctions = await prisma.auction.findMany({
     where: {
@@ -54,11 +47,9 @@ export const GET = async ({ params, setHeaders, url }) => {
 
   let userItemCount: GraphMetrics[] = [];
 
-  if (url.searchParams.get("user") && url.searchParams.get("user").match(/^\d{17,19}$/)) {
-    const userId = url.searchParams.get("user");
-
+  if (user && user.match(/^\d{17,19}$/)) {
     const privacyCheck = await prisma.preferences.findUnique({
-      where: { userId },
+      where: { userId: user },
       select: { leaderboards: true },
     });
 
@@ -66,7 +57,7 @@ export const GET = async ({ params, setHeaders, url }) => {
       userItemCount = await prisma.graphMetrics.findMany({
         where: {
           AND: [
-            { userId },
+            { userId: user },
             { date: { gte: dayjs().subtract(45, "days").toDate() } },
             { category: `user-item-${item}` },
           ],
@@ -75,9 +66,7 @@ export const GET = async ({ params, setHeaders, url }) => {
     }
   }
 
-  if (auctions.length < 2 && offers.length < 2 && itemCount.length < 2) {
-    throw error(204, { message: "not enough data" });
-  }
+  if (auctions.length < 2 && offers.length < 2 && itemCount.length < 2) return "not enough data";
 
   const auctionAverages = new Map<string, number[]>();
 
@@ -147,7 +136,7 @@ export const GET = async ({ params, setHeaders, url }) => {
       yAxisID: "y2",
       label: await prisma.user
         .findUnique({
-          where: { id: url.searchParams.get("user") },
+          where: { id: user },
           select: { lastKnownUsername: true },
         })
         .then((q) => q?.lastKnownUsername || ""),
@@ -233,5 +222,5 @@ export const GET = async ({ params, setHeaders, url }) => {
     }
   }
 
-  return json(graphData);
-};
+  return graphData;
+}
