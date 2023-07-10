@@ -1,73 +1,11 @@
 <script lang="ts">
+  import Chart from "$lib/components/Chart.svelte";
+  import ItemList from "$lib/components/ItemList.svelte";
   import Loading from "$lib/components/Loading.svelte";
-  import { Chart as ChartJs, registerables } from "chart.js";
 
-  import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
   export let data;
-
-  ChartJs.register(...registerables);
-
-  let chartCanvas: HTMLCanvasElement;
-
-  onMount(async () => {
-    const chartData = await Promise.resolve(data.streamed.graphData);
-
-    if (typeof chartData === "string") return;
-
-    new ChartJs(chartCanvas, {
-      ...chartData,
-      options: {
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label(tooltipItem) {
-                if (tooltipItem.dataset.label.includes("items in world"))
-                  return `in world: ${tooltipItem.formattedValue}`;
-                else if (
-                  tooltipItem.dataset.label ===
-                  (data.user.authenticated ? data.user.username : "null")
-                )
-                  return `${data.user.authenticated ? data.user.username : "null"}: ${
-                    tooltipItem.formattedValue
-                  }`;
-
-                return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
-              },
-            },
-          },
-        },
-        maintainAspectRatio: false,
-        elements: {
-          line: {
-            tension: 0.4,
-          },
-          point: {
-            radius: /Android|iPhone/i.test(navigator.userAgent) ? 1 : 5,
-          },
-        },
-        scales: {
-          y2: {
-            position: "right",
-            ticks: {
-              callback(tickValue) {
-                return Math.floor(Number(tickValue)).toLocaleString();
-              },
-            },
-          },
-          y1: {
-            position: "left",
-            ticks: {
-              callback(tickValue) {
-                return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
-              },
-            },
-          },
-        },
-      },
-    });
-  });
 </script>
 
 <svelte:head>
@@ -109,19 +47,10 @@
       <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">
         <h1>not enough data</h1>
       </div>
-    {:else}
-      <div class="flex justify-center">
-        <div class=" w-[1100px] overflow-x-scroll p-4">
-          <div class="h-full w-fit px-4 sm:w-full">
-            <canvas
-              style="width: {/Android|iPhone/i.test(navigator.userAgent) ? '150vw' : '100%'};"
-              bind:this={chartCanvas}
-            />
-          </div>
-        </div>
-      </div>
+    {:else if typeof graphData !== "string"}
+      <Chart chartData={graphData} user={data.user} />
     {/if}
   </div>
 
-  <!-- <ItemList url="/item/history" /> -->
+  <ItemList url="/item/history" />
 {/await}
