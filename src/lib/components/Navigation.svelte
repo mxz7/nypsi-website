@@ -6,10 +6,6 @@
   $: dropDownVisible = false;
   export let user: UserSession;
 
-  if (user.authenticated && user.id) {
-    console.log(user);
-  }
-
   function handleMenuOpen() {
     if (dropDownVisible) return handleMenuClose();
     dropDownVisible = true;
