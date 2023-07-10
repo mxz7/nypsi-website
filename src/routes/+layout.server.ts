@@ -75,5 +75,10 @@ export const load = async ({ cookies, fetch, url }) => {
     (user as unknown as User).id = userRequest.id;
   }
 
+  if (user.authenticated && !(user as User).id) {
+    console.log(user);
+    console.log(cookies.getAll());
+  }
+
   return { user: user as UserSession };
 };
