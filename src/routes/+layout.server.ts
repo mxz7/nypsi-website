@@ -56,6 +56,7 @@ export const load = async ({ cookies, fetch, url }) => {
     (user as unknown as User).discriminator = userRequest.discriminator;
     (user as unknown as User).username = userRequest.username;
     (user as unknown as User).id = userRequest.id;
+    console.log(user);
   } else if (cookies.get("discord_access_token")) {
     const userRequest = await fetch("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${cookies.get("discord_access_token")}` },
@@ -73,6 +74,7 @@ export const load = async ({ cookies, fetch, url }) => {
     (user as unknown as User).discriminator = userRequest.discriminator;
     (user as unknown as User).username = userRequest.username;
     (user as unknown as User).id = userRequest.id;
+    console.log(user);
   }
 
   if (user.authenticated && !(user as User).id) {
