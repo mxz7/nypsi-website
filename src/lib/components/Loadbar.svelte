@@ -3,6 +3,7 @@
   import { fade } from "svelte/transition";
 
   let loadingSize = 0;
+  let startedLoading = 0;
   let interval: number | undefined;
 
   $: if (
@@ -12,16 +13,25 @@
     // $navigating.from?.route.id?.startsWith("/user")
   ) {
     loadingSize = 0;
+    startedLoading = Date.now();
     interval = setInterval(() => {
+      if (startedLoading < Date.now() - 125) return;
       loadingSize += Math.floor(Math.random() * 10) + 5;
       if (loadingSize > 85) loadingSize = 85;
-    }, 100);
+    }, 75);
   } else if (interval && !$navigating) {
-    loadingSize = 100;
-    setTimeout(() => {
+    if (startedLoading < Date.now() - 125) {
       clearInterval(interval);
       interval = undefined;
-    }, 100);
+      startedLoading = 0;
+    } else {
+      loadingSize = 100;
+      setTimeout(() => {
+        clearInterval(interval);
+        interval = undefined;
+        startedLoading = 0;
+      }, 100);
+    }
   }
 </script>
 
