@@ -4,7 +4,7 @@ import {
   DISCORD_OAUTH_SECRET,
 } from "$env/static/private";
 import type { User, UserSession } from "$lib/types/User.js";
-import { error, redirect } from "@sveltejs/kit";
+import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ cookies, fetch, url }) => {
   const user: UserSession = { authenticated: false };
@@ -23,7 +23,7 @@ export const load = async ({ cookies, fetch, url }) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then((r) => r.json());
 
-    if (res.error) {
+    if (res.error || res.message) {
       throw redirect(307, "/logout?redirect=" + encodeURIComponent(url.toString()));
     }
 
@@ -44,11 +44,9 @@ export const load = async ({ cookies, fetch, url }) => {
       headers: { Authorization: `Bearer ${res.access_token}` },
     }).then((r) => r.json());
 
-    if (userRequest.error) {
-      cookies.delete("discord_access_token");
-      cookies.delete("discord_refresh_token");
-      console.error(userRequest.error);
-      throw error(400, { message: "something went wrong", ...userRequest });
+    if (userRequest.error || userRequest.message) {
+      console.error(userRequest);
+      throw redirect(307, "/logout?redirect=" + encodeURIComponent(url.toString()));
     }
 
     (user as unknown as User).authenticated = true;
@@ -56,17 +54,16 @@ export const load = async ({ cookies, fetch, url }) => {
     (user as unknown as User).discriminator = userRequest.discriminator;
     (user as unknown as User).username = userRequest.username;
     (user as unknown as User).id = userRequest.id;
-    console.log(user);
   } else if (cookies.get("discord_access_token")) {
     const userRequest = await fetch("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${cookies.get("discord_access_token")}` },
     }).then((r) => r.json());
 
-    if (userRequest.error) {
+    if (userRequest.error || userRequest.message) {
       cookies.delete("discord_access_token");
       cookies.delete("discord_refresh_token");
-      console.error(userRequest.error);
-      throw error(400, { message: "something went wrong", ...userRequest });
+      console.error(userRequest);
+      throw redirect(307, "/logout?redirect=" + encodeURIComponent(url.toString()));
     }
 
     (user as unknown as User).authenticated = true;
