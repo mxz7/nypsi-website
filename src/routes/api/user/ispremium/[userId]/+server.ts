@@ -23,14 +23,21 @@ export const GET = async ({ params, setHeaders }) => {
 
   if (!privacyCheck.leaderboards) throw error(403, { message: "user has a private profile" });
 
-  const query = await prisma.premium.findUnique({
+  const query = await prisma.user.findUnique({
     where: {
-      userId,
+      id: userId,
     },
     select: {
-      userId: true,
+      booster: true,
+      Premium: {
+        select: {
+          level: true,
+        },
+      },
     },
   });
 
-  return json({ premium: Boolean(query) });
+  console.log(query);
+
+  return json({ premium: Boolean(query?.booster || query?.Premium?.level) });
 };
