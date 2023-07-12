@@ -20,7 +20,9 @@
 
 <div class="mt-8 flex flex-col justify-center">
   {#await data.streamed.game}
-    <Loading fadeInSettings={{ delay: 50, duration: 100 }} fadeOutSettings={{ duration: 300 }} />
+    <div class="relative mt-4">
+      <Loading fadeInSettings={{ delay: 50, duration: 100 }} fadeOutSettings={{ duration: 300 }} />
+    </div>
   {:then game}
     <div in:fly={{ y: 25, delay: 300, duration: 500 }}>
       {#if game.ok}
