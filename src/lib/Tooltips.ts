@@ -6,7 +6,6 @@ const tooltip = createTippy({
   inertia: true,
   delay: 25,
   animation: "perspective-subtle",
-  arrow: true,
 });
 
 export default tooltip;
