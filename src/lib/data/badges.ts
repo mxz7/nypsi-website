@@ -5,7 +5,7 @@ const badges = new Map([
       icon: "/badges/crown.png",
       text: "i own nypsi lol",
       name: "owner",
-      description: "owner(s) of nypsi",
+      description: "owner of nypsi",
     },
   ],
   [
