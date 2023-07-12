@@ -1,4 +1,5 @@
 <script lang="ts">
+  import tooltip from "$lib/Tooltips.js";
   import Loading from "$lib/components/Loading.svelte";
   import badges from "$lib/data/badges.js";
   import seasons from "$lib/data/seasons.js";
@@ -7,7 +8,6 @@
   import type { UserApiResponse } from "$lib/types/User.js";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
-  import Tooltip from "sv-tooltip";
   import { fly } from "svelte/transition";
 
   const premiumMap = new Map([
@@ -163,21 +163,33 @@
             {/if}
             <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
               {#each userData.badges as badge}
-                <Tooltip tip={badges.get(badge)?.text} left>
-                  <a href="/badges#{badges.get(badge)?.name}" class="h-full w-full">
-                    <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
-                  </a>
-                </Tooltip>
+                <a
+                  href="/badges#{badges.get(badge)?.name}"
+                  class="h-full w-full"
+                  use:tooltip={{
+                    content: badges.get(badge).description,
+                    theme: "tooltip",
+                    placement: "left",
+                  }}
+                >
+                  <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
+                </a>
               {/each}
               {#if premiumMap.get(userData.Premium?.level || 0)}
-                <Tooltip tip="{premiumMap.get(userData.Premium?.level || 0)?.text} membership" left>
+                <div
+                  use:tooltip={{
+                    content: `${premiumMap.get(userData.Premium?.level || 0)?.text} membership`,
+                    theme: "tooltip",
+                    placement: "left",
+                  }}
+                >
                   <img
                     loading="lazy"
                     class="mb-2 h-4 lg:h-6"
                     src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
                     alt=""
                   />
-                </Tooltip>
+                </div>
               {/if}
             </div>
           </div>
