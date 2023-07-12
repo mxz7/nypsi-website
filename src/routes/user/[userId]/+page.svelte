@@ -384,18 +384,20 @@
               class="mx-4 mt-4 flex max-h-64 flex-col overflow-y-auto px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
             >
               {#each userData.Economy.Game as game}
+                <!--change yellow to less piss-->
                 <a
                   href="/game/{game.id.toString(36)}"
-                  style="color: {game.win ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)'};"
+                  style="color: {game.win == 1 ? 'rgb(34, 197, 94)' : game.win == 0 ? 'rgb(239, 68, 68)' : 'rgb(254, 240, 138)'};" 
                   class="mt-3 flex w-full flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0"
                 >
                   <h2 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h2>
 
                   {#if !game.game.includes("scratch")}
                     <p class="mt-2 text-center text-sm font-semibold lg:text-base">
-                      {game.win
+                      {game.win == 1
                         ? `+$${game.earned.toLocaleString()}`
-                        : `-$${game.bet.toLocaleString()}`}
+                        : game.win == 0 ? `-$${game.bet.toLocaleString()}`
+                        : game.bet.toLocaleString()}
                     </p>
                   {/if}
 
