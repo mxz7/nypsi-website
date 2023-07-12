@@ -43,21 +43,23 @@
             <p class="text-center text-white">game: {game.game}<br />outcome: {game.outcome}</p>
           {/if}
         </div>
-        <div class="text-center text-xl">
+        <div class="text-center text-xl font-bold">
           <!-- <p class="text-xs text-white">{game.outcome}</p> -->
-          {#if game.win && !game.game.includes("scratch")}
-            <p class="font-bold text-green-400">won</p>
+          {#if game.win == 1 && !game.game.includes("scratch")}
+            <p class=" text-green-400">won</p>
 
             <p class="text-lg text-green-400 opacity-75">
               ${(game.earned - game.bet).toLocaleString()} profit
             </p>
-          {:else if !game.win && !game.game.includes("scratch")}
+          {:else if game.win == 0 && !game.game.includes("scratch")}
             <p class=" text-red-500">lost</p>
+          {:else if game.win == 2 && !game.game.includes("scratch")}
+            <p class=" text-yellow-500">draw</p>
           {/if}
         </div>
 
         <div class="mt-5 px-2 text-center text-gray-300">
-          {#if game.win && !game.game.includes("scratch")}
+          {#if game.win == 1 && !game.game.includes("scratch")}
             <p>
               bet ${game.bet.toLocaleString()} and won ${game.earned.toLocaleString()}{game.xpEarned >
               0
