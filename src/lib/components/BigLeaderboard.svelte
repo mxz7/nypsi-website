@@ -27,3 +27,15 @@
     {/each}
   </tbody>
 </table>
+
+<style>
+  tr:nth-child(1) {
+    color: rgb(239, 68, 68);
+    font-weight: bold;
+    scale: 105%;
+  }
+
+  tr:nth-child(1):hover {
+    scale: 110%;
+  }
+</style>

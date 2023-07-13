@@ -18,3 +18,15 @@
     {/each}
   </tbody>
 </table>
+
+<style>
+  tr:nth-child(1) {
+    color: rgb(239, 68, 68);
+    font-weight: bold;
+    scale: 105%;
+  }
+
+  tr:nth-child(1) div {
+    background-color: rgb(239, 68, 68);
+  }
+</style>
