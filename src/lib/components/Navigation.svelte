@@ -127,3 +127,22 @@
     </div>
   {/if}
 </nav>
+
+<style>
+  .hover-effect::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: rgb(239, 68, 68);
+    border-radius: 9999px;
+    transition: width 0.2s ease-in, left 0.2s ease-in;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hover-effect:hover::after {
+    width: 100%;
+  }
+</style>
