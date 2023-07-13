@@ -2,6 +2,10 @@
   export let data;
 </script>
 
+<svelte:head>
+  <title>item history</title>
+</svelte:head>
+
 {#if data.premium}
   <slot />
 {:else}
