@@ -38,8 +38,6 @@ export const GET = async ({ params, setHeaders }) => {
     },
   });
 
-  console.log(query);
-
   return json({
     premium: Boolean(query?.booster || query?.Premium?.level || query?.adminLevel > 0),
   });
