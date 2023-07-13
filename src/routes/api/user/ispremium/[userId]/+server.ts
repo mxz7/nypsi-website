@@ -29,6 +29,7 @@ export const GET = async ({ params, setHeaders }) => {
     },
     select: {
       booster: true,
+      adminLevel: true,
       Premium: {
         select: {
           level: true,
@@ -39,5 +40,7 @@ export const GET = async ({ params, setHeaders }) => {
 
   console.log(query);
 
-  return json({ premium: Boolean(query?.booster || query?.Premium?.level) });
+  return json({
+    premium: Boolean(query?.booster || query?.Premium?.level || query?.adminLevel > 0),
+  });
 };
