@@ -24,7 +24,7 @@
       <Loading fadeInSettings={{ delay: 50, duration: 100 }} fadeOutSettings={{ duration: 300 }} />
     </div>
   {:then game}
-    <div in:fly={{ y: 25, delay: 300, duration: 500 }}>
+    <div in:fly={{ y: 25, delay: 300, duration: 500 }} out:fly={{ y: 15, duration: 250 }}>
       {#if game.ok}
         <div class="my-3">
           {#if game.game === "slots"}

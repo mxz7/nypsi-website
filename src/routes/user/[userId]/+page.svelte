@@ -73,7 +73,7 @@
 {#await data.streamed.userData}
   <Loading fadeInSettings={{ delay: 100, duration: 150 }} fadeOutSettings={{ duration: 300 }} />
 {:then userData}
-  <div in:fly={{ y: 25, delay: 300, duration: 500 }}>
+  <div in:fly={{ y: 25, delay: 300, duration: 500 }} out:fly={{ y: 15, duration: 250 }}>
     {#if userData.message !== "success"}
       <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
         <p class="text-xl font-bold text-gray-300">{userData.message}</p>
@@ -160,38 +160,39 @@
 
             {#if userData.badges.length > 0 || userData.Premium?.level > 0}
               <div class="grow" />
+
+              <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
+                {#each userData.badges as badge}
+                  <a
+                    href="/badges#{badges.get(badge)?.name}"
+                    class="h-full w-full"
+                    use:tooltip={{
+                      content: badges.get(badge).description,
+                      theme: "tooltip",
+                      placement: "left",
+                    }}
+                  >
+                    <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
+                  </a>
+                {/each}
+                {#if premiumMap.get(userData.Premium?.level || 0)}
+                  <div
+                    use:tooltip={{
+                      content: `${premiumMap.get(userData.Premium?.level || 0)?.text} membership`,
+                      theme: "tooltip",
+                      placement: "left",
+                    }}
+                  >
+                    <img
+                      loading="lazy"
+                      class="mb-2 h-4 lg:h-6"
+                      src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
+                      alt=""
+                    />
+                  </div>
+                {/if}
+              </div>
             {/if}
-            <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
-              {#each userData.badges as badge}
-                <a
-                  href="/badges#{badges.get(badge)?.name}"
-                  class="h-full w-full"
-                  use:tooltip={{
-                    content: badges.get(badge).description,
-                    theme: "tooltip",
-                    placement: "left",
-                  }}
-                >
-                  <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
-                </a>
-              {/each}
-              {#if premiumMap.get(userData.Premium?.level || 0)}
-                <div
-                  use:tooltip={{
-                    content: `${premiumMap.get(userData.Premium?.level || 0)?.text} membership`,
-                    theme: "tooltip",
-                    placement: "left",
-                  }}
-                >
-                  <img
-                    loading="lazy"
-                    class="mb-2 h-4 lg:h-6"
-                    src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
-                    alt=""
-                  />
-                </div>
-              {/if}
-            </div>
           </div>
         </div>
 
@@ -399,7 +400,11 @@
                 <!--change yellow to less piss-->
                 <a
                   href="/game/{game.id.toString(36)}"
-                  style="color: {game.win == 1 ? 'rgb(34, 197, 94)' : game.win == 0 ? 'rgb(239, 68, 68)' : 'rgb(254, 240, 138)'};" 
+                  style="color: {game.win == 1
+                    ? 'rgb(34, 197, 94)'
+                    : game.win == 0
+                    ? 'rgb(239, 68, 68)'
+                    : 'rgb(254, 240, 138)'};"
                   class="mt-3 flex w-full flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0"
                 >
                   <h2 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h2>
@@ -408,7 +413,8 @@
                     <p class="mt-2 text-center text-sm font-semibold lg:text-base">
                       {game.win == 1
                         ? `+$${game.earned.toLocaleString()}`
-                        : game.win == 0 ? `-$${game.bet.toLocaleString()}`
+                        : game.win == 0
+                        ? `-$${game.bet.toLocaleString()}`
                         : game.bet.toLocaleString()}
                     </p>
                   {/if}
