@@ -18,7 +18,7 @@ export default async function getItems() {
       }[];
   }
 
-  const items: {
+  let items: {
     id: string;
     name: string;
     emoji: string;
@@ -32,6 +32,8 @@ export default async function getItems() {
       )
     )
   );
+
+  items = items.filter((i) => !["beginner_booster", "cycle"].includes(i.id));
 
   for (const item of items) {
     let thumbnail = "";

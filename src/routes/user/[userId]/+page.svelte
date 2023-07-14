@@ -285,23 +285,25 @@
                 class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
               >
                 {#each inPlaceSort(userData.Economy.Inventory).asc((i) => i.item) as item}
-                  <a
-                    href="/leaderboard/{item.item}"
-                    class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 lg:text-sm"
-                  >
-                    <div
-                      class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8"
+                  {#if items.find((i) => i.id === item.item)}
+                    <a
+                      href="/leaderboard/{item.item}"
+                      class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 py-2 align-middle text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 lg:text-sm"
                     >
-                      <img
-                        loading="lazy"
-                        class="h-auto max-h-full w-auto max-w-full object-contain"
-                        src={items.find((i) => i.id === item.item)?.emoji}
-                        alt=""
-                      />
-                    </div>
-                    <p class="my-1">{items.find((i) => i.id === item.item)?.name}</p>
-                    <p>{item.amount.toLocaleString()}</p>
-                  </a>
+                      <div
+                        class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8"
+                      >
+                        <img
+                          loading="lazy"
+                          class="h-auto max-h-full w-auto max-w-full object-contain"
+                          src={items.find((i) => i.id === item.item)?.emoji}
+                          alt=""
+                        />
+                      </div>
+                      <p class="my-1">{items.find((i) => i.id === item.item)?.name}</p>
+                      <p>{item.amount.toLocaleString()}</p>
+                    </a>
+                  {/if}
                 {/each}
               </div>
             </div>
