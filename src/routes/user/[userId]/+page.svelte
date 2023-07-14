@@ -167,7 +167,7 @@
                     href="/badges#{badges.get(badge)?.name}"
                     class="h-full w-full"
                     use:tooltip={{
-                      content: badges.get(badge).description,
+                      content: badges.get(badge).name,
                       theme: "tooltip",
                       placement: "left",
                     }}
