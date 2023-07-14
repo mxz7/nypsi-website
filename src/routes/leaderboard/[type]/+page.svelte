@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import BigLeaderboard from "$lib/components/BigLeaderboard.svelte";
-  import SkeletonLeaderboard from "$lib/components/SkeletonLeaderboard.svelte";
+  import BigLeaderboard from "$lib/components/leaderboards/Leaderboard.svelte";
+  import SkeletonLeaderboard from "$lib/components/leaderboards/SkeletonLeaderboard.svelte";
   import { fly } from "svelte/transition";
 
   export let data;
@@ -30,23 +30,23 @@
   </header>
   <div class="mt-10 px-5 sm:px-24">
     {#await data.streamed.data}
-      <div out:fly={{ y: 5, duration: 300 }}>
+      <div out:fly={{ y: 10, duration: 300 }}>
         <SkeletonLeaderboard />
       </div>
     {:then value}
-      {#if value.length === 0}
-        <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
-          {#if data.item}
-            nobody has a {data.item.name}
-          {:else}
-            no data
-          {/if}
-        </h2>
-      {:else}
-        <div in:fly={{ y: 30, duration: 500, delay: 300 }} class="px-4 sm:px-0">
+      <div class="px-4 sm:px-0" in:fly={{ y: 10, duration: 300, delay: 300 }}>
+        {#if value.length === 0}
+          <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
+            {#if data.item}
+              nobody has a {data.item.name}
+            {:else}
+              no data
+            {/if}
+          </h2>
+        {:else}
           <BigLeaderboard data={value} suffix={data.suffix} />
-        </div>
-      {/if}
+        {/if}
+      </div>
     {:catch error}
       <p class="text-center text-xl text-red-600">error: {error}</p>
     {/await}
