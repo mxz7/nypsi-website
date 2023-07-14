@@ -388,10 +388,10 @@
     {/if}
   </div>
 
-  <div in:fly={{ delay: 1100, duration: 500, y: 75 }}>
+  <div in:fly={{ delay: 1100, duration: 500, y: 75 }} class="w-full">
     {#if userData.WordleStats}
       <div
-        class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
+        class="mx-auto mt-4 flex w-fit flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-opacity-20 hover:bg-opacity-40"
         id="wordle"
       >
         <h1 class="mb-2 text-center text-white lg:mb-4 lg:text-xl">wordle</h1>
