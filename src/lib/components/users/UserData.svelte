@@ -374,7 +374,7 @@
                     ? `+$${game.earned.toLocaleString()}`
                     : game.win == 0
                     ? `-$${game.bet.toLocaleString()}`
-                    : game.bet.toLocaleString()}
+                    : `$${game.bet.toLocaleString()}`}
                 </p>
               {/if}
 
