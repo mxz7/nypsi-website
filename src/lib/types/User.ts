@@ -24,7 +24,7 @@ interface ErrorUserApiResponse extends BaseUserApiResponse {
   message: "boobs";
 }
 
-interface UserApiResponsexd extends BaseUserApiResponse {
+export interface UserApiResponsexd extends BaseUserApiResponse {
   message: "success";
   lastCommand: number;
   badges: string[];
