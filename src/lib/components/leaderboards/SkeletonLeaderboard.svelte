@@ -19,12 +19,12 @@
 
 <style>
   tr:nth-child(1) {
-    color: rgb(239, 68, 68);
+    color: #8b5cf6;
     font-weight: bold;
     scale: 105%;
   }
 
   tr:nth-child(1) div {
-    background-color: rgb(239, 68, 68);
+    background-color: #8b5cf6;
   }
 </style>
