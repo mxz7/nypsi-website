@@ -159,7 +159,7 @@
         <div class="mb-4 flex flex-row items-center gap-2">
           <Car color="#8b5cf6" size="20" />
 
-          <h3 class="text-2xl font-bold text-white">mention history</h3>
+          <h3 class="text-2xl font-bold text-white">street racing</h3>
         </div>
         <p class="text-gray-400">
           start and race in races with cars to earn money. contains a lot of cars: toyota supra m4,
