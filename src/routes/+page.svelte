@@ -109,7 +109,7 @@
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <div class=" rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <DollarSign color="#8b5cf6" size="20" />
+          <DollarSign color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">seasonal economy</h3>
         </div>
@@ -123,7 +123,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Gavel color="#8b5cf6" size="20" />
+          <Gavel color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">auctions</h3>
         </div>
@@ -135,7 +135,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Bell color="#8b5cf6" size="20" />
+          <Bell color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">mention history</h3>
         </div>
@@ -146,7 +146,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Book color="#8b5cf6" size="20" />
+          <Book color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">wordle</h3>
         </div>
@@ -157,7 +157,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Car color="#8b5cf6" size="20" />
+          <Car color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">street racing</h3>
         </div>
@@ -169,7 +169,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Coins color="#8b5cf6" size="20" />
+          <Coins color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">cryptocurrency</h3>
         </div>
@@ -181,7 +181,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Sparkle color="#8b5cf6" size="20" />
+          <Sparkle color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">prestige system</h3>
         </div>
@@ -192,7 +192,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Backpack color="#8b5cf6" size="20" />
+          <Backpack color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">inventory</h3>
         </div>
@@ -204,7 +204,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Dice5 color="#8b5cf6" size="20" />
+          <Dice5 color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">gambling</h3>
         </div>
@@ -216,7 +216,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Hammer color="#8b5cf6" size="20" />
+          <Hammer color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">workers</h3>
         </div>
@@ -228,7 +228,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Sparkles color="#8b5cf6" size="20" />
+          <Sparkles color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">karma system</h3>
         </div>
@@ -240,7 +240,7 @@
 
       <div class="rounded-lg bg-gray-800 p-6 shadow-md">
         <div class="mb-4 flex flex-row items-center gap-2">
-          <Gavel color="#8b5cf6" size="20" />
+          <Gavel color="#8b5cf6" size="20" strokeWidth="2.5" />
 
           <h3 class="text-2xl font-bold text-white">moderation</h3>
         </div>
