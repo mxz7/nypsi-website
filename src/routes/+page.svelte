@@ -64,7 +64,7 @@
 <div class="flex h-screen items-center justify-center">
   <div class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center">
     <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-    <p class="mt-2 text-xl font-bold text-gray-400">the best discord bot</p>
+    <p class="mt-3 text-xl font-bold text-gray-400">the best discord bot</p>
 
     <!-- <div class="m-auto mt-3 h-1 w-full rounded-full bg-accent" /> -->
 
@@ -72,7 +72,7 @@
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
         target="_blank"
-        class="mt-8 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
+        class="mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
         bg-gradient-to-r from-violet-600 to-purple-600
         p-3 text-xl font-semibold text-white shadow-lg shadow-gray-950 duration-150 hover:scale-95 md:text-2xl"
       >
