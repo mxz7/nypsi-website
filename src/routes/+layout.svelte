@@ -12,7 +12,7 @@
 
   export let data;
 
-  inject({ mode: dev ? "development" : "production" });
+  if (!dev) inject({ mode: "production" });
 
   onMount(() => {
     if ($page.url.searchParams.get("loggedin") === "true" && data.user.authenticated) {
