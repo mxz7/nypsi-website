@@ -19,7 +19,7 @@
       setTimeout(() => {
         toast.success(`logged in as ${data.user.authenticated ? data.user.username : "null"}`, {
           position: "bottom-center",
-          style: "background: #374151; color: #fff;",
+          style: "background: #4c1d95; color: #fff;",
           duration: 5000,
         });
       }, 250);
