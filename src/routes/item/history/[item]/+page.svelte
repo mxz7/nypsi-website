@@ -36,7 +36,9 @@
 </header>
 
 {#await data.streamed.graphData}
-  <Loading fadeInSettings={{ delay: 50, duration: 50 }} fadeOutSettings={{ duration: 150 }} />
+  <div class="relative mt-16 flex w-full justify-center">
+    <Loading fadeInSettings={{ delay: 50, duration: 50 }} fadeOutSettings={{ duration: 150 }} />
+  </div>
 {:then graphData}
   <div in:fade={{ delay: 150, duration: 300 }}>
     {#if graphData === "invalid item"}
