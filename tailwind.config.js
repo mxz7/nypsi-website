@@ -2,6 +2,10 @@
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        accent: "#8b5cf6",
+      },
+    },
   },
 };

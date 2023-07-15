@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,10 +8,11 @@
   scroll-behavior: smooth;
   scrollbar-color: rgb(0, 0, 0, 0.25) transparent;
   scrollbar-width: auto;
+  font-family: "Inter", sans-serif;
 }
 
 .tippy-box {
-  @apply rounded-lg border border-gray-500 border-opacity-10 bg-gray-900 bg-opacity-75 px-2 py-1 text-sm text-gray-300 shadow shadow-gray-950;
+  @apply rounded-lg border border-accent border-opacity-10 bg-gray-900 bg-opacity-75 px-2 py-1 text-sm text-gray-300 shadow shadow-gray-950;
 }
 
 ::-webkit-scrollbar {
