@@ -57,7 +57,7 @@
 
 <header class="mt-5 text-center">
   <h1 class="text-4xl font-bold text-white sm:text-5xl">leaderboards</h1>
-  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-96" />
+  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-96" />
 </header>
 
 <!-- <div class="flex flex-row mt-10 overflow-x-auto text-white sm:p-3 overflow-y-hidden">
