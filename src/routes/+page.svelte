@@ -76,7 +76,7 @@
         bg-gradient-to-r from-violet-600 to-purple-600
         p-3 text-xl font-semibold text-white shadow-lg shadow-gray-950 duration-150 hover:scale-95 md:text-2xl"
       >
-        <div class="flex h-4 items-center justify-center md:h-6">
+        <div class="flex h-5 items-center justify-center md:h-6">
           <img
             src="/discord-white.png"
             alt=""
