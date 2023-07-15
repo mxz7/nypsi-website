@@ -7,7 +7,7 @@ export const load = async ({ params, parent, setHeaders }) => {
 
   if (!parentData.premium || !parentData.user.authenticated) return;
 
-  if (params.userId === "me") throw redirect(302, `/user/${parentData.user.id}/graph/item/${params.item}`);
+  if (params.userId !== parentData.user.id) throw redirect(302, `/user/${parentData.user.id}/graph/item/${params.item}`);
 
   setHeaders({ "cache-control": "max-age=600" });
 

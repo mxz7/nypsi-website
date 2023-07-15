@@ -41,12 +41,9 @@ export const load = async ({ url, fetch }) => {
   if (res.error === 429) return res;
   if (res.error === 451) return res;
 
-  let path = "";
-  if (window.location.pathname.includes("/graph")) path = `graph${window.location.pathname.split("/graph")[window.location.pathname.split("/graph").length - 1]}`;
-
   if (res.id) {
-    throw redirect(302, `/user/${path === "" ? res.lastKnownUsername : res.id}/${path}`);
+    throw redirect(302, `/user/${res.lastKnownUsername}`);
   } else {
-    throw redirect(302, `/user/unknown/${path}`);
+    throw redirect(302, "/user/unknown");
   }
 };
