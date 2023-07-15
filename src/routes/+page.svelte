@@ -35,7 +35,7 @@
       <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <p class="text-gray-400">
           used by
-          <span class="font-semibold text-red-500">{data.server_count.toLocaleString()}</span> servers
+          <span class="font-semibold text-accent">{data.server_count.toLocaleString()}</span> servers
         </p>
       </div>
     {/if}
@@ -48,7 +48,7 @@
     href="#features"
   >
     <svg
-      class="h-6 w-6 text-red-500 text-opacity-75"
+      class="h-6 w-6 text-accent text-opacity-75"
       fill="none"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -66,7 +66,7 @@
     <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
     <p class="mt-5 text-xl font-bold text-gray-400">the best discord bot</p>
 
-    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-full" />
+    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-full" />
 
     <div class="mt-2 flex flex-col items-center justify-center sm:flex-row">
       <a

@@ -26,7 +26,7 @@
     <h1 class="text-4xl font-bold text-white sm:text-5xl">
       {data.title}
     </h1>
-    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-red-500 sm:w-1/2" />
+    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
   </header>
   <div class="mt-10 px-5 sm:px-24">
     {#await data.streamed.data}

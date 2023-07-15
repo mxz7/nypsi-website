@@ -40,6 +40,6 @@
     in:fade={{ delay: 50, duration: 50 }}
     out:fade={{ duration: 750 }}
     style="width: {loadingSize}%;"
-    class="absolute top-[64px] h-[2px] w-0 rounded bg-red-500 duration-100"
+    class="absolute top-[64px] h-[2px] w-0 rounded bg-accent duration-100"
   />
 {/if}

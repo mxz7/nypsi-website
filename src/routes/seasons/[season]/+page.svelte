@@ -15,7 +15,7 @@
     {#if season}
       <h1 class="text-4xl font-bold text-white">season {$page.params.season}</h1>
 
-      <div class="m-auto mt-3 h-1 w-52 rounded-full bg-red-500" />
+      <div class="m-auto mt-3 h-1 w-52 rounded-full bg-accent" />
 
       {#if season.ended}
         <h2 class="mt-3 text-lg font-bold text-gray-400">

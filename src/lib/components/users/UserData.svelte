@@ -235,7 +235,7 @@
         <div class="mt-4 flex w-full flex-row flex-wrap justify-center">
           {#each userData.Economy.EconomyGuildMember.guild.members as member}
             <a
-              class="mb-2 mr-2 rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-1 text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 hover:text-red-500 lg:text-sm"
+              class="mb-2 mr-2 rounded border border-gray-500 border-opacity-10 bg-gray-700 bg-opacity-5 p-1 text-xs text-gray-300 shadow duration-300 hover:border-opacity-25 hover:text-accent lg:text-sm"
               href="/user/{member.economy.user.id}">{member.economy.user.lastKnownUsername}</a
             >
           {/each}
@@ -327,7 +327,7 @@
                     alt=""
                   />
                 </div>
-                <p class="my-1 {lb.position === 1 ? 'text-red-500' : ''}">
+                <p class="my-1 {lb.position === 1 ? 'text-accent' : ''}">
                   {items.find((i) => i.id === lb.leaderboard.split("-")[1])?.name}
                 </p>
               {:else}
@@ -336,7 +336,7 @@
                 </p>
               {/if}
 
-              <p class={lb.position === 1 ? "text-red-500" : ""}>
+              <p class={lb.position === 1 ? "text-accent" : ""}>
                 #{lb.position}
               </p>
             </a>
