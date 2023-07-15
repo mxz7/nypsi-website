@@ -64,17 +64,26 @@
 <div class="flex h-screen items-center justify-center">
   <div class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center">
     <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-    <p class="mt-5 text-xl font-bold text-gray-400">the best discord bot</p>
+    <p class="mt-2 text-xl font-bold text-gray-400">the best discord bot</p>
 
-    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-full" />
+    <!-- <div class="m-auto mt-3 h-1 w-full rounded-full bg-accent" /> -->
 
-    <div class="mt-2 flex flex-col items-center justify-center sm:flex-row">
+    <div class="flex justify-center">
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
         target="_blank"
-        class="flex flex-col items-center justify-center text-center text-2xl font-semibold text-white duration-300 hover:scale-125 md:text-3xl"
+        class="mt-8 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
+        bg-gradient-to-r from-violet-600 to-purple-600
+        p-3 text-xl font-semibold text-white shadow-lg shadow-gray-950 duration-150 hover:scale-95 md:text-2xl"
       >
-        add to your server
+        <div class="flex h-4 items-center justify-center md:h-6">
+          <img
+            src="/discord-white.png"
+            alt=""
+            class="h-auto max-h-full w-auto max-w-full object-contain"
+          />
+        </div>
+        <p>add to discord</p>
       </a>
     </div>
   </div>
