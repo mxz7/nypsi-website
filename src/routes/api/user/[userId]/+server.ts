@@ -30,6 +30,7 @@ export const GET = async ({ params, setHeaders }) => {
     },
     select: {
       badges: true,
+      id: true,
       Leaderboards: {
         select: {
           position: true,
