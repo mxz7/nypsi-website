@@ -6,6 +6,7 @@
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
+  import toast from "svelte-french-toast";
   import InfiniteScroll from "svelte-infinite-scroll";
   import { fly } from "svelte/transition";
   import Punishment from "./Punishment.svelte";
@@ -69,17 +70,34 @@
     const newGames = await fetch(
       `/api/game?user=${userId}&take=10&skip=${games.length}&before=${now}`
     ).then((r) =>
-      r.json().then(
-        (r) =>
-          r.games as {
-            date: number;
-            game: string;
-            win: number;
-            id: number;
-            bet: number;
-            earned: number;
-          }[]
-      )
+      r.json().then((r) => {
+        if (r.error) {
+          console.error(r);
+
+          if (r.error === 429) {
+            toast.error("too many requests: slow down", {
+              position: "bottom-center",
+              style: "color: #fff; background: #b91c1c;",
+            });
+          } else {
+            toast.error(`error: ${r.error}`, {
+              position: "bottom-center",
+              style: "color: #fff; background: #b91c1c;",
+            });
+          }
+
+          return [];
+        }
+
+        return r.games as {
+          date: number;
+          game: string;
+          win: number;
+          id: number;
+          bet: number;
+          earned: number;
+        }[];
+      })
     );
 
     games = [...games, ...newGames];
