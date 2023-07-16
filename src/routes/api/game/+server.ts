@@ -15,6 +15,7 @@ export async function GET({ setHeaders, url }) {
   const after = url.searchParams.get("after");
   const id = url.searchParams.get("id");
   let take = url.searchParams.get("take");
+  let skip = url.searchParams.get("skip");
 
   const options: Prisma.GameFindManyArgs = {
     take: 1,
@@ -73,6 +74,14 @@ export async function GET({ setHeaders, url }) {
     if (Number(take) < 1) take = "1";
 
     options.take = Number(take);
+  }
+
+  if (skip) {
+    if (!Number(skip)) throw error(400, "invalid amount to skip");
+
+    if (Number(skip) < 1) skip = "0";
+
+    options.skip = Number(skip);
   }
 
   if (id) {
