@@ -1,32 +1,35 @@
+import getItems from "$lib/functions/getItems";
 import prisma from "$lib/server/database.js";
 import type { GraphMetrics } from "@prisma/client";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export default async function getGraphData(category: string, user?: string) {
+export default async function getGraphData(category: string, user?: string, item?: string) {
+
+  if (item && !(await getItems()).find((i) => i.id === item)) return "invalid item";
+  
   let userItemCount: GraphMetrics[] = [];
 
-  if (user && user.match(/^\d{17,19}$/)) {
-    const privacyCheck = await prisma.preferences.findUnique({
-      where: { userId: user },
-      select: { leaderboards: true },
-    });
+  if (!user || !user.match(/^\d{17,19}$/)) return "invalid user";
 
-    if (!privacyCheck) return "invalid user";
+  const privacyCheck = await prisma.preferences.findUnique({
+    where: { userId: user },
+    select: { leaderboards: true },
+  });
 
-    if (privacyCheck?.leaderboards) {
-      userItemCount = await prisma.graphMetrics.findMany({
-        where: {
-          AND: [
-            { userId: user },
-            { date: { gte: dayjs().subtract(45, "days").toDate() } },
-            { category: category },
-          ],
-        },
-      });
-    } else return "private profile"
-  } else return "invalid user";
+  if (!privacyCheck) return "invalid user";
+  if (!privacyCheck?.leaderboards) return "private profile";
+
+  userItemCount = await prisma.graphMetrics.findMany({
+    where: {
+      AND: [
+        { userId: user },
+        { date: { gte: dayjs().subtract(45, "days").toDate() } },
+        { category: category },
+      ],
+    },
+  });
 
   if (userItemCount.length < 2) return "not enough data";
 
