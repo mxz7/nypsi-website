@@ -52,20 +52,20 @@ export async function GET({ setHeaders, url }) {
 
   if (before) {
     try {
-      new Date(before);
+      new Date(Number(before));
     } catch {
       throw error(400, { message: "invalid before date value" });
     }
-    (options.where.AND as Prisma.GameWhereInput[]).push({ date: { lt: new Date(before) } });
+    (options.where.AND as Prisma.GameWhereInput[]).push({ date: { lt: new Date(Number(before)) } });
   }
 
   if (after) {
     try {
-      new Date(after);
+      new Date(Number(after));
     } catch {
       throw error(400, { message: "invalid after date value" });
     }
-    (options.where.AND as Prisma.GameWhereInput[]).push({ date: { gt: new Date(after) } });
+    (options.where.AND as Prisma.GameWhereInput[]).push({ date: { gt: new Date(Number(after)) } });
   }
 
   if (take) {

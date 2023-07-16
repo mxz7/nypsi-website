@@ -6,6 +6,7 @@
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
+  import InfiniteScroll from "svelte-infinite-scroll";
   import { fly } from "svelte/transition";
   import Punishment from "./Punishment.svelte";
   import SmallInfo from "./SmallInfo.svelte";
@@ -59,6 +60,30 @@
     role: string;
     plural?: string;
   }[];
+
+  $: games = [...userData.Economy.Game];
+
+  const now = new Date().getTime();
+
+  async function loadMore(userId: string) {
+    const newGames = await fetch(
+      `/api/game?user=${userId}&take=10&skip=${games.length}&before=${now}`
+    ).then((r) =>
+      r.json().then(
+        (r) =>
+          r.games as {
+            date: number;
+            game: string;
+            win: number;
+            id: number;
+            bet: number;
+            earned: number;
+          }[]
+      )
+    );
+
+    games = [...games, ...newGames];
+  }
 </script>
 
 <div class="xl:[20vw] md:w-[40vw mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]">
@@ -347,7 +372,7 @@
   </div>
 
   <div in:fly={{ delay: 1000, duration: 500, y: 75 }}>
-    {#if userData.Economy.Game.length > 0}
+    {#if games.length > 0}
       <div
         class="mx-auto mt-4 flex flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 lg:w-full"
       >
@@ -355,8 +380,7 @@
         <div
           class="mx-4 mt-4 flex max-h-64 flex-col overflow-y-auto px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
         >
-          {#each userData.Economy.Game as game}
-            <!--change yellow to less piss-->
+          {#each games as game}
             <a
               href="/game/{game.id.toString(36)}"
               style="color: {game.win == 1
@@ -383,6 +407,7 @@
               </p>
             </a>
           {/each}
+          <InfiniteScroll threshold={500} on:loadMore={() => loadMore(userData.id)} />
         </div>
       </div>
     {/if}
