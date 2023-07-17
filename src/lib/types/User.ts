@@ -26,6 +26,7 @@ interface ErrorUserApiResponse extends BaseUserApiResponse {
 
 export interface UserApiResponsexd extends BaseUserApiResponse {
   message: "success";
+  id: string;
   lastCommand: number;
   badges: string[];
   Leaderboards: { position: number; leaderboard: string }[];

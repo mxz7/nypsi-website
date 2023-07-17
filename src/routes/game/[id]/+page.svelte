@@ -8,9 +8,14 @@
   import Scratch from "$lib/components/games/Scratch.svelte";
   import Slots from "$lib/components/games/Slots.svelte";
   import Tower from "$lib/components/games/Tower.svelte";
+  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   export let data;
+
+  onMount(async () => {
+    console.log(await Promise.resolve(data.streamed.game));
+  });
 </script>
 
 <svelte:head>
