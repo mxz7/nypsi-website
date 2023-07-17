@@ -6,10 +6,10 @@
   export let suffix: (value: string) => string;
 </script>
 
-<table class="mx-auto mt-1 w-[50%] text-gray-200 sm:w-1/2 sm:px-0 sm:text-xl">
+<table class="mx-auto mt-1 w-full text-gray-200 sm:w-1/2 sm:px-0 sm:text-xl">
   {#each data.slice(0, 100) as { user, value, position }, i}
     <tr
-      class="flex border-b-[8px] border-gray-900 border-opacity-100 bg-gray-950 bg-opacity-20 duration-200 ease-in hover:scale-105"
+      class="flex w-full border-b-[8px] border-gray-900 border-opacity-100 bg-gray-950 bg-opacity-20 duration-200 ease-in hover:scale-105"
       in:fly|global={{ delay: i * 55, duration: 500, y: 250 }}
     >
       <td class="px-1 py-1 text-gray-400">#{position}</td>
