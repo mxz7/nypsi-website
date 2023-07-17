@@ -30,6 +30,7 @@
     scales: {
       y1: {
         position: "left",
+        min: 0,
         ticks: {
           callback(tickValue) {
             if (data.category.includes("money") || data.category.includes("net"))

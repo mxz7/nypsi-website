@@ -38,6 +38,7 @@
     },
     scales: {
       y2: {
+        min: 0,
         position: "right",
         ticks: {
           callback(tickValue) {
@@ -46,6 +47,7 @@
         },
       },
       y1: {
+        min: 0,
         position: "left",
         ticks: {
           callback(tickValue) {
