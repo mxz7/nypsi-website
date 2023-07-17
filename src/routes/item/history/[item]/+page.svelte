@@ -2,10 +2,61 @@
   import Chart from "$lib/components/Chart.svelte";
   import ItemList from "$lib/components/ItemList.svelte";
   import Loading from "$lib/components/Loading.svelte";
+  import type { ChartOptions } from "chart.js";
 
   import { fade } from "svelte/transition";
 
   export let data;
+
+  const chartOptions: ChartOptions = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label(tooltipItem) {
+            if (tooltipItem.dataset.label.includes("items in world"))
+              return `in world: ${tooltipItem.formattedValue}`;
+            else if (
+              tooltipItem.dataset.label === (data.user.authenticated ? data.user.username : "null")
+            )
+              return `${data.user.authenticated ? data.user.username : "null"}: ${
+                tooltipItem.formattedValue
+              }`;
+
+            return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    elements: {
+      line: {
+        tension: 0.4,
+      },
+      point: {
+        radius: /Android|iPhone/i.test(navigator.userAgent) ? 1 : 5,
+      },
+    },
+    scales: {
+      y2: {
+        min: 0,
+        position: "right",
+        ticks: {
+          callback(tickValue) {
+            return Math.floor(Number(tickValue)).toLocaleString();
+          },
+        },
+      },
+      y1: {
+        min: 0,
+        position: "left",
+        ticks: {
+          callback(tickValue) {
+            return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
+          },
+        },
+      },
+    },
+  };
 </script>
 
 <svelte:head>
@@ -50,7 +101,7 @@
         <h1>not enough data</h1>
       </div>
     {:else if typeof graphData !== "string"}
-      <Chart chartData={graphData} user={data.user} />
+      <Chart chartData={graphData} {chartOptions} />
     {/if}
   </div>
 
