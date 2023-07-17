@@ -13,7 +13,7 @@
           label(tooltipItem) {
             if (data.category.includes("money") || data.category.includes("net"))
               return `$${tooltipItem.formattedValue}`;
-            return Number(tooltipItem.formattedValue).toLocaleString();
+            return tooltipItem.formattedValue;
           },
         },
       },
