@@ -34,7 +34,7 @@
         <SkeletonLeaderboard />
       </div>
     {:then value}
-      <div class="px-4 sm:px-0" in:fly={{ y: 10, duration: 300, delay: 300 }}>
+      <div class="mx-4 sm:px-0" in:fly={{ y: 10, duration: 300, delay: 300 }}>
         {#if value.length === 0}
           <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
             {#if data.item}
