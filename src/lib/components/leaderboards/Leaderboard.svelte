@@ -37,6 +37,6 @@
   }
 
   tr:nth-child(1):hover {
-    scale: 110%;
+    scale: 103%;
   }
 </style>
