@@ -3,6 +3,8 @@ import getGraphData from "$lib/server/functions/getGraphData.js";
 import type { Item } from "$lib/types/Item.js";
 import { redirect } from "@sveltejs/kit";
 
+export const ssr = false;
+
 export const load = async ({ parent, setHeaders, params }) => {
   const [parentData, items] = await Promise.all([parent(), getItems()]);
 
@@ -34,6 +36,7 @@ export const load = async ({ parent, setHeaders, params }) => {
   return {
     base: 69,
     title,
+    category,
     streamed: { graphData: getGraphData(category, parentData.user.id) },
   };
 };

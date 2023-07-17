@@ -1,9 +1,45 @@
 <script lang="ts">
   import Chart from "$lib/components/Chart.svelte";
   import Loading from "$lib/components/Loading.svelte";
+  import type { ChartOptions } from "chart.js";
   import { fade } from "svelte/transition";
 
   export let data;
+
+  const chartOptions: ChartOptions = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label(tooltipItem) {
+            if (data.category.includes("money") || data.category.includes("net"))
+              return `$${tooltipItem.formattedValue}`;
+            return Number(tooltipItem.formattedValue).toLocaleString();
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    elements: {
+      line: {
+        tension: 0.4,
+      },
+      point: {
+        radius: /Android|iPhone/i.test(navigator.userAgent) ? 1 : 5,
+      },
+    },
+    scales: {
+      y1: {
+        position: "left",
+        ticks: {
+          callback(tickValue) {
+            if (data.category.includes("money") || data.category.includes("net"))
+              return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
+            return Number(tickValue).toLocaleString();
+          },
+        },
+      },
+    },
+  };
 </script>
 
 <svelte:head>
@@ -35,7 +71,7 @@
           <h1>not enough data</h1>
         </div>
       {:else if typeof graphData !== "string"}
-        <Chart chartData={graphData} user={data.user} />
+        <Chart chartData={graphData} {chartOptions} />
       {/if}
     </div>
   {/if}

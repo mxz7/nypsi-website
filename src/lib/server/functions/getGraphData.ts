@@ -38,7 +38,7 @@ export default async function getGraphData(category: string, user: string) {
       labels: [],
       datasets: [
         {
-          yAxisID: "y2",
+          yAxisID: "y1",
           label: await prisma.user
             .findUnique({
               where: { id: user },
@@ -47,6 +47,8 @@ export default async function getGraphData(category: string, user: string) {
             .then((q) => q?.lastKnownUsername || ""),
           data: [],
           fill: true,
+          borderColor: "#8b5cf6",
+          backgroundColor: "#8b5cf644",
         },
       ],
     },

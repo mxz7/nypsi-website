@@ -1,6 +1,8 @@
 import getItems from "$lib/functions/getItems.js";
 import getChartData from "$lib/server/functions/getChartData.js";
 
+export const ssr = false;
+
 export const load = async ({ params, parent, setHeaders }) => {
   const parentData = await parent();
 
