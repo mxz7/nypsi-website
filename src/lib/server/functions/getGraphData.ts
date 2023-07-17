@@ -1,16 +1,9 @@
-import getItems from "$lib/functions/getItems";
 import prisma from "$lib/server/database.js";
-import type { GraphMetrics } from "@prisma/client";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export default async function getGraphData(category: string, user?: string, item?: string) {
-
-  if (item && !(await getItems()).find((i) => i.id === item)) return "invalid item";
-  
-  let userItemCount: GraphMetrics[] = [];
-
+export default async function getGraphData(category: string, user: string) {
   if (!user || !user.match(/^\d{17,19}$/)) return "invalid user";
 
   const privacyCheck = await prisma.preferences.findUnique({
@@ -21,7 +14,7 @@ export default async function getGraphData(category: string, user?: string, item
   if (!privacyCheck) return "invalid user";
   if (!privacyCheck?.leaderboards) return "private profile";
 
-  userItemCount = await prisma.graphMetrics.findMany({
+  const userItemCount = await prisma.graphMetrics.findMany({
     where: {
       AND: [
         { userId: user },
@@ -54,7 +47,7 @@ export default async function getGraphData(category: string, user?: string, item
             .then((q) => q?.lastKnownUsername || ""),
           data: [],
           fill: true,
-        }
+        },
       ],
     },
   };
