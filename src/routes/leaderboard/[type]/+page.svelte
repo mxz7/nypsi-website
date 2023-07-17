@@ -34,19 +34,17 @@
         <SkeletonLeaderboard />
       </div>
     {:then value}
-      <div class="mx-4 sm:px-0" in:fly={{ y: 10, duration: 300, delay: 300 }}>
-        {#if value.length === 0}
-          <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
-            {#if data.item}
-              nobody has a {data.item.name}
-            {:else}
-              no data
-            {/if}
-          </h2>
-        {:else}
-          <BigLeaderboard data={value} suffix={data.suffix} />
-        {/if}
-      </div>
+      {#if value.length === 0}
+        <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
+          {#if data.item}
+            nobody has a {data.item.name}
+          {:else}
+            no data
+          {/if}
+        </h2>
+      {:else}
+        <BigLeaderboard data={value} suffix={data.suffix} />
+      {/if}
     {:catch error}
       <p class="text-center text-xl text-red-600">error: {error}</p>
     {/await}
