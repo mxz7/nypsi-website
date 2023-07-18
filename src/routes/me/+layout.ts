@@ -9,7 +9,7 @@ export async function load({ setHeaders, parent, url, fetch }) {
     throw redirect(302, "/login?redirect=" + encodeURIComponent(url.toString()));
 
   setHeaders({
-    "cache-control": "max-age=60",
+    "cache-control": "max-age=30",
   });
 
   return {
