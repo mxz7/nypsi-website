@@ -25,7 +25,7 @@
         {#if userData.message === "success"}
           <a
             href="/user/{userData.id}"
-            class="w-full px-3"
+            class="w-full px-3 sm:px-0 sm:shadow sm:shadow-gray-950"
             use:tooltip={{
               content: "click to view your profile",
               theme: "tooltip",
