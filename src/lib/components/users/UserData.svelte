@@ -62,7 +62,7 @@
   }
 </script>
 
-<div class="xl:[20vw] md:w-[40vw mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]">
+<div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]">
   <div in:fly={{ delay: 300, duration: 500, y: 75 }}>
     <Profile {userData} {items} />
   </div>
