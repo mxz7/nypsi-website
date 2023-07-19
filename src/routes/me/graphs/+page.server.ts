@@ -19,7 +19,7 @@ export async function load({ setHeaders, parent, url }) {
     return {
       streamed: {
         balance: getGraphData("user-money", parentData.user.id),
-        networth: getGraphData("user-networth", parentData.user.id),
+        networth: getGraphData("user-net", parentData.user.id),
         karma: getGraphData("user-karma", parentData.user.id),
       },
     };
