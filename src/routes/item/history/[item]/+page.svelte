@@ -61,23 +61,7 @@
 </script>
 
 <svelte:head>
-  <title>{data.item?.name} history</title>
-  <meta
-    name="description"
-    content="showing auction/offers average and total item count for {data.item?.name}"
-  />
-
-  <meta name="og:title" content="{data.item?.name} history" />
-  <meta
-    name="og:description"
-    content="showing auction/offers average and total item count for {data.item?.name}"
-  />
-  <meta name="og:site_name" content="nypsi" />
-  {#if data.item}
-    <meta name="og:image" content={data.item?.emoji} />
-    <meta property="og:image:width" content="128" />
-    <meta property="og:image:height" content="128" />
-  {/if}
+  <title>{data.item?.name} history | nypsi</title>
 </svelte:head>
 
 <header class="mb-10 mt-5 text-center sm:mb-3 sm:w-full">
