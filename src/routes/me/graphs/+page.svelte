@@ -208,6 +208,13 @@
   onClick={(itemId) => {
     charts.scrollIntoView();
 
+    // @ts-expect-error boooobbiiees
+    data.streamed.items = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("not enough data");
+      }, 10000);
+    });
+
     if (selectedItems.includes(itemId)) {
       selectedItems.splice(selectedItems.indexOf(itemId), 1);
 
@@ -216,6 +223,7 @@
       return goto(`/me/graphs?items=${selectedItems.join("+")}`);
     } else {
       if (selectedItems.length + 1 > 10) selectedItems.shift();
+
       return goto(`/me/graphs?items=${[...selectedItems, itemId].join("+")}`);
     }
   }}

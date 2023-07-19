@@ -61,6 +61,7 @@ export default async function getGraphData(categories: string[], user: string, i
         yAxisID: "y1",
         label: items.find((i) => i.id === key.split("-")[2]).name,
         data: [],
+        fill: true,
       });
     }
   }
