@@ -25,7 +25,7 @@
     <div class="flex grow flex-row items-center p-3 align-middle">
       <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
         {#if dropDownVisible && user && user.authenticated}
-          <a href="/user/{user.id}" class="h-8 rounded-full">
+          <a href="/me" class="h-8 rounded-full">
             <img
               class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
               src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
@@ -92,7 +92,7 @@
     </div>
     <div class="mr-3 hidden items-center justify-center md:flex">
       {#if user.authenticated}
-        <a href="/user/{user.id}" class="h-10 w-10 rounded-full">
+        <a href="/me" class="h-10 w-10 rounded-full">
           <img
             class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
             src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"

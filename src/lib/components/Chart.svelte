@@ -17,8 +17,6 @@
   });
 </script>
 
-<div class="flex justify-center">
-  <div class="h-[30vh] w-full px-4 sm:h-full">
-    <canvas style="width: 100%;" bind:this={chartCanvas} />
-  </div>
+<div class="h-full w-full">
+  <canvas style="width: 100%;" bind:this={chartCanvas} />
 </div>

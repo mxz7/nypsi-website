@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips.js";
   import Loading from "$lib/components/Loading.svelte";
   import Profile from "$lib/components/users/Profile.svelte";
@@ -14,6 +16,7 @@
 
     if (userData.message === "success" && userData?.Premium?.level > 0) {
       graphsAllowed = true;
+      if ($page.url.pathname.endsWith("/me")) goto("/me/graphs");
     }
   });
 </script>
@@ -22,7 +25,7 @@
   <title>dashboard | nypsi</title>
 </svelte:head>
 
-<div class="flex w-full flex-col justify-center">
+<div class="mb-8 flex w-full flex-col justify-center">
   <div class="overflow-show mt-4 flex h-40 w-full justify-center sm:mt-8 md:h-[30vh]">
     <div class="flex h-fit w-full flex-col sm:w-[50vw]">
       {#await data.streamed.userData}
@@ -59,7 +62,9 @@
     <div class="mt-3 flex w-full flex-row justify-center px-4 text-gray-200 sm:w-[60vw]">
       {#if graphsAllowed}
         <a
-          class="grow border-b border-gray-700 pb-2 text-center hover:border-accent"
+          class="grow {$page.url.pathname.includes('/graphs')
+            ? 'border-b-accent'
+            : ''} border-b border-gray-700 pb-2 text-center hover:border-accent"
           href="/me/graphs"
         >
           graphs
@@ -81,10 +86,14 @@
         </a>
       {/if}
       <a
-        class="grow border-b border-gray-700 pb-2 text-center hover:border-accent"
+        class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
+          '/stats'
+        )
+          ? 'border-b-accent'
+          : ''}"
         href="/me/other"
       >
-        other
+        stats
       </a>
       <a
         class="grow border-b border-gray-700 pb-2 text-center hover:border-accent"

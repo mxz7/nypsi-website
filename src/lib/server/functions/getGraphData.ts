@@ -6,14 +6,6 @@ import { inPlaceSort } from "fast-sort";
 export default async function getGraphData(category: string, user: string) {
   if (!user || !user.match(/^\d{17,19}$/)) return "invalid user";
 
-  const privacyCheck = await prisma.preferences.findUnique({
-    where: { userId: user },
-    select: { leaderboards: true },
-  });
-
-  if (!privacyCheck) return "invalid user";
-  if (!privacyCheck?.leaderboards) return "private profile";
-
   const userItemCount = await prisma.graphMetrics.findMany({
     where: {
       AND: [
