@@ -41,7 +41,7 @@
     },
   };
 
-  const normalChartOptions: ChartOptions = {
+  const karmaChartOptions: ChartOptions = {
     plugins: {
       legend: {
         display: false,
@@ -137,7 +137,7 @@
             {#if typeof chartData === "string"}
               <h2 class="text-center font-semibold text-white">not enough data</h2>
             {:else}
-              <Chart {chartData} chartOptions={normalChartOptions} />
+              <Chart {chartData} chartOptions={karmaChartOptions} />
             {/if}
           {/await}
         </div>
