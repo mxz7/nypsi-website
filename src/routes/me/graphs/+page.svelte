@@ -75,11 +75,59 @@
       },
     },
   };
+
+  const itemChartOptions: ChartOptions = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label(tooltipItem) {
+            return tooltipItem.formattedValue;
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    elements: {
+      line: {
+        tension: 0.4,
+      },
+      point: {
+        radius: /Android|iPhone/i.test(navigator.userAgent) ? 2 : 3,
+      },
+    },
+    scales: {
+      y1: {
+        position: "left",
+        min: 0,
+        ticks: {
+          callback(tickValue) {
+            return Math.floor(Number(tickValue)).toLocaleString();
+          },
+        },
+      },
+    },
+  };
 </script>
 
 <div class="flex w-full justify-center">
   <div class="flex w-full flex-col gap-8 sm:w-[60vw]">
-    {#if $page.url.searchParams.get("item")}{:else}
+    {#if $page.url.searchParams.get("items")}
+      <div class="flex w-full flex-col gap-4 px-4">
+        <div class="h-[30vh] w-full sm:h-[45vh]">
+          {#await data.streamed.items}
+            <div class="relative h-full w-full">
+              <Loading />
+            </div>
+          {:then chartData}
+            {#if typeof chartData === "string"}
+              <h2 class="text-center font-semibold text-white">not enough data</h2>
+            {:else}
+              <Chart {chartData} chartOptions={itemChartOptions} />
+            {/if}
+          {/await}
+        </div>
+      </div>
+    {:else}
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">balance</h1>

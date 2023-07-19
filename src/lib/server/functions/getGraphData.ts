@@ -42,12 +42,14 @@ export default async function getGraphData(categories: string[], user: string, i
   if (results.size === 1) {
     graphData.data.datasets.push({
       yAxisID: "y1",
-      label: await prisma.user
-        .findUnique({
-          where: { id: user },
-          select: { lastKnownUsername: true },
-        })
-        .then((q) => q?.lastKnownUsername || ""),
+      label: categories[0].includes("item")
+        ? items.find((i) => i.id === categories[0].split("-")[2]).name
+        : await prisma.user
+            .findUnique({
+              where: { id: user },
+              select: { lastKnownUsername: true },
+            })
+            .then((q) => q?.lastKnownUsername || ""),
       data: [],
       fill: true,
       borderColor: "#8b5cf6",
