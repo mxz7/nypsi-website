@@ -8,8 +8,8 @@
 
 <div
   class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2"
-  in:fade={fadeInSettings}
-  out:fade={fadeOutSettings}
+  in:fade|global={fadeInSettings}
+  out:fade|global={fadeOutSettings}
 >
   <div class="flex items-center justify-center">
     <svg

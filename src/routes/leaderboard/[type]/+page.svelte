@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import Loading from "$lib/components/Loading.svelte";
   import BigLeaderboard from "$lib/components/leaderboards/Leaderboard.svelte";
-  import SkeletonLeaderboard from "$lib/components/leaderboards/SkeletonLeaderboard.svelte";
-  import { fly } from "svelte/transition";
+  import { fade } from "svelte/transition";
 
   export let data;
 </script>
@@ -30,23 +30,27 @@
   </header>
   <div class="mt-10 px-5 sm:px-24">
     {#await data.streamed.data}
-      <div out:fly={{ y: 10, duration: 300 }}>
-        <SkeletonLeaderboard />
+      <div class="relative mt-16 flex w-full justify-center">
+        <Loading
+          fadeInSettings={{ delay: 75, duration: 100 }}
+          fadeOutSettings={{ duration: 200 }}
+        />
       </div>
     {:then value}
-      <div class="px-4 sm:px-0" in:fly={{ y: 10, duration: 300, delay: 300 }}>
-        {#if value.length === 0}
-          <h2 class="m-auto mt-12 text-center text-lg font-bold text-gray-400">
-            {#if data.item}
-              nobody has a {data.item.name}
-            {:else}
-              no data
-            {/if}
-          </h2>
-        {:else}
-          <BigLeaderboard data={value} suffix={data.suffix} />
-        {/if}
-      </div>
+      {#if value.length === 0}
+        <h2
+          class="m-auto mt-12 text-center text-lg font-bold text-gray-400"
+          in:fade|global={{ delay: 150, duration: 250 }}
+        >
+          {#if data.item}
+            nobody has a {data.item.name}
+          {:else}
+            no data
+          {/if}
+        </h2>
+      {:else}
+        <BigLeaderboard data={value} suffix={data.suffix} />
+      {/if}
     {:catch error}
       <p class="text-center text-xl text-red-600">error: {error}</p>
     {/await}
