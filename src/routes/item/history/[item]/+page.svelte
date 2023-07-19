@@ -28,12 +28,13 @@
       },
     },
     maintainAspectRatio: false,
+    responsive: true,
     elements: {
       line: {
         tension: 0.4,
       },
       point: {
-        radius: /Android|iPhone/i.test(navigator.userAgent) ? 1 : 5,
+        radius: /Android|iPhone/i.test(navigator.userAgent) ? 2 : 5,
       },
     },
     scales: {
@@ -101,7 +102,11 @@
         <h1>not enough data</h1>
       </div>
     {:else if typeof graphData !== "string"}
-      <Chart chartData={graphData} {chartOptions} />
+      <div class="flex justify-center">
+        <div class="w-[80vw]">
+          <Chart chartData={graphData} {chartOptions} />
+        </div>
+      </div>
     {/if}
   </div>
 
