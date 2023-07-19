@@ -40,6 +40,9 @@ export default async function getGraphData(categories: string[], user: string, i
   };
 
   if (results.size === 1) {
+    console.log(categories);
+    console.log(categories[0].includes("item"));
+
     graphData.data.datasets.push({
       yAxisID: "y1",
       label: categories[0].includes("item")

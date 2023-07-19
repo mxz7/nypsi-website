@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Chart from "$lib/components/Chart.svelte";
+  import ItemList from "$lib/components/ItemList.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import type { ChartOptions } from "chart.js";
 
@@ -107,6 +109,10 @@
       },
     },
   };
+
+  let selectedItems: string[];
+
+  $: selectedItems = $page.url.searchParams.get("items")?.split(" ") || [];
 </script>
 
 <div class="flex w-full justify-center">
@@ -193,3 +199,21 @@
     {/if}
   </div>
 </div>
+
+<ItemList
+  items={data.items}
+  url=""
+  bind:selectedList={selectedItems}
+  onClick={(itemId) => {
+    if (selectedItems.includes(itemId)) {
+      selectedItems.splice(selectedItems.indexOf(itemId), 1);
+
+      if (selectedItems.length === 0) return goto("/me/graphs");
+
+      return goto(`/me/graphs?items=${selectedItems.join("+")}`);
+    } else {
+      if (selectedItems.length + 1 > 10) selectedItems.shift();
+      return goto(`/me/graphs?items=${[...selectedItems, itemId].join("+")}`);
+    }
+  }}
+/>
