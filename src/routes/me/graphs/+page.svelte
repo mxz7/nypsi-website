@@ -7,6 +7,7 @@
   import type { ChartOptions } from "chart.js";
 
   export let data;
+  let charts: HTMLDivElement;
 
   const moneyChartOptions: ChartOptions = {
     plugins: {
@@ -116,7 +117,7 @@
 </script>
 
 <div class="flex w-full justify-center">
-  <div class="flex w-full flex-col gap-8 sm:w-[60vw]">
+  <div class="flex w-full flex-col gap-8 sm:w-[60vw]" bind:this={charts}>
     {#if $page.url.searchParams.get("items")}
       <div class="flex w-full flex-col gap-4 px-4">
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -205,6 +206,8 @@
   url=""
   bind:selectedList={selectedItems}
   onClick={(itemId) => {
+    charts.scrollIntoView();
+
     if (selectedItems.includes(itemId)) {
       selectedItems.splice(selectedItems.indexOf(itemId), 1);
 
