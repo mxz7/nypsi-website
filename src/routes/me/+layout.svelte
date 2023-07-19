@@ -31,7 +31,7 @@
       {#await data.streamed.userData}
         <div class="relative mt-10 h-full w-full">
           <Loading
-            fadeInSettings={{ delay: 50, duration: 100 }}
+            fadeInSettings={{ delay: 5000, duration: 100 }}
             fadeOutSettings={{ duration: 100 }}
           />
         </div>
@@ -91,15 +91,9 @@
         )
           ? 'border-b-accent'
           : ''}"
-        href="/me/other"
+        href="/me/stats"
       >
         stats
-      </a>
-      <a
-        class="grow border-b border-gray-700 pb-2 text-center hover:border-accent"
-        href="/me/other"
-      >
-        other
       </a>
     </div>
   </div>

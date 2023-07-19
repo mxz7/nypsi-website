@@ -3,7 +3,7 @@
 
   export let size = 10;
   export let fadeOutSettings: FadeParams = { duration: 150 };
-  export let fadeInSettings: FadeParams = { duration: 0 };
+  export let fadeInSettings: FadeParams = { duration: 50 };
 </script>
 
 <div

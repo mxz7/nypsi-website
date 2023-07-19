@@ -1,10 +1,11 @@
+import getItems from "$lib/functions/getItems.js";
 import getGraphData from "$lib/server/functions/getGraphData.js";
 import { redirect } from "@sveltejs/kit";
 
 export const ssr = false;
 
 export async function load({ setHeaders, parent, url }) {
-  const parentData = await parent();
+  const [parentData, items] = await Promise.all([parent(), getItems()]);
 
   if (!parentData.user.authenticated || !(await Promise.resolve(parentData.streamed.premium)))
     throw redirect(303, "/me");
@@ -18,9 +19,9 @@ export async function load({ setHeaders, parent, url }) {
   } else {
     return {
       streamed: {
-        balance: getGraphData("user-money", parentData.user.id),
-        networth: getGraphData("user-net", parentData.user.id),
-        karma: getGraphData("user-karma", parentData.user.id),
+        balance: getGraphData(["user-money"], parentData.user.id, items),
+        networth: getGraphData(["user-net"], parentData.user.id, items),
+        karma: getGraphData(["user-karma"], parentData.user.id, items),
       },
     };
   }
