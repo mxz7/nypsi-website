@@ -36,14 +36,14 @@
 
     {#await data.streamed.history}
       <div class='relative mt-10'>
-        <Loading />
+        <Loading fadeInSettings={{delay: 150, duration: 150}} />
       </div>
     {:then history} 
     <table class="m w-full text-gray-200 sm:text-lg">
       {#each history as { date, item }, i}
         <tr
           class="mb-2 flex w-full items-center gap-2 rounded border border-gray-400 border-opacity-5 bg-gray-950 bg-opacity-20 px-2 py-1 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
-          in:fly|global={{ delay: 100 + i * 55, duration: 500, y: 250 }}
+          in:fly|global={{ delay: 150 + i * 55, duration: 500, y: 250 }}
         >
           <td class="text-gray-400 text-sm">{dayjs(date).format('YYYY-MM-DD')}</td>
           <td class="line-clamp-1 break-all text-gray-200 grow text-right sm:text-center">
