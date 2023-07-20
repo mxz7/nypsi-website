@@ -27,9 +27,9 @@
   <div class="overflow-show mt-4 flex h-40 w-full justify-center sm:mt-8 md:h-[30vh]">
     <div class="flex h-fit w-full flex-col sm:w-[50vw]">
       {#await data.streamed.userData}
-        <div class="relative mt-10 h-full w-full">
+        <div class="relative h-full w-full">
           <Loading
-            fadeInSettings={{ delay: 5000, duration: 100 }}
+            fadeInSettings={{ delay: 50, duration: 100 }}
             fadeOutSettings={{ duration: 100 }}
           />
         </div>
