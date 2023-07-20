@@ -1,15 +1,10 @@
 import prisma from "$lib/server/database";
-import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders }) {
   setHeaders({
     "cache-control": "max-age=300",
   });
-
-  if (await redis.exists("top-networth")) {
-    return json(await redis.get("top-networth"));
-  }
 
   const query = await prisma.economy
     .findMany({
@@ -54,8 +49,6 @@ export async function GET({ setHeaders }) {
         };
       });
     });
-
-  await redis.set("top-networth", JSON.stringify(query), { ex: 300 });
 
   return json(query);
 }
