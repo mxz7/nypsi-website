@@ -1,10 +1,10 @@
-import { redirect } from "@sveltejs/kit";
-import dayjs from "dayjs";
+import { redirect } from '@sveltejs/kit';
+import dayjs from 'dayjs';
 
 export const ssr = false;
 
 export const load = async ({ url, fetch }) => {
-  const search = url.searchParams.get("search");
+  const search = url.searchParams.get('search');
 
   if (!search) {
     return;
@@ -22,7 +22,7 @@ export const load = async ({ url, fetch }) => {
   const fetchFromApi = async () => {
     const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
     if (res.error !== 429) {
-      res.expire = dayjs().add(3, "hours").toDate().getTime();
+      res.expire = dayjs().add(3, 'hours').toDate().getTime();
       localStorage.setItem(`id-user-map-${search}`, JSON.stringify(res));
     }
     return res;
@@ -44,6 +44,6 @@ export const load = async ({ url, fetch }) => {
   if (res.id) {
     throw redirect(302, `/user/${res.lastKnownUsername}`);
   } else {
-    throw redirect(302, "/user/unknown");
+    throw redirect(302, '/user/unknown');
   }
 };

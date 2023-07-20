@@ -1,20 +1,20 @@
-import { json } from "@sveltejs/kit";
-import { inPlaceSort } from "fast-sort";
+import { json } from '@sveltejs/kit';
+import { inPlaceSort } from 'fast-sort';
 
 export const GET = async ({ getClientAddress, setHeaders }) => {
   setHeaders({
-    "cache-control": "max-age=300",
+    'cache-control': 'max-age=300',
   });
 
-  const res = await fetch(`${process.env.API || "http://localhost:6969"}/commands-today`, {
+  const res = await fetch(`${process.env.API || 'http://localhost:6969'}/commands-today`, {
     headers: {
-      "X-Forwarded-For": getClientAddress(),
+      'X-Forwarded-For': getClientAddress(),
     },
   })
     .then((r) => r.json())
     .catch(() => null);
 
-  if (!res) return new Response("https://http.cat/500", { status: 500 });
+  if (!res) return new Response('https://http.cat/500', { status: 500 });
 
   inPlaceSort(res.users as { user: string; amount: number }[]).desc((i) => i.amount);
 

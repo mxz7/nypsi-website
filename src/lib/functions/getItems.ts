@@ -1,14 +1,14 @@
-import { browser } from "$app/environment";
-import { inPlaceSort } from "fast-sort";
-import ms from "ms";
-import { parse } from "twemoji-parser";
+import { browser } from '$app/environment';
+import { inPlaceSort } from 'fast-sort';
+import ms from 'ms';
+import { parse } from 'twemoji-parser';
 
 export default async function getItems() {
-  if (browser && localStorage.getItem("items")) {
-    const data = JSON.parse(localStorage.getItem("items") as string);
+  if (browser && localStorage.getItem('items')) {
+    const data = JSON.parse(localStorage.getItem('items') as string);
 
-    if (data.saved > Date.now() - ms("1 hour"))
-      return JSON.parse(localStorage.getItem("items") as string).data as {
+    if (data.saved > Date.now() - ms('1 hour'))
+      return JSON.parse(localStorage.getItem('items') as string).data as {
         id: string;
         name: string;
         emoji: string;
@@ -27,32 +27,32 @@ export default async function getItems() {
     plural?: string;
   }[] = Object.values(
     JSON.parse(
-      await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) =>
+      await fetch('https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json').then((r) =>
         r.text()
       )
     )
   );
 
-  items = items.filter((i) => !["beginner_booster", "cycle"].includes(i.id));
+  items = items.filter((i) => !['beginner_booster', 'cycle'].includes(i.id));
 
   for (const item of items) {
-    let thumbnail = "";
+    let thumbnail = '';
 
-    if (item.emoji.split(":")[2]) {
-      const emojiID = item.emoji.split(":")[2].slice(0, item.emoji.split(":")[2].length - 1);
+    if (item.emoji.split(':')[2]) {
+      const emojiID = item.emoji.split(':')[2].slice(0, item.emoji.split(':')[2].length - 1);
 
       thumbnail = `https://cdn.discordapp.com/emojis/${emojiID}`;
 
-      if (item.emoji.split(":")[0].includes("a")) {
-        thumbnail = thumbnail + ".gif";
+      if (item.emoji.split(':')[0].includes('a')) {
+        thumbnail = thumbnail + '.gif';
       } else {
-        thumbnail = thumbnail + ".png";
+        thumbnail = thumbnail + '.png';
       }
 
-      thumbnail += "?size=80";
+      thumbnail += '?size=80';
     } else {
       try {
-        thumbnail = parse(item.emoji, { assetType: "png" })[0].url;
+        thumbnail = parse(item.emoji, { assetType: 'png' })[0].url;
       } catch {
         /* happy linter */
       }
@@ -63,7 +63,7 @@ export default async function getItems() {
 
   inPlaceSort(items).asc((i) => i.name);
 
-  if (browser) localStorage.setItem("items", JSON.stringify({ data: items, saved: Date.now() }));
+  if (browser) localStorage.setItem('items', JSON.stringify({ data: items, saved: Date.now() }));
 
   return items;
 }
