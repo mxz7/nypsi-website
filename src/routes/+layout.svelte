@@ -56,7 +56,7 @@
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
 
-  <meta property='theme-color' content='#111827'>
+  
 </svelte:head>
 
 <Toaster />
