@@ -1,7 +1,4 @@
 <script lang="ts">
-  import tooltip from "$lib/Tooltips";
-  import badges from "$lib/data/badges";
-  import seasons from "$lib/data/seasons";
   import { MStoTime, daysAgo } from "$lib/functions/time";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
@@ -9,48 +6,9 @@
   import toast from "svelte-french-toast";
   import InfiniteScroll from "svelte-infinite-scroll";
   import { fly } from "svelte/transition";
+  import Profile from "./Profile.svelte";
   import Punishment from "./Punishment.svelte";
   import SmallInfo from "./SmallInfo.svelte";
-
-  const premiumMap = new Map([
-    [
-      1,
-      {
-        emoji:
-          "https://cdn.discordapp.com/emojis/1108083689478443058.webp?size=240&quality=lossless",
-        text: "bronze",
-        colour: "#ffaa57",
-      },
-    ],
-    [
-      2,
-      {
-        emoji:
-          "https://cdn.discordapp.com/emojis/1108083725813686334.webp?size=240&quality=lossless",
-        colour: "#d1e2ee",
-        text: "silver",
-      },
-    ],
-    [
-      3,
-      {
-        emoji:
-          "https://cdn.discordapp.com/emojis/1108083767236640818.webp?size=240&quality=lossless",
-        colour: "#ffd479",
-        text: "gold",
-      },
-    ],
-    [
-      4,
-
-      {
-        emoji:
-          "https://cdn.discordapp.com/emojis/1108083805841002678.webp?size=240&quality=lossless",
-        colour: "#a3dbf0",
-        text: "platinum",
-      },
-    ],
-  ]);
 
   export let userData: UserApiResponsexd;
   export let items: {
@@ -104,119 +62,9 @@
   }
 </script>
 
-<div class="xl:[20vw] md:w-[40vw mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]">
-  <div
-    class="flex w-full flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
-    id="user"
-    in:fly={{ delay: 300, duration: 500, y: 75 }}
-  >
-    <div class="flex w-full flex-row text-sm">
-      <div class="flex w-20 flex-col lg:w-44">
-        <img class="rounded-full" src={userData.avatar} alt="" />
-        <div class="mt-2 flex flex-row flex-wrap">
-          {#if userData.Economy}
-            {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
-              {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-                <img
-                  loading="lazy"
-                  class="h-4 lg:h-6"
-                  src={items.find((i) => i.id === gem)?.emoji}
-                  alt=""
-                />
-              {/if}
-            {/each}
-          {/if}
-        </div>
-      </div>
-      <div class="ml-2 flex flex-col lg:text-lg">
-        <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
-          <p
-            style="color: {premiumMap.get(userData?.Premium?.level || 0)?.colour || ''}; !important"
-            class="line-clamp-1"
-          >
-            {userData.lastKnownUsername}
-          </p>
-        </div>
-        {#if userData.Economy}
-          <p class="mb-2 text-xs text-gray-300 lg:text-base">
-            {#if userData.Economy.prestige}
-              prestige {userData.Economy.prestige.toLocaleString()}
-            {:else}
-              season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
-            {/if}
-          </p>
-          <p class="flex items-center text-gray-200">
-            <img
-              loading="lazy"
-              src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
-              alt=""
-              class="mr-1 inline h-4 lg:h-6"
-            />
-            <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
-          </p>
-          <p class="flex items-center text-gray-200">
-            <img
-              loading="lazy"
-              src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
-              alt=""
-              class="mr-1 inline h-4 lg:h-6"
-            />
-            <span class="font-semibold"
-              >${userData.Economy.bank.toLocaleString()} / ${(
-                userData.Economy.bankStorage +
-                userData.Economy.xp * 1000 +
-                15000
-              ).toLocaleString()}</span
-            >
-          </p>
-          <p class="mt-2 flex items-center text-gray-200">
-            <img
-              loading="lazy"
-              src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
-              alt=""
-              class="mr-1 inline h-4 lg:h-6"
-            />
-            <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
-          </p>
-        {/if}
-      </div>
-
-      {#if userData.badges.length > 0 || userData.Premium?.level > 0}
-        <div class="grow" />
-
-        <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
-          {#each userData.badges as badge}
-            <a
-              href="/badges#{badges.get(badge)?.name}"
-              class="h-full w-full"
-              use:tooltip={{
-                content: badges.get(badge).name,
-                theme: "tooltip",
-                placement: "left",
-              }}
-            >
-              <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
-            </a>
-          {/each}
-          {#if premiumMap.get(userData.Premium?.level || 0)}
-            <div
-              use:tooltip={{
-                content: `${premiumMap.get(userData.Premium?.level || 0)?.text} membership`,
-                theme: "tooltip",
-                placement: "left",
-              }}
-            >
-              <img
-                loading="lazy"
-                class="mb-2 h-4 lg:h-6"
-                src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
-                alt=""
-              />
-            </div>
-          {/if}
-        </div>
-      {/if}
-    </div>
+<div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]">
+  <div in:fly={{ delay: 300, duration: 500, y: 75 }}>
+    <Profile {userData} {items} />
   </div>
 
   <div in:fly={{ delay: 400, duration: 500, y: 75 }}>

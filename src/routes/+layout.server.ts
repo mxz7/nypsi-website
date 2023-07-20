@@ -78,5 +78,14 @@ export const load = async ({ cookies, fetch, url }) => {
     console.log(cookies.getAll());
   }
 
-  return { user: user as UserSession };
+  return {
+    user: user as UserSession,
+    streamed: {
+      premium: user.authenticated
+        ? fetch(`/api/user/ispremium/${(user as User).id}`).then(
+            (r) => r.json().then((r) => r?.premium || false) as Promise<boolean>
+          )
+        : false,
+    },
+  };
 };

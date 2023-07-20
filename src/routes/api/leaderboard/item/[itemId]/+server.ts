@@ -1,15 +1,10 @@
 import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ params, setHeaders }) {
   setHeaders({
     "cache-control": "max-age=300",
   });
-
-  if (await redis.exists(`top-item-${params.itemId}`)) {
-    return json(await redis.get(`top-item-${params.itemId}`));
-  }
 
   const query = await prisma.inventory
     .findMany({
@@ -63,8 +58,6 @@ export async function GET({ params, setHeaders }) {
         };
       });
     });
-
-  await redis.set(`top-item-${params.itemId}`, JSON.stringify(query), { ex: 300 });
 
   return json(query);
 }
