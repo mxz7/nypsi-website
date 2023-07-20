@@ -16,7 +16,7 @@ export default async function getGraphData(categories: string[], user: string, i
         where: {
           AND: [
             { userId: user },
-            { date: { gte: dayjs().subtract(45, 'days').toDate() } },
+            { date: { gte: dayjs().subtract(60, 'days').toDate() } },
             { category: category },
           ],
         },
