@@ -2,30 +2,66 @@
   import Chart from "$lib/components/Chart.svelte";
   import ItemList from "$lib/components/ItemList.svelte";
   import Loading from "$lib/components/Loading.svelte";
+  import type { ChartOptions } from "chart.js";
 
   import { fade } from "svelte/transition";
 
   export let data;
+
+  const chartOptions: ChartOptions = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label(tooltipItem) {
+            if (tooltipItem.dataset.label.includes("items in world"))
+              return `in world: ${tooltipItem.formattedValue}`;
+            else if (
+              tooltipItem.dataset.label === (data.user.authenticated ? data.user.username : "null")
+            )
+              return `${data.user.authenticated ? data.user.username : "null"}: ${
+                tooltipItem.formattedValue
+              }`;
+
+            return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    responsive: true,
+    elements: {
+      line: {
+        tension: 0.4,
+      },
+      point: {
+        radius: /Android|iPhone/i.test(navigator.userAgent) ? 2 : 3,
+      },
+    },
+    scales: {
+      y2: {
+        min: 0,
+        position: "right",
+        ticks: {
+          callback(tickValue) {
+            return Math.floor(Number(tickValue)).toLocaleString();
+          },
+        },
+      },
+      y1: {
+        min: 0,
+        position: "left",
+        ticks: {
+          callback(tickValue) {
+            return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
+          },
+        },
+      },
+    },
+  };
 </script>
 
 <svelte:head>
-  <title>{data.item?.name} history</title>
-  <meta
-    name="description"
-    content="showing auction/offers average and total item count for {data.item?.name}"
-  />
-
-  <meta name="og:title" content="{data.item?.name} history" />
-  <meta
-    name="og:description"
-    content="showing auction/offers average and total item count for {data.item?.name}"
-  />
-  <meta name="og:site_name" content="nypsi" />
-  {#if data.item}
-    <meta name="og:image" content={data.item?.emoji} />
-    <meta property="og:image:width" content="128" />
-    <meta property="og:image:height" content="128" />
-  {/if}
+  <title>{data.item?.name} history | nypsi</title>
 </svelte:head>
 
 <header class="mb-10 mt-5 text-center sm:mb-3 sm:w-full">
@@ -50,7 +86,11 @@
         <h1>not enough data</h1>
       </div>
     {:else if typeof graphData !== "string"}
-      <Chart chartData={graphData} user={data.user} />
+      <div class="flex justify-center">
+        <div class="w-[80vw]">
+          <Chart chartData={graphData} {chartOptions} />
+        </div>
+      </div>
     {/if}
   </div>
 

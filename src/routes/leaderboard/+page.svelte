@@ -49,8 +49,7 @@
 </script>
 
 <svelte:head>
-  <title>nypsi leaderboard hub</title>
-  <meta name="description" content="view leaderboards for the nypsi discord bot" />
+  <title>leaderboards | nypsi</title>
 </svelte:head>
 
 <!-- <LoadingIcon /> -->
