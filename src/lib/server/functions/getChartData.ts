@@ -15,7 +15,7 @@ export default async function getChartData(item: string, user?: string) {
       AND: [
         { itemId: item },
         { sold: true },
-        { createdAt: { gte: dayjs().subtract(45, 'days').toDate() } },
+        { createdAt: { gte: dayjs().subtract(60, 'days').toDate() } },
       ],
     },
     select: {
@@ -30,7 +30,7 @@ export default async function getChartData(item: string, user?: string) {
       AND: [
         { itemId: item },
         { sold: true },
-        { soldAt: { gte: dayjs().subtract(45, 'days').toDate() } },
+        { soldAt: { gte: dayjs().subtract(60, 'days').toDate() } },
       ],
     },
   });
@@ -40,7 +40,7 @@ export default async function getChartData(item: string, user?: string) {
       AND: [
         { category: 'item-count-' + item },
         { userId: 'global' },
-        { date: { gte: dayjs().subtract(45, 'days').toDate() } },
+        { date: { gte: dayjs().subtract(60, 'days').toDate() } },
       ],
     },
   });
@@ -58,7 +58,7 @@ export default async function getChartData(item: string, user?: string) {
         where: {
           AND: [
             { userId: user },
-            { date: { gte: dayjs().subtract(45, 'days').toDate() } },
+            { date: { gte: dayjs().subtract(60, 'days').toDate() } },
             { category: `user-item-${item}` },
           ],
         },

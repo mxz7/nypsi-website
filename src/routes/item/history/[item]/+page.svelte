@@ -86,8 +86,8 @@
         <h1>not enough data</h1>
       </div>
     {:else if typeof graphData !== "string"}
-      <div class="flex justify-center">
-        <div class="w-[80vw]">
+      <div class="flex justify-center w-full h-full">
+        <div class="sm:w-[70vw] h-[30vh] sm:h-[65vh] w-full px-4 sm:px-0">
           <Chart chartData={graphData} {chartOptions} />
         </div>
       </div>
