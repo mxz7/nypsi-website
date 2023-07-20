@@ -85,6 +85,7 @@
           graphs
         </a>
       {/if}
+
       <a
         class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
           '/stats'
@@ -94,6 +95,17 @@
         href="/me/stats"
       >
         stats
+      </a>
+
+      <a
+        class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
+          '/purchasehistory'
+        )
+          ? 'border-b-accent'
+          : ''}"
+        href="/me/purchasehistory"
+      >
+        purchases
       </a>
     </div>
   </div>
