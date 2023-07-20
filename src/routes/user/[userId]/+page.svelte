@@ -12,7 +12,7 @@
     const data = await Promise.resolve(userData);
     if (data.message !== "success") return;
 
-    title = `${data.lastKnownUsername}'s profile`;
+    title = `${data.lastKnownUsername}'s profile | nypsi`;
     $userSearchTerm = data.lastKnownUsername;
   }
 

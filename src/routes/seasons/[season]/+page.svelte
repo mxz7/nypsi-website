@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-  <title>nypsi season {$page.params.season} winners</title>
+  <title>season {$page.params.season} | nypsi</title>
 </svelte:head>
 
 <div class="w-full">
