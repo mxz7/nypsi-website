@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("PRISMA_DB")
+  url      = env("DATABASE_URL")
 }
 
 // user specific tables (economy etc.)
@@ -23,15 +23,16 @@ model User {
   booster           Boolean  @default(false)
   badges            String[]
 
-  Economy      Economy?
-  Premium      Premium?
-  Username     Username[]
-  WordleStats  WordleStats?
-  CommandUse   CommandUse[]
-  Achievements Achievements[]
-  DMSettings   DMSettings?
-  Preferences  Preferences?
-  Leaderboards Leaderboards[]
+  Economy        Economy?
+  Premium        Premium?
+  Username       Username[]
+  WordleStats    WordleStats?
+  CommandUse     CommandUse[]
+  Achievements   Achievements[]
+  DMSettings     DMSettings?
+  Preferences    Preferences?
+  Leaderboards   Leaderboards[]
+  ActiveChannels ActiveChannels[]
 }
 
 model Leaderboards {
@@ -592,6 +593,8 @@ model Mention {
   userTag  String
   url      String
   content  String
+
+  @@index([guildId])
 }
 
 model SupportRequest {
@@ -616,4 +619,15 @@ model GraphMetrics {
   userId String
   value  BigInt
   date   DateTime
+}
+
+// for random drops
+model ActiveChannels {
+  userId    String
+  channelId String
+  date      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([userId, channelId])
 }
