@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>item history</title>
+  <title>item history | nypsi</title>
 </svelte:head>
 
 {#if data.premium}

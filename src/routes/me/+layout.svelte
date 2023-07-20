@@ -21,9 +21,7 @@
   });
 </script>
 
-<svelte:head>
-  <title>dashboard | nypsi</title>
-</svelte:head>
+
 
 <div class="mb-8 flex w-full flex-col justify-center">
   <div class="overflow-show mt-4 flex h-40 w-full justify-center sm:mt-8 md:h-[30vh]">
