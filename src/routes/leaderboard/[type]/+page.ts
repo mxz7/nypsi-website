@@ -1,16 +1,16 @@
-import { getCommandsData } from "$lib/functions/getCommandsData.js";
-import getItems from "$lib/functions/getItems.js";
+import { getCommandsData } from '$lib/functions/getCommandsData.js';
+import getItems from '$lib/functions/getItems.js';
 
 export const load = async ({ fetch, params }) => {
   const item = (await getItems()).find((i) => i.id === params.type);
 
-  let title = "";
-  let suffix: (value: string) => string = () => "";
+  let title = '';
+  let suffix: (value: string) => string = () => '';
 
   const getData = async () => {
     if (item) {
       return fetch(`/api/leaderboard/item/${item.id}`).then((r) => r.json());
-    } else if (params.type === "activeusers") {
+    } else if (params.type === 'activeusers') {
       return getCommandsData(fetch).then((r) => r?.users.splice(0, 5));
     } else {
       return fetch(`/api/leaderboard/${params.type}`).then((r) => r.json());
@@ -20,26 +20,26 @@ export const load = async ({ fetch, params }) => {
   if (item) {
     title = `${item.name} leaderboard`;
     suffix = (value: string) =>
-      parseInt(value) > 1 ? (item.plural ? item.plural : item.name + "s") : item.name;
-  } else if (params.type === "activeusers") {
-    title = "top active users";
-    suffix = (value) => (parseInt(value.replaceAll(",", "")) > 1 ? "cmds" : "cmd");
+      parseInt(value) > 1 ? (item.plural ? item.plural : item.name + 's') : item.name;
+  } else if (params.type === 'activeusers') {
+    title = 'top active users';
+    suffix = (value) => (parseInt(value.replaceAll(',', '')) > 1 ? 'cmds' : 'cmd');
   } else {
     switch (params.type) {
-      case "balance":
-        title = "top balance";
+      case 'balance':
+        title = 'top balance';
         break;
-      case "networth":
-        title = "top net worth";
+      case 'networth':
+        title = 'top net worth';
         break;
-      case "prestige":
-        title = "top prestige";
+      case 'prestige':
+        title = 'top prestige';
         break;
-      case "wordle":
-        title = "top wordle wins";
+      case 'wordle':
+        title = 'top wordle wins';
         break;
-      case "streak":
-        title = "top daily streak";
+      case 'streak':
+        title = 'top daily streak';
         break;
     }
   }

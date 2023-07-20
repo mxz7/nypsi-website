@@ -1,7 +1,7 @@
 export async function getCommandsData(
   fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
 ) {
-  const res = await fetch("/api/commands").then((res) => res.json());
+  const res = await fetch('/api/commands').then((res) => res.json());
 
   if (!res.total || !res.users) return null;
 

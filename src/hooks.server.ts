@@ -1,8 +1,8 @@
-import { dev } from "$app/environment";
-import rateLimiter from "$lib/server/ratelimit";
+import { dev } from '$app/environment';
+import rateLimiter from '$lib/server/ratelimit';
 
 export const handle = async ({ event, resolve }) => {
-  if (!dev && event.url.pathname.startsWith("/api")) {
+  if (!dev && event.url.pathname.startsWith('/api')) {
     const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress());
 
     if (!rateLimitAttempt.success) {

@@ -1,31 +1,31 @@
-import { browser } from "$app/environment";
-import getItems from "$lib/functions/getItems.js";
-import type { UserApiResponse } from "$lib/types/User.js";
-import { redirect } from "@sveltejs/kit";
-import dayjs from "dayjs";
+import { browser } from '$app/environment';
+import getItems from '$lib/functions/getItems.js';
+import type { UserApiResponse } from '$lib/types/User.js';
+import { redirect } from '@sveltejs/kit';
+import dayjs from 'dayjs';
 
 export const load = async ({ parent, params, fetch, url }) => {
   let userId = params.userId;
 
   let data: Promise<UserApiResponse>;
 
-  if (userId === "me") {
+  if (userId === 'me') {
     const { user } = await parent();
     if (!user.authenticated)
-      throw redirect(302, "/login?redirect=" + encodeURIComponent(url.toString()));
+      throw redirect(302, '/login?redirect=' + encodeURIComponent(url.toString()));
 
     userId = user.id;
     data = fetch(`/api/user/${userId}`).then((r) => r.json());
   } else if (userId.match(/^\d{17,19}$/)) {
     data = fetch(`/api/user/${userId}`).then((r) => r.json());
   } else {
-    if (!userId.match(/^[_.\w0-9]{2,32}$/)) throw redirect(303, "/user");
+    if (!userId.match(/^[_.\w0-9]{2,32}$/)) throw redirect(303, '/user');
 
     data = (async () => {
       const fetchFromApi = async () => {
         const res = await fetch(`/api/user/getid/${userId}`).then((r) => r.json());
         if (res.error !== 429) {
-          res.expire = dayjs().add(3, "hours").toDate().getTime();
+          res.expire = dayjs().add(3, 'hours').toDate().getTime();
           if (browser) localStorage.setItem(`id-user-map-${userId}`, JSON.stringify(res));
         }
         return res;
