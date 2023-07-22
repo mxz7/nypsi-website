@@ -20,7 +20,7 @@ export const load = async ({ fetch, params }) => {
   if (item) {
     title = `${item.name} leaderboard`;
     suffix = (value: string) =>
-      parseInt(value) > 1 ? (item.plural ? item.plural : item.name + 's') : item.name;
+      parseInt(value.replace(",", "")) > 1 ? (item.plural ? item.plural : item.name + 's') : item.name;
   } else if (params.type === 'activeusers') {
     title = 'top active users';
     suffix = (value) => (parseInt(value.replaceAll(',', '')) > 1 ? 'cmds' : 'cmd');
