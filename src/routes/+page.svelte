@@ -74,7 +74,7 @@
           <img
             src="/discord-white.png"
             alt=""
-            class="h-auto max-h-full w-auto max-w-full object-contain"
+            class="h-5 md:h-6 w-5 md:w-6 object-contain"
           />
         </div>
         <p>add to discord</p>
