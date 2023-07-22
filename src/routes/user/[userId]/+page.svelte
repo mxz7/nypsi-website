@@ -6,7 +6,7 @@
   import { fade, fly } from "svelte/transition";
 
   export let data;
-  let title = "nypsi profile";
+  let title = "user | nypsi";
 
   async function updateTags(userData: Promise<UserApiResponse> | UserApiResponse) {
     const data = await Promise.resolve(userData);

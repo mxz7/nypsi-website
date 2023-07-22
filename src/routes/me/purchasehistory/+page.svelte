@@ -19,6 +19,10 @@
   })
 </script>
 
+<svelte:head>
+  <title>purchase history | nypsi</title>
+</svelte:head>
+
 <div class='w-full flex justify-center'>
   <div class='w-full sm:w-[55vw] flex flex-col px-10'>
     <div class='flex items-end'>

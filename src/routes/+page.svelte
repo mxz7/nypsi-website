@@ -17,7 +17,9 @@
   export let data;
 </script>
 
-
+<svelte:head>
+  <title>nypsi</title>
+</svelte:head>
 
 {#await data.streamed.topgg}
   <div />
