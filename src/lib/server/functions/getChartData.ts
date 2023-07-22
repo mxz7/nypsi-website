@@ -1,3 +1,4 @@
+import filterOutliers from '$lib/functions/filterOutliers';
 import getItems from '$lib/functions/getItems';
 import prisma from '$lib/server/database.js';
 import type { GraphMetrics } from '@prisma/client';
@@ -10,30 +11,69 @@ export default async function getChartData(item: string, user?: string) {
 
   if (!items.find((i) => i.id === item)) return 'invalid item';
 
-  const auctions = await prisma.auction.findMany({
-    where: {
-      AND: [
-        { itemId: item },
-        { sold: true },
-        { createdAt: { gte: dayjs().subtract(60, 'days').toDate() } },
-      ],
-    },
-    select: {
-      bin: true,
-      createdAt: true,
-      itemAmount: true,
-    },
-  });
+  const auctions = await prisma.auction
+    .findMany({
+      where: {
+        AND: [
+          { itemId: item },
+          { sold: true },
+          { createdAt: { gte: dayjs().subtract(60, 'days').toDate() } },
+        ],
+      },
+      select: {
+        bin: true,
+        createdAt: true,
+        itemAmount: true,
+      },
+    })
+    .then((q) => {
+      const filtered = filterOutliers(
+        q.map((i) => {
+          return { amount: Number(i.itemAmount), money: Number(i.bin), date: i.createdAt };
+        })
+      );
+      if (!filtered) {
+        console.warn(`failed to filter outliers on ${item}`);
+      }
 
-  const offers = await prisma.offer.findMany({
-    where: {
-      AND: [
-        { itemId: item },
-        { sold: true },
-        { soldAt: { gte: dayjs().subtract(60, 'days').toDate() } },
-      ],
-    },
-  });
+      return (
+        filtered.map((i) => {
+          return { itemAmount: BigInt(i.amount), bin: BigInt(i.money), createdAt: i.date };
+        }) || q
+      );
+    });
+
+  const offers = await prisma.offer
+    .findMany({
+      where: {
+        AND: [
+          { itemId: item },
+          { sold: true },
+          { soldAt: { gte: dayjs().subtract(60, 'days').toDate() } },
+        ],
+      },
+      select: {
+        money: true,
+        soldAt: true,
+        itemAmount: true,
+      },
+    })
+    .then((q) => {
+      const filtered = filterOutliers(
+        q.map((i) => {
+          return { amount: Number(i.itemAmount), money: Number(i.money), date: i.soldAt };
+        })
+      );
+      if (!filtered) {
+        console.warn(`failed to filter outliers on ${item}`);
+      }
+
+      return (
+        filtered.map((i) => {
+          return { itemAmount: BigInt(i.amount), money: BigInt(i.money), soldAt: i.date };
+        }) || q
+      );
+    });
 
   const itemCount = await prisma.graphMetrics.findMany({
     where: {
