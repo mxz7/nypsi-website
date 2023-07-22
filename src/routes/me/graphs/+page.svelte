@@ -116,6 +116,10 @@
   $: selectedItems = $page.url.searchParams.get("items")?.split(" ") || [];
 </script>
 
+<svelte:head>
+  <title>personal graphs | nypsi</title>
+</svelte:head>
+
 <div class="flex w-full justify-center">
   <div class="flex w-full flex-col gap-8 sm:w-[60vw]" bind:this={charts}>
     {#if $page.url.searchParams.get("items")}

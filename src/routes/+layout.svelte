@@ -35,7 +35,6 @@
 <svelte:head>
   <meta name="og:url" content={$page.url.toString()} />
 
-  <title>nypsi</title>
   <meta
     name="description"
     content="
