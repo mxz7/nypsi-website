@@ -19,6 +19,26 @@
 
 <svelte:head>
   <title>nypsi</title>
+
+  <meta
+    name="description"
+    content="
+  the best discord bot. includes gambling, economy, items, fake cryptocurrency, moderation, reaction roles, channel stats"
+  />
+
+  <meta name="og:title" content="nypsi" />
+  <meta
+    name="og:description"
+    content="the best discord bot. includes gambling, economy, items, fake cryptocurrency, moderation, reaction roles, channel stats"
+  />
+  <meta name="og:site_name" content="nypsi" />
+
+  <meta
+    name="og:image"
+    content="https://cdn.discordapp.com/avatars/678711738845102087/59759532c8ef1898f60d959b9b3ecaa7.png?size=128"
+  />
+  <meta property="og:image:width" content="128" />
+  <meta property="og:image:height" content="128" />
 </svelte:head>
 
 {#await data.streamed.topgg}
