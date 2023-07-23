@@ -14,7 +14,13 @@ export async function GET() {
 
   pages.push(...items.map((i) => `leaderboard/${i.id}`));
   pages.push(
-    ...users.map((i) => `user/${i.user.lastKnownUsername.replaceAll(/[^a-zA-Z\d_.:]/gm, '')}`)
+    ...users
+      .map((i) =>
+        i.user.lastKnownUsername.replaceAll(/[^a-zA-Z\d_.:]/gm, '').length > 0
+          ? `user/${i.user.lastKnownUsername.replaceAll(/[^a-zA-Z\d_.:]/gm, '')}`
+          : null
+      )
+      .filter((i) => Boolean(i))
   );
 
   const body = sitemap(pages);
