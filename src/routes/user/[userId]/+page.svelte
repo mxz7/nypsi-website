@@ -1,12 +1,17 @@
 <script lang="ts">
-  import Loading from "$lib/components/Loading.svelte";
-  import UserData from "$lib/components/users/UserData.svelte";
-  import { userSearchTerm } from "$lib/data/stores.js";
-  import type { UserApiResponse } from "$lib/types/User.js";
-  import { fade, fly } from "svelte/transition";
+    import { page } from "$app/stores";
+    import Loading from "$lib/components/Loading.svelte";
+    import UserData from "$lib/components/users/UserData.svelte";
+    import { userSearchTerm } from "$lib/data/stores.js";
+    import type { UserApiResponse } from "$lib/types/User.js";
+    import { fade, fly } from "svelte/transition";
 
   export let data;
   let title = "user | nypsi";
+
+  if (!$page.params.userId.match(/^\d{17,19}$/)) {
+    title = `${$page.params.userId}'s profile | nypsi'`
+  }
 
   async function updateTags(userData: Promise<UserApiResponse> | UserApiResponse) {
     const data = await Promise.resolve(userData);
