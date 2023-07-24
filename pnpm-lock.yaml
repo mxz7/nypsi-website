@@ -33,8 +33,8 @@ dependencies:
     specifier: 5.0.0
     version: 5.0.0
   svelte-french-toast:
-    specifier: ^1.1.0
-    version: 1.1.0(svelte@4.1.1)
+    specifier: ^1.2.0
+    version: 1.2.0(svelte@4.1.1)
   svelte-infinite-scroll:
     specifier: ^2.0.1
     version: 2.0.1
@@ -2192,8 +2192,8 @@ packages:
       svelte: 4.1.1
     dev: true
 
-  /svelte-french-toast@1.1.0(svelte@4.1.1):
-    resolution: {integrity: sha512-OWlOJD0iqZpL4apMbtsbSZKYukBz9CuME2KoW/zzHfFWVImXVH5zAiCmUU4N0OSPo9fY34TZKIL/5+Sbt5KkPA==}
+  /svelte-french-toast@1.2.0(svelte@4.1.1):
+    resolution: {integrity: sha512-5PW+6RFX3xQPbR44CngYAP1Sd9oCq9P2FOox4FZffzJuZI2mHOB7q5gJBVnOiLF5y3moVGZ7u2bYt7+yPAgcEQ==}
     peerDependencies:
       svelte: ^3.57.0 || ^4.0.0
     dependencies:
