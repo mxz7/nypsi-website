@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-  <title>nypsi</title>
+  <title>nypsi discord bot</title>
 
   <meta
     name="description"
@@ -26,7 +26,7 @@
   the best discord bot. includes gambling, economy, items, fake cryptocurrency, moderation, reaction roles, channel stats"
   />
 
-  <meta name="og:title" content="nypsi" />
+  <meta name="og:title" content="nypsi discord bot" />
   <meta
     name="og:description"
     content="the best discord bot. includes gambling, economy, items, fake cryptocurrency, moderation, reaction roles, channel stats"
