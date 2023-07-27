@@ -28,7 +28,7 @@ export interface UserApiResponsexd extends BaseUserApiResponse {
   message: 'success';
   id: string;
   lastCommand: number;
-  badges: string[];
+  Tags: { tagId: string; selected: boolean }[];
   Leaderboards: { position: number; leaderboard: string }[];
   Achievements: { achievementId: string }[];
   blacklisted: boolean;
