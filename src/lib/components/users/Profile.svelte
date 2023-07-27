@@ -125,22 +125,24 @@
       {/if}
     </div>
 
-    {#if userData.badges.length > 0 || userData.Premium?.level > 0}
+    {#if userData.Tags.length > 0 || userData.Premium?.level > 0}
       <div class="grow" />
 
       <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
-        {#each userData.badges as badge}
+        {#each userData.Tags as tag}
+        {#if badges.has(tag.tagId)}
           <a
-            href="/badges#{badges.get(badge)?.name}"
+            href="/badges#{badges.get(tag.tagId)?.name}"
             class="h-full w-full"
             use:tooltip={{
-              content: badges.get(badge).name,
+              content: badges.get(tag.tagId).name,
               theme: "tooltip",
               placement: "left",
             }}
           >
-            <img class="mb-2 h-4 lg:h-6" src={badges.get(badge)?.icon} alt="" />
+            <img class="mb-2 h-4 lg:h-6" src={badges.get(tag.tagId)?.icon} alt="" />
           </a>
+          {/if}
         {/each}
         {#if premiumMap.get(userData.Premium?.level || 0)}
           <div
