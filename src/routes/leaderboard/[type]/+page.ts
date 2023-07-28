@@ -45,5 +45,15 @@ export const load = async ({ fetch, params }) => {
     }
   }
 
-  return { title, item, suffix, streamed: { data: getData() } };
+  return {
+    title,
+    item,
+    suffix,
+    streamed: {
+      data: getData(),
+      tags: fetch('https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json')
+        .then((r) => r.text())
+        .then((r) => JSON.parse(r)),
+    },
+  };
 };

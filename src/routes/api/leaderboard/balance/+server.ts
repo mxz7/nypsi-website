@@ -17,6 +17,14 @@ export async function GET({ setHeaders }) {
         banned: true,
         user: {
           select: {
+            Tags: {
+              where: {
+                selected: true,
+              },
+              select: {
+                tagId: true,
+              },
+            },
             Preferences: {
               select: {
                 leaderboards: true,
@@ -44,6 +52,7 @@ export async function GET({ setHeaders }) {
           user: {
             username: x.user.Preferences?.leaderboards ? user : '[hidden]',
             id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+            tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
           },
           position: count,
         };

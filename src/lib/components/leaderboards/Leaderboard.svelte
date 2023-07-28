@@ -1,9 +1,29 @@
 <script lang="ts">
-  import type { LeaderboardData } from "$lib/types/LeaderboardData";
-  import { fly } from "svelte/transition";
+  import tooltip from '$lib/Tooltips';
+  import parseEmoji from '$lib/functions/parseEmoji';
+  import type { LeaderboardData } from '$lib/types/LeaderboardData';
+  import { onMount } from 'svelte';
+  import { fly } from 'svelte/transition';
 
   export let data: LeaderboardData;
   export let suffix: (value: string) => string;
+  export let tags: Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }> =
+    new Promise((resolve) => {
+      resolve({});
+    });
+
+  onMount(async () => {
+    const tagData = await Promise.resolve(tags);
+
+    console.log(tagData);
+
+    for (const user of data) {
+      if (user.user.tag) {
+        console.log(user);
+        console.log(tagData[user.user.tag]);
+      }
+    }
+  });
 </script>
 
 <table class="mx-auto mt-1 w-full px-4 text-gray-200 sm:w-1/2 sm:px-0 sm:text-xl">
@@ -13,8 +33,24 @@
       in:fly|global={{ delay: 100 + i * 55, duration: 500, y: 250 }}
     >
       <td class="text-gray-400">#{position}</td>
-      <td class="line-clamp-1 break-all">
+      <td class="sline-clamp-1 flex items-center h-2">
         {#if user.id}
+          {#if user.tag}
+            {#await tags then tags}
+              <p>[</p>
+              <img
+                class="h-5 sm:h-6"
+                src={parseEmoji(tags[user.tag]?.emoji)}
+                alt=""
+                use:tooltip={{
+                  placement: 'top',
+                  content: tags[user.tag]?.name,
+                  followCursor: true,
+                }}
+              />
+              <p>]</p>
+            {/await}
+          {/if}
           <a href="/user/{user.id}">{user.username}</a>
         {:else}
           {user.username}

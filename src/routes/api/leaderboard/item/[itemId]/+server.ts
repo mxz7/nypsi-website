@@ -22,6 +22,14 @@ export async function GET({ params, setHeaders }) {
           select: {
             user: {
               select: {
+                Tags: {
+                  where: {
+                    selected: true,
+                  },
+                  select: {
+                    tagId: true,
+                  },
+                },
                 Preferences: {
                   select: {
                     leaderboards: true,
@@ -53,6 +61,7 @@ export async function GET({ params, setHeaders }) {
           user: {
             username: x.economy.user.Preferences?.leaderboards ? user : '[hidden]',
             id: x.economy.user.Preferences?.leaderboards ? x.userId : undefined,
+            tag: x.economy.user.Tags.length > 0 ? x.economy.user.Tags[0].tagId : null,
           },
           position: count,
         };
