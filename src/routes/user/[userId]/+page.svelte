@@ -8,9 +8,11 @@
 
   export let data;
   let title = "user | nypsi";
+  let description = 'user profile loading...'
 
   if (!$page.params.userId.match(/^\d{17,19}$/)) {
     title = `${$page.params.userId}'s profile | nypsi'`
+    description = `view ${$page.params.userId}'s nypsi profile. inventory, balance, wordle stats, leaderboards'`
   }
 
   async function updateTags(userData: Promise<UserApiResponse> | UserApiResponse) {
@@ -26,6 +28,7 @@
 
 <svelte:head>
   <title>{title}</title>
+  <meta name="description" content="{description}">
 </svelte:head>
 
 {#await data.streamed.userData}
