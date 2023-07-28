@@ -25,9 +25,6 @@ export const load = async ({ fetch, params }) => {
           ? item.plural
           : item.name + 's'
         : item.name;
-  } else if (params.type === 'activeusers') {
-    title = 'top active users';
-    suffix = (value) => (parseInt(value.replaceAll(',', '')) > 1 ? 'cmds' : 'cmd');
   } else {
     switch (params.type) {
       case 'balance':
