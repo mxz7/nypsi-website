@@ -49,7 +49,7 @@
           {/if}
         </h2>
       {:else}
-        <BigLeaderboard data={value} suffix={data.suffix} />
+        <BigLeaderboard data={value} suffix={data.suffix} tags={data.streamed.tags} />
       {/if}
     {:catch error}
       <p class="text-center text-xl text-red-600">error: {error}</p>

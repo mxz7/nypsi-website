@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import { inPlaceSort } from 'fast-sort';
 import ms from 'ms';
-import { parse } from 'twemoji-parser';
+import parseEmoji from './parseEmoji';
 
 export default async function getItems() {
   if (browser && localStorage.getItem('items')) {
@@ -36,27 +36,7 @@ export default async function getItems() {
   items = items.filter((i) => !['beginner_booster', 'cycle'].includes(i.id));
 
   for (const item of items) {
-    let thumbnail = '';
-
-    if (item.emoji.split(':')[2]) {
-      const emojiID = item.emoji.split(':')[2].slice(0, item.emoji.split(':')[2].length - 1);
-
-      thumbnail = `https://cdn.discordapp.com/emojis/${emojiID}`;
-
-      if (item.emoji.split(':')[0].includes('a')) {
-        thumbnail = thumbnail + '.gif';
-      } else {
-        thumbnail = thumbnail + '.png';
-      }
-
-      thumbnail += '?size=80';
-    } else {
-      try {
-        thumbnail = parse(item.emoji, { assetType: 'png' })[0].url;
-      } catch {
-        /* happy linter */
-      }
-    }
+    const thumbnail = parseEmoji(item.emoji);
 
     if (thumbnail) item.emoji = thumbnail;
   }
