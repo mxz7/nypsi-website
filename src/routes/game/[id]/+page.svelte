@@ -25,11 +25,11 @@
 <div class="mt-8 flex flex-col justify-center">
   {#await data.streamed.game}
     <div class="relative mt-4">
-      <Loading fadeInSettings={{ delay: 50, duration: 100 }} fadeOutSettings={{ duration: 300 }} />
+      <Loading fadeInSettings={{ delay: 250, duration: 100 }} fadeOutSettings={{ duration: 300 }} />
     </div>
   {:then game}
     <div in:fly={{ y: 25, delay: 300, duration: 500 }} out:fly={{ y: 15, duration: 250 }}>
-      {#if game.ok}
+      {#if game && game.ok}
         <div class="my-3">
           {#if game.game === "slots"}
             <Slots outcome={game.outcome} />

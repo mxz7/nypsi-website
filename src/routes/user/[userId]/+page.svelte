@@ -32,7 +32,7 @@
 </svelte:head>
 
 {#await data.streamed.userData}
-  <Loading fadeInSettings={{ delay: 100, duration: 150 }} fadeOutSettings={{ duration: 300 }} />
+  <Loading fadeInSettings={{ delay: 100, duration: 200 }} fadeOutSettings={{ duration: 300 }} />
 {:then userData}
   <div in:fade={{ delay: 300, duration: 200 }} out:fly={{ y: 15, duration: 250 }}>
     {#if userData.message !== "success"}
