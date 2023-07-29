@@ -15,6 +15,8 @@
         display: false,
       },
       tooltip: {
+        intersect: false,
+            mode: "index",
         callbacks: {
           label(tooltipItem) {
             return `$${tooltipItem.formattedValue}`;
@@ -50,6 +52,8 @@
         display: false,
       },
       tooltip: {
+        intersect: false,
+            mode: "index",
         callbacks: {
           label(tooltipItem) {
             return tooltipItem.formattedValue;
@@ -82,6 +86,8 @@
   const itemChartOptions: ChartOptions = {
     plugins: {
       tooltip: {
+        intersect: false,
+            mode: "index",
         callbacks: {
           label(tooltipItem) {
             return tooltipItem.formattedValue;
