@@ -7,41 +7,41 @@ export function MStoTime(ms: number, long = false) {
   const minutesms = ms % (60 * 1000);
   const sec = Math.floor(minutesms / 1000);
 
-  let output = '';
+  let output = "";
 
   if (days > 0) {
     output = output + days;
     if (long) {
-      output += ` day${days == 1 ? '' : 's'} `;
+      output += ` day${days == 1 ? "" : "s"} `;
     } else {
-      output += 'd ';
+      output += "d ";
     }
   }
 
   if (hours > 0) {
     output = output + hours;
     if (long) {
-      output += ` hour${hours == 1 ? '' : 's'} `;
+      output += ` hour${hours == 1 ? "" : "s"} `;
     } else {
-      output += 'h ';
+      output += "h ";
     }
   }
 
   if (minutes > 0) {
     output = output + minutes;
     if (long) {
-      output += ` minute${minutes == 1 ? '' : 's'} `;
+      output += ` minute${minutes == 1 ? "" : "s"} `;
     } else {
-      output += 'm ';
+      output += "m ";
     }
   }
 
   if (sec > 0) {
     output = output + sec;
     if (long) {
-      output += ` second${sec == 1 ? '' : 's'} `;
+      output += ` second${sec == 1 ? "" : "s"} `;
     } else {
-      output += 's ';
+      output += "s ";
     }
   }
 

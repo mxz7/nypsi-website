@@ -1,21 +1,21 @@
-import prisma from '$lib/server/database.js';
-import type { Prisma } from '@prisma/client';
-import { error, json } from '@sveltejs/kit';
+import prisma from "$lib/server/database.js";
+import type { Prisma } from "@prisma/client";
+import { error, json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, url }) {
   if (Array.from(url.searchParams.entries()).length === 0) {
-    setHeaders({ 'cache-control': 'max-age=10' });
+    setHeaders({ "cache-control": "max-age=10" });
   } else {
-    setHeaders({ 'cache-control': 'max-age=120' });
+    setHeaders({ "cache-control": "max-age=120" });
   }
 
-  const userId = url.searchParams.get('user');
-  const game = url.searchParams.get('game');
-  const before = url.searchParams.get('before');
-  const after = url.searchParams.get('after');
-  const id = url.searchParams.get('id');
-  let take = url.searchParams.get('take');
-  let skip = url.searchParams.get('skip');
+  const userId = url.searchParams.get("user");
+  const game = url.searchParams.get("game");
+  const before = url.searchParams.get("before");
+  const after = url.searchParams.get("after");
+  const id = url.searchParams.get("id");
+  let take = url.searchParams.get("take");
+  let skip = url.searchParams.get("skip");
 
   const options: Prisma.GameFindManyArgs = {
     take: 1,
@@ -39,12 +39,12 @@ export async function GET({ setHeaders, url }) {
       },
     },
     orderBy: {
-      date: 'desc',
+      date: "desc",
     },
   };
 
   if (userId) {
-    if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: 'invalid user id' });
+    if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
     (options.where.AND as Prisma.GameWhereInput[]).push({ userId });
   }
 
@@ -54,7 +54,7 @@ export async function GET({ setHeaders, url }) {
     try {
       new Date(Number(before));
     } catch {
-      throw error(400, { message: 'invalid before date value' });
+      throw error(400, { message: "invalid before date value" });
     }
     (options.where.AND as Prisma.GameWhereInput[]).push({ date: { lt: new Date(Number(before)) } });
   }
@@ -63,23 +63,23 @@ export async function GET({ setHeaders, url }) {
     try {
       new Date(Number(after));
     } catch {
-      throw error(400, { message: 'invalid after date value' });
+      throw error(400, { message: "invalid after date value" });
     }
     (options.where.AND as Prisma.GameWhereInput[]).push({ date: { gt: new Date(Number(after)) } });
   }
 
   if (take) {
-    if (!Number(take)) throw error(400, 'invalid amount to take');
-    if (Number(take) > 100) take = '100';
-    if (Number(take) < 1) take = '1';
+    if (!Number(take)) throw error(400, "invalid amount to take");
+    if (Number(take) > 100) take = "100";
+    if (Number(take) < 1) take = "1";
 
     options.take = Number(take);
   }
 
   if (skip) {
-    if (!Number(skip)) throw error(400, 'invalid amount to skip');
+    if (!Number(skip)) throw error(400, "invalid amount to skip");
 
-    if (Number(skip) < 1) skip = '0';
+    if (Number(skip) < 1) skip = "0";
 
     options.skip = Number(skip);
   }
@@ -120,7 +120,7 @@ export async function GET({ setHeaders, url }) {
         userId: game.userId,
         username: game.economy?.user?.Preferences.leaderboards
           ? game.economy?.user?.lastKnownUsername
-          : '[hidden]',
+          : "[hidden]",
         win: game.win,
         xpEarned: game.xpEarned,
       };

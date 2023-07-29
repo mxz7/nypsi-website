@@ -1,4 +1,4 @@
-import { sort } from 'fast-sort';
+import { sort } from "fast-sort";
 
 export default function filterOutliers(array: { money: number; amount: number; date: Date }[]) {
   if (array.length < 7) return array;

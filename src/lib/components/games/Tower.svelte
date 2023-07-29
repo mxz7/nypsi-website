@@ -33,7 +33,7 @@
           default:
             return { style: 2 };
         }
-      })
+      }),
     );
 
   /**

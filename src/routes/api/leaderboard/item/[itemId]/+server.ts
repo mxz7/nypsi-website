@@ -1,9 +1,9 @@
-import prisma from '$lib/server/database.js';
-import { json } from '@sveltejs/kit';
+import prisma from "$lib/server/database.js";
+import { json } from "@sveltejs/kit";
 
 export async function GET({ params, setHeaders }) {
   setHeaders({
-    'cache-control': 'max-age=300',
+    "cache-control": "max-age=300",
   });
 
   const query = await prisma.inventory
@@ -43,7 +43,7 @@ export async function GET({ params, setHeaders }) {
         },
       },
       orderBy: {
-        amount: 'desc',
+        amount: "desc",
       },
       take: 25,
     })
@@ -55,11 +55,11 @@ export async function GET({ params, setHeaders }) {
       });
       return r.map((x) => {
         count++;
-        const user = x.economy.user.lastKnownUsername.split('#')[0];
+        const user = x.economy.user.lastKnownUsername.split("#")[0];
         return {
           value: `${x.amount.toLocaleString()}`,
           user: {
-            username: x.economy.user.Preferences?.leaderboards ? user : '[hidden]',
+            username: x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
             id: x.economy.user.Preferences?.leaderboards ? x.userId : undefined,
             tag: x.economy.user.Tags.length > 0 ? x.economy.user.Tags[0].tagId : null,
           },

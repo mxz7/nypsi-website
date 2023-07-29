@@ -136,7 +136,9 @@
     height: 2px;
     background: #8b5cf6;
     border-radius: 9999px;
-    transition: width 0.2s ease-in, left 0.2s ease-in;
+    transition:
+      width 0.2s ease-in,
+      left 0.2s ease-in;
     position: relative;
     left: 50%;
     transform: translateX(-50%);

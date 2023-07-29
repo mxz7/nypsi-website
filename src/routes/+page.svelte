@@ -1,16 +1,16 @@
 <script lang="ts">
   import {
-      Backpack,
-      Bell,
-      Book,
-      Car,
-      Coins,
-      Dice5,
-      DollarSign,
-      Gavel,
-      Hammer,
-      Sparkle,
-      Sparkles,
+    Backpack,
+    Bell,
+    Book,
+    Car,
+    Coins,
+    Dice5,
+    DollarSign,
+    Gavel,
+    Hammer,
+    Sparkle,
+    Sparkles,
   } from "lucide-svelte";
   import { fade } from "svelte/transition";
 
@@ -91,11 +91,7 @@
         p-3 text-xl font-semibold text-white shadow-lg shadow-gray-950 duration-150 hover:scale-95 md:text-2xl"
       >
         <div class="flex h-5 items-center justify-center md:h-6">
-          <img
-            src="/discord-white.png"
-            alt=""
-            class="h-5 md:h-6 w-5 md:w-6 object-contain"
-          />
+          <img src="/discord-white.png" alt="" class="h-5 md:h-6 w-5 md:w-6 object-contain" />
         </div>
         <p>add to discord</p>
       </a>

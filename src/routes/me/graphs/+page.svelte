@@ -16,7 +16,7 @@
       },
       tooltip: {
         intersect: false,
-            mode: "index",
+        mode: "index",
         callbacks: {
           label(tooltipItem) {
             return `$${tooltipItem.formattedValue}`;
@@ -35,13 +35,11 @@
     },
     scales: {
       x: {
-        
         grid: {
-          display: false
+          display: false,
         },
       },
       y1: {
-      
         grid: {
           display: false,
         },
@@ -63,7 +61,7 @@
       },
       tooltip: {
         intersect: false,
-            mode: "index",
+        mode: "index",
         callbacks: {
           label(tooltipItem) {
             return tooltipItem.formattedValue;
@@ -83,12 +81,12 @@
     scales: {
       x: {
         grid: {
-          display: false
-        }
+          display: false,
+        },
       },
       y1: {
         grid: {
-          display: false
+          display: false,
         },
         position: "left",
         min: 0,
@@ -105,7 +103,7 @@
     plugins: {
       tooltip: {
         intersect: false,
-            mode: "index",
+        mode: "index",
         callbacks: {
           label(tooltipItem) {
             return tooltipItem.formattedValue;

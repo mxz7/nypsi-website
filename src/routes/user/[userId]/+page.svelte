@@ -1,18 +1,18 @@
 <script lang="ts">
-    import { page } from "$app/stores";
-    import Loading from "$lib/components/Loading.svelte";
-    import UserData from "$lib/components/users/UserData.svelte";
-    import { userSearchTerm } from "$lib/data/stores.js";
-    import type { UserApiResponse } from "$lib/types/User.js";
-    import { fade, fly } from "svelte/transition";
+  import { page } from "$app/stores";
+  import Loading from "$lib/components/Loading.svelte";
+  import UserData from "$lib/components/users/UserData.svelte";
+  import { userSearchTerm } from "$lib/data/stores.js";
+  import type { UserApiResponse } from "$lib/types/User.js";
+  import { fade, fly } from "svelte/transition";
 
   export let data;
   let title = "user | nypsi";
-  let description = 'user profile loading...'
+  let description = "user profile loading...";
 
   if (!$page.params.userId.match(/^\d{17,19}$/)) {
-    title = `${$page.params.userId}'s profile | nypsi`
-    description = `view ${$page.params.userId}'s nypsi profile. inventory, balance, wordle stats, leaderboards'`
+    title = `${$page.params.userId}'s profile | nypsi`;
+    description = `view ${$page.params.userId}'s nypsi profile. inventory, balance, wordle stats, leaderboards'`;
   }
 
   async function updateTags(userData: Promise<UserApiResponse> | UserApiResponse) {
@@ -28,7 +28,7 @@
 
 <svelte:head>
   <title>{title}</title>
-  <meta name="description" content="{description}">
+  <meta name="description" content={description} />
 </svelte:head>
 
 {#await data.streamed.userData}

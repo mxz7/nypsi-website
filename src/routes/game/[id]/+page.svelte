@@ -87,7 +87,7 @@
               <span class="font-bold text-accent">{game.username}</span>
             {/if}
             on {new Date(game.date).toLocaleDateString()} at {new Date(
-              game.date
+              game.date,
             ).toLocaleTimeString()}
           </p>
         </div>
