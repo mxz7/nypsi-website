@@ -11,6 +11,8 @@
   const chartOptions: ChartOptions = {
     plugins: {
       tooltip: {
+        intersect: false,
+        mode: 'index',
         callbacks: {
           label(tooltipItem) {
             if (tooltipItem.dataset.label.includes("items in world"))
@@ -38,7 +40,15 @@
       },
     },
     scales: {
+      x: {
+        grid: {
+          display: false
+        }
+      },
       y2: {
+        grid: {
+          display: false
+        },
         min: 0,
         position: "right",
         ticks: {
@@ -48,6 +58,9 @@
         },
       },
       y1: {
+        grid: {
+          display: false
+        },
         min: 0,
         position: "left",
         ticks: {
