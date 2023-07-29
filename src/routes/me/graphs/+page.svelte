@@ -27,7 +27,7 @@
     maintainAspectRatio: false,
     elements: {
       line: {
-        tension: 0.4,
+        tension: 0.3,
       },
       point: {
         radius: /Android|iPhone/i.test(navigator.userAgent) ? 2 : 3,
@@ -64,7 +64,7 @@
     maintainAspectRatio: false,
     elements: {
       line: {
-        tension: 0.4,
+        tension: 0.3,
       },
       point: {
         radius: /Android|iPhone/i.test(navigator.userAgent) ? 2 : 3,
@@ -98,7 +98,7 @@
     maintainAspectRatio: false,
     elements: {
       line: {
-        tension: 0.4,
+        tension: 0.2,
       },
       point: {
         radius: /Android|iPhone/i.test(navigator.userAgent) ? 2 : 3,
