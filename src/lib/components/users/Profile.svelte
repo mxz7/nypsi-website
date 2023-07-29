@@ -2,6 +2,7 @@
   import tooltip from "$lib/Tooltips";
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
+  import parseEmoji from "$lib/functions/parseEmoji";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import { fly } from "svelte/transition";
@@ -142,6 +143,29 @@
           >
             <img class="mb-2 h-4 lg:h-6" src={badges.get(tag.tagId)?.icon} alt="" />
           </a>
+          {:else}
+          {#await fetch('https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json')
+          .then((r) => r.text())
+          .then((r) => JSON.parse(r))}
+            
+          {:then tagData} 
+            {#if tagData[tag.tagId] && tag.selected}
+            <div
+            use:tooltip={{
+              content: tagData[tag.tagId].name,
+              theme: "tooltip",
+              placement: "left",
+            }}
+          >
+            <img
+              loading="lazy"
+              class="mb-2 h-4 lg:h-6"
+              src={parseEmoji(tagData[tag.tagId].emoji)}
+              alt=""
+            />
+          </div>
+            {/if}
+          {/await}
           {/if}
         {/each}
         {#if premiumMap.get(userData.Premium?.level || 0)}
