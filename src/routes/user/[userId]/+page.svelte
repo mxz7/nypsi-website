@@ -11,7 +11,7 @@
   let description = 'user profile loading...'
 
   if (!$page.params.userId.match(/^\d{17,19}$/)) {
-    title = `${$page.params.userId}'s profile | nypsi'`
+    title = `${$page.params.userId}'s profile | nypsi`
     description = `view ${$page.params.userId}'s nypsi profile. inventory, balance, wordle stats, leaderboards'`
   }
 
