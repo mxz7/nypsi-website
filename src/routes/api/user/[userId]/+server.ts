@@ -1,15 +1,15 @@
-import prisma from '$lib/server/database.js';
-import { error, json } from '@sveltejs/kit';
-import dayjs from 'dayjs';
+import prisma from "$lib/server/database.js";
+import { error, json } from "@sveltejs/kit";
+import dayjs from "dayjs";
 
 export const GET = async ({ params, setHeaders }) => {
   const userId = params.userId;
 
   setHeaders({
-    'cache-control': 'max-age=300',
+    "cache-control": "max-age=300",
   });
 
-  if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: 'invalid user id' });
+  if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
 
   const privacyCheck = await prisma.preferences.findUnique({
     where: {
@@ -20,9 +20,9 @@ export const GET = async ({ params, setHeaders }) => {
     },
   });
 
-  if (!privacyCheck) throw error(404, { message: 'user not found' });
+  if (!privacyCheck) throw error(404, { message: "user not found" });
 
-  if (!privacyCheck.leaderboards) throw error(403, { message: 'user has a private profile' });
+  if (!privacyCheck.leaderboards) throw error(403, { message: "user has a private profile" });
 
   const query = await prisma.user.findUnique({
     where: {
@@ -57,7 +57,7 @@ export const GET = async ({ params, setHeaders }) => {
           uses: true,
         },
         orderBy: {
-          uses: 'desc',
+          uses: "desc",
         },
         take: 1,
       },
@@ -91,7 +91,7 @@ export const GET = async ({ params, setHeaders }) => {
                   xp: true,
                   members: {
                     orderBy: {
-                      joinedAt: 'asc',
+                      joinedAt: "asc",
                     },
                     select: {
                       joinedAt: true,
@@ -113,7 +113,7 @@ export const GET = async ({ params, setHeaders }) => {
           },
           Game: {
             orderBy: {
-              date: 'desc',
+              date: "desc",
             },
             take: 16,
             select: {
@@ -125,7 +125,7 @@ export const GET = async ({ params, setHeaders }) => {
               earned: true,
             },
             where: {
-              date: { gte: dayjs().subtract(1, 'week').toDate() },
+              date: { gte: dayjs().subtract(1, "week").toDate() },
             },
           },
           money: true,
@@ -155,9 +155,9 @@ export const GET = async ({ params, setHeaders }) => {
     },
   });
 
-  if (!query) throw error(404, { message: 'user not found' });
+  if (!query) throw error(404, { message: "user not found" });
 
-  query.lastKnownUsername = query.lastKnownUsername.split('#')[0];
+  query.lastKnownUsername = query.lastKnownUsername.split("#")[0];
 
   if (query.Economy) {
     query.Economy.money = Number(query.Economy.money) as unknown as bigint;
@@ -169,10 +169,10 @@ export const GET = async ({ params, setHeaders }) => {
     });
     if (query.Economy.EconomyGuildMember?.guild) {
       query.Economy.EconomyGuildMember.guild.balance = Number(
-        query.Economy.EconomyGuildMember.guild?.balance
+        query.Economy.EconomyGuildMember.guild?.balance,
       ) as unknown as bigint;
       query.Economy.EconomyGuildMember.guild.xp = Number(
-        query.Economy.EconomyGuildMember.guild?.xp
+        query.Economy.EconomyGuildMember.guild?.xp,
       ) as unknown as bigint;
     }
     query.Economy.Game = query.Economy.Game.map((g) => {
@@ -187,5 +187,5 @@ export const GET = async ({ params, setHeaders }) => {
     });
   }
 
-  return json({ ...query, message: 'success' });
+  return json({ ...query, message: "success" });
 };

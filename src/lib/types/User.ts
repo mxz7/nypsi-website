@@ -21,11 +21,11 @@ interface BaseUserApiResponse {
 }
 
 interface ErrorUserApiResponse extends BaseUserApiResponse {
-  message: 'boobs';
+  message: "boobs";
 }
 
 export interface UserApiResponsexd extends BaseUserApiResponse {
-  message: 'success';
+  message: "success";
   id: string;
   lastCommand: number;
   Tags: { tagId: string; selected: boolean }[];

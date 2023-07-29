@@ -26,7 +26,7 @@
 
   async function loadMore(userId: string) {
     const newGames = await fetch(
-      `/api/game?user=${userId}&take=10&skip=${games.length}&before=${now}`
+      `/api/game?user=${userId}&take=10&skip=${games.length}&before=${now}`,
     ).then((r) =>
       r.json().then((r) => {
         if (r.error) {
@@ -55,7 +55,7 @@
           bet: number;
           earned: number;
         }[];
-      })
+      }),
     );
 
     games = [...games, ...newGames];
@@ -75,7 +75,7 @@
     {:else if dayjs(userData?.Economy?.banned).isAfter(dayjs())}
       <Punishment>
         {userData.lastKnownUsername.split("#")[0]} is economy banned until {new Date(
-          userData.Economy.banned
+          userData.Economy.banned,
         ).toLocaleDateString()}
       </Punishment>
     {/if}
@@ -185,11 +185,11 @@
     <SmallInfo>
       <h1 class="text-white lg:text-xl">completion</h1>
       <p class="text-sm text-gray-300 lg:text-base">
-        {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/achievements.json").then( (r) => r.json() )}
+        {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/achievements.json").then( (r) => r.json(), )}
           calculating...
         {:then achievementData}
           {((userData.Achievements.length / Object.keys(achievementData).length) * 100).toPrecision(
-            3
+            3,
           )}%
         {/await}
       </p>
@@ -454,7 +454,7 @@
               <p class="mt-2 text-center text-xs text-gray-300 lg:text-sm">
                 average winning game takes {MStoTime(
                   userData.WordleStats.history.reduce((a, b) => a + b) /
-                    userData.WordleStats.history.length
+                    userData.WordleStats.history.length,
                 )}
               </p>
             {/if}

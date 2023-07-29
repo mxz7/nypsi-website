@@ -1,9 +1,9 @@
 <script lang="ts">
-  import tooltip from '$lib/Tooltips';
-  import parseEmoji from '$lib/functions/parseEmoji';
-  import type { LeaderboardData } from '$lib/types/LeaderboardData';
-  import { onMount } from 'svelte';
-  import { fly } from 'svelte/transition';
+  import tooltip from "$lib/Tooltips";
+  import parseEmoji from "$lib/functions/parseEmoji";
+  import type { LeaderboardData } from "$lib/types/LeaderboardData";
+  import { onMount } from "svelte";
+  import { fly } from "svelte/transition";
 
   export let data: LeaderboardData;
   export let suffix: (value: string) => string;
@@ -43,7 +43,7 @@
                 src={parseEmoji(tags[user.tag]?.emoji)}
                 alt=""
                 use:tooltip={{
-                  placement: 'top',
+                  placement: "top",
                   content: tags[user.tag]?.name,
                   followCursor: true,
                 }}

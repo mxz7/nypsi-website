@@ -1,11 +1,11 @@
-import { createTippy } from 'svelte-tippy';
-import 'tippy.js/animations/perspective-subtle.css';
+import { createTippy } from "svelte-tippy";
+import "tippy.js/animations/perspective-subtle.css";
 
 const tooltip = createTippy({
-  touch: 'hold',
+  touch: "hold",
   inertia: true,
   delay: 25,
-  animation: 'perspective-subtle',
+  animation: "perspective-subtle",
 });
 
 export default tooltip;

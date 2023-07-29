@@ -1,13 +1,13 @@
-import prisma from '$lib/server/database.js';
-import { redirect } from '@sveltejs/kit';
+import prisma from "$lib/server/database.js";
+import { redirect } from "@sveltejs/kit";
 
 export async function load({ setHeaders, parent }) {
   const parentData = await parent();
 
-  if (!parentData.user.authenticated) throw redirect(303, '/me');
+  if (!parentData.user.authenticated) throw redirect(303, "/me");
 
   setHeaders({
-    'cache-control': 'max-age=300',
+    "cache-control": "max-age=300",
   });
 
   return {
@@ -18,7 +18,7 @@ export async function load({ setHeaders, parent }) {
       history: prisma.kofiPurchases.findMany({
         where: { userId: parentData.user.id },
         select: { date: true, item: true },
-        orderBy: { date: 'desc' },
+        orderBy: { date: "desc" },
       }),
     },
   };

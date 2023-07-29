@@ -1,14 +1,14 @@
-import { browser } from '$app/environment';
-import { inPlaceSort } from 'fast-sort';
-import ms from 'ms';
-import parseEmoji from './parseEmoji';
+import { browser } from "$app/environment";
+import { inPlaceSort } from "fast-sort";
+import ms from "ms";
+import parseEmoji from "./parseEmoji";
 
 export default async function getItems() {
-  if (browser && localStorage.getItem('items')) {
-    const data = JSON.parse(localStorage.getItem('items') as string);
+  if (browser && localStorage.getItem("items")) {
+    const data = JSON.parse(localStorage.getItem("items") as string);
 
-    if (data.saved > Date.now() - ms('1 hour'))
-      return JSON.parse(localStorage.getItem('items') as string).data as {
+    if (data.saved > Date.now() - ms("1 hour"))
+      return JSON.parse(localStorage.getItem("items") as string).data as {
         id: string;
         name: string;
         emoji: string;
@@ -27,13 +27,13 @@ export default async function getItems() {
     plural?: string;
   }[] = Object.values(
     JSON.parse(
-      await fetch('https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json').then((r) =>
-        r.text()
-      )
-    )
+      await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) =>
+        r.text(),
+      ),
+    ),
   );
 
-  items = items.filter((i) => !['beginner_booster', 'cycle'].includes(i.id));
+  items = items.filter((i) => !["beginner_booster", "cycle"].includes(i.id));
 
   for (const item of items) {
     const thumbnail = parseEmoji(item.emoji);
@@ -43,7 +43,7 @@ export default async function getItems() {
 
   inPlaceSort(items).asc((i) => i.name);
 
-  if (browser) localStorage.setItem('items', JSON.stringify({ data: items, saved: Date.now() }));
+  if (browser) localStorage.setItem("items", JSON.stringify({ data: items, saved: Date.now() }));
 
   return items;
 }

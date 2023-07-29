@@ -21,8 +21,6 @@
   });
 </script>
 
-
-
 <div class="mb-8 flex w-full flex-col justify-center">
   <div class="overflow-show mt-4 flex h-40 w-full justify-center sm:mt-8 md:h-[30vh]">
     <div class="flex h-fit w-full flex-col sm:w-[50vw]">
@@ -83,7 +81,7 @@
           graphs
         </a>
       {/if}
-<!-- 
+      <!-- 
       <a
         class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
           '/stats'
@@ -97,7 +95,7 @@
 
       <a
         class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
-          '/purchasehistory'
+          '/purchasehistory',
         )
           ? 'border-b-accent'
           : ''}"

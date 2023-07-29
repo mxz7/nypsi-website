@@ -131,41 +131,39 @@
 
       <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
         {#each userData.Tags as tag}
-        {#if badges.has(tag.tagId)}
-          <a
-            href="/badges#{badges.get(tag.tagId)?.name}"
-            class="h-full w-full"
-            use:tooltip={{
-              content: badges.get(tag.tagId).name,
-              theme: "tooltip",
-              placement: "left",
-            }}
-          >
-            <img class="mb-2 h-4 lg:h-6" src={badges.get(tag.tagId)?.icon} alt="" />
-          </a>
+          {#if badges.has(tag.tagId)}
+            <a
+              href="/badges#{badges.get(tag.tagId)?.name}"
+              class="h-full w-full"
+              use:tooltip={{
+                content: badges.get(tag.tagId).name,
+                theme: "tooltip",
+                placement: "left",
+              }}
+            >
+              <img class="mb-2 h-4 lg:h-6" src={badges.get(tag.tagId)?.icon} alt="" />
+            </a>
           {:else}
-          {#await fetch('https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json')
-          .then((r) => r.text())
-          .then((r) => JSON.parse(r))}
-            
-          {:then tagData} 
-            {#if tagData[tag.tagId] && tag.selected}
-            <div
-            use:tooltip={{
-              content: tagData[tag.tagId].name,
-              theme: "tooltip",
-              placement: "left",
-            }}
-          >
-            <img
-              loading="lazy"
-              class="mb-2 h-4 lg:h-6"
-              src={parseEmoji(tagData[tag.tagId].emoji)}
-              alt=""
-            />
-          </div>
-            {/if}
-          {/await}
+            {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
+              .then((r) => r.text())
+              .then((r) => JSON.parse(r)) then tagData}
+              {#if tagData[tag.tagId] && tag.selected}
+                <div
+                  use:tooltip={{
+                    content: tagData[tag.tagId].name,
+                    theme: "tooltip",
+                    placement: "left",
+                  }}
+                >
+                  <img
+                    loading="lazy"
+                    class="mb-2 h-4 lg:h-6"
+                    src={parseEmoji(tagData[tag.tagId].emoji)}
+                    alt=""
+                  />
+                </div>
+              {/if}
+            {/await}
           {/if}
         {/each}
         {#if premiumMap.get(userData.Premium?.level || 0)}

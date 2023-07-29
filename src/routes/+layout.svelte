@@ -34,10 +34,6 @@
 
 <svelte:head>
   <meta name="og:url" content={$page.url.toString()} />
-
-  
-
-  
 </svelte:head>
 
 <Toaster />

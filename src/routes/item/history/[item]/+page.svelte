@@ -12,7 +12,7 @@
     plugins: {
       tooltip: {
         intersect: false,
-        mode: 'index',
+        mode: "index",
         callbacks: {
           label(tooltipItem) {
             if (tooltipItem.dataset.label.includes("items in world"))
@@ -42,12 +42,12 @@
     scales: {
       x: {
         grid: {
-          display: false
-        }
+          display: false,
+        },
       },
       y2: {
         grid: {
-          display: false
+          display: false,
         },
         min: 0,
         position: "right",
@@ -59,7 +59,7 @@
       },
       y1: {
         grid: {
-          display: false
+          display: false,
         },
         min: 0,
         position: "left",
