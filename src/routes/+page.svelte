@@ -21,6 +21,7 @@
   <title>nypsi discord bot</title>
 
   <meta
+    property="description"
     name="description"
     content="
   the best discord bot. includes gambling, economy, items, fake cryptocurrency, moderation, reaction roles, channel stats"

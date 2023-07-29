@@ -10,7 +10,7 @@
 <svelte:head>
   <title>{$page.params.type} leaderboard | nypsi</title>
 
-  <meta name="description" content="leaderboard for {$page.params.type}" />
+  <meta property="description" name="description" content="leaderboard for {$page.params.type}" />
 
   <meta name="og:title" content="{$page.params.type} leaderboard | nypsi" />
   <meta name="og:site_name" content="nypsi" />
