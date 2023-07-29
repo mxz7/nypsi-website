@@ -28,7 +28,7 @@
 
 <svelte:head>
   <title>{title}</title>
-  <meta name="description" content={description} />
+  <meta property="description" name="description" content={description} />
 </svelte:head>
 
 {#await data.streamed.userData}
