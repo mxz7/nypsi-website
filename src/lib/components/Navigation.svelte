@@ -33,7 +33,7 @@
             />
           </a>
         {:else}
-          <img src="/nypsi_transparent.webp" alt="nypsi icon" class="h-8 w-8" />
+          <img src="/nypsi-transparent.webp" alt="nypsi icon" class="h-8 w-8" />
         {/if}
       </a>
 
