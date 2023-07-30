@@ -34,9 +34,6 @@
         progress.set(0);
       }
     }
-
-    console.log(value);
-    console.log(status);
   });
 </script>
 
