@@ -1,45 +1,50 @@
 <script lang="ts">
   import { navigating } from "$app/stores";
+  import { cubicInOut } from "svelte/easing";
+  import { tweened } from "svelte/motion";
   import { fade } from "svelte/transition";
 
-  let loadingSize = 0;
-  let startedLoading = 0;
-  let interval: number | undefined;
+  const progress = tweened(0, { duration: 1500, easing: cubicInOut });
 
-  $: if (
-    $navigating &&
-    !interval &&
-    $navigating.to?.route.id?.startsWith("/user") &&
-    $navigating.from?.route.id?.startsWith("/user")
-  ) {
-    loadingSize = 0;
-    startedLoading = Date.now();
-    interval = setInterval(() => {
-      if (startedLoading < Date.now() - 40) return;
-      loadingSize += Math.floor(Math.random() * 10) + 5;
-      if (loadingSize > 85) loadingSize = 85;
-    }, 75);
-  } else if (interval && !$navigating) {
-    if (startedLoading < Date.now() - 40) {
-      clearInterval(interval);
-      interval = undefined;
-      startedLoading = 0;
-    } else {
-      loadingSize = 100;
+  let status: "loading" | "inactive" = "inactive";
+  let started = 0;
+
+  navigating.subscribe((value) => {
+    if (value) {
+      progress.set(0, { duration: 0 });
+      status = "loading";
+      started = Date.now();
+
       setTimeout(() => {
-        clearInterval(interval);
-        interval = undefined;
-        startedLoading = 0;
-      }, 100);
+        if (status === "inactive") return;
+        progress.set(69);
+      }, 250);
+    } else {
+      if (started < Date.now() - 250) {
+        progress.set(100, { duration: 250 });
+
+        setTimeout(() => {
+          status = "inactive";
+          started = 0;
+          progress.set(0);
+        }, 250);
+      } else {
+        status = "inactive";
+        started = 0;
+        progress.set(0);
+      }
     }
-  }
+
+    console.log(value);
+    console.log(status);
+  });
 </script>
 
-{#if interval}
+{#if status === "loading" && $progress > 0}
   <div
-    in:fade={{ delay: 50, duration: 50 }}
+    in:fade={{ delay: 50, duration: 100 }}
     out:fade={{ duration: 750 }}
-    style="width: {loadingSize}%;"
+    style="width: {$progress}%;"
     class="absolute top-[64px] h-[2px] w-0 rounded bg-accent duration-100"
   />
 {/if}
