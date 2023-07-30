@@ -121,7 +121,15 @@
       },
     },
     scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
       y1: {
+        grid: {
+          display: false,
+        },
         position: "left",
         min: 0,
         ticks: {
