@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-  <title>stats</title>
+  <title>stats | nypsi</title>
 </svelte:head>
 
 <div class="w-full flex justify-center">
