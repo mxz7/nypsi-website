@@ -64,7 +64,7 @@
               </p>
               <p class="gamble-bottom">
                 avg bet: <span class="text-accent font-semibold"
-                  >${stat._avg.bet.toLocaleString()}</span
+                  >${Math.floor(stat._avg.bet).toLocaleString()}</span
                 >
               </p>
             </div>
