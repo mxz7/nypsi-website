@@ -17,7 +17,7 @@
     if (userData.message === "success" && userData?.Premium?.level > 0) {
       graphsAllowed = true;
       if ($page.url.pathname.endsWith("/me")) goto("/me/graphs");
-    }
+    } else if ($page.url.pathname.endsWith("/me")) goto("/me/stats");
   });
 </script>
 
@@ -81,10 +81,10 @@
           graphs
         </a>
       {/if}
-      
+
       <a
         class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
-          '/stats'
+          '/stats',
         )
           ? 'border-b-accent'
           : ''}"
