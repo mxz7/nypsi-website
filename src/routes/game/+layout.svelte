@@ -20,7 +20,6 @@
         name="id"
         placeholder="enter a game id"
         bind:value={searched}
-        required
         autocorrect="off"
         autocapitalize="off"
         autofocus={true}
