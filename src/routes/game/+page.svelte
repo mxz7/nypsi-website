@@ -2,11 +2,12 @@
   import Loading from "$lib/components/Loading.svelte";
   import type Game from "$lib/types/Game";
   import { onMount } from "svelte";
-  import InfiniteScroll from "svelte-infinite-scroll";
+  import InfiniteLoading from "svelte-infinite-loading";
   import { fly } from "svelte/transition";
 
   export let data;
 
+  let listHeight = 0;
   let games: Game[] = [];
 
   onMount(async () => {
@@ -15,15 +16,18 @@
     games = [...loaded.games];
   });
 
-  async function fetchMore() {
-    console.log("fetching more...");
-    const more = await fetch(
-      `/api/game?before=${data.loadedDate}&take=100&skip=${games.length}`,
-    ).then((r) => r.json());
-    console.log("fetched");
-
-    if (more.ok) games = [...games, ...more.games];
-    else console.error(more);
+  function infiniteHandler({ detail: { loaded, complete } }) {
+    console.log("fetching more");
+    fetch(`/api/game?before=${data.loadedDate}&take=50&skip=${games.length}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.ok) {
+          games = [...games, ...data.games];
+          loaded();
+        } else {
+          complete();
+        }
+      });
   }
 </script>
 
@@ -52,7 +56,7 @@
               : game.win === 2
               ? 'text-yellow-500'
               : 'text-red-500'}"
-            in:fly|global={{ y: 50, duration: 500, delay: i * 50 }}
+            in:fly|global={{ y: 50, duration: 500, delay: (i % 50) * 50 }}
           >
             <h1 class="text-xl font-semibold text-center">{game.game.replaceAll("_", " ")}</h1>
 
@@ -67,17 +71,16 @@
             {/if}
 
             <p class="text-center text-gray-500 text-xs">
-              {game.id.toString(36)} | {new Date(game.date).toLocaleDateString()}
+              {game.id.toString(36)} | {new Date(game.date).toLocaleTimeString()}
             </p>
           </a>
         {/each}
-        <InfiniteScroll
-          threshold={500}
-          on:loadMore={() => {
-            console.log("load");
-          }}
-        />
       </div>
+      <InfiniteLoading on:infinite={infiniteHandler}>
+        <div class="relative w-full mt-8" slot="spinner">
+          <Loading />
+        </div></InfiniteLoading
+      >
     {/if}
   </div>
 </div>
