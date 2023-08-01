@@ -17,7 +17,7 @@
 </svelte:head>
 
 <div class="w-full flex justify-center">
-  <div class="w-full sm:w-[70vw]">
+  <div class="w-full sm:w-fit">
     {#if loading}
       <div class="relative w-full mt-2">
         <Loading
