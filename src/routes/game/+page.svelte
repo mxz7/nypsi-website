@@ -7,7 +7,6 @@
 
   export let data;
 
-  let listHeight = 0;
   let games: Game[] = [];
 
   onMount(async () => {
