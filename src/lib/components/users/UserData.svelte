@@ -4,8 +4,9 @@
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
   import toast from "svelte-french-toast";
-  import InfiniteScroll from "svelte-infinite-scroll";
+  import InfiniteLoading from "svelte-infinite-loading";
   import { fly } from "svelte/transition";
+  import Loading from "../Loading.svelte";
   import Profile from "./Profile.svelte";
   import Punishment from "./Punishment.svelte";
   import SmallInfo from "./SmallInfo.svelte";
@@ -23,6 +24,20 @@
   $: games = [...userData.Economy.Game];
 
   const now = new Date().getTime();
+
+  function infiniteHandler({ detail: { loaded, complete } }) {
+    console.log("fetching more");
+    fetch(`/api/game?before=${now}&take=50&skip=${games.length}&user=${userData.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.ok) {
+          games = [...games, ...data.games];
+          loaded();
+        } else {
+          complete();
+        }
+      });
+  }
 
   async function loadMore(userId: string) {
     const newGames = await fetch(
@@ -273,7 +288,11 @@
               </p>
             </a>
           {/each}
-          <InfiniteScroll threshold={500} on:loadMore={() => loadMore(userData.id)} />
+          <InfiniteLoading on:infinite={infiniteHandler}>
+            <div class="relative w-full mt-8" slot="spinner">
+              <Loading />
+            </div></InfiniteLoading
+          >
         </div>
       </div>
     {/if}
