@@ -22,7 +22,7 @@
 </script>
 
 <div class="mb-8 flex w-full flex-col justify-center">
-  <div class="overflow-show mt-4 flex h-40 w-full justify-center sm:mt-8 md:h-[30vh]">
+  <div class="overflow-show mt-4 flex h-40 w-full justify-center sm:mt-8 md:min-h-[30vh]">
     <div class="flex h-fit w-full flex-col sm:w-[50vw]">
       {#await data.streamed.userData}
         <div class="relative mt-14 w-full">
