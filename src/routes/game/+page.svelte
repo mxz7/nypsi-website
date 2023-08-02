@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import Loading from "$lib/components/Loading.svelte";
   import type Game from "$lib/types/Game";
   import { onMount } from "svelte";
@@ -17,7 +18,14 @@
 
   function infiniteHandler({ detail: { loaded, complete } }) {
     console.log("fetching more");
-    fetch(`/api/game?before=${data.loadedDate}&take=50&skip=${games.length}`)
+
+    const params = $page.url.searchParams;
+
+    params.set("take", "50");
+    params.set("skip", games.length.toString());
+    if (!params.get("before")) params.set("before", data.loadedDate.toString());
+
+    fetch(`/api/game?${params.toString()}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.ok) {
@@ -44,7 +52,9 @@
         />
       </div>
     {:else}
-      <div class="w-full px-6 sm:px-0 grid gap-4 grid-cols-1 md:grid-cols-3 md:w-fit">
+      <div
+        class="w-full px-6 sm:px-0 grid gap-4 grid-cols-1 md:grid-cols-3 md:w-fit lg:grid-cols-4"
+      >
         {#each games as game, i}
           <a
             href="/game/{game.id.toString(36)}"
@@ -70,7 +80,11 @@
             {/if}
 
             <p class="text-center text-gray-500 text-xs">
-              {game.id.toString(36)} | {new Date(game.date).toLocaleTimeString()}
+              {game.id.toString(36)} | {#if new Date().getDate() !== new Date(game.date).getDate()}
+                {new Date(game.date).toLocaleDateString()}
+              {:else}
+                {new Date(game.date).toLocaleTimeString()}
+              {/if}
             </p>
           </a>
         {/each}
