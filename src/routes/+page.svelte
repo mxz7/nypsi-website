@@ -36,7 +36,7 @@
 
   <meta
     name="og:image"
-    content="https://cdn.discordapp.com/avatars/678711738845102087/59759532c8ef1898f60d959b9b3ecaa7.png?size=128"
+    content="https://cdn.discordapp.com/avatars/678711738845102087/cb2dcd61010f2b89ceb1cd5ff15816cf.webp?size=128"
   />
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
