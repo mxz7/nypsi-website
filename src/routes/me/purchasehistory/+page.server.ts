@@ -12,6 +12,9 @@ export async function load({ setHeaders, parent }) {
 
   return {
     streamed: {
+      premium: prisma.premium
+        .findUnique({ where: { userId: parentData.user.id }, select: { userId: true } })
+        .then((r) => Boolean(r)),
       totalCost: prisma.user
         .findUnique({ where: { id: parentData.user.id }, select: { totalSpend: true } })
         .then((r) => r?.totalSpend || 0),
