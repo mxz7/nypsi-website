@@ -44,6 +44,11 @@
 
 <div class="w-full flex justify-center mt-12">
   <div class="flex flex-col w-full md:w-auto">
+    {#if data.resultText}
+      <h2 class="text-center mb-4 font-semibold text-3xl">{@html data.resultText}</h2>
+    {:else if data.loadedDate}
+      <h2 class="text-center mb-4 font-semibold text-3xl">recent games</h2>
+    {/if}
     {#if games.length === 0}
       <div class="relative w-full mt-2">
         <Loading
