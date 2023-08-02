@@ -45,9 +45,9 @@
         >
         <a class="hover-effect" href="https://docs.nypsi.xyz" target="_blank">docs</a>
         <a
-          class="hover-effect duration-300 hover:scale-110 hover:text-accent"
+          class="duration-300 hover:!text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500"
           href="https://ko-fi.com/tekoh/tiers"
-          target="_blank">donate</a
+          target="_blank">premium</a
         >
       </div>
 
@@ -122,7 +122,12 @@
         {/if}
         <a href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
         <a href="https://docs.nypsi.xyz" target="_blank">docs</a>
-        <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="text-accent">donate</a>
+        <a
+          href="https://ko-fi.com/tekoh/tiers"
+          target="_blank"
+          class="bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500 text-transparent"
+          >premium</a
+        >
       </div>
     </div>
   {/if}
