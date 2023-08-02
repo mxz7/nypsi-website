@@ -30,7 +30,8 @@
     {#await data.streamed.gambleStats then gambleStats}
       <div class="w-full px-6 sm:px-0 grid gap-4 grid-cols-1 md:grid-cols-3">
         {#each gambleStats as stat, i}
-          <div
+          <a
+            href="/game?user={data.user.authenticated ? data.user.id : ''}&game={stat.game}"
             class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 h-fit"
             in:fly|global={{ y: 50, duration: 500, delay: 100 * i }}
           >
@@ -68,7 +69,7 @@
                 >
               </p>
             </div>
-          </div>
+          </a>
         {/each}
       </div>
     {/await}
