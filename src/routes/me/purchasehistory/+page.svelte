@@ -28,6 +28,15 @@
 
 <div class="w-full flex justify-center">
   <div class="w-full sm:w-[55vw] flex flex-col px-10">
+    <div class="flex justify-center">
+      <a
+        href="https://help.ko-fi.com/hc/en-us/articles/4405488403473-How-do-I-Cancel-or-Manage-My-Membership-to-a-Creator-#how-do-i-cancel-or-manage-my-membership-to-a-creator--0-0"
+        target="_blank"
+        class="rounded bg-gradient-to-r from-violet-600 to-purple-600 px-3 py-2 w-fit font-semibold shadow-md shadow-gray-950"
+        >manage membership</a
+      >
+    </div>
+
     <div class="flex items-end">
       <p class="pl-1 text-xs text-gray-500">as of 2023-07-20</p>
       <p class="pr-1 grow text-right text-gray-300 mb-1 text-sm sm:text-lg">
