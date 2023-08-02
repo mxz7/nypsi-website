@@ -16,7 +16,7 @@
     games = [...loaded.games];
   });
 
-  function infiniteHandler({ detail: { loaded, complete } }) {
+  function infiniteHandler({ detail: { loaded, complete, error } }) {
     console.log("fetching more");
 
     const params = $page.url.searchParams;
@@ -28,11 +28,15 @@
     fetch(`/api/game?${params.toString()}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data.ok) {
+        if (data.games.length > 0) {
           games = [...games, ...data.games];
           loaded();
-        } else {
+        } else if (data.ok && data.games.length === 0) {
           complete();
+        } else {
+          setTimeout(() => {
+            error();
+          }, 1000);
         }
       });
   }
@@ -50,7 +54,7 @@
       <h2 class="text-center mb-4 font-semibold text-3xl">recent games</h2>
     {/if}
     {#if games.length === 0}
-      <div class="relative w-full mt-2">
+      <div class="relative w-full mt-6">
         <Loading
           fadeOutSettings={{ delay: 0, duration: 150 }}
           fadeInSettings={{ delay: 50, duration: 100 }}
