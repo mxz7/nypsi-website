@@ -35,9 +35,9 @@ dependencies:
   svelte-french-toast:
     specifier: ^1.2.0
     version: 1.2.0(svelte@4.1.2)
-  svelte-infinite-scroll:
-    specifier: ^2.0.1
-    version: 2.0.1
+  svelte-infinite-loading:
+    specifier: ^1.3.8
+    version: 1.3.8
   svelte-tippy:
     specifier: ^1.3.2
     version: 1.3.2
@@ -103,6 +103,9 @@ devDependencies:
   svelte-check:
     specifier: 3.4.6
     version: 3.4.6(postcss@8.4.27)(svelte@4.1.2)
+  svelte-toggle:
+    specifier: ^4.0.0
+    version: 4.0.0
   tailwindcss:
     specifier: 3.3.3
     version: 3.3.3
@@ -2237,8 +2240,8 @@ packages:
       svelte: 4.1.2
     dev: true
 
-  /svelte-infinite-scroll@2.0.1:
-    resolution: {integrity: sha512-goTHCfOHRDCs8C5MeSuIc6LlAQ8zVQ+M4Y3LyvrDjx5rqSSxSrdCuQwIyWYNcO6j6/mnqRro3QB64ClBzfn+Wg==}
+  /svelte-infinite-loading@1.3.8:
+    resolution: {integrity: sha512-hn4o848LKd2Q+M11hiMWnfFxM1GHKVDi92HPZ1FYvfed4bEeRZL+QvFAQzhy1SACq6Si0CAJcQFUZpIYmAEnpQ==}
     dev: false
 
   /svelte-preprocess@5.0.4(postcss@8.4.27)(svelte@4.1.2)(typescript@5.1.6):
@@ -2294,6 +2297,10 @@ packages:
     dependencies:
       tippy.js: 6.3.7
     dev: false
+
+  /svelte-toggle@4.0.0:
+    resolution: {integrity: sha512-teFYwmRJfls+FM689zMDKF3TFFzYCU1YvMuleGDf2AKFJGsM1RV4+3+zX3q+aBTbIpa2PG7470hoDuCcyvUX6g==}
+    dev: true
 
   /svelte-writable-derived@3.1.0(svelte@4.1.2):
     resolution: {integrity: sha512-cTvaVFNIJ036vSDIyPxJYivKC7ZLtcFOPm1Iq6qWBDo1fOHzfk6ZSbwaKrxhjgy52Rbl5IHzRcWgos6Zqn9/rg==}
