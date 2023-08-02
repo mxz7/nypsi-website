@@ -106,7 +106,7 @@
                 .filter((i) => data.items.find((item) => item.id === i.itemId))
                 .map(
                   (i) =>
-                    `<div class="flex gap-2 items-center"><img src="${
+                    `<div class="flex gap-2 items-center"><img loading="lazy" src="${
                       data.items.find((item) => item.id === i.itemId).emoji
                     }" class="h-4" /> <p><span class="text-gray-300">${
                       data.items.find((item) => item.id === i.itemId).name
@@ -137,7 +137,7 @@
                   let returnData = `<div class="flex gap-2 items-center">`;
 
                   if (i.leaderboard.startsWith("item-")) {
-                    returnData += `<img src="${
+                    returnData += `<img loading="lazy" src="${
                       data.items.find((item) => item.id === i.leaderboard.substring(5)).emoji
                     }" class="h-4" /> <p><span class="text-gray-300">${
                       data.items.find((item) => item.id === i.leaderboard.substring(5)).name
