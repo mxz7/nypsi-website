@@ -4,7 +4,7 @@
   import { tweened } from "svelte/motion";
   import { fade } from "svelte/transition";
 
-  const progress = tweened(0, { duration: 1500, easing: cubicInOut });
+  const progress = tweened(0, { duration: 3000, easing: cubicInOut });
 
   let status: "loading" | "inactive" = "inactive";
   let started = 0;
