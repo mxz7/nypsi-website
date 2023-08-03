@@ -8,11 +8,9 @@
 
   export let data;
   let title = "user | nypsi";
-  let description = "user profile loading...";
 
   if (!$page.params.userId.match(/^\d{17,19}$/)) {
     title = `${$page.params.userId}'s profile | nypsi`;
-    description = `view ${$page.params.userId}'s nypsi profile. inventory, balance, wordle stats, leaderboards'`;
   }
 
   async function updateTags(userData: Promise<UserApiResponse> | UserApiResponse) {
@@ -28,7 +26,19 @@
 
 <svelte:head>
   <title>{title}</title>
-  <meta property="description" name="description" content={description} />
+
+  {#await data.streamed.userData then user}
+    {#if user.message === "success"}
+      <meta name="og:image" content={user.avatar} />
+      <meta
+        name="description"
+        content="view {user.lastKnownUsername}'s nypsi profile.\n {user.Economy?.Inventory.length >
+        0
+          ? `${user.Economy.Inventory.length.toLocaleString()} inventory items`
+          : ''}"
+      />
+    {/if}
+  {/await}
 </svelte:head>
 
 {#await data.streamed.userData}
