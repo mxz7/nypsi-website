@@ -4,27 +4,34 @@
   import { tweened } from "svelte/motion";
   import { fade } from "svelte/transition";
 
-  const progress = tweened(0, { duration: 3000, easing: cubicInOut });
+  const progress = tweened(0, { easing: cubicInOut });
 
   let status: "loading" | "inactive" = "inactive";
+  let finished = false;
   let started = 0;
 
   navigating.subscribe((value) => {
     if (value) {
       progress.set(0, { duration: 0 });
       status = "loading";
+      finished = false;
       started = Date.now();
 
       setTimeout(() => {
         if (status === "inactive") return;
-        progress.set(69);
+        progress.set(40, { duration: 1000 });
+        setTimeout(() => {
+          if (!finished && status === "loading") progress.set(80, { duration: 10000 });
+        }, 1000);
       }, 250);
     } else {
       if (started < Date.now() - 250) {
+        finished = true;
         progress.set(100, { duration: 250 });
 
         setTimeout(() => {
           status = "inactive";
+          finished = false;
           started = 0;
           progress.set(0);
         }, 250);
