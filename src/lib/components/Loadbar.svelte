@@ -19,9 +19,9 @@
 
       setTimeout(() => {
         if (status === "inactive") return;
-        progress.set(40, { duration: 1000 });
+        progress.set(35, { duration: 3000 });
         setTimeout(() => {
-          if (!finished && status === "loading") progress.set(80, { duration: 10000 });
+          if (!finished && status === "loading") progress.set(80, { duration: 8000 });
         }, 1000);
       }, 250);
     } else {
