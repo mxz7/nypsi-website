@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="flex w-full items-center justify-center text-center text-gray-500 opacity-50">
+<div class="flex w-full items-center justify-center text-center text-slate-500 opacity-50">
   <p class="mr-16">player ({playerTotal})</p>
   <p class="ml-16">nypsi ({dealerTotal})</p>
 </div>
@@ -39,7 +39,7 @@
       class="-ml-8 h-16 sm:h-24"
     />
   {/each}
-  <p class="mx-3 text-center text-5xl text-gray-200">-</p>
+  <p class="mx-3 text-center text-5xl text-slate-200">-</p>
   {#each dealerCards as card}
     <img
       style="opacity: {card === 'invisible' ? '0' : '100'}%"

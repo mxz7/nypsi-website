@@ -39,7 +39,7 @@
     {:then value}
       {#if value.length === 0}
         <h2
-          class="m-auto mt-12 text-center text-lg font-bold text-gray-400"
+          class="m-auto mt-12 text-center text-lg font-bold text-slate-400"
           in:fade|global={{ delay: 150, duration: 250 }}
         >
           {#if data.item}

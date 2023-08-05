@@ -18,11 +18,11 @@
 
 <div class="mb-2 mt-3 flex justify-center">
   <form
-    class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-gray-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
+    class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
   >
     <!-- svelte-ignore a11y-autofocus -->
     <input
-      class="bg-transparent pr-4 text-gray-300 placeholder:text-gray-400 focus:outline-none"
+      class="bg-transparent pr-4 text-slate-300 placeholder:text-slate-400 focus:outline-none"
       type="text"
       name="search"
       placeholder="search"
@@ -37,7 +37,7 @@
       title="discord username"
     />
     <input
-      class="mr-2 text-gray-500 hover:cursor-pointer"
+      class="mr-2 text-slate-500 hover:cursor-pointer"
       type="submit"
       value="find"
       disabled={Boolean($navigating)}
