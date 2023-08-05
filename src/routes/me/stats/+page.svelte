@@ -32,7 +32,7 @@
           {#each gambleStats as stat, i}
             <a
               href="/game?user={data.user.authenticated ? data.user.id : ''}&game={stat.game}"
-              class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 h-fit"
+              class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 h-fit"
               in:fly|global={{ y: 50, duration: 500, delay: 100 * i }}
             >
               <h1 class="text-xl font-bold text-center">{stat.game}</h1>
@@ -81,7 +81,7 @@
           {#each scratchStats as stat, i}
             <a
               href="/game?user={data.user.authenticated ? data.user.id : ''}&game={stat.game}"
-              class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 h-fit"
+              class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 h-fit"
               in:fly|global={{ y: 50, duration: 500, delay: 100 * i }}
             >
               <h1 class="text-xl font-bold text-center">{stat.game.replaceAll("_", " ")}</h1>
@@ -108,9 +108,9 @@
                   (i) =>
                     `<div class="flex gap-2 items-center"><img loading="lazy" src="${
                       data.items.find((item) => item.id === i.itemId).emoji
-                    }" class="h-4" /> <p><span class="text-gray-300">${
+                    }" class="h-4" /> <p><span class="text-slate-300">${
                       data.items.find((item) => item.id === i.itemId).name
-                    }</span> <span class="text-gray-100"><span class='font-bold'>${i.amount.toLocaleString()}</span> uses</span></p></div>`,
+                    }</span> <span class="text-slate-100"><span class='font-bold'>${i.amount.toLocaleString()}</span> uses</span></p></div>`,
                 )}
             />
           </div>
@@ -121,7 +121,7 @@
               title="commands"
               data={commandData.map(
                 (i) =>
-                  `<p><span class="text-gray-300">$</span><span class="text-gray-100">${
+                  `<p><span class="text-slate-300">$</span><span class="text-slate-100">${
                     i.command
                   }: <span class='font-bold'>${i.uses.toLocaleString()}</span> uses</span></p>`,
               )}
@@ -139,20 +139,20 @@
                   if (i.leaderboard.startsWith("item-")) {
                     returnData += `<img loading="lazy" src="${
                       data.items.find((item) => item.id === i.leaderboard.substring(5)).emoji
-                    }" class="h-4" /> <p><span class="text-gray-300">${
+                    }" class="h-4" /> <p><span class="text-slate-300">${
                       data.items.find((item) => item.id === i.leaderboard.substring(5)).name
                     }</span>`;
                   } else {
-                    returnData += `<span class="text-gray-300">${i.leaderboard}</span>`;
+                    returnData += `<span class="text-slate-300">${i.leaderboard}</span>`;
                   }
 
                   returnData += ` <span class="${
-                    i.position === 1 ? "text-accent" : "text-gray-100"
+                    i.position === 1 ? "text-accent" : "text-slate-100"
                   } font-bold">#${i.position.toLocaleString()}</span></p></div>`;
 
                   return returnData;
 
-                  // return `<p><span class="text-gray-300">$</span><span class="text-gray-100">${
+                  // return `<p><span class="text-slate-300">$</span><span class="text-slate-100">${
                   //   i.command
                   // }: <span class='font-bold'>${i.uses.toLocaleString()}</span> uses</span></p>`;
                 })}

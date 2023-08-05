@@ -16,7 +16,7 @@
           <img src={badge.icon} class="mr-3 h-8" alt="" />
           {badge.name}
         </h1>
-        <div class="mx-4 my-2 h-[3px] rounded-lg bg-gray-950 bg-opacity-50" />
+        <div class="mx-4 my-2 h-[3px] rounded-lg bg-slate-950 bg-opacity-50" />
         <p>{badge.description}</p>
       </div>
     {/each}

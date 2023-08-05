@@ -60,7 +60,7 @@
   <div in:fade={{ delay: 300, duration: 200 }} out:fly={{ y: 15, duration: 250 }}>
     {#if userData.message !== "success"}
       <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
-        <p class="text-xl font-bold text-gray-300">{userData.message}</p>
+        <p class="text-xl font-bold text-slate-300">{userData.message}</p>
       </div>
     {:else}
       {#await data.streamed.items then items}

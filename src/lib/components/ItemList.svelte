@@ -34,14 +34,14 @@
 
 <div id="items" class="mt-10 w-full overflow-x-hidden sm:px-48">
   <form
-    class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-gray-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
+    class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
   >
     <div class="mr-1 flex items-center justify-center">
       <img src="/search.png" alt="" class="h-4 w-4" />
     </div>
 
     <input
-      class="ml-2 border-none bg-transparent pr-4 text-gray-300 placeholder:text-gray-400 focus:border-none focus:outline-none"
+      class="ml-2 border-none bg-transparent pr-4 text-slate-300 placeholder:text-slate-400 focus:border-none focus:outline-none"
       type="search"
       name="search"
       placeholder="search"

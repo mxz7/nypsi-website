@@ -35,7 +35,7 @@
         {#if userData.message === "success"}
           <a
             href="/user/{userData.id}"
-            class="w-full px-3 sm:px-0 sm:shadow sm:shadow-gray-950"
+            class="w-full px-3 sm:px-0 sm:shadow sm:shadow-slate-950"
             use:tooltip={{
               content: "click to view your profile",
               theme: "tooltip",
@@ -55,19 +55,19 @@
   </div>
 
   <div class="flex w-full justify-center">
-    <div class="mt-3 flex w-full flex-row justify-center px-4 text-gray-200 sm:w-[60vw]">
+    <div class="mt-3 flex w-full flex-row justify-center px-4 text-slate-200 sm:w-[60vw]">
       {#if graphsAllowed}
         <a
           class="grow {$page.url.pathname.includes('/graphs')
             ? 'border-b-accent'
-            : ''} border-b border-gray-700 pb-2 text-center hover:border-accent"
+            : ''} border-b border-slate-700 pb-2 text-center hover:border-accent"
           href="/me/graphs"
         >
           graphs
         </a>
       {:else}
         <a
-          class="grow cursor-not-allowed border-b border-gray-700 pb-2 text-center hover:border-red-500"
+          class="grow cursor-not-allowed border-b border-slate-700 pb-2 text-center hover:border-red-500"
           href="/me"
           use:tooltip={{
             theme: "tooltip",
@@ -83,7 +83,7 @@
       {/if}
 
       <a
-        class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
+        class="grow border-b border-slate-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
           '/stats',
         )
           ? 'border-b-accent'
@@ -94,7 +94,7 @@
       </a>
 
       <a
-        class="grow border-b border-gray-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
+        class="grow border-b border-slate-700 pb-2 text-center hover:border-accent {$page.url.pathname.includes(
           '/purchasehistory',
         )
           ? 'border-b-accent'

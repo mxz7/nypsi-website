@@ -15,7 +15,7 @@
 </script>
 
 <div
-  class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25"
+  class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25"
 >
   <h1 class="text-xl font-bold mb-4 text-center">{title}</h1>
   <div class="flex-col flex gap-1">

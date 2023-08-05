@@ -12,7 +12,7 @@
   on:click={() => {
     onClick(item.id);
   }}
-  class="flex h-16 w-16 items-center justify-center rounded-md border bg-gray-950 bg-opacity-20 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-50 sm:m-1.5 sm:h-20 sm:w-20 {selected
+  class="flex h-16 w-16 items-center justify-center rounded-md border bg-slate-950 bg-opacity-20 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-50 sm:m-1.5 sm:h-20 sm:w-20 {selected
     ? 'border-accent border-opacity-50'
     : 'border-transparent'} cursor-pointer"
 >

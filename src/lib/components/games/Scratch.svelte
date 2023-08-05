@@ -9,7 +9,7 @@
   }[];
 </script>
 
-<h2 class="text -mt-3 mb-3 text-center font-bold text-gray-300">
+<h2 class="text -mt-3 mb-3 text-center font-bold text-slate-300">
   {game.game.replaceAll("_", " ")}
 </h2>
 

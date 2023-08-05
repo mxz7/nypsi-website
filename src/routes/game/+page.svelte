@@ -68,7 +68,7 @@
           <a
             href="/game/{game.id.toString(36)}"
             target="_blank"
-            class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 flex flex-col justify-center {game.win ===
+            class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 flex flex-col justify-center {game.win ===
             1
               ? 'text-green-500'
               : game.win === 2
@@ -88,7 +88,7 @@
               </p>
             {/if}
 
-            <p class="text-center text-gray-500 text-xs">
+            <p class="text-center text-slate-500 text-xs">
               {game.id.toString(36)} | {#if new Date().getDate() !== new Date(game.date).getDate()}
                 {new Date(game.date).toLocaleDateString()}
               {:else}

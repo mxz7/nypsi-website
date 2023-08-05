@@ -52,7 +52,7 @@
 </script>
 
 <div
-  class="flex w-full flex-col rounded border border-gray-300 border-opacity-5 bg-gray-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
+  class="flex w-full flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
   in:fly={{ delay: 300, duration: 500, y: 75 }}
 >
   <div class="flex w-full flex-row text-sm">
@@ -83,14 +83,14 @@
         </p>
       </div>
       {#if userData.Economy}
-        <p class="mb-2 text-xs text-gray-300 lg:text-base">
+        <p class="mb-2 text-xs text-slate-300 lg:text-base">
           {#if userData.Economy.prestige}
             prestige {userData.Economy.prestige.toLocaleString()}
           {:else}
             season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
           {/if}
         </p>
-        <p class="flex items-center text-gray-200">
+        <p class="flex items-center text-slate-200">
           <img
             loading="lazy"
             src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
@@ -99,7 +99,7 @@
           />
           <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
         </p>
-        <p class="flex items-center text-gray-200">
+        <p class="flex items-center text-slate-200">
           <img
             loading="lazy"
             src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
@@ -114,7 +114,7 @@
             ).toLocaleString()}</span
           >
         </p>
-        <p class="mt-2 flex items-center text-gray-200">
+        <p class="mt-2 flex items-center text-slate-200">
           <img
             loading="lazy"
             src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
@@ -129,7 +129,7 @@
     {#if userData.Tags.length > 0 || userData.Premium?.level > 0}
       <div class="grow" />
 
-      <div class="flex h-fit flex-col rounded bg-gray-950 bg-opacity-20 p-2 pb-0">
+      <div class="flex h-fit flex-col rounded bg-slate-950 bg-opacity-20 p-2 pb-0">
         {#each userData.Tags as tag}
           {#if badges.has(tag.tagId)}
             <a

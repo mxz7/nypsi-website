@@ -38,14 +38,14 @@
       </a>
 
       <div
-        class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-gray-200"
+        class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-slate-200"
       >
         <a class="hover-effect" href="/leaderboard">leaderboards</a>
         <a class="hover-effect" href="https://discord.com/invite/hJTDNST" target="_blank">discord</a
         >
         <a class="hover-effect" href="https://docs.nypsi.xyz" target="_blank">docs</a>
         <a
-          class="duration-300 hover:!text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500"
+          class="duration-300 !text-transparent bg-clip-text bg-gradient-to-br from-violet-500 to-purple-500"
           href="https://ko-fi.com/tekoh/tiers"
           target="_blank">premium</a
         >
@@ -64,7 +64,7 @@
 
       <button
         type="button"
-        class="rounded p-1 duration-200 hover:bg-gray-800 md:hidden"
+        class="rounded p-1 duration-200 hover:bg-slate-800 md:hidden"
         on:click={() => {
           handleMenuOpen();
         }}
@@ -80,7 +80,7 @@
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="lucide lucide-menu text-gray-400"
+          class="lucide lucide-menu text-slate-400"
           ><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line
             x1="4"
             x2="20"
@@ -102,7 +102,7 @@
       {:else}
         <a
           href="/login?redirect={encodeURIComponent($page.url.toString())}"
-          class="rounded bg-gray-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-gray-200"
+          class="rounded bg-slate-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-slate-200"
           >log in</a
         >
       {/if}
@@ -113,7 +113,7 @@
     <div
       in:fly={{ duration: 200, y: -10 }}
       out:fly={{ duration: 200, y: -10 }}
-      class="absolute w-full rounded-lg border-b-2 border-white border-opacity-5 bg-gray-900 bg-opacity-75 shadow-lg backdrop-blur-md"
+      class="absolute w-full rounded-lg border-b-2 border-white border-opacity-5 bg-slate-900 bg-opacity-75 shadow-lg backdrop-blur-md"
     >
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3 [&>p]:m-3">
         <a href="/leaderboard">leaderboards</a>
@@ -125,7 +125,7 @@
         <a
           href="https://ko-fi.com/tekoh/tiers"
           target="_blank"
-          class="bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500 text-transparent"
+          class="bg-clip-text bg-gradient-to-br from-violet-500 to-purple-500 text-transparent"
           >premium</a
         >
       </div>
