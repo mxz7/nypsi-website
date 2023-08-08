@@ -83,8 +83,8 @@ devDependencies:
     specifier: 2.32.4
     version: 2.32.4(eslint@8.46.0)(svelte@4.1.2)
   lucide-svelte:
-    specifier: ^0.264.0
-    version: 0.264.0(svelte@4.1.2)
+    specifier: ^0.265.0
+    version: 0.265.0(svelte@4.1.2)
   postcss:
     specifier: 8.4.27
     version: 8.4.27
@@ -1570,8 +1570,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /lucide-svelte@0.264.0(svelte@4.1.2):
-    resolution: {integrity: sha512-wu5SE5NVliv5DI/lJtwhHoRQ3V7quDy2mlrGWStZ5xKmDEmm0IHqGDlWndd6gtFslV89BIw1P6BurrMChG5GFw==}
+  /lucide-svelte@0.265.0(svelte@4.1.2):
+    resolution: {integrity: sha512-rmIcnkvVxCA4xcxsUJ1AVSn3nuowdjgvK0wmdfBqNAaRmvCGqqPekpZMKBOlYLPzWLzwzGwG5A5J9nj9GH3TrQ==}
     peerDependencies:
       svelte: '>=3 <5'
     dependencies:
