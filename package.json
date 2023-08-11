@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "2.1.0",
-    "@sveltejs/kit": "1.22.4",
+    "@sveltejs/kit": "1.22.5",
     "@types/gtag.js": "0.0.13",
     "@types/ms": "0.7.31",
     "@types/twemoji-parser": "13.1.1",
