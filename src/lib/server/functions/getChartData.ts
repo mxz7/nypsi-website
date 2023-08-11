@@ -85,28 +85,32 @@ export default async function getChartData(item: string, user?: string) {
     },
   });
 
+  const value = await prisma.graphMetrics.findMany({
+    where: {
+      AND: [
+        { category: "item-value-" + item },
+        { userId: "global" },
+        { date: { gte: dayjs().subtract(90, "days").toDate() } },
+      ],
+    },
+  });
+
   let userItemCount: GraphMetrics[] = [];
 
   if (user && user.match(/^\d{17,19}$/)) {
-    const privacyCheck = await prisma.preferences.findUnique({
-      where: { userId: user },
-      select: { leaderboards: true },
+    userItemCount = await prisma.graphMetrics.findMany({
+      where: {
+        AND: [
+          { userId: user },
+          { date: { gte: dayjs().subtract(90, "days").toDate() } },
+          { category: `user-item-${item}` },
+        ],
+      },
     });
-
-    if (privacyCheck?.leaderboards) {
-      userItemCount = await prisma.graphMetrics.findMany({
-        where: {
-          AND: [
-            { userId: user },
-            { date: { gte: dayjs().subtract(90, "days").toDate() } },
-            { category: `user-item-${item}` },
-          ],
-        },
-      });
-    }
   }
 
-  if (auctions.length < 2 && offers.length < 2 && itemCount.length < 2) return "not enough data";
+  if (auctions.length < 2 && offers.length < 2 && itemCount.length < 2 && value.length < 2)
+    return "not enough data";
 
   const auctionAverages = new Map<string, number[]>();
 
@@ -138,6 +142,12 @@ export default async function getChartData(item: string, user?: string) {
     itemCounts.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
   }
 
+  const itemValues = new Map<string, number>();
+
+  for (const item of value) {
+    itemValues.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
+  }
+
   const userItemCounts = new Map<string, number>();
 
   for (const item of userItemCount) {
@@ -158,6 +168,12 @@ export default async function getChartData(item: string, user?: string) {
         {
           yAxisID: "y1",
           label: "offers",
+          data: [],
+          fill: false,
+        },
+        {
+          yAxisID: "y1",
+          label: "worth",
           data: [],
           fill: false,
         },
@@ -195,6 +211,11 @@ export default async function getChartData(item: string, user?: string) {
   }
 
   for (const i of itemCount) {
+    if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
+      graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
+  }
+
+  for (const i of value) {
     if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
       graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
   }
@@ -248,7 +269,15 @@ export default async function getChartData(item: string, user?: string) {
     }
 
     if (itemCounts.has(dateString)) {
-      graphData.data.datasets[2].data.push(itemCounts.get(dateString));
+      graphData.data.datasets[3].data.push(itemCounts.get(dateString));
+    } else if (index > 0) {
+      graphData.data.datasets[3].data.push(graphData.data.datasets[3].data[index - 1]);
+    } else {
+      graphData.data.datasets[3].data.push(0);
+    }
+
+    if (itemValues.has(dateString)) {
+      graphData.data.datasets[2].data.push(itemValues.get(dateString));
     } else if (index > 0) {
       graphData.data.datasets[2].data.push(graphData.data.datasets[2].data[index - 1]);
     } else {
@@ -256,9 +285,9 @@ export default async function getChartData(item: string, user?: string) {
     }
 
     if (userItemCounts.has(dateString) && userItemCounts.size > 2) {
-      graphData.data.datasets[3].data.push(userItemCounts.get(dateString));
+      graphData.data.datasets[4].data.push(userItemCounts.get(dateString));
     } else if (userItemCounts.size > 2) {
-      graphData.data.datasets[3].data.push(0);
+      graphData.data.datasets[4].data.push(0);
     }
   }
 
