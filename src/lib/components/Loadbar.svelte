@@ -21,20 +21,14 @@
         progress.set(65, { duration: 4000 });
       }, 250);
     } else {
-      if (started < Date.now() - 250) {
-        progress.set(100, { duration: 250 });
+      progress.set(100, { duration: 250 });
 
-        setTimeout(() => {
-          status = "inactive";
-
-          started = 0;
-          progress.set(0);
-        }, 250);
-      } else {
+      setTimeout(() => {
         status = "inactive";
+
         started = 0;
         progress.set(0);
-      }
+      }, 250);
     }
   });
 </script>
