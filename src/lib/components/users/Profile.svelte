@@ -64,7 +64,7 @@
             {#if userData.Economy.Inventory.find((i) => i.item === gem)}
               <img
                 loading="lazy"
-                class="h-4 lg:h-6"
+                class="h-5 lg:h-7"
                 src={items.find((i) => i.id === gem)?.emoji}
                 alt=""
               />
