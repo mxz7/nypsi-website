@@ -6,38 +6,34 @@
 
   const progress = tweened(0, { easing: cubicOut });
 
-  let status: "loading" | "inactive" = "inactive";
+  let status: "loading" | "reached" | "inactive" = "inactive";
   let started = 0;
 
   navigating.subscribe((value) => {
     if (value) {
       progress.set(0, { duration: 0 });
       status = "loading";
-
       started = Date.now();
-
-      setTimeout(() => {
-        if (status === "inactive") return;
-        progress.set(65, { duration: 4000 });
-      }, 250);
+      progress.set(65, { delay: 250, duration: 4000 }).then(() => (status = "reached"));
     } else {
-      progress.set(100, { duration: 250 });
-
-      setTimeout(() => {
+      if (started > Date.now() - 200) {
         status = "inactive";
-
-        started = 0;
         progress.set(0);
-      }, 250);
+        return;
+      }
+      progress.set(100, { duration: 250 }).then(() => {
+        status = "inactive";
+        progress.set(0);
+      });
     }
   });
 </script>
 
-{#if status === "loading" && $progress > 0}
+{#if ["loading", "reached"].includes(status)}
   <div
-    in:fade={{ delay: 50, duration: 100 }}
+    in:fade={{ delay: 250, duration: 50 }}
     out:fade={{ duration: 750 }}
-    style="width: {$progress}%;"
+    style="width: {status === 'inactive' ? 0 : $progress}%;"
     class="absolute top-[64px] h-[2px] w-0 rounded bg-accent duration-100"
   />
 {/if}
