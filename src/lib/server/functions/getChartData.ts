@@ -164,24 +164,32 @@ export default async function getChartData(item: string, user?: string) {
           label: "auctions",
           data: [],
           fill: false,
+          borderColor: "#0ea5e9",
+          backgroundColor: "#0ea5e944",
         },
         {
           yAxisID: "y1",
           label: "offers",
           data: [],
           fill: false,
+          borderColor: "#f43f5e",
+          backgroundColor: "#f43f5e44",
         },
         {
           yAxisID: "y1",
           label: "worth",
           data: [],
           fill: false,
+          borderColor: "#d946ef",
+          backgroundColor: "#d946ef44",
         },
         {
           yAxisID: "y2",
           label: "items in world",
           data: [],
           fill: true,
+          borderColor: "#8b5cf6",
+          backgroundColor: "#8b5cf644",
         },
       ],
     },
@@ -198,6 +206,8 @@ export default async function getChartData(item: string, user?: string) {
         .then((q) => q?.lastKnownUsername || ""),
       data: [],
       fill: true,
+      borderColor: "#14b8a6",
+      backgroundColor: "#14b8a644",
     });
 
   for (const key of auctionAverages.keys()) {
