@@ -57,7 +57,7 @@ export const load = async ({ parent, params, fetch, url }) => {
   return {
     base: 69,
     streamed: {
-      userData: navigator.userAgent.includes("bot") ? await data : data,
+      userData: data,
       items: getItems(),
     },
   };

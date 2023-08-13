@@ -27,29 +27,6 @@
 <svelte:head>
   <title>{title}</title>
   <meta name="og:title" content={title} />
-
-  {#await data.streamed.userData then user}
-    {#if user.message === "success"}
-      <meta name="og:site_name" content="nypsi" />
-      <meta name="og:image" content={user.avatar} />
-      <meta
-        name="description"
-        content="view {user.lastKnownUsername}'s nypsi profile.\n {user.Economy?.Inventory.length >
-        0
-          ? `${user.Economy.Inventory.length.toLocaleString()} inventory items`
-          : ''}"
-      />
-      <meta
-        name="og:description"
-        content="view {user.lastKnownUsername}'s nypsi profile.\n {user.Economy?.Inventory.length >
-        0
-          ? `${user.Economy.Inventory.length.toLocaleString()} inventory items`
-          : ''}"
-      />
-      <meta property="og:image:width" content="128" />
-      <meta property="og:image:height" content="128" />
-    {/if}
-  {/await}
 </svelte:head>
 
 {#await data.streamed.userData}
