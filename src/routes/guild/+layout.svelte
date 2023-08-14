@@ -22,7 +22,6 @@
       minlength="2"
       maxlength="32"
       disabled={Boolean($navigating)}
-      pattern={String.raw`^[_\.\w0-9]{2,32}$`}
       title="guild name"
     />
     <input

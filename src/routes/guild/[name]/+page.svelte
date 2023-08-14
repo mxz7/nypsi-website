@@ -4,7 +4,7 @@
   import Guild from "$lib/components/guild/Guild.svelte";
   import { userSearchTerm } from "$lib/data/stores.js";
   import type { ApiGuildResponse } from "$lib/types/Guild.js";
-  import { fade, fly } from "svelte/transition";
+  import { fly } from "svelte/transition";
 
   export let data;
   let title = `${$page.params.name} | nypsi`;
@@ -30,9 +30,12 @@
     <Loading fadeInSettings={{ delay: 100, duration: 200 }} fadeOutSettings={{ duration: 300 }} />
   </div>
 {:then guildData}
-  <div in:fade={{ delay: 0, duration: 200 }} out:fly={{ y: 15, duration: 250 }}>
+  <div>
     {#if !guildData.success}
-      <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
+      <div
+        class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform"
+        in:fly={{ delay: 300, duration: 500, y: 75 }}
+      >
         <p class="text-xl font-bold text-slate-300">unknown guild</p>
       </div>
     {:else}
