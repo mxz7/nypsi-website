@@ -137,6 +137,9 @@
         .map((i) => i.economy.user.lastKnownUsername)
         .join(', ')}"
     />
+    <meta name="og:image" content={data.guild.guild.owner.user.avatar} />
+    <meta property="og:image:width" content="128" />
+    <meta property="og:image:height" content="128" />
   {/if}
 </svelte:head>
 
