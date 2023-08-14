@@ -113,7 +113,23 @@
 
 <svelte:head>
   <title>{title}</title>
-  <meta name="og:title" content={title} />
+
+  {#if data.guild.success}
+    <meta name="og:title" content={data.guild.guild.guildName} />
+    <meta name="og:site_name" content="nypsi" />
+    <meta
+      name="og:description"
+      content="{data.guild.guild.guildName} [{data.guild.guild
+        .level}] created on {data.guild.guild.createdAt.toLocaleDateString()} with {data.guild.guild
+        .members.length} members"
+    />
+    <meta
+      name="description"
+      content="{data.guild.guild.guildName} [{data.guild.guild
+        .level}] created on {data.guild.guild.createdAt.toLocaleDateString()} with {data.guild.guild
+        .members.length} members"
+    />
+  {/if}
 </svelte:head>
 
 <div>
