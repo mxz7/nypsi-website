@@ -33,7 +33,7 @@
   <div
     in:fade={{ delay: 250, duration: 50 }}
     out:fade={{ duration: 750 }}
-    style="width: {status === 'inactive' ? 0 : $progress}%;"
-    class="absolute top-[64px] h-[2px] w-0 rounded bg-accent duration-100"
+    style="width: {$progress}%;"
+    class="sticky top-0 h-[2px] w-full rounded bg-accent duration-100"
   />
 {/if}
