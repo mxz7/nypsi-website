@@ -119,15 +119,23 @@
     <meta name="og:site_name" content="nypsi" />
     <meta
       name="og:description"
-      content="{data.guild.guild.guildName} [{data.guild.guild.level}] created on {new Date(
+      content="level {data.guild.guild.level} guild created by {data.guild.guild.owner.user
+        .lastKnownUsername} on {new Date(
         data.guild.guild.createdAt,
-      ).toLocaleDateString()} with {data.guild.guild.members.length} members"
+      ).toLocaleDateString()} with {data.guild.guild.members
+        .length} members: {data.guild.guild.members
+        .map((i) => i.economy.user.lastKnownUsername)
+        .join(', ')}"
     />
     <meta
-      name="description"
-      content="{data.guild.guild.guildName} [{data.guild.guild.level}] created on {new Date(
+      name="og:description"
+      content="level {data.guild.guild.level} guild created by {data.guild.guild.owner.user
+        .lastKnownUsername} on {new Date(
         data.guild.guild.createdAt,
-      ).toLocaleDateString()} with {data.guild.guild.members.length} members"
+      ).toLocaleDateString()} with {data.guild.guild.members
+        .length} members: {data.guild.guild.members
+        .map((i) => i.economy.user.lastKnownUsername)
+        .join(', ')}"
     />
   {/if}
 </svelte:head>
