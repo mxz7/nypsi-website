@@ -11,6 +11,9 @@ export async function GET() {
     where: { user: { Preferences: { leaderboards: true } }, prestige: { gte: 5 } },
     select: { user: { select: { lastKnownUsername: true } } },
   });
+  const guilds = await prisma.economyGuild.findMany({
+    select: { guildName: true },
+  });
 
   pages.push(...items.map((i) => `leaderboard/${i.id}`));
   pages.push(
@@ -22,6 +25,7 @@ export async function GET() {
       )
       .filter((i) => Boolean(i)),
   );
+  pages.push(...guilds.map((i) => encodeURIComponent(i.guildName)));
 
   const body = sitemap(pages);
   const response = new Response(body);
