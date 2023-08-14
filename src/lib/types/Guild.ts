@@ -10,7 +10,7 @@ export interface GuildSuccess extends BaseGuild {
   success: true;
   guild: {
     guildName: string;
-    createdAt: Date;
+    createdAt: number;
     balance: number;
     xp: number;
     tokens: number;
@@ -29,7 +29,7 @@ export interface GuildSuccess extends BaseGuild {
           lastKnownUsername: string;
         };
       };
-      joinedAt: Date;
+      joinedAt: number;
       contributedMoney: number;
       contributedXp: number;
     }[];

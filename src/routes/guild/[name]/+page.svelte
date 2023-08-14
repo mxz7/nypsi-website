@@ -119,15 +119,15 @@
     <meta name="og:site_name" content="nypsi" />
     <meta
       name="og:description"
-      content="{data.guild.guild.guildName} [{data.guild.guild
-        .level}] created on {data.guild.guild.createdAt.toLocaleDateString()} with {data.guild.guild
-        .members.length} members"
+      content="{data.guild.guild.guildName} [{data.guild.guild.level}] created on {new Date(
+        data.guild.guild.createdAt,
+      ).toLocaleDateString()} with {data.guild.guild.members.length} members"
     />
     <meta
       name="description"
-      content="{data.guild.guild.guildName} [{data.guild.guild
-        .level}] created on {data.guild.guild.createdAt.toLocaleDateString()} with {data.guild.guild
-        .members.length} members"
+      content="{data.guild.guild.guildName} [{data.guild.guild.level}] created on {new Date(
+        data.guild.guild.createdAt,
+      ).toLocaleDateString()} with {data.guild.guild.members.length} members"
     />
   {/if}
 </svelte:head>
