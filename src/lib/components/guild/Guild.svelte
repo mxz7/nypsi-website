@@ -64,10 +64,12 @@
             src={member.economy.user.avatar}
             alt="{member.economy.user.lastKnownUsername}'s avatar"
           />
-          <a class="grow text-lg" href="/user/{member.economy.user.lastKnownUsername}"
+          <a
+            class="line-clamp-1 break-all text-lg"
+            href="/user/{member.economy.user.lastKnownUsername}"
             >{member.economy.user.lastKnownUsername}</a
           >
-          <p class="text-right">
+          <p class="grow text-right">
             {member.contributedXp.toLocaleString()}xp | ${member.contributedMoney.toLocaleString()}
           </p>
         </div>
