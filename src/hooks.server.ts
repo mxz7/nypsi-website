@@ -3,7 +3,9 @@ import rateLimiter from "$lib/server/ratelimit";
 
 export const handle = async ({ event, resolve }) => {
   if (!dev && event.url.pathname.startsWith("/api")) {
-    const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress());
+    const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
+      return { success: true, reset: 69 };
+    });
 
     if (!rateLimitAttempt.success) {
       const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);

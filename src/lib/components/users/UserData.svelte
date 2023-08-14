@@ -118,10 +118,13 @@
       <div
         class="mt-4 flex w-full flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
       >
-        <h1 class="w-full text-center text-lg text-slate-100 lg:text-2xl">
+        <a
+          href="/guild/{userData.Economy.EconomyGuildMember.guild.guildName}"
+          class="w-full text-center text-lg text-slate-100 lg:text-2xl"
+        >
           {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy
             .EconomyGuildMember.guild.level}]
-        </h1>
+        </a>
 
         <div class="mt-2 flex w-full flex-row">
           <div class="flex grow flex-col text-center">
@@ -289,7 +292,7 @@
             </a>
           {/each}
           <InfiniteLoading on:infinite={infiniteHandler}>
-            <div class="relative w-full mt-8" slot="spinner">
+            <div class="relative mt-8 w-full" slot="spinner">
               <Loading />
             </div></InfiniteLoading
           >
