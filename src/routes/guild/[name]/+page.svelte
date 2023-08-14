@@ -158,51 +158,53 @@
   {/if}
 </div>
 
-<div class="flex w-full justify-center">
-  <div class="flex w-full flex-col gap-8 sm:w-[60vw]">
-    {#await data.graphs.balance then chartData}
-      {#if typeof chartData !== "string"}
-        <div class="flex w-full flex-col gap-4 px-4">
-          <div>
-            <h1 class="text-center text-lg font-semibold text-white">balance</h1>
-            <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
-          </div>
+{#if data.graphs}
+  <div class="flex w-full justify-center">
+    <div class="flex w-full flex-col gap-8 sm:w-[60vw]">
+      {#await data.graphs.balance then chartData}
+        {#if typeof chartData !== "string"}
+          <div class="flex w-full flex-col gap-4 px-4">
+            <div>
+              <h1 class="text-center text-lg font-semibold text-white">balance</h1>
+              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+            </div>
 
-          <div class="h-[30vh] w-full sm:h-[45vh]">
-            <Chart {chartData} chartOptions={moneyChartOptions} />
+            <div class="h-[30vh] w-full sm:h-[45vh]">
+              <Chart {chartData} chartOptions={moneyChartOptions} />
+            </div>
           </div>
-        </div>
-      {/if}
-    {/await}
+        {/if}
+      {/await}
 
-    {#await data.graphs.xp then chartData}
-      {#if typeof chartData !== "string"}
-        <div class="flex w-full flex-col gap-4 px-4">
-          <div>
-            <h1 class="text-center text-lg font-semibold text-white">xp</h1>
-            <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
-          </div>
+      {#await data.graphs.xp then chartData}
+        {#if typeof chartData !== "string"}
+          <div class="flex w-full flex-col gap-4 px-4">
+            <div>
+              <h1 class="text-center text-lg font-semibold text-white">xp</h1>
+              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+            </div>
 
-          <div class="h-[30vh] w-full sm:h-[45vh]">
-            <Chart {chartData} chartOptions={numberChartOptions} />
+            <div class="h-[30vh] w-full sm:h-[45vh]">
+              <Chart {chartData} chartOptions={numberChartOptions} />
+            </div>
           </div>
-        </div>
-      {/if}
-    {/await}
+        {/if}
+      {/await}
 
-    {#await data.graphs.level then chartData}
-      {#if typeof chartData !== "string"}
-        <div class="flex w-full flex-col gap-4 px-4">
-          <div>
-            <h1 class="text-center text-lg font-semibold text-white">level</h1>
-            <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
-          </div>
+      {#await data.graphs.level then chartData}
+        {#if typeof chartData !== "string"}
+          <div class="flex w-full flex-col gap-4 px-4">
+            <div>
+              <h1 class="text-center text-lg font-semibold text-white">level</h1>
+              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+            </div>
 
-          <div class="h-[30vh] w-full sm:h-[45vh]">
-            <Chart {chartData} chartOptions={numberChartOptions} />
+            <div class="h-[30vh] w-full sm:h-[45vh]">
+              <Chart {chartData} chartOptions={numberChartOptions} />
+            </div>
           </div>
-        </div>
-      {/if}
-    {/await}
+        {/if}
+      {/await}
+    </div>
   </div>
-</div>
+{/if}

@@ -5,12 +5,14 @@ export const load = async ({ params, fetch }) => {
   const guild = await fetch(`/api/guild/${params.name}`).then(
     (r) => r.json() as unknown as ApiGuildResponse,
   );
+
+  if (!guild.success) return { guild };
   return {
     guild,
     graphs: {
-      balance: guild.success ? getGuildData(guild.guild.guildName, "balance") : null,
-      xp: guild.success ? getGuildData(guild.guild.guildName, "xp") : null,
-      level: guild.success ? getGuildData(guild.guild.guildName, "level") : null,
+      balance: getGuildData(guild.guild.guildName, "balance"),
+      xp: getGuildData(guild.guild.guildName, "xp"),
+      level: getGuildData(guild.guild.guildName, "level"),
     },
   };
 };
