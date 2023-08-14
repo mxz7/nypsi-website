@@ -1,5 +1,5 @@
 import getItems from "$lib/functions/getItems.js";
-import getGraphData from "$lib/server/functions/getGraphData.js";
+import getItemCountDataForUser from "$lib/server/functions/graphs/getItemCountDataForUser.js";
 import { redirect } from "@sveltejs/kit";
 
 export const ssr = false;
@@ -31,15 +31,15 @@ export async function load({ setHeaders, parent, url }) {
 
     return {
       streamed: {
-        items: getGraphData(categories, parentData.user.id, items),
+        items: getItemCountDataForUser(categories, parentData.user.id, items),
       },
     };
   } else {
     return {
       streamed: {
-        balance: getGraphData(["user-money"], parentData.user.id, items),
-        networth: getGraphData(["user-net"], parentData.user.id, items),
-        karma: getGraphData(["user-karma"], parentData.user.id, items),
+        balance: getItemCountDataForUser(["user-money"], parentData.user.id, items),
+        networth: getItemCountDataForUser(["user-net"], parentData.user.id, items),
+        karma: getItemCountDataForUser(["user-karma"], parentData.user.id, items),
       },
     };
   }

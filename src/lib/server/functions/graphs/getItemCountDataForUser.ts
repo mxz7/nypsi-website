@@ -4,7 +4,11 @@ import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export default async function getGraphData(categories: string[], user: string, items: Item[]) {
+export default async function getItemCountDataForUser(
+  categories: string[],
+  user: string,
+  items: Item[],
+) {
   if (!user || !user.match(/^\d{17,19}$/)) return "invalid user";
 
   const results = new Map<string, { date: Date; value: bigint }[]>();

@@ -6,7 +6,7 @@ import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export default async function getChartData(item: string, user?: string) {
+export default async function getItemHistoryData(item: string, user?: string) {
   const items = await getItems();
 
   if (!items.find((i) => i.id === item)) return "invalid item";
