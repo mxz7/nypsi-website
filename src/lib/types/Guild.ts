@@ -6,32 +6,34 @@ interface GuildError extends BaseGuild {
   success: false;
 }
 
-interface GuildSuccess extends BaseGuild {
+export interface GuildSuccess extends BaseGuild {
   success: true;
   guild: {
     guildName: string;
     createdAt: Date;
-    balance: bigint;
-    xp: bigint;
+    balance: number;
+    xp: number;
     tokens: number;
     level: number;
     motd: string;
     owner: {
       user: {
+        avatar: string;
         lastKnownUsername: string;
       };
     };
     members: {
       economy: {
         user: {
+          avatar: string;
           lastKnownUsername: string;
         };
       };
       joinedAt: Date;
-      contributedMoney: bigint;
+      contributedMoney: number;
       contributedXp: number;
     }[];
   };
 }
 
-export type Guild = GuildSuccess | GuildError;
+export type ApiGuildResponse = GuildSuccess | GuildError;

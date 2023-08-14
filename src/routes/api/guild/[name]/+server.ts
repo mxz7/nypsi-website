@@ -18,6 +18,7 @@ export async function GET({ params }) {
         select: {
           user: {
             select: {
+              avatar: true,
               lastKnownUsername: true,
             },
           },
@@ -35,6 +36,7 @@ export async function GET({ params }) {
             select: {
               user: {
                 select: {
+                  avatar: true,
                   lastKnownUsername: true,
                 },
               },
@@ -45,6 +47,12 @@ export async function GET({ params }) {
     },
   });
 
-  if (query) return json({ success: true, guild: query });
+  if (query)
+    return json({
+      success: true,
+      guild: JSON.parse(
+        JSON.stringify(query, (key, value) => (typeof value === "bigint" ? Number(value) : value)),
+      ),
+    });
   return json({ success: false });
 }
