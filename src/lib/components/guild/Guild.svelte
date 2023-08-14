@@ -65,12 +65,13 @@
             alt="{member.economy.user.lastKnownUsername}'s avatar"
           />
           <a
-            class="line-clamp-1 break-all text-lg"
+            class="line-clamp-1 w-fit break-all text-lg"
             href="/user/{member.economy.user.lastKnownUsername}"
             >{member.economy.user.lastKnownUsername}</a
           >
-          <p class="grow text-right">
-            {member.contributedXp.toLocaleString()}xp | ${member.contributedMoney.toLocaleString()}
+          <p class="min-w-fit grow text-right text-sm md:text-base">
+            {member.contributedXp.toLocaleString()}xp
+            <br class="md:hidden" />${member.contributedMoney.toLocaleString()}
           </p>
         </div>
       {/each}
