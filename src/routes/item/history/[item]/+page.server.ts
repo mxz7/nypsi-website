@@ -1,5 +1,5 @@
 import getItems from "$lib/functions/getItems.js";
-import getChartData from "$lib/server/functions/getChartData.js";
+import getItemHistoryData from "$lib/server/functions/graphs/getItemHistoryData.js";
 
 export const ssr = false;
 
@@ -17,6 +17,6 @@ export const load = async ({ params, parent, setHeaders }) => {
   return {
     base: 69,
     item,
-    streamed: { graphData: getChartData(params.item, parentData.user.id) },
+    streamed: { graphData: getItemHistoryData(params.item, parentData.user.id) },
   };
 };
