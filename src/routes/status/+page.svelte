@@ -41,20 +41,21 @@
 
     interval = setInterval(() => {
       updateIn--;
-      
+
       if (updateIn <= 0) {
         clearInterval(interval);
-      loading = true;
-      console.log("updating");
-      invalidate("status").then((r) => {
-        console.log("updated");
-        toast("status updated", {
-          position: "bottom-center",
-          style: "color: #fff; background-color: #020617;",
+        loading = true;
+        console.log("updating");
+        invalidate("status").then((r) => {
+          console.log("updated");
+          toast("status updated", {
+            position: "bottom-center",
+            style: "color: #fff; background-color: #020617;",
+          });
+          loading = false;
+          update();
         });
-        loading = false;
-        update();
-        
+      }
     }, 1000);
   }
 
