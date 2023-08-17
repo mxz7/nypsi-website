@@ -91,7 +91,7 @@
       <h2 class="text-center text-lg" style="color: {descriptionColour};">{descriptionText}</h2>
       <p class="-mt-4 text-center text-sm text-slate-500">updating in {updateIn} seconds</p>
 
-      <div class="mt-12 flex w-full justify-center gap-3">
+      <div class="mt-12 flex w-full flex-wrap justify-center gap-6 px-3">
         <div
           class="shadow- flex h-28 w-28 flex-col items-center justify-center gap-4 rounded-lg"
           style="background-color: {data.status.main ? '#16a34a' : '#dc2626'};"
@@ -103,12 +103,7 @@
           <p class="font-mono font-bold">main</p>
           <p class="font-mono text-sm">{data.status.main ? "online" : "offline"}</p>
         </div>
-      </div>
 
-      <div class="mt-4 flex flex-wrap justify-center gap-6 px-3">
-        {#each data.status.clusters as cluster}
-          <ClusterStatus clusterData={cluster}></ClusterStatus>
-        {/each}
         <div
           class="shadow- flex h-28 w-28 flex-col items-center justify-center gap-4 rounded-lg"
           style="background-color: {data.status.main ? '#16a34a' : '#dc2626'};"
@@ -122,6 +117,12 @@
           <p class="font-mono font-bold">database</p>
           <p class="font-mono text-sm">{data.database.online ? "online" : "offline"}</p>
         </div>
+      </div>
+
+      <div class="mt-4 flex flex-wrap justify-center gap-6 px-3">
+        {#each data.status.clusters as cluster}
+          <ClusterStatus clusterData={cluster}></ClusterStatus>
+        {/each}
       </div>
 
       <div class="mt-4 text-center">
