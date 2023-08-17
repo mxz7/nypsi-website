@@ -1,27 +1,22 @@
 <script lang="ts">
   import { navigating } from "$app/stores";
-  import { onMount } from "svelte";
   import { cubicOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
   import { fade } from "svelte/transition";
 
   const progress = tweened(0, { easing: cubicOut });
 
-  let status: "loading" | "inactive" | "finishing" | "disabled" = "disabled";
+  let status: "loading" | "inactive" | "finishing" = "inactive";
   let started = 0;
 
   navigating.subscribe((value) => {
-    if (status === "inactive") return;
     if (value) {
       progress.set(0, { duration: 0 });
       status = "loading";
       started = Date.now();
-      progress.set(30, { delay: 250, duration: 1500 }).then(() => {
-        if (status === "loading") {
-          progress.set(80, { duration: 15000 });
-        }
-      });
+      progress.set(30, { delay: 250, duration: 1500 });
     } else {
+      if (status === "inactive") return;
       if (started > Date.now() - 200) {
         status = "inactive";
         progress.set(0);
@@ -33,12 +28,6 @@
         progress.set(0);
       });
     }
-  });
-
-  onMount(() => {
-    setTimeout(() => {
-      status = "inactive";
-    }, 500);
   });
 </script>
 
