@@ -25,7 +25,7 @@ export async function GET() {
       )
       .filter((i) => Boolean(i)),
   );
-  pages.push(...guilds.map((i) => encodeURIComponent(i.guildName)));
+  pages.push(...guilds.map((i) => `guild/${encodeURIComponent(i.guildName)}`));
 
   const body = sitemap(pages);
   const response = new Response(body);
