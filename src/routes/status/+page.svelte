@@ -2,18 +2,19 @@
   import { invalidate } from "$app/navigation";
   import tooltip from "$lib/Tooltips.js";
   import ClusterStatus from "$lib/components/ClusterStatus.svelte";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import toast from "svelte-french-toast";
 
   export let data;
 
   let loading = false;
   let updateIn = 30;
+  let interval: number;
 
   function update() {
     updateIn = 30;
 
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       updateIn--;
     }, 1000);
 
@@ -35,7 +36,10 @@
 
   onMount(() => {
     update();
-    console.log("mount");
+  });
+
+  onDestroy(() => {
+    clearInterval(interval);
   });
 </script>
 
