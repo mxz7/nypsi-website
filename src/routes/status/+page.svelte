@@ -11,6 +11,31 @@
   let updateIn = 30;
   let interval: number;
 
+  let descriptionText = "offline";
+  let descriptionColour = "#dc2626";
+
+  if (data.status.main) {
+    let online = 0;
+    let unresponsive = 0;
+
+    data.status.clusters.forEach((cluster) => {
+      if (cluster.online) {
+        online++;
+        if (!cluster.responsive) {
+          unresponsive++;
+        }
+      }
+    });
+
+    if (online === data.status.clusters.length && unresponsive === 0) {
+      descriptionText = "working as expected";
+      descriptionColour = "#16a34a";
+    } else if (online > 0 && unresponsive > 0) {
+      descriptionText = "having some trouble";
+      descriptionColour = "#16a34a";
+    }
+  }
+
   function update() {
     updateIn = 30;
 
@@ -43,11 +68,22 @@
   });
 </script>
 
+<svelte:head>
+  <title>nypsi status</title>
+
+  <meta property="description" name="description" content={descriptionText} />
+
+  <meta name="og:title" content="status" />
+  <meta name="og:description" content={descriptionText} />
+  <meta name="og:site_name" content="nypsi" />
+</svelte:head>
+
 <div class="flex w-full justify-center">
   <div class="mt-8 flex w-full justify-center md:w-full md:max-w-xl">
     <div class="flex flex-col gap-4">
-      <h1 class="w-full text-center text-3xl font-bold md:text-6xl">nypsi status</h1>
-      <p class="text-center text-sm text-slate-500">updating in {updateIn} seconds</p>
+      <h1 class="text-center text-3xl font-bold md:text-6xl">nypsi status</h1>
+      <h2 class="text-center text-lg" style="color: {descriptionColour};">{descriptionText}</h2>
+      <p class="-mt-4 text-center text-sm text-slate-500">updating in {updateIn} seconds</p>
 
       <div class="mt-12 flex w-full justify-center gap-3">
         <div
