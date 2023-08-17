@@ -1,12 +1,13 @@
 <script lang="ts">
   import { navigating } from "$app/stores";
+  import { onMount } from "svelte";
   import { cubicOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
   import { fade } from "svelte/transition";
 
   const progress = tweened(0, { easing: cubicOut });
 
-  let status: "loading" | "inactive" | "finishing" = "inactive";
+  let status: "loading" | "inactive" | "finishing" | "disabled" = "disabled";
   let started = 0;
 
   navigating.subscribe((value) => {
@@ -31,6 +32,12 @@
         progress.set(0);
       });
     }
+  });
+
+  onMount(() => {
+    setTimeout(() => {
+      status = "inactive";
+    }, 500);
   });
 </script>
 
