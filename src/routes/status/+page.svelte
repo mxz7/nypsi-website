@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <div class="mt-4 flex flex-wrap justify-center gap-6">
+      <div class="mt-4 flex flex-wrap justify-center gap-6 px-3">
         {#each data.status.clusters as cluster}
           <ClusterStatus clusterData={cluster}></ClusterStatus>
         {/each}
