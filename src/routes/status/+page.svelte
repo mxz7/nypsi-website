@@ -73,9 +73,15 @@
 
   <meta property="description" name="description" content={descriptionText} />
 
-  <meta name="og:title" content="status" />
+  <meta name="og:title" content="nypsi status" />
   <meta name="og:description" content={descriptionText} />
-  <meta name="og:site_name" content="nypsi" />
+
+  <meta
+    name="og:image"
+    content="https://singlecolorimage.com/get/{descriptionColour.slice(1)}/128x128"
+  />
+  <meta property="og:image:width" content="128" />
+  <meta property="og:image:height" content="128" />
 </svelte:head>
 
 <div class="flex w-full justify-center">
