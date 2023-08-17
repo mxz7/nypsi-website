@@ -81,7 +81,7 @@
 <div class="flex w-full justify-center">
   <div class="mt-8 flex w-full justify-center md:w-full md:max-w-xl">
     <div class="flex flex-col gap-4">
-      <h1 class="text-center text-3xl font-bold md:text-6xl">nypsi status</h1>
+      <h1 class="text-center text-5xl font-bold md:text-6xl">nypsi status</h1>
       <h2 class="text-center text-lg" style="color: {descriptionColour};">{descriptionText}</h2>
       <p class="-mt-4 text-center text-sm text-slate-500">updating in {updateIn} seconds</p>
 
@@ -116,6 +116,15 @@
           <p class="font-mono font-bold">database</p>
           <p class="font-mono text-sm">{data.database.online ? "online" : "offline"}</p>
         </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <h2 class=" text-3xl font-semibold">still having trouble?</h2>
+        <p class="mt-2">
+          join the <a class="text-sky-400 underline" href="https://discord.com/invite/hJTDNST"
+            >discord server</a
+          > for help/information
+        </p>
       </div>
     </div>
   </div>
