@@ -63,6 +63,19 @@
         {#each data.status.clusters as cluster}
           <ClusterStatus clusterData={cluster}></ClusterStatus>
         {/each}
+        <div
+          class="shadow- flex h-28 w-28 flex-col items-center justify-center gap-4 rounded-lg"
+          style="background-color: {data.status.main ? '#16a34a' : '#dc2626'};"
+          use:tooltip={{
+            content: data.database.online
+              ? `query took: ${data.database.latency.toFixed(2)}ms`
+              : "having problems",
+            theme: "tooltip",
+          }}
+        >
+          <p class="font-mono font-bold">database</p>
+          <p class="font-mono text-sm">{data.database.online ? "online" : "offline"}</p>
+        </div>
       </div>
     </div>
   </div>
