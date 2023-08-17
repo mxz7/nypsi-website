@@ -41,11 +41,12 @@
         class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-slate-200"
       >
         <a class="hover-effect" href="/leaderboard">leaderboards</a>
+        <a class="hover-effect" href="/status">status</a>
         <a class="hover-effect" href="https://discord.com/invite/hJTDNST" target="_blank">discord</a
         >
         <a class="hover-effect" href="https://docs.nypsi.xyz" target="_blank">docs</a>
         <a
-          class="duration-300 !text-transparent bg-clip-text bg-gradient-to-br from-violet-500 to-purple-500"
+          class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text !text-transparent duration-300"
           href="https://ko-fi.com/tekoh/tiers"
           target="_blank">premium</a
         >
@@ -117,6 +118,7 @@
     >
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3 [&>p]:m-3">
         <a href="/leaderboard">leaderboards</a>
+        <a href="/status">status</a>
         {#if !user || !user.authenticated}
           <a href="/login?redirect={encodeURIComponent($page.url.toString())}">log in</a>
         {/if}
@@ -125,7 +127,7 @@
         <a
           href="https://ko-fi.com/tekoh/tiers"
           target="_blank"
-          class="bg-clip-text bg-gradient-to-br from-violet-500 to-purple-500 text-transparent"
+          class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text text-transparent"
           >premium</a
         >
       </div>
