@@ -11,6 +11,7 @@
   let started = 0;
 
   navigating.subscribe((value) => {
+    if (status === "inactive") return;
     if (value) {
       progress.set(0, { duration: 0 });
       status = "loading";
