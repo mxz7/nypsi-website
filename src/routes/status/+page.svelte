@@ -41,10 +41,9 @@
 
     interval = setInterval(() => {
       updateIn--;
-    }, 1000);
-
-    setTimeout(() => {
-      clearInterval(interval);
+      
+      if (updateIn <= 0) {
+        clearInterval(interval);
       loading = true;
       console.log("updating");
       invalidate("status").then((r) => {
@@ -55,8 +54,8 @@
         });
         loading = false;
         update();
-      });
-    }, 30000);
+        
+    }, 1000);
   }
 
   onMount(() => {
