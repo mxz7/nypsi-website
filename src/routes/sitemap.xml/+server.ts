@@ -1,5 +1,6 @@
 import getItems from "$lib/functions/getItems";
 import prisma from "$lib/server/database";
+import dayjs from "dayjs";
 
 const pages = ["leaderboard", "user"]; //list of pages as a string ex. ["about", "blog", "contact"]
 
@@ -8,7 +9,17 @@ const site = "https://nypsi.xyz";
 export async function GET() {
   const items = await getItems();
   const users = await prisma.economy.findMany({
-    where: { user: { Preferences: { leaderboards: true } }, prestige: { gte: 5 } },
+    where: {
+      AND: [
+        { user: { Preferences: { leaderboards: true } } },
+        { prestige: { gte: 7 } },
+        {
+          user: {
+            lastCommand: { gt: dayjs().subtract(7, "days").toDate() },
+          },
+        },
+      ],
+    },
     select: { user: { select: { lastKnownUsername: true } } },
   });
   const guilds = await prisma.economyGuild.findMany({
