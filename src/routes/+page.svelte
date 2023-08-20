@@ -77,7 +77,9 @@
 </div>
 
 <div class="flex h-screen items-center justify-center">
-  <div class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center">
+  <div
+    class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center md:hidden"
+  >
     <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
     <p class="mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
 
@@ -92,10 +94,36 @@
         p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
       >
         <div class="flex h-5 items-center justify-center md:h-6">
-          <img src="/discord-white.png" alt="" class="h-5 md:h-6 w-5 md:w-6 object-contain" />
+          <img src="/discord-white.webp" alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
         </div>
         <p>add to discord</p>
       </a>
+    </div>
+  </div>
+
+  <div class="hidden h-1/2 w-full justify-center md:flex">
+    <div class="flex w-full max-w-5xl -translate-y-10 px-4">
+      <div class="grow">
+        <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
+        <p class="mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
+
+        <div class="">
+          <a
+            href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
+            target="_blank"
+            class="mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
+        bg-gradient-to-r from-violet-600 to-purple-600
+        p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
+          >
+            <div class="flex h-5 items-center justify-center md:h-6">
+              <img src="/discord-white.webp" alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
+            </div>
+            <p>add to discord</p>
+          </a>
+        </div>
+      </div>
+
+      <img src="/hero.webp" class="md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10" alt="" />
     </div>
   </div>
 </div>
