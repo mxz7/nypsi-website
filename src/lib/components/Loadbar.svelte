@@ -31,11 +31,13 @@
   });
 </script>
 
-{#if ["loading", "finishing"].includes(status)}
-  <div
-    in:fade={{ delay: 250, duration: 50 }}
-    out:fade={{ duration: 750 }}
-    style="width: {$progress}%;"
-    class="sticky top-0 h-[2px] w-full rounded bg-accent duration-100"
-  />
-{/if}
+<div class="sticky top-0 h-[2px] w-full">
+  {#if ["loading", "finishing"].includes(status)}
+    <div
+      in:fade={{ delay: 250, duration: 50 }}
+      out:fade={{ duration: 750 }}
+      style="width: {$progress}%;"
+      class="top-0 h-[2px] rounded bg-accent duration-100"
+    />
+  {/if}
+</div>
