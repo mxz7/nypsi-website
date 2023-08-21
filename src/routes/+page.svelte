@@ -13,6 +13,7 @@
     Sparkles,
   } from "lucide-svelte";
   import { onMount } from "svelte";
+  import { cubicOut } from "svelte/easing";
   import { fade, fly } from "svelte/transition";
 
   export let data;
@@ -115,20 +116,20 @@
       <div class="flex w-full max-w-4xl -translate-y-10 px-4">
         <div class="grow">
           <h1
-            in:fly={{ delay: 200, duration: 750, x: -75 }}
+            in:fly={{ delay: 200, duration: 750, x: -75, easing: cubicOut }}
             class="text-8xl font-bold text-white md:text-9xl"
           >
             nypsi
           </h1>
           <p
-            in:fly={{ delay: 400, duration: 750, x: -25 }}
+            in:fly={{ delay: 400, duration: 750, x: -25, easing: cubicOut }}
             class="mt-6 text-xl font-bold text-slate-400"
           >
             the best discord bot
           </p>
 
           <a
-            in:fly={{ delay: 600, duration: 750, x: -25 }}
+            in:fly={{ delay: 600, duration: 750, x: -25, easing: cubicOut }}
             href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
             target="_blank"
             class="mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
@@ -143,7 +144,7 @@
         </div>
 
         <img
-          in:fly={{ delay: 0, duration: 750, y: 100 }}
+          in:fly={{ delay: 0, duration: 750, y: 100, easing: cubicOut }}
           src="/hero.webp"
           class="md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
           alt=""
