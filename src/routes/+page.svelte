@@ -12,9 +12,18 @@
     Sparkle,
     Sparkles,
   } from "lucide-svelte";
-  import { fade } from "svelte/transition";
+  import { onMount } from "svelte";
+  import { fade, fly } from "svelte/transition";
 
   export let data;
+
+  let visible = false;
+
+  onMount(() => {
+    setTimeout(() => {
+      visible = true;
+    }, 0);
+  });
 </script>
 
 <svelte:head>
@@ -77,38 +86,49 @@
 </div>
 
 <div class="flex h-screen items-center justify-center">
-  <div
-    class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center md:hidden"
-  >
-    <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-    <p class="mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
+  {#if visible}
+    <div
+      class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center md:hidden"
+    >
+      <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
+      <p class="mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
 
-    <!-- <div class="m-auto mt-3 h-1 w-full rounded-full bg-accent" /> -->
+      <!-- <div class="m-auto mt-3 h-1 w-full rounded-full bg-accent" /> -->
 
-    <div class="flex justify-center">
-      <a
-        href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
-        target="_blank"
-        class="mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
+      <div class="flex justify-center">
+        <a
+          href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
+          target="_blank"
+          class="mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
         bg-gradient-to-r from-violet-600 to-purple-600
         p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
-      >
-        <div class="flex h-5 items-center justify-center md:h-6">
-          <img src="/discord-white.webp" alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
-        </div>
-        <p>add to discord</p>
-      </a>
+        >
+          <div class="flex h-5 items-center justify-center md:h-6">
+            <img src="/discord-white.webp" alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
+          </div>
+          <p>add to discord</p>
+        </a>
+      </div>
     </div>
-  </div>
 
-  <div class="hidden h-1/2 w-full justify-center md:flex">
-    <div class="flex w-full max-w-5xl -translate-y-10 px-4">
-      <div class="grow">
-        <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-        <p class="mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
+    <div class="hidden h-1/2 w-full justify-center md:flex">
+      <div class="flex w-full max-w-4xl -translate-y-10 px-4">
+        <div class="grow">
+          <h1
+            in:fly={{ delay: 200, duration: 750, x: -75 }}
+            class="text-8xl font-bold text-white md:text-9xl"
+          >
+            nypsi
+          </h1>
+          <p
+            in:fly={{ delay: 400, duration: 750, x: -25 }}
+            class="mt-6 text-xl font-bold text-slate-400"
+          >
+            the best discord bot
+          </p>
 
-        <div class="">
           <a
+            in:fly={{ delay: 600, duration: 750, x: -25 }}
             href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
             target="_blank"
             class="mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
@@ -121,11 +141,16 @@
             <p>add to discord</p>
           </a>
         </div>
-      </div>
 
-      <img src="/hero.webp" class="md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10" alt="" />
+        <img
+          in:fly={{ delay: 0, duration: 750, y: 100 }}
+          src="/hero.webp"
+          class="md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
+          alt=""
+        />
+      </div>
     </div>
-  </div>
+  {/if}
 </div>
 
 <section id="features" class="bg-slate-900 py-12">
