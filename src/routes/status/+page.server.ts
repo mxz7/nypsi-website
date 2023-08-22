@@ -5,7 +5,7 @@ import type { BotStatus } from "$lib/types/Status.js";
 
 export async function load({ setHeaders, depends }) {
   depends("status");
-  setHeaders({ "cache-control": "max-age=30" });
+  setHeaders({ "cache-control": "max-age=30 s-maxage=20" });
 
   const cache = await redis.get("nypsi:status").catch(() => undefined);
 
