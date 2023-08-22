@@ -27,6 +27,8 @@ export async function GET() {
   });
 
   pages.push(...items.map((i) => `leaderboard/${i.id}`));
+  pages.push("leaderboard/balance");
+  pages.push("leaderboard/networth");
   pages.push(
     ...users
       .map((i) =>
