@@ -4,7 +4,7 @@ import { inPlaceSort } from "fast-sort";
 
 export async function GET({ setHeaders }) {
   setHeaders({
-    "cache-control": "max-age=300",
+    "cache-control": "max-age=0, s-maxage=300",
   });
 
   const query = await prisma.wordleStats
