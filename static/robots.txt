@@ -1,1 +1,4 @@
-Sitemap: https://nypsi.xyz/sitemap.xml
+User-Agent: *
+Disallow:
+
+Sitemap: https://nypsi.xyz/sitemap
