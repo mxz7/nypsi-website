@@ -8,11 +8,15 @@
 </script>
 
 <svelte:head>
-  <title>{$page.params.type} leaderboard | nypsi</title>
+  <title>{data.item?.name || $page.params.type} leaderboard | nypsi</title>
 
-  <meta property="description" name="description" content="leaderboard for {$page.params.type}" />
+  <meta
+    property="description"
+    name="description"
+    content="leaderboard for {data.item?.name || $page.params.type}"
+  />
 
-  <meta name="og:title" content="{$page.params.type} leaderboard" />
+  <meta name="og:title" content="{data.item?.name} leaderboard" />
   <meta name="og:site_name" content="nypsi" />
   {#if data.item}
     <meta name="og:image" content={data.item.emoji} />
