@@ -57,7 +57,7 @@ const sitemap = (pages: string[]) => `<?xml version="1.0" encoding="UTF-8" ?>
   <url>
     <loc>${site}</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>1.0</priority>
   </url>
   ${pages
     .map(
@@ -65,7 +65,6 @@ const sitemap = (pages: string[]) => `<?xml version="1.0" encoding="UTF-8" ?>
   <url>
     <loc>${site}/${page}</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   `,
     )
