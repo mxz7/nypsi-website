@@ -12,9 +12,17 @@
     Sparkle,
     Sparkles,
   } from "lucide-svelte";
+  import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
   export let data;
+  let button: HTMLAnchorElement;
+
+  onMount(() => {
+    setTimeout(() => {
+      button.classList.remove("fly-right3");
+    }, 1350);
+  });
 </script>
 
 <svelte:head>
@@ -108,6 +116,7 @@
         <p class="fly-right2 mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
 
         <a
+          bind:this={button}
           href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
           target="_blank"
           class="fly-right3 mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
