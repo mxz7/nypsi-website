@@ -124,7 +124,7 @@
       <img
         src="/hero.webp"
         class="fly-up md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
-        alt=""
+        alt="hero imaage nypsi icon"
       />
     </div>
   </div>
