@@ -10,14 +10,14 @@
   let title = "user | nypsi";
 
   if (!$page.params.userId.match(/^\d{17,19}$/)) {
-    title = `${$page.params.userId}'s profile | nypsi`;
+    title = `${$page.params.userId} | nypsi`;
   }
 
   async function updateTags(userData: Promise<UserApiResponse> | UserApiResponse) {
     const data = await Promise.resolve(userData);
     if (data.message !== "success") return;
 
-    title = `${data.lastKnownUsername}'s profile | nypsi`;
+    title = `${data.lastKnownUsername} | nypsi`;
     $userSearchTerm = data.lastKnownUsername;
   }
 
