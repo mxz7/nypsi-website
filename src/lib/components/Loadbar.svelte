@@ -14,7 +14,7 @@
       progress.set(0, { duration: 0 });
       status = "loading";
       started = Date.now();
-      progress.set(30, { delay: 250, duration: 1500 });
+      progress.set(60, { delay: 250, duration: 4500 });
     } else {
       if (status === "inactive") return;
       if (started > Date.now() - 200) {
