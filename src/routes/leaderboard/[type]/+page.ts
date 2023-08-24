@@ -40,6 +40,7 @@ export const load = async ({ fetch, params }) => {
         break;
       case "wordle":
         title = "top wordle wins";
+        suffix = (value) => (parseInt(value) > 1 ? "wins" : "win");
         break;
       case "streak":
         title = "top daily streak";
