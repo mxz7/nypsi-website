@@ -12,6 +12,8 @@ export const load = async ({ fetch, params }) => {
       return fetch(`/api/leaderboard/item/${item.id}`).then((r) => r.json());
     } else if (params.type === "activeusers") {
       return getCommandsData(fetch).then((r) => r?.users.splice(0, 5));
+    } else if (params.type === "lottery") {
+      return fetch("/api/leaderboard/lottery").then((r) => r.json());
     } else {
       return fetch(`/api/leaderboard/${params.type}`).then((r) => r.json());
     }
@@ -41,6 +43,10 @@ export const load = async ({ fetch, params }) => {
         break;
       case "streak":
         title = "top daily streak";
+        break;
+      case "lottery":
+        title = "top lottery wins";
+        suffix = (value) => (parseInt(value) > 1 ? "wins" : "win");
         break;
     }
   }

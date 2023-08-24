@@ -81,6 +81,7 @@
     <LeaderboardButton text="prestige" key="prestige" />
     <LeaderboardButton text="daily streak" key="streak" />
     <LeaderboardButton text="wordle wins" key="wordle" />
+    <LeaderboardButton text="lottery" key="lottery" />
   </div>
 </div>
 
