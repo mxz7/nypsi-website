@@ -75,12 +75,12 @@
     </div>
     <div class="ml-2 flex flex-col lg:text-lg">
       <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
-        <p
+        <h1
           style="color: {premiumMap.get(userData?.Premium?.level || 0)?.colour || ''}; !important"
           class="line-clamp-1"
         >
           {userData.lastKnownUsername}
-        </p>
+        </h1>
       </div>
       {#if userData.Economy}
         <p class="mb-2 text-xs text-slate-300 lg:text-base">
