@@ -15,18 +15,18 @@
   >
     <h1 class="text-bold text-center text-2xl">{guild.guildName} [{guild.level}]</h1>
 
-    <p class="mt-2 flex w-full flex-row items-center justify-center gap-2 md:text-sm">
+    <h2 class="mt-2 flex w-full flex-row items-center justify-center gap-2 md:text-sm">
       owned by
       <a class="flex gap-1 text-accent" href="/user/{guild.owner.user.lastKnownUsername}"
         ><img class="m-0 h-5 rounded-full" alt="owner pfp" src={guild.owner.user.avatar} />
         {guild.owner.user.lastKnownUsername}</a
       >
-    </p>
+    </h2>
 
     <div class="mt-6 flex w-full justify-center">
-      <p class="w-fit whitespace-pre-line">
+      <h3 class="w-fit whitespace-pre-line">
         {guild.motd}
-      </p>
+      </h3>
     </div>
   </div>
 
