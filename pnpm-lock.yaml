@@ -18,8 +18,8 @@ dependencies:
     specifier: 1.0.2
     version: 1.0.2
   chart.js:
-    specifier: ^4.3.3
-    version: 4.3.3
+    specifier: ^4.4.0
+    version: 4.4.0
   dayjs:
     specifier: 1.11.9
     version: 1.11.9
@@ -896,8 +896,8 @@ packages:
       supports-color: 7.2.0
     dev: true
 
-  /chart.js@4.3.3:
-    resolution: {integrity: sha512-aTk7pBw+x6sQYhon/NR3ikfUJuym/LdgpTlgZRe2PaEhjUMKBKyNaFCMVRAyTEWYFNO7qRu7iQVqOw/OqzxZxQ==}
+  /chart.js@4.4.0:
+    resolution: {integrity: sha512-vQEj6d+z0dcsKLlQvbKIMYFHd3t8W/7L2vfJIbYcfyPcRx92CsHqECpueN8qVGNlKyDcr5wBrYAYKnfu/9Q1hQ==}
     engines: {pnpm: '>=7'}
     dependencies:
       '@kurkle/color': 0.3.2
