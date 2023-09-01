@@ -42,6 +42,17 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
       lastCommand: true,
       id: true,
       lastKnownUsername: true,
+      Tags: {
+        select: {
+          selected: true,
+          tagId: true,
+        },
+      },
+      Premium: {
+        select: {
+          level: true,
+        },
+      },
     },
   });
 

@@ -18,6 +18,13 @@
     lastKnownUsername: string;
     lastCommand: Date;
     avatar: string;
+    Premium: {
+      level: number;
+    };
+    Tags: {
+      tagId: string;
+      selected: boolean;
+    }[];
   } | null;
   export let userData: UserApiResponsexd | Promise<UserApiResponsexd>;
   export let items: Item[];
@@ -75,7 +82,7 @@
 
   {#await userData}
     <div class="relative mt-14">
-      <Loading />
+      <Loading fadeInSettings={{ delay: 250, duration: 100 }} />
     </div>
   {:then userData}
     <div class="mt-4 flex w-full flex-row gap-4" in:fly={{ delay: 500, duration: 500, y: 75 }}>
