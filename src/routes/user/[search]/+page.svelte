@@ -1,10 +1,12 @@
 <script lang="ts">
   import UserData from "$lib/components/users/UserData.svelte";
+  import { userSearchTerm } from "$lib/data/stores.js";
   import { fade, fly } from "svelte/transition";
 
   export let data;
 
   $: title = `${data.user.lastKnownUsername} | nypsi`;
+  $userSearchTerm = data.user.lastKnownUsername;
 </script>
 
 <svelte:head>
