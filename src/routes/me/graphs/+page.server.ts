@@ -9,7 +9,7 @@ export async function load({ setHeaders, parent, url }) {
 
   if (!parentData.user.authenticated) throw redirect(303, "/me");
 
-  if (!(await Promise.resolve(parentData.streamed.premium))) throw redirect(303, "/me");
+  if (!parentData.baseData?.Premium?.level) throw redirect(303, "/me");
 
   setHeaders({
     "cache-control": "max-age=3600",

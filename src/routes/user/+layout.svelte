@@ -1,17 +1,6 @@
 <script lang="ts">
   import { navigating, page } from "$app/stores";
   import { userSearchTerm } from "$lib/data/stores.js";
-  import toast from "svelte-french-toast";
-  import { fade } from "svelte/transition";
-
-  export let data;
-
-  $: if (data.error === 429) {
-    toast.error("you are being rate limited", {
-      position: "bottom-center",
-      style: "color: #fff; background: #b91c1c;",
-    });
-  }
 
   $userSearchTerm = $page.url.searchParams.get("search") || $page.params.id || "";
 </script>
@@ -45,10 +34,6 @@
   </form>
 </div>
 
-{#if data.error === 451}
-  <h2 transition:fade class="mt-8 text-center text-2xl font-semibold text-white">
-    private profile
-  </h2>
-{/if}
-
-<slot />
+<div class="min-h-[105vh]">
+  <slot />
+</div>

@@ -22,13 +22,14 @@
   });
 
   onMount(async () => {
-    items = (await getItems()) as {
-      id: string;
-      name: string;
-      emoji: string;
-      aliases: string[];
-      role: string;
-    }[];
+    if (!items)
+      items = (await getItems()) as {
+        id: string;
+        name: string;
+        emoji: string;
+        aliases: string[];
+        role: string;
+      }[];
   });
 </script>
 

@@ -56,8 +56,8 @@ export const load = async ({ fetch, params }) => {
     title,
     item,
     suffix,
+    data: await getData(),
     streamed: {
-      data: getData(),
       tags: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
         .then((r) => r.text())
         .then((r) => JSON.parse(r)),

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import Loading from "$lib/components/Loading.svelte";
   import BigLeaderboard from "$lib/components/leaderboards/Leaderboard.svelte";
   import { fade } from "svelte/transition";
 
@@ -33,31 +32,20 @@
     <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
   </header>
   <div class="mt-10 px-5 sm:px-24">
-    {#await data.streamed.data}
-      <div class="relative mt-16 flex w-full justify-center">
-        <Loading
-          fadeInSettings={{ delay: 75, duration: 100 }}
-          fadeOutSettings={{ duration: 200 }}
-        />
-      </div>
-    {:then value}
-      {#if value.length === 0}
-        <h2
-          class="m-auto mt-12 text-center text-lg font-bold text-slate-400"
-          in:fade|global={{ delay: 150, duration: 250 }}
-        >
-          {#if data.item}
-            nobody has a {data.item.name}
-          {:else}
-            no data
-          {/if}
-        </h2>
-      {:else}
-        <BigLeaderboard data={value} suffix={data.suffix} tags={data.streamed.tags} />
-      {/if}
-    {:catch error}
-      <p class="text-center text-xl text-red-600">error: {error}</p>
-    {/await}
+    {#if data.data.length === 0}
+      <h2
+        class="m-auto mt-12 text-center text-lg font-bold text-slate-400"
+        in:fade|global={{ delay: 150, duration: 250 }}
+      >
+        {#if data.item}
+          nobody has a {data.item.name}
+        {:else}
+          no data
+        {/if}
+      </h2>
+    {:else}
+      <BigLeaderboard data={data.data} suffix={data.suffix} tags={data.streamed.tags} />
+    {/if}
   </div>
 {:else}
   <h2
