@@ -3,16 +3,20 @@
   import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips.js";
   import Profile from "$lib/components/users/Profile.svelte";
+  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   let graphsAllowed = false;
 
   export let data;
 
-  if (data.baseData?.Premium?.level > 0) {
-    graphsAllowed = true;
-    if ($page.url.pathname.endsWith("/me")) goto("/me/graphs");
-  } else if ($page.url.pathname.endsWith("/me")) goto("/me/stats");
+  onMount(() => {
+    if (data.baseData?.Premium?.level > 0) {
+      graphsAllowed = true;
+
+      if ($page.url.pathname.endsWith("/me")) goto("/me/graphs");
+    } else if ($page.url.pathname.endsWith("/me")) goto("/me/stats");
+  });
 </script>
 
 <div class="mb-8 flex w-full flex-col justify-center">
