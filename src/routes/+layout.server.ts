@@ -24,7 +24,6 @@ export const load = async ({ cookies, fetch, url }) => {
     }).then((r) => r.json());
 
     if (res.error || res.message) {
-      console.log("1");
       throw redirect(307, "/logout?redirect=" + encodeURIComponent(url.toString()));
     }
 
@@ -38,7 +37,6 @@ export const load = async ({ cookies, fetch, url }) => {
     });
 
     if (!res || res.error) {
-      console.log("2");
       throw redirect(307, "/logout?redirect=" + encodeURIComponent(url.toString()));
     }
 
@@ -48,7 +46,6 @@ export const load = async ({ cookies, fetch, url }) => {
 
     if (userRequest.error || userRequest.message) {
       console.error(userRequest);
-      console.log("3");
       throw redirect(307, "/logout?redirect=" + encodeURIComponent(url.toString()));
     }
 
@@ -66,7 +63,6 @@ export const load = async ({ cookies, fetch, url }) => {
       cookies.delete("discord_access_token");
       cookies.delete("discord_refresh_token");
       console.error(userRequest);
-      console.log("4");
       throw redirect(307, "/logout?redirect=" + encodeURIComponent(url.toString()));
     }
 

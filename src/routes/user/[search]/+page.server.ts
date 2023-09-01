@@ -10,10 +10,7 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
   const search = params.search;
   let userId: string;
 
-  console.log("a");
-
   if (search === "me") {
-    console.log("b");
     const parentData = await parent();
 
     if (!parentData.user.authenticated) throw redirect(303, "/user");
@@ -26,7 +23,6 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
     if (!res.exists) throw redirect(303, "/user/unknown");
     if (res.private) throw redirect(303, "/user/private");
   } else {
-    console.log("c");
     const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
 
     if (res.id) {
@@ -61,7 +57,7 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
   });
 
   return {
-    user: data,
+    baseUserData: data,
     items: await getItems(),
     streamed: {
       tagData: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
