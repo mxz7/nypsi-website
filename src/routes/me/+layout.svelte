@@ -2,55 +2,40 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips.js";
-  import Loading from "$lib/components/Loading.svelte";
   import Profile from "$lib/components/users/Profile.svelte";
-  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   let graphsAllowed = false;
 
   export let data;
 
-  onMount(async () => {
-    const userData = await Promise.resolve(data.streamed.userData);
-
-    if (userData.message === "success" && userData?.Premium?.level > 0) {
-      graphsAllowed = true;
-      if ($page.url.pathname.endsWith("/me")) goto("/me/graphs");
-    } else if ($page.url.pathname.endsWith("/me")) goto("/me/stats");
-  });
+  if (data.baseData?.Premium?.level > 0) {
+    graphsAllowed = true;
+    if ($page.url.pathname.endsWith("/me")) goto("/me/graphs");
+  } else if ($page.url.pathname.endsWith("/me")) goto("/me/stats");
 </script>
 
 <div class="mb-8 flex w-full flex-col justify-center">
   <div class="overflow-show mt-4 flex h-40 w-full justify-center sm:mt-8 md:min-h-[30vh]">
     <div class="flex h-fit w-full flex-col sm:w-[50vw]">
-      {#await data.streamed.userData}
-        <div class="relative mt-14 w-full">
-          <Loading
-            fadeInSettings={{ delay: 50, duration: 100 }}
-            fadeOutSettings={{ duration: 100, delay: 0 }}
-          />
-        </div>
-      {:then userData}
-        {#if userData.message === "success"}
-          <a
-            href="/user/{userData.id}"
-            class="w-full px-3 sm:px-0 sm:shadow sm:shadow-slate-950"
-            use:tooltip={{
-              content: "click to view your profile",
-              theme: "tooltip",
-              placement: "bottom",
-            }}
-            in:fly|global={{ delay: 100, duration: 500, y: 15 }}
-          >
-            <Profile {userData} items={data.items} />
-          </a>
-        {:else}
-          <h1 class="break-words text-center font-semibold text-white">
-            you haven't used nypsi!! what are you doing with your life honestly wow
-          </h1>
-        {/if}
-      {/await}
+      {#if data.baseData}
+        <a
+          href="/user/{data.baseData.id}"
+          class="w-full px-3 sm:px-0 sm:shadow sm:shadow-slate-950"
+          use:tooltip={{
+            content: "click to view your profile",
+            theme: "tooltip",
+            placement: "bottom",
+          }}
+          in:fly|global={{ delay: 100, duration: 500, y: 15 }}
+        >
+          <Profile baseData={data.baseData} userData={data.streamed.userData} items={data.items} />
+        </a>
+      {:else}
+        <h1 class="break-words text-center font-semibold text-white">
+          you haven't used nypsi!! what are you doing with your life honestly wow
+        </h1>
+      {/if}
     </div>
   </div>
 
