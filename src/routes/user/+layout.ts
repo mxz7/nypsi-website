@@ -1,10 +1,5 @@
 import { redirect } from "@sveltejs/kit";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
-
 export const ssr = false;
 
 export const load = async ({ url }) => {
