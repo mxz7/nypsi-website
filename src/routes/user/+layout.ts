@@ -1,5 +1,4 @@
 import { redirect } from "@sveltejs/kit";
-import dayjs from "dayjs";
 
 export const config = {
   runtime: "edge",
@@ -8,47 +7,12 @@ export const config = {
 
 export const ssr = false;
 
-export const load = async ({ url, fetch }) => {
+export const load = async ({ url }) => {
   const search = url.searchParams.get("search");
 
   if (!search) {
     return;
   }
 
-  let res: {
-    error?: number;
-    status?: number;
-    message?: string;
-    id?: number;
-    expire?: number;
-    lastKnownUsername: string;
-  };
-
-  const fetchFromApi = async () => {
-    const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
-    if (res.error !== 429) {
-      res.expire = dayjs().add(3, "hours").toDate().getTime();
-      localStorage.setItem(`id-user-map-${search}`, JSON.stringify(res));
-    }
-    return res;
-  };
-
-  if (localStorage.getItem(`id-user-map-${search}`)) {
-    res = JSON.parse(localStorage.getItem(`id-user-map-${search}`) as string);
-    if (res.expire && res.expire < Date.now()) {
-      localStorage.removeItem(`id-user-map-${search}`);
-      res = await fetchFromApi();
-    }
-  } else {
-    res = await fetchFromApi();
-  }
-
-  if (res.error === 429) return res;
-  if (res.error === 451) return res;
-
-  if (res.id) {
-    throw redirect(302, `/user/${res.lastKnownUsername}`);
-  } else {
-    throw redirect(302, "/user/unknown");
-  }
+  throw redirect(300, "/user/" + search);
 };
