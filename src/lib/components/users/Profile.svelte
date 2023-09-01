@@ -71,7 +71,7 @@
 >
   <div class="flex w-full flex-row text-sm">
     <div class="flex w-20 flex-col lg:w-44">
-      <img class="rounded-full" src={baseData.avatar} alt="" />
+      <img class="rounded-full" height="256" width="256" src={baseData.avatar} alt="" />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}
           {#if userData.Economy}
