@@ -7,7 +7,14 @@
   import type { UserApiResponsexd } from "$lib/types/User";
   import { fly } from "svelte/transition";
 
-  export let userData: UserApiResponsexd;
+  export let baseData: {
+    id: string;
+    blacklisted: boolean;
+    lastKnownUsername: string;
+    lastCommand: Date;
+    avatar: string;
+  } | null;
+  export let userData: UserApiResponsexd | Promise<UserApiResponsexd>;
   export let items: Item[];
 
   const premiumMap = new Map([
@@ -57,132 +64,142 @@
 >
   <div class="flex w-full flex-row text-sm">
     <div class="flex w-20 flex-col lg:w-44">
-      <img class="rounded-full" src={userData.avatar} alt="" />
+      <img class="rounded-full" src={baseData.avatar} alt="" />
       <div class="mt-2 flex flex-row flex-wrap">
-        {#if userData.Economy}
-          {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
-            {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-              <img
-                loading="lazy"
-                class="h-5 lg:h-7"
-                src={items.find((i) => i.id === gem)?.emoji}
-                alt=""
-              />
-            {/if}
-          {/each}
-        {/if}
+        {#await userData then userData}
+          {#if userData.Economy}
+            {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
+              {#if userData.Economy.Inventory.find((i) => i.item === gem)}
+                <img
+                  loading="lazy"
+                  class="h-5 lg:h-7"
+                  src={items.find((i) => i.id === gem)?.emoji}
+                  alt=""
+                />
+              {/if}
+            {/each}
+          {/if}
+        {/await}
       </div>
     </div>
     <div class="ml-2 flex flex-col lg:text-lg">
       <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
-        <h1
-          style="color: {premiumMap.get(userData?.Premium?.level || 0)?.colour || ''}; !important"
-          class="line-clamp-1"
-        >
-          {userData.lastKnownUsername}
-        </h1>
-      </div>
-      {#if userData.Economy}
-        <p class="mb-2 text-xs text-slate-300 lg:text-base">
-          {#if userData.Economy.prestige}
-            prestige {userData.Economy.prestige.toLocaleString()}
-          {:else}
-            season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
-          {/if}
-        </p>
-        <p class="flex items-center text-slate-200">
-          <img
-            loading="lazy"
-            src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
-            alt=""
-            class="mr-1 inline h-4 lg:h-6"
-          />
-          <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
-        </p>
-        <p class="flex items-center text-slate-200">
-          <img
-            loading="lazy"
-            src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
-            alt=""
-            class="mr-1 inline h-4 lg:h-6"
-          />
-          <span class="font-semibold"
-            >${userData.Economy.bank.toLocaleString()} / ${(
-              userData.Economy.bankStorage +
-              userData.Economy.xp * 1000 +
-              15000
-            ).toLocaleString()}</span
+        {#await userData}
+          <h1 class="line-clamp-1">{baseData.lastKnownUsername}</h1>
+        {:then userData}
+          <h1
+            style="color: {premiumMap.get(userData?.Premium?.level || 0)?.colour || ''}; !important"
+            class="line-clamp-1"
           >
-        </p>
-        <p class="mt-2 flex items-center text-slate-200">
-          <img
-            loading="lazy"
-            src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
-            alt=""
-            class="mr-1 inline h-4 lg:h-6"
-          />
-          <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
-        </p>
-      {/if}
+            {baseData.lastKnownUsername}
+          </h1>
+        {/await}
+      </div>
+      {#await userData then userData}
+        {#if userData.Economy}
+          <p class="mb-2 text-xs text-slate-300 lg:text-base">
+            {#if userData.Economy.prestige}
+              prestige {userData.Economy.prestige.toLocaleString()}
+            {:else}
+              season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
+            {/if}
+          </p>
+          <p class="flex items-center text-slate-200">
+            <img
+              loading="lazy"
+              src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
+              alt=""
+              class="mr-1 inline h-4 lg:h-6"
+            />
+            <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
+          </p>
+          <p class="flex items-center text-slate-200">
+            <img
+              loading="lazy"
+              src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
+              alt=""
+              class="mr-1 inline h-4 lg:h-6"
+            />
+            <span class="font-semibold"
+              >${userData.Economy.bank.toLocaleString()} / ${(
+                userData.Economy.bankStorage +
+                userData.Economy.xp * 1000 +
+                15000
+              ).toLocaleString()}</span
+            >
+          </p>
+          <p class="mt-2 flex items-center text-slate-200">
+            <img
+              loading="lazy"
+              src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
+              alt=""
+              class="mr-1 inline h-4 lg:h-6"
+            />
+            <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
+          </p>
+        {/if}
+      {/await}
     </div>
 
-    {#if userData.Tags.length > 0 || userData.Premium?.level > 0}
-      <div class="grow" />
+    {#await userData then userData}
+      {#if userData.Tags.length > 0 || userData.Premium?.level > 0}
+        <div class="grow" />
 
-      <div class="flex h-fit flex-col rounded bg-slate-950 bg-opacity-20 p-2 pb-0">
-        {#each userData.Tags as tag}
-          {#if badges.has(tag.tagId)}
-            <a
-              href="/badges#{badges.get(tag.tagId)?.name}"
-              class="h-full w-full"
+        <div class="flex h-fit flex-col rounded bg-slate-950 bg-opacity-20 p-2 pb-0">
+          {#each userData.Tags as tag}
+            {#if badges.has(tag.tagId)}
+              <a
+                href="/badges#{badges.get(tag.tagId)?.name}"
+                class="h-full w-full"
+                use:tooltip={{
+                  content: badges.get(tag.tagId).name,
+                  theme: "tooltip",
+                  placement: "left",
+                }}
+              >
+                <img class="mb-2 h-4 lg:h-6" src={badges.get(tag.tagId)?.icon} alt="" />
+              </a>
+            {:else}
+              {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
+                .then((r) => r.text())
+                .then((r) => JSON.parse(r)) then tagData}
+                {#if tagData[tag.tagId] && tag.selected}
+                  <div
+                    use:tooltip={{
+                      content: tagData[tag.tagId].name,
+                      theme: "tooltip",
+                      placement: "left",
+                    }}
+                  >
+                    <img
+                      loading="lazy"
+                      class="mb-2 h-4 lg:h-6"
+                      src={parseEmoji(tagData[tag.tagId].emoji)}
+                      alt=""
+                    />
+                  </div>
+                {/if}
+              {/await}
+            {/if}
+          {/each}
+          {#if premiumMap.get(userData.Premium?.level || 0)}
+            <div
               use:tooltip={{
-                content: badges.get(tag.tagId).name,
+                content: `${premiumMap.get(userData.Premium?.level || 0)?.text} membership`,
                 theme: "tooltip",
                 placement: "left",
               }}
             >
-              <img class="mb-2 h-4 lg:h-6" src={badges.get(tag.tagId)?.icon} alt="" />
-            </a>
-          {:else}
-            {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
-              .then((r) => r.text())
-              .then((r) => JSON.parse(r)) then tagData}
-              {#if tagData[tag.tagId] && tag.selected}
-                <div
-                  use:tooltip={{
-                    content: tagData[tag.tagId].name,
-                    theme: "tooltip",
-                    placement: "left",
-                  }}
-                >
-                  <img
-                    loading="lazy"
-                    class="mb-2 h-4 lg:h-6"
-                    src={parseEmoji(tagData[tag.tagId].emoji)}
-                    alt=""
-                  />
-                </div>
-              {/if}
-            {/await}
+              <img
+                loading="lazy"
+                class="mb-2 h-4 lg:h-6"
+                src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
+                alt=""
+              />
+            </div>
           {/if}
-        {/each}
-        {#if premiumMap.get(userData.Premium?.level || 0)}
-          <div
-            use:tooltip={{
-              content: `${premiumMap.get(userData.Premium?.level || 0)?.text} membership`,
-              theme: "tooltip",
-              placement: "left",
-            }}
-          >
-            <img
-              loading="lazy"
-              class="mb-2 h-4 lg:h-6"
-              src={premiumMap.get(userData.Premium?.level || 0)?.emoji}
-              alt=""
-            />
-          </div>
-        {/if}
-      </div>
-    {/if}
+        </div>
+      {/if}
+    {/await}
   </div>
 </div>

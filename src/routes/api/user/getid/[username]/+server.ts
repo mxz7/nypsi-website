@@ -1,7 +1,11 @@
 import prisma from "$lib/server/database.js";
-import { json } from "@sveltejs/kit";
+import { error, json } from "@sveltejs/kit";
 
-export const GET = async ({ params }) => {
+export const GET = async ({ params, setHeaders }) => {
+  setHeaders({
+    "cache-control": "s-maxage=3600",
+  });
+
   const query = await prisma.user.findFirst({
     where: {
       lastKnownUsername: params.username,
@@ -17,10 +21,9 @@ export const GET = async ({ params }) => {
     },
   });
 
-  if (!query) return json({ status: 404, error: 404, message: "not found" });
+  if (!query) throw error(404, { message: "unknown user" });
 
-  if (!query?.Preferences?.leaderboards)
-    return json({ status: 451, error: 451, message: "private profile" });
+  if (!query?.Preferences?.leaderboards) throw error(451, { message: "private profile" });
 
-  return json(query);
+  return json({ id: query.id, username: query.lastKnownUsername });
 };
