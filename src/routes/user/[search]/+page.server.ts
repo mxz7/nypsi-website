@@ -20,15 +20,15 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
 
     const res = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
 
-    if (!res.exists) throw redirect(303, "/user/unknown");
-    if (res.private) throw redirect(303, "/user/private");
+    if (!res.exists) throw redirect(302, "/user/unknown");
+    if (res.private) throw redirect(302, "/user/private");
   } else {
     const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
 
     if (res.id) {
       userId = res.id;
     } else {
-      throw redirect(303, "/user/unknown");
+      throw redirect(302, "/user/unknown");
     }
   }
 
