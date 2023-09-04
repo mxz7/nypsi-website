@@ -176,9 +176,7 @@
 
           <h3 class="text-2xl font-bold text-white">mention history</h3>
         </div>
-        <p class="text-slate-400">
-          keep track of your pings, check who ghost pinged you, can store up to 15 mentions
-        </p>
+        <p class="text-slate-400">keep track of your pings, see who ghost pinged you 🙄</p>
       </div>
 
       <div class="rounded-lg bg-slate-800 p-6 shadow-md">
@@ -188,7 +186,10 @@
           <h3 class="text-2xl font-bold text-white">wordle</h3>
         </div>
         <p class="text-slate-400">
-          play the popular wordle game on discord. guess the word and test your smarts.
+          play the popular wordle game on discord. guess the word and test your smarts. <a
+            class="text-sky-300 underline"
+            href="/leaderboard/wordle">wordle leaderboard</a
+          >
         </p>
       </div>
 
