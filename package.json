@@ -13,7 +13,7 @@
     "postinstall": "prisma generate"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "2.1.0",
+    "@sveltejs/adapter-vercel": "^3.0.3",
     "@sveltejs/kit": "1.24.0",
     "@types/gtag.js": "0.0.13",
     "@types/ms": "0.7.31",
