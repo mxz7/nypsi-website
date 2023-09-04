@@ -1,4 +1,4 @@
 User-Agent: *
 Disallow:
 
-Sitemap: https://nypsi.xyz/sitemap
+Sitemap: https://nypsi.xyz/sitemap.xml
