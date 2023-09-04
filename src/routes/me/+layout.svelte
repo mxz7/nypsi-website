@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips.js";
   import Profile from "$lib/components/users/Profile.svelte";
@@ -11,11 +10,7 @@
   export let data;
 
   onMount(() => {
-    if (data.baseData?.Premium?.level > 0) {
-      graphsAllowed = true;
-
-      if ($page.url.pathname.endsWith("/me")) goto("/me/graphs");
-    } else if ($page.url.pathname.endsWith("/me")) goto("/me/stats");
+    if (data.baseData?.Premium?.level > 0) graphsAllowed = true;
   });
 </script>
 
