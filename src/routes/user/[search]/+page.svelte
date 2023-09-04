@@ -14,10 +14,6 @@
   <meta name="og:title" content="{data.baseUserData.lastKnownUsername}'s nypsi profile" />
 
   <meta name="description" content="view {data.baseUserData.lastKnownUsername}'s nypsi profile" />
-  <meta
-    name="og:description"
-    content="view {data.baseUserData.lastKnownUsername}'s nypsi profile"
-  />
 
   <meta name="og:site_name" content="nypsi" />
   <meta name="og:image" content={data.baseUserData.avatar} />
