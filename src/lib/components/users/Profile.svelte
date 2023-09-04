@@ -91,7 +91,7 @@
                   loading="lazy"
                   class="h-5 lg:h-7"
                   src={items.find((i) => i.id === gem)?.emoji}
-                  alt=""
+                  alt="{gem} emoji"
                 />
               {/if}
             {/each}
@@ -124,7 +124,7 @@
             <img
               loading="lazy"
               src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
-              alt=""
+              alt="money emoji"
               class="mr-1 inline h-4 lg:h-6"
             />
             <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
@@ -136,7 +136,7 @@
             <img
               loading="lazy"
               src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
-              alt=""
+              alt="credit card (bank) emoji"
               class="mr-1 inline h-4 lg:h-6"
             />
             <span class="font-semibold"
@@ -154,7 +154,7 @@
             <img
               loading="lazy"
               src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
-              alt=""
+              alt="globe (net worth) emoji"
               class="mr-1 inline h-4 lg:h-6"
             />
             <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
@@ -178,7 +178,11 @@
                 placement: "left",
               }}
             >
-              <img class="mb-2 h-4 lg:h-6" src={badges.get(tag.tagId)?.icon} alt="" />
+              <img
+                class="mb-2 h-4 lg:h-6"
+                src={badges.get(tag.tagId)?.icon}
+                alt="{tag.tagId} emoji"
+              />
             </a>
           {:else}
             {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
@@ -197,7 +201,7 @@
                     loading="lazy"
                     class="mb-2 h-4 lg:h-6"
                     src={parseEmoji(tagData[tag.tagId].emoji)}
-                    alt=""
+                    alt="{tag.tagId} emoji"
                   />
                 </div>
               {/if}
@@ -219,7 +223,7 @@
             loading="lazy"
             class="mb-2 h-4 lg:h-6"
             src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
-            alt=""
+            alt="premium level {baseData.Premium?.level} emoji"
           />
         </div>
       {/if}
