@@ -283,8 +283,8 @@
           <h3 class="text-2xl font-bold text-white">moderation</h3>
         </div>
         <p class="text-slate-400">
-          fully fledged & capable moderation system. case tracking, chat filter, mass kick (owner
-          only) etc.
+          very capable moderation system, mutes, bans, case management, alt tracking and auto
+          punishments ($alts), chat automod
         </p>
       </div>
     </div>
