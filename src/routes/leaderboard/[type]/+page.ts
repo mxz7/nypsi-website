@@ -1,5 +1,6 @@
 import { getCommandsData } from "$lib/functions/getCommandsData.js";
 import getItems from "$lib/functions/getItems.js";
+import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
 export const load = async ({ fetch, params }) => {
   const item = (await getItems()).find((i) => i.id === params.type);
@@ -56,7 +57,7 @@ export const load = async ({ fetch, params }) => {
     title,
     item,
     suffix,
-    data: await getData(),
+    data: (await getData()) as LeaderboardData,
     streamed: {
       tags: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
         .then((r) => r.text())
