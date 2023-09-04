@@ -43,26 +43,26 @@ export async function GET() {
     <url>
       <loc>${website}</loc>
       <changefreq>daily</changefreq>
-      <priority>0.7</priority>
+      <priority>1.0</priority>
     </url>
 
     <url>
       <loc>${website}/status</loc>
       <changefreq>weekly</changefreq>
-      <priority>0.6</priority>
+      <priority>0.9</priority>
     </url>
 
     <url>
       <loc>${website}/leaderboard</loc>
       <changefreq>weekly</changefreq>
-      <priority>0.6</priority>
+      <priority>0.9</priority>
     </url>
 
     ${leaderboards.map(
       (i) => `<url>
         <loc>${website}/leaderboard/${i}</loc>
         <changefreq>daily</changefreq>
-        <priority>0.5</priority>
+        <priority>0.7</priority>
       </url>`,
     )}
 
@@ -78,7 +78,7 @@ export async function GET() {
       (i) => `<url>
         <loc>${website}/guild/${encodeURIComponent(i)}</loc>
         <changefreq>daily</changefreq>
-        <priority>0.5</priority>
+        <priority>0.6</priority>
       </url>`,
     )}
   </urlset>`);
