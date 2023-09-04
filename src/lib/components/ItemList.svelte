@@ -22,7 +22,7 @@
   });
 
   onMount(async () => {
-    if (!items)
+    if (!items || items.length === 0)
       items = (await getItems()) as {
         id: string;
         name: string;
