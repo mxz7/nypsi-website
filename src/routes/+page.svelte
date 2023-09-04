@@ -88,12 +88,12 @@
   <div
     class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center md:hidden"
   >
-    <h1 class="text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-    <p class="mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
+    <h1 class="fly-up-mobile text-8xl font-bold text-white md:text-9xl">nypsi</h1>
+    <p class="fly-up-mobile2 mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
 
     <!-- <div class="m-auto mt-3 h-1 w-full rounded-full bg-accent" /> -->
 
-    <div class="flex justify-center">
+    <div class="fly-up-mobile3 flex justify-center">
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
         target="_blank"
@@ -345,6 +345,33 @@
 
   .fly-right3 {
     animation: fly-right2 750ms ease 600ms normal forwards;
+    opacity: 0%;
+  }
+
+  /* mobile animations */
+
+  @keyframes fly-up-mobile {
+    from {
+      transform: translateY(50px);
+      opacity: 0%;
+    }
+    to {
+      transform: translateY(0px);
+      opacity: 100%;
+    }
+  }
+
+  .fly-up-mobile {
+    animation: fly-up-mobile 500ms ease-out 0ms;
+  }
+
+  .fly-up-mobile2 {
+    animation: fly-up-mobile 400ms ease-out 300ms forwards;
+    opacity: 0%;
+  }
+
+  .fly-up-mobile3 {
+    animation: fly-up-mobile 400ms ease-out 400ms forwards;
     opacity: 0%;
   }
 </style>
