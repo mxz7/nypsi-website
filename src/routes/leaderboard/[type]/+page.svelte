@@ -13,14 +13,14 @@
     property="description"
     name="description"
     content="leaderboard for {data.item?.name || $page.params.type}. {data.data
-      ? `#1: ${data.data[0].user.username}`
+      ? `#1: ${data.data[0]?.user.username}`
       : ''}"
   />
   <meta
     property="og:description"
     name="og:description"
     content="leaderboard for {data.item?.name || $page.params.type}. {data.data
-      ? `#1: ${data.data[0].user.username}`
+      ? `#1: ${data.data[0]?.user.username}`
       : ''}"
   />
 
