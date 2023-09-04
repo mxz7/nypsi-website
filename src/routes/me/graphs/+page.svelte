@@ -147,7 +147,7 @@
 </script>
 
 <svelte:head>
-  <title>personal graphs | nypsi</title>
+  <title>personal graphs / nypsi</title>
 </svelte:head>
 
 <div class="flex w-full justify-center">

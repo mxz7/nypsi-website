@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-  <title>game: {$page.params.id} | nypsi</title>
+  <title>game: {$page.params.id} / nypsi</title>
 </svelte:head>
 
 <div class="mt-8 flex flex-col justify-center">

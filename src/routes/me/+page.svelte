@@ -1,3 +1,3 @@
 <svelte:head>
-  <title>dashboard | nypsi</title>
+  <title>dashboard / nypsi</title>
 </svelte:head>

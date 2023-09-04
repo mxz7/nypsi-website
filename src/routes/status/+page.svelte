@@ -69,7 +69,7 @@
 </script>
 
 <svelte:head>
-  <title>nypsi status</title>
+  <title>status / nypsi</title>
 
   <meta property="description" name="description" content={descriptionText} />
 

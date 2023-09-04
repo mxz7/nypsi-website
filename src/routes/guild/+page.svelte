@@ -1,3 +1,3 @@
 <svelte:head>
-  <title>guilds | nypsi</title>
+  <title>guilds / nypsi</title>
 </svelte:head>

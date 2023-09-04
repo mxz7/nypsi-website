@@ -14,13 +14,13 @@
 </script>
 
 <svelte:head>
-  <title>stats | nypsi</title>
+  <title>stats / nypsi</title>
 </svelte:head>
 
-<div class="w-full flex justify-center">
-  <div class="w-full sm:w-fit flex flex-col gap-24 px-6 sm:px-0">
+<div class="flex w-full justify-center">
+  <div class="flex w-full flex-col gap-24 px-6 sm:w-fit sm:px-0">
     {#if loading}
-      <div class="relative w-full mt-2">
+      <div class="relative mt-2 w-full">
         <Loading
           fadeOutSettings={{ delay: 0, duration: 150 }}
           fadeInSettings={{ delay: 50, duration: 100 }}
@@ -28,14 +28,14 @@
       </div>
     {:else}
       {#await data.streamed.gambleStats then gambleStats}
-        <div class="w-full grid gap-4 grid-cols-1 md:grid-cols-3">
+        <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
           {#each gambleStats as stat, i}
             <a
               href="/game?user={data.user.authenticated ? data.user.id : ''}&game={stat.game}"
-              class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 h-fit"
+              class="h-fit rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
               in:fly|global={{ y: 50, duration: 500, delay: 100 * i }}
             >
-              <h1 class="text-xl font-bold text-center">{stat.game}</h1>
+              <h1 class="text-center text-xl font-bold">{stat.game}</h1>
 
               <p class="text-center">
                 {stat.wins}/{stat._count._all} ({((stat.wins / stat._count._all) * 100).toFixed(
@@ -43,30 +43,30 @@
                 )}%)
               </p>
               <div
-                class="gamble-template grid grid-cols-2 mt-2 w-full align-middle [&>p]:text-center gap-y-3"
+                class="gamble-template mt-2 grid w-full grid-cols-2 gap-y-3 align-middle [&>p]:text-center"
               >
                 <p>
-                  earned:<br /><span class="text-accent font-semibold"
+                  earned:<br /><span class="font-semibold text-accent"
                     >${stat._sum.earned.toLocaleString()}</span
                   >
                 </p>
                 <p>
-                  spent:<br /><span class="text-accent font-semibold"
+                  spent:<br /><span class="font-semibold text-accent"
                     >${stat._sum.bet.toLocaleString()}</span
                   >
                 </p>
                 <p>
-                  profit: <span class="text-accent font-semibold"
+                  profit: <span class="font-semibold text-accent"
                     >${(stat._sum.earned - stat._sum.bet).toLocaleString()}</span
                   >
                 </p>
                 <p>
-                  xp: <span class="text-accent font-semibold"
+                  xp: <span class="font-semibold text-accent"
                     >{stat._sum.xpEarned.toLocaleString()}</span
                   >
                 </p>
                 <p class="gamble-bottom">
-                  avg bet: <span class="text-accent font-semibold"
+                  avg bet: <span class="font-semibold text-accent"
                     >${Math.floor(stat._avg.bet).toLocaleString()}</span
                   >
                 </p>
@@ -77,14 +77,14 @@
       {/await}
 
       {#await data.streamed.scratchStats then scratchStats}
-        <div class="w-full grid gap-4 grid-cols-1 md:grid-cols-3">
+        <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
           {#each scratchStats as stat, i}
             <a
               href="/game?user={data.user.authenticated ? data.user.id : ''}&game={stat.game}"
-              class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 h-fit"
+              class="h-fit rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
               in:fly|global={{ y: 50, duration: 500, delay: 100 * i }}
             >
-              <h1 class="text-xl font-bold text-center">{stat.game.replaceAll("_", " ")}</h1>
+              <h1 class="text-center text-xl font-bold">{stat.game.replaceAll("_", " ")}</h1>
 
               <p class="text-center">
                 {stat._sum.win}/{stat._count._all} ({(
@@ -97,7 +97,7 @@
         </div>
       {/await}
 
-      <div class="grid gap-4 grid-cols-1 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         {#await data.streamed.itemStats then itemData}
           <div in:fly={{ y: 25, duration: 500 }}>
             <Stats

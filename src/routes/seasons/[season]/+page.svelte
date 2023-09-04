@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-  <title>season {$page.params.season} | nypsi</title>
+  <title>season {$page.params.season} / nypsi</title>
 </svelte:head>
 
 <div class="w-full">
