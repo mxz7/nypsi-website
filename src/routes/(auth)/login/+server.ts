@@ -3,12 +3,12 @@ import {
   DISCORD_OAUTH_REDIRECT,
   DISCORD_OAUTH_SECRET,
 } from "$env/static/private";
-import { PUBLIC_OAUTH_URL } from "$env/static/public";
+import { PUBLIC_OAUTH_URL, PUBLIC_URL } from "$env/static/public";
 import { error, redirect } from "@sveltejs/kit";
 
 export const GET = async ({ url, fetch, cookies }) => {
   const code = url.searchParams.get("code");
-  const redirectTo = url.searchParams.get("redirect");
+  const redirectTo = url.searchParams.get("next");
 
   if (code) {
     const res = await fetch("https://discord.com/api/oauth2/token", {
@@ -39,14 +39,16 @@ export const GET = async ({ url, fetch, cookies }) => {
     });
 
     if (cookies.get("redirect_after_auth")) {
-      const redirectUrl = new URL(cookies.get("redirect_after_auth"));
+      const redirectUrl = cookies.get("redirect_after_auth");
       cookies.delete("redirect_after_auth");
 
-      redirectUrl.searchParams.set("loggedin", "true");
+      const url = new URL(`${PUBLIC_URL}${redirectUrl}`);
 
-      throw redirect(302, redirectUrl.toString());
+      url.searchParams.set("loggedin", "1");
+
+      throw redirect(302, `${redirectUrl}?loggedin=1`);
     }
-    throw redirect(302, "/?loggedin=true");
+    throw redirect(302, "/?loggedin=1");
   }
 
   if (redirectTo) cookies.set("redirect_after_auth", redirectTo, { maxAge: 60 });

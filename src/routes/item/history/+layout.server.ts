@@ -4,7 +4,7 @@ export const load = async ({ parent, url, fetch }) => {
   const data = await parent();
 
   if (!data.user.authenticated)
-    throw redirect(302, "/login?redirect=" + encodeURIComponent(url.toString()));
+    throw redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
 
   const res = await fetch("/api/user/ispremium/" + data.user.id).then((r) => r.json());
 
