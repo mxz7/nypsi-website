@@ -118,7 +118,7 @@
     <meta name="og:title" content={data.guild.guild.guildName} />
     <meta name="og:site_name" content="nypsi" />
     <meta
-      name="og:description"
+      name="description"
       content="level {data.guild.guild.level} guild created by {data.guild.guild.owner.user
         .lastKnownUsername} on {new Date(
         data.guild.guild.createdAt,
