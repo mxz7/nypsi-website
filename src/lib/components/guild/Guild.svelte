@@ -6,6 +6,9 @@
   export let guildData: GuildSuccess;
 
   const { guild } = guildData;
+
+  const handleFallbackImage = (el) =>
+    (el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png");
 </script>
 
 <div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto sm:w-[50vw]">
@@ -18,7 +21,12 @@
     <h2 class="mt-2 flex w-full flex-row items-center justify-center gap-2 md:text-sm">
       owned by
       <a class="flex gap-1 text-accent" href="/user/{guild.owner.user.lastKnownUsername}"
-        ><img class="m-0 h-5 rounded-full" alt="owner pfp" src={guild.owner.user.avatar} />
+        ><img
+          class="m-0 h-5 rounded-full"
+          alt="owner pfp"
+          src={guild.owner.user.avatar}
+          on:error={handleFallbackImage}
+        />
         {guild.owner.user.lastKnownUsername}</a
       >
     </h2>
@@ -63,6 +71,7 @@
             class="h-10 w-10 rounded-full"
             src={member.economy.user.avatar}
             alt="{member.economy.user.lastKnownUsername}'s avatar"
+            on:error={handleFallbackImage}
           />
           <a
             class="line-clamp-1 w-fit break-all text-lg"
