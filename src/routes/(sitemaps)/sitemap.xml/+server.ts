@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 const website = "https://nypsi.xyz";
 
 export async function GET() {
-  const leaderboards = ["balance", "networth", ...(await getItems()).map((i) => i.id)];
+  const leaderboards = ["balance", "networth", 'wordle', ...(await getItems()).map((i) => i.id)];
   const users = await prisma.economy
     .findMany({
       where: {
