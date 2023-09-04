@@ -6,8 +6,7 @@ import { redirect } from "@sveltejs/kit";
 export async function load({ parent, url, fetch }) {
   const [{ user }, items] = await Promise.all([parent(), getItems()]);
 
-  if (!user.authenticated)
-    throw redirect(302, "/login?redirect=" + encodeURIComponent(url.toString()));
+  if (!user.authenticated) throw redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
 
   const baseData = await prisma.user.findUnique({
     where: {

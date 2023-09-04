@@ -102,7 +102,7 @@
         </a>
       {:else}
         <a
-          href="/login?redirect={encodeURIComponent($page.url.toString())}"
+          href="/login?next={encodeURIComponent($page.url.pathname)}"
           class="rounded bg-slate-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-slate-200"
           >log in</a
         >
@@ -120,7 +120,7 @@
         <a href="/leaderboard">leaderboards</a>
         <a href="/status">status</a>
         {#if !user || !user.authenticated}
-          <a href="/login?redirect={encodeURIComponent($page.url.toString())}">log in</a>
+          <a href="/login?next={encodeURIComponent($page.url.pathname)}">log in</a>
         {/if}
         <a href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
         <a href="https://docs.nypsi.xyz" target="_blank">docs</a>
