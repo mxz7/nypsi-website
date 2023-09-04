@@ -5,12 +5,12 @@
 
   export let data;
 
-  $: title = `${data.baseUserData.lastKnownUsername} | nypsi`;
+  $: title = `${data.baseUserData.lastKnownUsername} / nypsi`;
   $userSearchTerm = data.baseUserData.lastKnownUsername;
 </script>
 
 <svelte:head>
-  <title>{title || `${data.baseUserData.lastKnownUsername} | nypsi`}</title>
+  <title>{title || `${data.baseUserData.lastKnownUsername} / nypsi`}</title>
   <meta name="og:title" content={title} />
 
   <meta name="description" content="view {data.baseUserData.lastKnownUsername}'s nypsi profile" />

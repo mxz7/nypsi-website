@@ -43,18 +43,18 @@
 </script>
 
 <svelte:head>
-  <title>games | nypsi</title>
+  <title>games / nypsi</title>
 </svelte:head>
 
-<div class="w-full flex justify-center mt-12">
-  <div class="flex flex-col w-full md:w-auto">
+<div class="mt-12 flex w-full justify-center">
+  <div class="flex w-full flex-col md:w-auto">
     {#if data.resultText}
-      <h2 class="text-center mb-4 font-semibold text-3xl">{@html data.resultText}</h2>
+      <h2 class="mb-4 text-center text-3xl font-semibold">{@html data.resultText}</h2>
     {:else if data.loadedDate}
-      <h2 class="text-center mb-4 font-semibold text-3xl">recent games</h2>
+      <h2 class="mb-4 text-center text-3xl font-semibold">recent games</h2>
     {/if}
     {#if games.length === 0}
-      <div class="relative w-full mt-6">
+      <div class="relative mt-6 w-full">
         <Loading
           fadeOutSettings={{ delay: 0, duration: 150 }}
           fadeInSettings={{ delay: 50, duration: 100 }}
@@ -62,13 +62,13 @@
       </div>
     {:else}
       <div
-        class="w-full px-6 sm:px-0 grid gap-4 grid-cols-1 md:grid-cols-3 md:w-fit lg:grid-cols-4"
+        class="grid w-full grid-cols-1 gap-4 px-6 sm:px-0 md:w-fit md:grid-cols-3 lg:grid-cols-4"
       >
         {#each games as game, i}
           <a
             href="/game/{game.id.toString(36)}"
             target="_blank"
-            class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 flex flex-col justify-center {game.win ===
+            class="flex flex-col justify-center rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 {game.win ===
             1
               ? 'text-green-500'
               : game.win === 2
@@ -76,10 +76,10 @@
               : 'text-red-500'}"
             in:fly|global={{ y: 50, duration: 500, delay: (i % 50) * 50 }}
           >
-            <h1 class="text-xl font-semibold text-center">{game.game.replaceAll("_", " ")}</h1>
+            <h1 class="text-center text-xl font-semibold">{game.game.replaceAll("_", " ")}</h1>
 
             {#if !game.game.includes("scratch")}
-              <p class=" mt-1 mb-2 text-center text-sm font-semibold lg:text-base">
+              <p class=" mb-2 mt-1 text-center text-sm font-semibold lg:text-base">
                 {game.win == 1
                   ? `+$${game.earned.toLocaleString()}`
                   : game.win == 0
@@ -88,7 +88,7 @@
               </p>
             {/if}
 
-            <p class="text-center text-slate-500 text-xs">
+            <p class="text-center text-xs text-slate-500">
               {game.id.toString(36)} | {#if new Date().getDate() !== new Date(game.date).getDate()}
                 {new Date(game.date).toLocaleDateString()}
               {:else}
@@ -99,7 +99,7 @@
         {/each}
       </div>
       <InfiniteLoading on:infinite={infiniteHandler}>
-        <div class="relative w-full mt-8" slot="spinner">
+        <div class="relative mt-8 w-full" slot="spinner">
           <Loading />
         </div></InfiniteLoading
       >

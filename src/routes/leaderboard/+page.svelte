@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-  <title>leaderboards | nypsi</title>
+  <title>leaderboards / nypsi</title>
 </svelte:head>
 
 <header class="mt-5 text-center">

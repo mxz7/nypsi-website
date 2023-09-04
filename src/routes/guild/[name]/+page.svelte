@@ -8,13 +8,13 @@
   import { fly } from "svelte/transition";
 
   export let data;
-  let title = `${$page.params.name} | nypsi`;
+  let title = `${$page.params.name} / nypsi`;
 
   async function updateTags(userData: Promise<ApiGuildResponse> | ApiGuildResponse) {
     const data = await Promise.resolve(userData);
     if (!data.success) return;
 
-    title = `${data.guild.guildName} | nypsi`;
+    title = `${data.guild.guildName} / nypsi`;
     $userSearchTerm = data.guild.guildName;
   }
 

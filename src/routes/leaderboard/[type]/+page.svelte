@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-  <title>{data.item?.name || $page.params.type} leaderboard | nypsi</title>
+  <title>{data.item?.name || $page.params.type} leaderboard / nypsi</title>
 
   <meta
     property="description"

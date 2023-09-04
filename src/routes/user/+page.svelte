@@ -1,3 +1,3 @@
 <svelte:head>
-  <title>users | nypsi</title>
+  <title>users / nypsi</title>
 </svelte:head>

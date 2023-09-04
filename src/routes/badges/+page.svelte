@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>badges | nypsi</title>
+  <title>badges / nypsi</title>
 </svelte:head>
 
 <h1 class="mt-4 text-center text-4xl font-bold text-white">badges</h1>

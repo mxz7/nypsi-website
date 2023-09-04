@@ -74,7 +74,7 @@
 </script>
 
 <svelte:head>
-  <title>{data.item?.name} history | nypsi</title>
+  <title>{data.item?.name} history / nypsi</title>
 </svelte:head>
 
 <header class="mb-10 mt-5 text-center sm:mb-3 sm:w-full">
@@ -99,8 +99,8 @@
         <h1>not enough data</h1>
       </div>
     {:else if typeof graphData !== "string"}
-      <div class="flex justify-center w-full h-full">
-        <div class="sm:w-[70vw] h-[40vh] sm:h-[65vh] w-full px-4 sm:px-0">
+      <div class="flex h-full w-full justify-center">
+        <div class="h-[40vh] w-full px-4 sm:h-[65vh] sm:w-[70vw] sm:px-0">
           <Chart chartData={graphData} {chartOptions} />
         </div>
       </div>
