@@ -13,14 +13,18 @@
     property="description"
     name="description"
     content="leaderboard for {data.item?.name || $page.params.type}. {data.data
-      ? `#1: ${data.data[0]?.user.username}`
+      ? data.data
+          .slice(0, 3)
+          .map((value, index) => `#${['🥇', '🥈', '🥉'][index] || index}: ${value.user.username}. `)
       : ''}"
   />
   <meta
     property="og:description"
     name="og:description"
     content="leaderboard for {data.item?.name || $page.params.type}. {data.data
-      ? `#1: ${data.data[0]?.user.username}`
+      ? data.data
+          .slice(0, 3)
+          .map((value, index) => `#${['🥇', '🥈', '🥉'][index] || index}: ${value.user.username}. `)
       : ''}"
   />
 
