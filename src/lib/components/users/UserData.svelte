@@ -57,12 +57,12 @@
 
 <div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]">
   {#key baseData}
-    <div in:fly={{ delay: 250, duration: 500, y: 50 }}>
+    <div in:fly={{ delay: 250, duration: 500, y: 30 }}>
       <Profile {baseData} {userData} {items} />
     </div>
   {/key}
 
-  <div in:fly={{ delay: 400, duration: 500, y: 50 }}>
+  <div in:fly={{ delay: 400, duration: 500, y: 30 }}>
     {#if baseData.blacklisted}
       <Punishment>
         {baseData.lastKnownUsername} is blacklisted from nypsi
@@ -82,7 +82,7 @@
 
   {#await userData}
     <div class="relative mt-14">
-      <Loading fadeInSettings={{ delay: 250, duration: 100 }} />
+      <Loading fadeInSettings={{ delay: 350, duration: 100 }} />
     </div>
   {:then userData}
     <div class="mt-4 flex w-full flex-row gap-4" in:fly={{ delay: 500, duration: 500, y: 75 }}>
