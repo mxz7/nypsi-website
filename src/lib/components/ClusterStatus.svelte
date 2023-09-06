@@ -21,7 +21,7 @@
 </script>
 
 <div
-  class="flex h-28 w-28 flex-col items-center justify-center gap-4 rounded-lg shadow"
+  class="flex h-28 w-28 flex-col items-center justify-center gap-4 rounded-lg text-center shadow"
   style="background-color: {colour};"
   use:tooltip={{ content: tooltipText, theme: "tooltip" }}
 >
