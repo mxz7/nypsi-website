@@ -10,6 +10,8 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
   const search = params.search;
   let userId: string;
 
+  if (!search) throw redirect(302, "/user/unknown");
+
   if (search === "me") {
     const parentData = await parent();
 
@@ -20,7 +22,7 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
 
     const res = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
 
-    if (!res.exists) throw redirect(302, "/user/unknown");
+    if (!res.exists) throw redirect(302, `/user/unknown?user=${search}`);
     if (res.private) throw redirect(302, "/user/private");
   } else {
     const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
@@ -28,7 +30,7 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
     if (res.id) {
       userId = res.id;
     } else {
-      throw redirect(302, "/user/unknown");
+      throw redirect(302, `/user/unknown?user=${search}`);
     }
   }
 
