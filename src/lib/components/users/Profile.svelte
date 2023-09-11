@@ -5,6 +5,7 @@
   import parseEmoji from "$lib/functions/parseEmoji";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
+  import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
   export let baseData: {
@@ -64,8 +65,18 @@
     ],
   ]);
 
-  const handleFallbackImage = (el) =>
-    (el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png");
+  let avatar: HTMLImageElement;
+
+  const handleFallbackImage = (el) => {
+    el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
+  };
+
+  onMount(async () => {
+    if (avatar.src.endsWith("avatars/0.png")) return;
+    const res = await fetch(avatar.src);
+
+    if (!res.ok) avatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
+  });
 </script>
 
 <div
@@ -75,6 +86,7 @@
   <div class="flex w-full flex-row text-sm">
     <div class="flex w-20 flex-col lg:w-44">
       <img
+        bind:this={avatar}
         class="rounded-full"
         height="256"
         width="256"
