@@ -1,14 +1,26 @@
 <script lang="ts">
   import type { GuildSuccess } from "$lib/types/Guild";
   import { inPlaceSort } from "fast-sort";
+  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   export let guildData: GuildSuccess;
 
   const { guild } = guildData;
 
+  const avatars: HTMLImageElement[] = [];
+
   const handleFallbackImage = (el) =>
     (el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png");
+
+  onMount(async () => {
+    for (const avatar of avatars) {
+      if (avatar.src.endsWith("avatars/0.png")) continue;
+      const res = await fetch(avatar.src);
+
+      if (!res.ok) avatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
+    }
+  });
 </script>
 
 <div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto sm:w-[50vw]">
@@ -65,9 +77,10 @@
     <div
       class="flex flex-col justify-center gap-2 [&>*:nth-child(1)]:font-semibold [&>*:nth-child(1)]:text-accent"
     >
-      {#each inPlaceSort(guild.members).desc( [(i) => i.contributedXp, (i) => i.contributedMoney], ) as member}
+      {#each inPlaceSort(guild.members).desc( [(i) => i.contributedXp, (i) => i.contributedMoney], ) as member, index}
         <div class="flex items-center gap-3 rounded bg-slate-950 bg-opacity-50 p-3">
           <img
+            bind:this={avatars[index]}
             class="h-10 w-10 rounded-full"
             src={member.economy.user.avatar}
             alt="{member.economy.user.lastKnownUsername}'s avatar"
