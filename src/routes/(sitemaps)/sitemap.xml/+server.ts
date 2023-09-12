@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 const website = "https://nypsi.xyz";
 
 export async function GET() {
-  const leaderboards = ["balance", "networth", 'wordle', ...(await getItems()).map((i) => i.id)];
+  const leaderboards = ["balance", "networth", "wordle", ...(await getItems()).map((i) => i.id)];
   const users = await prisma.economy
     .findMany({
       where: {
@@ -58,29 +58,35 @@ export async function GET() {
       <priority>0.9</priority>
     </url>
 
-    ${leaderboards.map(
-      (i) => `<url>
+    ${leaderboards
+      .map(
+        (i) => `<url>
         <loc>${website}/leaderboard/${i}</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
       </url>`,
-    )}
+      )
+      .join("\n")}
 
-    ${users.map(
-      (i) => `<url>
+    ${users
+      .map(
+        (i) => `<url>
         <loc>${website}/user/${i}</loc>
         <changefreq>daily</changefreq>
         <priority>0.5</priority>
       </url>`,
-    )}
+      )
+      .join("\n")}
 
-    ${guilds.map(
-      (i) => `<url>
+    ${guilds
+      .map(
+        (i) => `<url>
         <loc>${website}/guild/${encodeURIComponent(i)}</loc>
         <changefreq>daily</changefreq>
         <priority>0.6</priority>
       </url>`,
-    )}
+      )
+      .join("\n")}
   </urlset>`);
 
   response.headers.set("cache-control", "s-maxage=3600");
