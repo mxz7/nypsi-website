@@ -123,8 +123,11 @@
       {#await userData then userData}
         {#if userData.Economy}
           <p in:fade|global={{ duration: 400 }} class="mb-2 text-xs text-slate-300 lg:text-base">
-            {#if userData.Economy.prestige}
-              prestige {userData.Economy.prestige.toLocaleString()}
+            {#if userData.Economy.level}
+              {#if userData.Economy.prestige}
+                prestige {userData.Economy.prestige} |
+              {/if}
+              level {userData.Economy.level}
             {:else}
               season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
             {/if}

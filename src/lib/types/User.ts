@@ -76,6 +76,7 @@ export interface UserApiResponsexd extends BaseUserApiResponse {
     banned: number;
     netWorth: number;
     prestige: number;
+    level: number;
     dailyStreak: number;
     xp: number;
   };
