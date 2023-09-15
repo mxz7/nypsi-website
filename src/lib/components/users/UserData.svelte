@@ -69,7 +69,7 @@
       </Punishment>
     {:else}
       {#await userData then userData}
-        {#if userData.Economy.banned > Date.now()}
+        {#if new Date(userData.Economy.banned).getTime() > Date.now()}
           <Punishment>
             {userData.lastKnownUsername} is economy banned until {new Date(
               userData.Economy.banned,
