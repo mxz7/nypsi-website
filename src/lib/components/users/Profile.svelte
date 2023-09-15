@@ -155,12 +155,13 @@
               class="mr-1 inline h-4 lg:h-6"
             />
             <span class="font-semibold"
-              >${userData.Economy.bank.toLocaleString()} / ${(
+              >${userData.Economy.bank.toLocaleString()}
+              <!-- / ${(
                 userData.Economy.bankStorage +
                 userData.Economy.xp * 1000 +
                 15000
-              ).toLocaleString()}</span
-            >
+              ).toLocaleString()} -->
+            </span>
           </p>
           <p
             in:fade|global={{ duration: 400, delay: 600 }}
