@@ -9,12 +9,16 @@ export async function GET({ setHeaders }) {
   const query = await prisma.economy
     .findMany({
       where: {
-        AND: [{ prestige: { gt: 0 } }, { user: { blacklisted: false } }],
+        AND: [
+          { OR: [{ prestige: { gt: 0 } }, { level: { gt: 0 } }] },
+          { user: { blacklisted: false } },
+        ],
       },
       select: {
         userId: true,
         prestige: true,
         banned: true,
+        level: true,
         user: {
           select: {
             Tags: {
@@ -34,9 +38,7 @@ export async function GET({ setHeaders }) {
           },
         },
       },
-      orderBy: {
-        prestige: "desc",
-      },
+      orderBy: [{ prestige: "desc" }, { level: "desc" }],
       take: 25,
     })
     .then((r) => {
@@ -48,7 +50,7 @@ export async function GET({ setHeaders }) {
         count++;
         const user = x.user.lastKnownUsername.split("#")[0];
         return {
-          value: `${x.prestige.toLocaleString()}`,
+          value: `P${x.prestige} L${x.level}`,
           user: {
             username: x.user.Preferences?.leaderboards ? user : "[hidden]",
             id: x.user.Preferences?.leaderboards ? x.userId : undefined,

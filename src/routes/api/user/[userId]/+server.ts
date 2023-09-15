@@ -131,6 +131,7 @@ export const GET = async ({ params, setHeaders }) => {
           money: true,
           netWorth: true,
           prestige: true,
+          level: true,
         },
       },
       Premium: {
@@ -164,6 +165,7 @@ export const GET = async ({ params, setHeaders }) => {
     query.Economy.bank = Number(query.Economy.bank) as unknown as bigint;
     query.Economy.bankStorage = Number(query.Economy.bankStorage) as unknown as bigint;
     query.Economy.netWorth = Number(query.Economy.netWorth) as unknown as bigint;
+    query.Economy.xp = Number(query.Economy.xp) as unknown as bigint;
     query.Economy.Inventory = query.Economy.Inventory.map((i) => {
       return { item: i.item, amount: Number(i.amount) as unknown as bigint };
     });

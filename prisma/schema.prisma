@@ -75,6 +75,7 @@ model DMSettings {
   other          Boolean         @default(true)
   netWorth       Int             @default(0)
   autosellStatus Boolean         @default(true)
+  level          LevelDmSetting  @default(OnlyReward)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -83,6 +84,12 @@ enum WorkerDmSetting {
   Disabled
   All
   OnlyWhenFull
+}
+
+enum LevelDmSetting {
+  Disabled
+  All
+  OnlyReward
 }
 
 model Preferences {
@@ -124,10 +131,12 @@ model Economy {
   bankStorage BigInt  @default(5000)
   netWorth    BigInt  @default(0)
   defaultBet  Int?
-  xp          Int     @default(0)
-  prestige    Int     @default(0)
   padlock     Boolean @default(false)
   passive     Boolean @default(false)
+
+  xp       BigInt @default(0)
+  level    Int    @default(0)
+  prestige Int    @default(0)
 
   lastDaily DateTime @default("1970-01-01T14:21:00+02:00")
   lastVote  DateTime @default("1970-01-01T14:21:00+02:00")
@@ -157,6 +166,17 @@ model Economy {
   EconomyGuildMember EconomyGuildMember?
   OffersReceived     Offer[]             @relation(name: "target")
   OffersGiven        Offer[]             @relation(name: "owner")
+  Upgrades           Upgrades[]
+}
+
+model Upgrades {
+  userId    String
+  upgradeId String
+  amount    Int
+
+  economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@id([userId, upgradeId])
 }
 
 model AuctionWatch {
@@ -261,7 +281,7 @@ model Game {
 model Stats {
   userId String
   itemId String
-  amount Int
+  amount BigInt
 
   economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
@@ -364,6 +384,7 @@ model Guild {
   prefix           String   @default("$")
   createdAt        DateTime @default(now())
   slash_only       Boolean  @default(false)
+  alt_punish       Boolean  @default(false)
   auto_role        String[]
   persist_role     String[]
 
@@ -376,6 +397,7 @@ model Guild {
   Moderation   Moderation?
   RolePersist  RolePersist[]
   ReactionRole ReactionRole[]
+  Alt          Alt[]
 }
 
 model ReactionRole {
@@ -509,6 +531,16 @@ model ModerationCase {
   @@id([caseId, guildId])
 }
 
+model Alt {
+  guildId String
+  mainId  String
+  altId   String
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@id([altId, guildId])
+}
+
 model ChatReaction {
   wordList       String[]
   randomStart    Boolean  @default(false)
@@ -554,11 +586,13 @@ model EconomyGuild {
 }
 
 model EconomyGuildMember {
-  userId           String   @unique
-  guildName        String
-  joinedAt         DateTime
-  contributedMoney BigInt   @default(0)
-  contributedXp    Int      @default(0)
+  userId                    String   @unique
+  guildName                 String
+  joinedAt                  DateTime
+  contributedMoney          BigInt   @default(0)
+  contributedXp             Int      @default(0)
+  contributedMoneyThisLevel BigInt   @default(0)
+  contributedXpThisLevel    Int      @default(0)
 
   economy Economy      @relation(fields: [userId], references: [userId], onDelete: Cascade)
   guild   EconomyGuild @relation(fields: [guildName], references: [guildName], onDelete: Cascade)
