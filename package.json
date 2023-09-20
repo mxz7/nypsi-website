@@ -43,7 +43,7 @@
     "@upstash/redis": "1.22.0",
     "@vercel/analytics": "1.0.2",
     "chart.js": "^4.4.0",
-    "dayjs": "1.11.9",
+    "dayjs": "1.11.10",
     "fast-sort": "3.4.0",
     "lucide-svelte": "^0.279.0",
     "ms": "2.1.3",
