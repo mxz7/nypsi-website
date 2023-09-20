@@ -11,7 +11,7 @@ export async function GET() {
       where: {
         AND: [
           { user: { Preferences: { leaderboards: true } } },
-          { prestige: { gte: 7 } },
+          { prestige: { gte: 1 } },
           {
             user: {
               lastCommand: { gt: dayjs().subtract(7, "days").toDate() },
