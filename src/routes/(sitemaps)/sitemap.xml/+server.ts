@@ -33,7 +33,7 @@ export async function GET() {
 
   const response = new Response(`<?xml version="1.0" encoding="UTF-8" ?>
   <urlset
-    xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   >
     <url>
       <loc>${website}</loc>
