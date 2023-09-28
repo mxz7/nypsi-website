@@ -231,6 +231,27 @@
           {/await}
         </div>
       </div>
+
+      <div class="flex w-full flex-col gap-4 px-4">
+        <div>
+          <h1 class="text-center text-xl font-semibold text-white">level</h1>
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+        </div>
+
+        <div class="h-[30vh] w-full sm:h-[45vh]">
+          {#await data.streamed.level}
+            <div class="relative h-full w-full">
+              <Loading />
+            </div>
+          {:then chartData}
+            {#if typeof chartData === "string"}
+              <h2 class="text-center font-semibold text-white">not enough data</h2>
+            {:else}
+              <Chart {chartData} chartOptions={karmaChartOptions} />
+            {/if}
+          {/await}
+        </div>
+      </div>
     {/if}
   </div>
 </div>
