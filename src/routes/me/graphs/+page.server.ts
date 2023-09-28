@@ -40,6 +40,7 @@ export async function load({ setHeaders, parent, url }) {
         balance: getItemCountDataForUser(["user-money"], parentData.user.id, items),
         networth: getItemCountDataForUser(["user-net"], parentData.user.id, items),
         karma: getItemCountDataForUser(["user-karma"], parentData.user.id, items),
+        level: getItemCountDataForUser(["user-level"], parentData.user.id, items),
       },
     };
   }
