@@ -11,11 +11,12 @@ export async function load({ setHeaders, parent, url }) {
 
   if (!parentData.baseData?.Premium?.level) throw redirect(303, "/me");
 
-  setHeaders({
-    "cache-control": "max-age=3600",
-  });
-
   const days = parseInt(url.searchParams.get("days")) || 30;
+
+  if (days === 30)
+    setHeaders({
+      "cache-control": "max-age=3600",
+    });
 
   if (url.searchParams.get("items")) {
     const categories: string[] = [];
