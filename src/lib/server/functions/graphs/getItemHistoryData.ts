@@ -6,7 +6,7 @@ import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export default async function getItemHistoryData(item: string, user?: string) {
+export default async function getItemHistoryData(item: string, user?: string, days = 30) {
   const items = await getItems();
 
   if (!items.find((i) => i.id === item)) return "invalid item";
@@ -17,7 +17,7 @@ export default async function getItemHistoryData(item: string, user?: string) {
         AND: [
           { itemId: item },
           { sold: true },
-          { createdAt: { gte: dayjs().subtract(90, "days").toDate() } },
+          { createdAt: { gte: dayjs().subtract(days, "days").toDate() } },
         ],
       },
       select: {
@@ -49,7 +49,7 @@ export default async function getItemHistoryData(item: string, user?: string) {
         AND: [
           { itemId: item },
           { sold: true },
-          { soldAt: { gte: dayjs().subtract(90, "days").toDate() } },
+          { soldAt: { gte: dayjs().subtract(days, "days").toDate() } },
         ],
       },
       select: {
@@ -80,7 +80,7 @@ export default async function getItemHistoryData(item: string, user?: string) {
       AND: [
         { category: "item-count-" + item },
         { userId: "global" },
-        { date: { gte: dayjs().subtract(90, "days").toDate() } },
+        { date: { gte: dayjs().subtract(days, "days").toDate() } },
       ],
     },
   });
@@ -90,7 +90,7 @@ export default async function getItemHistoryData(item: string, user?: string) {
       AND: [
         { category: "item-value-" + item },
         { userId: "global" },
-        { date: { gte: dayjs().subtract(90, "days").toDate() } },
+        { date: { gte: dayjs().subtract(days, "days").toDate() } },
       ],
     },
   });
@@ -102,7 +102,7 @@ export default async function getItemHistoryData(item: string, user?: string) {
       where: {
         AND: [
           { userId: user },
-          { date: { gte: dayjs().subtract(90, "days").toDate() } },
+          { date: { gte: dayjs().subtract(days, "days").toDate() } },
           { category: `user-item-${item}` },
         ],
       },

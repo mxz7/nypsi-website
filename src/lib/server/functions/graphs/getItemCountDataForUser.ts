@@ -8,6 +8,7 @@ export default async function getItemCountDataForUser(
   categories: string[],
   user: string,
   items: Item[],
+  days = 30,
 ) {
   if (!user || !user.match(/^\d{17,19}$/)) return "invalid user";
 
@@ -20,7 +21,7 @@ export default async function getItemCountDataForUser(
         where: {
           AND: [
             { userId: user },
-            { date: { gte: dayjs().subtract(90, "days").toDate() } },
+            { date: { gte: dayjs().subtract(days, "days").toDate() } },
             { category: category },
           ],
         },

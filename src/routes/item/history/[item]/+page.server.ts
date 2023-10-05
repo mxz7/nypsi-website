@@ -3,7 +3,7 @@ import getItemHistoryData from "$lib/server/functions/graphs/getItemHistoryData.
 
 export const ssr = false;
 
-export const load = async ({ params, parent, setHeaders }) => {
+export const load = async ({ params, parent, setHeaders, url }) => {
   const parentData = await parent();
 
   if (!parentData.premium || !parentData.user.authenticated) return;
@@ -14,9 +14,11 @@ export const load = async ({ params, parent, setHeaders }) => {
 
   if (!item) return { item: undefined, streamed: { graphData: "invalid item" } };
 
+  const days = parseInt(url.searchParams.get("days")) || 30;
+
   return {
     base: 69,
     item,
-    streamed: { graphData: getItemHistoryData(params.item, parentData.user.id) },
+    streamed: { graphData: getItemHistoryData(params.item, parentData.user.id, days) },
   };
 };

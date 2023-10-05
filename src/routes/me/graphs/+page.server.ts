@@ -15,6 +15,8 @@ export async function load({ setHeaders, parent, url }) {
     "cache-control": "max-age=3600",
   });
 
+  const days = parseInt(url.searchParams.get("days")) || 30;
+
   if (url.searchParams.get("items")) {
     const categories: string[] = [];
 
@@ -31,16 +33,16 @@ export async function load({ setHeaders, parent, url }) {
 
     return {
       streamed: {
-        items: getItemCountDataForUser(categories, parentData.user.id, items),
+        items: getItemCountDataForUser(categories, parentData.user.id, items, days),
       },
     };
   } else {
     return {
       streamed: {
-        balance: getItemCountDataForUser(["user-money"], parentData.user.id, items),
-        networth: getItemCountDataForUser(["user-net"], parentData.user.id, items),
-        karma: getItemCountDataForUser(["user-karma"], parentData.user.id, items),
-        level: getItemCountDataForUser(["user-level"], parentData.user.id, items),
+        balance: getItemCountDataForUser(["user-money"], parentData.user.id, items, days),
+        networth: getItemCountDataForUser(["user-net"], parentData.user.id, items, days),
+        karma: getItemCountDataForUser(["user-karma"], parentData.user.id, items, days),
+        level: getItemCountDataForUser(["user-level"], parentData.user.id, items, days),
       },
     };
   }
