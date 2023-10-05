@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import Chart from "$lib/components/Chart.svelte";
   import ItemList from "$lib/components/ItemList.svelte";
   import Loading from "$lib/components/Loading.svelte";
@@ -7,6 +8,7 @@
   import { fade } from "svelte/transition";
 
   export let data;
+  let days = "30";
 
   const chartOptions: ChartOptions = {
     plugins: {
@@ -89,6 +91,23 @@
     <Loading fadeInSettings={{ delay: 50, duration: 50 }} fadeOutSettings={{ duration: 150 }} />
   </div>
 {:then graphData}
+  <div class="my-10 flex w-full justify-center">
+    <select
+      name="days"
+      id="days"
+      class="bg-gray-950 text-gray-100"
+      bind:value={days}
+      on:change={() => {
+        goto(`?days=${days}`);
+      }}
+    >
+      <option value="30">30 days</option>
+      <option value="45">45 days</option>
+      <option value="60">60 days</option>
+      <option value="90">90 days</option>
+      <option value="69420">all time</option>
+    </select>
+  </div>
   <div in:fade={{ delay: 150, duration: 300 }}>
     {#if graphData === "invalid item"}
       <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">

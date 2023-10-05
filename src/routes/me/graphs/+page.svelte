@@ -8,6 +8,7 @@
 
   export let data;
   let charts: HTMLDivElement;
+  let days = "30";
 
   const moneyChartOptions: ChartOptions = {
     plugins: {
@@ -152,6 +153,25 @@
 
 <div class="flex w-full justify-center">
   <div class="flex w-full flex-col gap-8 sm:w-[60vw]" bind:this={charts}>
+    <div class="flex w-full justify-center">
+      <select
+        name="days"
+        id="days"
+        class="bg-gray-950 text-gray-100"
+        bind:value={days}
+        on:change={() => {
+          $page.url.searchParams.set("days", days);
+
+          goto(`?${$page.url.searchParams.toString()}`);
+        }}
+      >
+        <option value="30">30 days</option>
+        <option value="45">45 days</option>
+        <option value="60">60 days</option>
+        <option value="90">90 days</option>
+        <option value="69420">all time</option>
+      </select>
+    </div>
     {#if $page.url.searchParams.get("items")}
       <div class="flex w-full flex-col gap-4 px-4">
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -275,11 +295,15 @@
 
       if (selectedItems.length === 0) return goto("/me/graphs");
 
-      return goto(`/me/graphs?items=${selectedItems.join("+")}`);
+      $page.url.searchParams.set("items", selectedItems.join("+"));
+
+      return goto(`?${$page.url.searchParams.toString()}`);
     } else {
       if (selectedItems.length + 1 > 10) selectedItems.shift();
 
-      return goto(`/me/graphs?items=${[...selectedItems, itemId].join("+")}`);
+      $page.url.searchParams.set("items", [...selectedItems, itemId].join("+"));
+
+      return goto(`?${$page.url.searchParams.toString()}`);
     }
   }}
 />
