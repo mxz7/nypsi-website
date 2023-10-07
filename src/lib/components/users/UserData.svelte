@@ -55,7 +55,7 @@
   });
 </script>
 
-<div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw]">
+<div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto sm:w-[50vw] md:w-full md:max-w-3xl">
   {#key baseData}
     <div in:fly={{ delay: 250, duration: 500, y: 30 }}>
       <Profile {baseData} {userData} {items} />
