@@ -38,7 +38,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@prisma/client": "5.4.1",
+    "@prisma/client": "5.4.2",
     "@upstash/ratelimit": "0.4.4",
     "@upstash/redis": "1.22.1",
     "@vercel/analytics": "1.1.0",
