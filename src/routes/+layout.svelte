@@ -24,10 +24,7 @@
         });
       }, 250);
       $page.url.searchParams.delete("loggedin");
-      goto(`?${$page.url.searchParams}`);
-    } else if (!data.user.authenticated) {
-      $page.url.searchParams.delete("loggedin");
-      goto(`?${$page.url.searchParams}`);
+      goto($page.url.toString());
     }
   });
 </script>
