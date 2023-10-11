@@ -6,6 +6,11 @@ import {
 import { PUBLIC_OAUTH_URL, PUBLIC_URL } from "$env/static/public";
 import { error, redirect } from "@sveltejs/kit";
 
+export const config = {
+  runtime: "edge",
+  regions: "all",
+};
+
 export const GET = async ({ url, fetch, cookies }) => {
   const code = url.searchParams.get("code");
   const redirectTo = url.searchParams.get("next");
