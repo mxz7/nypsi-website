@@ -59,8 +59,8 @@ devDependencies:
     specifier: 1.25.2
     version: 1.25.2(svelte@4.2.1)(vite@4.5.0)
   '@types/gtag.js':
-    specifier: 0.0.16
-    version: 0.0.16
+    specifier: 0.0.17
+    version: 0.0.17
   '@types/ms':
     specifier: 0.7.32
     version: 0.7.32
@@ -592,8 +592,8 @@ packages:
   /@types/estree@1.0.1:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
 
-  /@types/gtag.js@0.0.16:
-    resolution: {integrity: sha512-TefTCQWiQYc1F7zF7KKLOd5E645me+9CjfPwJLNxWxaTK3ITKmCxtHRVH7EhSo1dl+sVGmu2h2htCOZrjWQRrQ==}
+  /@types/gtag.js@0.0.17:
+    resolution: {integrity: sha512-OsSO6Yyuygr3DeeTovOY0ppLiAVHoXg4CSanO9/vzDQCV+e8pkZNE+HR2dVxGJfUbtRe2IqzC97PYuHSNUepJw==}
     dev: true
 
   /@types/json-schema@7.0.12:
