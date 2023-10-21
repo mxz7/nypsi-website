@@ -51,7 +51,7 @@ export const GET = async ({ url, fetch, cookies }) => {
 
       url.searchParams.set("loggedin", "1");
 
-      throw redirect(302, `${redirectUrl}?loggedin=1`);
+      throw redirect(302, url);
     }
     throw redirect(302, "/?loggedin=1");
   }
