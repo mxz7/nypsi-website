@@ -101,6 +101,7 @@
         goto($page.url.toString(), { invalidateAll: true });
       }}
     >
+      <option value="14">14 days</option>
       <option value="30">30 days</option>
       <option value="45">45 days</option>
       <option value="60">60 days</option>
