@@ -8,7 +8,7 @@
 
   export let data;
   let charts: HTMLDivElement;
-  let days = "30";
+  let days = $page.url.searchParams.get("days") || "30";
 
   const moneyChartOptions: ChartOptions = {
     plugins: {
@@ -162,7 +162,7 @@
         on:change={() => {
           $page.url.searchParams.set("days", days);
 
-          goto(`?${$page.url.searchParams.toString()}`);
+          goto($page.url.toString());
         }}
       >
         <option value="30">30 days</option>
