@@ -1,6 +1,5 @@
 <script lang="ts">
   import { dev } from "$app/environment";
-  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import GAnalytics from "$lib/components/GAnalytics.svelte";
   import Loadbar from "$lib/components/Loadbar.svelte";
@@ -24,7 +23,8 @@
         });
       }, 250);
       $page.url.searchParams.delete("loggedin");
-      goto($page.url.toString());
+
+      history.replaceState({}, "", $page.url); // remove search params without reloading page
     }
   });
 </script>
