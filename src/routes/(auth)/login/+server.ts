@@ -49,7 +49,7 @@ export const GET = async ({ url, fetch, cookies }) => {
 
       const url = new URL(`${PUBLIC_URL}${redirectUrl}`);
 
-      url.searchParams.set("loggedin", "1");
+      if (!url.pathname.includes("history")) url.searchParams.set("loggedin", "1");
 
       throw redirect(302, url);
     }

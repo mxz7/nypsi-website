@@ -8,7 +8,7 @@ export const load = async ({ params, parent, setHeaders, url }) => {
 
   if (!parentData.premium || !parentData.user.authenticated) return;
 
-  setHeaders({ "cache-control": "max-age=600" });
+  setHeaders({ "cache-control": "s-maxage=600" });
 
   const item = await getItems().then((items) => items.find((i) => i.id === params.item));
 
@@ -19,6 +19,6 @@ export const load = async ({ params, parent, setHeaders, url }) => {
   return {
     base: 69,
     item,
-    streamed: { graphData: getItemHistoryData(params.item, parentData.user.id, days) },
+    graphData: await getItemHistoryData(params.item, parentData.user.id, days),
   };
 };

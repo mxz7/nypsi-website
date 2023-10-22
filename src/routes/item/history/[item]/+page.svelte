@@ -1,14 +1,14 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   import Chart from "$lib/components/Chart.svelte";
   import ItemList from "$lib/components/ItemList.svelte";
-  import Loading from "$lib/components/Loading.svelte";
   import type { ChartOptions } from "chart.js";
 
   import { fade } from "svelte/transition";
 
   export let data;
-  let days = "30";
+  let days = $page.url.searchParams.get("days") || "30";
 
   const chartOptions: ChartOptions = {
     plugins: {
@@ -86,11 +86,7 @@
   <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
 </header>
 
-{#await data.streamed.graphData}
-  <div class="relative mt-16 flex w-full justify-center">
-    <Loading fadeInSettings={{ delay: 50, duration: 50 }} fadeOutSettings={{ duration: 150 }} />
-  </div>
-{:then graphData}
+{#key data.graphData}
   <div class="my-10 flex w-full justify-center">
     <select
       name="days"
@@ -98,7 +94,11 @@
       class="bg-gray-950 text-gray-100"
       bind:value={days}
       on:change={() => {
-        goto(`?days=${days}`);
+        $page.url.searchParams.set("days", days);
+        if (days === "30") {
+          $page.url.searchParams.delete("days");
+        }
+        goto($page.url.toString(), { invalidateAll: true });
       }}
     >
       <option value="30">30 days</option>
@@ -109,22 +109,22 @@
     </select>
   </div>
   <div in:fade={{ delay: 150, duration: 300 }}>
-    {#if graphData === "invalid item"}
+    {#if data.graphData === "invalid item"}
       <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">
         <h1>invalid item</h1>
       </div>
-    {:else if graphData === "not enough data"}
+    {:else if data.graphData === "not enough data"}
       <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">
         <h1>not enough data</h1>
       </div>
-    {:else if typeof graphData !== "string"}
+    {:else if typeof data.graphData !== "string"}
       <div class="flex h-full w-full justify-center">
         <div class="h-[40vh] w-full px-4 sm:h-[65vh] sm:w-[70vw] sm:px-0">
-          <Chart chartData={graphData} {chartOptions} />
+          <Chart chartData={data.graphData} {chartOptions} />
         </div>
       </div>
     {/if}
   </div>
 
   <ItemList url="/item/history" />
-{/await}
+{/key}
