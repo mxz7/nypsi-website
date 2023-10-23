@@ -33,7 +33,7 @@
       in:fly|global={{ delay: 100 + i * 55, duration: 500, y: 250 }}
     >
       <td class="text-slate-400">#{position}</td>
-      <td class="sline-clamp-1 flex items-center h-2">
+      <td class="sline-clamp-1 flex h-2 items-center">
         {#if user.id}
           {#if user.tag}
             {#await tags then tags}
@@ -48,7 +48,7 @@
                   followCursor: true,
                 }}
               />
-              <p>]</p>
+              <p class="mr-1">]</p>
             {/await}
           {/if}
           <a href="/user/{user.id}">{user.username}</a>
