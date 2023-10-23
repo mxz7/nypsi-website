@@ -6,7 +6,7 @@
   export let data;
 
   $: title = `${data.baseUserData.lastKnownUsername} / nypsi`;
-  $userSearchTerm = data.baseUserData.lastKnownUsername;
+  $: $userSearchTerm = data.baseUserData.lastKnownUsername;
 </script>
 
 <svelte:head>
