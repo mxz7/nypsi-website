@@ -183,15 +183,17 @@
         <p class="text-sm text-slate-300 lg:text-base">
           {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(3, "months"))}
             {new Date(userData.lastCommand).toLocaleDateString()}
-          {:else if daysAgo(userData.lastCommand) <= 1}
+          {:else if daysAgo(userData.lastCommand) < 1}
             {@const hours = (dayjs().unix() - dayjs(userData.lastCommand).unix()) / 3600}
             {#if hours < 1}
               just now
             {:else}
-              {Math.floor(hours)} hour{hours > 1 ? "s" : ""} ago
+              {Math.floor(hours)} hour{Math.floor(hours) > 1 ? "s" : ""} ago
             {/if}
           {:else}
-            {daysAgo(userData.lastCommand).toLocaleString()} days ago
+            {daysAgo(userData.lastCommand).toLocaleString()} day{daysAgo(userData.lastCommand) > 1
+              ? "s"
+              : ""} ago
           {/if}
         </p>
       </SmallInfo>
