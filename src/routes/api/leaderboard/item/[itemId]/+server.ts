@@ -45,7 +45,7 @@ export async function GET({ params, setHeaders }) {
       orderBy: {
         amount: "desc",
       },
-      take: 25,
+      take: 100,
     })
     .then((r) => {
       let count = 0;

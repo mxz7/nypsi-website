@@ -46,7 +46,7 @@ export async function GET({ setHeaders }) {
       orderBy: {
         progress: "desc",
       },
-      take: 25,
+      take: 100,
     })
     .then((r) => {
       const filtered = r.filter((i) => {

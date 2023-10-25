@@ -37,7 +37,7 @@ export async function GET({ setHeaders }) {
       orderBy: {
         dailyStreak: "desc",
       },
-      take: 25,
+      take: 100,
     })
     .then((r) => {
       let count = 0;
