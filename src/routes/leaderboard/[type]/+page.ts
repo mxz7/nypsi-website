@@ -1,9 +1,12 @@
 import { getCommandsData } from "$lib/functions/getCommandsData.js";
 import getItems from "$lib/functions/getItems.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
+import { error } from "@sveltejs/kit";
 
 export const load = async ({ fetch, params }) => {
   const item = (await getItems()).find((i) => i.id === params.type);
+
+  if (!item) throw error(400, "unknown item");
 
   let title = "";
   let suffix: (value: string) => string = () => "";
