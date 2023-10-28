@@ -2,7 +2,7 @@ import getItems from "$lib/functions/getItems.js";
 import prisma from "$lib/server/database.js";
 import { redirect } from "@sveltejs/kit";
 
-export const load = async ({ parent, params, fetch, setHeaders }) => {
+export const load = async ({ params, fetch, setHeaders }) => {
   setHeaders({
     "cache-control": "s-maxage=300",
   });
@@ -12,12 +12,7 @@ export const load = async ({ parent, params, fetch, setHeaders }) => {
 
   if (!search) throw redirect(302, "/user/unknown");
 
-  if (search === "me") {
-    const parentData = await parent();
-
-    if (!parentData.user.authenticated) throw redirect(303, "/user");
-    userId = parentData.user.id;
-  } else if (search.match(/^\d{17,19}$/)) {
+  if (search.match(/^\d{17,19}$/)) {
     userId = search;
 
     const res = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
