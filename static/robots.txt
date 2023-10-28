@@ -1,4 +1,7 @@
 User-Agent: *
 Disallow:
 
+User-Agent: PetalBot
+Disallow: /
+
 Sitemap: https://nypsi.xyz/sitemap.xml
