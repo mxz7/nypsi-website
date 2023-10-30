@@ -12,8 +12,8 @@ dependencies:
     specifier: 0.4.4
     version: 0.4.4
   '@upstash/redis':
-    specifier: 1.23.4
-    version: 1.23.4
+    specifier: 1.24.2
+    version: 1.24.2
   '@vercel/analytics':
     specifier: 1.1.1
     version: 1.1.1
@@ -137,6 +137,74 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
+
+  /@biomejs/biome@1.3.1:
+    resolution: {integrity: sha512-ufGCBj8ZNbF+vZDZscqvvLIGsh8M4BduQoJ1X3nm8c9Dupp8gzAKibZSWDLLcgnsAVeKEmWwY6r3Wv/JIa0LgA==}
+    engines: {node: '>=14.*'}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@biomejs/cli-darwin-arm64': 1.3.1
+      '@biomejs/cli-darwin-x64': 1.3.1
+      '@biomejs/cli-linux-arm64': 1.3.1
+      '@biomejs/cli-linux-x64': 1.3.1
+      '@biomejs/cli-win32-arm64': 1.3.1
+      '@biomejs/cli-win32-x64': 1.3.1
+    dev: false
+
+  /@biomejs/cli-darwin-arm64@1.3.1:
+    resolution: {integrity: sha512-m3cBroQftLFYFh3to6RO4ooLqZsE2K9yf5xOlDjm6D4Vrgq85XFwDOxjjJyGGDjDPQ55xGunm80qmGr8jTjiyA==}
+    engines: {node: '>=14.*'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@biomejs/cli-darwin-x64@1.3.1:
+    resolution: {integrity: sha512-i2yDivc/HHBRFJMoRUUPsFs9pKK0NnS/8tQg/uqNsAkLMF9OKZCCxtUJPmpUBHpdQ2f39An1cVpFmCIEv0uYJQ==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@biomejs/cli-linux-arm64@1.3.1:
+    resolution: {integrity: sha512-H56MB7Mf59snzG+nLpfS2j3jXsJ+a6aQOBeRiT0rgn44FZ63yI9jWNIgN1+Xylsa8shmwtquOkoxLS/4KKt0Qg==}
+    engines: {node: '>=14.*'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@biomejs/cli-linux-x64@1.3.1:
+    resolution: {integrity: sha512-8ENayCpYXXC77a7AxDNjC+pPKMYteLzysxhkCCZ7Gd2sWtrH8iMM45JL8wQJhoHz5NT3+qgsfGafiNuxeVAVlg==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@biomejs/cli-win32-arm64@1.3.1:
+    resolution: {integrity: sha512-gAx/E949/1/jQDwG9nTspVtjikBI/y7RbbUwwBVABF1bcAUC63VhrHfKJRbM7VTXMlZ7n9YrxkyMww8vf40qcQ==}
+    engines: {node: '>=14.*'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@biomejs/cli-win32-x64@1.3.1:
+    resolution: {integrity: sha512-+08eKmEdVM7d4UxY/tff2aPXbeUNNp6wwH7v0FbrE+25mH9lhELgylEk4+k6OLXOcDT7KDAduzP2f9CuM/Aj9w==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /@esbuild/android-arm64@0.18.11:
     resolution: {integrity: sha512-snieiq75Z1z5LJX9cduSAjUr7vEI1OdlzFPMw0HH5YI7qQHDd3qs+WZoMrWYDsfRJSq36lIA6mfZBkvL46KoIw==}
@@ -759,25 +827,20 @@ packages:
     resolution: {integrity: sha512-cpPSR0XJAJs4Ddz9nq3tINlPS5aLfWVCqhhtHnXt4p7qr5+/Znlt1Es736poB/9rnl1hAHrOsOvVj46NEXcVqA==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@upstash/redis': 1.23.4
-    transitivePeerDependencies:
-      - encoding
+      '@upstash/redis': 1.24.2
     dev: false
 
   /@upstash/ratelimit@0.4.4:
     resolution: {integrity: sha512-y3q6cNDdcRQ2MRPRf5UNWBN36IwnZ4kAEkGoH3i6OqdWwz4qlBxNsw4/Rpqn9h93+Nx1cqg5IOq7O2e2zMJY1w==}
     dependencies:
       '@upstash/core-analytics': 0.0.6
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
-  /@upstash/redis@1.23.4:
-    resolution: {integrity: sha512-7KtG6RE5W7QbByDjQq7cEpwG2ir46VrEXZ8NFRn17FYSJUHKeHl6qnAqQJIR5rAItQWtyrKNYBij5IGEjUevhA==}
+  /@upstash/redis@1.24.2:
+    resolution: {integrity: sha512-R2kqb6akTTO8F1fVXoqc3+7ueyKOgen2Q0ObHxNvRQwc1cN4xggxuuQGYYvGiMOVfmMrkGvVRKLmVtmkGjC/2g==}
     dependencies:
-      isomorphic-fetch: 3.0.0
-    transitivePeerDependencies:
-      - encoding
+      '@biomejs/biome': 1.3.1
+      crypto-js: 4.2.0
     dev: false
 
   /@vercel/analytics@1.1.1:
@@ -1065,6 +1128,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
+    dev: false
 
   /css-tree@2.3.1:
     resolution: {integrity: sha512-6Fv1DV/TYw//QF5IzQdqsNDjx/wc8TrMBZsqjL9eW01tWb7R7k/mq+/VXfJCl7SoD5emsJop9cOByJZfs8hYIw==}
@@ -1655,15 +1722,6 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /isomorphic-fetch@3.0.0:
-    resolution: {integrity: sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==}
-    dependencies:
-      node-fetch: 2.6.11
-      whatwg-fetch: 3.6.2
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
   /jiti@1.20.0:
     resolution: {integrity: sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==}
     hasBin: true
@@ -1873,6 +1931,7 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
+    dev: true
 
   /node-gyp-build@4.6.1:
     resolution: {integrity: sha512-24vnklJmyRS8ViBNI8KbtK/r/DmXQMRiOMXTNz2nrTnAYUwjmEEbnnpB/+kt+yWRv73bPsSPRFddrcIbAxSiMQ==}
@@ -2669,6 +2728,7 @@ packages:
 
   /tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
+    dev: true
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
@@ -2790,16 +2850,14 @@ packages:
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-
-  /whatwg-fetch@3.6.2:
-    resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
-    dev: false
+    dev: true
 
   /whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
+    dev: true
 
   /which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
