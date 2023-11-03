@@ -6,8 +6,6 @@ import { error } from "@sveltejs/kit";
 export const load = async ({ fetch, params }) => {
   const item = (await getItems()).find((i) => i.id === params.type);
 
-  if (!item) throw error(400, "unknown item");
-
   let title = "";
   let suffix: (value: string) => string = () => "";
 
@@ -53,6 +51,8 @@ export const load = async ({ fetch, params }) => {
         title = "top lottery wins";
         suffix = (value) => (parseInt(value) > 1 ? "wins" : "win");
         break;
+      default:
+        if (!item) throw error(400, "unknown item");
     }
   }
 
