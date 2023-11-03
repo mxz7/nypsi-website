@@ -22,5 +22,9 @@ export const handle = async ({ event, resolve }) => {
     }
   }
 
-  return await resolve(event);
+  const res = await resolve(event);
+
+  if (res.redirected && res.headers.get("cache-control")) res.headers.delete("cache-control");
+
+  return res;
 };
