@@ -1,14 +1,22 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips";
 
   export let item: { name: string; emoji: string; id: string; aliases: string[] };
   export let url: string = "";
   export let onClick = (itemId?: string) => {};
   export let selected = false;
+  export let includeSearchParams = false;
 </script>
 
 <a
-  href={url ? `${url}/${item.id}` : null}
+  href={url
+    ? `${url}/${item.id}${
+        $page.url.searchParams.size > 0 && includeSearchParams
+          ? `?${$page.url.searchParams.toString()}`
+          : ""
+      }`
+    : null}
   on:click={() => {
     onClick(item.id);
   }}
