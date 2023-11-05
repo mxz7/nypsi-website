@@ -19,6 +19,6 @@ export const load = async ({ params, parent, setHeaders, url }) => {
   return {
     base: 69,
     item,
-    graphData: await getItemHistoryData(params.item, parentData.user.id, days),
+    graphData: getItemHistoryData(params.item, parentData.user.id, days),
   };
 };
