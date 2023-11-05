@@ -29,33 +29,31 @@ export const load = async ({ params, fetch, setHeaders }) => {
     }
   }
 
-  const data = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      avatar: true,
-      blacklisted: true,
-      lastCommand: true,
-      id: true,
-      lastKnownUsername: true,
-      Tags: {
-        select: {
-          selected: true,
-          tagId: true,
-        },
-      },
-      Premium: {
-        select: {
-          level: true,
-        },
-      },
-    },
-  });
-
   return {
-    baseUserData: data,
-    items: await getItems(),
+    baseUserData: prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        avatar: true,
+        blacklisted: true,
+        lastCommand: true,
+        id: true,
+        lastKnownUsername: true,
+        Tags: {
+          select: {
+            selected: true,
+            tagId: true,
+          },
+        },
+        Premium: {
+          select: {
+            level: true,
+          },
+        },
+      },
+    }),
+    items: getItems(),
     streamed: {
       tagData: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
         .then((r) => r.text())
