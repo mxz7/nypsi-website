@@ -7,6 +7,7 @@
   export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
     [];
   export let url: string;
+  export let includeSearchParams = false;
   export let onClick = (itemId?: string) => {};
   export let selectedList: string[] = [];
 
@@ -53,7 +54,13 @@
 
   <div class="flex w-full flex-row flex-wrap justify-center gap-1">
     {#each filteredItems as item}
-      <ItemIcon {item} {url} {onClick} selected={selectedList.includes(item.id)} />
+      <ItemIcon
+        {item}
+        {url}
+        {includeSearchParams}
+        {onClick}
+        selected={selectedList.includes(item.id)}
+      />
     {/each}
   </div>
 </div>

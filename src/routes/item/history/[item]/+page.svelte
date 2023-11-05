@@ -127,5 +127,5 @@
     {/if}
   </div>
 
-  <ItemList url="/item/history" />
+  <ItemList includeSearchParams={true} url="/item/history" />
 {/key}
