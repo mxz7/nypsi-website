@@ -60,7 +60,7 @@ export const load = async ({ fetch, params }) => {
     title,
     item,
     suffix,
-    data: (await getData()) as LeaderboardData,
+    data: getData() as Promise<LeaderboardData>,
     streamed: {
       tags: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
         .then((r) => r.text())
