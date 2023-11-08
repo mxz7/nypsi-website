@@ -14,7 +14,7 @@
       progress.set(0, { duration: 0 });
       status = "loading";
       started = Date.now();
-      progress.set(60, { delay: 250, duration: 4500 });
+      progress.set(60, { delay: 400, duration: 4500 });
     } else {
       if (status === "inactive") return;
       if (started > Date.now() - 200) {
@@ -34,7 +34,7 @@
 <div class="sticky top-0 h-[2px] w-full">
   {#if ["loading", "finishing"].includes(status)}
     <div
-      in:fade={{ delay: 250, duration: 50 }}
+      in:fade={{ delay: 400, duration: 50 }}
       out:fade={{ duration: 750 }}
       style="width: {$progress}%;"
       class="top-0 h-[2px] rounded bg-accent duration-100"
