@@ -8,7 +8,7 @@ export const GET = async ({ params, setHeaders }) => {
 
   const query = await prisma.user.findFirst({
     where: {
-      lastKnownUsername: params.username,
+      lastKnownUsername: { equals: params.username, mode: "insensitive" },
     },
     select: {
       id: true,
