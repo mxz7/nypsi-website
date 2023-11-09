@@ -4,7 +4,6 @@ import {
   DISCORD_OAUTH_SECRET,
 } from "$env/static/private";
 import type { User, UserSession } from "$lib/types/User.js";
-import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ cookies, fetch, url }) => {
   const user: UserSession = { authenticated: false };
@@ -27,7 +26,10 @@ export const load = async ({ cookies, fetch, url }) => {
       console.log("logout redirect 1");
       console.log(res);
       console.log(cookies.getAll());
-      throw redirect(307, "/logout?next=" + encodeURIComponent(url.pathname));
+
+      cookies.delete("discord_access_token");
+      cookies.delete("discord_refresh_token");
+      return { user: { authenticated: false } };
     }
 
     cookies.set("discord_access_token", res.access_token, {
@@ -43,7 +45,10 @@ export const load = async ({ cookies, fetch, url }) => {
       console.log("logout redirect 2");
       console.log(res);
       console.log(cookies.getAll());
-      throw redirect(307, "/logout?next=" + encodeURIComponent(url.pathname));
+
+      cookies.delete("discord_access_token");
+      cookies.delete("discord_refresh_token");
+      return { user: { authenticated: false } };
     }
 
     const userRequest = await fetch("https://discord.com/api/users/@me", {
@@ -55,7 +60,10 @@ export const load = async ({ cookies, fetch, url }) => {
       console.log("logout redirect 3");
       console.log(res);
       console.log(cookies.getAll());
-      throw redirect(307, "/logout?next=" + encodeURIComponent(url.pathname));
+
+      cookies.delete("discord_access_token");
+      cookies.delete("discord_refresh_token");
+      return { user: { authenticated: false } };
     }
 
     (user as unknown as User).authenticated = true;
@@ -75,7 +83,10 @@ export const load = async ({ cookies, fetch, url }) => {
       console.log("logout redirect 4");
       console.log(userRequest);
       console.log(cookies.getAll());
-      throw redirect(307, "/logout?next=" + encodeURIComponent(url.pathname));
+
+      cookies.delete("discord_access_token");
+      cookies.delete("discord_refresh_token");
+      return { user: { authenticated: false } };
     }
 
     (user as unknown as User).authenticated = true;
