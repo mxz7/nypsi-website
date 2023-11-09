@@ -62,8 +62,8 @@ devDependencies:
     specifier: 0.0.18
     version: 0.0.18
   '@types/ms':
-    specifier: 0.7.33
-    version: 0.7.33
+    specifier: 0.7.34
+    version: 0.7.34
   '@types/twemoji-parser':
     specifier: 13.1.4
     version: 13.1.4
@@ -605,8 +605,8 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
 
-  /@types/ms@0.7.33:
-    resolution: {integrity: sha512-AuHIyzR5Hea7ij0P9q7vx7xu4z0C28ucwjAZC0ja7JhINyCnOw8/DnvAPQQ9TfOlCtZAmCERKQX9+o1mgQhuOQ==}
+  /@types/ms@0.7.34:
+    resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: true
 
   /@types/pug@2.0.6:

@@ -16,7 +16,7 @@
     "@sveltejs/adapter-vercel": "^3.0.3",
     "@sveltejs/kit": "1.27.3",
     "@types/gtag.js": "0.0.18",
-    "@types/ms": "0.7.33",
+    "@types/ms": "0.7.34",
     "@types/twemoji-parser": "13.1.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
