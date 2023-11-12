@@ -40,7 +40,7 @@
   "dependencies": {
     "@prisma/client": "5.5.2",
     "@upstash/ratelimit": "0.4.4",
-    "@upstash/redis": "1.24.3",
+    "@upstash/redis": "1.25.1",
     "@vercel/analytics": "1.1.1",
     "chart.js": "^4.4.0",
     "dayjs": "1.11.10",
