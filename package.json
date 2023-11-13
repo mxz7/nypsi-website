@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-vercel": "^3.0.3",
-    "@sveltejs/kit": "1.27.4",
+    "@sveltejs/kit": "1.27.5",
     "@types/gtag.js": "0.0.18",
     "@types/ms": "0.7.34",
     "@types/twemoji-parser": "13.1.4",
