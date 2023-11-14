@@ -93,3 +93,18 @@ export interface UserApiResponsexd extends BaseUserApiResponse {
 }
 
 export type UserApiResponse = UserApiResponsexd | ErrorUserApiResponse;
+
+export type BaseUserData = {
+  id: string;
+  lastKnownUsername: string;
+  avatar: string;
+  lastCommand: Date;
+  blacklisted: boolean;
+  Premium: {
+    level: number;
+  };
+  Tags: {
+    tagId: string;
+    selected: boolean;
+  }[];
+};
