@@ -3,7 +3,9 @@ import getItems from "$lib/functions/getItems.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 import { error } from "@sveltejs/kit";
 
-export const load = async ({ fetch, params }) => {
+export const load = async ({ fetch, params, setHeaders }) => {
+  setHeaders({ "cache-control": "max-age=600" });
+
   const item = (await getItems()).find((i) => i.id === params.type);
 
   let title = "";
