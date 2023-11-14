@@ -1,7 +1,6 @@
 <script lang="ts">
   import { dev } from "$app/environment";
   import { page } from "$app/stores";
-  import GAnalytics from "$lib/components/GAnalytics.svelte";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
   import { inject } from "@vercel/analytics";
@@ -38,8 +37,6 @@
 </svelte:head>
 
 <Toaster />
-
-<GAnalytics />
 
 <Navigation user={data.user} />
 
