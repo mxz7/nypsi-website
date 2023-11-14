@@ -6,6 +6,6 @@ export async function load({ setHeaders }) {
   });
 
   return {
-    items:  getItems(),
+    items: getItems(),
   };
 }
