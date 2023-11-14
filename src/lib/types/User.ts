@@ -1,15 +1,10 @@
-interface Base {
-  authenticated: boolean;
-}
-
-interface NotAuthenticated extends Base {
+interface NotAuthenticated {
   authenticated: false;
 }
 
-export interface User extends Base {
+interface User {
   authenticated: true;
   username: string;
-  discriminator: string;
   avatar: string;
   id: string;
 }
