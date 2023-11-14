@@ -1,10 +1,10 @@
 import getItems from "$lib/functions/getItems.js";
-import prisma from "$lib/server/database.js";
+import type { BaseUserData } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ params, fetch, setHeaders }) => {
   setHeaders({
-    "cache-control": "s-maxage=300",
+    "cache-control": "max-age=300",
   });
 
   const search = params.search;
@@ -30,29 +30,7 @@ export const load = async ({ params, fetch, setHeaders }) => {
   }
 
   return {
-    baseUserData: prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        avatar: true,
-        blacklisted: true,
-        lastCommand: true,
-        id: true,
-        lastKnownUsername: true,
-        Tags: {
-          select: {
-            selected: true,
-            tagId: true,
-          },
-        },
-        Premium: {
-          select: {
-            level: true,
-          },
-        },
-      },
-    }),
+    baseUserData: fetch(`/api/user/${userId}/base`).then((r) => r.json() as Promise<BaseUserData>),
     items: getItems(),
     streamed: {
       tagData: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
