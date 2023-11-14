@@ -1,14 +1,10 @@
-interface BaseUserCheck {
-  message: string;
-}
-
-interface ErrorUserCheck extends BaseUserCheck {
-  message: string;
+interface ErrorUserCheck {
+  ok: false;
   error: number;
 }
 
-interface SuccessUsercheck extends BaseUserCheck {
-  message: "success";
+interface SuccessUsercheck {
+  ok: true;
   exists: boolean;
   private: boolean;
 }
