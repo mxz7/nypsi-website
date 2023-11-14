@@ -29,7 +29,7 @@ export const load = async ({ cookies, fetch }) => {
 
       cookies.delete("discord_access_token");
       cookies.delete("discord_refresh_token");
-      return { user: { authenticated: false } };
+      return { user: { authenticated: false } as UserSession };
     }
 
     cookies.set("discord_access_token", res.access_token, {
@@ -48,7 +48,7 @@ export const load = async ({ cookies, fetch }) => {
 
       cookies.delete("discord_access_token");
       cookies.delete("discord_refresh_token");
-      return { user: { authenticated: false } };
+      return { user: { authenticated: false } as UserSession };
     }
 
     const userRequest = await fetch("https://discord.com/api/users/@me", {
@@ -63,7 +63,7 @@ export const load = async ({ cookies, fetch }) => {
 
       cookies.delete("discord_access_token");
       cookies.delete("discord_refresh_token");
-      return { user: { authenticated: false } };
+      return { user: { authenticated: false } as UserSession };
     }
 
     user = {
@@ -87,7 +87,7 @@ export const load = async ({ cookies, fetch }) => {
 
       cookies.delete("discord_access_token");
       cookies.delete("discord_refresh_token");
-      return { user: { authenticated: false } };
+      return { user: { authenticated: false } as UserSession };
     }
 
     user = {
