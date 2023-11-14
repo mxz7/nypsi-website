@@ -1,5 +1,5 @@
 import prisma from "$lib/server/database.js";
-import type { APIUserCheck } from "$lib/types/api/UserCheck.js";
+import { privacyCheck } from "$lib/server/functions/user/privacy.js";
 import { error, json } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
@@ -12,10 +12,8 @@ export const GET = async ({ params, setHeaders, fetch }) => {
 
   if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
 
-  const privacyCheck: APIUserCheck = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
-
-  if (!privacyCheck?.ok || !privacyCheck.exists) throw error(404, { message: "user not found" });
-  if (privacyCheck.private) throw error(403, { message: "user has a private profile" });
+  const cont = await privacyCheck(userId, fetch);
+  if (cont !== "continue") throw cont;
 
   const query = await prisma.user.findUnique({
     where: {
