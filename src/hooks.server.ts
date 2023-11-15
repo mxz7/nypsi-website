@@ -2,7 +2,7 @@ import { dev } from "$app/environment";
 import rateLimiter from "$lib/server/ratelimit";
 
 export const handle = async ({ event, resolve }) => {
-  if (!dev && event.url.pathname.startsWith("/api")) {
+  if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
     const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
       return { success: true, reset: 69 };
     });
