@@ -1,6 +1,5 @@
 import getItems from "$lib/functions/getItems.js";
-import prisma from "$lib/server/database.js";
-import type { UserApiResponsexd } from "$lib/types/User.js";
+import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ parent, url, fetch }) {
@@ -8,33 +7,9 @@ export async function load({ parent, url, fetch }) {
 
   if (!user.authenticated) throw redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
 
-  const baseData = await prisma.user.findUnique({
-    where: {
-      id: user.id,
-    },
-    select: {
-      avatar: true,
-      blacklisted: true,
-      lastCommand: true,
-      id: true,
-      lastKnownUsername: true,
-      Tags: {
-        select: {
-          selected: true,
-          tagId: true,
-        },
-      },
-      Premium: {
-        select: {
-          level: true,
-        },
-      },
-    },
-  });
-
   return {
     items,
-    baseData,
+    baseData: fetch(`/api/user/${user.id}/base`).then((r) => r.json() as Promise<BaseUserData>),
     streamed: {
       userData: fetch(`/api/user/${user.id}`).then((r) => r.json() as Promise<UserApiResponsexd>),
     },
