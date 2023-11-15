@@ -22,5 +22,11 @@
 </svelte:head>
 
 <div in:fade={{ delay: 0, duration: 200 }} out:fly={{ y: 15, duration: 250 }}>
-  <UserData baseData={data.baseUserData} userData={data.streamed.allUserData} items={data.items} />
+  {#key data}
+    <UserData
+      baseData={data.baseUserData}
+      userData={data.streamed.allUserData}
+      items={data.items}
+    />
+  {/key}
 </div>

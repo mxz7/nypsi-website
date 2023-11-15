@@ -56,29 +56,27 @@
 </script>
 
 <div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto md:w-full md:max-w-3xl">
-  {#key baseData}
-    <div in:fly={{ delay: 250, duration: 500, y: 30 }}>
-      <Profile {baseData} {userData} {items} />
-    </div>
+  <div in:fly={{ delay: 250, duration: 500, y: 30 }}>
+    <Profile {baseData} {userData} {items} />
+  </div>
 
-    <div in:fly={{ delay: 400, duration: 500, y: 30 }}>
-      {#if baseData.blacklisted}
-        <Punishment>
-          {baseData.lastKnownUsername} is blacklisted from nypsi
-        </Punishment>
-      {:else}
-        {#await userData then userData}
-          {#if new Date(userData.Economy.banned).getTime() > Date.now()}
-            <Punishment>
-              {userData.lastKnownUsername} is economy banned until {new Date(
-                userData.Economy.banned,
-              ).toLocaleDateString()}
-            </Punishment>
-          {/if}
-        {/await}
-      {/if}
-    </div>
-  {/key}
+  <div in:fly={{ delay: 400, duration: 500, y: 30 }}>
+    {#if baseData.blacklisted}
+      <Punishment>
+        {baseData.lastKnownUsername} is blacklisted from nypsi
+      </Punishment>
+    {:else}
+      {#await userData then userData}
+        {#if new Date(userData.Economy.banned).getTime() > Date.now()}
+          <Punishment>
+            {userData.lastKnownUsername} is economy banned until {new Date(
+              userData.Economy.banned,
+            ).toLocaleDateString()}
+          </Punishment>
+        {/if}
+      {/await}
+    {/if}
+  </div>
 
   {#await userData}
     <div class="relative mt-14">
@@ -271,8 +269,8 @@
                 style="color: {game.win == 1
                   ? 'rgb(34, 197, 94)'
                   : game.win == 0
-                  ? 'rgb(239, 68, 68)'
-                  : 'rgb(254, 240, 138)'};"
+                    ? 'rgb(239, 68, 68)'
+                    : 'rgb(254, 240, 138)'};"
                 class="mt-3 flex w-full flex-col items-center justify-center rounded border border-slate-500 border-opacity-10 bg-slate-700 bg-opacity-5 p-2 px-4 align-middle shadow duration-300 hover:border-accent hover:border-opacity-25 lg:mt-0"
               >
                 <h2 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h2>
@@ -282,8 +280,8 @@
                     {game.win == 1
                       ? `+$${game.earned.toLocaleString()}`
                       : game.win == 0
-                      ? `-$${game.bet.toLocaleString()}`
-                      : `$${game.bet.toLocaleString()}`}
+                        ? `-$${game.bet.toLocaleString()}`
+                        : `$${game.bet.toLocaleString()}`}
                   </p>
                 {/if}
 
