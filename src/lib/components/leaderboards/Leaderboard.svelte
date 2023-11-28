@@ -26,7 +26,7 @@
   });
 </script>
 
-<table class="mx-auto mt-1 w-full px-4 text-slate-200 sm:w-1/2 sm:px-0 sm:text-xl">
+<table class="mx-auto mt-1 w-full px-4 text-slate-200 sm:max-w-2xl sm:px-0 sm:text-xl">
   {#each data.slice(0, 100) as { user, value, position }, i}
     <tr
       class="mb-2 flex w-full items-center gap-2 rounded border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-1 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
