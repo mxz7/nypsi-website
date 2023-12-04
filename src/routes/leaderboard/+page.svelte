@@ -11,7 +11,7 @@
 
 <header class="mt-5 text-center">
   <h1 class="text-4xl font-bold text-white sm:text-5xl">leaderboards</h1>
-  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-96" />
+  <div class="m-auto mt-3 h-1 w-9/12 rounded-full bg-accent sm:w-full sm:max-w-2xl" />
 </header>
 
 <div class="mb-7 mt-7">

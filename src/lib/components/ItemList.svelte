@@ -34,33 +34,35 @@
   });
 </script>
 
-<div id="items" class="mt-10 w-full overflow-x-hidden sm:px-48">
-  <form
-    class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
-  >
-    <div class="mr-1 flex items-center justify-center">
-      <img src="/search.png" alt="" class="h-4 w-4" />
-    </div>
+<div class="mt-10 flex w-full justify-center">
+  <div id="items" class=" w-full overflow-x-hidden sm:px-48 md:max-w-7xl">
+    <form
+      class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
+    >
+      <div class="mr-1 flex items-center justify-center">
+        <img src="/search.png" alt="" class="h-4 w-4" />
+      </div>
 
-    <input
-      class="ml-2 border-none bg-transparent pr-4 text-slate-300 placeholder:text-slate-400 focus:border-none focus:outline-none"
-      type="search"
-      name="search"
-      placeholder="search"
-      bind:value={$gameSearchTerm}
-      autocapitalize="off"
-    />
-  </form>
-
-  <div class="flex w-full flex-row flex-wrap justify-center gap-1">
-    {#each filteredItems as item}
-      <ItemIcon
-        {item}
-        {url}
-        {includeSearchParams}
-        {onClick}
-        selected={selectedList.includes(item.id)}
+      <input
+        class="ml-2 border-none bg-transparent pr-4 text-slate-300 placeholder:text-slate-400 focus:border-none focus:outline-none"
+        type="search"
+        name="search"
+        placeholder="search"
+        bind:value={$gameSearchTerm}
+        autocapitalize="off"
       />
-    {/each}
+    </form>
+
+    <div class="flex w-full flex-row flex-wrap justify-center gap-1">
+      {#each filteredItems as item}
+        <ItemIcon
+          {item}
+          {url}
+          {includeSearchParams}
+          {onClick}
+          selected={selectedList.includes(item.id)}
+        />
+      {/each}
+    </div>
   </div>
 </div>
