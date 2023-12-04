@@ -9,7 +9,7 @@ export async function GET({ setHeaders }) {
   const query = await prisma.economy
     .findMany({
       where: {
-        AND: [{ money: { gt: 0 } }, { user: { blacklisted: false } }],
+        AND: [{ dailyStreak: { gt: 0 } }, { user: { blacklisted: false } }],
       },
       select: {
         userId: true,
