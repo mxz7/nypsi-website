@@ -53,6 +53,10 @@ export const load = async ({ fetch, params, setHeaders }) => {
         title = "top lottery wins";
         suffix = (value) => (parseInt(value) > 1 ? "wins" : "win");
         break;
+      case "vote":
+        title = "top monthly votes";
+        suffix = (value) => (parseInt(value) > 1 ? "votes" : "vote");
+        break;
       default:
         if (!item) throw error(400, "unknown item");
     }
