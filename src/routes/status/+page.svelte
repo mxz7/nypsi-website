@@ -1,9 +1,11 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
   import tooltip from "$lib/Tooltips.js";
-  import ClusterStatus from "$lib/components/ClusterStatus.svelte";
+  import Cluster from "$lib/components/status/Cluster.svelte";
+  import Shard from "$lib/components/status/Shard.svelte";
   import { onDestroy, onMount } from "svelte";
   import toast from "svelte-french-toast";
+  import { writable } from "svelte/store";
 
   export let data;
 
@@ -13,6 +15,22 @@
 
   let descriptionText = "offline";
   let descriptionColour = "#dc2626";
+
+  let guildIdSearch = writable("");
+  let guild: {
+    id: string;
+    cluster: {
+      id: number;
+      online: boolean;
+      responsive: boolean;
+    };
+    shard: {
+      id: number;
+      status: "idle" | "connecting" | "resuming" | "ready";
+      ping: number;
+      lastPing: number;
+    };
+  };
 
   if (data.status.main) {
     let online = 0;
@@ -36,6 +54,26 @@
     }
   }
 
+  guildIdSearch.subscribe((value) => {
+    guild = null;
+    if (!value) return;
+    const cluster = data.status.clusters.find((i) => i.guilds.find((i) => i.id === value));
+    if (!cluster) return;
+    const shard = cluster.shards.find(
+      (i) => i.id === cluster.guilds.find((i) => i.id === value).shard,
+    );
+
+    guild = {
+      cluster: {
+        id: cluster.id,
+        online: cluster.online,
+        responsive: cluster.responsive,
+      },
+      id: value,
+      shard,
+    };
+  });
+
   function update() {
     updateIn = 30;
 
@@ -46,11 +84,11 @@
         clearInterval(interval);
         loading = true;
         console.log("updating");
-        invalidate("status").then((r) => {
+        invalidate("status").then(() => {
+          $guildIdSearch = "";
           console.log("updated");
-          toast("status updated", {
+          toast.success("status updated", {
             position: "bottom-center",
-            style: "color: #fff; background-color: #020617;",
           });
           loading = false;
           update();
@@ -84,55 +122,90 @@
   <meta property="og:image:height" content="128" />
 </svelte:head>
 
-<div class="flex w-full justify-center">
-  <div class="mt-8 flex w-full justify-center md:w-full md:max-w-xl">
-    <div class="flex flex-col gap-4">
-      <h1 class="text-center text-5xl font-bold md:text-6xl">nypsi status</h1>
-      <h2 class="text-center text-lg" style="color: {descriptionColour};">{descriptionText}</h2>
-      <p class="-mt-4 text-center text-sm text-slate-500">updating in {updateIn} seconds</p>
+<div class="flex w-full justify-center text-center">
+  <div class="mt-14 w-full px-4 sm:max-w-xl">
+    <h1 class="text-4xl font-semibold">nypsi status</h1>
+    <p class="mt-2 text-sm opacity-25">updates in {updateIn} seconds</p>
+    <h2 class="mt-4 text-xl" style="color: {descriptionColour};">{descriptionText}</h2>
 
-      <div class="mt-12 flex w-full flex-wrap justify-center gap-6 px-3">
-        <div
-          class="shadow- flex h-28 w-28 flex-col items-center justify-center gap-4 rounded-lg"
-          style="background-color: {data.status.main ? '#16a34a' : '#dc2626'};"
-          use:tooltip={{
-            content: data.status.main ? "working as expected" : "having problems",
-            theme: "tooltip",
-          }}
-        >
-          <p class="font-mono font-bold">main</p>
-          <p class="font-mono text-sm">{data.status.main ? "online" : "offline"}</p>
+    <input
+      type="text"
+      bind:value={$guildIdSearch}
+      placeholder="server ID"
+      class="my-2 rounded-lg bg-gray-950 bg-opacity-50 p-2 text-gray-400 placeholder:text-gray-600 focus:outline-none"
+    />
+
+    {#if $guildIdSearch}
+      {#if !guild}
+        <div class="mb-12 mt-6 flex w-full justify-center">
+          <div class="mx-4 w-fit max-w-sm rounded border border-red-600 bg-red-300 p-2 text-left">
+            <h2 class=" font-semibold text-red-600">unknown server</h2>
+            <p class="text-sm text-red-600">
+              to get your server ID, enable discord developer mode, right click on your server, and
+              click copy id
+            </p>
+          </div>
         </div>
-
-        <div
-          class="shadow- flex h-28 w-28 flex-col items-center justify-center gap-4 rounded-lg"
-          style="background-color: {data.status.main ? '#16a34a' : '#dc2626'};"
-          use:tooltip={{
-            content: data.database.online
-              ? `query took: ${data.database.latency.toFixed(2)}ms`
-              : "having problems",
-            theme: "tooltip",
-          }}
-        >
-          <p class="font-mono font-bold">database</p>
-          <p class="font-mono text-sm">{data.database.online ? "online" : "offline"}</p>
+      {:else}
+        <div class="mb-12 mt-6 flex w-full justify-center">
+          <div class="mx-4 w-fit max-w-sm rounded bg-slate-950 bg-opacity-50 p-4 text-left">
+            <h2 class="font-semibold">{guild.id}</h2>
+            <p class="text-sm">
+              cluster: {guild.cluster.id}
+              <br />
+              shard: {guild.shard.id}
+            </p>
+          </div>
         </div>
+      {/if}
+    {/if}
+
+    <div class="mt-4 flex w-full justify-center gap-4">
+      <div
+        class="flex h-16 w-20 items-center justify-center rounded bg-slate-950 bg-opacity-50 text-sm shadow"
+        style="color: {data.status.main ? '#16a34a' : '#dc2626'};"
+        use:tooltip={{
+          content: data.status.main ? "working as expected" : "having problems",
+          theme: "tooltip",
+        }}
+      >
+        <p>main</p>
       </div>
 
-      <div class="mt-4 flex flex-wrap justify-center gap-6 px-3">
-        {#each data.status.clusters as cluster}
-          <ClusterStatus clusterData={cluster}></ClusterStatus>
-        {/each}
+      <div
+        class="flex h-16 w-20 items-center justify-center rounded-lg bg-slate-950 bg-opacity-50 text-sm shadow"
+        style="color: {data.status.main ? '#16a34a' : '#dc2626'};"
+        use:tooltip={{
+          content: data.database.online
+            ? `query took: ${data.database.latency.toFixed(2)}ms`
+            : "having problems",
+          theme: "tooltip",
+        }}
+      >
+        <p>database</p>
       </div>
+    </div>
 
-      <div class="mt-4 text-center">
-        <h2 class=" text-3xl font-semibold">still having trouble?</h2>
-        <p class="mt-2">
-          join the <a class="text-sky-400 underline" href="https://discord.com/invite/hJTDNST"
-            >discord server</a
-          > for help/information
-        </p>
-      </div>
+    <h3 class="mt-8 text-lg font-semibold text-gray-300">clusters</h3>
+
+    <div class="mt-4 flex w-full flex-wrap justify-center gap-4">
+      {#each data.status.clusters as cluster}
+        <Cluster selected={guild?.cluster?.id === cluster.id} clusterData={cluster}></Cluster>
+      {/each}
+    </div>
+
+    <h3 class="mt-8 text-lg font-semibold text-gray-300">shards</h3>
+
+    <div class="mt-4 flex w-full flex-wrap justify-center gap-4">
+      {#each [].concat.apply( [], data.status.clusters.map((i) => i.shards), ) as shard}
+        <Shard
+          selected={guild?.shard?.id === shard.id}
+          guildCount={data.status.clusters
+            .find((i) => i.shards.includes(shard))
+            .guilds.filter((i) => i.shard === shard.id).length}
+          data={shard}
+        />
+      {/each}
     </div>
   </div>
 </div>
