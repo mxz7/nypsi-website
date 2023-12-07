@@ -23,7 +23,7 @@
   });
 </script>
 
-<div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto sm:w-[50vw]">
+<div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
   <div
     class="w-full rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
     in:fly|global={{ delay: 300, duration: 500, y: 75 }}
