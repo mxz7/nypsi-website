@@ -1,5 +1,6 @@
 <script lang="ts">
   import tooltip from "$lib/Tooltips";
+  import { MStoTime } from "$lib/functions/time";
   import { sort } from "fast-sort";
 
   export let clusterData: {
@@ -7,32 +8,35 @@
     online: boolean;
     responsive: boolean;
     guilds: { id: string; shard: number }[];
+    uptime: number;
+    restarting: boolean;
   };
   export let selected = false;
 
   let colour = "#dc2626";
-  let text = "offline";
   let tooltipText = "cluster is unavailable";
   const shards: number[] = [];
 
   if (clusterData.online) {
     if (clusterData.responsive) {
       colour = "#16a34a";
-      text = "online";
       tooltipText = "working as expected";
+
+      if (clusterData.restarting) {
+        colour = "#d97706";
+        tooltipText = "cluster is restarting";
+      }
 
       for (const guild of clusterData.guilds) {
         if (!shards.includes(guild.shard)) shards.push(guild.shard);
       }
 
-      tooltipText += `<br /><br />${clusterData.guilds.length.toLocaleString()} guilds<br />shards: ${sort(
-        shards,
-      )
-        .asc()
-        .join()}`;
+      tooltipText +=
+        `<br /><br />guilds: ${clusterData.guilds.length.toLocaleString()}<br />` +
+        `shards: ${sort(shards).asc().join()}<br />` +
+        `uptime: ${MStoTime(clusterData.uptime)}`;
     } else {
       colour = "#d97706";
-      text = "not responding";
       tooltipText = "online, but not responding to events";
     }
   }

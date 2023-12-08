@@ -9,7 +9,6 @@
 
   export let data;
 
-  let loading = false;
   let updateIn = 30;
   let interval: number;
 
@@ -35,6 +34,7 @@
   if (data.status.main) {
     let online = 0;
     let unresponsive = 0;
+    let restarting = 0;
 
     data.status.clusters.forEach((cluster) => {
       if (cluster.online) {
@@ -42,15 +42,30 @@
         if (!cluster.responsive) {
           unresponsive++;
         }
+
+        if (cluster.restarting) restarting++;
       }
+
+      cluster.shards.forEach((shard) => {
+        if (shard.status !== "idle") unresponsive++;
+      });
     });
 
-    if (online === data.status.clusters.length && unresponsive === 0) {
-      descriptionText = "working as expected";
-      descriptionColour = "#16a34a";
+    if (data.status.maintenance) {
+      descriptionText = "in maintenance mode";
+      descriptionColour = "#d97706";
+    } else if (online === data.status.clusters.length && unresponsive === 0) {
+      if (restarting > 0) {
+        if (restarting === data.status.clusters.length) descriptionText = "restarting";
+        else descriptionText = "some clusters are restarting";
+        descriptionColour = "#d97706";
+      } else {
+        descriptionText = "working as expected";
+        descriptionColour = "#16a34a";
+      }
     } else if (online > 0 && unresponsive > 0) {
       descriptionText = "having some trouble";
-      descriptionColour = "#16a34a";
+      descriptionColour = "#d97706";
     }
   }
 
@@ -82,7 +97,7 @@
 
       if (updateIn <= 0) {
         clearInterval(interval);
-        loading = true;
+
         console.log("updating");
         invalidate("status").then(() => {
           $guildIdSearch = "";
@@ -90,7 +105,7 @@
           toast.success("status updated", {
             position: "bottom-center",
           });
-          loading = false;
+
           update();
         });
       }
