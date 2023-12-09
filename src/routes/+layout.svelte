@@ -4,6 +4,7 @@
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
   import { inject } from "@vercel/analytics";
+  import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
@@ -11,6 +12,7 @@
   export let data;
 
   if (!dev) inject({ mode: "production" });
+  if (!dev) injectSpeedInsights();
 
   onMount(() => {
     if ($page.url.searchParams.get("loggedin") && data.user.authenticated) {
