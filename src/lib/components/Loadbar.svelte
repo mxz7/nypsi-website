@@ -1,43 +1,64 @@
-<script lang="ts">
-  import { navigating } from "$app/stores";
+<script>
+  import { navigating, page } from "$app/stores";
   import { cubicOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
   import { fade } from "svelte/transition";
 
-  const progress = tweened(0, { easing: cubicOut });
-
-  let status: "loading" | "inactive" | "finishing" = "inactive";
-  let started = 0;
-  const delay = 550;
-
-  navigating.subscribe((value) => {
-    if (value) {
-      progress.set(0, { duration: 0 });
-      status = "loading";
-      started = Date.now();
-      progress.set(60, { delay: delay, duration: 4500 });
-    } else {
-      if (status === "inactive") return;
-      if (started > Date.now() - 200) {
-        status = "inactive";
-        progress.set(0);
-        return;
-      }
-      status = "finishing";
-      progress.set(100, { duration: 250 }).then(() => {
-        status = "inactive";
-        progress.set(0);
-      });
-    }
+  // progress bar value
+  const p = tweened(0, {
+    duration: 200,
+    easing: cubicOut,
   });
+
+  let isVisible = false;
+
+  function increase() {
+    if ($p >= 0 && $p < 0.2) {
+      p.update((_) => _ + 0.04);
+    } else if ($p >= 0.2 && $p < 0.5) {
+      p.update((_) => _ + 0.02);
+    } else if ($p >= 0.5 && $p < 0.8) {
+      p.update((_) => _ + 0.002);
+    } else if ($p >= 0.8 && $p < 0.99) {
+      p.update((_) => _ + 0.0005);
+    } else {
+      p.set(0);
+    }
+
+    if ($navigating) {
+      const rand = Math.round(Math.random() * (300 - 50)) + 50;
+      setTimeout(function () {
+        increase();
+      }, rand);
+    }
+  }
+
+  $: {
+    if ($navigating) {
+      if ($navigating.to.url.pathname !== $page.url.pathname) {
+        increase();
+        isVisible = true;
+      }
+    }
+    if (!$navigating) {
+      p.update((_) => _ + 0.3);
+      setTimeout(function () {
+        p.set(1);
+        setTimeout(function () {
+          isVisible = false;
+          p.set(0);
+        }, 100);
+      }, 100);
+    }
+  }
 </script>
 
-<div class="sticky top-0 h-[2px] w-full">
-  {#if ["loading", "finishing"].includes(status)}
+<div class="sticky top-0 h-[2px] w-full overflow-hidden">
+  {#if $p > 0 && $p < 1 && isVisible}
     <div
-      in:fade={{ delay: delay, duration: 50 }}
-      out:fade={{ duration: 750 }}
-      style="width: {$progress}%;"
+      in:fade={{ duration: 300 }}
+      out:fade={{ duration: 300, delay: 250 }}
+      style="width: {$p * 115}%;"
       class="top-0 h-[2px] rounded bg-accent duration-100"
     />
   {/if}
