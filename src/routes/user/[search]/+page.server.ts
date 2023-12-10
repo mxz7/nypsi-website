@@ -1,8 +1,12 @@
+import { VIEW_AUTH } from "$env/static/private";
 import getItems from "$lib/functions/getItems.js";
-import prisma from "$lib/server/database.js";
 import type { BaseUserData } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
-import dayjs from "dayjs";
+
+export const config = {
+  runtime: "edge",
+  regions: "all",
+};
 
 export const load = async ({ params, fetch, setHeaders, parent, getClientAddress, request }) => {
   setHeaders({
@@ -40,35 +44,33 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
         .then((r) => JSON.parse(r)),
       allUserData: fetch(`/api/user/${userId}`).then((r) => r.json()),
       _view: (async () => {
+        if (request.headers.get("user-agent").includes("bot")) return;
         const parentData = await parent();
 
         if (parentData.user.authenticated) {
           if (parentData.user.id === userId) return;
         }
 
-        const views = await prisma.profileView.findMany({
-          where: {
-            AND: [{ createdAt: { gt: dayjs().subtract(10, "minutes").toDate() } }, { userId }],
-          },
-        });
+        let ip: string;
 
-        for (const view of views) {
-          if (parentData.user.authenticated) {
-            if (parentData.user.id === view.viewerId) return;
-          }
-          if (view.viewerIp === getClientAddress()) return;
-          if (view.createdAt.getTime() >= dayjs().subtract(1, "minute").toDate().getTime()) return;
+        try {
+          ip = getClientAddress();
+        } catch {
+          ip = "127.0.0.1";
         }
 
-        await prisma.profileView.create({
-          data: {
-            source: "WEB",
-            referrer: request.headers.get("referer"),
-            viewerId: parentData.user.authenticated ? parentData.user.id : null,
-            viewerIp: getClientAddress(),
+        return fetch("/api/user/view/add", {
+          method: "POST",
+          headers: { Authorization: VIEW_AUTH },
+          body: JSON.stringify({
             userId,
-          },
-        });
+            viewerId: parentData.user.authenticated ? parentData.user.id : undefined,
+            viewerIp: ip,
+            referrer: request.headers.get("referer"),
+          }),
+        })
+          .then((r) => r.json().catch(() => null))
+          .catch(() => null);
       })(),
     },
   };
