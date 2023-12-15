@@ -27,7 +27,8 @@ export async function POST({ request }) {
   for (const view of views) {
     if (res.data.viewerId === view.viewerId) return json(null, { status: 200 });
     if (view.viewerIp === res.data.viewerIp) return json(null, { status: 200 });
-    if (view.createdAt.getTime() >= dayjs().subtract(1, "minute").toDate().getTime()) return;
+    if (new Date(view.createdAt).getTime() >= dayjs().subtract(1, "minute").toDate().getTime())
+      return;
   }
 
   await prisma.profileView.create({
