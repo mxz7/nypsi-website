@@ -28,7 +28,7 @@
           }}
           in:fly|global={{ delay: 100, duration: 500, y: 15 }}
         >
-          <Profile baseData={data.baseData} userData={data.streamed.userData} items={data.items} />
+          <Profile baseData={data.baseData} userData={data.userData} items={data.items} />
         </a>
       {:else}
         <h1 class="break-words text-center font-semibold text-white">

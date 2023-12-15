@@ -7,5 +7,5 @@ export const load = async ({ url }) => {
     return;
   }
 
-  throw redirect(302, `/guild/${search}`);
+  redirect(302, `/guild/${search}`);
 };

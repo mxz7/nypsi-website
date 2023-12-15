@@ -3,15 +3,18 @@ import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ parent, url, fetch }) {
-  const [{ user }, items] = await Promise.all([parent(), getItems()]);
+  const { user } = await parent();
 
-  if (!user.authenticated) throw redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
+  if (!user.authenticated) redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
 
+  const [items, baseData] = await Promise.all([
+    getItems(),
+    fetch(`/api/user/${user.id}/base`).then((r) => r.json() as Promise<BaseUserData>),
+  ]);
   return {
     items,
-    baseData: fetch(`/api/user/${user.id}/base`).then((r) => r.json() as Promise<BaseUserData>),
-    streamed: {
-      userData: fetch(`/api/user/${user.id}`).then((r) => r.json() as Promise<UserApiResponsexd>),
-    },
+    baseData,
+
+    userData: fetch(`/api/user/${user.id}`).then((r) => r.json() as Promise<UserApiResponsexd>),
   };
 }

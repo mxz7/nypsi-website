@@ -176,7 +176,7 @@
     {#if $page.url.searchParams.get("items")}
       <div class="flex w-full flex-col gap-4 px-4">
         <div class="h-[30vh] w-full sm:h-[45vh]">
-          {#await data.streamed.items}
+          {#await data.itemsData}
             <div class="relative h-full w-full">
               <Loading />
             </div>
@@ -197,7 +197,7 @@
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
-          {#await data.streamed.balance}
+          {#await data.balance}
             <div class="relative h-full w-full">
               <Loading />
             </div>
@@ -218,7 +218,7 @@
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
-          {#await data.streamed.networth}
+          {#await data.networth}
             <div class="relative h-full w-full">
               <Loading />
             </div>
@@ -239,7 +239,7 @@
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
-          {#await data.streamed.karma}
+          {#await data.karma}
             <div class="relative h-full w-full">
               <Loading />
             </div>
@@ -260,7 +260,7 @@
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
-          {#await data.streamed.level}
+          {#await data.level}
             <div class="relative h-full w-full">
               <Loading />
             </div>
@@ -285,7 +285,7 @@
     charts.scrollIntoView();
 
     // @ts-expect-error boooobbiiees
-    data.streamed.items = new Promise((resolve) => {
+    data.itemsData = new Promise((resolve) => {
       setTimeout(() => {
         resolve("not enough data");
       }, 10000);

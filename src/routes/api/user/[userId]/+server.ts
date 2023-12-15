@@ -10,7 +10,7 @@ export const GET = async ({ params, setHeaders, fetch }) => {
     "cache-control": "max-age=0, s-maxage=600",
   });
 
-  if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
+  if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
 
   const cont = await privacyCheck(userId, fetch);
   if (cont !== "continue") throw cont;
@@ -147,7 +147,7 @@ export const GET = async ({ params, setHeaders, fetch }) => {
     },
   });
 
-  if (!query) throw error(404, { message: "user not found" });
+  if (!query) return error(404, { message: "user not found" });
 
   query.lastKnownUsername = query.lastKnownUsername.split("#")[0];
 

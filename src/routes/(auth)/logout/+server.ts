@@ -6,10 +6,10 @@ export const config = {
 };
 
 export const GET = ({ cookies, url }) => {
-  cookies.delete("discord_access_token");
-  cookies.delete("discord_refresh_token");
+  cookies.delete("discord_access_token", { path: "/" });
+  cookies.delete("discord_refresh_token", { path: "/" });
 
   const redirectTo = url.searchParams.get("next");
 
-  throw redirect(302, redirectTo || "/");
+  return redirect(302, redirectTo || "/");
 };

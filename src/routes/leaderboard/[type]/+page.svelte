@@ -57,7 +57,7 @@
         {/if}
       </h2>
     {:else}
-      <BigLeaderboard data={data.data} suffix={data.suffix} tags={data.streamed.tags} />
+      <BigLeaderboard data={data.data} suffix={data.suffix} tags={data.tags} />
     {/if}
   </div>
 {:else}

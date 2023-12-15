@@ -21,9 +21,9 @@ export const GET = async ({ params, setHeaders }) => {
     },
   });
 
-  if (!query) throw error(404, { message: "unknown user" });
+  if (!query) return error(404, { message: "unknown user" });
 
-  if (!query?.Preferences?.leaderboards) throw error(451, { message: "private profile" });
+  if (!query?.Preferences?.leaderboards) return error(451, { message: "private profile" });
 
   return json({ id: query.id, username: query.lastKnownUsername });
 };

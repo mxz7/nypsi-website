@@ -31,7 +31,7 @@ export const GET = async ({ url, fetch, cookies }) => {
 
     if (res.error) {
       console.error(res);
-      throw error(400, { message: "something went wrong", ...res });
+      return error(400, { message: "something went wrong", ...res });
     }
 
     cookies.set("discord_access_token", res.access_token, {
@@ -45,18 +45,18 @@ export const GET = async ({ url, fetch, cookies }) => {
 
     if (cookies.get("redirect_after_auth")) {
       const redirectUrl = cookies.get("redirect_after_auth");
-      cookies.delete("redirect_after_auth");
+      cookies.delete("redirect_after_auth", { path: "/" });
 
       const url = new URL(`${PUBLIC_URL}${redirectUrl}`);
 
       url.searchParams.set("loggedin", "1");
 
-      throw redirect(302, url);
+      return redirect(302, url);
     }
-    throw redirect(302, "/?loggedin=1");
+    return redirect(302, "/?loggedin=1");
   }
 
-  if (redirectTo) cookies.set("redirect_after_auth", redirectTo, { maxAge: 60 });
+  if (redirectTo) cookies.set("redirect_after_auth", redirectTo, { maxAge: 60, path: "/" });
 
-  throw redirect(302, PUBLIC_OAUTH_URL);
+  return redirect(302, PUBLIC_OAUTH_URL);
 };
