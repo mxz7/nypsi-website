@@ -8,7 +8,7 @@ export const GET = async ({ params, setHeaders }) => {
     "cache-control": "max-age=0, s-maxage=3600",
   });
 
-  if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
+  if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
 
   const privacyCheck = await prisma.preferences.findUnique({
     where: {
@@ -19,9 +19,9 @@ export const GET = async ({ params, setHeaders }) => {
     },
   });
 
-  if (!privacyCheck) throw error(404, { message: "user not found" });
+  if (!privacyCheck) return error(404, { message: "user not found" });
 
-  if (!privacyCheck.leaderboards) throw error(403, { message: "user has a private profile" });
+  if (!privacyCheck.leaderboards) return error(403, { message: "user has a private profile" });
 
   const query = await prisma.user.findUnique({
     where: {

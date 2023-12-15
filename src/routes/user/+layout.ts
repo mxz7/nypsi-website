@@ -7,5 +7,5 @@ export const load = async ({ url }) => {
     return;
   }
 
-  throw redirect(300, "/user/" + search);
+  redirect(300, "/user/" + search);
 };

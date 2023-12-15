@@ -40,7 +40,7 @@ export async function GET({ setHeaders, url }) {
   };
 
   if (userId) {
-    if (!userId.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
+    if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
     (options.where.AND as Prisma.GameWhereInput[]).push({ userId });
   }
 
@@ -50,7 +50,7 @@ export async function GET({ setHeaders, url }) {
     try {
       new Date(Number(before));
     } catch {
-      throw error(400, { message: "invalid before date value" });
+      return error(400, { message: "invalid before date value" });
     }
     (options.where.AND as Prisma.GameWhereInput[]).push({ date: { lt: new Date(Number(before)) } });
   }
@@ -59,13 +59,13 @@ export async function GET({ setHeaders, url }) {
     try {
       new Date(Number(after));
     } catch {
-      throw error(400, { message: "invalid after date value" });
+      return error(400, { message: "invalid after date value" });
     }
     (options.where.AND as Prisma.GameWhereInput[]).push({ date: { gt: new Date(Number(after)) } });
   }
 
   if (take) {
-    if (!Number(take)) throw error(400, "invalid amount to take");
+    if (!Number(take)) return error(400, "invalid amount to take");
     if (Number(take) > 100) take = "100";
     if (Number(take) < 1) take = "1";
 
@@ -73,7 +73,7 @@ export async function GET({ setHeaders, url }) {
   }
 
   if (skip) {
-    if (!Number(skip)) throw error(400, "invalid amount to skip");
+    if (!Number(skip)) return error(400, "invalid amount to skip");
 
     if (Number(skip) < 1) skip = "0";
 

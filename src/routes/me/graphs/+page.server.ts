@@ -8,9 +8,9 @@ export async function load({ setHeaders, parent, url }) {
 
   console.log(parentData);
 
-  if (!parentData.user.authenticated) throw redirect(303, "/me");
+  if (!parentData.user.authenticated) return redirect(303, "/me");
 
-  if (!parentData.baseData?.Premium?.level) throw redirect(303, "/me");
+  if (!parentData.baseData?.Premium?.level) return redirect(303, "/me");
 
   const days = parseInt(url.searchParams.get("days")) || 30;
 
@@ -34,23 +34,14 @@ export async function load({ setHeaders, parent, url }) {
     }
 
     return {
-      streamed: {
-        items: getItemCountDataForUser(categories, parentData.user.id, parentData.items, days),
-      },
+      itemsData: getItemCountDataForUser(categories, parentData.user.id, parentData.items, days),
     };
   } else {
     return {
-      streamed: {
-        balance: getItemCountDataForUser(
-          ["user-money"],
-          parentData.user.id,
-          parentData.items,
-          days,
-        ),
-        networth: getItemCountDataForUser(["user-net"], parentData.user.id, parentData.items, days),
-        karma: getItemCountDataForUser(["user-karma"], parentData.user.id, parentData.items, days),
-        level: getItemCountDataForUser(["user-level"], parentData.user.id, parentData.items, days),
-      },
+      balance: getItemCountDataForUser(["user-money"], parentData.user.id, parentData.items, days),
+      networth: getItemCountDataForUser(["user-net"], parentData.user.id, parentData.items, days),
+      karma: getItemCountDataForUser(["user-karma"], parentData.user.id, parentData.items, days),
+      level: getItemCountDataForUser(["user-level"], parentData.user.id, parentData.items, days),
     };
   }
 }

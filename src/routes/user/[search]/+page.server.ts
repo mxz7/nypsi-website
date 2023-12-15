@@ -16,62 +16,62 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
   const search = params.search;
   let userId: string;
 
-  if (!search) throw redirect(302, "/user/unknown");
+  if (!search) redirect(302, "/user/unknown");
 
   if (search.match(/^\d{17,19}$/)) {
     userId = search;
 
     const res = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
 
-    if (!res.exists) throw redirect(302, `/user/unknown?user=${search}`);
-    if (res.private) throw redirect(302, "/user/private");
+    if (!res.exists) return redirect(302, `/user/unknown?user=${search}`);
+    if (res.private) return redirect(302, "/user/private");
   } else {
     const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
 
     if (res.id) {
       userId = res.id;
     } else {
-      throw redirect(302, `/user/unknown?user=${search}`);
+      return redirect(302, `/user/unknown?user=${search}`);
     }
   }
 
+  const [baseUserData, items] = await Promise.all([
+    fetch(`/api/user/${userId}/base`).then((r) => r.json() as Promise<BaseUserData>),
+    getItems(),
+  ]);
+
   return {
-    baseUserData: fetch(`/api/user/${userId}/base`).then((r) => r.json() as Promise<BaseUserData>),
-    items: getItems(),
-    streamed: {
-      tagData: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
-        .then((r) => r.text())
-        .then((r) => JSON.parse(r)),
-      allUserData: fetch(`/api/user/${userId}`).then((r) => r.json()),
-      _view: (async () => {
-        if (request.headers.get("user-agent").includes("bot")) return;
-        const parentData = await parent();
+    baseUserData,
+    items,
+    allUserData: fetch(`/api/user/${userId}`).then((r) => r.json()),
+    _view: (async () => {
+      if (request.headers.get("user-agent").includes("bot")) return;
+      const parentData = await parent();
 
-        if (parentData.user.authenticated) {
-          if (parentData.user.id === userId) return;
-        }
+      if (parentData.user.authenticated) {
+        if (parentData.user.id === userId) return;
+      }
 
-        let ip: string;
+      let ip: string;
 
-        try {
-          ip = getClientAddress();
-        } catch {
-          ip = "127.0.0.1";
-        }
+      try {
+        ip = getClientAddress();
+      } catch {
+        ip = "127.0.0.1";
+      }
 
-        return fetch("/api/user/view/add", {
-          method: "POST",
-          headers: { Authorization: VIEW_AUTH },
-          body: JSON.stringify({
-            userId,
-            viewerId: parentData.user.authenticated ? parentData.user.id : undefined,
-            viewerIp: ip,
-            referrer: request.headers.get("referer"),
-          }),
-        })
-          .then((r) => r.json().catch(() => null))
-          .catch(() => null);
-      })(),
-    },
+      return fetch("/api/user/view/add", {
+        method: "POST",
+        headers: { Authorization: VIEW_AUTH },
+        body: JSON.stringify({
+          userId,
+          viewerId: parentData.user.authenticated ? parentData.user.id : undefined,
+          viewerIp: ip,
+          referrer: request.headers.get("referer"),
+        }),
+      })
+        .then((r) => r.json().catch(() => null))
+        .catch(() => null);
+    })(),
   };
 };

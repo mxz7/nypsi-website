@@ -63,7 +63,7 @@ export const load = async ({ fetch, params, setHeaders }) => {
         suffix = (value) => (parseInt(value) > 1 ? "votes" : "vote");
         break;
       default:
-        if (!item) throw error(400, "unknown item");
+        if (!item) error(400, "unknown item");
     }
   }
 
@@ -71,11 +71,9 @@ export const load = async ({ fetch, params, setHeaders }) => {
     title,
     item,
     suffix,
-    data: getData() as Promise<LeaderboardData>,
-    streamed: {
-      tags: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
-        .then((r) => r.text())
-        .then((r) => JSON.parse(r)),
-    },
+    data: (await getData()) as LeaderboardData,
+    tags: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
+      .then((r) => r.text())
+      .then((r) => JSON.parse(r)),
   };
 };

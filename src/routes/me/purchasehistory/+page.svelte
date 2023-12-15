@@ -17,7 +17,7 @@
   }, 300);
 
   onMount(async () => {
-    await Promise.resolve(data.streamed.totalCost);
+    await Promise.resolve(data.totalCost);
     clearInterval(interval);
   });
 </script>
@@ -45,7 +45,7 @@
       <p class="pl-1 text-xs text-slate-500">as of 2023-07-20</p>
       <p class="mb-1 grow pr-1 text-right text-sm text-slate-300 sm:text-lg">
         total spent <span class="font-semibold text-accent">
-          {#await data.streamed.totalCost}
+          {#await data.totalCost}
             {loadingText}
           {:then amount}
             {Intl.NumberFormat("en-UK", { style: "currency", currency: "GBP" }).format(amount)}
@@ -54,7 +54,7 @@
       </p>
     </div>
 
-    {#await data.streamed.history}
+    {#await data.history}
       <div class="relative mt-10">
         <Loading fadeInSettings={{ delay: 150, duration: 150 }} />
       </div>

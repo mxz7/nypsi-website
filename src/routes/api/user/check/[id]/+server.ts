@@ -9,7 +9,7 @@ export async function GET({ setHeaders, params }) {
     "cache-control": "s-maxage=1800, stale-while-revalidate, max-age=600",
   });
 
-  if (!id.match(/^\d{17,19}$/)) throw error(400, { message: "invalid user id" });
+  if (!id.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
 
   const res: APIUserCheck = { ok: true, exists: false, private: false };
 

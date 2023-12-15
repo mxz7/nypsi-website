@@ -5,7 +5,7 @@ import { error, json } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
 export async function POST({ request }) {
-  if (request.headers.get("Authorization") !== VIEW_AUTH) throw error(401);
+  if (request.headers.get("Authorization") !== VIEW_AUTH) return error(401);
 
   const body = await request.json();
 
