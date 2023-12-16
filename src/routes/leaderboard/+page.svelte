@@ -28,4 +28,8 @@
   </div>
 </div>
 
-<ItemList url="/leaderboard" items={data.items} />
+{#if data.items}
+  {#await data.items then items}
+    <ItemList url="/leaderboard" {items} />
+  {/await}
+{/if}
