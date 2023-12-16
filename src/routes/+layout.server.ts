@@ -27,8 +27,8 @@ export const load = async ({ cookies, fetch }) => {
       console.log(res);
       console.log(cookies.getAll());
 
-      cookies.delete("discord_access_token");
-      cookies.delete("discord_refresh_token");
+      cookies.delete("discord_access_token", { path: "/" });
+      cookies.delete("discord_refresh_token", { path: "/" });
       return { user: { authenticated: false } as UserSession };
     }
 
@@ -46,8 +46,8 @@ export const load = async ({ cookies, fetch }) => {
       console.log(res);
       console.log(cookies.getAll());
 
-      cookies.delete("discord_access_token");
-      cookies.delete("discord_refresh_token");
+      cookies.delete("discord_access_token", { path: "/" });
+      cookies.delete("discord_refresh_token", { path: "/" });
       return { user: { authenticated: false } as UserSession };
     }
 
@@ -61,8 +61,8 @@ export const load = async ({ cookies, fetch }) => {
       console.log(res);
       console.log(cookies.getAll());
 
-      cookies.delete("discord_access_token");
-      cookies.delete("discord_refresh_token");
+      cookies.delete("discord_access_token", { path: "/" });
+      cookies.delete("discord_refresh_token", { path: "/" });
       return { user: { authenticated: false } as UserSession };
     }
 
@@ -78,15 +78,15 @@ export const load = async ({ cookies, fetch }) => {
     }).then((r) => r.json());
 
     if (userRequest.error || userRequest.message) {
-      cookies.delete("discord_access_token");
-      cookies.delete("discord_refresh_token");
+      cookies.delete("discord_access_token", { path: "/" });
+      cookies.delete("discord_refresh_token", { path: "/" });
       console.error(userRequest);
       console.log("logout redirect 4");
       console.log(userRequest);
       console.log(cookies.getAll());
 
-      cookies.delete("discord_access_token");
-      cookies.delete("discord_refresh_token");
+      cookies.delete("discord_access_token", { path: "/" });
+      cookies.delete("discord_refresh_token", { path: "/" });
       return { user: { authenticated: false } as UserSession };
     }
 
