@@ -186,19 +186,20 @@
       >
         <p>main</p>
       </div>
-
-      <div
-        class="flex h-16 w-20 items-center justify-center rounded-lg bg-slate-950 bg-opacity-50 text-sm shadow"
-        style="color: {data.status.main ? '#16a34a' : '#dc2626'};"
-        use:tooltip={{
-          content: data.database.online
-            ? `query took: ${data.database.latency.toFixed(2)}ms`
-            : "having problems",
-          theme: "tooltip",
-        }}
-      >
-        <p>database</p>
-      </div>
+      {#await data.database then database}
+        <div
+          class="flex h-16 w-20 items-center justify-center rounded-lg bg-slate-950 bg-opacity-50 text-sm shadow"
+          style="color: {database.online ? '#16a34a' : '#dc2626'};"
+          use:tooltip={{
+            content: database.online
+              ? `query took: ${database.latency.toFixed(2)}ms`
+              : "having problems",
+            theme: "tooltip",
+          }}
+        >
+          <p>database</p>
+        </div>
+      {/await}
     </div>
 
     <h3 class="mt-8 text-lg font-semibold text-gray-300">clusters</h3>
