@@ -12,15 +12,23 @@ export async function load({ setHeaders, depends }) {
   return {
     status: cache
       ? (cache as BotStatus)
-      : await fetch(`${BOT_SERVER_URL}/status`).then(async (r) => {
-          const response = await r.json();
+      : await fetch(`${BOT_SERVER_URL}/status`)
+          .then(async (r) => {
+            const response = await r.json();
 
-          response.cached = Date.now();
+            response.cached = Date.now();
 
-          await redis.set("nypsi:status", JSON.stringify(response), { ex: 30 }).catch(() => null);
+            await redis.set("nypsi:status", JSON.stringify(response), { ex: 30 }).catch(() => null);
 
-          return response as BotStatus;
-        }),
+            return response as BotStatus;
+          })
+          .catch(() => {
+            return {
+              main: false,
+              clusters: [],
+              maintenance: false,
+            } as BotStatus;
+          }),
     database: (async () => {
       const before = performance.now();
       const query = await prisma.user.findFirst({ select: { id: true } }).catch(() => null);
