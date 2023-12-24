@@ -1,5 +1,6 @@
 import { VIEW_AUTH } from "$env/static/private";
 import getItems from "$lib/functions/getItems.js";
+import type Game from "$lib/types/Game.js";
 import type { BaseUserData } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 
@@ -40,10 +41,17 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
     getItems(),
   ]);
 
+  const before = Date.now();
+
   return {
     baseUserData,
     items,
     allUserData: fetch(`/api/user/${userId}`).then((r) => r.json()),
+    games: fetch(`/api/game?user=${userId}&before=${before}`).then((r) => r.json()) as Promise<{
+      ok: boolean;
+      games: Game[];
+    }>,
+    gamesBefore: before,
     _view: (async () => {
       if (request.headers.get("user-agent").includes("bot")) return;
       const parentData = await parent();

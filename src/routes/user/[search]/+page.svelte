@@ -23,6 +23,12 @@
 
 <div in:fade={{ delay: 0, duration: 200 }} out:fly={{ y: 15, duration: 250 }}>
   {#key data}
-    <UserData baseData={data.baseUserData} userData={data.allUserData} items={data.items} />
+    <UserData
+      baseData={data.baseUserData}
+      userData={data.allUserData}
+      items={data.items}
+      gamesPromise={data.games}
+      gamesBefore={data.gamesBefore}
+    />
   {/key}
 </div>
