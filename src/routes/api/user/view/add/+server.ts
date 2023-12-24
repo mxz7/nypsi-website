@@ -5,13 +5,19 @@ import { error, json } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
 export async function POST({ request }) {
-  if (request.headers.get("Authorization") !== VIEW_AUTH) return error(401);
+  if (request.headers.get("Authorization") !== VIEW_AUTH) {
+    console.error("invalud auth");
+    return error(401);
+  }
 
   const body = await request.json();
 
   const res = UserRequestData.safeParse(body);
 
-  if (res.success === false) return json(res.error, { status: 400 });
+  if (res.success === false) {
+    console.error("invalid body structure");
+    return json(res.error, { status: 400 });
+  }
 
   if (res.data.userId === res.data.viewerId) return json(null, { status: 200 });
 
@@ -28,7 +34,7 @@ export async function POST({ request }) {
     if (res.data.viewerId === view.viewerId) return json(null, { status: 200 });
     if (view.viewerIp === res.data.viewerIp) return json(null, { status: 200 });
     if (new Date(view.createdAt).getTime() >= dayjs().subtract(1, "minute").toDate().getTime())
-      return;
+      return json(null, { status: 200 });
   }
 
   await prisma.profileView.create({
