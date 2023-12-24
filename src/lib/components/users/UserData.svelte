@@ -1,5 +1,6 @@
 <script lang="ts">
   import { MStoTime, daysAgo } from "$lib/functions/time";
+  import type Game from "$lib/types/Game";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
@@ -28,15 +29,18 @@
   } | null;
   export let userData: UserApiResponsexd | Promise<UserApiResponsexd>;
   export let items: Item[];
+  export let gamesPromise: Promise<{
+    ok: boolean;
+    games: Game[];
+  }>;
+  export let gamesBefore: number;
 
-  $: games = [];
-
-  const now = new Date().getTime();
+  $: games = [] as Game[];
 
   async function infiniteHandler({ detail: { loaded, complete } }) {
     const id = await Promise.resolve(userData).then((r) => r.id);
     console.log("fetching more");
-    fetch(`/api/game?before=${now}&take=50&skip=${games.length}&user=${id}`)
+    fetch(`/api/game?before=${gamesBefore}&take=50&skip=${games.length}&user=${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.ok) {
@@ -49,9 +53,8 @@
   }
 
   onMount(async () => {
-    const data = await Promise.resolve(userData);
-
-    games = [...data.Economy.Game];
+    const resolved = await Promise.resolve(gamesPromise);
+    games = [...(resolved.ok ? resolved.games : [])];
   });
 </script>
 
@@ -293,8 +296,8 @@
             <InfiniteLoading on:infinite={infiniteHandler}>
               <div class="relative mt-8 w-full" slot="spinner">
                 <Loading />
-              </div></InfiniteLoading
-            >
+              </div>
+            </InfiniteLoading>
           </div>
         </div>
       {/if}

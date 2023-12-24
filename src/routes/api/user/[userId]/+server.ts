@@ -1,7 +1,6 @@
 import prisma from "$lib/server/database.js";
 import { privacyCheck } from "$lib/server/functions/user/privacy.js";
 import { error, json } from "@sveltejs/kit";
-import dayjs from "dayjs";
 
 export const GET = async ({ params, setHeaders, fetch }) => {
   const userId = params.userId;
@@ -102,23 +101,6 @@ export const GET = async ({ params, setHeaders, fetch }) => {
               },
             },
           },
-          Game: {
-            orderBy: {
-              date: "desc",
-            },
-            take: 16,
-            select: {
-              game: true,
-              win: true,
-              id: true,
-              date: true,
-              bet: true,
-              earned: true,
-            },
-            where: {
-              date: { gte: dayjs().subtract(1, "week").toDate() },
-            },
-          },
           money: true,
           netWorth: true,
           prestige: true,
@@ -168,16 +150,6 @@ export const GET = async ({ params, setHeaders, fetch }) => {
         query.Economy.EconomyGuildMember.guild?.xp,
       ) as unknown as bigint;
     }
-    query.Economy.Game = query.Economy.Game.map((g) => {
-      return {
-        id: g.id,
-        win: g.win,
-        bet: Number(g.bet) as unknown as bigint,
-        earned: Number(g.earned) as unknown as bigint,
-        date: g.date,
-        game: g.game,
-      };
-    });
   }
 
   return json({ ...query, message: "success" });

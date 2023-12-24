@@ -36,14 +36,6 @@ export interface UserApiResponsexd extends BaseUserApiResponse {
       amount: number;
       upgradeId: string;
     }[];
-    Game: {
-      date: number;
-      game: string;
-      win: number;
-      id: number;
-      bet: number;
-      earned: number;
-    }[];
     EconomyGuildMember?: {
       guild: {
         guildName: string;
