@@ -15,6 +15,7 @@ export async function POST({ request }) {
   const res = UserRequestData.safeParse(body);
 
   if (res.success === false) {
+    console.log(body);
     console.error("invalid body structure");
     return json(res.error, { status: 400 });
   }
