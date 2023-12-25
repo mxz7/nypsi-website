@@ -1,4 +1,5 @@
 <script lang="ts">
+  import search from "$lib/assets/search.png";
   import { gameSearchTerm } from "$lib/data/stores";
   import getItems from "$lib/functions/getItems";
   import { onMount } from "svelte";
@@ -40,7 +41,7 @@
       class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
     >
       <div class="mr-1 flex items-center justify-center">
-        <img src="/search.png" alt="" class="h-4 w-4" />
+        <img src={search} alt="" class="h-4 w-4" />
       </div>
 
       <input
