@@ -40,7 +40,7 @@
   async function infiniteHandler({ detail: { loaded, complete } }) {
     const id = await Promise.resolve(userData).then((r) => r.id);
     console.log("fetching more");
-    fetch(`/api/game?before=${gamesBefore}&take=50&skip=${games.length}&user=${id}`)
+    fetch(`/api/game?before=${gamesBefore}&take=100&skip=${games.length}&user=${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.ok) {

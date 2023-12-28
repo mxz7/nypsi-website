@@ -47,7 +47,9 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
     baseUserData,
     items,
     allUserData: fetch(`/api/user/${userId}`).then((r) => r.json()),
-    games: fetch(`/api/game?user=${userId}&before=${before}`).then((r) => r.json()) as Promise<{
+    games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
+      r.json(),
+    ) as Promise<{
       ok: boolean;
       games: Game[];
     }>,
