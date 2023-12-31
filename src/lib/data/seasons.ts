@@ -69,6 +69,21 @@ export default {
   },
   "6": {
     started: new Date("2023-06-01"),
+    winners: [
+      { username: "elastics", value: "$138,172,271,930" },
+      { username: "amasos", value: "$76,654,591,482" },
+      { username: "peegle.", value: "$36,551,944,655" },
+      { username: "4two0", value: "$21,376,692,773" },
+      { username: "rage.00", value: "$21,208,233,449" },
+      { username: "a_lice", value: "$15,288,026,174" },
+      { username: "growling_grizzly", value: "$15,033,970,033" },
+      { username: "orionlmao", value: "$4,121,912,195" },
+      { username: "albis100", value: "$10,789,104,983" },
+      { username: "mcbuilding", value: "$9,501,598,099" },
+    ],
+  },
+  "7": {
+    started: new Date("2024-01-01"),
   },
 } as {
   [key: string]: { started: Date; ended?: Date; winners?: { username: string; value: string }[] };
