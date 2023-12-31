@@ -69,6 +69,7 @@ export default {
   },
   "6": {
     started: new Date("2023-06-01"),
+    ended: new Date("2023-12-31"),
     winners: [
       { username: "elastics", value: "$138,172,271,930" },
       { username: "amasos", value: "$76,654,591,482" },
