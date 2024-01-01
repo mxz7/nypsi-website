@@ -17,8 +17,7 @@ export const load = async ({ params, parent, setHeaders, url }) => {
   const days = parseInt(url.searchParams.get("days")) || 30;
 
   return {
-    base: 69,
     item,
-    graphData: getItemHistoryData(params.item, parentData.user.id, days),
+    graphData: await getItemHistoryData(params.item, parentData.user.id, days),
   };
 };
