@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-vercel": "^4.0.4",
-    "@sveltejs/kit": "^2.1.0",
+    "@sveltejs/kit": "^2.3.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/ms": "0.7.34",
     "@types/twemoji-parser": "13.1.4",
