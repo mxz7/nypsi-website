@@ -1,6 +1,7 @@
 export interface BotStatus {
   main: boolean;
   maintenance: boolean;
+  uptime: number;
   clusters: {
     id: number;
     online: boolean;
