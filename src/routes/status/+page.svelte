@@ -3,6 +3,7 @@
   import tooltip from "$lib/Tooltips.js";
   import Cluster from "$lib/components/status/Cluster.svelte";
   import Shard from "$lib/components/status/Shard.svelte";
+  import { MStoTime } from "$lib/functions/time.js";
   import { onDestroy, onMount } from "svelte";
   import toast from "svelte-french-toast";
   import { writable } from "svelte/store";
@@ -180,8 +181,11 @@
         class="flex h-16 w-20 items-center justify-center rounded bg-slate-950 bg-opacity-50 text-sm shadow"
         style="color: {data.status.main ? '#16a34a' : '#dc2626'};"
         use:tooltip={{
-          content: data.status.main ? "working as expected" : "having problems",
+          content:
+            (data.status.main ? "working as expected" : "having problems") +
+            ` <br />uptime: ${MStoTime(data.status.uptime)}`,
           theme: "tooltip",
+          allowHTML: true,
         }}
       >
         <p>main</p>
