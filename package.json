@@ -42,7 +42,7 @@
     "@upstash/ratelimit": "1.0.0",
     "@upstash/redis": "1.28.1",
     "@vercel/analytics": "1.1.2",
-    "@vercel/speed-insights": "^1.0.4",
+    "@vercel/speed-insights": "^1.0.5",
     "chart.js": "^4.4.1",
     "dayjs": "1.11.10",
     "fast-sort": "3.4.0",
