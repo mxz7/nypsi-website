@@ -18,8 +18,8 @@ dependencies:
     specifier: 1.1.2
     version: 1.1.2
   '@vercel/speed-insights':
-    specifier: ^1.0.7
-    version: 1.0.7(@sveltejs/kit@2.4.3)(svelte@4.2.9)
+    specifier: ^1.0.8
+    version: 1.0.8(@sveltejs/kit@2.4.3)(svelte@4.2.9)
   chart.js:
     specifier: ^4.4.1
     version: 4.4.1
@@ -892,8 +892,8 @@ packages:
       - supports-color
     dev: true
 
-  /@vercel/speed-insights@1.0.7(@sveltejs/kit@2.4.3)(svelte@4.2.9):
-    resolution: {integrity: sha512-1XYZO/OlrAco8QPoXXIOPoMrj0O+slB9k6poRo1drQJ+DWTbdUUT18Mtm4ybA8KMj4mGEMEgbw0BKR/yq/VPhA==}
+  /@vercel/speed-insights@1.0.8(@sveltejs/kit@2.4.3)(svelte@4.2.9):
+    resolution: {integrity: sha512-x1V9MHUMGkaNafmgY0qRbmbr+jfeU+Cvo5KgreeEGo63SFuBYRg9RS52GUJ9p82nEL6NBzc9HNru6fkcvufYcQ==}
     requiresBuild: true
     peerDependencies:
       '@sveltejs/kit': ^1 || ^2
