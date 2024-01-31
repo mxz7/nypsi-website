@@ -30,8 +30,8 @@ dependencies:
     specifier: 3.4.0
     version: 3.4.0
   lucide-svelte:
-    specifier: ^0.316.0
-    version: 0.316.0(svelte@4.2.9)
+    specifier: ^0.320.0
+    version: 0.320.0(svelte@4.2.9)
   ms:
     specifier: 2.1.3
     version: 2.1.3
@@ -1840,8 +1840,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /lucide-svelte@0.316.0(svelte@4.2.9):
-    resolution: {integrity: sha512-6mtBw/aU1IIVXfN6AXLSwsbeCFX/2/tTy84rrDTDsOq7BEijFbvObQsPEWPxJ0EyCjUXOYfAvfkZzMosYjyGqA==}
+  /lucide-svelte@0.320.0(svelte@4.2.9):
+    resolution: {integrity: sha512-Xycr1wFIPIEsFMvY6TkVKdzzA2XMdqO4BEy2upvCGmoRUwJQgKrPFW3D5vI7VcN8hy91trZ1levO9pHpu3vlVw==}
     peerDependencies:
       svelte: '>=3 <5'
     dependencies:
