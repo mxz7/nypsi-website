@@ -131,7 +131,7 @@
 
           if (selected.name !== "items") {
             state.leaderboardPath = selected.path;
-            state.leaderboardName = selected.name;
+            state.leaderboardName = selected.leaderboardName;
           }
           pushState($page.url, state);
           setTimeout(() => {
