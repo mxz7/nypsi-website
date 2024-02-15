@@ -7,6 +7,12 @@ declare global {
     // interface Locals {}
     // interface PageData {}
     // interface Platform {}
+    interface PageState {
+      leaderboardSelection?: number;
+      leaderboardItem?: string;
+      leaderboardPath?: string;
+      leaderboardName?: string;
+    }
   }
 }
 

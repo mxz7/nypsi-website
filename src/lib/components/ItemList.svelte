@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import search from "$lib/assets/search.png";
   import { gameSearchTerm } from "$lib/data/stores";
   import getItems from "$lib/functions/getItems";
@@ -36,7 +37,7 @@
 </script>
 
 <div class="mt-10 flex w-full justify-center">
-  <div id="items" class=" w-full overflow-x-hidden sm:px-48 md:max-w-7xl">
+  <div id="items" class=" w-full overflow-x-hidden md:max-w-7xl">
     <form
       class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
     >
@@ -61,7 +62,7 @@
           {url}
           {includeSearchParams}
           {onClick}
-          selected={selectedList.includes(item.id)}
+          selected={selectedList.includes(item.id) || $page.state?.leaderboardItem === item.id}
         />
       {/each}
     </div>

@@ -20,7 +20,11 @@ export const GET = async ({ setHeaders }) => {
     headers: {
       Authorization: TOPGG_TOKEN,
     },
-  }).then((r) => r.json());
+  }).then((r) =>
+    r.json().catch(() => {
+      // boobies
+    }),
+  );
 
   await redis.set("server-count", JSON.stringify(res), { ex: 30 });
 
