@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -91,7 +92,6 @@ model DMSettings {
   lottery        Boolean         @default(true)
   premium        Boolean         @default(true)
   auction        Boolean         @default(true)
-  vote           Boolean         @default(true)
   voteReminder   Boolean         @default(false)
   worker         WorkerDmSetting @default(OnlyWhenFull)
   booster        Boolean         @default(false)
@@ -166,9 +166,11 @@ model Economy {
   lastVote  DateTime @default("1970-01-01T14:21:00+02:00")
   lastBake  DateTime @default("1970-01-01T14:21:00+02:00")
 
-  monthVote   Int @default(0)
-  seasonVote  Int @default(0)
-  dailyStreak Int @default(0)
+  monthVote        Int @default(0)
+  seasonVote       Int @default(0)
+  dailyStreak      Int @default(0)
+  dailyTaskStreak  Int @default(0)
+  weeklyTaskStreak Int @default(0)
 
   banned DateTime?
 
@@ -193,6 +195,26 @@ model Economy {
   OffersReceived     Offer[]             @relation(name: "target")
   OffersGiven        Offer[]             @relation(name: "owner")
   Upgrades           Upgrades[]
+  Task               Task[]
+}
+
+model Task {
+  user_id   String
+  task_id   String
+  progress  BigInt   @default(0)
+  target    BigInt
+  completed Boolean  @default(false)
+  prize     String
+  type      TaskType
+
+  economy Economy @relation(fields: [user_id], references: [userId], onDelete: Cascade)
+
+  @@id([user_id, task_id])
+}
+
+enum TaskType {
+  daily
+  weekly
 }
 
 model Upgrades {
@@ -210,7 +232,7 @@ model AuctionWatch {
   itemId  String
   maxCost BigInt @default(0)
 
-  Economy Economy? @relation(fields: [userId], references: [userId])
+  Economy Economy? @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@id([userId, itemId])
 }
@@ -318,9 +340,9 @@ model Premium {
   level      Int
   embedColor String   @default("default")
   lastWeekly DateTime
-  status     Int      @default(1)
   startDate  DateTime
   expireDate DateTime
+  credit     Int      @default(0)
 
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String          @id
@@ -382,6 +404,8 @@ model Auction {
   sold       Boolean  @default(false)
 
   owner Economy @relation(fields: [ownerId], references: [userId], onDelete: Cascade)
+
+  @@index([itemId])
 }
 
 model Offer {
@@ -396,6 +420,8 @@ model Offer {
 
   target Economy? @relation(fields: [targetId], references: [userId], name: "target")
   owner  Economy? @relation(fields: [ownerId], references: [userId], name: "owner")
+
+  @@index([itemId])
 }
 
 // guild specific tables
@@ -636,25 +662,6 @@ model EconomyGuildUpgrades {
   @@id([guildName, upgradeId])
 }
 
-// wholesome tables
-
-model WholesomeImage {
-  id          Int      @id @default(autoincrement())
-  image       String   @unique()
-  submitter   String
-  submitterId String
-  uploadDate  DateTime
-  accepterId  String
-}
-
-model WholesomeSuggestion {
-  id          Int      @id @default(autoincrement())
-  image       String   @unique()
-  submitter   String
-  submitterId String
-  uploadDate  DateTime
-}
-
 // tables with no relation for easiness
 
 model Mention {
@@ -707,4 +714,35 @@ model ActiveChannels {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, channelId])
+}
+
+// for image commands (wholesome etc)
+model Image {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  url  String
+  type ImageType
+
+  uploaderId String?
+  accepterId String?
+
+  views Int @default(0)
+}
+
+model ImageSuggestion {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  url  String
+  type ImageType
+
+  uploaderId String
+}
+
+enum ImageType {
+  cat
+  dog
+  capybara
+  wholesome
 }
