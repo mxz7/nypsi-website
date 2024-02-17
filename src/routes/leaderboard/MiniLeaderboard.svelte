@@ -16,20 +16,20 @@
       {#await data}
         <div class="flex flex-col gap-2">
           {#each new Array(10) as _, i}
-            {@const userWidth = Math.floor(Math.random() * 13) + 4}
             <div
               class="flex w-full items-center gap-2 rounded border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
             >
               <div class="my-1 h-4 w-8 animate-pulse rounded-xl bg-slate-600" />
               <div
-                style="width: {userWidth}rem"
+                style="width: {Math.floor(Math.random() * 13) + 4}rem"
                 class="my-1 h-4 animate-pulse rounded-xl md:h-5 {i === 0
                   ? 'bg-accent'
                   : 'bg-slate-400'}"
               />
               <div class="grow"></div>
               <div
-                class="h-4 w-24 animate-pulse rounded-xl {i === 0 ? 'bg-accent' : 'bg-slate-500'}"
+                style="width: {Math.floor(Math.random() * 4) + 4}rem"
+                class="h-4 animate-pulse rounded-xl {i === 0 ? 'bg-accent' : 'bg-slate-500'}"
               />
             </div>
           {/each}
