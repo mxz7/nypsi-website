@@ -104,7 +104,12 @@
         p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
       >
         <div class="flex h-5 items-center justify-center md:h-6">
-          <enhanced:img src={discordLogo} alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
+          <enhanced:img
+            src={discordLogo}
+            alt=""
+            class="h-5 w-5 object-contain md:h-6 md:w-6"
+            fetchpriority="high"
+          />
         </div>
         <p>add to discord</p>
       </a>
@@ -136,6 +141,7 @@
         src={hero}
         class="fly-up md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
         alt="hero imaage nypsi icon"
+        fetchpriority="high"
       />
     </div>
   </div>
