@@ -4,11 +4,6 @@ import type Game from "$lib/types/Game.js";
 import type { BaseUserData } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
-
 export const load = async ({ params, fetch, setHeaders, parent, getClientAddress, request }) => {
   setHeaders({
     "cache-control": "max-age=300",
