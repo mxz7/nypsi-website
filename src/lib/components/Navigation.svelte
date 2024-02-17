@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import nypsiLogo from "$lib/assets/nypsi-transparent.webp";
+  import nypsiLogo from "$lib/assets/nypsi-transparent.webp?enhanced";
   import type { UserSession } from "$lib/types/User";
   import { fly } from "svelte/transition";
 
@@ -34,7 +34,7 @@
             />
           </a>
         {:else}
-          <img src={nypsiLogo} alt="nypsi icon" class="h-8 w-8" />
+          <enhanced:img src={nypsiLogo} alt="nypsi icon" class="h-8 w-8" />
         {/if}
       </a>
 

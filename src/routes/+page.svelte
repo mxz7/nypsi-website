@@ -1,6 +1,6 @@
 <script lang="ts">
-  import discordLogo from "$lib/assets/discord-white.webp";
-  import hero from "$lib/assets/hero.webp";
+  import discordLogo from "$lib/assets/discord-white.webp?enhanced";
+  import hero from "$lib/assets/hero.webp?enhanced";
   import {
     Backpack,
     Bell,
@@ -104,7 +104,7 @@
         p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
       >
         <div class="flex h-5 items-center justify-center md:h-6">
-          <img src={discordLogo} alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
+          <enhanced:img src={discordLogo} alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
         </div>
         <p>add to discord</p>
       </a>
@@ -126,13 +126,13 @@
         p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
         >
           <div class="flex h-5 items-center justify-center md:h-6">
-            <img src={discordLogo} alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
+            <enhanced:img src={discordLogo} alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
           </div>
           <p>add to discord</p>
         </a>
       </div>
 
-      <img
+      <enhanced:img
         src={hero}
         class="fly-up md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
         alt="hero imaage nypsi icon"
