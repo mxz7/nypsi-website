@@ -3,8 +3,10 @@
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
+  import { daysAgo } from "$lib/functions/time";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
+  import dayjs from "dayjs";
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
@@ -176,6 +178,23 @@
               class="mr-1 inline h-4 lg:h-6"
             />
             <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
+          </p>
+        {:else}
+          <p class="mt-1 text-slate-300">
+            last seen {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(3, "months"))}
+              {new Date(userData.lastCommand).toLocaleDateString()}
+            {:else if daysAgo(userData.lastCommand) < 1}
+              {@const hours = (dayjs().unix() - dayjs(userData.lastCommand).unix()) / 3600}
+              {#if hours < 1}
+                just now
+              {:else}
+                {Math.floor(hours)} hour{Math.floor(hours) > 1 ? "s" : ""} ago
+              {/if}
+            {:else}
+              {daysAgo(userData.lastCommand).toLocaleString()} day{daysAgo(userData.lastCommand) > 1
+                ? "s"
+                : ""} ago
+            {/if}
           </p>
         {/if}
       {/await}
