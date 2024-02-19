@@ -9,7 +9,7 @@ export const config = {
 
 export const GET = async ({ setHeaders }) => {
   setHeaders({
-    "cache-control": "max-age=0, s-maxage=120, stale-while-revalidate",
+    "cache-control": "max-age=0, s-maxage=600, stale-while-revalidate",
   });
 
   if (await redis.exists("server-count")) {
@@ -26,7 +26,7 @@ export const GET = async ({ setHeaders }) => {
     }),
   );
 
-  await redis.set("server-count", JSON.stringify(res), { ex: 30 });
+  await redis.set("server-count", JSON.stringify(res), { ex: 120 });
 
   return json(res);
 };

@@ -52,9 +52,7 @@
   <meta property="og:image:height" content="128" />
 </svelte:head>
 
-{#await data.streamed.topgg}
-  <div />
-{:then data}
+{#await data.topgg then data}
   <div in:fade={{ duration: 2500 }}>
     {#if data.server_count}
       <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">

@@ -3,8 +3,7 @@ export const config = {
   regions: "all",
 };
 
-export const load = async ({ fetch, setHeaders }) => {
-  setHeaders({'cache-control': 'max-age=60'})
+export const load = async ({ fetch }) => {
   const data = fetch("/api/server-count").then(async (r) => r.json());
-  return { base: 69, streamed: { topgg: data as Promise<{ server_count: number }> } };
+  return { topgg: data as Promise<{ server_count: number }> };
 };
