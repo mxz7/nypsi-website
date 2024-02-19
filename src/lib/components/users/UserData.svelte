@@ -59,11 +59,11 @@
 </script>
 
 <div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto md:w-full md:max-w-3xl">
-  <div in:fly={{ delay: 250, duration: 500, y: 30 }}>
+  <div in:fly|global={{ delay: 250, duration: 500, y: 30 }}>
     <Profile {baseData} {userData} {items} />
   </div>
 
-  <div in:fly={{ delay: 400, duration: 500, y: 30 }}>
+  <div in:fly|global={{ delay: 400, duration: 500, y: 30 }}>
     {#if baseData.blacklisted}
       <Punishment>
         {baseData.lastKnownUsername} is blacklisted from nypsi
@@ -88,7 +88,10 @@
       </div>
     {:then userData}
       {#if userData.Economy}
-        <div class="mt-4 flex w-full flex-row gap-4" in:fly={{ delay: 500, duration: 500, y: 75 }}>
+        <div
+          class="mt-4 flex w-full flex-row gap-4"
+          in:fly|global={{ delay: 500, duration: 500, y: 75 }}
+        >
           <SmallInfo>
             <h1 class="text-white lg:text-xl">favourite command</h1>
             <p class="line-clamp-1 text-sm text-slate-300 lg:text-base">
@@ -105,7 +108,7 @@
           </SmallInfo>
         </div>
 
-        <div in:fly={{ delay: 600, duration: 500, y: 75 }}>
+        <div in:fly|global={{ delay: 600, duration: 500, y: 75 }}>
           {#if userData.Economy.EconomyGuildMember?.guild}
             <div
               class="mt-4 flex w-full flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
@@ -145,7 +148,7 @@
           {/if}
         </div>
 
-        <div in:fly={{ delay: 700, duration: 500, y: 75 }}>
+        <div in:fly|global={{ delay: 700, duration: 500, y: 75 }}>
           {#if userData.Economy.Inventory.length > 1}
             <div
               class="mt-4 flex w-full flex-col justify-center rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
@@ -181,7 +184,10 @@
           {/if}
         </div>
 
-        <div class="mt-4 flex w-full flex-row gap-4" in:fly={{ delay: 800, duration: 500, y: 75 }}>
+        <div
+          class="mt-4 flex w-full flex-row gap-4"
+          in:fly|global={{ delay: 800, duration: 500, y: 75 }}
+        >
           <SmallInfo>
             <h1 class="text-white lg:text-xl">last seen</h1>
 
@@ -219,7 +225,7 @@
           </SmallInfo>
         </div>
 
-        <div in:fly={{ delay: 900, duration: 500, y: 75 }}>
+        <div in:fly|global={{ delay: 900, duration: 500, y: 75 }}>
           {#if userData.Leaderboards.length > 0}
             <div
               class="mt-4 flex w-full flex-col justify-center rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
@@ -264,7 +270,7 @@
           {/if}
         </div>
 
-        <div in:fly={{ delay: 1000, duration: 500, y: 75 }}>
+        <div in:fly|global={{ delay: 1000, duration: 500, y: 75 }}>
           {#if games.length > 0}
             <div
               class="mx-auto mt-4 flex flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 lg:w-full"
@@ -310,7 +316,7 @@
           {/if}
         </div>
 
-        <div in:fly={{ delay: 1100, duration: 500, y: 75 }} class="w-full">
+        <div in:fly|global={{ delay: 1100, duration: 500, y: 75 }} class="w-full">
           {#if userData.WordleStats}
             <div
               class="mx-auto mt-4 flex w-fit flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
