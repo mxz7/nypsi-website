@@ -57,10 +57,10 @@
   ];
 
   if ($page.url.searchParams.get("lb")) {
-    if (!options[parseInt($page.url.searchParams.get("lb"))]) {
+    if (!options.find((i) => i.name === $page.url.searchParams.get("lb"))) {
       options[0].selected = true;
     } else {
-      options[parseInt($page.url.searchParams.get("lb"))].selected = true;
+      options.find((i) => i.name === $page.url.searchParams.get("lb")).selected = true;
     }
   } else {
     options[0].selected = true;
@@ -120,7 +120,7 @@
           const selected = options[i];
 
           if (i !== 6) $page.url.searchParams.delete("item");
-          if (i !== 0) $page.url.searchParams.set("lb", i.toString());
+          if (i !== 0) $page.url.searchParams.set("lb", encodeURIComponent(selected.name));
           else $page.url.searchParams.delete("lb");
 
           const state = {
