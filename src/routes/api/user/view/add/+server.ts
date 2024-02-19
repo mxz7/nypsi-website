@@ -16,8 +16,8 @@ export async function POST({ request }) {
 
   if (res.success === false) {
     console.log(body);
-    console.error("invalid body structure");
-    console.error(res);
+    console.warn("invalid body structure");
+    console.warn(res.error);
     return json(res.error, { status: 400 });
   }
 
