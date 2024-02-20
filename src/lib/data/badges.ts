@@ -1,8 +1,10 @@
+import crownBadge from "$lib/assets/badges/crown.png";
+
 const badges = new Map([
   [
     "owner",
     {
-      icon: "/badges/crown.png",
+      icon: crownBadge,
       text: "i own nypsi lol",
       name: "owner",
       description: "owner of nypsi",
