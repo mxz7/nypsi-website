@@ -56,7 +56,7 @@ const badges = new Map([
       icon: "https://em-content.zobj.net/thumbs/240/twitter/351/money-with-wings_1f4b8.png",
       text: "i've donated lots of money xd",
       name: "highroller",
-      description: "highrollers have donated at least £300 to nypsi",
+      description: "highrollers have donated at least £500 to nypsi",
     },
   ],
 ]);
