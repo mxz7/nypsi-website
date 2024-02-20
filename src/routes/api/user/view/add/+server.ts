@@ -1,6 +1,7 @@
+import { dev } from "$app/environment";
 import { VIEW_AUTH } from "$env/static/private";
 import prisma from "$lib/server/database.js";
-import { UserRequestData } from "$lib/types/api/UserView.js";
+import { UserAddViewData } from "$lib/types/api/UserView.js";
 import { error, json } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
@@ -12,7 +13,7 @@ export async function POST({ request }) {
 
   const body = await request.json();
 
-  const res = UserRequestData.safeParse(body);
+  const res = UserAddViewData.safeParse(body);
 
   if (res.success === false) {
     console.log(body);
@@ -39,6 +40,7 @@ export async function POST({ request }) {
       return json(null, { status: 200 });
   }
 
+  if (dev) return;
   await prisma.profileView.create({
     data: {
       source: "WEB",
