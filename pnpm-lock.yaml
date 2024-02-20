@@ -112,9 +112,6 @@ devDependencies:
   svelte-check:
     specifier: 3.6.4
     version: 3.6.4(postcss@8.4.35)(svelte@4.2.11)
-  svelte-toggle:
-    specifier: ^4.0.0
-    version: 4.0.0
   tailwindcss:
     specifier: 3.4.1
     version: 3.4.1
@@ -2979,10 +2976,6 @@ packages:
     dependencies:
       tippy.js: 6.3.7
     dev: false
-
-  /svelte-toggle@4.0.0:
-    resolution: {integrity: sha512-teFYwmRJfls+FM689zMDKF3TFFzYCU1YvMuleGDf2AKFJGsM1RV4+3+zX3q+aBTbIpa2PG7470hoDuCcyvUX6g==}
-    dev: true
 
   /svelte-writable-derived@3.1.0(svelte@4.2.11):
     resolution: {integrity: sha512-cTvaVFNIJ036vSDIyPxJYivKC7ZLtcFOPm1Iq6qWBDo1fOHzfk6ZSbwaKrxhjgy52Rbl5IHzRcWgos6Zqn9/rg==}
