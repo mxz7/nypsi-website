@@ -6,6 +6,7 @@
   export let title: string;
   export let data: LeaderboardData | Promise<LeaderboardData>;
   export let tags: Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>;
+  export let userRoute: string;
 </script>
 
 <div class="w-full md:max-w-3xl">
@@ -45,7 +46,7 @@
               <a
                 href={user.username === "[hidden]"
                   ? "https://docs.nypsi.xyz/economy/hidden"
-                  : `/user/${user.id}`}
+                  : `${userRoute}/${user.id}`}
                 class="{i === 0
                   ? 'font-semibold text-accent'
                   : 'text-slate-300'} line-clamp-1 flex items-center break-words"
@@ -67,7 +68,7 @@
                       <p class="mr-1">]</p>
                     {/await}
                   {/if}
-                  <a href="/user/{user.id}">{user.username}</a>
+                  <a href="{userRoute}/{user.id}">{user.username}</a>
                 {:else}
                   {user.username}
                 {/if}
