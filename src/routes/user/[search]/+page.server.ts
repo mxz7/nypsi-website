@@ -72,7 +72,7 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
           userId,
           viewerId: parentData.user.authenticated ? parentData.user.id : undefined,
           viewerIp: ip,
-          referrer: request.headers.get("referer"),
+          referrer: request.headers.get("referer") || undefined,
         }),
       })
         .then((r) => r.json().catch(() => null))
