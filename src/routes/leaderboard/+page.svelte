@@ -33,6 +33,13 @@
       path: "/api/leaderboard/prestige",
     },
     {
+      name: "guilds",
+      leaderboardName: "top guilds",
+      selected: false,
+      showItems: false,
+      path: "/api/leaderboard/guild",
+    },
+    {
       name: "streak",
       leaderboardName: "top daily streak",
       selected: false,
@@ -119,7 +126,7 @@
         on:click={() => {
           const selected = options[i];
 
-          if (i !== 6) $page.url.searchParams.delete("item");
+          if (selected.name !== "items") $page.url.searchParams.delete("item");
           if (i !== 0) $page.url.searchParams.set("lb", encodeURIComponent(selected.name));
           else $page.url.searchParams.delete("lb");
 
@@ -145,7 +152,7 @@
   </div>
 </div>
 
-{#if $page.state.leaderboardSelection === 6}
+{#if options[$page.state.leaderboardSelection]?.name === "items"}
   {#if data.items}
     {#await data.items then items}
       <ItemList
@@ -178,6 +185,7 @@
         tags={data.tags}
         data={fetch($page.state.leaderboardPath).then((r) => r.json())}
         title={$page.state.leaderboardName}
+        userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}
       />
     </div>
   {/key}
