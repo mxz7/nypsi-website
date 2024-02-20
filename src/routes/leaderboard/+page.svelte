@@ -99,6 +99,10 @@
       }
 
       replaceState("", state);
+
+      setTimeout(() => {
+        if (selected.name !== "balance") leaderboardElement.scrollIntoView();
+      }, 100);
     }, 0);
   });
 </script>
