@@ -42,14 +42,7 @@
             >
               <span class="text-slate-400 {i === 0 ? 'font-semibold' : ''}">#{position}</span>
 
-              <a
-                href={user.username === "[hidden]"
-                  ? "https://docs.nypsi.xyz/economy/hidden"
-                  : `/user/${user.id}`}
-                class="{i === 0
-                  ? 'font-semibold text-accent'
-                  : 'text-slate-300'} line-clamp-1 flex items-center break-words"
-              >
+              <div class="flex w-full items-center">
                 {#if user.id}
                   {#if user.tag}
                     {#await tags then tags}
@@ -67,15 +60,32 @@
                       <p class="mr-1">]</p>
                     {/await}
                   {/if}
-                  <a href="/user/{user.id}">{user.username}</a>
+                  <a
+                    class="{i === 0
+                      ? 'font-semibold text-accent'
+                      : 'text-slate-300'} min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+                    href="/user/{user.id}"
+                  >
+                    {user.username}
+                  </a>
                 {:else}
-                  {user.username}
+                  <a
+                    href={user.username === "[hidden]"
+                      ? "https://docs.nypsi.xyz/economy/hidden"
+                      : `/user/${user.id}`}
+                    class="{i === 0
+                      ? 'font-semibold text-accent'
+                      : 'text-slate-300'} min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+                  >
+                    {user.username}
+                  </a>
                 {/if}
-              </a>
+              </div>
 
-              <div class="grow"></div>
-
-              <span class={i === 0 ? "font-semibold text-accent" : "text-slate-300"}>{value}</span>
+              <span
+                class="{i === 0 ? 'font-semibold text-accent' : 'text-slate-300'} w-full text-right"
+                >{value}</span
+              >
             </div>
           {/each}
         </div>
