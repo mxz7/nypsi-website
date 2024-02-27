@@ -40,7 +40,7 @@ export async function POST({ request }) {
       return json(null, { status: 200 });
   }
 
-  if (dev) return;
+  if (dev) return json(null, { status: 200 });
   await prisma.profileView.create({
     data: {
       source: "WEB",
