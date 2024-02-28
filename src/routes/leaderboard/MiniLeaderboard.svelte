@@ -2,6 +2,7 @@
   import tooltip from "$lib/Tooltips";
   import parseEmoji from "$lib/functions/parseEmoji";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
+  import { fade } from "svelte/transition";
 
   export let title: string;
   export let data: LeaderboardData | Promise<LeaderboardData>;
@@ -14,7 +15,7 @@
   {#if data}
     <div class="mt-4 px-4 sm:px-0 md:text-lg">
       {#await data}
-        <div class="flex flex-col gap-2">
+        <div out:fade={{ duration: 100 }} class="flex flex-col gap-2">
           {#each new Array(10) as _, i}
             <div
               class="flex w-full items-center gap-2 rounded border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
@@ -35,7 +36,7 @@
           {/each}
         </div>
       {:then data}
-        <div class="flex flex-col gap-2">
+        <div in:fade={{ delay: 100, duration: 100 }} class="flex flex-col gap-2">
           {#each data.slice(0, 10) as { position, user, value }, i}
             <div
               class="flex w-full items-center gap-2 rounded border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
