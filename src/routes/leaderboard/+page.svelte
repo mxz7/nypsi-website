@@ -8,7 +8,6 @@
 
   export let data;
   let scrollElement: HTMLDivElement;
-  let leaderboardElement: HTMLDivElement;
 
   const options = [
     {
@@ -101,7 +100,7 @@
       replaceState("", state);
 
       setTimeout(() => {
-        if (selected.name !== "balance") leaderboardElement.scrollIntoView();
+        if (selected.name !== "balance") scrollElement.scrollIntoView();
       }, 100);
     }, 0);
   });
@@ -119,7 +118,7 @@
   </div>
 </div>
 
-<div class="flex w-full justify-center" bind:this={scrollElement}>
+<div class="flex w-full justify-center">
   <div class="mt-14 flex flex-wrap justify-center gap-4">
     {#each options as option, i}
       <button
@@ -174,7 +173,7 @@
             leaderboardName: `top ${item.name}`,
           });
           setTimeout(() => {
-            leaderboardElement.scrollIntoView();
+            scrollElement.scrollIntoView();
           }, 100);
         }}
       />
@@ -182,9 +181,11 @@
   {/if}
 {/if}
 
+<div bind:this={scrollElement} />
+
 {#if $page.state.leaderboardPath}
   {#key $page.state.leaderboardPath}
-    <div class="mt-10 flex w-full justify-center" bind:this={leaderboardElement}>
+    <div class="mt-10 flex w-full justify-center">
       <BigLeaderboard
         tags={data.tags}
         data={fetch($page.state.leaderboardPath).then((r) => r.json())}
