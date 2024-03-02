@@ -18,7 +18,7 @@
         <div out:fade={{ duration: 100 }} class="flex flex-col gap-2">
           {#each new Array(10) as _, i}
             <div
-              class="flex w-full items-center gap-2 rounded border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
+              class="flex w-full items-center gap-2 rounded-lg border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
             >
               <div class="my-1 h-4 w-8 animate-pulse rounded-xl bg-slate-600" />
               <div
@@ -39,11 +39,11 @@
         <div in:fade={{ delay: 100, duration: 100 }} class="flex flex-col gap-2">
           {#each data.slice(0, 10) as { position, user, value }, i}
             <div
-              class="flex w-full items-center gap-2 rounded border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
+              class="flex w-full items-center gap-2 rounded-lg border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
             >
-              <span class="text-slate-400 {i === 0 ? 'font-semibold' : ''}">#{position}</span>
+              <div class="text-slate-400 {i === 0 ? 'font-semibold' : ''}">#{position}</div>
 
-              <div class="flex w-full items-center">
+              <div class="flex w-full items-center overflow-hidden">
                 {#if user.id}
                   {#if user.tag}
                     {#await tags then tags}
@@ -83,10 +83,13 @@
                 {/if}
               </div>
 
-              <span
-                class="{i === 0 ? 'font-semibold text-accent' : 'text-slate-300'} w-full text-right"
-                >{value}</span
+              <div
+                class="{i === 0
+                  ? 'font-semibold text-accent'
+                  : 'text-slate-300'} w-fit whitespace-nowrap pl-2 text-right"
               >
+                {value}
+              </div>
             </div>
           {/each}
         </div>
