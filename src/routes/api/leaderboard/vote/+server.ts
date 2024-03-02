@@ -37,7 +37,7 @@ export async function GET({ setHeaders }) {
           },
         },
       },
-      orderBy: [{ seasonVote: "desc" }, { lastVote: "asc" }],
+      orderBy: [{ monthVote: "desc" }, { lastVote: "asc" }],
       take: 100,
     })
     .then((r) => {
