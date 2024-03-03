@@ -6,7 +6,9 @@
 
   export let title: string;
   export let data: LeaderboardData | Promise<LeaderboardData>;
-  export let tags: Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>;
+  export let tags:
+    | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
+    | { [key: string]: { tagId: string; emoji: string; name: string } };
   export let userRoute: string;
 </script>
 
