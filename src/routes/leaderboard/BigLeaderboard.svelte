@@ -50,7 +50,10 @@
         >
           {#each data as { position, user, value }, i}
             <div
-              class="flex w-full items-center gap-2 rounded-lg border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
+              class="flex w-full items-center gap-2 rounded-lg border bg-slate-950 bg-opacity-20 px-2 py-2 duration-200 ease-in
+              hover:scale-105 hover:border-accent {i === 0
+                ? 'border-accent border-opacity-40 hover:border-opacity-60 md:hover:scale-110 lg:scale-105'
+                : 'border-slate-400 border-opacity-5 hover:border-opacity-20'}"
             >
               <div class="text-slate-400 {i === 0 ? 'font-semibold' : ''}">#{position}</div>
 
