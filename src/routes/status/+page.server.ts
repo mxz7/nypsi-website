@@ -1,34 +1,21 @@
 import { BOT_SERVER_URL } from "$env/static/private";
 import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis.js";
 import type { BotStatus } from "$lib/types/Status.js";
 
 export async function load({ setHeaders, depends }) {
   depends("status");
-  setHeaders({ "cache-control": "max-age=30 s-maxage=20" });
-
-  const cache = await redis.get("nypsi:status").catch(() => undefined);
+  setHeaders({ "cache-control": "s-maxage=30" });
 
   return {
-    status: cache
-      ? (cache as BotStatus)
-      : await fetch(`${BOT_SERVER_URL}/status`)
-          .then(async (r) => {
-            const response = await r.json();
-
-            response.cached = Date.now();
-
-            await redis.set("nypsi:status", JSON.stringify(response), { ex: 30 }).catch(() => null);
-
-            return response as BotStatus;
-          })
-          .catch(() => {
-            return {
-              main: false,
-              clusters: [],
-              maintenance: false,
-            } as BotStatus;
-          }),
+    status: await fetch(`${BOT_SERVER_URL}/status`)
+      .then((r) => r.json())
+      .catch(() => {
+        return {
+          main: false,
+          clusters: [],
+          maintenance: false,
+        } as BotStatus;
+      }),
     database: (async () => {
       const before = performance.now();
       const query = await prisma.user.findFirst({ select: { id: true } }).catch(() => null);
