@@ -110,7 +110,7 @@
   <title>leaderboards / nypsi</title>
 </svelte:head>
 
-<div class="mt-14 flex w-full justify-center px-14">
+<div class="mt-8 flex w-full justify-center px-14">
   <div class="flex flex-col flex-wrap justify-center gap-16 lg:flex-row">
     <MiniLeaderboard title="top balance" data={data.balance} tags={data.tags}></MiniLeaderboard>
     <MiniLeaderboard title="top level" data={data.prestige} tags={data.tags}></MiniLeaderboard>
