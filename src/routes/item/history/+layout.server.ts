@@ -1,10 +1,7 @@
-import { redirect } from "@sveltejs/kit";
-
-export const load = async ({ parent, url, fetch }) => {
+export const load = async ({ parent, fetch }) => {
   const data = await parent();
 
-  if (!data.user.authenticated)
-    redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
+  if (!data.user.authenticated) return { premium: false };
 
   const res = await fetch("/api/user/ispremium/" + data.user.id).then((r) => r.json());
 
