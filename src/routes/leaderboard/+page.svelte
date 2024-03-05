@@ -2,7 +2,7 @@
   import { pushState, replaceState } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemList from "$lib/components/ItemList.svelte";
-  import { onMount } from "svelte";
+  import { SvelteComponentTyped, onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
 
@@ -144,9 +144,11 @@
             state.leaderboardName = selected.leaderboardName;
           }
           pushState($page.url, state);
-          setTimeout(() => {
-            scrollElement.scrollIntoView();
-          }, 100);
+
+          if (selected.name !== "items")
+            setTimeout(() => {
+              scrollElement.scrollIntoView();
+            }, 100);
         }}
       >
         <p>{option.name}</p>
@@ -172,6 +174,7 @@
             leaderboardSelection: $page.state.leaderboardSelection,
             leaderboardName: `top ${item.name}`,
           });
+
           setTimeout(() => {
             scrollElement.scrollIntoView();
           }, 100);
