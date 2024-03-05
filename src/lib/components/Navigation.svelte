@@ -104,7 +104,7 @@
       {:else}
         <a
           href="/login?next={encodeURIComponent($page.url.pathname)}"
-          class="rounded bg-slate-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-slate-200"
+          class="rounded bg-slate-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-slate-200 duration-100 hover:bg-opacity-90"
           >log in</a
         >
       {/if}
