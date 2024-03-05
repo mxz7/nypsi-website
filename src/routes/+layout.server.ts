@@ -107,12 +107,5 @@ export const load = async ({ cookies, fetch }) => {
 
   return {
     user: user as UserSession,
-    streamed: {
-      premium: user.authenticated
-        ? fetch(`/api/user/ispremium/${user.id}`).then(
-            (r) => r.json().then((r) => r?.premium || false) as Promise<boolean>,
-          )
-        : false,
-    },
   };
 };
