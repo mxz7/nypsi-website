@@ -13,7 +13,7 @@
     "postinstall": "prisma generate"
   },
   "devDependencies": {
-    "@sveltejs/adapter-vercel": "^5.1.0",
+    "@sveltejs/adapter-vercel": "^5.1.1",
     "@sveltejs/enhanced-img": "^0.1.8",
     "@sveltejs/kit": "^2.5.3",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
