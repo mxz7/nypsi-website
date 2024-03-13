@@ -1,7 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import nypsiLogo from "$lib/assets/nypsi-transparent.webp?enhanced";
+  import nypsiLogo from "$lib/assets/nypsi-transparent.webp?as=run:0";
   import type { UserSession } from "$lib/types/User";
+  import Img from "@zerodevx/svelte-img";
   import { fly } from "svelte/transition";
 
   $: dropDownVisible = false;
@@ -34,7 +35,7 @@
             />
           </a>
         {:else}
-          <enhanced:img src={nypsiLogo} alt="nypsi icon" class="h-8 w-8" />
+          <Img src={nypsiLogo} alt="nypsi icon" class="h-8 w-8" />
         {/if}
       </a>
 
