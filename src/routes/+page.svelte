@@ -1,6 +1,7 @@
 <script lang="ts">
-  import discordLogo from "$lib/assets/discord-white.webp?enhanced";
-  import hero from "$lib/assets/hero.webp?enhanced";
+  import discordLogo from "$lib/assets/discord-white.webp?as=run:0";
+  import hero from "$lib/assets/hero.webp?as=run:0";
+  import Img from "@zerodevx/svelte-img";
   import {
     Backpack,
     Bell,
@@ -102,9 +103,9 @@
         p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
       >
         <div class="flex h-5 items-center justify-center md:h-6">
-          <enhanced:img
+          <Img
             src={discordLogo}
-            alt=""
+            alt="discord icon"
             class="h-5 w-5 object-contain md:h-6 md:w-6"
             fetchpriority="high"
           />
@@ -129,16 +130,20 @@
         p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
         >
           <div class="flex h-5 items-center justify-center md:h-6">
-            <enhanced:img src={discordLogo} alt="" class="h-5 w-5 object-contain md:h-6 md:w-6" />
+            <Img
+              src={discordLogo}
+              alt="discord icon"
+              class="h-5 w-5 object-contain md:h-6 md:w-6"
+            />
           </div>
           <p>add to discord</p>
         </a>
       </div>
 
-      <enhanced:img
+      <Img
         src={hero}
         class="fly-up md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
-        alt="hero imaage nypsi icon"
+        alt="hero image nypsi icon"
         fetchpriority="high"
       />
     </div>
