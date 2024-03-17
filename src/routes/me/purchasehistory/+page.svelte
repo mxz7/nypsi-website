@@ -28,7 +28,7 @@
 
 <div class="flex w-full justify-center">
   <div class="flex w-full flex-col px-10 sm:w-[55vw]">
-    {#await data.streamed.premium then premium}
+    {#await data.premium then premium}
       {#if premium}
         <div class="flex justify-center">
           <a
