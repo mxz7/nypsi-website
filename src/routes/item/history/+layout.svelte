@@ -14,7 +14,7 @@
 
 {#if data.premium}
   <slot />
-{:else if data.user.authenticated}
+{:else if data.user}
   <h1 class="mt-10 text-center text-2xl font-bold text-white">
     you need a <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="text-accent underline"
       >premium membership</a

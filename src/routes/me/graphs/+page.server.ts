@@ -8,7 +8,7 @@ export async function load({ setHeaders, parent, url }) {
 
   console.log(parentData);
 
-  if (!parentData.user.authenticated) return redirect(303, "/me");
+  if (!parentData.user) return redirect(303, "/me");
 
   if (!parentData.baseData?.Premium?.level) return redirect(303, "/me");
 

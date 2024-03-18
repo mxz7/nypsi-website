@@ -1,12 +1,12 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import nypsiLogo from "$lib/assets/nypsi-transparent.webp?as=run:0";
-  import type { UserSession } from "$lib/types/User";
   import Img from "@zerodevx/svelte-img";
+  import type { User } from "lucia";
   import { fly } from "svelte/transition";
 
   $: dropDownVisible = false;
-  export let user: UserSession;
+  export let user: User | null;
 
   function handleMenuOpen() {
     if (dropDownVisible) return handleMenuClose();
@@ -26,11 +26,11 @@
   <div class="flex h-full w-full flex-row">
     <div class="flex grow flex-row items-center p-3 align-middle">
       <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
-        {#if dropDownVisible && user && user.authenticated}
+        {#if dropDownVisible && user}
           <a href="/me" class="h-8 rounded-full">
             <img
               class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-              src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
+              src={user.avatar}
               alt=""
             />
           </a>
@@ -94,11 +94,11 @@
       </button>
     </div>
     <div class="mr-3 hidden items-center justify-center md:flex">
-      {#if user.authenticated}
+      {#if user}
         <a href="/me" class="h-10 w-10 rounded-full">
           <img
             class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-            src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png"
+            src={user.avatar}
             alt=""
           />
         </a>
@@ -121,7 +121,7 @@
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3 [&>p]:m-3">
         <a href="/leaderboard">leaderboards</a>
         <a href="/status">status</a>
-        {#if !user || !user.authenticated}
+        {#if !user}
           <a href="/login?next={encodeURIComponent($page.url.pathname)}">log in</a>
         {/if}
         <a href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
