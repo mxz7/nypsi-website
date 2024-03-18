@@ -1,5 +1,4 @@
 import { dev } from "$app/environment";
-import { lucia } from "$lib/server/functions/auth";
 import rateLimiter from "$lib/server/ratelimit";
 
 export const handle = async ({ event, resolve }) => {
@@ -24,28 +23,10 @@ export const handle = async ({ event, resolve }) => {
   }
 
   event.locals.validate = async () => {
-    const sessionId = event.cookies.get(lucia.sessionCookieName);
-    if (!sessionId) {
-      return null;
-    }
+    const res = await event.fetch("/api/auth").then((r) => r.json());
+    const { user, session } = res;
 
-    const { session, user } = await lucia.validateSession(sessionId);
-    if (session && session.fresh) {
-      const sessionCookie = lucia.createSessionCookie(session.id);
-      // sveltekit types deviates from the de-facto standard
-      // you can use 'as any' too
-      event.cookies.set(sessionCookie.name, sessionCookie.value, {
-        path: ".",
-        ...sessionCookie.attributes,
-      });
-    }
-    if (!session) {
-      const sessionCookie = lucia.createBlankSessionCookie();
-      event.cookies.set(sessionCookie.name, sessionCookie.value, {
-        path: ".",
-        ...sessionCookie.attributes,
-      });
-    }
+    if (!user || !session) return null;
 
     return { user, session };
   };

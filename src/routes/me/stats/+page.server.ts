@@ -3,9 +3,9 @@ import prisma from "$lib/server/database.js";
 import { inPlaceSort } from "fast-sort";
 
 export async function load({ parent, setHeaders }) {
-  const parentData = await parent();
+  const { user } = await parent();
 
-  if (!parentData.user) return;
+  if (!user) return;
 
   setHeaders({
     "cache-control": "max-age=600",
@@ -16,24 +16,24 @@ export async function load({ parent, setHeaders }) {
     items: await getItems(),
     streamed: {
       commandStats: prisma.commandUse.findMany({
-        where: { userId: parentData.user.id },
+        where: { userId: user.id },
         select: { command: true, uses: true },
         orderBy: { uses: "desc" },
       }),
       itemStats: prisma.stats.findMany({
-        where: { userId: parentData.user.id },
+        where: { userId: user.id },
         select: { itemId: true, amount: true },
         orderBy: { amount: "desc" },
       }),
       leaderboards: prisma.leaderboards.findMany({
-        where: { userId: parentData.user.id },
+        where: { userId: user.id },
         select: { leaderboard: true, position: true },
         orderBy: [{ position: "asc" }, { leaderboard: "desc" }],
       }),
       scratchStats: prisma.game
         .groupBy({
           where: {
-            AND: [{ userId: parentData.user.id }, { game: { contains: "scratch" } }],
+            AND: [{ userId: user.id }, { game: { contains: "scratch" } }],
           },
           by: ["game"],
           _count: {
@@ -47,7 +47,7 @@ export async function load({ parent, setHeaders }) {
       gambleStats: prisma.game
         .groupBy({
           where: {
-            AND: [{ userId: parentData.user.id }, { game: { not: { contains: "scratch" } } }],
+            AND: [{ userId: user.id }, { game: { not: { contains: "scratch" } } }],
           },
           by: ["game"],
           _count: {
@@ -72,11 +72,7 @@ export async function load({ parent, setHeaders }) {
               game.game,
               await prisma.game.count({
                 where: {
-                  AND: [
-                    { userId: parentData.user ? parentData.user.id : "0" },
-                    { game: game.game },
-                    { win: 1 },
-                  ],
+                  AND: [{ userId: user ? user.id : "0" }, { game: game.game }, { win: 1 }],
                 },
               }),
             );

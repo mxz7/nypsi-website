@@ -1,7 +1,9 @@
 import type { User } from "lucia";
 
 export const load = async ({ parent, fetch }) => {
-  const { user } = await parent();
+  let { user } = await parent();
+
+  user = await user;
 
   if (!user) return { premium: false };
 

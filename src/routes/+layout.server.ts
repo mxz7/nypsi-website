@@ -1,7 +1,10 @@
-export const load = async ({ locals }) => {
+export const load = async ({ locals, request }) => {
   const auth = locals.validate();
 
+  if (request.headers.get("user-agent")?.toLowerCase().includes("bot")) {
+    return { user: (await auth).user };
+  }
   return {
-    user: (await auth)?.user,
+    user: auth.then((auth) => auth?.user),
   };
 };
