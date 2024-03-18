@@ -3,10 +3,11 @@
   import nypsiLogo from "$lib/assets/nypsi-transparent.webp?as=run:0";
   import Img from "@zerodevx/svelte-img";
   import type { User } from "lucia";
+  import { Loader2 } from "lucide-svelte";
   import { fly } from "svelte/transition";
 
   $: dropDownVisible = false;
-  export let user: User | null;
+  export let user: Promise<User | null> | null;
 
   function handleMenuOpen() {
     if (dropDownVisible) return handleMenuClose();
@@ -26,14 +27,26 @@
   <div class="flex h-full w-full flex-row">
     <div class="flex grow flex-row items-center p-3 align-middle">
       <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
-        {#if dropDownVisible && user}
-          <a href="/me" class="h-8 rounded-full">
-            <img
-              class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-              src={user.avatar}
-              alt=""
-            />
-          </a>
+        {#if dropDownVisible}
+          {#await user}
+            <div class="flex h-8 w-8 items-center justify-center rounded-full">
+              <div class="h-fit w-fit animate-spin">
+                <Loader2 strokeWidth={3} size={24} color="#8b5cf6" />
+              </div>
+            </div>
+          {:then user}
+            {#if user}
+              <a href="/me" class="h-8 rounded-full">
+                <img
+                  class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
+                  src={user.avatar}
+                  alt=""
+                />
+              </a>
+            {:else}
+              <Img src={nypsiLogo} alt="nypsi icon" class="h-8 w-8" />
+            {/if}
+          {/await}
         {:else}
           <Img src={nypsiLogo} alt="nypsi icon" class="h-8 w-8" />
         {/if}
@@ -94,21 +107,29 @@
       </button>
     </div>
     <div class="mr-3 hidden items-center justify-center md:flex">
-      {#if user}
-        <a href="/me" class="h-10 w-10 rounded-full">
-          <img
-            class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-            src={user.avatar}
-            alt=""
-          />
-        </a>
-      {:else}
-        <a
-          href="/login?next={encodeURIComponent($page.url.pathname)}"
-          class="rounded bg-slate-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-slate-200 duration-100 hover:bg-opacity-90"
-          >log in</a
-        >
-      {/if}
+      {#await user}
+        <div class="flex h-10 w-10 items-center justify-center rounded-full">
+          <div class="h-fit w-fit animate-spin">
+            <Loader2 strokeWidth={3} size={24} color="#8b5cf6" />
+          </div>
+        </div>
+      {:then user}
+        {#if user}
+          <a href="/me" class="h-10 w-10 rounded-full">
+            <img
+              class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
+              src={user.avatar}
+              alt=""
+            />
+          </a>
+        {:else}
+          <a
+            href="/login?next={encodeURIComponent($page.url.pathname)}"
+            class="rounded bg-slate-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-slate-200 duration-100 hover:bg-opacity-90"
+            >log in</a
+          >
+        {/if}
+      {/await}
     </div>
   </div>
 
@@ -121,9 +142,12 @@
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3 [&>p]:m-3">
         <a href="/leaderboard">leaderboards</a>
         <a href="/status">status</a>
-        {#if !user}
-          <a href="/login?next={encodeURIComponent($page.url.pathname)}">log in</a>
-        {/if}
+        {#await user then user}
+          {#if !user}
+            <a href="/login?next={encodeURIComponent($page.url.pathname)}">log in</a>
+          {/if}
+        {/await}
+
         <a href="https://discord.com/invite/hJTDNST" target="_blank">discord</a>
         <a href="https://docs.nypsi.xyz" target="_blank">docs</a>
         <a

@@ -4,7 +4,11 @@ import { redirect } from "@sveltejs/kit";
 import type { User } from "lucia";
 
 export async function load({ parent, url, fetch }) {
-  const { user } = await parent();
+  let { user } = await parent();
+
+  user = await user;
+
+  console.log(user);
 
   if (!user) redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
 
@@ -12,6 +16,8 @@ export async function load({ parent, url, fetch }) {
     getItems(),
     fetch(`/api/user/${user.id}/base`).then((r) => r.json() as Promise<BaseUserData>),
   ]);
+
+  console.log(baseData);
   return {
     items,
     baseData,
