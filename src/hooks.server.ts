@@ -1,5 +1,4 @@
 import { dev } from "$app/environment";
-import { lucia } from "$lib/server/functions/auth";
 import rateLimiter from "$lib/server/ratelimit";
 
 export const handle = async ({ event, resolve }) => {
@@ -24,11 +23,6 @@ export const handle = async ({ event, resolve }) => {
   }
 
   event.locals.validate = async () => {
-    const sessionId = event.cookies.get(lucia.sessionCookieName);
-    if (!sessionId) {
-      return null;
-    }
-
     const res = await event.fetch("/api/auth").then((r) => r.json());
     const { user, session } = res;
 
