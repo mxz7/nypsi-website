@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("PRISMA_DB")
+  url      = env("DATABASE_URL")
 }
 
 // user specific tables (economy etc.)
@@ -38,6 +38,7 @@ model User {
   Tags           Tags[]
   Views          ProfileView[]
   Viewed         ProfileView[]    @relation(name: "viewer")
+  Sessions       Session[]
 }
 
 model ProfileView {
@@ -82,7 +83,6 @@ model Leaderboards {
 
   @@unique([leaderboard, position])
   @@unique([userId, leaderboard])
-  @@index([userId])
 }
 
 model DMSettings {
@@ -134,7 +134,8 @@ model CommandUse {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, command])
+  @@id([userId, command])
+  @@index([userId])
 }
 
 model Achievements {
@@ -147,6 +148,7 @@ model Achievements {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, achievementId])
+  @@index([userId])
 }
 
 model Economy {
@@ -265,7 +267,7 @@ model Inventory {
 
   economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
-  @@unique([userId, item])
+  @@id([userId, item])
   @@index([userId])
 }
 
@@ -628,7 +630,7 @@ model EconomyGuild {
   xp        BigInt   @default(0)
   tokens    Int      @default(0)
   level     Int      @default(1)
-  motd      String   @default("welcome to the guild fool (/guild motd)")
+  motd      String   @default("/guild motd")
 
   owner   Economy @relation(fields: [ownerId], references: [userId], onDelete: Cascade)
   ownerId String  @unique
@@ -745,4 +747,11 @@ enum ImageType {
   dog
   capybara
   wholesome
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
