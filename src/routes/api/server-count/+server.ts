@@ -2,11 +2,6 @@ import { TOPGG_TOKEN } from "$env/static/private";
 import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
-
 export const GET = async ({ setHeaders }) => {
   setHeaders({
     "cache-control": "max-age=0, s-maxage=600, stale-while-revalidate",

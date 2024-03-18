@@ -1,10 +1,5 @@
 import type Game from "$lib/types/Game.js";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
-
 export const load = async ({ fetch, params }) => {
   return {
     streamed: {
