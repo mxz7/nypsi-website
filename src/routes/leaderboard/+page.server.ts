@@ -1,6 +1,11 @@
 import getItems from "$lib/functions/getItems.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
+export const config = {
+  runtime: "edge",
+  regions: "all",
+};
+
 export async function load({ fetch, request }) {
   if (request.headers.get("user-agent").toLowerCase().includes("bot")) {
     return {
