@@ -7,7 +7,7 @@
   import { fly } from "svelte/transition";
 
   $: dropDownVisible = false;
-  export let user: Promise<User | null> | null;
+  export let user: Promise<User | null> | User | null;
 
   function handleMenuOpen() {
     if (dropDownVisible) return handleMenuClose();
