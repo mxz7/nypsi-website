@@ -1,3 +1,4 @@
+import { lucia } from "$lib/server/functions/auth.js";
 import { redirect } from "@sveltejs/kit";
 
 export const config = {
@@ -5,11 +6,11 @@ export const config = {
   regions: "all",
 };
 
-export const GET = ({ cookies, url }) => {
-  cookies.delete("discord_access_token", { path: "/" });
-  cookies.delete("discord_refresh_token", { path: "/" });
+export const GET = async ({ locals }) => {
+  const auth = await locals.validate();
 
-  const redirectTo = url.searchParams.get("next");
+  if (!auth?.session) return redirect(302, "/");
+  await lucia.invalidateSession(auth.session.id);
 
-  return redirect(302, redirectTo || "/");
+  return redirect(302, "/");
 };

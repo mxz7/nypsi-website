@@ -4,7 +4,7 @@ import { redirect } from "@sveltejs/kit";
 export async function load({ setHeaders, parent }) {
   const parentData = await parent();
 
-  if (!parentData.user.authenticated) return redirect(303, "/me");
+  if (!parentData.user) return redirect(303, "/me");
 
   setHeaders({
     "cache-control": "max-age=300",

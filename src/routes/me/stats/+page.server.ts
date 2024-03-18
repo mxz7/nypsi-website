@@ -5,7 +5,7 @@ import { inPlaceSort } from "fast-sort";
 export async function load({ parent, setHeaders }) {
   const parentData = await parent();
 
-  if (!parentData.user.authenticated) return;
+  if (!parentData.user) return;
 
   setHeaders({
     "cache-control": "max-age=600",
@@ -73,7 +73,7 @@ export async function load({ parent, setHeaders }) {
               await prisma.game.count({
                 where: {
                   AND: [
-                    { userId: parentData.user.authenticated ? parentData.user.id : "0" },
+                    { userId: parentData.user ? parentData.user.id : "0" },
                     { game: game.game },
                     { win: 1 },
                   ],

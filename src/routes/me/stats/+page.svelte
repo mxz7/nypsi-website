@@ -31,7 +31,7 @@
         <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
           {#each gambleStats as stat, i}
             <a
-              href="/game?user={data.user.authenticated ? data.user.id : ''}&game={stat.game}"
+              href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
               class="h-fit rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
               in:fly|global={{ y: 50, duration: 500, delay: 100 * i }}
             >
@@ -80,7 +80,7 @@
         <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
           {#each scratchStats as stat, i}
             <a
-              href="/game?user={data.user.authenticated ? data.user.id : ''}&game={stat.game}"
+              href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
               class="h-fit rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
               in:fly|global={{ y: 50, duration: 500, delay: 100 * i }}
             >

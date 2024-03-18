@@ -15,9 +15,9 @@
   if (!dev) injectSpeedInsights();
 
   onMount(() => {
-    if ($page.url.searchParams.get("loggedin") && data.user.authenticated) {
+    if ($page.url.searchParams.get("loggedin") && data.user) {
       setTimeout(() => {
-        toast.success(`logged in as ${data.user.authenticated ? data.user.username : "null"}`, {
+        toast.success(`logged in as ${data.user ? data.user.username : "null"}`, {
           position: "bottom-center",
           style: "background: #4c1d95; color: #fff;",
           duration: 5000,

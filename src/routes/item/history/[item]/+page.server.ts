@@ -6,7 +6,7 @@ export const ssr = false;
 export const load = async ({ params, parent, setHeaders, url }) => {
   const parentData = await parent();
 
-  if (!parentData.premium || !parentData.user.authenticated) return;
+  if (!parentData.premium || !parentData.user) return;
 
   setHeaders({ "cache-control": "max-age=3600" });
 

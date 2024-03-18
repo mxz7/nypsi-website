@@ -69,7 +69,7 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
         if (request.headers.get("user-agent").includes("bot")) return;
         const parentData = await parent();
 
-        if (parentData.user.authenticated) {
+        if (parentData.user) {
           if (parentData.user.id === userId) return;
         }
 
@@ -86,7 +86,7 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
           headers: { Authorization: VIEW_AUTH },
           body: JSON.stringify({
             userId,
-            viewerId: parentData.user.authenticated ? parentData.user.id : undefined,
+            viewerId: parentData.user ? parentData.user.id : undefined,
             viewerIp: ip,
             referrer: request.headers.get("referer") || undefined,
           }),

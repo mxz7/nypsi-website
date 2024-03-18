@@ -4,7 +4,6 @@
 declare global {
   namespace App {
     // interface Error {}
-    // interface Locals {}
     // interface PageData {}
     // interface Platform {}
     interface PageState {
@@ -12,6 +11,12 @@ declare global {
       leaderboardItem?: string;
       leaderboardPath?: string;
       leaderboardName?: string;
+    }
+    interface Locals {
+      validate: () => Promise<{
+        user: import("lucia").User;
+        session: import("lucia").Session;
+      } | null>;
     }
   }
 }

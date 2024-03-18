@@ -19,12 +19,8 @@
           label(tooltipItem) {
             if (tooltipItem.dataset.label.includes("items in world"))
               return `in world: ${tooltipItem.formattedValue}`;
-            else if (
-              tooltipItem.dataset.label === (data.user.authenticated ? data.user.username : "null")
-            )
-              return `${data.user.authenticated ? data.user.username : "null"}: ${
-                tooltipItem.formattedValue
-              }`;
+            else if (tooltipItem.dataset.label === (data.user ? data.user.username : "null"))
+              return `${data.user ? data.user.username : "null"}: ${tooltipItem.formattedValue}`;
 
             return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
           },

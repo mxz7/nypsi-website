@@ -1,10 +1,12 @@
+import type { User } from "lucia";
+
 export const load = async ({ parent, fetch }) => {
-  const data = await parent();
+  const { user } = await parent();
 
-  if (!data.user.authenticated) return { premium: false };
+  if (!user) return { premium: false };
 
-  const res = await fetch("/api/user/ispremium/" + data.user.id).then((r) => r.json());
+  const res = await fetch("/api/user/ispremium/" + user.id).then((r) => r.json());
 
-  if (!res.premium) return { premium: false };
-  return { premium: true };
+  if (!res.premium) return { premium: false, user };
+  return { premium: true, user: user as User };
 };
