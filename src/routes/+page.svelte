@@ -90,7 +90,7 @@
     class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center md:hidden"
   >
     <h1 class="fly-up-mobile text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-    <p class="fly-up-mobile2 mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
+    <h3 class="fly-up-mobile2 mt-6 text-xl font-medium text-slate-400">the best discord bot</h3>
 
     <!-- <div class="m-auto mt-3 h-1 w-full rounded-full bg-accent" /> -->
 
@@ -110,7 +110,7 @@
             fetchpriority="high"
           />
         </div>
-        <p>add to discord</p>
+        <h2>add to discord</h2>
       </a>
     </div>
   </div>
@@ -119,7 +119,7 @@
     <div class="flex w-full max-w-4xl -translate-y-10 px-4">
       <div class="grow">
         <h1 class="fly-right text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-        <p class="fly-right2 mt-6 text-xl font-bold text-slate-400">the best discord bot</p>
+        <h3 class="fly-right2 mt-6 text-xl font-medium text-slate-400">the best discord bot</h3>
 
         <a
           bind:this={button}
@@ -136,7 +136,7 @@
               class="h-5 w-5 object-contain md:h-6 md:w-6"
             />
           </div>
-          <p>add to discord</p>
+          <h2>add to discord</h2>
         </a>
       </div>
 

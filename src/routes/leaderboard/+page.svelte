@@ -151,7 +151,7 @@
             }, 100);
         }}
       >
-        <p>{option.name}</p>
+        <h3>{option.name}</h3>
       </button>
     {/each}
   </div>
