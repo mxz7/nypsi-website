@@ -13,8 +13,9 @@
   if (!dev) injectSpeedInsights();
 
   onMount(async () => {
-    const auth = await fetch("/api/auth").then((r) => r.json());
-    if ($page.url.searchParams.get("loggedin") && auth.user) {
+    if ($page.url.searchParams.get("loggedin")) {
+      const auth = await fetch("/api/auth").then((r) => r.json());
+      if (!auth) return;
       setTimeout(async () => {
         toast.success(`logged in as ${auth.user.username}`, {
           position: "bottom-center",
