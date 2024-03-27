@@ -4,7 +4,15 @@ import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 
-export const load = async ({ params, fetch, setHeaders, parent, getClientAddress, request }) => {
+export const load = async ({
+  params,
+  fetch,
+  setHeaders,
+  parent,
+  getClientAddress,
+  request,
+  locals,
+}) => {
   setHeaders({
     "cache-control": "max-age=30",
   });
@@ -67,10 +75,10 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
       gamesBefore: before,
       _view: (async () => {
         if (request.headers.get("user-agent").includes("bot")) return;
-        const parentData = await parent();
+        const auth = await locals.validate();
 
-        if (parentData.user) {
-          if (parentData.user.id === userId) return;
+        if (auth) {
+          if (auth.user.id === userId) return;
         }
 
         let ip: string;
@@ -86,7 +94,7 @@ export const load = async ({ params, fetch, setHeaders, parent, getClientAddress
           headers: { Authorization: VIEW_AUTH },
           body: JSON.stringify({
             userId,
-            viewerId: parentData.user ? parentData.user.id : undefined,
+            viewerId: auth ? auth.user.id : undefined,
             viewerIp: ip,
             referrer: request.headers.get("referer") || undefined,
           }),

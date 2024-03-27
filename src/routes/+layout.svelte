@@ -9,15 +9,14 @@
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
 
-  export let data;
-
   if (!dev) inject({ mode: "production" });
   if (!dev) injectSpeedInsights();
 
-  onMount(() => {
-    if ($page.url.searchParams.get("loggedin") && data.user) {
+  onMount(async () => {
+    const auth = await fetch("/api/auth").then((r) => r.json());
+    if ($page.url.searchParams.get("loggedin") && auth.user) {
       setTimeout(async () => {
-        toast.success(`logged in as ${(await data.user) ? (await data.user).username : "null"}`, {
+        toast.success(`logged in as ${auth.user.username}`, {
           position: "bottom-center",
           style: "background: #4c1d95; color: #fff;",
           duration: 5000,
@@ -41,7 +40,7 @@
 
 <Toaster />
 
-<Navigation user={data.user} />
+<Navigation />
 
 <Loadbar />
 
