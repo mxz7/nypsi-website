@@ -3,6 +3,12 @@ import getItems from "$lib/functions/getItems.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 import { error } from "@sveltejs/kit";
 
+export const config = {
+  isr: {
+    expiration: 600,
+  },
+};
+
 export const load = async ({ fetch, params, setHeaders }) => {
   setHeaders({ "cache-control": "max-age=300" });
 

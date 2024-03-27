@@ -1,5 +1,11 @@
 import type Game from "$lib/types/Game.js";
 
+export const config = {
+  isr: {
+    expiration: 600,
+  },
+};
+
 export async function load({ fetch, url }) {
   const loadedDate = Date.now();
   if (!url.searchParams.get("before")) url.searchParams.set("before", loadedDate.toString());

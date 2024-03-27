@@ -4,6 +4,11 @@ import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 export const config = {
   runtime: "edge",
   regions: "all",
+
+  isr: {
+    expiration: 600,
+    allowQuery: ["lb", "item"],
+  },
 };
 
 export async function load({ fetch, request }) {
