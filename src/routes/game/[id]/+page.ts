@@ -3,12 +3,10 @@ import type Game from "$lib/types/Game.js";
 export const config = {
   runtime: "edge",
   regions: "all",
-  isr: {
-    expiration: 600,
-  },
 };
 
-export const load = async ({ fetch, params }) => {
+export const load = async ({ fetch, params, setHeaders }) => {
+  setHeaders({ "cache-control": "s-maxage=600" });
   return {
     streamed: {
       game: fetch(`/api/game?id=${params.id.toLowerCase()}`).then((r) =>
