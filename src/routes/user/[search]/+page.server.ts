@@ -3,6 +3,7 @@ import getItems from "$lib/functions/getItems.js";
 import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
+import dayjs from "dayjs";
 
 export const load = async ({
   params,
@@ -44,7 +45,13 @@ export const load = async ({
     getItems(),
   ]);
 
-  const before = Date.now();
+  const before = dayjs()
+    .set("hours", 0)
+    .set("minutes", 0)
+    .set("seconds", 0)
+    .set("milliseconds", 0)
+    .toDate()
+    .getTime();
 
   if (request.headers.get("user-agent").toLowerCase().includes("bot")) {
     return {
