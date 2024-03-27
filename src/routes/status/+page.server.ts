@@ -2,9 +2,14 @@ import { BOT_SERVER_URL } from "$env/static/private";
 import prisma from "$lib/server/database.js";
 import type { BotStatus } from "$lib/types/Status.js";
 
-export async function load({ setHeaders, depends }) {
+export const config = {
+  isr: {
+    expiration: 30,
+  },
+};
+
+export async function load({ depends }) {
   depends("status");
-  setHeaders({ "cache-control": "s-maxage=30" });
 
   return {
     status: await fetch(`${BOT_SERVER_URL}/status`)
