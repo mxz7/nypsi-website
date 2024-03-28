@@ -2,7 +2,6 @@
   import { page } from "$app/stores";
   import Loading from "$lib/components/Loading.svelte";
   import type Game from "$lib/types/Game";
-  import { onMount } from "svelte";
   import InfiniteLoading from "svelte-infinite-loading";
   import { fly } from "svelte/transition";
 
@@ -10,11 +9,7 @@
 
   let games: Game[] = [];
 
-  onMount(async () => {
-    const loaded = await Promise.resolve(data.streamed.recentGames);
-
-    games = [...loaded.games];
-  });
+  if (data.recentGames.ok) games = [...data.recentGames.games];
 
   function infiniteHandler({ detail: { loaded, complete, error } }) {
     console.log("fetching more");
@@ -72,8 +67,8 @@
             1
               ? 'text-green-500'
               : game.win === 2
-              ? 'text-yellow-500'
-              : 'text-red-500'}"
+                ? 'text-yellow-500'
+                : 'text-red-500'}"
             in:fly|global={{ y: 50, duration: 500, delay: (i % 50) * 50 }}
           >
             <h1 class="text-center text-xl font-semibold">{game.game.replaceAll("_", " ")}</h1>
@@ -83,8 +78,8 @@
                 {game.win == 1
                   ? `+$${game.earned.toLocaleString()}`
                   : game.win == 0
-                  ? `-$${game.bet.toLocaleString()}`
-                  : `$${game.bet.toLocaleString()}`}
+                    ? `-$${game.bet.toLocaleString()}`
+                    : `$${game.bet.toLocaleString()}`}
               </p>
             {/if}
 

@@ -1,13 +1,21 @@
 import type Game from "$lib/types/Game.js";
+import dayjs from "dayjs";
 
 export const config = {
   isr: {
     expiration: 600,
+
+    allowQuery: ["before", "take", "user", "game"],
   },
 };
 
 export async function load({ fetch, url }) {
-  const loadedDate = Date.now();
+  const loadedDate = dayjs()
+    .set("minute", 0)
+    .set("seconds", 0)
+    .set("milliseconds", 0)
+    .toDate()
+    .getDate();
   if (!url.searchParams.get("before")) url.searchParams.set("before", loadedDate.toString());
   if (!url.searchParams.get("take")) url.searchParams.set("take", "50");
 
@@ -30,10 +38,9 @@ export async function load({ fetch, url }) {
   return {
     loadedDate,
     resultText,
-    streamed: {
-      recentGames: fetch(`/api/game?${url.searchParams.toString()}`).then(
-        (r) => r.json() as Promise<{ ok: boolean; games: Game[] }>,
-      ),
-    },
+
+    recentGames: await fetch(`/api/game?${url.searchParams.toString()}`).then(
+      (r) => r.json() as Promise<{ ok: boolean; games: Game[] }>,
+    ),
   };
 }
