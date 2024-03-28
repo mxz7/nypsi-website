@@ -5,19 +5,13 @@ import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
-export const load = async ({
-  params,
-  fetch,
-  setHeaders,
-  parent,
-  getClientAddress,
-  request,
-  locals,
-}) => {
-  setHeaders({
-    "cache-control": "max-age=30",
-  });
+export const config = {
+  isr: {
+    expiration: 30,
+  },
+};
 
+export const load = async ({ params, fetch, getClientAddress, request, locals }) => {
   const search = params.search;
   let userId: string;
 
@@ -35,6 +29,8 @@ export const load = async ({
 
     if (res.id) {
       userId = res.id;
+    } else if (res.message === "private profile") {
+      return redirect(302, "/user/private");
     } else {
       return redirect(302, `/user/unknown?user=${search}`);
     }
