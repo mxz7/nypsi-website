@@ -1,6 +1,7 @@
 export const config = {
-  runtime: "edge",
-  regions: "all",
+  isr: {
+    expiration: 300,
+  },
 };
 
 export const load = async ({ fetch, setHeaders }) => {
