@@ -26,7 +26,7 @@
       />
     </div>
   {:else}
-    <div class="columns-3 gap-3 px-4 sm:max-w-4xl sm:px-0">
+    <div class="columns-1 gap-3 px-4 sm:max-w-4xl sm:columns-2 sm:px-0 md:columns-3">
       {#await data.streamed.gambleStats then gambleStats}
         {#each gambleStats as stat, i}
           <div class="break-inside-avoid-column pb-3">
