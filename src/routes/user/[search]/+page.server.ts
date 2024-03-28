@@ -2,7 +2,7 @@ import { VIEW_AUTH } from "$env/static/private";
 import getItems from "$lib/functions/getItems.js";
 import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
-import { redirect } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
 export const config = {
@@ -15,24 +15,24 @@ export const load = async ({ params, fetch, getClientAddress, request, locals })
   const search = params.search;
   let userId: string;
 
-  if (!search) return redirect(302, "/user/unknown");
+  if (!search) error(404, { message: "not found" });
 
   if (search.match(/^\d{17,19}$/)) {
     userId = search;
 
     const res = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
 
-    if (!res.exists) return redirect(302, `/user/unknown?user=${search}`);
-    if (res.private) return redirect(302, "/user/private");
+    if (!res.exists) error(404, { message: "not found" });
+    if (res.private) error(403, { message: "private profile" });
   } else {
     const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
 
     if (res.id) {
       userId = res.id;
     } else if (res.message === "private profile") {
-      return redirect(302, "/user/private");
+      if (res.private) error(403, { message: "private profile" });
     } else {
-      return redirect(302, `/user/unknown?user=${search}`);
+      error(404, { message: "unknown user" });
     }
   }
 
