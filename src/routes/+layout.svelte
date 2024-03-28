@@ -9,8 +9,10 @@
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
 
-  if (!dev) inject({ mode: "production" });
-  if (!dev) injectSpeedInsights();
+  if (!dev && !navigator.userAgent?.toLowerCase().includes("bot")) {
+    inject({ mode: "production" });
+    injectSpeedInsights();
+  }
 
   onMount(async () => {
     if ($page.url.searchParams.get("loggedin")) {
