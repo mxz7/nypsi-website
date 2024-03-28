@@ -9,7 +9,7 @@
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
 
-  if (!dev && !navigator?.userAgent?.toLowerCase().includes("bot")) {
+  if (!dev) {
     inject({ mode: "production" });
     injectSpeedInsights();
   }
