@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 export const config = {
   isr: {
-    expiration: 30,
+    expiration: 300,
   },
 };
 
