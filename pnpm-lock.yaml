@@ -24,8 +24,8 @@ dependencies:
     specifier: ^1.0.10
     version: 1.0.10(@sveltejs/kit@2.5.4)(svelte@4.2.12)
   arctic:
-    specifier: ^1.4.0
-    version: 1.4.0
+    specifier: ^1.5.0
+    version: 1.5.0
   chart.js:
     specifier: ^4.4.2
     version: 4.4.2
@@ -1881,8 +1881,8 @@ packages:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
     dev: true
 
-  /arctic@1.4.0:
-    resolution: {integrity: sha512-1EvpysJTT9ZjnwlBgJIg9M+HOcvOk/R66F5t98k2bprky6HE5VtToaU22qC5G76dy7V/h1h62tHGl29u/FAA1w==}
+  /arctic@1.5.0:
+    resolution: {integrity: sha512-ZBC3a7yFncIkeoavrOFi+Jq+Qc4ENsl1JViCMjFe2VEv30XEEHyUsWOO8MHmPFsCyRXbboWSHf+OGpc3WyR67A==}
     dependencies:
       oslo: 1.2.0
     dev: false
