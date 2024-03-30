@@ -1,4 +1,4 @@
-User-Agent: *
+User-agent: *
 Disallow: /me
 Disallow: /login
 Disallow: /logout
