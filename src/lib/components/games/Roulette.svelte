@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parse } from "twemoji-parser";
+  import { parse } from "$lib/functions/twemoji";
 
   export let outcome: string;
 
@@ -8,8 +8,8 @@
 
   const one = parse(oneStr || "", {
     assetType: "png",
-  })[0].url;
-  const two = parse(twoStr || "", { assetType: "png" })[0].url;
+  });
+  const two = parse(twoStr || "", { assetType: "png" });
 </script>
 
 <div class="flex w-full items-center justify-center text-center text-slate-200 opacity-50">

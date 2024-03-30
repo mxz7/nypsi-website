@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parse } from "twemoji-parser";
+  import { parse } from "$lib/functions/twemoji";
 
   export let data: {
     style: 1 | 2 | 3 | 4;
@@ -15,8 +15,8 @@
 
   let emojiUrl = "";
 
-  if (data.emoji && parse(data.emoji.name, { assetType: "png" })[0]?.url) {
-    emojiUrl = parse(data.emoji.name, { assetType: "png" })[0].url;
+  if (data.emoji && parse(data.emoji.name, { assetType: "png" })[0]) {
+    emojiUrl = parse(data.emoji.name, { assetType: "png" });
   } else if (data.emoji && data.emoji.id) {
     emojiUrl = `https://cdn.discordapp.com/emojis/${data.emoji.id}`;
 

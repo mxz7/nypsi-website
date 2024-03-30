@@ -1,4 +1,4 @@
-import { parse } from "twemoji-parser";
+import { parse } from "$lib/functions/twemoji";
 
 export default function parseEmoji(emoji: string) {
   if (!emoji) return "";
@@ -18,9 +18,9 @@ export default function parseEmoji(emoji: string) {
     thumbnail += "?size=80";
   } else {
     try {
-      thumbnail = parse(emoji, { assetType: "png" })[0].url;
-    } catch {
-      /* happy linter */
+      thumbnail = parse(emoji, { assetType: "png" });
+    } catch (e) {
+      console.error(e);
     }
   }
 

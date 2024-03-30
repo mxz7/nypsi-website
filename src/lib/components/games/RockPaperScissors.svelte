@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parse } from "twemoji-parser";
+  import { parse } from "$lib/functions/twemoji";
 
   export let outcome: string;
 
@@ -9,10 +9,8 @@
     ["scissors", "✂️"],
   ]);
 
-  const one = parse(mappedEmojis.get(outcome.split("**")[2].trim()) || "", { assetType: "png" })[0]
-    .url;
-  const two = parse(mappedEmojis.get(outcome.split("**")[4].trim()) || "", { assetType: "png" })[0]
-    .url;
+  const one = parse(mappedEmojis.get(outcome.split("**")[2].trim()) || "", { assetType: "png" });
+  const two = parse(mappedEmojis.get(outcome.split("**")[4].trim()) || "", { assetType: "png" });
 </script>
 
 <div class="flex w-full items-center justify-center text-center text-slate-200 opacity-50">
