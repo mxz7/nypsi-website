@@ -97,8 +97,8 @@
           <SmallInfo>
             <h1 class="text-white lg:text-xl">favourite command</h1>
             <p class="line-clamp-1 text-sm text-slate-300 lg:text-base">
-              ${userData.CommandUse[0].command}
-              ({userData.CommandUse[0].uses.toLocaleString()} uses)
+              ${userData.CommandUse[0]?.command}
+              ({userData.CommandUse[0]?.uses.toLocaleString()} uses)
             </p>
           </SmallInfo>
 
