@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /me
+Disallow: /login
+Disallow: /logout
+Disallow: /game/*
