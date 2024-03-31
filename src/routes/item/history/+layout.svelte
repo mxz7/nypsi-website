@@ -1,9 +1,10 @@
 <script>
   import { page } from "$app/stores";
+  import { auth } from "$lib/data/stores";
 
   export let data;
 
-  console.log(data);
+  $auth = { authenticated: Boolean(data.user), user: data.user };
 </script>
 
 <svelte:head>

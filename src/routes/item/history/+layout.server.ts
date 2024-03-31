@@ -1,4 +1,4 @@
-export const load = async ({ parent, fetch, locals }) => {
+export const load = async ({ fetch, locals }) => {
   const auth = await locals.validate();
 
   if (!auth) return { premium: false };

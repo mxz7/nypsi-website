@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import nypsiLogo from "$lib/assets/nypsi-transparent.webp?as=run:0";
+  import { auth } from "$lib/data/stores";
   import Img from "@zerodevx/svelte-img";
   import { Loader2 } from "lucide-svelte";
   import { onMount } from "svelte";
@@ -24,10 +25,13 @@
   }
 
   onMount(async () => {
-    const auth = await fetch("/api/auth").then((r) => r.json());
+    console.log($auth);
+    if (!$auth) {
+      $auth = await fetch("/api/auth").then((r) => r.json());
+    }
 
-    if (auth.authenticated) {
-      authed = auth.user.avatar;
+    if ($auth.authenticated) {
+      authed = $auth.user.avatar;
     } else {
       authed = "no";
     }

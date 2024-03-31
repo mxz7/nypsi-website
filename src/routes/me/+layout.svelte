@@ -2,12 +2,15 @@
   import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips.js";
   import Profile from "$lib/components/users/Profile.svelte";
+  import { auth } from "$lib/data/stores.js";
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   let graphsAllowed = false;
 
   export let data;
+
+  $auth = { authenticated: Boolean(data.user), user: data.user };
 
   onMount(() => {
     if (data.baseData?.Premium?.level > 0) graphsAllowed = true;
