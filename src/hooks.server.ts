@@ -23,6 +23,8 @@ export const handle = async ({ event, resolve }) => {
   }
 
   event.locals.validate = async () => {
+    if (event.cookies.getAll().length === 0) return null;
+    if (event.request.headers.get("user-agent")?.toLowerCase().includes("bot")) return null;
     const res = await event.fetch("/api/auth").then((r) => r.json());
     const { user, session } = res;
 
