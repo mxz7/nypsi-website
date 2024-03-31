@@ -118,7 +118,7 @@
   <div class="hidden h-1/2 w-full justify-center md:flex">
     <div class="flex w-full max-w-4xl -translate-y-10 px-4">
       <div class="grow">
-        <h1 class="fly-right text-8xl font-bold text-white md:text-9xl">nypsi</h1>
+        <h2 class="fly-right text-8xl font-bold text-white md:text-9xl">nypsi</h2>
         <h3 class="fly-right2 mt-6 text-xl font-medium text-slate-400">the best discord bot</h3>
 
         <a
