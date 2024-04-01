@@ -5,4 +5,20 @@ Disallow: /logout
 Disallow: /game/*
 Disallow: /api
 
+User-agent: Rogerbot
+User-agent: Exabot
+User-agent: MJ12bot
+User-agent: Dotbot
+User-agent: Gigabot
+User-agent: Baiduspider
+User-agent: Ezooms
+User-agent: Nutch
+User-agent: MJ12bot
+User-agent: YandexBot
+User-agent: AhrefsBot
+User-agent: HTTrack
+User-agent: Wget
+User-agent: Zeus
+Disallow: /
+
 Sitemap: https://nypsi.xyz/sitemap.xml
