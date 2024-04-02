@@ -17,6 +17,9 @@ export const handle = async ({ event, resolve }) => {
         }),
         {
           status: 429,
+          headers: {
+            "cache-control": `max-age=${timeRemaining * 2}`,
+          },
         },
       );
     }
@@ -35,7 +38,11 @@ export const handle = async ({ event, resolve }) => {
 
   const res = await resolve(event);
 
-  if (res.redirected && res.headers.get("cache-control")) res.headers.delete("cache-control");
+  if (
+    (res.redirected || res.status === 404 || res.status === 500) &&
+    res.headers.get("cache-control")
+  )
+    res.headers.delete("cache-control");
 
   return res;
 };

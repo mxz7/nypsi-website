@@ -5,13 +5,8 @@ import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { error } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
-export const config = {
-  isr: {
-    expiration: 300,
-  },
-};
-
-export const load = async ({ params, fetch, getClientAddress, request, locals }) => {
+export const load = async ({ params, fetch, getClientAddress, request, locals, setHeaders }) => {
+  setHeaders({ "cache-control": "s-maxage=600" });
   const search = params.search;
   let userId: string;
 

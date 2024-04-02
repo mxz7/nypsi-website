@@ -4,13 +4,11 @@ import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 import { error } from "@sveltejs/kit";
 
 export const config = {
-  isr: {
-    expiration: 600,
-  },
+  runtime: "edge",
 };
 
 export const load = async ({ fetch, params, setHeaders }) => {
-  setHeaders({ "cache-control": "max-age=300" });
+  setHeaders({ "cache-control": "s-maxage=900" });
 
   const item = (await getItems()).find((i) => i.id === params.type);
 

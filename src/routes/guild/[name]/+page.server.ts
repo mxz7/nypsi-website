@@ -1,13 +1,9 @@
 import getGuildData from "$lib/server/functions/graphs/getGuildData.js";
 import type { ApiGuildResponse } from "$lib/types/Guild.js";
 
-export const config = {
-  isr: {
-    expiration: 600,
-  },
-};
+export const load = async ({ params, fetch, setHeaders }) => {
+  setHeaders({ "cache-control": "s-maxage=900" });
 
-export const load = async ({ params, fetch }) => {
   const guild = await fetch(`/api/guild/${params.name}`).then(
     (r) => r.json() as unknown as ApiGuildResponse,
   );
