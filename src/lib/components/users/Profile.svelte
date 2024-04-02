@@ -202,7 +202,7 @@
 
     <div class="grow" />
     <div class="flex h-fit flex-col rounded bg-slate-950 bg-opacity-20 p-2 pb-0">
-      {#if baseData.Tags.length > 0}
+      {#if baseData.Tags?.length > 0}
         {#each baseData.Tags as tag, i}
           {#if badges.has(tag.tagId)}
             <a
@@ -249,7 +249,7 @@
 
       {#if premiumMap.get(baseData.Premium?.level || 0)}
         <div
-          in:fade|global={{ duration: 400, delay: baseData.Tags.length * 200 + 600 }}
+          in:fade|global={{ duration: 400, delay: baseData.Tags?.length * 200 + 600 }}
           use:tooltip={{
             content: `${premiumMap.get(baseData.Premium?.level || 0)?.text} membership`,
             theme: "tooltip",
