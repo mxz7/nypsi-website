@@ -22,7 +22,7 @@ export async function GET({ setHeaders, params }) {
     },
   });
 
-  if (typeof query === "undefined") {
+  if (!query) {
     res.exists = false;
   } else {
     res.exists = true;
