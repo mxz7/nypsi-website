@@ -31,10 +31,10 @@
     responsive: true,
     elements: {
       line: {
-        tension: 0.3,
+        tension: 0.15,
       },
       point: {
-        radius: /Android|iPhone/i.test(navigator.userAgent) ? 2 : 3,
+        radius: /Android|iPhone/i.test(navigator.userAgent) ? 0 : 0,
       },
     },
     scales: {
