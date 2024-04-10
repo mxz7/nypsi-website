@@ -34,7 +34,7 @@
         tension: 0.15,
       },
       point: {
-        radius: /Android|iPhone/i.test(navigator.userAgent) ? 0 : 0,
+        radius: 0,
       },
     },
     scales: {

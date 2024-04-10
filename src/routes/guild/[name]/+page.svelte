@@ -38,10 +38,10 @@
     maintainAspectRatio: false,
     elements: {
       line: {
-        tension: 0.3,
+        tension: 0.15,
       },
       point: {
-        radius: 2,
+        radius: 0,
       },
     },
     scales: {
@@ -83,10 +83,10 @@
     maintainAspectRatio: false,
     elements: {
       line: {
-        tension: 0.3,
+        tension: 0.15,
       },
       point: {
-        radius: 2,
+        radius: 0,
       },
     },
     scales: {
