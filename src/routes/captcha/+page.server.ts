@@ -26,12 +26,13 @@ export async function load({ url, locals }) {
 
   if (!query) return error(404, "Not found");
 
-  await prisma.captcha.update({
-    where: { id },
-    data: {
-      visits: { push: new Date() },
-    },
-  });
+  if (!query.solved)
+    await prisma.captcha.update({
+      where: { id },
+      data: {
+        visits: { push: new Date() },
+      },
+    });
 
   return { id: query.id, solved: query.solved };
 }
