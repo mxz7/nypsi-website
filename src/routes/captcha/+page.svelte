@@ -11,6 +11,10 @@
   let captcha;
 </script>
 
+<svelte:head>
+  <title>captcha / nypsi</title>
+</svelte:head>
+
 <div class="mt-16 flex w-full justify-center md:mt-32">
   <div class="flex w-full flex-col gap-4 px-4 md:max-w-lg md:px-0">
     {#if data.solved}
