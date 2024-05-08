@@ -1,17 +1,28 @@
 import { HCAPTCHA_SECRET } from "$env/static/private";
 import { PUBLIC_HCAPTCHA_SITEKEY } from "$env/static/public";
 import prisma from "$lib/server/database.js";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
-export async function load({ url }) {
+export async function load({ url, locals }) {
+  const auth = await locals.validate();
+
+  if (!auth)
+    return redirect(
+      302,
+      `/login?next=${encodeURIComponent(url.pathname + "?" + url.searchParams.toString())}`,
+    );
+
   const id = url.searchParams.get("id");
 
   if (!id) return error(404, "Not found");
 
   const query = await prisma.captcha.findUnique({
     where: { id },
-    select: { id: true, solved: true },
+    select: { id: true, solved: true, userId: true },
   });
+
+  if (query.userId !== auth.user.id)
+    return error(401, "Not authorised - are you logged into the correct account?");
 
   if (!query) return error(404, "Not found");
 
