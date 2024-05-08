@@ -152,13 +152,14 @@ model Achievements {
 }
 
 model Economy {
-  money       BigInt  @default(500)
-  bank        BigInt  @default(9500)
-  bankStorage BigInt  @default(5000)
-  netWorth    BigInt  @default(0)
-  defaultBet  Int?
-  padlock     Boolean @default(false)
-  passive     Boolean @default(false)
+  money       BigInt @default(500)
+  bank        BigInt @default(9500)
+  bankStorage BigInt @default(5000)
+  netWorth    BigInt @default(0)
+
+  defaultBet Int?
+  padlock    Boolean @default(false)
+  passive    Boolean @default(false)
 
   xp       BigInt @default(0)
   level    Int    @default(0)
@@ -198,6 +199,36 @@ model Economy {
   OffersGiven        Offer[]             @relation(name: "owner")
   Upgrades           Upgrades[]
   Task               Task[]
+  CustomCar          CustomCar[]
+}
+
+model CustomCar {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  name      String
+  skin      String?
+
+  userId   String
+  economy  Economy      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  upgrades CarUpgrade[]
+}
+
+model CarUpgrade {
+  createdAt DateTime       @default(now())
+  type      CarUpgradeType
+  amount    Int            @default(1)
+
+  carId String
+  car   CustomCar @relation(fields: [carId], references: [id], onDelete: Cascade)
+
+  @@id([carId, type])
+}
+
+enum CarUpgradeType {
+  engine
+  turbo
+  wheel
 }
 
 model Task {
@@ -754,4 +785,16 @@ model Session {
   userId    String
   expiresAt DateTime
   user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Captcha {
+  id     String @id @default(uuid())
+  userId String
+
+  solved   Boolean    @default(false)
+  received Int        @default(0)
+  visits   DateTime[]
+
+  createdAt DateTime  @default(now())
+  solvedAt  DateTime? @default(now())
 }

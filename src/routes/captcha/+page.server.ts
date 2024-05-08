@@ -1,13 +1,36 @@
 import { HCAPTCHA_SECRET } from "$env/static/private";
 import { PUBLIC_HCAPTCHA_SITEKEY } from "$env/static/public";
+import prisma from "$lib/server/database.js";
+import { error } from "@sveltejs/kit";
+
+export async function load({ url }) {
+  const id = url.searchParams.get("id");
+
+  if (!id) return error(404, "Not found");
+
+  const query = await prisma.captcha.findUnique({
+    where: { id },
+    select: { id: true, solved: true },
+  });
+
+  if (!query) return error(404, "Not found");
+
+  await prisma.captcha.update({
+    where: { id },
+    data: {
+      visits: { push: new Date() },
+    },
+  });
+
+  return { id: query.id, solved: query.solved };
+}
 
 export const actions = {
-  captcha: async ({ request, fetch }) => {
+  default: async ({ request, fetch, url }) => {
     const formData = await request.formData();
+    const id = url.searchParams.get("id");
 
     const token = formData.get("token");
-
-    console.log(token);
 
     const body = new URLSearchParams({
       secret: HCAPTCHA_SECRET,
@@ -24,6 +47,18 @@ export const actions = {
       body,
     }).then((r) => r.json());
 
-    console.log(res);
+    if (res.success) {
+      await prisma.captcha.update({
+        where: { id },
+        data: {
+          solved: true,
+          solvedAt: new Date(),
+        },
+      });
+
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   },
 };
