@@ -14,9 +14,15 @@
 <div class="mt-16 flex w-full justify-center md:mt-32">
   <div class="flex w-full flex-col gap-4 px-4 md:max-w-lg md:px-0">
     {#if data.solved}
-      <h1 class="text-bold flex gap-2 text-center text-xl text-green-400">
+      <h1 class="text-bold flex justify-center gap-2 text-xl text-green-400">
         verified <Check strokeWidth={3} />
       </h1>
+
+      <iframe
+        class="h-[200px] w-full rounded-xl md:h-[432px]"
+        src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
+        title="YouTube video player"
+      />
     {:else}
       <h1 class="text-bold text-center text-xl text-red-400">
         complete the captcha to continue using commands
