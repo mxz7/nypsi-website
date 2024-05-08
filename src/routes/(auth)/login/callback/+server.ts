@@ -7,7 +7,7 @@ export async function GET({ cookies, url }) {
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const storedState = cookies.get("oauth_state") ?? null;
-  const next = cookies.get("next") ?? null;
+  const next = cookies.get("login_next") ?? null;
 
   if (!code || !state || !storedState || state !== storedState) {
     console.warn("invalid callback");
@@ -42,7 +42,7 @@ export async function GET({ cookies, url }) {
       return new Response(null, { status: 302, headers: { Location: "/" } });
     }
 
-    const nextUrl = new URL(`${PUBLIC_URL}/${next ? next : ""}`);
+    const nextUrl = new URL(`${PUBLIC_URL}${next ? next : ""}`);
 
     nextUrl.searchParams.set("loggedin", "true");
 
