@@ -18,7 +18,9 @@
     on:error={() => captcha.reset()}
     on:success={(payload) => {
       token = payload.detail.token;
-      form.submit();
+      setTimeout(() => {
+        form.submit();
+      }, 500);
     }}
   />
 </div>

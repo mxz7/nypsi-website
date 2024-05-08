@@ -7,6 +7,8 @@ export const actions = {
 
     const token = formData.get("token");
 
+    console.log(token);
+
     const body = new URLSearchParams({
       secret: HCAPTCHA_SECRET,
       response: token as string,
