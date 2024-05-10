@@ -21,10 +21,10 @@ export async function load({ url, locals }) {
     select: { id: true, solved: true, userId: true },
   });
 
+  if (!query) return error(404, "Not found");
+
   if (query.userId !== auth.user.id)
     return error(401, "Not authorised - are you logged into the correct account?");
-
-  if (!query) return error(404, "Not found");
 
   if (!query.solved)
     await prisma.captcha.update({
