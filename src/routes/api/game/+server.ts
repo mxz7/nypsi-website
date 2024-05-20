@@ -2,9 +2,14 @@ import prisma from "$lib/server/database.js";
 import type { Prisma } from "@prisma/client";
 import { error, json } from "@sveltejs/kit";
 
-export async function GET({ setHeaders, url }) {
-  setHeaders({ "cache-control": "max-age=0, s-maxage=604800" });
+export const config = {
+  isr: {
+    expiration: 604800,
+    allowQuery: ["user", "game", "before", "after", "id", "take", "skip"],
+  },
+};
 
+export async function GET({ url }) {
   const userId = url.searchParams.get("user");
   const game = url.searchParams.get("game");
   const before = url.searchParams.get("before");
