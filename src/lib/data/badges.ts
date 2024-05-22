@@ -47,7 +47,7 @@ const badges = new Map([
       text: "og player",
       name: "og player",
       description:
-        "these people have been using nypsi since it very first started back in 2020. as a sign of appreciation they receive this badge (: \n if you have been using nypsi since 2020, please contact me on discord (@tekoh.)",
+        "these people have been using nypsi since it very first started back in 2020. as a sign of appreciation they receive this badge (: \n if you have been using nypsi since 2020, please contact me on discord (@m.axz)",
     },
   ],
   [

@@ -27,7 +27,7 @@ export default async function getItems() {
     plural?: string;
   }[] = Object.values(
     JSON.parse(
-      await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/items.json").then((r) =>
+      await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/items.json").then((r) =>
         r.text(),
       ),
     ),

@@ -215,7 +215,7 @@
           <SmallInfo>
             <h1 class="text-white lg:text-xl">completion</h1>
             <p class="text-sm text-slate-300 lg:text-base">
-              {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/achievements.json").then( (r) => r.json(), )}
+              {#await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/achievements.json").then( (r) => r.json(), )}
                 calculating...
               {:then achievementData}
                 {(

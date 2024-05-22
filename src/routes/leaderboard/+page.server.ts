@@ -21,7 +21,7 @@ export async function load({ fetch, request, setHeaders }) {
         (r) => r.json() as Promise<LeaderboardData>,
       ),
       items: await getItems(),
-      tags: await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
+      tags: await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json")
         .then((r) => r.text())
         .then(
           (r) =>
@@ -38,7 +38,7 @@ export async function load({ fetch, request, setHeaders }) {
         (r) => r.json() as Promise<LeaderboardData>,
       ),
       items: getItems(),
-      tags: fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
+      tags: fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json")
         .then((r) => r.text())
         .then(
           (r) =>

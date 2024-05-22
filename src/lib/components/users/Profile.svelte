@@ -222,7 +222,7 @@
               />
             </a>
           {:else}
-            {#await fetch("https://raw.githubusercontent.com/tekoh/nypsi/main/data/tags.json")
+            {#await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json")
               .then((r) => r.text())
               .then((r) => JSON.parse(r)) then tagData}
               {#if tagData[tag.tagId] && tag.selected}
