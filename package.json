@@ -45,7 +45,7 @@
     "@upstash/redis": "1.31.2",
     "@vercel/analytics": "1.2.2",
     "@vercel/speed-insights": "^1.0.11",
-    "arctic": "^1.8.0",
+    "arctic": "^1.9.0",
     "chart.js": "^4.4.3",
     "dayjs": "1.11.11",
     "fast-sort": "3.4.0",
