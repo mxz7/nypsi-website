@@ -44,8 +44,12 @@
       .then((response) => response.json())
       .then((data) => {
         if (data.ok) {
-          games = [...games, ...data.games];
-          loaded();
+          if (data.games.length > 0) {
+            games = [...games, ...data.games];
+            loaded();
+          } else {
+            complete();
+          }
         } else {
           complete();
         }
