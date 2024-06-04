@@ -34,7 +34,7 @@ export async function load({ url, locals }) {
       },
     });
 
-  return { id: query.id, solved: query.solved };
+  return { id: query.id, solved: query.solved, rickroll: Math.floor(Math.random() * 100) <= 5 };
 }
 
 export const actions = {

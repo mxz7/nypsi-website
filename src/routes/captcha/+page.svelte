@@ -22,11 +22,13 @@
         verified <Check strokeWidth={3} />
       </h1>
 
-      <iframe
-        class="h-[200px] w-full rounded-xl md:h-[432px]"
-        src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
-        title="YouTube video player"
-      />
+      {#if data.rickroll}
+        <iframe
+          class="h-[200px] w-full rounded-xl md:h-[432px]"
+          src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
+          title="YouTube video player"
+        />
+      {/if}
     {:else}
       <h1 class="text-bold text-center text-xl text-red-400">
         complete the captcha to continue using commands
