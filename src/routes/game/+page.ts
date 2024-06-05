@@ -9,7 +9,8 @@ export async function load({ fetch, url, setHeaders }) {
     .set("seconds", 0)
     .set("milliseconds", 0)
     .toDate()
-    .getDate();
+    .getTime();
+
   if (!url.searchParams.get("before")) url.searchParams.set("before", loadedDate.toString());
   if (!url.searchParams.get("take")) url.searchParams.set("take", "50");
 
