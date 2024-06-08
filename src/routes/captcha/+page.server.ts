@@ -14,17 +14,17 @@ export async function load({ url, locals }) {
 
   const id = url.searchParams.get("id");
 
-  if (!id) return error(404, "Not found");
+  if (!id) return error(400, "Invalid Captcha");
 
   const query = await prisma.captcha.findUnique({
     where: { id },
     select: { id: true, solved: true, userId: true },
   });
 
-  if (!query) return error(404, "Not found");
+  if (!query) return redirect(302, "/");
 
   if (query.userId !== auth.user.id)
-    return error(401, "Not authorised - are you logged into the correct account?");
+    return error(401, "Not Authorised - are you logged into the correct account?");
 
   if (!query.solved)
     await prisma.captcha.update({
