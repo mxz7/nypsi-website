@@ -15,7 +15,9 @@
 
   let emojiUrl = "";
 
-  if (data.emoji && parse(data.emoji.name, { assetType: "png" })[0]) {
+  // console.log(data.emoji?.name);
+
+  if (data.emoji && parse(data.emoji.name, { assetType: "png" })) {
     emojiUrl = parse(data.emoji.name, { assetType: "png" });
   } else if (data.emoji && data.emoji.id) {
     emojiUrl = `https://cdn.discordapp.com/emojis/${data.emoji.id}`;
