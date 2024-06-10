@@ -39,8 +39,8 @@ dependencies:
     specifier: ^3.1.1
     version: 3.2.0
   lucide-svelte:
-    specifier: ^0.383.0
-    version: 0.383.0(svelte@4.2.18)
+    specifier: ^0.390.0
+    version: 0.390.0(svelte@4.2.18)
   ms:
     specifier: 2.1.3
     version: 2.1.3
@@ -2475,8 +2475,8 @@ packages:
       oslo: 1.2.0
     dev: false
 
-  /lucide-svelte@0.383.0(svelte@4.2.18):
-    resolution: {integrity: sha512-jA4fd9v1gLuE/iNszC7VyIexDnWX06bYpFFTPfBwk0FKh3Paf7FULgotQ8UUY1Lsr6JIMWASh7zKhI2f1bePFw==}
+  /lucide-svelte@0.390.0(svelte@4.2.18):
+    resolution: {integrity: sha512-zaHTuk1KB2PqYrF/UY87g8DkforXEj7sYOo2Ml3LokNzx35dRJMHZHsuEXXTj9gqB76Da0o6Tud15bmtNBX1/Q==}
     peerDependencies:
       svelte: ^3 || ^4 || ^5.0.0-next.42
     dependencies:
