@@ -99,7 +99,7 @@
           in:fly|global={{ delay: 500, duration: 500, y: 75 }}
         >
           <SmallInfo>
-            <h1 class="text-white lg:text-xl">favourite command</h1>
+            <h2 class="text-white lg:text-xl">favourite command</h2>
             <p class="line-clamp-1 text-sm text-slate-300 lg:text-base">
               ${userData.CommandUse[0]?.command}
               ({userData.CommandUse[0]?.uses.toLocaleString()} uses)
@@ -107,7 +107,7 @@
           </SmallInfo>
 
           <SmallInfo>
-            <h1 class="text-white lg:text-xl">daily streak</h1>
+            <h2 class="text-white lg:text-xl">daily streak</h2>
             <p class="text-sm text-slate-300 lg:text-base">
               {(userData.Economy?.dailyStreak || 0).toLocaleString()}
             </p>
@@ -119,23 +119,25 @@
             <div
               class="mt-4 flex w-full flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
             >
-              <a
-                href="/guild/{userData.Economy.EconomyGuildMember.guild.guildName}"
-                class="w-full text-center text-lg text-slate-100 lg:text-2xl"
-              >
-                {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy
-                  .EconomyGuildMember.guild.level}]
-              </a>
+              <h3 class="text-center">
+                <a
+                  href="/guild/{userData.Economy.EconomyGuildMember.guild.guildName}"
+                  class="text-lg text-slate-100 lg:text-2xl"
+                >
+                  {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy
+                    .EconomyGuildMember.guild.level}]
+                </a>
+              </h3>
 
               <div class="mt-2 flex w-full flex-row">
                 <div class="flex grow flex-col text-center">
-                  <h2 class="text-slate-200 lg:text-xl">balance</h2>
+                  <h3 class="text-slate-200 lg:text-xl">balance</h3>
                   <p class="text-sm text-slate-300 lg:text-base">
                     ${userData.Economy.EconomyGuildMember.guild.balance.toLocaleString()}
                   </p>
                 </div>
                 <div class="flex grow flex-col text-center">
-                  <h2 class="text-slate-200 lg:text-xl">xp</h2>
+                  <h3 class="text-slate-200 lg:text-xl">xp</h3>
                   <p class="text-sm text-slate-300 lg:text-base">
                     {userData.Economy.EconomyGuildMember.guild.xp.toLocaleString()}xp
                   </p>
@@ -160,7 +162,7 @@
               class="mt-4 flex w-full flex-col justify-center rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
               id="inventory"
             >
-              <h1 class="mb-3 w-full text-center text-white lg:text-xl">inventory</h1>
+              <h2 class="mb-3 w-full text-center text-white lg:text-xl">inventory</h2>
               <div
                 class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
               >
@@ -195,7 +197,7 @@
           in:fly|global={{ delay: 800, duration: 500, y: 75 }}
         >
           <SmallInfo>
-            <h1 class="text-white lg:text-xl">last seen</h1>
+            <h2 class="text-white lg:text-xl">last seen</h2>
 
             <p class="text-sm text-slate-300 lg:text-base">
               {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(3, "months"))}
@@ -217,7 +219,7 @@
           </SmallInfo>
 
           <SmallInfo>
-            <h1 class="text-white lg:text-xl">completion</h1>
+            <h2 class="text-white lg:text-xl">completion</h2>
             <p class="text-sm text-slate-300 lg:text-base">
               {#await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/achievements.json").then( (r) => r.json(), )}
                 calculating...
@@ -237,7 +239,7 @@
               class="mt-4 flex w-full flex-col justify-center rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
               id="leaderboards"
             >
-              <h1 class="mb-3 w-full text-center text-white lg:text-xl">leaderboards</h1>
+              <h2 class="mb-3 w-full text-center text-white lg:text-xl">leaderboards</h2>
               <div
                 class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
               >
@@ -281,7 +283,7 @@
             <div
               class="mx-auto mt-4 flex flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 lg:w-full"
             >
-              <h1 class="text-center text-white lg:text-xl">recent games</h1>
+              <h2 class="text-center text-white lg:text-xl">recent games</h2>
               <div
                 class="mx-4 mt-4 flex max-h-64 flex-col overflow-y-auto px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
               >
@@ -295,7 +297,7 @@
                         : 'rgb(254, 240, 138)'};"
                     class="mt-3 flex w-full flex-col items-center justify-center rounded border border-slate-500 border-opacity-10 bg-slate-700 bg-opacity-5 p-2 px-4 align-middle shadow duration-300 hover:border-accent hover:border-opacity-25 lg:mt-0"
                   >
-                    <h2 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h2>
+                    <h3 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h3>
 
                     {#if !game.game.includes("scratch")}
                       <p class="mt-2 text-center text-sm font-semibold lg:text-base">
@@ -328,7 +330,7 @@
               class="mx-auto mt-4 flex w-fit flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
               id="wordle"
             >
-              <h1 class="mb-2 text-center text-white lg:mb-4 lg:text-xl">wordle</h1>
+              <h2 class="mb-2 text-center text-white lg:mb-4 lg:text-xl">wordle</h2>
 
               <div class="flex w-full grow flex-row">
                 <div class="flex w-full flex-col justify-center">
