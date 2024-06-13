@@ -85,6 +85,22 @@ export default {
   },
   "7": {
     started: new Date("2024-01-01"),
+    ended: new Date("2024-05-31"),
+    winners: [
+      { username: "amasos", value: "$171,741,646,833" },
+      { username: "xxgamstarclasher69", value: "$69,731,889,605" },
+      { username: "aether3547", value: "$39,006,424,456" },
+      { username: "bulvius", value: "$33,878,349,150" },
+      { username: "4qua_fl4r3", value: "$8,759,783,836" },
+      { username: "lego_piece_2550c01_n", value: "$6,041,137,686" },
+      { username: "auxlift", value: "$4,532,441,440" },
+      { username: "killerb8564", value: "$4,352,009,947" },
+      { username: "jjoinzi", value: "$4,318,003,424" },
+      { username: "ur_not_handsome", value: "$4,304,725,683" },
+    ],
+  },
+  "8": {
+    started: new Date("2024-06-01"),
   },
 } as {
   [key: string]: { started: Date; ended?: Date; winners?: { username: string; value: string }[] };
