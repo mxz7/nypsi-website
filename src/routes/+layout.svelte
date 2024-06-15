@@ -3,14 +3,13 @@
   import { page } from "$app/stores";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
-  import { inject } from "@vercel/analytics";
+
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
 
   if (!dev) {
-    inject({ mode: "production" });
     injectSpeedInsights();
   }
 
@@ -48,6 +47,10 @@
   <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#8b5cf6" />
+
+  {#if !dev}
+    <script src="/meow/js/script.js" data-api="/meow/api/event" data-domain="nypsi.xyz"></script>
+  {/if}
 </svelte:head>
 
 <Toaster />
