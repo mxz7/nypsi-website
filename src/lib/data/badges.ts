@@ -59,6 +59,15 @@ const badges = new Map([
       description: "highrollers have donated at least £500 to nypsi",
     },
   ],
+  [
+    "keyboard",
+    {
+      icon: "https://em-content.zobj.net/source/twitter/376/keyboard_2328-fe0f.png",
+      text: "keyboard",
+      name: "keyboard",
+      description: "win an official chat reaction tournament",
+    },
+  ],
 ]);
 
 export default badges;
