@@ -49,7 +49,7 @@
   <meta name="theme-color" content="#8b5cf6" />
 
   {#if !dev}
-    <script src="/meow/js/script.js" data-api="/meow/api/event" data-domain="nypsi.xyz"></script>
+    <script defer data-domain="nypsi.xyz" src="https://analytics.maxz.dev/js/script.js"></script>
   {/if}
 </svelte:head>
 
