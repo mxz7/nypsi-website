@@ -19,7 +19,7 @@ dependencies:
     version: 1.31.5
   '@vercel/speed-insights':
     specifier: ^1.0.12
-    version: 1.0.12(@sveltejs/kit@2.5.16)(svelte@4.2.18)
+    version: 1.0.12(@sveltejs/kit@2.5.17)(svelte@4.2.18)
   arctic:
     specifier: ^1.9.1
     version: 1.9.1
@@ -66,10 +66,10 @@ dependencies:
 devDependencies:
   '@sveltejs/adapter-vercel':
     specifier: ^5.3.2
-    version: 5.3.2(@sveltejs/kit@2.5.16)
+    version: 5.3.2(@sveltejs/kit@2.5.17)
   '@sveltejs/kit':
-    specifier: ^2.5.16
-    version: 2.5.16(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1)
+    specifier: ^2.5.17
+    version: 2.5.17(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1)
   '@sveltejs/vite-plugin-svelte':
     specifier: ^3.1.1
     version: 3.1.1(svelte@4.2.18)(vite@5.3.1)
@@ -1197,12 +1197,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@sveltejs/adapter-vercel@5.3.2(@sveltejs/kit@2.5.16):
+  /@sveltejs/adapter-vercel@5.3.2(@sveltejs/kit@2.5.17):
     resolution: {integrity: sha512-3nRBF9OHS14kM8yAZgR4Mu5gO5bAs1HXYGZFZwZrOOClo+jWbeHFn86fkj7yP5CSAu9aw2zVFxJbJrh9ZDFLUg==}
     peerDependencies:
       '@sveltejs/kit': ^2.4.0
     dependencies:
-      '@sveltejs/kit': 2.5.16(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1)
+      '@sveltejs/kit': 2.5.17(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1)
       '@vercel/nft': 0.27.2
       esbuild: 0.20.2
     transitivePeerDependencies:
@@ -1210,8 +1210,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit@2.5.16(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1):
-    resolution: {integrity: sha512-09Ypy+ibuhTCTpRFRnR+cDI3VARiu16o7vVSjETAA43ZCLtqvrNrVxUkJ/fKHrAjx2peKWilcHE8+SbW2Z/AsQ==}
+  /@sveltejs/kit@2.5.17(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1):
+    resolution: {integrity: sha512-wiADwq7VreR3ctOyxilAZOfPz3Jiy2IIp2C8gfafhTdQaVuGIHllfqQm8dXZKADymKr3uShxzgLZFT+a+CM4kA==}
     engines: {node: '>=18.13'}
     hasBin: true
     requiresBuild: true
@@ -1479,7 +1479,7 @@ packages:
       - supports-color
     dev: true
 
-  /@vercel/speed-insights@1.0.12(@sveltejs/kit@2.5.16)(svelte@4.2.18):
+  /@vercel/speed-insights@1.0.12(@sveltejs/kit@2.5.17)(svelte@4.2.18):
     resolution: {integrity: sha512-ZGQ+a7bcfWJD2VYEp2R1LHvRAMyyaFBYytZXsfnbOMkeOvzGNVxUL7aVUvisIrTZjXTSsxG45DKX7yiw6nq2Jw==}
     requiresBuild: true
     peerDependencies:
@@ -1503,7 +1503,7 @@ packages:
       vue-router:
         optional: true
     dependencies:
-      '@sveltejs/kit': 2.5.16(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1)
+      '@sveltejs/kit': 2.5.17(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.18)(vite@5.3.1)
       svelte: 4.2.18
     dev: false
 
