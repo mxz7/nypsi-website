@@ -15,8 +15,8 @@ dependencies:
     specifier: 1.2.1
     version: 1.2.1
   '@upstash/redis':
-    specifier: 1.31.5
-    version: 1.31.5
+    specifier: 1.31.6
+    version: 1.31.6
   '@vercel/speed-insights':
     specifier: ^1.0.12
     version: 1.0.12(@sveltejs/kit@2.5.17)(svelte@4.2.18)
@@ -1442,7 +1442,7 @@ packages:
     resolution: {integrity: sha512-9NXXxZ5y1/A/zqKLlVT7NsAWSggJfOjB0hG6Ffx29b4jbzHOiQVWB55h5+j2clT9Ib+mNPXn0iB5zN3aWLkICw==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@upstash/redis': 1.31.5
+      '@upstash/redis': 1.31.6
     dev: false
 
   /@upstash/ratelimit@1.2.1:
@@ -1451,8 +1451,8 @@ packages:
       '@upstash/core-analytics': 0.0.9
     dev: false
 
-  /@upstash/redis@1.31.5:
-    resolution: {integrity: sha512-2MatqeqftroSJ9Q+pqbyGAIwXX6KEPtUTUna2c/fq09h12ffwvltDTgfppeF+NzJo/SyZfHY8e1RoflduMbz1A==}
+  /@upstash/redis@1.31.6:
+    resolution: {integrity: sha512-7sDQQqvVnnV+2PUVGjocITa34CULGLoWhmfSY/LtpxNYv24EsgOk9VXhmGXIyzJBcXxB614wOF6ccEN0Lr7fqQ==}
     dependencies:
       crypto-js: 4.2.0
     dev: false
