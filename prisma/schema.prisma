@@ -24,25 +24,27 @@ model User {
   booster           Boolean  @default(false)
   totalSpend        Float    @default(0)
 
-  Economy        Economy?
-  Premium        Premium?
-  Username       Username[]
-  WordleStats    WordleStats?
-  CommandUse     CommandUse[]
-  Achievements   Achievements[]
-  DMSettings     DMSettings?
-  Preferences    Preferences?
-  Leaderboards   Leaderboards[]
-  ActiveChannels ActiveChannels[]
-  KofiPurchases  KofiPurchases[]
-  Tags           Tags[]
-  Views          ProfileView[]
-  Viewed         ProfileView[]    @relation(name: "viewer")
-  Sessions       Session[]
+  Economy            Economy?
+  Premium            Premium?
+  Username           Username[]
+  WordleStats        WordleStats?
+  CommandUse         CommandUse[]
+  Achievements       Achievements[]
+  DMSettings         DMSettings?
+  Preferences        Preferences?
+  Leaderboards       Leaderboards[]
+  ActiveChannels     ActiveChannels[]
+  KofiPurchases      KofiPurchases[]
+  Tags               Tags[]
+  Views              ProfileView[]
+  Viewed             ProfileView[]        @relation(name: "viewer")
+  Sessions           Session[]
+  Captchas           Captcha[]
+  ModerationEvidence ModerationEvidence[]
 }
 
 model ProfileView {
-  id String @id @default(uuid())
+  id BigInt @id @default(autoincrement())
 
   userId    String
   createdAt DateTime @default(now())
@@ -135,7 +137,6 @@ model CommandUse {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, command])
-  @@index([userId])
 }
 
 model Achievements {
@@ -148,7 +149,6 @@ model Achievements {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, achievementId])
-  @@index([userId])
 }
 
 model Economy {
@@ -281,7 +281,7 @@ model BakeryUpgrade {
 }
 
 model Crafting {
-  id       String   @id @default(uuid())
+  id       Int      @id @default(autoincrement())
   userId   String
   itemId   String
   amount   Int
@@ -299,7 +299,6 @@ model Inventory {
   economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@id([userId, item])
-  @@index([userId])
 }
 
 model EconomyWorker {
@@ -335,7 +334,7 @@ model LotteryTicket {
 }
 
 model Booster {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   userId    String
   boosterId String
   expire    DateTime
@@ -403,10 +402,10 @@ model PremiumCommand {
 }
 
 model Username {
-  id    String   @id @default(uuid())
-  type  String   @default("username")
-  value String
-  date  DateTime
+  id        Int      @id @default(autoincrement())
+  type      String   @default("username")
+  value     String
+  createdAt DateTime @default(now())
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
@@ -466,12 +465,16 @@ model Guild {
   snipeFilter      String[]
   chatFilter       String[]
   percentMatch     Int      @default(75)
-  prefix           String   @default("$")
+  prefixes         String[] @default(["$"])
   createdAt        DateTime @default(now())
   slash_only       Boolean  @default(false)
   alt_punish       Boolean  @default(false)
   auto_role        String[]
   persist_role     String[]
+  muteRole         String?
+  modlogs          String?
+  logs             String?
+  automute         Int[]    @default([0, 60, 120, 300])
 
   GuildChristmas GuildChristmas?
   counters       GuildCounter[]
@@ -479,10 +482,15 @@ model Guild {
 
   ChatReaction ChatReaction?
 
-  Moderation   Moderation?
   RolePersist  RolePersist[]
   ReactionRole ReactionRole[]
-  Alt          Alt[]
+
+  Alt                 Alt[]
+  cases               ModerationCase[]
+  bans                ModerationBan[]
+  mutes               ModerationMute[]
+  ModerationEvidence  ModerationEvidence[]
+  GuildEvidenceCredit GuildEvidenceCredit[]
 }
 
 model ReactionRole {
@@ -567,26 +575,12 @@ model GuildCountdown {
   @@id([guildId, id])
 }
 
-model Moderation {
-  caseCount Int     @default(0)
-  muteRole  String?
-  modlogs   String?
-  logs      String?
-  automute  Int[]   @default([0, 60, 120, 300])
-
-  guild          Guild            @relation(fields: [guildId], references: [id], onDelete: Cascade)
-  guildId        String           @unique
-  ModerationBan  ModerationBan[]
-  ModerationMute ModerationMute[]
-  ModerationCase ModerationCase[]
-}
-
 model ModerationBan {
   userId  String
   guildId String
   expire  DateTime
 
-  moderation Moderation @relation(fields: [guildId], references: [guildId], onDelete: Cascade)
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
 
   @@id([userId, guildId])
 }
@@ -596,24 +590,53 @@ model ModerationMute {
   guildId String
   expire  DateTime
 
-  moderation Moderation @relation(fields: [guildId], references: [guildId], onDelete: Cascade)
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
 
   @@id([userId, guildId])
 }
 
 model ModerationCase {
-  caseId    String
+  caseId    Int
   guildId   String
   type      String
   user      String
   moderator String
   command   String
-  time      DateTime
+  time      DateTime @default(now())
   deleted   Boolean  @default(false)
 
-  moderation Moderation @relation(fields: [guildId], references: [guildId], onDelete: Cascade)
+  evidence ModerationEvidence?
 
-  @@id([caseId, guildId])
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@id([guildId, caseId])
+}
+
+model ModerationEvidence {
+  id    String @id
+  bytes BigInt
+
+  caseId  Int
+  guildId String
+  userId  String?
+
+  createdAt DateTime @default(now())
+
+  guild Guild          @relation(fields: [guildId], references: [id], onDelete: Restrict)
+  case  ModerationCase @relation(fields: [caseId, guildId], references: [caseId, guildId], onDelete: Restrict)
+  user  User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@unique([caseId, guildId])
+}
+
+model GuildEvidenceCredit {
+  id        Int      @id @default(autoincrement())
+  guildId   String
+  createdAt DateTime @default(now())
+
+  bytes BigInt
+
+  guild Guild @relation(fields: [guildId], references: [id])
 }
 
 model Alt {
@@ -627,17 +650,25 @@ model Alt {
 }
 
 model ChatReaction {
+  wordListType   ChatReactionWordList @default(english_1k)
   wordList       String[]
-  randomStart    Boolean  @default(false)
+  randomStart    Boolean              @default(false)
   randomChannels String[]
-  betweenEvents  Int      @default(600)
-  randomModifier Int      @default(300)
-  timeout        Int      @default(60)
+  betweenEvents  Int                  @default(600)
+  randomModifier Int                  @default(300)
+  timeout        Int                  @default(60)
   blacklisted    String[]
 
   guild             Guild               @relation(fields: [guildId], references: [id], onDelete: Cascade)
   guildId           String              @unique
   ChatReactionStats ChatReactionStats[]
+}
+
+enum ChatReactionWordList {
+  english_1k
+  english_5k
+  english_10k
+  custom
 }
 
 model ChatReactionStats {
@@ -698,7 +729,7 @@ model EconomyGuildUpgrades {
 // tables with no relation for easiness
 
 model Mention {
-  id String @id @default(uuid())
+  id BigInt @id @default(autoincrement())
 
   guildId  String
   targetId String
@@ -716,7 +747,7 @@ model SupportRequest {
 }
 
 model KofiPurchases {
-  id String @id @default(uuid())
+  id Int @id @default(autoincrement())
 
   date   DateTime @default(now())
   email  String?
@@ -729,7 +760,7 @@ model KofiPurchases {
 // data for creating graphs
 
 model GraphMetrics {
-  id String @id @default(uuid())
+  id BigInt @id @default(autoincrement())
 
   category String
 
@@ -797,4 +828,14 @@ model Captcha {
 
   createdAt DateTime  @default(now())
   solvedAt  DateTime? @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model BotMetrics {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  category String
+  value    Int
 }
