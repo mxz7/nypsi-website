@@ -66,7 +66,7 @@
       </a>
 
       <div
-        class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-bold [&>a]:text-slate-200"
+        class="mt-1 hidden h-full flex-row items-center align-middle text-sm md:flex [&>a]:mx-3 [&>a]:font-semibold [&>a]:text-slate-200"
       >
         <a class="hover-effect" href="/leaderboard">leaderboards</a>
         <a class="hover-effect" href="/status">status</a>
@@ -74,7 +74,7 @@
         >
         <a class="hover-effect" href="https://docs.nypsi.xyz" target="_blank">docs</a>
         <a
-          class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text !text-transparent duration-300"
+          class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text font-bold !text-transparent duration-300"
           href="https://ko-fi.com/tekoh/tiers"
           target="_blank">premium</a
         >
