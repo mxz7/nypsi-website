@@ -140,12 +140,14 @@
         </a>
       </div>
 
-      <Img
-        src={hero}
-        class="fly-up md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
-        alt="hero image nypsi icon"
-        fetchpriority="high"
-      />
+      <div class="fly-up">
+        <Img
+          src={hero}
+          class="md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
+          alt="hero image nypsi icon"
+          fetchpriority="high"
+        />
+      </div>
     </div>
   </div>
 </div>
@@ -305,13 +307,13 @@
 <style>
   @keyframes fly-up {
     0% {
-      transform: translateY(60px);
+      transform: translateY(175px);
       opacity: 0%;
     }
 
     100% {
       opacity: 100%;
-      transform: translateY(-40px);
+      transform: translateY(0px);
     }
   }
 
@@ -340,9 +342,7 @@
   }
 
   .fly-up {
-    animation-name: fly-up;
-    animation-timing-function: ease;
-    animation-duration: 750ms;
+    animation: fly-up 1250ms ease normal forwards;
   }
 
   .fly-right {
