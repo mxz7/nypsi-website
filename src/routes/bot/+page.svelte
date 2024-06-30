@@ -43,7 +43,7 @@
         // min: 0,
         // max: Number(sort(data.queryGraph.data.datasets[1].data).desc()[0]) * 2,
         suggestedMax: Number(sort(data.queryGraph.data.datasets[1].data).desc()[0]) * 1.5,
-        suggestedMin: 0,
+        suggestedMin: Number(sort(data.queryGraph.data.datasets[1].data).asc()[0]) / 1.5,
         grid: {
           display: false,
         },
@@ -57,8 +57,8 @@
         },
       },
       1: {
-        suggestedMin: 0,
         suggestedMax: Number(sort(data.queryGraph.data.datasets[0].data).desc()[0]) * 1.5,
+        suggestedMin: Number(sort(data.queryGraph.data.datasets[0].data).asc()[0]) / 1.5,
         position: "left",
         ticks: {
           callback(tickValue) {
