@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-vercel": "^5.4.0",
-    "@sveltejs/kit": "^2.5.17",
+    "@sveltejs/kit": "^2.5.18",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@types/ms": "0.7.34",
     "@types/twemoji-parser": "13.1.4",
@@ -25,7 +25,7 @@
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-svelte": "2.41.0",
-    "postcss": "8.4.38",
+    "postcss": "8.4.39",
     "prettier": "3.3.2",
     "prettier-plugin-svelte": "3.2.5",
     "prettier-plugin-tailwindcss": "0.6.5",
@@ -34,7 +34,7 @@
     "svelte-hcaptcha": "^0.1.1",
     "tailwindcss": "3.4.4",
     "tslib": "2.6.3",
-    "typescript": "5.5.2",
+    "typescript": "5.5.3",
     "vite": "^5.3.2"
   },
   "type": "module",
