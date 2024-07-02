@@ -160,9 +160,10 @@
         class="bg-gray-950 text-gray-100"
         bind:value={days}
         on:change={() => {
-          $page.url.searchParams.set("days", days);
+          const params = new URLSearchParams($page.url.searchParams.toString());
+          params.set("days", days);
 
-          goto($page.url.toString());
+          goto(`?${params.toString()}`);
         }}
       >
         <option value="14">14 days</option>
@@ -296,15 +297,19 @@
 
       if (selectedItems.length === 0) return goto("/me/graphs");
 
-      $page.url.searchParams.set("items", selectedItems.join("+"));
+      const params = new URLSearchParams($page.url.searchParams.toString());
 
-      return goto(`?${$page.url.searchParams.toString()}`);
+      params.set("items", selectedItems.join("+"));
+
+      return goto(`?${params.toString()}`);
     } else {
       if (selectedItems.length + 1 > 10) selectedItems.shift();
 
-      $page.url.searchParams.set("items", [...selectedItems, itemId].join("+"));
+      const params = new URLSearchParams($page.url.searchParams.toString());
 
-      return goto(`?${$page.url.searchParams.toString()}`);
+      params.set("items", [...selectedItems, itemId].join("+"));
+
+      return goto(`?${params.toString()}`);
     }
   }}
 />

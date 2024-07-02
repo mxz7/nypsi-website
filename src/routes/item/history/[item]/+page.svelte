@@ -90,11 +90,13 @@
       class="bg-gray-950 text-gray-100"
       bind:value={days}
       on:change={() => {
-        $page.url.searchParams.set("days", days);
+        const params = new URLSearchParams($page.url.searchParams.toString());
+
+        params.set("days", days);
         if (days === "30") {
-          $page.url.searchParams.delete("days");
+          params.delete("days");
         }
-        goto($page.url.toString(), { invalidateAll: true });
+        goto(`?${params.toString()}`);
       }}
     >
       <option value="14">14 days</option>
