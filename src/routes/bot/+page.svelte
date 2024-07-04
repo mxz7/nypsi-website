@@ -36,7 +36,7 @@
     scales: {
       x: {
         ticks: {
-          // maxTicksLimit: 15,
+          maxTicksLimit: 7,
         },
       },
       2: {
@@ -92,6 +92,11 @@
       },
     },
     scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: 7,
+        },
+      },
       2: {
         // min: 0,
         // max: Number(sort(data.queryGraph.data.datasets[1].data).desc()[0]) * 2,
