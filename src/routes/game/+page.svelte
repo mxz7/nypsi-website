@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import Loading from "$lib/components/Loading.svelte";
   import type Game from "$lib/types/Game";
+  import dayjs from "dayjs";
   import InfiniteLoading from "svelte-infinite-loading";
   import { fly } from "svelte/transition";
 
@@ -44,10 +45,17 @@
 <div class="mt-12 flex w-full justify-center">
   <div class="flex w-full flex-col md:w-auto">
     {#if data.resultText}
-      <h2 class="mb-4 text-center text-3xl font-semibold">{@html data.resultText}</h2>
+      <h2 class="text-center text-3xl font-semibold">{@html data.resultText}</h2>
     {:else if data.loadedDate}
-      <h2 class="mb-4 text-center text-3xl font-semibold">recent games</h2>
+      <h2 class="text-center text-3xl font-semibold">recent games</h2>
     {/if}
+
+    {#if data.loadedDate}
+      <h3 class="mb-6 text-center text-sm opacity-50">
+        as of {dayjs(data.loadedDate).format("HH:mm:ss")}
+      </h3>
+    {/if}
+
     {#if games.length === 0}
       <div class="relative mt-6 w-full">
         <Loading
@@ -57,7 +65,7 @@
       </div>
     {:else}
       <div
-        class="grid w-full grid-cols-1 gap-4 px-6 sm:px-0 md:w-fit md:grid-cols-3 lg:grid-cols-4"
+        class="grid w-full grid-cols-1 gap-4 px-6 sm:px-0 md:max-w-4xl md:grid-cols-3 lg:grid-cols-4"
       >
         {#each games as game, i}
           <a
