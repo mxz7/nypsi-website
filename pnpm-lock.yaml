@@ -18,8 +18,8 @@ importers:
         specifier: 1.2.1
         version: 1.2.1
       '@upstash/redis':
-        specifier: 1.31.6
-        version: 1.31.6
+        specifier: 1.32.0
+        version: 1.32.0
       '@vercel/speed-insights':
         specifier: ^1.0.12
         version: 1.0.12(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.3))(svelte@4.2.18)(vite@5.3.3))(svelte@4.2.18)
@@ -790,8 +790,8 @@ packages:
   '@upstash/ratelimit@1.2.1':
     resolution: {integrity: sha512-o01lV1yFS5Fzj5KONZmNyVch/Qrlj785B2ob+kStUmxn8F6xXk7IHTQqVcHE+Ce3CmT/qQIwvMxDZftyJ5wYpQ==}
 
-  '@upstash/redis@1.31.6':
-    resolution: {integrity: sha512-7sDQQqvVnnV+2PUVGjocITa34CULGLoWhmfSY/LtpxNYv24EsgOk9VXhmGXIyzJBcXxB614wOF6ccEN0Lr7fqQ==}
+  '@upstash/redis@1.32.0':
+    resolution: {integrity: sha512-KBzCjOgF9mhNcV4HTz7U8g7QTdLVEKi1sSe/97u0E+HkzdPmDt3j9lIPIHEUJz6RrdVH6s4HW4JcPvMLC7w3ew==}
 
   '@vercel/nft@0.27.2':
     resolution: {integrity: sha512-7LeioS1yE5hwPpQfD3DdH04tuugKjo5KrJk3yK5kAI3Lh76iSsK/ezoFQfzuT08X3ZASQOd1y9ePjLNI9+TxTQ==}
@@ -2846,13 +2846,13 @@ snapshots:
 
   '@upstash/core-analytics@0.0.9':
     dependencies:
-      '@upstash/redis': 1.31.6
+      '@upstash/redis': 1.32.0
 
   '@upstash/ratelimit@1.2.1':
     dependencies:
       '@upstash/core-analytics': 0.0.9
 
-  '@upstash/redis@1.31.6':
+  '@upstash/redis@1.32.0':
     dependencies:
       crypto-js: 4.2.0
 

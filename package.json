@@ -42,7 +42,7 @@
     "@lucia-auth/adapter-prisma": "^4.0.1",
     "@prisma/client": "5.16.1",
     "@upstash/ratelimit": "1.2.1",
-    "@upstash/redis": "1.31.6",
+    "@upstash/redis": "1.32.0",
     "@vercel/speed-insights": "^1.0.12",
     "arctic": "^1.9.1",
     "chart.js": "^4.4.3",
