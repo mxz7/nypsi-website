@@ -85,7 +85,7 @@
   </a>
 </div>
 
-<div class="hero min-h-screen bg-base-200">
+<div class="hero min-h-screen">
   <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
     <div class="fly-up">
       <Img src={logo} class=" hidden max-w-sm lg:block" />
