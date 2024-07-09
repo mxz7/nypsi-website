@@ -87,16 +87,18 @@
 
 <div class="hero min-h-screen bg-base-200">
   <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
-    <Img src={logo} class="hidden max-w-sm lg:block" />
+    <div class="fly-up">
+      <Img src={logo} class=" hidden max-w-sm lg:block" />
+    </div>
 
     <div class="-mt-64 text-center lg:mt-0 lg:text-left">
-      <h1 class="text-8xl font-bold text-white lg:text-9xl">nypsi</h1>
-      <p class="py-6 text-xl font-medium opacity-90">the best discord bot</p>
+      <h1 class="animation-1 text-8xl font-bold text-white lg:text-9xl">nypsi</h1>
+      <p class="animation-2 py-6 text-xl font-medium opacity-90">the best discord bot</p>
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
-        class="btn btn-primary bg-gradient-to-r from-violet-600 to-purple-600 fill-white text-lg text-white"
+        class="animation-3 btn btn-primary bg-gradient-to-r from-violet-600 to-purple-600 fill-white text-lg text-white"
       >
-        <Discord class="h-6 w-6 lg:h-7 lg:w-7" />
+        <Discord class=" h-6 w-6 lg:h-7 lg:w-7" />
         <span class="lg:text-xl">add to discord</span>
       </a>
     </div>
@@ -292,23 +294,39 @@
     }
   }
 
+  .animation-1 {
+    animation: fly-up-mobile 500ms ease-out 0ms;
+  }
+
+  .animation-2 {
+    animation: fly-up-mobile 400ms ease-out 300ms forwards;
+    opacity: 0%;
+  }
+
+  .animation-3 {
+    animation: fly-up-mobile 400ms ease-out 400ms forwards;
+    opacity: 0%;
+  }
+
+  @media (min-width: 1024px) {
+    .animation-1 {
+      animation: fly-right 750ms ease 200ms normal forwards;
+      opacity: 0%;
+    }
+
+    .animation-2 {
+      animation: fly-right2 750ms ease 400ms normal forwards;
+      opacity: 0%;
+    }
+
+    .animation-3 {
+      animation: fly-right2 750ms ease 600ms normal forwards;
+      opacity: 0%;
+    }
+  }
+
   .fly-up {
     animation: fly-up 1250ms ease normal forwards;
-  }
-
-  .fly-right {
-    animation: fly-right 750ms ease 200ms normal forwards;
-    opacity: 0%;
-  }
-
-  .fly-right2 {
-    animation: fly-right2 750ms ease 400ms normal forwards;
-    opacity: 0%;
-  }
-
-  .fly-right3 {
-    animation: fly-right2 750ms ease 600ms normal forwards;
-    opacity: 0%;
   }
 
   /* mobile animations */
@@ -322,19 +340,5 @@
       transform: translateY(0px);
       opacity: 100%;
     }
-  }
-
-  .fly-up-mobile {
-    animation: fly-up-mobile 500ms ease-out 0ms;
-  }
-
-  .fly-up-mobile2 {
-    animation: fly-up-mobile 400ms ease-out 300ms forwards;
-    opacity: 0%;
-  }
-
-  .fly-up-mobile3 {
-    animation: fly-up-mobile 400ms ease-out 400ms forwards;
-    opacity: 0%;
   }
 </style>
