@@ -19,7 +19,7 @@ h4 {
 } */
 
 .tippy-box {
-  @apply rounded-lg border border-accent border-opacity-10 bg-slate-900 bg-opacity-75 px-2 py-1 text-sm text-slate-300 shadow shadow-slate-950;
+  @apply rounded-lg border border-primary border-opacity-30 bg-base-300 px-2 py-1 text-sm shadow shadow-black;
 }
 
 ::-webkit-scrollbar {
