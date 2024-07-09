@@ -2,12 +2,11 @@
   import { pushState, replaceState } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemList from "$lib/components/ItemList.svelte";
-  import { SvelteComponentTyped, onMount } from "svelte";
+  import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
 
   export let data;
-  let scrollElement: HTMLDivElement;
 
   const options = [
     {
@@ -98,10 +97,6 @@
       }
 
       replaceState("", state);
-
-      setTimeout(() => {
-        if (selected.name !== "balance") scrollElement.scrollIntoView();
-      }, 100);
     }, 0);
   });
 </script>
@@ -144,11 +139,6 @@
             state.leaderboardName = selected.leaderboardName;
           }
           pushState($page.url, state);
-
-          if (selected.name !== "items")
-            setTimeout(() => {
-              scrollElement.scrollIntoView();
-            }, 100);
         }}
       >
         <h3>{option.name}</h3>
@@ -174,17 +164,11 @@
             leaderboardSelection: $page.state.leaderboardSelection,
             leaderboardName: `top ${item.name}`,
           });
-
-          setTimeout(() => {
-            scrollElement.scrollIntoView();
-          }, 100);
         }}
       />
     {/await}
   {/if}
 {/if}
-
-<div bind:this={scrollElement} />
 
 {#if $page.state.leaderboardPath}
   {#key $page.state.leaderboardPath}
