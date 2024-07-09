@@ -1,7 +1,7 @@
 <script lang="ts">
   import { pushState, replaceState } from "$app/navigation";
   import { page } from "$app/stores";
-  import ItemList from "$lib/components/ItemList.svelte";
+  import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
@@ -106,15 +106,17 @@
 </svelte:head>
 
 <div class="flex w-full justify-center">
-  <div class="mt-8 flex flex-wrap justify-center gap-4">
+  <div
+    class="mt-8 flex flex-wrap justify-center gap-4 px-4 lg:w-full lg:max-w-3xl lg:justify-evenly lg:px-0"
+  >
     {#each options as option, i}
       <button
-        class="flex items-center justify-center rounded-lg border bg-base-200 p-3 shadow duration-200 hover:border-primary hover:border-opacity-55
+        class="btn
         {(typeof $page.state.leaderboardSelection === 'number'
           ? $page.state.leaderboardSelection
           : -1) === i
-          ? 'border-primary border-opacity-60 hover:border-opacity-100'
-          : 'border-white border-opacity-10'}"
+          ? 'btn-primary '
+          : ''}"
         on:click={() => {
           const selected = options[i];
 
@@ -141,28 +143,43 @@
 </div>
 
 {#if !$page.state.leaderboardPath && options[$page.state.leaderboardSelection]?.name !== "items"}
-  <div class="mt-4 flex w-full justify-center px-14">
-    <div class="flex flex-col flex-wrap justify-center gap-16 lg:flex-row">
+  <div class="mt-8 flex w-full justify-center">
+    <div
+      class="grid w-full grid-cols-1 flex-wrap justify-center gap-16 lg:max-w-4xl lg:grid-cols-2"
+    >
       <MiniLeaderboard title="top balance" data={data.balance} tags={data.tags} />
       <MiniLeaderboard title="top level" data={data.prestige} tags={data.tags} />
-      <MiniLeaderboard title="top net worth" data={data.net} tags={data.tags} />
     </div>
-  </div>{/if}
-
-{#if $page.state.leaderboardPath}
-  {#key $page.state.leaderboardPath}
-    <div class="mt-10 flex w-full justify-center">
-      <BigLeaderboard
-        tags={data.tags}
-        data={fetch($page.state.leaderboardPath).then((r) => r.json())}
-        title={$page.state.leaderboardName}
-        userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}
-      />
-    </div>
-  {/key}
+  </div>
 {/if}
 
 {#if options[$page.state.leaderboardSelection]?.name === "items"}
+  {#if data.items}
+    {#await data.items then items}
+      <div class="mt-14 flex w-full justify-center">
+        <div class="px-4 lg:max-w-3xl lg:px-0">
+          <ItemSearch
+            {items}
+            onClick={async (itemId) => {
+              $page.url.searchParams.set("item", itemId);
+
+              const item = (await Promise.resolve(data.items)).find((i) => i.id === itemId);
+
+              pushState($page.url, {
+                leaderboardPath: `/api/leaderboard/item/${itemId}`,
+                leaderboardItem: itemId,
+                leaderboardSelection: $page.state.leaderboardSelection,
+                leaderboardName: `top ${item.name}`,
+              });
+            }}
+          />
+        </div>
+      </div>
+    {/await}
+  {/if}
+{/if}
+
+<!-- {#if options[$page.state.leaderboardSelection]?.name === "items"}
   {#if data.items}
     {#await data.items then items}
       <ItemList
@@ -183,4 +200,17 @@
       />
     {/await}
   {/if}
+{/if} -->
+
+{#if $page.state.leaderboardPath}
+  {#key $page.state.leaderboardPath}
+    <div class="mt-10 flex w-full justify-center">
+      <BigLeaderboard
+        tags={data.tags}
+        data={fetch($page.state.leaderboardPath).then((r) => r.json())}
+        title={$page.state.leaderboardName}
+        userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}
+      />
+    </div>
+  {/key}
 {/if}
