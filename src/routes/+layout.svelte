@@ -21,7 +21,8 @@
       setTimeout(async () => {
         toast.success(`logged in as ${$auth.user.username}`, {
           position: "bottom-center",
-          style: "background: #4c1d95; color: #fff;",
+          style:
+            "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
           duration: 5000,
         });
       }, 250);
