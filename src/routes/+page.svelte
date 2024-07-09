@@ -1,6 +1,6 @@
 <script lang="ts">
-  import discordLogo from "$lib/assets/discord-white.webp?as=run:0";
-  import hero from "$lib/assets/hero.webp?as=run:0";
+  import logo from "$lib/assets/hero.webp?as=run:0";
+  import Discord from "$lib/assets/svg/discord.svelte";
   import Img from "@zerodevx/svelte-img";
   import {
     Backpack,
@@ -59,7 +59,7 @@
       <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <p class="text-slate-400">
           used by
-          <span class="font-semibold text-accent">{data.server_count.toLocaleString()}</span> servers
+          <span class="font-semibold text-primary">{data.server_count.toLocaleString()}</span> servers
         </p>
       </div>
     {/if}
@@ -72,7 +72,7 @@
     href="#features"
   >
     <svg
-      class="h-6 w-6 text-accent text-opacity-75"
+      class="h-6 w-6 text-primary text-opacity-75"
       fill="none"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -85,69 +85,20 @@
   </a>
 </div>
 
-<div class="flex h-screen items-center justify-center">
-  <div
-    class="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 transform text-center md:hidden"
-  >
-    <h1 class="fly-up-mobile text-8xl font-bold text-white md:text-9xl">nypsi</h1>
-    <h3 class="fly-up-mobile2 mt-6 text-xl font-medium text-slate-400">the best discord bot</h3>
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
+    <Img src={logo} class="hidden max-w-sm lg:block" />
 
-    <!-- <div class="m-auto mt-3 h-1 w-full rounded-full bg-accent" /> -->
-
-    <div class="fly-up-mobile3 flex justify-center">
+    <div class="-mt-64 text-center lg:mt-0 lg:text-left">
+      <h1 class="text-8xl font-bold text-white lg:text-9xl">nypsi</h1>
+      <p class="py-6 text-xl font-medium opacity-90">the best discord bot</p>
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
-        target="_blank"
-        class="mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
-        bg-gradient-to-r from-violet-600 to-purple-600
-        p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
+        class="btn btn-primary bg-gradient-to-r from-violet-600 to-purple-600 fill-white text-lg text-white"
       >
-        <div class="flex h-5 items-center justify-center md:h-6">
-          <Img
-            src={discordLogo}
-            alt="discord icon"
-            class="h-5 w-5 object-contain md:h-6 md:w-6"
-            fetchpriority="high"
-          />
-        </div>
-        <h2>add to discord</h2>
+        <Discord class="h-6 w-6 lg:h-7 lg:w-7" />
+        <span class="lg:text-xl">add to discord</span>
       </a>
-    </div>
-  </div>
-
-  <div class="hidden h-1/2 w-full justify-center md:flex">
-    <div class="flex w-full max-w-4xl -translate-y-10 px-4">
-      <div class="grow">
-        <h2 class="fly-right text-8xl font-bold text-white md:text-9xl">nypsi</h2>
-        <h3 class="fly-right2 mt-6 text-xl font-medium text-slate-400">the best discord bot</h3>
-
-        <a
-          bind:this={button}
-          href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
-          target="_blank"
-          class="fly-right3 mt-5 flex w-fit flex-row items-center justify-center gap-3 rounded-lg
-        bg-gradient-to-r from-violet-600 to-purple-600
-        p-3 text-xl font-semibold text-white shadow-lg shadow-slate-950 duration-150 hover:scale-95 md:text-2xl"
-        >
-          <div class="flex h-5 items-center justify-center md:h-6">
-            <Img
-              src={discordLogo}
-              alt="discord icon"
-              class="h-5 w-5 object-contain md:h-6 md:w-6"
-            />
-          </div>
-          <h2>add to discord</h2>
-        </a>
-      </div>
-
-      <div class="fly-up">
-        <Img
-          src={hero}
-          class="md:h-72 md:w-72 lg:h-96 lg:w-96 lg:-translate-y-10"
-          alt="hero image nypsi icon"
-          fetchpriority="high"
-        />
-      </div>
     </div>
   </div>
 </div>
