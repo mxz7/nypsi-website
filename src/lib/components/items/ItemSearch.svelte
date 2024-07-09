@@ -16,7 +16,9 @@
   }[] = [];
 
   search.subscribe((value) => {
-    filteredItems = [...items.filter((i) => i.name.includes(value) || i.id.startsWith(value))];
+    filteredItems = [
+      ...items.filter((i) => i.name.includes(value.toLowerCase()) || i.id.startsWith(value)),
+    ];
   });
 </script>
 
@@ -25,6 +27,8 @@
   bind:value={$search}
   class="input input-bordered w-full max-w-xs"
   placeholder="search for an item"
+  autocapitalize="off"
+  autocorrect="off"
 />
 
 {#if filteredItems.length > 0 && $search}
