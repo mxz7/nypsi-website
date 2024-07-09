@@ -15,7 +15,7 @@
         </div>
         <ul
           tabindex="0"
-          class="menu dropdown-content menu-sm z-[1] mt-3 w-52 gap-2 rounded-box bg-base-200 p-2 shadow"
+          class="menu dropdown-content menu-sm z-[1] mt-3 w-52 gap-2 rounded-box bg-base-200 p-2 text-xl shadow"
         >
           <li><a href="/">home</a></li>
           <li><a href="/leaderboard">leaderboards</a></li>
