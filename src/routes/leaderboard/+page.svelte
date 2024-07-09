@@ -67,13 +67,13 @@
     } else {
       options.find((i) => i.name === $page.url.searchParams.get("lb")).selected = true;
     }
-  } else {
-    options[0].selected = true;
   }
 
   onMount(() => {
     setTimeout(async () => {
       let selected = options.find((i) => i.selected);
+
+      if (!selected) return;
 
       const state = {
         leaderboardSelection: options.findIndex((i) => i.selected),
@@ -105,28 +105,21 @@
   <title>leaderboards / nypsi</title>
 </svelte:head>
 
-<div class="mt-8 flex w-full justify-center px-14">
-  <div class="flex flex-col flex-wrap justify-center gap-16 lg:flex-row">
-    <MiniLeaderboard title="top balance" data={data.balance} tags={data.tags}></MiniLeaderboard>
-    <MiniLeaderboard title="top level" data={data.prestige} tags={data.tags}></MiniLeaderboard>
-    <MiniLeaderboard title="top net worth" data={data.net} tags={data.tags}></MiniLeaderboard>
-  </div>
-</div>
-
 <div class="flex w-full justify-center">
-  <div class="mt-14 flex flex-wrap justify-center gap-4">
+  <div class="mt-8 flex flex-wrap justify-center gap-4">
     {#each options as option, i}
       <button
-        class="flex items-center justify-center rounded-lg border bg-slate-950 bg-opacity-25 p-3 shadow duration-200 hover:border-accent hover:border-opacity-55
-        {($page.state.leaderboardSelection ? $page.state.leaderboardSelection : 0) === i
-          ? 'border-accent border-opacity-60 hover:border-opacity-100'
+        class="flex items-center justify-center rounded-lg border bg-base-200 p-3 shadow duration-200 hover:border-primary hover:border-opacity-55
+        {(typeof $page.state.leaderboardSelection === 'number'
+          ? $page.state.leaderboardSelection
+          : -1) === i
+          ? 'border-primary border-opacity-60 hover:border-opacity-100'
           : 'border-white border-opacity-10'}"
         on:click={() => {
           const selected = options[i];
 
           if (selected.name !== "items") $page.url.searchParams.delete("item");
-          if (i !== 0) $page.url.searchParams.set("lb", encodeURIComponent(selected.name));
-          else $page.url.searchParams.delete("lb");
+          $page.url.searchParams.set("lb", encodeURIComponent(selected.name));
 
           const state = {
             leaderboardSelection: i,
@@ -146,6 +139,28 @@
     {/each}
   </div>
 </div>
+
+{#if !$page.state.leaderboardPath && options[$page.state.leaderboardSelection]?.name !== "items"}
+  <div class="mt-4 flex w-full justify-center px-14">
+    <div class="flex flex-col flex-wrap justify-center gap-16 lg:flex-row">
+      <MiniLeaderboard title="top balance" data={data.balance} tags={data.tags} />
+      <MiniLeaderboard title="top level" data={data.prestige} tags={data.tags} />
+      <MiniLeaderboard title="top net worth" data={data.net} tags={data.tags} />
+    </div>
+  </div>{/if}
+
+{#if $page.state.leaderboardPath}
+  {#key $page.state.leaderboardPath}
+    <div class="mt-10 flex w-full justify-center">
+      <BigLeaderboard
+        tags={data.tags}
+        data={fetch($page.state.leaderboardPath).then((r) => r.json())}
+        title={$page.state.leaderboardName}
+        userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}
+      />
+    </div>
+  {/key}
+{/if}
 
 {#if options[$page.state.leaderboardSelection]?.name === "items"}
   {#if data.items}
@@ -168,17 +183,4 @@
       />
     {/await}
   {/if}
-{/if}
-
-{#if $page.state.leaderboardPath}
-  {#key $page.state.leaderboardPath}
-    <div class="mt-10 flex w-full justify-center">
-      <BigLeaderboard
-        tags={data.tags}
-        data={fetch($page.state.leaderboardPath).then((r) => r.json())}
-        title={$page.state.leaderboardName}
-        userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}
-      />
-    </div>
-  {/key}
 {/if}
