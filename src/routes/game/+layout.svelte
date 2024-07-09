@@ -5,7 +5,7 @@
   let searched: string = $page.params.id;
 </script>
 
-<div class="mb-14 mt-14">
+<div class="mb-14 mt-3">
   <div class="mt-6 flex justify-center">
     <form
       on:submit|preventDefault={() => {
