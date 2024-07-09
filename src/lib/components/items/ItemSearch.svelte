@@ -28,23 +28,25 @@
 />
 
 {#if filteredItems.length > 0 && $search}
-  <div class="mt-4 flex max-h-[272px] w-full max-w-xs flex-col gap-2 overflow-y-scroll">
+  <ul class="mt-4 flex max-h-[272px] w-full max-w-xs flex-col gap-2 overflow-y-scroll">
     {#each filteredItems as item}
-      <a href={url?.replaceAll("{item}", item.id)} class="w-full">
-        <button on:click={() => onClick(item.id)} class="w-full">
-          <div class="flex w-full items-center gap-4 rounded-lg bg-base-200 p-3">
-            <div class="flex h-6 w-6 items-center justify-center">
-              <img
-                src={item.emoji}
-                alt="item emoji"
-                loading="lazy"
-                class="h-auto max-h-full w-auto max-w-full object-contain"
-              />
+      <li class="w-full">
+        <a href={url?.replaceAll("{item}", item.id)} class="w-full">
+          <button on:click={() => onClick(item.id)} class="w-full">
+            <div class="flex w-full items-center gap-4 rounded-lg bg-base-200 p-3">
+              <div class="flex h-6 w-6 items-center justify-center">
+                <img
+                  src={item.emoji}
+                  alt="item emoji"
+                  loading="lazy"
+                  class="h-auto max-h-full w-auto max-w-full object-contain"
+                />
+              </div>
+              <span class="link text-sm">{item.name}</span>
             </div>
-            <span class="link text-sm">{item.name}</span>
-          </div>
-        </button>
-      </a>
+          </button>
+        </a>
+      </li>
     {/each}
-  </div>
+  </ul>
 {/if}
