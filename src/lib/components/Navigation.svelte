@@ -1,14 +1,12 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import nypsiLogo from "$lib/assets/nypsi-transparent.webp?as=run:0";
-  import { auth } from "$lib/data/stores";
+  import { auth } from "$lib/functions/auth";
   import Img from "@zerodevx/svelte-img";
   import { Loader2 } from "lucide-svelte";
-  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   $: dropDownVisible = false;
-  let authed = "loading";
 
   function handleMenuOpen() {
     if (dropDownVisible) return handleMenuClose();
@@ -23,19 +21,6 @@
     dropDownVisible = false;
     document.body.removeEventListener("click", handleMenuClose);
   }
-
-  onMount(async () => {
-    console.log($auth);
-    if (!$auth) {
-      $auth = await fetch("/api/auth").then((r) => r.json());
-    }
-
-    if ($auth.authenticated) {
-      authed = $auth.user.avatar;
-    } else {
-      authed = "no";
-    }
-  });
 </script>
 
 <nav class="sticky z-30 h-16 w-full shadow-lg">
@@ -43,19 +28,19 @@
     <div class="flex grow flex-row items-center p-3 align-middle">
       <a href="/" class="flex flex-row items-center align-middle md:mr-4 md:px-2">
         {#if dropDownVisible}
-          {#if authed === "loading"}
+          {#if !$auth}
             <div class="flex h-8 w-8 items-center justify-center rounded-full">
               <div class="h-fit w-fit animate-spin">
                 <Loader2 strokeWidth={3} size={24} color="#8b5cf6" />
               </div>
             </div>
-          {:else if authed === "no"}
+          {:else if !$auth.authenticated}
             <Img src={nypsiLogo} alt="nypsi icon" class="h-8 w-8" />
           {:else}
             <a href="/me" class="h-8 rounded-full">
               <img
                 class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-                src={authed}
+                src={$auth.user.avatar}
                 alt=""
               />
             </a>
@@ -120,13 +105,13 @@
       </button>
     </div>
     <div class="mr-3 hidden items-center justify-center md:flex">
-      {#if authed === "loading"}
+      {#if !$auth}
         <div class="flex h-10 w-10 items-center justify-center rounded-full">
           <div class="h-fit w-fit animate-spin">
             <Loader2 strokeWidth={3} size={24} color="#8b5cf6" />
           </div>
         </div>
-      {:else if authed === "no"}
+      {:else if !$auth.authenticated}
         <a
           href="/login?next={encodeURIComponent($page.url.pathname)}"
           class="rounded bg-slate-950 bg-opacity-25 p-2 px-3 text-sm font-semibold text-slate-200 duration-100 hover:bg-opacity-90"
@@ -136,7 +121,7 @@
         <a href="/me" class="h-10 w-10 rounded-full">
           <img
             class="h-auto max-h-full w-auto max-w-full rounded-full object-contain duration-200 hover:scale-105"
-            src={authed}
+            src={$auth.user.avatar}
             alt=""
           />
         </a>
@@ -153,7 +138,7 @@
       <div class="flex flex-col text-center font-semibold text-white [&>a]:m-3 [&>p]:m-3">
         <a href="/leaderboard">leaderboards</a>
         <a href="/status">status</a>
-        {#if authed === "no"}
+        {#if !$auth.authenticated}
           <a href="/login?next={encodeURIComponent($page.url.pathname)}">log in</a>
         {/if}
 

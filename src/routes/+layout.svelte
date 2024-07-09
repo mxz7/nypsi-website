@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
-
+  import { auth, getClientAuth } from "$lib/functions/auth";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
@@ -14,11 +14,12 @@
   }
 
   onMount(async () => {
+    await getClientAuth();
+
     if ($page.url.searchParams.get("loggedin")) {
-      const auth = await fetch("/api/auth").then((r) => r.json());
-      if (!auth) return;
+      if (!$auth || !$auth.authenticated) return;
       setTimeout(async () => {
-        toast.success(`logged in as ${auth.user.username}`, {
+        toast.success(`logged in as ${$auth.user.username}`, {
           position: "bottom-center",
           style: "background: #4c1d95; color: #fff;",
           duration: 5000,
