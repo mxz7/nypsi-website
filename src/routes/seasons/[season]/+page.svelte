@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import MiniLeaderboard from "$lib/components/leaderboards/MiniLeaderboard.svelte";
   import seasons from "$lib/data/seasons";
+  import MiniLeaderboard from "./MiniLeaderboard.svelte";
 
   const season = seasons[$page.params.season];
 </script>
