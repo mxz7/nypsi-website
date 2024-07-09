@@ -18,10 +18,6 @@ h4 {
   font-family: "Poppins", sans-serif;
 } */
 
-.tippy-box {
-  @apply rounded-lg border border-accent border-opacity-10 bg-slate-900 bg-opacity-75 px-2 py-1 text-sm text-slate-300 shadow shadow-slate-950;
-}
-
 ::-webkit-scrollbar {
   width: 12px;
 }
