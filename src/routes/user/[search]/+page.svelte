@@ -1,7 +1,7 @@
 <script lang="ts">
-  import UserData from "$lib/components/users/UserData.svelte";
   import { userSearchTerm } from "$lib/data/stores.js";
   import { fade, fly } from "svelte/transition";
+  import UserData from "./UserData.svelte";
 
   export let data;
 
