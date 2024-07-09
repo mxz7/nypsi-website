@@ -43,7 +43,7 @@
 </svelte:head>
 
 <div class="mt-12 flex w-full justify-center">
-  <div class="flex w-full flex-col md:w-auto">
+  <div class="w-full md:max-w-4xl">
     {#if data.resultText}
       <h2 class="text-center text-3xl font-semibold">{@html data.resultText}</h2>
     {:else if data.loadedDate}
@@ -65,24 +65,24 @@
       </div>
     {:else}
       <div
-        class="grid w-full grid-cols-1 gap-4 px-6 sm:px-0 md:max-w-4xl md:grid-cols-3 lg:grid-cols-4"
+        class="grid w-full grid-cols-1 gap-4 px-6 md:max-w-4xl md:grid-cols-3 md:px-0 lg:grid-cols-4"
       >
         {#each games as game, i}
           <a
             href="/game/{game.id.toString(36)}"
             target="_blank"
-            class="flex flex-col justify-center rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 {game.win ===
+            class="rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 text-center duration-300 hover:border-opacity-20 {game.win ===
             1
-              ? 'text-green-500'
+              ? 'text-success'
               : game.win === 2
-                ? 'text-yellow-500'
-                : 'text-red-500'}"
+                ? 'text-warning'
+                : 'text-error'}"
             in:fly|global={{ y: 50, duration: 500, delay: (i % 50) * 50 }}
           >
-            <h1 class="text-center text-xl font-semibold">{game.game.replaceAll("_", " ")}</h1>
+            <h1 class="text-xl font-semibold">{game.game.replaceAll("_", " ")}</h1>
 
             {#if !game.game.includes("scratch")}
-              <p class=" mb-2 mt-1 text-center text-sm font-semibold lg:text-base">
+              <p class=" mb-2 mt-1 text-sm font-semibold lg:text-base">
                 {game.win == 1
                   ? `+$${game.earned.toLocaleString()}`
                   : game.win == 0
@@ -91,7 +91,7 @@
               </p>
             {/if}
 
-            <p class="text-center text-xs text-slate-500">
+            <p class="text-xs text-slate-500">
               {game.id.toString(36)} | {#if new Date().getDate() !== new Date(game.date).getDate()}
                 {new Date(game.date).toLocaleDateString()}
               {:else}

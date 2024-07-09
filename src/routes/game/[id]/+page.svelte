@@ -77,11 +77,11 @@
           {#if data.game.userId}
             <a
               href="/user/{data.game.userId}"
-              class="font-bold text-accent underline-offset-4 hover:underline"
+              class="font-bold text-primary underline-offset-4 hover:underline"
               >{data.game.username}</a
             >
           {:else}
-            <span class="font-bold text-accent">{data.game.username}</span>
+            <span class="font-bold text-primary">{data.game.username}</span>
           {/if}
           on {new Date(data.game.date).toLocaleDateString()} at {new Date(
             data.game.date,
