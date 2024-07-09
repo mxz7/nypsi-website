@@ -65,7 +65,7 @@
         <a href="/me" class="btn btn-ghost">
           <div class="avatar">
             <div class=" h-10 w-10 rounded-full">
-              <img src={$auth.user.avatar} alt="your avatar" loading="lazy" />
+              <img src={$auth.user.avatar} alt="your avatar" />
             </div>
           </div>
         </a>
