@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import logo from "$lib/assets/nypsi-transparent.webp?as=run:0";
   import { auth } from "$lib/functions/auth";
   import Img from "@zerodevx/svelte-img";
@@ -57,9 +58,11 @@
           <span class="loading loading-spinner"></span>
         </button>
       {:else if !$auth.authenticated}
-        <a href="/login" class="btn btn-ghost">log in</a>
+        <a href="/login?next={encodeURIComponent($page.url.pathname)}" class="btn btn-ghost"
+          >log in</a
+        >
       {:else}
-        <a href="/dashboard" class="btn btn-ghost">
+        <a href="/me" class="btn btn-ghost">
           <div class="avatar">
             <div class=" h-10 w-10 rounded-full">
               <img src={$auth.user.avatar} alt="your avatar" />
