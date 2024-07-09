@@ -15,8 +15,6 @@ type NotAuthed = {
 export async function getClientAuth() {
   const res = await fetch("/api/auth").then((r) => r.json());
 
-  console.log(res);
-
   if (res.authenticated) {
     auth.set({ authenticated: true, user: res.user });
   } else {
