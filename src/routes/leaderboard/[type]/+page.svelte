@@ -7,6 +7,7 @@
 </script>
 
 <svelte:head>
+  <meta name="robots" content="noindex" />
   <title>{data.item?.name || $page.params.type} leaderboard / nypsi</title>
 
   <meta
