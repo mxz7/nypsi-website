@@ -13,7 +13,7 @@
 </script>
 
 <div class="w-full md:max-w-3xl">
-  <h2 class="text-center text-xl font-semibold md:text-2xl">{title}</h2>
+  <h2 class="text-center text-xl font-semibold text-white md:text-2xl">{title}</h2>
   <div class="m-auto mt-1 h-1 w-1/4 rounded-full bg-primary" />
   {#if data}
     <div class="mt-4 px-4 sm:px-0 md:text-xl">
