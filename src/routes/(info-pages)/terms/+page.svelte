@@ -60,4 +60,8 @@
   h2 {
     @apply my-4 font-semibold text-white;
   }
+
+  p {
+    @apply my-1;
+  }
 </style>
