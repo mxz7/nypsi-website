@@ -18,13 +18,17 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
-  export let data;
+  let serverCount: number;
   let button: HTMLAnchorElement;
 
-  onMount(() => {
+  onMount(async () => {
     setTimeout(() => {
       button.classList.remove("fly-right3");
     }, 1350);
+
+    const res = await fetch("/api/server-count").then(async (r) => r.json());
+
+    serverCount = res.server_count;
   });
 </script>
 
@@ -53,18 +57,16 @@
   <meta property="og:image:height" content="128" />
 </svelte:head>
 
-{#await data.topgg then data}
+{#if serverCount}
   <div in:fade={{ duration: 2500 }}>
-    {#if data.server_count}
-      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-        <p class="text-slate-400">
-          used by
-          <span class="font-semibold text-primary">{data.server_count.toLocaleString()}</span> servers
-        </p>
-      </div>
-    {/if}
+    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+      <p class="text-slate-400">
+        used by
+        <span class="font-semibold text-primary">{serverCount.toLocaleString()}</span> servers
+      </p>
+    </div>
   </div>
-{/await}
+{/if}
 
 <div class="absolute bottom-7 right-5 h-10 w-10">
   <a

@@ -8,7 +8,7 @@ export const config = {
 
 export const GET = async ({ setHeaders }) => {
   setHeaders({
-    "cache-control": "max-age=0, s-maxage=300, stale-while-revalidate",
+    "cache-control": "max-age=300, s-maxage=300, stale-while-revalidate",
   });
 
   const res = await fetch("https://top.gg/api/bots/678711738845102087/stats", {
