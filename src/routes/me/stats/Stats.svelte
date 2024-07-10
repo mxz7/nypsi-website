@@ -15,27 +15,27 @@
 </script>
 
 <div
-  class="p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40 rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25"
+  class="rounded border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
 >
-  <h1 class="text-xl font-bold mb-4 text-center">{title}</h1>
-  <div class="flex-col flex gap-1">
+  <h1 class="mb-4 text-center text-xl font-bold">{title}</h1>
+  <div class="flex flex-col gap-1">
     {#each pages.get(parseInt(currentPage)) || [] as item}
       {@html item}
     {/each}
   </div>
-  <div class="flex justify-center mt-3 gap-8">
+  <div class="mt-3 flex justify-center gap-8">
     <button
       on:click={() => {
         if (!pages.get(parseInt(currentPage) - 1)) return;
         currentPage = (parseInt(currentPage) - 1).toString();
       }}
     >
-      <ArrowLeft color="#8b5cf6" size="32px" />
+      <ArrowLeft class="text-primary" size="32px" />
     </button>
 
     <input
       type="text"
-      class="w-4 text-center text-accent border-none bg-transparent focus:border-none focus:outline-none"
+      class="w-4 border-none bg-transparent text-center text-primary focus:border-none focus:outline-none"
       bind:value={currentPage}
     />
 
@@ -45,7 +45,7 @@
         currentPage = (parseInt(currentPage) + 1).toString();
       }}
     >
-      <ArrowRight size="32px" color="#8b5cf6" />
+      <ArrowRight size="32px" class="text-primary" />
     </button>
   </div>
 </div>
