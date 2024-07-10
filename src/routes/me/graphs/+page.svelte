@@ -194,7 +194,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">balance</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -215,7 +215,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">net worth</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -236,7 +236,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">karma</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -257,7 +257,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">level</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">

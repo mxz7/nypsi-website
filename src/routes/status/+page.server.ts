@@ -8,7 +8,7 @@ export async function load({ depends, setHeaders }) {
 
   return {
     status: await fetch(`${BOT_SERVER_URL}/status`)
-      .then((r) => r.json())
+      .then((r) => r.json() as Promise<BotStatus>)
       .catch(() => {
         return {
           main: false,
@@ -16,9 +16,9 @@ export async function load({ depends, setHeaders }) {
           maintenance: false,
         } as BotStatus;
       }),
-    database: (async () => {
+    database: await (async () => {
       const before = performance.now();
-      const query = await prisma.user.findFirst({ select: { id: true } }).catch(() => null);
+      const query = await prisma.$queryRaw`select 1`.catch(() => null);
       const after = performance.now();
 
       const timeTaken = after - before;

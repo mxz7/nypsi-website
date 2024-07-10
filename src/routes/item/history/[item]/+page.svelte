@@ -79,7 +79,7 @@
   <h1 class="text-4xl font-bold text-white sm:text-5xl">
     {data.item?.name} history
   </h1>
-  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-accent sm:w-1/2" />
+  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
 </header>
 
 {#key data.graphData}
@@ -109,11 +109,11 @@
   </div>
   <div in:fade={{ delay: 150, duration: 300 }}>
     {#if data.graphData === "invalid item"}
-      <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">
+      <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
         <h1>invalid item</h1>
       </div>
     {:else if data.graphData === "not enough data"}
-      <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">
+      <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
         <h1>not enough data</h1>
       </div>
     {:else if typeof data.graphData !== "string"}

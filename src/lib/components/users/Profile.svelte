@@ -82,7 +82,7 @@
 </script>
 
 <div
-  class="flex w-full flex-col rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
+  class="flex w-full flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
   in:fly={{ delay: 300, duration: 500, y: 75 }}
 >
   <div class="flex w-full flex-row text-sm">
@@ -201,12 +201,11 @@
     </div>
 
     <div class="grow" />
-    <div class="flex h-fit flex-col rounded bg-slate-950 bg-opacity-20 p-2 pb-0">
+    <div class="flex h-fit flex-col rounded-lg bg-base-300 p-2 pb-0">
       {#if baseData.Tags?.length > 0}
         {#each baseData.Tags as tag, i}
           {#if badges.has(tag.tagId)}
             <a
-              in:fade|global={{ duration: 400, delay: i * 200 + 600 }}
               href="/badges#{badges.get(tag.tagId)?.name}"
               class="h-full w-full"
               use:tooltip={{
@@ -227,7 +226,7 @@
               .then((r) => JSON.parse(r)) then tagData}
               {#if tagData[tag.tagId] && tag.selected}
                 <div
-                  in:fade|global={{ duration: 400, delay: i * 200 + 600 }}
+                  in:fade|global={{ duration: 400, delay: i * 200 }}
                   use:tooltip={{
                     content: tagData[tag.tagId].name,
                     theme: "tooltip",
@@ -249,7 +248,7 @@
 
       {#if premiumMap.get(baseData.Premium?.level || 0)}
         <div
-          in:fade|global={{ duration: 400, delay: baseData.Tags?.length * 200 + 600 }}
+          in:fade|global={{ duration: 400, delay: baseData.Tags?.length * 200 + 0 }}
           use:tooltip={{
             content: `${premiumMap.get(baseData.Premium?.level || 0)?.text} membership`,
             theme: "tooltip",

@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
-
+  import { auth, getClientAuth } from "$lib/functions/auth";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
@@ -14,13 +14,15 @@
   }
 
   onMount(async () => {
+    await getClientAuth();
+
     if ($page.url.searchParams.get("loggedin")) {
-      const auth = await fetch("/api/auth").then((r) => r.json());
-      if (!auth) return;
+      if (!$auth || !$auth.authenticated) return;
       setTimeout(async () => {
-        toast.success(`logged in as ${auth.user.username}`, {
+        toast.success(`logged in as ${$auth.user.username}`, {
           position: "bottom-center",
-          style: "background: #4c1d95; color: #fff;",
+          style:
+            "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
           duration: 5000,
         });
       }, 250);

@@ -2,7 +2,7 @@
   import Loading from "$lib/components/Loading.svelte";
   import { onMount } from "svelte";
   import { fly, fade } from "svelte/transition";
-  import Stats from "$lib/components/users/Stats.svelte";
+  import Stats from "./Stats.svelte";
 
   export let data;
   let loading = true;
@@ -32,7 +32,7 @@
           <div class="break-inside-avoid-column pb-3">
             <a
               href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
-              class="block rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
+              class="duration-300hover:border-opacity-20 block rounded-lg border border-primary border-opacity-5 bg-base-200 p-4"
               in:fade|global={{ duration: 300, delay: 150 }}
             >
               <h1 class="text-center text-xl font-bold">{stat.game}</h1>
@@ -46,27 +46,27 @@
                 class="gamble-template mt-2 grid w-full grid-cols-2 gap-y-3 align-middle [&>p]:text-center"
               >
                 <p>
-                  earned:<br /><span class="font-semibold text-accent"
+                  earned:<br /><span class="font-semibold text-primary"
                     >${stat._sum.earned.toLocaleString()}</span
                   >
                 </p>
                 <p>
-                  spent:<br /><span class="font-semibold text-accent"
+                  spent:<br /><span class="font-semibold text-primary"
                     >${stat._sum.bet.toLocaleString()}</span
                   >
                 </p>
                 <p>
-                  profit: <span class="font-semibold text-accent"
+                  profit: <span class="font-semibold text-primary"
                     >${(stat._sum.earned - stat._sum.bet).toLocaleString()}</span
                   >
                 </p>
                 <p>
-                  xp: <span class="font-semibold text-accent"
+                  xp: <span class="font-semibold text-primary"
                     >{stat._sum.xpEarned.toLocaleString()}</span
                   >
                 </p>
                 <p class="gamble-bottom">
-                  avg bet: <span class="font-semibold text-accent"
+                  avg bet: <span class="font-semibold text-primary"
                     >${Math.floor(stat._avg.bet).toLocaleString()}</span
                   >
                 </p>
@@ -81,7 +81,7 @@
           <div class="break-inside-avoid-column pb-3">
             <a
               href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
-              class="block h-fit break-inside-avoid-column rounded border border-slate-300 border-opacity-5 bg-slate-950 bg-opacity-25 p-4 duration-300 hover:border-accent hover:border-opacity-20 hover:bg-opacity-40"
+              class="block h-fit break-inside-avoid-column rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
               in:fade|global={{ duration: 300, delay: 150 }}
             >
               <h1 class="text-center text-xl font-bold">{stat.game.replaceAll("_", " ")}</h1>
@@ -107,9 +107,9 @@
                 (i) =>
                   `<div class="flex gap-2 items-center"><img loading="lazy" src="${
                     data.items.find((item) => item.id === i.itemId).emoji
-                  }" class="h-4" /> <p><span class="text-slate-300">${
+                  }" class="h-4" /> <p><span>${
                     data.items.find((item) => item.id === i.itemId).name
-                  }</span> <span class="text-slate-100"><span class='font-bold'>${i.amount.toLocaleString()}</span> uses</span></p></div>`,
+                  }</span> <span><span>${i.amount.toLocaleString()}</span> uses</span></p></div>`,
               )}
           />
         </div>
@@ -120,7 +120,7 @@
             title="commands"
             data={commandData.map(
               (i) =>
-                `<p><span class="text-slate-300">$</span><span class="text-slate-100">${
+                `<p><span>$</span><span>${
                   i.command
                 }: <span class='font-bold'>${i.uses.toLocaleString()}</span> uses</span></p>`,
             )}
@@ -141,22 +141,18 @@
                 if (i.leaderboard.startsWith("item-")) {
                   returnData += `<img loading="lazy" src="${
                     data.items.find((item) => item.id === i.leaderboard.substring(5)).emoji
-                  }" class="h-4" /> <p><span class="text-slate-300">${
+                  }" class="h-4" /> <p><span>${
                     data.items.find((item) => item.id === i.leaderboard.substring(5)).name
                   }</span>`;
                 } else {
-                  returnData += `<span class="text-slate-300">${i.leaderboard}</span>`;
+                  returnData += `<span>${i.leaderboard}</span>`;
                 }
 
                 returnData += ` <span class="${
-                  i.position === 1 ? "text-accent" : "text-slate-100"
+                  i.position === 1 ? "text-primary" : ""
                 } font-bold">#${i.position.toLocaleString()}</span></p></div>`;
 
                 return returnData;
-
-                // return `<p><span class="text-slate-300">$</span><span class="text-slate-100">${
-                //   i.command
-                // }: <span class='font-bold'>${i.uses.toLocaleString()}</span> uses</span></p>`;
               })}
             />
           </div>

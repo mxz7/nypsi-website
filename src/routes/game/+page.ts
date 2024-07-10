@@ -22,7 +22,7 @@ export async function load({ fetch, url, setHeaders }) {
     );
 
     if (username.username)
-      resultText = `<a href="/user/${username.username}" class='text-accent'>${username.username}'s</a> `;
+      resultText = `<a href="/user/${username.username}" class='text-primary'>${username.username}'s</a> `;
 
     if (url.searchParams.has("game")) resultText += `${url.searchParams.get("game")} `;
     resultText += "games ";

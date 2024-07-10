@@ -1,12 +1,11 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import tooltip from "$lib/Tooltips.js";
-  import Cluster from "$lib/components/status/Cluster.svelte";
-  import Shard from "$lib/components/status/Shard.svelte";
   import { MStoTime } from "$lib/functions/time.js";
   import { onDestroy, onMount } from "svelte";
   import toast from "svelte-french-toast";
   import { writable } from "svelte/store";
+  import Cluster from "./Cluster.svelte";
+  import Shard from "./Shard.svelte";
 
   export let data;
 
@@ -14,7 +13,7 @@
   let interval: number;
 
   let descriptionText = "offline";
-  let descriptionColour = "#dc2626";
+  let descriptionColour = "text-error";
 
   let guildIdSearch = writable("");
   let guild: {
@@ -54,19 +53,19 @@
 
     if (data.status.maintenance) {
       descriptionText = "in maintenance mode";
-      descriptionColour = "#d97706";
+      descriptionColour = "text-warning";
     } else if (online === data.status.clusters.length && unresponsive === 0) {
       if (restarting > 0) {
         if (restarting === data.status.clusters.length) descriptionText = "restarting";
         else descriptionText = "some clusters are restarting";
-        descriptionColour = "#d97706";
+        descriptionColour = "text-warning";
       } else {
         descriptionText = "working as expected";
-        descriptionColour = "#16a34a";
+        descriptionColour = "text-success";
       }
     } else if (online > 0 && unresponsive > 0) {
       descriptionText = "having some trouble";
-      descriptionColour = "#d97706";
+      descriptionColour = "text-warning";
     }
   }
 
@@ -105,6 +104,8 @@
           console.log("updated");
           toast.success("status updated", {
             position: "bottom-center",
+            style:
+              "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
           });
 
           update();
@@ -124,99 +125,82 @@
 
 <svelte:head>
   <title>status / nypsi</title>
-
-  <meta property="description" name="description" content={descriptionText} />
-
-  <meta name="og:title" content="nypsi status" />
-  <meta name="og:description" content={descriptionText} />
-
-  <meta
-    name="og:image"
-    content="https://singlecolorimage.com/get/{descriptionColour.slice(1)}/128x128"
-  />
-  <meta property="og:image:width" content="128" />
-  <meta property="og:image:height" content="128" />
 </svelte:head>
 
-<div class="flex w-full justify-center text-center">
-  <div class="mt-14 w-full px-4 sm:max-w-xl">
-    <h1 class="text-4xl font-semibold">nypsi status</h1>
+<div class="mt-16 flex w-full justify-center">
+  <div class="w-full px-4 lg:max-w-2xl lg:px-0">
+    <h1 class="text-4xl font-bold text-white">status</h1>
     <p class="mt-2 text-sm opacity-25">updates in {updateIn} seconds</p>
-    <h2 class="mt-4 text-xl" style="color: {descriptionColour};">{descriptionText}</h2>
+    <h2 class="mt-4 text-xl {descriptionColour}">
+      {descriptionText}
+    </h2>
 
     <input
       type="text"
+      name="server"
       bind:value={$guildIdSearch}
       placeholder="server ID"
-      class="my-2 rounded-lg bg-gray-950 bg-opacity-50 p-2 text-gray-400 placeholder:text-gray-600 focus:outline-none"
+      class="input input-bordered mt-4"
     />
 
     {#if $guildIdSearch}
-      {#if !guild}
-        <div class="mb-12 mt-6 flex w-full justify-center">
-          <div class="mx-4 w-fit max-w-sm rounded border border-red-600 bg-red-300 p-2 text-left">
-            <h2 class=" font-semibold text-red-600">unknown server</h2>
-            <p class="text-sm text-red-600">
-              to get your server ID, enable discord developer mode, right click on your server, and
-              click copy id
+      {#if guild}
+        <div class="card mt-4 w-fit bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-success">{guild.id}</h2>
+            <p>
+              cluster {guild.cluster.id}, shard {guild.shard.id}
             </p>
           </div>
         </div>
       {:else}
-        <div class="mb-12 mt-6 flex w-full justify-center">
-          <div class="mx-4 w-fit max-w-sm rounded bg-slate-950 bg-opacity-50 p-4 text-left">
-            <h2 class="font-semibold">{guild.id}</h2>
-            <p class="text-sm">
-              cluster: {guild.cluster.id}
-              <br />
-              shard: {guild.shard.id}
+        <div class="card mt-4 w-96 bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-error">unknown server</h2>
+            <p class="text-sm text-error opacity-90">
+              to get your server ID, enable discord developer mode, right click on your server, and
+              click copy id
             </p>
           </div>
         </div>
       {/if}
     {/if}
 
-    <div class="mt-4 flex w-full justify-center gap-4">
-      <div
-        class="flex h-16 w-20 items-center justify-center rounded bg-slate-950 bg-opacity-50 text-sm shadow"
-        style="color: {data.status.main ? '#16a34a' : '#dc2626'};"
-        use:tooltip={{
-          content:
-            (data.status.main ? "working as expected" : "having problems") +
-            ` <br />uptime: ${MStoTime(data.status.uptime)}`,
-          theme: "tooltip",
-          allowHTML: true,
-        }}
-      >
-        <p>main</p>
-      </div>
-      {#await data.database then database}
-        <div
-          class="flex h-16 w-20 items-center justify-center rounded-lg bg-slate-950 bg-opacity-50 text-sm shadow"
-          style="color: {database.online ? '#16a34a' : '#dc2626'};"
-          use:tooltip={{
-            content: database.online
-              ? `query took: ${database.latency.toFixed(2)}ms`
-              : "having problems",
-            theme: "tooltip",
-          }}
-        >
-          <p>database</p>
+    <div class="divider" />
+
+    <div class="grid w-full grid-cols-2 gap-4">
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <h3 class="card-title {data.status.main ? 'text-success' : 'text-error'}">main</h3>
+
+          <p>
+            uptime: {MStoTime(data.status.uptime)}
+          </p>
         </div>
-      {/await}
+      </div>
+
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <h3 class="card-title {data.database.online ? 'text-success' : 'text-error'}">
+            database
+          </h3>
+
+          <p class="text-xs lg:text-base">query: {data.database.latency.toFixed(2)}ms</p>
+        </div>
+      </div>
     </div>
 
-    <h3 class="mt-8 text-lg font-semibold text-gray-300">clusters</h3>
+    <div class="divider">clusters</div>
 
-    <div class="mt-4 flex w-full flex-wrap justify-center gap-4">
+    <div class="grid w-full grid-cols-2 gap-4 lg:grid-cols-3">
       {#each data.status.clusters as cluster}
         <Cluster selected={guild?.cluster?.id === cluster.id} clusterData={cluster}></Cluster>
       {/each}
     </div>
 
-    <h3 class="mt-8 text-lg font-semibold text-gray-300">shards</h3>
+    <div class="divider">shards</div>
 
-    <div class="mt-4 flex w-full flex-wrap justify-center gap-4">
+    <div class="grid w-full grid-cols-2 gap-4 lg:grid-cols-3">
       {#each [].concat.apply( [], data.status.clusters.map((i) => i.shards), ) as shard}
         <Shard
           selected={guild?.shard?.id === shard.id}
@@ -229,3 +213,21 @@
     </div>
   </div>
 </div>
+
+<!-- <div class="flex w-full justify-center text-center">
+  <h3 class="mt-8 text-lg font-semibold text-gray-300">clusters</h3>
+
+  <h3 class="mt-8 text-lg font-semibold text-gray-300">shards</h3>
+
+  <div class="mt-4 flex w-full flex-wrap justify-center gap-4">
+    {#each [].concat.apply( [], data.status.clusters.map((i) => i.shards), ) as shard}
+      <Shard
+        selected={guild?.shard?.id === shard.id}
+        guildCount={data.status.clusters
+          .find((i) => i.shards.includes(shard))
+          .guilds.filter((i) => i.shard === shard.id).length}
+        data={shard}
+      />
+    {/each}
+  </div>
+</div> -->
