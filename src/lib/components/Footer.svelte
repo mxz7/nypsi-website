@@ -1,6 +1,6 @@
 <script>
   import Discord from "$lib/assets/svg/discord.svelte";
-  import { Code, FileText, Lock } from "lucide-svelte";
+  import { BadgeDollarSign, Code, FileText, Lock } from "lucide-svelte";
 </script>
 
 <footer class="mt-24 flex w-full justify-center bg-base-200 py-5">
@@ -25,6 +25,11 @@
         <Discord />
       </div>
       <span>discord</span>
+    </a>
+
+    <a href="/supporters">
+      <BadgeDollarSign size={16} strokeWidth={3} />
+      <span>supporters</span>
     </a>
   </div>
 </footer>
