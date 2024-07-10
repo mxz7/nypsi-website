@@ -50,6 +50,7 @@
       selected: false,
       showItems: false,
       path: "/api/leaderboard/vote",
+      descriptor: "votes",
     },
     {
       name: "wordle",
@@ -57,6 +58,7 @@
       selected: false,
       showItems: false,
       path: "/api/leaderboard/wordle",
+      descriptor: "wins",
     },
     {
       name: "lottery",
@@ -64,6 +66,7 @@
       selected: false,
       showItems: false,
       path: "/api/leaderboard/lottery",
+      descriptor: "wins",
     },
     {
       name: "commands",
@@ -71,6 +74,7 @@
       selected: false,
       showItems: false,
       path: "/api/leaderboard/commands",
+      descriptor: "uses",
     },
     { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
   ];
@@ -185,6 +189,10 @@
                 leaderboardSelection: $page.state.leaderboardSelection,
                 leaderboardName: `top ${item.name}`,
               });
+
+              setTimeout(() => {
+                options[$page.state.leaderboardSelection].descriptor = item.plural;
+              }, 50);
             }}
           />
         </div>
@@ -224,6 +232,7 @@
         data={fetch($page.state.leaderboardPath).then((r) => r.json())}
         title={$page.state.leaderboardName}
         userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}
+        descriptor={options[$page.state.leaderboardSelection].descriptor}
       />
     </div>
   {/key}

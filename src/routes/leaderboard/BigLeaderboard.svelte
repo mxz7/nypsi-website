@@ -10,6 +10,7 @@
     | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
     | { [key: string]: { tagId: string; emoji: string; name: string } };
   export let userRoute: string;
+  export let descriptor = "";
 </script>
 
 <div class="w-full md:max-w-3xl">
@@ -98,6 +99,9 @@
                   : 'text-slate-300'} w-fit whitespace-nowrap pl-4 text-right"
               >
                 {value}
+                {#if descriptor}
+                  <span class="hidden lg:inline"> {descriptor}</span>
+                {/if}
               </div>
             </div>
           {/each}
