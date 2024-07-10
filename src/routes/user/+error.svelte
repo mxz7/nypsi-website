@@ -8,6 +8,6 @@
 </svelte:head>
 
 <div class="w-full text-center">
-  <h1 class="text-8xl font-bold text-accent">{$page.status}</h1>
+  <h1 class="text-8xl font-bold text-primary">{$page.status}</h1>
   <p class="text-lg text-slate-400">{$page.error.message}</p>
 </div>

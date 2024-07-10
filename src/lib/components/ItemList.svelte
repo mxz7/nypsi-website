@@ -40,7 +40,7 @@
 <div class="mt-10 flex w-full justify-center">
   <div id="items" class=" w-full overflow-x-hidden md:max-w-7xl">
     <form
-      class="m-2 flex w-fit flex-row rounded-md border border-accent border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
+      class="m-2 flex w-fit flex-row rounded-md border border-primary border-opacity-0 bg-slate-950 bg-opacity-50 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
     >
       <div class="mr-1 flex items-center justify-center">
         <Img src={search} alt="search icon" class="h-4 w-4" />

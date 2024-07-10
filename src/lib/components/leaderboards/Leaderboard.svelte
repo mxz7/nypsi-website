@@ -29,7 +29,7 @@
 <table class="mx-auto mt-1 w-full px-4 text-slate-200 sm:max-w-2xl sm:px-0 sm:text-xl">
   {#each data.slice(0, 100) as { user, value, position }, i}
     <tr
-      class="mb-2 flex w-full items-center gap-2 rounded-lg border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-1 duration-200 ease-in hover:scale-105 hover:border-accent hover:border-opacity-20"
+      class="mb-2 flex w-full items-center gap-2 rounded-lg border border-slate-400 border-opacity-5 bg-slate-950 bg-opacity-20 px-2 py-1 duration-200 ease-in hover:scale-105 hover:border-primary hover:border-opacity-20"
       in:fly|global={{ delay: 100 + i * 55, duration: 500, y: 250 }}
     >
       <td class="text-slate-400">#{position}</td>
@@ -69,7 +69,7 @@
     color: #8b5cf6;
     font-weight: bold;
     scale: 105%;
-    @apply border-accent border-opacity-40 shadow shadow-slate-950;
+    @apply border-primary border-opacity-40 shadow shadow-slate-950;
   }
 
   tr:nth-child(1):hover {
