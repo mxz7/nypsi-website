@@ -1,3 +1,4 @@
+import { browser } from "$app/environment";
 import type { User } from "lucia";
 import { writable } from "svelte/store";
 
@@ -13,6 +14,13 @@ type NotAuthed = {
 };
 
 export async function getClientAuth() {
+  if (!browser) return;
+
+  if (navigator.userAgent.includes("bot")) {
+    auth.set({ authenticated: false });
+    return;
+  }
+
   const res = await fetch("/api/auth").then((r) => r.json());
 
   if (res.authenticated) {
