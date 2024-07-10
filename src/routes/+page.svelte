@@ -70,7 +70,7 @@
 
 <div class="absolute bottom-7 right-5 h-10 w-10">
   <a
-    class="block animate-pulse rounded-full bg-slate-950 bg-opacity-25 p-2 shadow-lg ring-1 ring-slate-950 ring-opacity-25 duration-500 hover:ring-slate-800 sm:hover:scale-125"
+    class="block animate-pulse rounded-full bg-base-300 p-2 shadow-lg duration-500 sm:hover:scale-125"
     href="#features"
   >
     <svg
