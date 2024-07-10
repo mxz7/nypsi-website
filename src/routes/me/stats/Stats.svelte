@@ -15,7 +15,7 @@
 </script>
 
 <div
-  class="rounded border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+  class="rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
 >
   <h1 class="mb-4 text-center text-xl font-bold">{title}</h1>
   <div class="flex flex-col gap-1">

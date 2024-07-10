@@ -62,7 +62,7 @@
       <table class="m w-full text-slate-200 sm:text-lg">
         {#each history as { date, item }, i}
           <tr
-            class="mb-2 flex w-full items-center gap-2 rounded border border-primary border-opacity-5 bg-base-200 px-2 py-1 duration-200 ease-in hover:scale-105 hover:border-opacity-20"
+            class="mb-2 flex w-full items-center gap-2 rounded-lg border border-primary border-opacity-5 bg-base-200 px-2 py-1 duration-200 ease-in hover:scale-105 hover:border-opacity-20"
             in:fly|global={{ delay: 150 + i * 55, duration: 500, y: 250 }}
           >
             <td class="text-sm">{dayjs(date).format("YYYY-MM-DD")}</td>

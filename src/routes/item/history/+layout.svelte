@@ -27,7 +27,7 @@
   </h1>
   <div class="mt-4 flex w-full justify-center">
     <a
-      class="rounded bg-slate-950 bg-opacity-50 p-2 px-3 text-lg font-semibold text-slate-200 duration-100 hover:bg-opacity-90"
+      class="rounded-lg bg-slate-950 bg-opacity-50 p-2 px-3 text-lg font-semibold text-slate-200 duration-100 hover:bg-opacity-90"
       href="/login?next={encodeURIComponent($page.url.pathname)}">log in</a
     >
   </div>

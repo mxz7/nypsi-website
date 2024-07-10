@@ -32,7 +32,7 @@
 
 <div
   style="background-color: {background};"
-  class="flex h-8 w-16 items-center justify-center overflow-hidden rounded p-[5px] sm:h-12 sm:w-24"
+  class="flex h-8 w-16 items-center justify-center overflow-hidden rounded-lg p-[5px] sm:h-12 sm:w-24"
 >
   {#if emojiUrl}
     <img src={emojiUrl} class="h-4 opacity-50 sm:h-8" alt="scratch card item" />

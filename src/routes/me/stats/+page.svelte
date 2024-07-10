@@ -32,7 +32,7 @@
           <div class="break-inside-avoid-column pb-3">
             <a
               href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
-              class="duration-300hover:border-opacity-20 block rounded border border-primary border-opacity-5 bg-base-200 p-4"
+              class="duration-300hover:border-opacity-20 block rounded-lg border border-primary border-opacity-5 bg-base-200 p-4"
               in:fade|global={{ duration: 300, delay: 150 }}
             >
               <h1 class="text-center text-xl font-bold">{stat.game}</h1>
@@ -81,7 +81,7 @@
           <div class="break-inside-avoid-column pb-3">
             <a
               href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
-              class="block h-fit break-inside-avoid-column rounded border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+              class="block h-fit break-inside-avoid-column rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
               in:fade|global={{ duration: 300, delay: 150 }}
             >
               <h1 class="text-center text-xl font-bold">{stat.game.replaceAll("_", " ")}</h1>
