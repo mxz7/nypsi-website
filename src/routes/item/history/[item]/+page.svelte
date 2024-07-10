@@ -109,11 +109,11 @@
   </div>
   <div in:fade={{ delay: 150, duration: 300 }}>
     {#if data.graphData === "invalid item"}
-      <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">
+      <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
         <h1>invalid item</h1>
       </div>
     {:else if data.graphData === "not enough data"}
-      <div class="mb-48 flex justify-center text-2xl font-semibold text-red-400">
+      <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
         <h1>not enough data</h1>
       </div>
     {:else if typeof data.graphData !== "string"}

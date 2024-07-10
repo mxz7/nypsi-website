@@ -48,13 +48,13 @@
       <div class="text-center text-xl font-bold">
         <!-- <p class="text-xs text-white">{game.outcome}</p> -->
         {#if data.game.win == 1 && !data.game.game.includes("scratch")}
-          <p class=" text-green-400">won</p>
+          <p class=" success">won</p>
 
-          <p class="text-lg text-green-400 opacity-75">
+          <p class="success text-lg opacity-75">
             ${(data.game.earned - data.game.bet).toLocaleString()} profit
           </p>
         {:else if data.game.win == 0 && !data.game.game.includes("scratch")}
-          <p class=" text-red-500">lost</p>
+          <p class=" text-error">lost</p>
         {:else if data.game.win == 2 && !data.game.game.includes("scratch")}
           <p class=" text-yellow-500">draw</p>
         {/if}
