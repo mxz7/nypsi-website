@@ -63,9 +63,9 @@
 <div class="min-h-[100vh]">
   <Toaster />
 
-  <Navigation />
-
   <Loadbar />
+
+  <Navigation />
 
   <slot />
 </div>

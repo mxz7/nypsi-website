@@ -53,7 +53,7 @@
   }
 </script>
 
-<div class="absolute top-0 h-[2px] w-full overflow-hidden">
+<div class="sticky top-0 h-[2px] w-full overflow-hidden">
   {#if $p > 0 && $p < 1 && isVisible}
     <div
       in:fade={{ duration: 300 }}
