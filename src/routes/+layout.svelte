@@ -52,7 +52,11 @@
   <meta name="theme-color" content="#8b5cf6" />
 
   {#if !dev}
-    <script defer data-domain="nypsi.xyz" src="https://analytics.maxz.dev/js/script.js"></script>
+    <script
+      defer
+      data-domain="nypsi.xyz"
+      src="https://analytics.maxz.dev/js/script.tagged-events.js"
+    ></script>
   {/if}
 </svelte:head>
 

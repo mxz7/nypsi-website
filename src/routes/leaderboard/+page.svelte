@@ -129,7 +129,7 @@
   >
     {#each options as option, i}
       <button
-        class="btn
+        class="plausible-event-name={option.name.replaceAll(' ', '+')}+lb btn
         {(typeof $page.state.leaderboardSelection === 'number'
           ? $page.state.leaderboardSelection
           : -1) === i
