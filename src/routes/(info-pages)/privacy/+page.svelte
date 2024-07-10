@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>terms of service / nypsi</title>
+  <title>privacy / nypsi</title>
 </svelte:head>
 
 <div class="flex w-full justify-center">
