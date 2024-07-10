@@ -19,13 +19,8 @@
   import { fade } from "svelte/transition";
 
   let serverCount: number;
-  let button: HTMLAnchorElement;
 
   onMount(async () => {
-    setTimeout(() => {
-      button.classList.remove("fly-right3");
-    }, 1350);
-
     const res = await fetch("/api/server-count").then(async (r) => r.json());
 
     serverCount = res.server_count;
