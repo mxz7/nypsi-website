@@ -58,6 +58,13 @@
       showItems: false,
       path: "/api/leaderboard/wordle",
     },
+    {
+      name: "lottery",
+      leaderboardName: "top lottery wins",
+      selected: false,
+      showItems: false,
+      path: "/api/leaderboard/lottery",
+    },
     { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
   ];
 
@@ -107,7 +114,7 @@
 
 <div class="flex w-full justify-center">
   <div
-    class="mt-8 flex flex-wrap justify-center gap-4 px-4 lg:w-full lg:max-w-3xl lg:justify-evenly lg:px-0"
+    class="mt-8 flex flex-wrap justify-center gap-4 px-4 lg:w-full lg:max-w-5xl lg:justify-evenly lg:px-0"
   >
     {#each options as option, i}
       <button
