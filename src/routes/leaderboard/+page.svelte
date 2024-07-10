@@ -65,6 +65,13 @@
       showItems: false,
       path: "/api/leaderboard/lottery",
     },
+    {
+      name: "commands",
+      leaderboardName: "top command uses",
+      selected: false,
+      showItems: false,
+      path: "/api/leaderboard/commands",
+    },
     { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
   ];
 
