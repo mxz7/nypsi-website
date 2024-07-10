@@ -1,6 +1,7 @@
 <script lang="ts">
   import { dev } from "$app/environment";
   import { page } from "$app/stores";
+  import Footer from "$lib/components/Footer.svelte";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
   import { auth, getClientAuth } from "$lib/functions/auth";
@@ -55,12 +56,14 @@
   {/if}
 </svelte:head>
 
-<Toaster />
+<div class="min-h-[100vh]">
+  <Toaster />
 
-<Navigation />
+  <Navigation />
 
-<Loadbar />
+  <Loadbar />
 
-<slot />
+  <slot />
+</div>
 
-<div class="mt-24" />
+<Footer />
