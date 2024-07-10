@@ -1,6 +1,6 @@
 <script lang="ts">
   import { userSearchTerm } from "$lib/data/stores.js";
-  import { fade, fly } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import UserData from "./UserData.svelte";
 
   export let data;
@@ -21,7 +21,7 @@
   <meta property="og:image:height" content="128" />
 </svelte:head>
 
-<div in:fade={{ delay: 0, duration: 200 }} out:fly={{ y: 15, duration: 250 }}>
+<div in:fade={{ delay: 0, duration: 200 }}>
   {#key data}
     <UserData
       baseData={data.baseUserData}
