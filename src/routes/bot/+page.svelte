@@ -1,6 +1,7 @@
 <script lang="ts">
   import Chart from "$lib/components/Chart.svelte";
   import type { ChartOptions } from "chart.js";
+  import dayjs from "dayjs";
   import { sort } from "fast-sort";
 
   export let data;
@@ -15,10 +16,12 @@
         mode: "index",
         callbacks: {
           label(tooltipItem) {
-            if (tooltipItem.dataset.label.includes("average"))
-              return `average query time: ${tooltipItem.formattedValue}ms`;
+            if (tooltipItem.formattedValue.includes("(")) return null;
 
             return `${tooltipItem.dataset.label}: ${tooltipItem.formattedValue}`;
+          },
+          title(meow) {
+            return dayjs(meow[0].label).format("YYYY-MM-DD HH:mm:ss");
           },
         },
       },
@@ -30,20 +33,25 @@
         tension: 0.2,
       },
       point: {
-        radius: 1,
+        radius: 2,
       },
     },
     scales: {
       x: {
+        min: data.queryGraph.data.labels[0] as number,
+        max: data.queryGraph.data.labels[data.queryGraph.data.labels.length - 1] as number,
         ticks: {
           maxTicksLimit: 7,
+          callback(tickValue, index, ticks) {
+            return dayjs(tickValue).format("YYYY-MM-DD HH:mm:ss");
+          },
         },
       },
       2: {
-        // min: 0,
-        // max: Number(sort(data.queryGraph.data.datasets[1].data).desc()[0]) * 2,
-        suggestedMax: Number(sort(data.queryGraph.data.datasets[1].data).desc()[0]) * 1.5,
-        suggestedMin: Number(sort(data.queryGraph.data.datasets[1].data).asc()[0]) / 1.5,
+        beginAtZero: true,
+        suggestedMax:
+          // @ts-ignore
+          Number(sort(data.queryGraph.data.datasets[1].data).desc((i) => i.y)[0].y) * 1.5,
         grid: {
           display: false,
         },
@@ -57,8 +65,10 @@
         },
       },
       1: {
-        suggestedMax: Number(sort(data.queryGraph.data.datasets[0].data).desc()[0]) * 1.5,
-        suggestedMin: Number(sort(data.queryGraph.data.datasets[0].data).asc()[0]) / 1.5,
+        beginAtZero: true,
+        suggestedMax:
+          // @ts-ignore
+          Number(sort(data.queryGraph.data.datasets[0].data).desc((i) => i.y)[0].y) * 1.5,
         position: "left",
         ticks: {
           callback(tickValue) {
