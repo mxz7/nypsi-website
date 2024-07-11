@@ -16,6 +16,7 @@ export async function load({ url }) {
   return {
     queryGraph: await getDatabaseQueries(days),
     usersCommandsGraph: await getActiveUsersAndCommands(days),
+    preprocessGraph: await getPreprocess(days),
   };
 }
 
@@ -242,4 +243,114 @@ async function getActiveUsersAndCommands(days: number) {
   }
 
   return graph;
+}
+
+async function getPreprocess(days: number) {
+  const queryGraph: ChartConfiguration = {
+    type: "scatter",
+    data: {
+      labels: [],
+      datasets: [
+        {
+          yAxisID: "1",
+          label: "average preprocess time",
+          data: [],
+          fill: false,
+          borderColor: "#8b5cf677",
+          backgroundColor: "#8b5cf677",
+          radius: 1.3,
+        },
+        {
+          yAxisID: "2",
+          label: "hourly commands",
+          data: [],
+          fill: false,
+          borderColor: "#1e293b",
+          backgroundColor: "#1e293b",
+          radius: 1.3,
+        },
+        {
+          yAxisID: "1",
+          label: "preprocess time average",
+          data: [],
+          type: "line",
+          fill: false,
+          borderColor: "#8b5cf6",
+          borderWidth: 3,
+          pointRadius: 0,
+        },
+        {
+          yAxisID: "2",
+          label: "hourly commands average",
+          data: [],
+          type: "line",
+          fill: false,
+          borderColor: "#1e293b",
+          borderWidth: 3,
+          pointRadius: 0,
+        },
+      ],
+    },
+  };
+
+  const [queryTime, queryCount] = await Promise.all([
+    getData("hourly_preprocess_time", days),
+    getData("hourly_preprocess", days),
+  ]);
+
+  queryGraph.data.labels = [];
+
+  for (const datesGroup of [
+    queryTime.map((i) => i.createdAt),
+    queryCount.map((i) => i.createdAt),
+  ]) {
+    for (const date of datesGroup) {
+      if (
+        !queryGraph.data.labels.includes(
+          dayjs(date).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
+        )
+      )
+        queryGraph.data.labels.push(
+          dayjs(date).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
+        );
+    }
+  }
+
+  for (const query of queryTime) {
+    const labelIndex = queryGraph.data.labels.indexOf(
+      dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
+    );
+
+    if (labelIndex === -1) continue;
+
+    queryGraph.data.datasets[0].data.push({
+      x: dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
+      y: query.value,
+    });
+  }
+
+  for (const query of queryCount) {
+    const labelIndex = queryGraph.data.labels.indexOf(
+      dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
+    );
+
+    if (labelIndex === -1) continue;
+
+    queryGraph.data.datasets[1].data.push({
+      x: dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
+      y: query.value,
+    });
+  }
+
+  queryGraph.data.datasets[2].data = calculateMovingAverage(
+    queryGraph.data.datasets[0].data as { x: number; y: number }[],
+    15,
+  );
+
+  queryGraph.data.datasets[3].data = calculateMovingAverage(
+    queryGraph.data.datasets[1].data as { x: number; y: number }[],
+    15,
+  );
+
+  return queryGraph;
 }
