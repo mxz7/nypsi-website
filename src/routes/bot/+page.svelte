@@ -138,6 +138,81 @@
       },
     },
   };
+
+  const cmdChartOptions: ChartOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        intersect: false,
+        mode: "index",
+        callbacks: {
+          label(tooltipItem) {
+            if (tooltipItem.formattedValue.includes("(")) return null;
+
+            return `${tooltipItem.dataset.label}: ${tooltipItem.formattedValue}`;
+          },
+          title(meow) {
+            return dayjs(meow[0].label).format("YYYY-MM-DD HH:mm:ss");
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    responsive: true,
+    elements: {
+      line: {
+        tension: 0.2,
+      },
+      point: {
+        radius: 2,
+      },
+    },
+    scales: {
+      x: {
+        min: data.preprocessGraph.data.labels[0] as number,
+        max: data.preprocessGraph.data.labels[data.queryGraph.data.labels.length - 1] as number,
+        ticks: {
+          maxTicksLimit: 7,
+          callback(tickValue, index, ticks) {
+            return dayjs(tickValue).format("YYYY-MM-DD HH:mm:ss");
+          },
+        },
+      },
+      2: {
+        beginAtZero: true,
+        suggestedMax:
+          // @ts-ignore
+          Number(sort(data.preprocessGraph.data.datasets[1].data).desc((i) => i.y)[0].y) * 1.5,
+        grid: {
+          display: false,
+        },
+        position: "right",
+        ticks: {
+          callback(tickValue) {
+            return Math.floor(Number(tickValue)).toLocaleString();
+          },
+          // maxTicksLimit: 3,
+          // autoSkipPadding: 100,
+        },
+      },
+      1: {
+        beginAtZero: true,
+        suggestedMax:
+          // @ts-ignore
+          Number(sort(data.preprocessGraph.data.datasets[0].data).desc((i) => i.y)[0].y) * 1.5,
+        position: "left",
+        ticks: {
+          callback(tickValue) {
+            return Math.floor(Number(tickValue)).toLocaleString();
+          },
+          // maxTicksLimit: 3,
+          // autoSkipPadding: 100,
+        },
+      },
+    },
+  };
 </script>
 
 <div class="flex w-full justify-center">
