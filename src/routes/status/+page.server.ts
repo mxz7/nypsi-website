@@ -4,11 +4,11 @@ import type { BotStatus } from "$lib/types/Status.js";
 
 export async function load({ depends, setHeaders }) {
   depends("status");
-  setHeaders({ "cache-control": "s-maxage=600" });
+  setHeaders({ "cache-control": "s-maxage=15" });
 
   return {
     status: await fetch(`${BOT_SERVER_URL}/status`)
-      .then((r) => r.json() as Promise<BotStatus>)
+      .then(async (r) => ({ ...(await r.json()), time: Date.now() }) as Promise<BotStatus>)
       .catch(() => {
         return {
           main: false,

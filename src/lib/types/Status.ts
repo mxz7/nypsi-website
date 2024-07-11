@@ -1,4 +1,5 @@
 export interface BotStatus {
+  time: number;
   main: boolean;
   maintenance: boolean;
   uptime: number;

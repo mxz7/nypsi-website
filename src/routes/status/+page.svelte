@@ -6,6 +6,7 @@
   import { writable } from "svelte/store";
   import Cluster from "./Cluster.svelte";
   import Shard from "./Shard.svelte";
+  import dayjs from "dayjs";
 
   export let data;
 
@@ -130,6 +131,7 @@
 <div class="mt-16 flex w-full justify-center">
   <div class="w-full px-4 lg:max-w-2xl lg:px-0">
     <h1 class="text-4xl font-bold text-white">status</h1>
+    <p class="font-mono text-xs opacity-25">{dayjs(data.status.time).format("HH:mm:ss")}</p>
     <p class="mt-2 text-sm opacity-25">updates in {updateIn} seconds</p>
     <h2 class="mt-4 text-xl {descriptionColour}">
       {descriptionText}
