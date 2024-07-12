@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import logo from "$lib/assets/nypsi-transparent.webp?as=run:0";
-  import { auth } from "$lib/functions/auth";
+  import { auth } from "$lib/stores";
   import Img from "@zerodevx/svelte-img";
   import { AlignLeft } from "lucide-svelte";
 </script>

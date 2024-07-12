@@ -4,7 +4,7 @@
   import Footer from "$lib/components/Footer.svelte";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
-  import { auth, getClientAuth } from "$lib/functions/auth";
+  import { auth, getClientAuth } from "$lib/stores";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
