@@ -1,4 +1,3 @@
-import getItems from "$lib/functions/getItems.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
 export const config = {
@@ -20,15 +19,6 @@ export async function load({ fetch, request, setHeaders }) {
       prestige: await fetch("/api/leaderboard/prestige").then(
         (r) => r.json() as Promise<LeaderboardData>,
       ),
-      items: await getItems(),
-      tags: await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json")
-        .then((r) => r.text())
-        .then(
-          (r) =>
-            JSON.parse(r) as Promise<{
-              [key: string]: { tagId: string; emoji: string; name: string };
-            }>,
-        ),
     };
   } else {
     return {
@@ -37,15 +27,6 @@ export async function load({ fetch, request, setHeaders }) {
       prestige: fetch("/api/leaderboard/prestige").then(
         (r) => r.json() as Promise<LeaderboardData>,
       ),
-      items: getItems(),
-      tags: fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json")
-        .then((r) => r.text())
-        .then(
-          (r) =>
-            JSON.parse(r) as Promise<{
-              [key: string]: { tagId: string; emoji: string; name: string };
-            }>,
-        ),
     };
   }
 }

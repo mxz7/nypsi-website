@@ -1,4 +1,5 @@
 import prisma from "$lib/server/database";
+import { getTags } from "$lib/stores";
 
 export const config = {
   isr: {
@@ -39,14 +40,7 @@ export async function load() {
   });
 
   return {
-    tags: await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json")
-      .then((r) => r.text())
-      .then(
-        (r) =>
-          JSON.parse(r) as Promise<{
-            [key: string]: { tagId: string; emoji: string; name: string };
-          }>,
-      ),
+    tags: await getTags(),
     supporters: await supporters,
     contributors: await contributors,
   };

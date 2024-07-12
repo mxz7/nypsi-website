@@ -4,6 +4,7 @@
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
   import { daysAgo } from "$lib/functions/time";
+  import { getTags } from "$lib/stores";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
@@ -221,9 +222,7 @@
               />
             </a>
           {:else}
-            {#await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json")
-              .then((r) => r.text())
-              .then((r) => JSON.parse(r)) then tagData}
+            {#await getTags() then tagData}
               {#if tagData[tag.tagId] && tag.selected}
                 <div
                   in:fade|global={{ duration: 400, delay: i * 200 }}

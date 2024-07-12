@@ -2,6 +2,8 @@
   import { pushState, replaceState } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
+  import getItems from "$lib/functions/getItems";
+  import { getTags } from "$lib/stores";
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
@@ -102,7 +104,7 @@
 
       if (selected.name === "items") {
         if ($page.url.searchParams.get("item")) {
-          const items = await Promise.resolve(data.items);
+          const items = await getItems();
 
           const item = items.find((i) => i.id === $page.url.searchParams.get("item"));
 
@@ -165,40 +167,38 @@
     <div
       class="grid w-full grid-cols-1 flex-wrap justify-center gap-16 lg:max-w-4xl lg:grid-cols-2"
     >
-      <MiniLeaderboard title="top balance" data={data.balance} tags={data.tags} />
-      <MiniLeaderboard title="top level" data={data.prestige} tags={data.tags} />
+      <MiniLeaderboard title="top balance" data={data.balance} tags={getTags()} />
+      <MiniLeaderboard title="top level" data={data.prestige} tags={getTags()} />
     </div>
   </div>
 {/if}
 
 {#if options[$page.state.leaderboardSelection]?.name === "items"}
-  {#if data.items}
-    {#await data.items then items}
-      <div class="mt-14 flex w-full justify-center">
-        <div class="px-4 lg:max-w-3xl lg:px-0">
-          <ItemSearch
-            {items}
-            onClick={async (itemId) => {
-              $page.url.searchParams.set("item", itemId);
+  {#await getItems() then items}
+    <div class="mt-14 flex w-full justify-center">
+      <div class="px-4 lg:max-w-3xl lg:px-0">
+        <ItemSearch
+          {items}
+          onClick={async (itemId) => {
+            $page.url.searchParams.set("item", itemId);
 
-              const item = (await Promise.resolve(data.items)).find((i) => i.id === itemId);
+            const item = items.find((i) => i.id === itemId);
 
-              pushState($page.url, {
-                leaderboardPath: `/api/leaderboard/item/${itemId}`,
-                leaderboardItem: itemId,
-                leaderboardSelection: $page.state.leaderboardSelection,
-                leaderboardName: `top ${item.name}`,
-              });
+            pushState($page.url, {
+              leaderboardPath: `/api/leaderboard/item/${itemId}`,
+              leaderboardItem: itemId,
+              leaderboardSelection: $page.state.leaderboardSelection,
+              leaderboardName: `top ${item.name}`,
+            });
 
-              setTimeout(() => {
-                options[$page.state.leaderboardSelection].descriptor = item.plural;
-              }, 50);
-            }}
-          />
-        </div>
+            setTimeout(() => {
+              options[$page.state.leaderboardSelection].descriptor = item.plural;
+            }, 50);
+          }}
+        />
       </div>
-    {/await}
-  {/if}
+    </div>
+  {/await}
 {/if}
 
 <!-- {#if options[$page.state.leaderboardSelection]?.name === "items"}
@@ -228,7 +228,7 @@
   {#key $page.state.leaderboardPath}
     <div class="mt-10 flex w-full justify-center">
       <BigLeaderboard
-        tags={data.tags}
+        tags={getTags()}
         data={fetch($page.state.leaderboardPath).then((r) => r.json())}
         title={$page.state.leaderboardName}
         userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}

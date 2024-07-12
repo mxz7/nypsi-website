@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import BigLeaderboard from "$lib/components/leaderboards/Leaderboard.svelte";
+  import { getTags } from "$lib/stores.js";
   import { fade } from "svelte/transition";
 
   export let data;
@@ -58,7 +59,7 @@
         {/if}
       </h2>
     {:else}
-      <BigLeaderboard data={data.data} suffix={data.suffix} tags={data.tags} />
+      <BigLeaderboard data={data.data} suffix={data.suffix} tags={getTags()} />
     {/if}
   </div>
 {:else}
