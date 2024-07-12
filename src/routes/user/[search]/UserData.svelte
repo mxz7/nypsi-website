@@ -63,7 +63,7 @@
 </script>
 
 <div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto md:w-full md:max-w-3xl">
-  <div in:fly|global={{ delay: 250, duration: 500, y: 30 }}>
+  <div class="shadow" in:fly|global={{ delay: 250, duration: 500, y: 30 }}>
     <Profile {baseData} {userData} {items} />
   </div>
 
