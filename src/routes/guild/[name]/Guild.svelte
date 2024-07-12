@@ -28,9 +28,9 @@
     class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
     in:fly|global={{ delay: 300, duration: 500, y: 75 }}
   >
-    <h1 class="text-bold text-center text-2xl">{guild.guildName} [{guild.level}]</h1>
+    <h1 class="text-bold text-center text-2xl text-white">{guild.guildName} [{guild.level}]</h1>
 
-    <h2 class="mt-2 flex w-full flex-row items-center justify-center gap-2 md:text-sm">
+    <p class="mt-2 flex w-full flex-row items-center justify-center gap-2 md:text-sm">
       owned by
       <a
         class="link-hover flex gap-1 text-primary"
@@ -43,12 +43,12 @@
         />
         {guild.owner.user.lastKnownUsername}</a
       >
-    </h2>
+    </p>
 
     <div class="mt-6 flex w-full justify-center">
-      <h3 class="w-fit whitespace-pre-line">
+      <p class="w-fit whitespace-pre-line">
         {guild.motd}
-      </h3>
+      </p>
     </div>
   </div>
 
@@ -58,15 +58,15 @@
   >
     <div class="flex flex-col justify-center gap-4 sm:flex-row">
       <div class="grow text-center">
-        <h2 class="text-lg">xp</h2>
+        <h2 class="text-lg text-white">xp</h2>
         <p class="font-semibold text-primary">{guild.xp.toLocaleString()}</p>
       </div>
       <div class="grow text-center">
-        <h2 class="text-lg">money</h2>
+        <h2 class="text-lg text-white">money</h2>
         <p class="font-semibold text-primary">${guild.balance.toLocaleString()}</p>
       </div>
       <div class="grow text-center">
-        <h2 class="text-lg">tokens</h2>
+        <h2 class="text-lg text-white">tokens</h2>
         <p class="font-semibold text-primary">{guild.tokens.toLocaleString()}</p>
       </div>
     </div>
