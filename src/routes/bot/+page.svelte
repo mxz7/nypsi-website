@@ -229,7 +229,7 @@
 
     <h2 class="mt-16 text-center text-3xl font-bold">command preprocessing</h2>
     <div class="mt-6 w-full">
-      <Chart chartData={data.preprocessGraph} chartOptions={queryChartOptions} />
+      <Chart chartData={data.preprocessGraph} chartOptions={cmdChartOptions} />
     </div>
   </div>
 </div>
