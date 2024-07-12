@@ -283,8 +283,6 @@
   url=""
   bind:selectedList={selectedItems}
   onClick={(itemId) => {
-    charts.scrollIntoView();
-
     // @ts-expect-error boooobbiiees
     data.itemsData = new Promise((resolve) => {
       setTimeout(() => {

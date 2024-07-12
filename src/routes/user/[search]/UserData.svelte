@@ -59,8 +59,6 @@
   onMount(async () => {
     const resolved = await Promise.resolve(gamesPromise);
     games = [...(resolved.ok ? resolved.games : [])];
-
-    scrollTo({ top: 0 });
   });
 </script>
 
