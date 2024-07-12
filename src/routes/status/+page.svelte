@@ -1,17 +1,11 @@
 <script lang="ts">
-  import { invalidate } from "$app/navigation";
   import { MStoTime } from "$lib/functions/time.js";
-  import { onDestroy, onMount } from "svelte";
-  import toast from "svelte-french-toast";
+  import dayjs from "dayjs";
   import { writable } from "svelte/store";
   import Cluster from "./Cluster.svelte";
   import Shard from "./Shard.svelte";
-  import dayjs from "dayjs";
 
   export let data;
-
-  let updateIn = 30;
-  let interval: number;
 
   let descriptionText = "offline";
   let descriptionColour = "text-error";
@@ -89,39 +83,6 @@
       shard,
     };
   });
-
-  function update() {
-    updateIn = 30;
-
-    interval = setInterval(() => {
-      updateIn--;
-
-      if (updateIn <= 0) {
-        clearInterval(interval);
-
-        console.log("updating");
-        invalidate("status").then(() => {
-          $guildIdSearch = "";
-          console.log("updated");
-          toast.success("status updated", {
-            position: "bottom-center",
-            style:
-              "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
-          });
-
-          update();
-        });
-      }
-    }, 1000);
-  }
-
-  onMount(() => {
-    update();
-  });
-
-  onDestroy(() => {
-    clearInterval(interval);
-  });
 </script>
 
 <svelte:head>
@@ -131,8 +92,7 @@
 <div class="mt-16 flex w-full justify-center">
   <div class="w-full px-4 lg:max-w-2xl lg:px-0">
     <h1 class="text-4xl font-bold text-white">status</h1>
-    <p class="font-mono text-xs opacity-25">{dayjs(data.status.time).format("HH:mm:ss")}</p>
-    <p class="mt-2 text-sm opacity-25">updates in {updateIn} seconds</p>
+    <p class="font-mono text-xs opacity-50">{dayjs(data.status.time).format("HH:mm:ss")}</p>
     <h2 class="mt-4 text-xl {descriptionColour}">
       {descriptionText}
     </h2>

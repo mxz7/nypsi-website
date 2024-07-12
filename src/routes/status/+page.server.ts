@@ -2,8 +2,7 @@ import { BOT_SERVER_URL } from "$env/static/private";
 import prisma from "$lib/server/database.js";
 import type { BotStatus } from "$lib/types/Status.js";
 
-export async function load({ depends, setHeaders }) {
-  depends("status");
+export async function load({ setHeaders }) {
   setHeaders({ "cache-control": "s-maxage=15" });
 
   return {
