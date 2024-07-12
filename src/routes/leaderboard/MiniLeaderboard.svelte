@@ -80,7 +80,7 @@
                 {:else}
                   <a
                     href={user.username === "[hidden]"
-                      ? "https://docs.nypsi.xyz/economy/hidden"
+                      ? "https://docs.nypsi.xyz/economy/user-settings/hidden"
                       : `/user/${user.id}`}
                     class="{i === 0
                       ? 'font-semibold text-primary'
