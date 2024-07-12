@@ -13,6 +13,8 @@ type NotAuthed = {
   authenticated: false;
 };
 
+export let items = writable();
+
 export async function getClientAuth() {
   if (!browser) return;
 
