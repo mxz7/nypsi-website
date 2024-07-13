@@ -1,7 +1,6 @@
 <script>
-  import economy from "$lib/assets/features/economy.png?as=run:0";
-  import moderation from "$lib/assets/features/moderation.png?as=run:0";
-  import Img from "@zerodevx/svelte-img";
+  import economy from "$lib/assets/features/economy.png";
+  import moderation from "$lib/assets/features/moderation.png";
 </script>
 
 <div class="flex w-full justify-center bg-base-200" id="features">
@@ -16,7 +15,12 @@
         <li><a href="/leaderboard" class="link" target="_blank">view leaderboards</a></li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <Img class="h-auto max-h-full w-auto max-w-full rounded-lg object-contain" src={economy} />
+        <img
+          class="h-auto max-h-full w-auto max-w-full rounded-lg object-contain"
+          src={economy}
+          alt="networth command"
+          loading="lazy"
+        />
       </div>
     </div>
   </div>
@@ -34,9 +38,11 @@
         <li>alt management - add known alts to users to punish together</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <Img
+        <img
           class="h-auto max-h-full w-auto max-w-full rounded-lg object-contain"
           src={moderation}
+          alt="modlogs"
+          loading="lazy"
         />
       </div>
     </div>
