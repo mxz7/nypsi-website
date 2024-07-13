@@ -1,6 +1,7 @@
 <script lang="ts">
   import logo from "$lib/assets/hero.webp?as=run:0";
   import Discord from "$lib/assets/svg/discord.svelte";
+  import Features from "$lib/components/features/Features.svelte";
   import Img from "@zerodevx/svelte-img";
   import {
     Backpack,
@@ -102,6 +103,8 @@
     </div>
   </div>
 </div>
+
+<Features />
 
 <section id="features" class="bg-slate-900 py-12">
   <div class="mx-auto px-4 sm:px-6 lg:px-8">
