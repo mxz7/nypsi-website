@@ -10,7 +10,7 @@
 </script>
 
 <div class="flex w-full justify-center bg-base-200" id="features">
-  <div class="w-full py-28 lg:max-w-4xl">
+  <div class="w-full py-28 lg:max-w-5xl">
     <h2
       class="mb-14 flex w-full items-center justify-center gap-4 text-center text-5xl font-semibold"
     >
@@ -40,7 +40,7 @@
 </div>
 
 <div class="flex w-full justify-center bg-base-100" id="features">
-  <div class="w-full py-28 lg:max-w-4xl">
+  <div class="w-full py-28 lg:max-w-5xl">
     <h2
       class="mb-14 flex w-full items-center justify-center gap-4 text-center text-5xl font-semibold"
     >
@@ -53,9 +53,12 @@
       <ul class="flex h-full flex-col justify-center gap-3 text-lg">
         <li>fun typing game for all server members</li>
         <li>
-          uses word lists from <a href="https://monkeytype.com" target="_blank" class="link"
-            >monkeytype</a
-          >
+          uses word lists from
+          <a href="https://monkeytype.com" target="_blank" class="link"> monkeytype </a>
+          - or
+          <a href="https://docs.nypsi.xyz/chatreactions/wordlists" target="_blank" class="link">
+            create your own
+          </a>
         </li>
         <li>customisable timings</li>
         <li>duel specific players with $cr duel</li>
@@ -79,7 +82,7 @@
 </div>
 
 <div class="flex w-full justify-center bg-base-200" id="features">
-  <div class="w-full py-28 lg:max-w-4xl">
+  <div class="w-full py-28 lg:max-w-5xl">
     <h2
       class="mb-14 flex w-full items-center justify-center gap-4 text-center text-5xl font-semibold"
     >
@@ -112,7 +115,7 @@
 </div>
 
 <div class="flex w-full justify-center bg-base-100" id="features">
-  <div class="w-full py-28 lg:max-w-4xl">
+  <div class="w-full py-28 lg:max-w-5xl">
     <h2
       class="mb-14 flex w-full items-center justify-center gap-4 text-center text-5xl font-semibold"
     >
@@ -143,7 +146,7 @@
 </div>
 
 <div class="flex w-full justify-center bg-base-200" id="features">
-  <div class="w-full py-28 lg:max-w-4xl">
+  <div class="w-full py-28 lg:max-w-5xl">
     <h2
       class="mb-14 flex w-full items-center justify-center gap-4 text-center text-5xl font-semibold"
     >
@@ -173,7 +176,7 @@
 </div>
 
 <div class="flex w-full justify-center bg-base-100" id="features">
-  <div class="w-full py-28 lg:max-w-4xl">
+  <div class="w-full py-28 lg:max-w-5xl">
     <h2
       class="mb-14 flex w-full items-center justify-center gap-4 text-center text-5xl font-semibold"
     >
@@ -204,7 +207,7 @@
 </div>
 
 <div class="flex w-full justify-center bg-base-200" id="features">
-  <div class="w-full py-28 lg:max-w-4xl">
+  <div class="w-full py-28 lg:max-w-5xl">
     <h2
       class="mb-14 flex w-full items-center justify-center gap-4 text-center text-5xl font-semibold"
     >
