@@ -1,21 +1,12 @@
 <script>
-  import chatReaction from "$lib/assets/features/chatreaction.png";
-  import economy from "$lib/assets/features/economy.png";
-  import moderation from "$lib/assets/features/moderation.png";
-  import pings from "$lib/assets/features/pings.png";
-  import reactionRoles from "$lib/assets/features/reactionroles.png";
-  import rolePersist from "$lib/assets/features/rolepersist.png";
-  import scratchCard from "$lib/assets/features/scratchcard.png";
-  import {
-    BadgeDollarSign,
-    Bell,
-    Book,
-    Clipboard,
-    Coins,
-    Hammer,
-    Keyboard,
-    Speech,
-  } from "lucide-svelte";
+  import chatReaction from "$lib/assets/features/chatreaction.webp";
+  import economy from "$lib/assets/features/economy.webp";
+  import moderation from "$lib/assets/features/moderation.webp";
+  import pings from "$lib/assets/features/pings.webp";
+  import reactionRoles from "$lib/assets/features/reactionroles.webp";
+  import rolePersist from "$lib/assets/features/rolepersist.webp";
+  import scratchCard from "$lib/assets/features/scratchcard.webp";
+  import { BadgeDollarSign, Bell, Book, Clipboard, Coins, Hammer, Keyboard } from "lucide-svelte";
 </script>
 
 <div class="flex w-full justify-center bg-base-200" id="features">
