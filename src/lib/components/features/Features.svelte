@@ -113,6 +113,7 @@
           src={scratchCard}
           alt="scratch card finished game"
           loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
@@ -143,6 +144,7 @@
           src={moderation}
           alt="modlogs"
           loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
@@ -172,6 +174,7 @@
           src={reactionRoles}
           alt="reaction roles"
           loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
@@ -202,6 +205,7 @@
           src={rolePersist}
           alt="role persist list"
           loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
@@ -230,6 +234,7 @@
           src={pings}
           alt="pings command"
           loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
