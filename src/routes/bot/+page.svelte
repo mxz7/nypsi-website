@@ -2,7 +2,6 @@
   import Chart from "$lib/components/Chart.svelte";
   import type { ChartOptions } from "chart.js";
   import dayjs from "dayjs";
-  import { sort } from "fast-sort";
 
   export let data;
 
@@ -48,35 +47,15 @@
         },
       },
       2: {
-        beginAtZero: true,
-        suggestedMax:
-          // @ts-ignore
-          Number(sort(data.queryGraph.data.datasets[1].data).desc((i) => i.y)[0].y) * 1.5,
         grid: {
           display: false,
         },
         position: "right",
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-          // maxTicksLimit: 3,
-          // autoSkipPadding: 100,
-        },
+        beginAtZero: true,
       },
       1: {
-        beginAtZero: true,
-        suggestedMax:
-          // @ts-ignore
-          Number(sort(data.queryGraph.data.datasets[0].data).desc((i) => i.y)[0].y) * 1.5,
         position: "left",
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-          // maxTicksLimit: 3,
-          // autoSkipPadding: 100,
-        },
+        beginAtZero: true,
       },
     },
   };
@@ -108,33 +87,15 @@
         },
       },
       2: {
-        // min: 0,
-        // max: Number(sort(data.queryGraph.data.datasets[1].data).desc()[0]) * 2,
-        suggestedMax: Number(sort(data.usersCommandsGraph.data.datasets[1].data).desc()[0]) * 1.5,
-        suggestedMin: Number(sort(data.usersCommandsGraph.data.datasets[1].data).asc()[0]) / 1.5,
         grid: {
           display: false,
         },
         position: "right",
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-          // maxTicksLimit: 3,
-          // autoSkipPadding: 100,
-        },
+        beginAtZero: true,
       },
       1: {
-        suggestedMax: Number(sort(data.usersCommandsGraph.data.datasets[0].data).desc()[0]) * 1.5,
-        suggestedMin: Number(sort(data.usersCommandsGraph.data.datasets[0].data).asc()[0]) / 1.5,
         position: "left",
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-          // maxTicksLimit: 3,
-          // autoSkipPadding: 100,
-        },
+        beginAtZero: true,
       },
     },
   };
@@ -171,8 +132,6 @@
     },
     scales: {
       x: {
-        min: data.preprocessGraph.data.labels[0] as number,
-        max: data.preprocessGraph.data.labels[data.queryGraph.data.labels.length - 1] as number,
         ticks: {
           maxTicksLimit: 7,
           callback(tickValue, index, ticks) {
@@ -182,34 +141,14 @@
       },
       2: {
         beginAtZero: true,
-        suggestedMax:
-          // @ts-ignore
-          Number(sort(data.preprocessGraph.data.datasets[1].data).desc((i) => i.y)[0].y) * 1.5,
         grid: {
           display: false,
         },
         position: "right",
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-          // maxTicksLimit: 3,
-          // autoSkipPadding: 100,
-        },
       },
       1: {
         beginAtZero: true,
-        suggestedMax:
-          // @ts-ignore
-          Number(sort(data.preprocessGraph.data.datasets[0].data).desc((i) => i.y)[0].y) * 1.5,
         position: "left",
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-          // maxTicksLimit: 3,
-          // autoSkipPadding: 100,
-        },
       },
     },
   };
