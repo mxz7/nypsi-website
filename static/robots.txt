@@ -7,11 +7,13 @@ Disallow: /api
 
 User-agent: AhrefsBot
 User-agent: Baiduspider
+User-agent: Bytespider
 User-agent: Dotbot
 User-agent: Exabot
 User-agent: Ezooms
 User-agent: Gigabot
 User-agent: HTTrack
+User-agent: ImagesiftBot
 User-agent: MJ12bot
 User-agent: MJ12bot
 User-agent: Nutch
