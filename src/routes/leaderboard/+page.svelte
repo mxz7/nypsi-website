@@ -112,6 +112,8 @@
             state.leaderboardItem = item.id;
             state.leaderboardPath = `/api/leaderboard/item/${item.id}`;
             state.leaderboardName = `top ${item.name}`;
+
+            options[9].descriptor = item.plural;
           }
         }
       }
@@ -162,7 +164,7 @@
   </div>
 </div>
 
-{#if !$page.state.leaderboardPath && options[$page.state.leaderboardSelection]?.name !== "items"}
+{#if !options.find((o) => o.selected)}
   <div class="mt-8 flex w-full justify-center">
     <div
       class="grid w-full grid-cols-1 flex-wrap justify-center gap-16 lg:max-w-4xl lg:grid-cols-2"
@@ -173,7 +175,7 @@
   </div>
 {/if}
 
-{#if options[$page.state.leaderboardSelection]?.name === "items"}
+{#if options.find((o) => o.selected)?.name === "items"}
   {#await getItems() then items}
     <div class="mt-14 flex w-full justify-center">
       <div class="px-4 lg:max-w-3xl lg:px-0">
@@ -200,29 +202,6 @@
     </div>
   {/await}
 {/if}
-
-<!-- {#if options[$page.state.leaderboardSelection]?.name === "items"}
-  {#if data.items}
-    {#await data.items then items}
-      <ItemList
-        {items}
-        url=""
-        onClick={async (itemId) => {
-          $page.url.searchParams.set("item", itemId);
-
-          const item = (await Promise.resolve(data.items)).find((i) => i.id === itemId);
-
-          pushState($page.url, {
-            leaderboardPath: `/api/leaderboard/item/${itemId}`,
-            leaderboardItem: itemId,
-            leaderboardSelection: $page.state.leaderboardSelection,
-            leaderboardName: `top ${item.name}`,
-          });
-        }}
-      />
-    {/await}
-  {/if}
-{/if} -->
 
 {#if $page.state.leaderboardPath}
   {#key $page.state.leaderboardPath}
