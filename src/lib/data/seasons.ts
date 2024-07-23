@@ -18,6 +18,18 @@ export default {
   "2": {
     started: new Date("2021-09-01"),
     ended: new Date("2022-01-01"),
+    winners: [
+      { username: "cici31415", value: "$883,333,196" },
+      { username: "So", value: "$772,072,199" },
+      { username: "nathans simp", value: "$628,464,575" },
+      { username: "leg race", value: "$420,011,930" },
+      { username: "Azorochi", value: "$308,906,307" },
+      { username: "aleph-riceboy", value: "$216,857,831" },
+      { username: "sae", value: "$190,119,709" },
+      { username: "Shrooms", value: "$149,100,549" },
+      { username: "michelle's simp", value: "$127,009,944" },
+      { username: "Peter", value: "$106,381,990" },
+    ],
   },
   "3": {
     started: new Date("2022-01-01"),
