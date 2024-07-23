@@ -202,66 +202,68 @@
     </div>
 
     <div class="grow" />
-    <div class="flex h-fit flex-col rounded-lg bg-base-300 p-2 pb-0">
-      {#if baseData.Tags?.length > 0}
-        {#each baseData.Tags as tag, i}
-          {#if badges.has(tag.tagId)}
-            <a
-              href="/badges#{badges.get(tag.tagId)?.name}"
-              class="h-full w-full"
-              use:tooltip={{
-                content: badges.get(tag.tagId).name,
-                theme: "tooltip",
-                placement: "left",
-              }}
-            >
-              <img
-                class="mb-2 h-4 lg:h-6"
-                src={badges.get(tag.tagId)?.icon}
-                alt="{tag.tagId} emoji"
-              />
-            </a>
-          {:else}
-            {#await getTags() then tagData}
-              {#if tagData[tag.tagId] && tag.selected}
-                <div
-                  in:fade|global={{ duration: 400, delay: i * 200 }}
-                  use:tooltip={{
-                    content: tagData[tag.tagId].name,
-                    theme: "tooltip",
-                    placement: "left",
-                  }}
-                >
-                  <img
-                    loading="lazy"
-                    class="mb-2 h-4 lg:h-6"
-                    src={parseEmoji(tagData[tag.tagId].emoji)}
-                    alt="{tag.tagId} emoji"
-                  />
-                </div>
-              {/if}
-            {/await}
-          {/if}
-        {/each}
-      {/if}
+    {#if baseData.Tags?.length > 0 || premiumMap.get(baseData.Premium?.level || 0)}
+      <div class="flex h-fit flex-col rounded-lg bg-base-300 p-2 pb-0">
+        {#if baseData.Tags?.length > 0}
+          {#each baseData.Tags as tag, i}
+            {#if badges.has(tag.tagId)}
+              <a
+                href="/badges#{badges.get(tag.tagId)?.name}"
+                class="h-full w-full"
+                use:tooltip={{
+                  content: badges.get(tag.tagId).name,
+                  theme: "tooltip",
+                  placement: "left",
+                }}
+              >
+                <img
+                  class="mb-2 h-4 lg:h-6"
+                  src={badges.get(tag.tagId)?.icon}
+                  alt="{tag.tagId} emoji"
+                />
+              </a>
+            {:else}
+              {#await getTags() then tagData}
+                {#if tagData[tag.tagId] && tag.selected}
+                  <div
+                    in:fade|global={{ duration: 400, delay: i * 200 }}
+                    use:tooltip={{
+                      content: tagData[tag.tagId].name,
+                      theme: "tooltip",
+                      placement: "left",
+                    }}
+                  >
+                    <img
+                      loading="lazy"
+                      class="mb-2 h-4 lg:h-6"
+                      src={parseEmoji(tagData[tag.tagId].emoji)}
+                      alt="{tag.tagId} emoji"
+                    />
+                  </div>
+                {/if}
+              {/await}
+            {/if}
+          {/each}
+        {/if}
 
-      {#if premiumMap.get(baseData.Premium?.level || 0)}
-        <div
-          in:fade|global={{ duration: 400, delay: baseData.Tags?.length * 200 + 0 }}
-          use:tooltip={{
-            content: `${premiumMap.get(baseData.Premium?.level || 0)?.text} membership`,
-            theme: "tooltip",
-            placement: "left",
-          }}
-        >
-          <img
-            loading="lazy"
-            class="mb-2 h-4 lg:h-6"
-            src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
-            alt="premium level {baseData.Premium?.level} emoji"
-          />
-        </div>
-      {/if}
-    </div>
+        {#if premiumMap.get(baseData.Premium?.level || 0)}
+          <div
+            in:fade|global={{ duration: 400, delay: baseData.Tags?.length * 200 + 0 }}
+            use:tooltip={{
+              content: `${premiumMap.get(baseData.Premium?.level || 0)?.text} membership`,
+              theme: "tooltip",
+              placement: "left",
+            }}
+          >
+            <img
+              loading="lazy"
+              class="mb-2 h-4 lg:h-6"
+              src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
+              alt="premium level {baseData.Premium?.level} emoji"
+            />
+          </div>
+        {/if}
+      </div>
+    {/if}
   </div>
 </div>
