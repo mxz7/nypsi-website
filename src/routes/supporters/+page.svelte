@@ -18,9 +18,12 @@
     </h1>
     <p class="text-sm opacity-50">these members have donated real money to nypsi</p>
 
-    <div class="mt-4 flex flex-wrap gap-3 text-sm">
+    <div class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.supporters as supporter}
-        <a class="flex items-center duration-300 hover:text-white" href="/user/{supporter.id}">
+        <a
+          class="flex min-w-0 items-center overflow-hidden overflow-ellipsis whitespace-nowrap duration-300 hover:text-white"
+          href="/user/{supporter.id}"
+        >
           {#if supporter.Tags[0]?.tagId}
             <span>[</span>
             <img
@@ -35,7 +38,9 @@
             />
             <span class="mr-1">]</span>
           {/if}
-          <span>{supporter.lastKnownUsername}</span>
+          <span class="min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+            >{supporter.lastKnownUsername}</span
+          >
         </a>
       {/each}
     </div>
@@ -46,9 +51,12 @@
     </h2>
     <p class="text-sm opacity-50">these members have added features to the bot or website</p>
 
-    <div class="mt-4 flex flex-wrap gap-3 text-sm">
+    <div class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.contributors as supporter}
-        <a class="flex items-center duration-300 hover:text-white" href="/user/{supporter.id}">
+        <a
+          class="flex items-center overflow-hidden overflow-ellipsis whitespace-nowrap duration-300 hover:text-white"
+          href="/user/{supporter.id}"
+        >
           {#if supporter.Tags[0]?.tagId}
             <span>[</span>
             <img
@@ -63,7 +71,9 @@
             />
             <span class="mr-1">]</span>
           {/if}
-          <span>{supporter.lastKnownUsername}</span>
+          <span class="min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+            >{supporter.lastKnownUsername}</span
+          >
         </a>
       {/each}
     </div>
