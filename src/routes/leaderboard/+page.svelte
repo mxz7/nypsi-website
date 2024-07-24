@@ -164,7 +164,7 @@
   </div>
 </div>
 
-{#if !options.find((o) => o.selected)}
+{#if !$page.state.leaderboardPath}
   <div class="mt-8 flex w-full justify-center">
     <div
       class="grid w-full grid-cols-1 flex-wrap justify-center gap-16 lg:max-w-4xl lg:grid-cols-2"
