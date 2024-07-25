@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { pushState, replaceState } from "$app/navigation";
+  import { onNavigate, pushState, replaceState } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import getItems from "$lib/functions/getItems";
@@ -89,6 +89,13 @@
     }
   }
 
+  onNavigate((e) => {
+    if (!e.to.url.searchParams.has("lb")) {
+      options.forEach((i) => (i.selected = false));
+      replaceState(e.to.url, {});
+    }
+  });
+
   onMount(() => {
     setTimeout(async () => {
       let selected = options.find((i) => i.selected);
@@ -164,7 +171,7 @@
   </div>
 </div>
 
-{#if !$page.state.leaderboardPath}
+{#if typeof $page.state?.leaderboardSelection !== "number"}
   <div class="mt-8 flex w-full justify-center">
     <div
       class="grid w-full grid-cols-1 flex-wrap justify-center gap-16 lg:max-w-4xl lg:grid-cols-2"
@@ -175,7 +182,7 @@
   </div>
 {/if}
 
-{#if options.find((o) => o.selected)?.name === "items"}
+{#if options.find((o) => o.selected)?.name === "items" || options[$page.state.leaderboardSelection]?.name === "items"}
   {#await getItems() then items}
     <div class="mt-14 flex w-full justify-center">
       <div class="px-4 lg:max-w-3xl lg:px-0">
