@@ -1,9 +1,6 @@
 import type Game from "$lib/types/Game.js";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
+
 
 export const load = async ({ fetch, params, setHeaders }) => {
   setHeaders({ "cache-control": "s-maxage=600" });

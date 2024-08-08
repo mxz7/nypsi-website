@@ -1,10 +1,5 @@
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
-
 export async function load({ fetch, request, setHeaders }) {
   setHeaders({ "cache-control": "s-maxage=600" });
 
