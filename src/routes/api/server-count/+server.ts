@@ -1,4 +1,4 @@
-import { TOPGG_TOKEN } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { json } from "@sveltejs/kit";
 
 export const GET = async ({ setHeaders }) => {
@@ -8,7 +8,7 @@ export const GET = async ({ setHeaders }) => {
 
   const res = await fetch("https://top.gg/api/bots/678711738845102087/stats", {
     headers: {
-      Authorization: TOPGG_TOKEN,
+      Authorization: env.TOPGG_TOKEN,
     },
   }).then((r) =>
     r.json().catch(() => {

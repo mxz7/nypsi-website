@@ -13,19 +13,19 @@ WORKDIR /app
 ENV NODE_ENV="production"
 
 # set dummy env variables for build
-ENV DATABASE_URL="dummy"
-ENV REDIS_URL="https://dummy.com"
-ENV REDIS_PASS="dummy"
-ENV TOPGG_TOKEN="dummy"
-ENV DISCORD_OAUTH_CLIENTID="dummy"
-ENV DISCORD_OAUTH_SECRET="dummy"
-ENV PUBLIC_OAUTH_URL="dummy"
-ENV DISCORD_OAUTH_REDIRECT="dummy"
-ENV BOT_SERVER_URL="dummy"
-ENV PUBLIC_URL="dummy"
-ENV VIEW_AUTH="dummy"
-ENV PUBLIC_HCAPTCHA_SITEKEY="dummy"
-ENV HCAPTCHA_SECRET="dummy"
+ARG DATABASE_URL="dummy"
+ARG REDIS_URL="https://dummy.com"
+ARG REDIS_PASS="dummy"
+ARG TOPGG_TOKEN="dummy"
+ARG DISCORD_OAUTH_CLIENTID="dummy"
+ARG DISCORD_OAUTH_SECRET="dummy"
+ARG PUBLIC_OAUTH_URL="dummy"
+ARG DISCORD_OAUTH_REDIRECT="dummy"
+ARG BOT_SERVER_URL="dummy"
+ARG PUBLIC_URL="dummy"
+ARG VIEW_AUTH="dummy"
+ARG PUBLIC_HCAPTCHA_SITEKEY="dummy"
+ARG HCAPTCHA_SECRET="dummy"
 
 # Install pnpm
 RUN npm install -g pnpm
