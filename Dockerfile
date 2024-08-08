@@ -28,8 +28,7 @@ ENV PUBLIC_HCAPTCHA_SITEKEY="dummy"
 ENV HCAPTCHA_SECRET="dummy"
 
 # Install pnpm
-ARG PNPM_VERSION=9.7.0
-RUN npm install -g pnpm@$PNPM_VERSION
+RUN npm install -g pnpm
 
 
 # Throw-away build stage to reduce size of final image
