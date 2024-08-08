@@ -7,7 +7,7 @@ export async function load({ setHeaders, parent }) {
   if (!parentData.user) return redirect(303, "/me");
 
   setHeaders({
-    "cache-control": "max-age=300",
+    "cache-control": "no-cache",
   });
 
   return {

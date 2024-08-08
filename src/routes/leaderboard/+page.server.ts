@@ -1,7 +1,7 @@
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
 export async function load({ fetch, request, setHeaders }) {
-  setHeaders({ "cache-control": "s-maxage=600" });
+  setHeaders({ "cache-control": "public, max-age=600" });
 
   if (request.headers.get("user-agent").toLowerCase().includes("bot")) {
     return {

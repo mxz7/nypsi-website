@@ -8,7 +8,7 @@ export async function load({ parent, setHeaders }) {
   if (!user) return;
 
   setHeaders({
-    "cache-control": "max-age=600",
+    "cache-control": "no-cache",
   });
 
   return {
