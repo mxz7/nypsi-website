@@ -1,3 +1,3 @@
 export function load({ setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=21600" });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
 }

@@ -3,7 +3,7 @@ import type { Prisma } from "@prisma/client";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET({ url, setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=600" });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
 
   const userId = url.searchParams.get("user");
   const game = url.searchParams.get("game");

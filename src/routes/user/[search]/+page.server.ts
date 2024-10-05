@@ -6,7 +6,7 @@ import { error } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
 export const load = async ({ params, fetch, getClientAddress, request, locals, setHeaders }) => {
-  setHeaders({ "cache-control": "public, max-age=600" });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
   const search = params.search;
   let userId: string;
 

@@ -2,7 +2,7 @@ import { lucia } from "$lib/server/functions/auth.js";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ cookies, setHeaders }) {
-  setHeaders({ "cache-control": "no-cache" });
+  setHeaders({ "cache-control": "public, max-age=0, must-revalidate" });
 
   const sessionId = cookies.get(lucia.sessionCookieName);
   if (!sessionId) {

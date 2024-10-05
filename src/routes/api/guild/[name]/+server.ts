@@ -2,7 +2,7 @@ import prisma from "$lib/server/database.js";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ params, setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=600" });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
 
   const query = await prisma.economyGuild.findFirst({
     where: {

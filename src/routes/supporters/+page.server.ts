@@ -4,7 +4,7 @@ import { getTags } from "$lib/stores";
 const contributorIds = ["672793821850894347", "499720078770831360", "191179161010831360"];
 
 export async function load({ setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=3600" });
+  setHeaders({ "cache-control": "public, max-age=600" });
 
   const supporters = prisma.user.findMany({
     where: {

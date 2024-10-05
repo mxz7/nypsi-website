@@ -4,7 +4,7 @@ import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 import { error } from "@sveltejs/kit";
 
 export const load = async ({ fetch, params, setHeaders }) => {
-  setHeaders({ "cache-control": "public, max-age=900" });
+  setHeaders({ "cache-control": "public, max-age=600" });
 
   const item = (await getItems()).find((i) => i.id === params.type);
 

@@ -3,7 +3,7 @@ import { json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders }) {
   setHeaders({
-    "cache-control": "public, max-age=300",
+    "cache-control": "public, max-age=300, must-revalidate",
   });
 
   const query = await prisma.achievements

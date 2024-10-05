@@ -2,7 +2,7 @@ import prisma from "$lib/server/database.js";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params }) {
-  setHeaders({ "cache-control": "public, max-age=600" });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
 
   const query = await prisma.user.findFirst({
     where: {

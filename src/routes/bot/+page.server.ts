@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { sort } from "fast-sort";
 
 export async function load({ url, setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=600" });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
 
   const days = parseInt(url.searchParams.get("days") || "30") || 30;
 

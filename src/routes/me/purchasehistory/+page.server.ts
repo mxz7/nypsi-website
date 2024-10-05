@@ -2,9 +2,7 @@ import prisma from "$lib/server/database.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ setHeaders, parent }) {
-  setHeaders({
-    "cache-control": "no-cache",
-  });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
 
   const parentData = await parent();
 

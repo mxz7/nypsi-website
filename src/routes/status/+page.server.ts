@@ -3,7 +3,7 @@ import prisma from "$lib/server/database.js";
 import type { BotStatus } from "$lib/types/Status.js";
 
 export async function load({ setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=15" });
+  setHeaders({ "cache-control": "public, max-age=15, must-revalidate" });
 
   return {
     status: await fetch(`${env.BOT_SERVER_URL}/status`)
