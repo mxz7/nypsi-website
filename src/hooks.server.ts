@@ -5,7 +5,7 @@ import { error, redirect } from "@sveltejs/kit";
 export const handle = async ({ event, resolve }) => {
   console.log(event.url);
   if (event.url.hostname === "nypsi-website.fly.dev")
-    return redirect(403, `https://fly.nypsi.xyz${event.url.pathname}`);
+    return redirect(303, `https://fly.nypsi.xyz${event.url.pathname}`);
 
   if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
     const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
