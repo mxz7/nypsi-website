@@ -37,6 +37,6 @@
   }
 
   a > span {
-    @apply font-mono text-xs;
+    @apply text-xs;
   }
 </style>
