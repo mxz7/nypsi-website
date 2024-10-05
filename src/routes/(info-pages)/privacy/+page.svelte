@@ -3,8 +3,8 @@
 </svelte:head>
 
 <div class="flex w-full justify-center">
-  <div class="font-xl w-full pt-14 md:max-w-3xl">
-    <h1 class="mb-6 text-center text-2xl font-semibold text-white">Privacy Policy</h1>
+  <div class="w-full px-3 pt-14 md:max-w-3xl md:px-0">
+    <h1>Privacy Policy</h1>
 
     <h2>Storing of Data</h2>
     <p>
@@ -97,15 +97,19 @@
 </div>
 
 <style>
+  h1 {
+    @apply mb-6 text-center text-5xl font-bold text-white;
+  }
+
   h2 {
-    @apply my-4 font-semibold text-white;
+    @apply my-4 text-2xl font-semibold text-white;
   }
 
   h3 {
-    @apply my-2 font-semibold text-gray-300;
+    @apply my-3 text-lg font-semibold text-white;
   }
 
   p {
-    @apply my-1;
+    @apply my-2;
   }
 </style>
