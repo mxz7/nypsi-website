@@ -3,7 +3,7 @@ import { json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders }) {
   setHeaders({
-    "cache-control": "max-age=0, s-maxage=300",
+    "cache-control": "public, max-age=300",
   });
 
   const query = await prisma.economyGuild

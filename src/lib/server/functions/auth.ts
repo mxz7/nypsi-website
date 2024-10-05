@@ -1,9 +1,7 @@
 import { dev } from "$app/environment";
 import {
-  DISCORD_OAUTH_CLIENTID,
-  DISCORD_OAUTH_REDIRECT,
-  DISCORD_OAUTH_SECRET,
-} from "$env/static/private";
+  env
+} from "$env/dynamic/private";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { Discord } from "arctic";
 import { Lucia } from "lucia";
@@ -27,9 +25,9 @@ export const lucia = new Lucia(adapter, {
 });
 
 export const discord = new Discord(
-  DISCORD_OAUTH_CLIENTID,
-  DISCORD_OAUTH_SECRET,
-  DISCORD_OAUTH_REDIRECT,
+  env.DISCORD_OAUTH_CLIENTID,
+  env.DISCORD_OAUTH_SECRET,
+  env.DISCORD_OAUTH_REDIRECT,
 );
 
 declare module "lucia" {

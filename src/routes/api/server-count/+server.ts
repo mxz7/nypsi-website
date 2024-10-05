@@ -1,19 +1,14 @@
-import { TOPGG_TOKEN } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { json } from "@sveltejs/kit";
-
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
 
 export const GET = async ({ setHeaders }) => {
   setHeaders({
-    "cache-control": "max-age=300, s-maxage=300, stale-while-revalidate",
+    "cache-control": "public, max-age=900",
   });
 
   const res = await fetch("https://top.gg/api/bots/678711738845102087/stats", {
     headers: {
-      Authorization: TOPGG_TOKEN,
+      Authorization: env.TOPGG_TOKEN,
     },
   }).then((r) =>
     r.json().catch(() => {

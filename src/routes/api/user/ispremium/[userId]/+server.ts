@@ -5,7 +5,7 @@ export const GET = async ({ params, setHeaders }) => {
   const userId = params.userId;
 
   setHeaders({
-    "cache-control": "max-age=0, s-maxage=3600",
+    "cache-control": "public, max-age=3600",
   });
 
   if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
