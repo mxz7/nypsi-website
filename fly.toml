@@ -4,7 +4,7 @@
 #
 
 app = 'nypsi-website'
-primary_region = 'yul'
+primary_region = 'iad'
 
 [build]
 
