@@ -1,34 +1,31 @@
 <script>
-  import Discord from "$lib/assets/svg/discord.svelte";
-  import { BadgeDollarSign, Code, FileText, Lock } from "lucide-svelte";
+  import { BadgeDollarSign, Code, FileText, Hammer, Lock } from "lucide-svelte";
 </script>
 
 <footer class="mt-24 flex w-full justify-center bg-base-200 py-5">
   <div class="flex flex-wrap justify-evenly gap-8 px-4 lg:max-w-5xl lg:px-0">
     <a href="/terms">
-      <FileText size={16} strokeWidth={3} />
+      <FileText size={16} strokeWidth={2} />
       <span>terms</span>
     </a>
 
     <a href="/privacy">
-      <Lock size={16} strokeWidth={3} />
+      <Lock size={16} strokeWidth={2} />
       <span>privacy</span>
     </a>
 
+    <a href="/rules">
+      <Hammer size={16} strokeWidth={2} />
+      <span>rules</span>
+    </a>
+
     <a href="https://github.com/mxz7/nypsi-website" target="_blank">
-      <Code size={16} strokeWidth={3} />
+      <Code size={16} strokeWidth={2} />
       <span>github</span>
     </a>
 
-    <a href="/discord" target="_blank">
-      <div class="h-4 w-4">
-        <Discord />
-      </div>
-      <span>discord</span>
-    </a>
-
     <a href="/supporters">
-      <BadgeDollarSign size={16} strokeWidth={3} />
+      <BadgeDollarSign size={16} strokeWidth={2} />
       <span>supporters</span>
     </a>
   </div>
@@ -40,6 +37,6 @@
   }
 
   a > span {
-    @apply font-mono text-xs;
+    @apply text-xs;
   }
 </style>
