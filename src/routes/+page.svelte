@@ -77,7 +77,7 @@
     </div>
 
     <div class="-mt-64 text-center lg:mt-0 lg:text-left">
-      <h1 class="animation-1 text-8xl font-bold text-white lg:text-9xl">nypsi</h1>
+      <h1 class="animation-1 text-8xl font-extrabold text-white lg:text-9xl">nypsi</h1>
       <p class="animation-2 py-6 text-xl font-medium opacity-90">the best discord bot</p>
       <a
         href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
