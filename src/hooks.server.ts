@@ -1,9 +1,11 @@
 import { dev } from "$app/environment";
+import { log } from "$lib/server/logger";
 import rateLimiter from "$lib/server/ratelimit";
 import { error, redirect } from "@sveltejs/kit";
 
 export const handle = async ({ event, resolve }) => {
-  console.log(event.url);
+  event.locals.startTimer = performance.now();
+
   if (event.url.hostname === "nypsi-website.fly.dev")
     return redirect(303, `https://fly.nypsi.xyz${event.url.pathname}`);
 
@@ -15,6 +17,7 @@ export const handle = async ({ event, resolve }) => {
     if (!rateLimitAttempt.success) {
       const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
 
+      log(429, event);
       return error(429, `too many requests. please try again in ${timeRemaining} seconds.`);
     }
   }
@@ -31,6 +34,8 @@ export const handle = async ({ event, resolve }) => {
   };
 
   const res = await resolve(event);
+
+  log(res.status, event);
 
   return res;
 };
