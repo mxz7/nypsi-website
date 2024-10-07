@@ -17,6 +17,11 @@ declare global {
         user: import("lucia").User;
         session: import("lucia").Session;
       } | null>;
+      startTimer: number;
+      error: string;
+      errorId: string;
+      errorStackTrace: string;
+      message: unknown;
     }
   }
 }

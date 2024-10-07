@@ -1,8 +1,14 @@
 import { dev } from "$app/environment";
+import { log } from "$lib/server/logger";
 import rateLimiter from "$lib/server/ratelimit";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
 export const handle = async ({ event, resolve }) => {
+  event.locals.startTimer = performance.now();
+
+  if (event.url.hostname === "nypsi-website.fly.dev")
+    return redirect(303, `https://fly.nypsi.xyz${event.url.pathname}`);
+
   if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
     const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
       return { success: true, reset: 69 };
@@ -11,6 +17,7 @@ export const handle = async ({ event, resolve }) => {
     if (!rateLimitAttempt.success) {
       const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
 
+      log(429, event);
       return error(429, `too many requests. please try again in ${timeRemaining} seconds.`);
     }
   }
@@ -28,11 +35,7 @@ export const handle = async ({ event, resolve }) => {
 
   const res = await resolve(event);
 
-  if (
-    (res.redirected || res.status === 404 || res.status === 500) &&
-    res.headers.get("cache-control")
-  )
-    res.headers.delete("cache-control");
+  log(res.status, event);
 
   return res;
 };
