@@ -6,6 +6,8 @@ export async function GET({ params, setHeaders }) {
     "cache-control": "public, max-age=300, must-revalidate",
   });
 
+  if (params.itemId === "lottery_ticket") return json([]);
+
   const query = await prisma.inventory
     .findMany({
       where: {

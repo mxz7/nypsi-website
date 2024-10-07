@@ -13,8 +13,8 @@
     "start": "node build"
   },
   "devDependencies": {
+    "@sveltejs/kit": "^2.6.2",
     "@flydotio/dockerfile": "^0.5.8",
-    "@sveltejs/kit": "^2.6.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "@types/ms": "0.7.34",
     "@types/twemoji-parser": "13.1.4",
