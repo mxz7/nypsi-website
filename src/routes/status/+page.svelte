@@ -90,8 +90,8 @@
 </svelte:head>
 
 <div class="mt-16 flex w-full justify-center">
-  <div class="w-full px-4 lg:max-w-2xl lg:px-0">
-    <h1 class="text-4xl font-bold text-white">status</h1>
+  <div class="w-full px-4 lg:max-w-3xl lg:px-0">
+    <h1 class="text-5xl font-bold text-white">status</h1>
     <p class="font-mono text-xs opacity-50">{dayjs(data.status.time).format("HH:mm:ss")}</p>
     <h2 class="mt-4 text-xl {descriptionColour}">
       {descriptionText}
