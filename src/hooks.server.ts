@@ -1,8 +1,18 @@
-import { dev } from "$app/environment";
 import { log } from "$lib/server/logger";
-import { error, redirect } from "@sveltejs/kit";
+import { redirect } from "@sveltejs/kit";
 
-export const handle = async ({ event, resolve }) => {
+export function handleError({ event, error, message, status }) {
+  const errorId = crypto.randomUUID();
+  event.locals.error = error?.toString() || undefined;
+  event.locals.errorStackTrace = (error as Error)?.stack || undefined;
+  event.locals.errorId = errorId;
+
+  log(status, event);
+
+  return { message: message || "an unexpected error occured", errorId: errorId };
+}
+
+export async function handle({ event, resolve }) {
   event.locals.startTimer = performance.now();
 
   if (event.url.hostname === "nypsi-website.fly.dev")
@@ -40,4 +50,4 @@ export const handle = async ({ event, resolve }) => {
   log(res.status, event);
 
   return res;
-};
+}
