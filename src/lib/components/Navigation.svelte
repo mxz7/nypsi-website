@@ -3,7 +3,7 @@
   import logo from "$lib/assets/nypsi-transparent.webp?as=run:0";
   import { auth } from "$lib/stores";
   import Img from "@zerodevx/svelte-img";
-  import { AlignLeft } from "lucide-svelte";
+  import { Menu } from "lucide-svelte";
 </script>
 
 <div class="flex w-full justify-center">
@@ -11,7 +11,7 @@
     <div class="navbar-start">
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-          <AlignLeft strokeWidth={2.5} />
+          <Menu strokeWidth={2.5} />
         </div>
         <ul
           tabindex="0"
