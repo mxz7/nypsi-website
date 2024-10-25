@@ -4,6 +4,8 @@ import { redirect } from "@sveltejs/kit";
 export const ssr = false;
 
 export async function load({ setHeaders, parent, url }) {
+  setHeaders({ "cache-control": "no-cache" });
+
   const parentData = await parent();
 
   console.log(parentData);
@@ -13,11 +15,6 @@ export async function load({ setHeaders, parent, url }) {
   if (!parentData.baseData?.Premium?.level) return redirect(303, "/me");
 
   const days = parseInt(url.searchParams.get("days")) || 30;
-
-  if (days === 30)
-    setHeaders({
-      "cache-control": "max-age=3600",
-    });
 
   if (url.searchParams.get("items")) {
     const categories: string[] = [];

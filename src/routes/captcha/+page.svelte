@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { PUBLIC_HCAPTCHA_SITEKEY } from "$env/static/public";
+  import { env } from "$env/dynamic/public";
   import { Check } from "lucide-svelte";
   import HCaptcha from "svelte-hcaptcha";
 
@@ -40,7 +40,7 @@
       <div class="flex w-full justify-center">
         <HCaptcha
           bind:this={captcha}
-          sitekey={PUBLIC_HCAPTCHA_SITEKEY}
+          sitekey={env.PUBLIC_HCAPTCHA_SITEKEY}
           on:error={() => captcha.reset()}
           on:success={(payload) => {
             token = payload.detail.token;

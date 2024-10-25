@@ -1,4 +1,4 @@
-import { PUBLIC_URL } from "$env/static/public";
+import { env } from "$env/dynamic/public";
 import prisma from "$lib/server/database.js";
 import { discord, lucia } from "$lib/server/functions/auth.js";
 import { OAuth2RequestError } from "arctic";
@@ -42,7 +42,7 @@ export async function GET({ cookies, url }) {
       return new Response(null, { status: 302, headers: { Location: "/" } });
     }
 
-    const nextUrl = new URL(`${PUBLIC_URL}${next ? next : ""}`);
+    const nextUrl = new URL(`${env.PUBLIC_URL}${next ? next : ""}`);
 
     nextUrl.searchParams.set("loggedin", "true");
 

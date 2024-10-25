@@ -1,12 +1,12 @@
 import { dev } from "$app/environment";
-import { VIEW_AUTH } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import prisma from "$lib/server/database.js";
 import { UserAddViewData } from "$lib/types/api/UserView.js";
 import { error, json } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
 export async function POST({ request }) {
-  if (request.headers.get("Authorization") !== VIEW_AUTH) {
+  if (request.headers.get("Authorization") !== env.VIEW_AUTH) {
     console.error("invalud auth");
     return error(401);
   }
