@@ -62,11 +62,13 @@ export async function GET({ setHeaders }) {
         count++;
         return {
           value: x.value.toLocaleString(),
-          user: { username: x.user.username, id: x.user.id },
+          user: { username: x.user.username, id: x.user.id, tag: x.user.tag },
           position: count,
         };
       });
     });
+
+  console.log(query);
 
   return json(query);
 }

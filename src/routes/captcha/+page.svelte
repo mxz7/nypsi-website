@@ -18,7 +18,7 @@
 <div class="mt-16 flex w-full justify-center md:mt-32">
   <div class="flex w-full flex-col gap-4 px-4 md:max-w-lg md:px-0">
     {#if data.solved}
-      <h1 class="text-bold flex justify-center gap-2 text-xl text-success">
+      <h1 class="flex justify-center gap-2 text-xl font-bold text-success">
         verified <Check strokeWidth={3} />
       </h1>
 
@@ -30,7 +30,7 @@
         />
       {/if}
     {:else}
-      <h1 class="text-bold text-center text-xl text-error">
+      <h1 class="text-center text-xl font-bold text-error">
         complete the captcha to continue using commands
       </h1>
       <form use:enhance method="post" bind:this={formElement}>
@@ -52,7 +52,7 @@
       </div>
 
       <div>
-        <h2 class="text-bold text-slate-500">why do i have to do this?</h2>
+        <h2 class="font-semibold text-slate-500">why do i have to do this?</h2>
         <p>
           on nypsi, automating commands (by use of macros or scripts) is not allowed as it provides
           an unfair advantage. some players still attempt to bypass this rule, thus we implemented a

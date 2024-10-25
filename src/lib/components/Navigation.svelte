@@ -3,7 +3,7 @@
   import logo from "$lib/assets/nypsi-transparent.webp?as=run:0";
   import { auth } from "$lib/stores";
   import Img from "@zerodevx/svelte-img";
-  import { AlignLeft } from "lucide-svelte";
+  import { Menu } from "lucide-svelte";
 </script>
 
 <div class="flex w-full justify-center">
@@ -11,7 +11,7 @@
     <div class="navbar-start">
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-          <AlignLeft strokeWidth={2.5} />
+          <Menu strokeWidth={2.5} />
         </div>
         <ul
           tabindex="0"
@@ -36,13 +36,14 @@
         <a class="btn btn-ghost" href="/">
           <Img src={logo} class="h-10 w-10" />
         </a>
-        <a href="/leaderboard" class="btn btn-ghost">leaderboards</a>
-        <a href="/status" class="btn btn-ghost">status</a>
-        <a href="/discord" class="btn btn-ghost" target="_blank">discord</a>
-        <a href="https://docs.nypsi.xyz" target="_blank" class="btn btn-ghost">docs</a>
-        <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="btn btn-ghost">
+        <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>
+        <a href="/status" class="btn btn-ghost font-semibold">status</a>
+        <a href="/discord" class="btn btn-ghost font-semibold" target="_blank">discord</a>
+        <a href="https://docs.nypsi.xyz" target="_blank" class="btn btn-ghost font-semibold">docs</a
+        >
+        <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="btn btn-ghost font-semibold">
           <span
-            class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text text-transparent"
+            class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"
           >
             premium
           </span>

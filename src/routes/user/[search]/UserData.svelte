@@ -97,7 +97,7 @@
           in:fly|global={{ delay: 500, duration: 500, y: 75 }}
         >
           <SmallInfo>
-            <h2 class="text-white lg:text-xl">favourite command</h2>
+            <h2>favourite command</h2>
             <p class="line-clamp-1 text-sm lg:text-base">
               ${userData.CommandUse[0]?.command}
               ({userData.CommandUse[0]?.uses.toLocaleString()} uses)
@@ -105,7 +105,7 @@
           </SmallInfo>
 
           <SmallInfo>
-            <h2 class="text-white lg:text-xl">daily streak</h2>
+            <h2>daily streak</h2>
             <p class="text-sm text-slate-300 lg:text-base">
               {(userData.Economy?.dailyStreak || 0).toLocaleString()}
             </p>
@@ -117,7 +117,7 @@
             <div
               class="ho mt-4 flex w-full flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
             >
-              <h3 class="text-center">
+              <h2 class="text-center">
                 <a
                   href="/guild/{userData.Economy.EconomyGuildMember.guild.guildName}"
                   class="text-lg text-white lg:text-2xl"
@@ -125,7 +125,7 @@
                   {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy
                     .EconomyGuildMember.guild.level}]
                 </a>
-              </h3>
+              </h2>
 
               <div class="mt-2 flex w-full flex-row">
                 <div class="flex grow flex-col text-center">
@@ -160,7 +160,7 @@
               class="mt-4 flex w-full flex-col justify-center rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
               id="inventory"
             >
-              <h2 class="mb-3 w-full text-center text-white lg:text-xl">inventory</h2>
+              <h2 class="mb-3 w-full text-center">inventory</h2>
               <div
                 class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
               >
@@ -195,7 +195,7 @@
           in:fly|global={{ delay: 800, duration: 500, y: 75 }}
         >
           <SmallInfo>
-            <h2 class="text-white lg:text-xl">last seen</h2>
+            <h2>last seen</h2>
 
             <p class="text-sm lg:text-base">
               {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(3, "months"))}
@@ -217,7 +217,7 @@
           </SmallInfo>
 
           <SmallInfo>
-            <h2 class="text-white lg:text-xl">completion</h2>
+            <h2>completion</h2>
             <p class="text-sm lg:text-base">
               {#await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/achievements.json").then( (r) => r.json(), )}
                 calculating...
@@ -237,7 +237,7 @@
               class="mt-4 flex w-full flex-col justify-center rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
               id="leaderboards"
             >
-              <h2 class="mb-3 w-full text-center text-white lg:text-xl">leaderboards</h2>
+              <h2 class="mb-3 w-full text-center">leaderboards</h2>
               <div
                 class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
               >
@@ -281,7 +281,7 @@
             <div
               class="mx-auto mt-4 flex flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20 lg:w-full"
             >
-              <h2 class="text-center text-white lg:text-xl">recent games</h2>
+              <h2 class="text-center">recent games</h2>
               <div
                 class="mx-4 mt-4 flex max-h-64 flex-col overflow-y-auto px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
               >
@@ -328,7 +328,7 @@
               class="mx-auto mt-4 flex w-fit flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
               id="wordle"
             >
-              <h2 class="mb-2 text-center text-white lg:mb-4 lg:text-xl">wordle</h2>
+              <h2 class="mb-2 text-center lg:mb-4">wordle</h2>
 
               <div class="flex w-full grow flex-row">
                 <div class="flex w-full flex-col justify-center">
@@ -512,3 +512,13 @@
     {/await}
   {/if}
 </div>
+
+<style>
+  h2 {
+    @apply font-semibold text-white lg:text-lg;
+  }
+
+  h3 {
+    @apply font-medium;
+  }
+</style>

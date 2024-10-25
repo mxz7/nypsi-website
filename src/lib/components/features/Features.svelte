@@ -187,7 +187,7 @@
   }
 
   h2 {
-    @apply mb-14 flex w-full items-center justify-center gap-4 text-center text-4xl font-semibold md:text-5xl;
+    @apply mb-14 flex w-full items-center justify-center gap-4 text-center text-4xl font-bold text-white md:text-5xl;
   }
 
   img {

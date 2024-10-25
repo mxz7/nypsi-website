@@ -28,12 +28,12 @@
     class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
     in:fly|global={{ delay: 300, duration: 500, y: 75 }}
   >
-    <h1 class="text-bold text-center text-2xl text-white">{guild.guildName} [{guild.level}]</h1>
+    <h1 class="text-center text-2xl font-bold text-white">{guild.guildName} [{guild.level}]</h1>
 
     <p class="mt-2 flex w-full flex-row items-center justify-center gap-2 md:text-sm">
       owned by
       <a
-        class="link-hover flex gap-1 text-primary"
+        class="link-hover flex gap-1 font-medium text-primary"
         href="/user/{guild.owner.user.lastKnownUsername}"
         ><img
           class="m-0 h-5 rounded-full"
@@ -89,7 +89,7 @@
             on:error={handleFallbackImage}
           />
           <a
-            class="link-hover line-clamp-1 w-fit break-all text-lg"
+            class="link-hover line-clamp-1 w-fit break-all text-lg font-medium"
             href="/user/{member.economy.user.lastKnownUsername}"
             >{member.economy.user.lastKnownUsername}</a
           >
@@ -102,3 +102,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  h2 {
+    @apply font-semibold;
+  }
+</style>

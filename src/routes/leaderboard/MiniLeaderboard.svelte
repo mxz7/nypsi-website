@@ -12,7 +12,7 @@
 </script>
 
 <div class="">
-  <h2 class="text-center text-lg font-semibold text-white md:text-xl">{title}</h2>
+  <h2 class="text-center text-lg font-bold text-white md:text-2xl">{title}</h2>
   <div class="m-auto mt-1 h-1 w-1/2 rounded-full bg-primary" />
   {#if data}
     <div class="mt-4 px-4 sm:px-0 md:text-lg">

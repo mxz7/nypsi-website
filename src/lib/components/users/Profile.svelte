@@ -115,7 +115,7 @@
       </div>
     </div>
     <div class="ml-2 flex flex-col lg:text-lg">
-      <div class="flex flex-row items-center text-xl font-bold text-white lg:text-3xl">
+      <div class="flex flex-row items-center text-2xl font-extrabold text-white lg:text-4xl">
         <h1
           style="color: {premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''}; !important"
           class="line-clamp-1"
@@ -147,7 +147,7 @@
               alt="money emoji"
               class="mr-1 inline h-4 lg:h-6"
             />
-            <span class="font-semibold">${userData.Economy.money.toLocaleString()}</span>
+            <span class="font-medium">${userData.Economy.money.toLocaleString()}</span>
           </p>
           <p
             in:fade|global={{ duration: 400, delay: 400 }}
@@ -159,7 +159,7 @@
               alt="credit card (bank) emoji"
               class="mr-1 inline h-4 lg:h-6"
             />
-            <span class="font-semibold"
+            <span class="font-medium"
               >${userData.Economy.bank.toLocaleString()}
               <!-- / ${(
                 userData.Economy.bankStorage +
@@ -178,7 +178,7 @@
               alt="globe (net worth) emoji"
               class="mr-1 inline h-4 lg:h-6"
             />
-            <span class="font-semibold">${userData.Economy.netWorth.toLocaleString()}</span>
+            <span class="font-medium">${userData.Economy.netWorth.toLocaleString()}</span>
           </p>
         {:else}
           <p class="mt-1 text-slate-300">
