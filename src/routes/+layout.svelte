@@ -6,7 +6,6 @@
   import Navigation from "$lib/components/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth } from "$lib/state.svelte";
-  import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
@@ -16,10 +15,6 @@
   }
 
   let { children }: Props = $props();
-
-  if (!dev) {
-    injectSpeedInsights();
-  }
 
   onMount(async () => {
     const authData = await getClientAuth();
