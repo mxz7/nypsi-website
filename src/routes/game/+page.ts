@@ -12,7 +12,7 @@ export async function load({ fetch, url, setHeaders }) {
     .getTime();
 
   if (!url.searchParams.get("before")) url.searchParams.set("before", loadedDate.toString());
-  if (!url.searchParams.get("take")) url.searchParams.set("take", "50");
+  if (!url.searchParams.get("take")) url.searchParams.set("take", "48");
 
   let resultText = "";
 

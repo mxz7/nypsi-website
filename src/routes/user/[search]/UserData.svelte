@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import { MStoTime, daysAgo } from "$lib/functions/time";
   import type Game from "$lib/types/Game";
   import type { Item } from "$lib/types/Item";
@@ -8,7 +6,6 @@
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
   import { onMount } from "svelte";
-  import InfiniteLoading from "svelte-infinite-loading";
   import { fly } from "svelte/transition";
   import Loading from "../../../lib/components/Loading.svelte";
   import Profile from "../../../lib/components/users/Profile.svelte";
@@ -17,63 +14,58 @@
 
   interface Props {
     baseData: {
-    id: string;
-    blacklisted: boolean;
-    lastKnownUsername: string;
-    lastCommand: Date;
-    avatar: string;
-    Premium: {
-      level: number;
-    };
-    Tags: {
-      tagId: string;
-      selected: boolean;
-    }[];
-  } | null;
+      id: string;
+      blacklisted: boolean;
+      lastKnownUsername: string;
+      lastCommand: Date;
+      avatar: string;
+      Premium: {
+        level: number;
+      };
+      Tags: {
+        tagId: string;
+        selected: boolean;
+      }[];
+    } | null;
     userData: UserApiResponsexd | Promise<UserApiResponsexd>;
     items: Item[];
     gamesPromise: Promise<{
-    ok: boolean;
-    games: Game[];
-  }>;
+      ok: boolean;
+      games: Game[];
+    }>;
     gamesBefore: number;
   }
 
-  let {
-    baseData,
-    userData,
-    items,
-    gamesPromise,
-    gamesBefore
-  }: Props = $props();
+  let { baseData, userData, items, gamesPromise, gamesBefore }: Props = $props();
 
-  let games;
-  run(() => {
-    games = [] as Game[];
-  });
+  let games: Game[] = $state([]);
+  let gamesStatus: "more" | "loading" | "complete" | "error" = $state("more");
 
-  async function infiniteHandler({ detail: { loaded, complete } }) {
+  async function loadMore() {
     const id = await Promise.resolve(userData).then((r) => r.id);
+    gamesStatus = "loading";
     console.log("fetching more");
-    fetch(`/api/game?before=${gamesBefore}&take=100&skip=${games.length}&user=${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.ok) {
-          if (data.games.length > 0) {
-            games = [...games, ...data.games];
-            loaded();
-          } else {
-            complete();
-          }
-        } else {
-          complete();
-        }
-      });
+
+    const response = await fetch(
+      `/api/game?before=${gamesBefore}&take=100&skip=${games.length}&user=${id}`,
+    );
+    const json = await response.json();
+
+    if (json.games.length > 0) {
+      games.push(...json.games);
+      gamesStatus = "more";
+    } else if (json.ok && json.games.length === 0) {
+      gamesStatus = "complete";
+    } else {
+      gamesStatus = "error";
+    }
   }
 
   onMount(async () => {
     const resolved = await Promise.resolve(gamesPromise);
-    games = [...(resolved.ok ? resolved.games : [])];
+    if (resolved.ok) {
+      games.push(...resolved.games);
+    }
   });
 </script>
 
@@ -297,43 +289,49 @@
               class="mx-auto mt-4 flex flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20 lg:w-full"
             >
               <h2 class="text-center">recent games</h2>
-              <div
-                class="mx-4 mt-4 flex max-h-64 flex-col overflow-y-auto px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
-              >
-                {#each games as game}
-                  <a
-                    href="/game/{game.id.toString(36)}"
-                    class="mt-3 flex w-full flex-col items-center justify-center rounded-lg border border-primary border-opacity-10 bg-base-300 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0
+              <div class="max-h-64 overflow-y-auto">
+                <div
+                  class="mx-4 mt-4 flex flex-col px-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:gap-x-6 lg:px-0"
+                >
+                  {#each games as game}
+                    <a
+                      href="/game/{game.id.toString(36)}"
+                      class="mt-3 flex w-full flex-col items-center justify-center rounded-lg border border-primary border-opacity-10 bg-base-300 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0
                     {game.win === 0
-                      ? 'text-error'
-                      : game.win === 1
-                        ? 'text-success'
-                        : 'text-warning'}"
-                  >
-                    <h3 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h3>
+                        ? 'text-error'
+                        : game.win === 1
+                          ? 'text-success'
+                          : 'text-warning'}"
+                    >
+                      <h3 class="text-center lg:text-lg">{game.game.replaceAll("_", " ")}</h3>
 
-                    {#if !game.game.includes("scratch")}
-                      <p class="mt-2 text-center text-sm font-semibold lg:text-base">
-                        {game.win == 1
-                          ? `+$${game.earned.toLocaleString()}`
-                          : game.win == 0
-                            ? `-$${game.bet.toLocaleString()}`
-                            : `$${game.bet.toLocaleString()}`}
+                      {#if !game.game.includes("scratch")}
+                        <p class="mt-2 text-center text-sm font-semibold lg:text-base">
+                          {game.win == 1
+                            ? `+$${game.earned.toLocaleString()}`
+                            : game.win == 0
+                              ? `-$${game.bet.toLocaleString()}`
+                              : `$${game.bet.toLocaleString()}`}
+                        </p>
+                      {/if}
+
+                      <p class="mt-2 text-center text-xs text-slate-500">
+                        {game.id.toString(36)} | {new Date(game.date).toLocaleDateString()}
                       </p>
-                    {/if}
-
-                    <p class="mt-2 text-center text-xs text-slate-500">
-                      {game.id.toString(36)} | {new Date(game.date).toLocaleDateString()}
-                    </p>
-                  </a>
-                {/each}
-                <InfiniteLoading on:infinite={infiniteHandler}>
-                  {#snippet spinner()}
-                                    <div class="relative mt-8 w-full" >
-                      <Loading />
-                    </div>
-                                  {/snippet}
-                </InfiniteLoading>
+                    </a>
+                  {/each}
+                </div>
+                <div class="mt-4 flex w-full justify-center">
+                  {#if gamesStatus === "more"}
+                    <button class="btn" onclick={() => loadMore()}>load more</button>
+                  {:else if gamesStatus === "loading"}
+                    <button class="btn btn-disabled" aria-label="loading"
+                      ><span class="loading loading-spinner"></span></button
+                    >
+                  {:else if gamesStatus === "error"}
+                    <button class="btn btn-disabled btn-error">error</button>
+                  {/if}
+                </div>
               </div>
             </div>
           {/if}

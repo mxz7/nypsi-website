@@ -3,38 +3,43 @@
   import Loading from "$lib/components/Loading.svelte";
   import type Game from "$lib/types/Game";
   import dayjs from "dayjs";
-  import InfiniteLoading from "svelte-infinite-loading";
   import { fly } from "svelte/transition";
 
   let { data } = $props();
 
   let games: Game[] = $state([]);
+  let status: "more" | "loading" | "complete" | "error" = $state("more");
 
-  if (data.recentGames.ok) games = [...data.recentGames.games];
+  (() => {
+    if (data.recentGames.ok) {
+      games.push(...data.recentGames.games);
+    }
+  })();
 
-  function infiniteHandler({ detail: { loaded, complete, error } }) {
+  async function loadMore() {
+    status = "loading";
     console.log("fetching more");
 
     const params = $page.url.searchParams;
 
     params.set("take", "50");
     params.set("skip", games.length.toString());
+
     if (!params.get("before")) params.set("before", data.loadedDate.toString());
 
-    fetch(`/api/game?${params.toString()}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.games.length > 0) {
-          games = [...games, ...data.games];
-          loaded();
-        } else if (data.ok && data.games.length === 0) {
-          complete();
-        } else {
-          setTimeout(() => {
-            error();
-          }, 1000);
-        }
-      });
+    const response = await fetch(`/api/game?${params.toString()}`);
+    const json = await response.json();
+
+    console.log(json);
+
+    if (json.games.length > 0) {
+      games.push(...json.games);
+      status = "more";
+    } else if (json.ok && json.games.length === 0) {
+      status = "complete";
+    } else {
+      status = "error";
+    }
   }
 </script>
 
@@ -77,7 +82,7 @@
               : game.win === 2
                 ? 'text-warning'
                 : 'text-error'}"
-            in:fly|global={{ y: 50, duration: 500, delay: (i % 50) * 50 }}
+            in:fly|global={{ y: 50, duration: 500, delay: (i % 48) * 50 }}
           >
             <h1 class="text-xl font-semibold">{game.game.replaceAll("_", " ")}</h1>
 
@@ -101,13 +106,18 @@
           </a>
         {/each}
       </div>
-      <InfiniteLoading on:infinite={infiniteHandler}>
-        {#snippet spinner()}
-                <div class="relative mt-8 w-full" >
-            <Loading />
-          </div>
-              {/snippet}</InfiniteLoading
-      >
+
+      <div class="mt-4 flex w-full justify-center">
+        {#if status === "more"}
+          <button class="btn" onclick={() => loadMore()}>load more</button>
+        {:else if status === "loading"}
+          <button class="btn btn-disabled" aria-label="loading"
+            ><span class="loading loading-spinner"></span></button
+          >
+        {:else if status === "error"}
+          <button class="btn btn-disabled btn-error">error</button>
+        {/if}
+      </div>
     {/if}
   </div>
 </div>
