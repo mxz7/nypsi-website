@@ -3,13 +3,11 @@ import prisma from "$lib/server/database.js";
 import { inPlaceSort } from "fast-sort";
 
 export async function load({ parent, setHeaders }) {
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
+
   const { user } = await parent();
 
   if (!user) return;
-
-  setHeaders({
-    "cache-control": "max-age=600",
-  });
 
   return {
     base: 69,

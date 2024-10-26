@@ -1,15 +1,11 @@
 import { getTags } from "$lib/functions/tags";
 import prisma from "$lib/server/database";
 
-export const config = {
-  isr: {
-    expiration: 86400,
-  },
-};
-
 const contributorIds = ["672793821850894347", "499720078770831360", "191179161010831360"];
 
-export async function load() {
+export async function load({ setHeaders }) {
+  setHeaders({ "cache-control": "public, max-age=600" });
+
   const supporters = prisma.user.findMany({
     where: {
       AND: [{ totalSpend: { gt: 0 } }, { Preferences: { leaderboards: true } }],

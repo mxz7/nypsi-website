@@ -2,13 +2,11 @@ import prisma from "$lib/server/database.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ setHeaders, parent }) {
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
+
   const parentData = await parent();
 
   if (!parentData.user) return redirect(303, "/me");
-
-  setHeaders({
-    "cache-control": "max-age=300",
-  });
 
   return {
     premium: prisma.premium
