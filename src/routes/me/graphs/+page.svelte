@@ -142,9 +142,11 @@
     },
   };
 
-  let selectedItems: string[] = $derived($page.url.searchParams.get("items")?.split(" ") || []);
+  let selectedItems: string[] = $state([]);
 
-  
+  page.subscribe((value) => {
+    selectedItems = value.url.searchParams.get("items")?.split("+") || [];
+  });
 </script>
 
 <svelte:head>

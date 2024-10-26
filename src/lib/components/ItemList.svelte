@@ -20,7 +20,7 @@
     url,
     includeSearchParams = false,
     onClick = (itemId?: string) => {},
-    selectedList = [],
+    selectedList = $bindable([]),
   }: Props = $props();
 
   let filteredItems = $derived(
