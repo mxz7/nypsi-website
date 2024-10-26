@@ -65,10 +65,6 @@
     @apply my-4 text-2xl font-semibold text-white;
   }
 
-  h3 {
-    @apply my-3 text-lg font-semibold text-white;
-  }
-
   p {
     @apply my-2;
   }

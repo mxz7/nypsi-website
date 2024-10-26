@@ -55,6 +55,7 @@
   <a
     class="block animate-pulse rounded-full bg-base-300 p-2 shadow-lg duration-500 sm:hover:scale-125"
     href="#features"
+    aria-label="scroll to features"
   >
     <svg
       class="h-6 w-6 text-primary text-opacity-75"
