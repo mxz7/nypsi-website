@@ -5,12 +5,15 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
-  export let data: LeaderboardData;
-  export let suffix: (value: string) => string;
-  export let tags: Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }> =
-    new Promise((resolve) => {
+  interface Props {
+    data: LeaderboardData;
+    suffix: (value: string) => string;
+    tags?: Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>;
+  }
+
+  let { data, suffix, tags = new Promise((resolve) => {
       resolve({});
-    });
+    }) }: Props = $props();
 
   onMount(async () => {
     const tagData = await Promise.resolve(tags);

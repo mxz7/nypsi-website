@@ -5,9 +5,9 @@
   import { auth } from "$lib/data/stores.js";
   import { onMount } from "svelte";
 
-  let graphsAllowed = false;
+  let graphsAllowed = $state(false);
 
-  export let data;
+  let { data, children } = $props();
 
   $auth = { authenticated: Boolean(data.user), user: data.user };
 
@@ -81,6 +81,6 @@
       </a>
     </div>
 
-    <slot />
+    {@render children?.()}
   </div>
 </div>

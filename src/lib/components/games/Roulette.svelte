@@ -1,7 +1,11 @@
 <script lang="ts">
   import { parse } from "$lib/functions/twemoji";
 
-  export let outcome: string;
+  interface Props {
+    outcome: string;
+  }
+
+  let { outcome }: Props = $props();
 
   const oneStr = outcome.split("**choice**")[1].split("**")[0].trim();
   const twoStr = outcome.split("**landed**")[1].trim();

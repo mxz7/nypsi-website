@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <div class="grow" />
+    <div class="grow"></div>
 
     <div class="w-auto">
       {#if !$auth}

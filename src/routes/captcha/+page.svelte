@@ -4,11 +4,11 @@
   import { Check } from "lucide-svelte";
   import HCaptcha from "svelte-hcaptcha";
 
-  export let data;
+  let { data } = $props();
 
-  let token: string;
-  let formElement: HTMLFormElement;
-  let captcha;
+  let token: string = $state();
+  let formElement: HTMLFormElement = $state();
+  let captcha = $state();
 </script>
 
 <svelte:head>
@@ -27,7 +27,7 @@
           class="h-[200px] w-full rounded-xl md:h-[432px]"
           src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
           title="YouTube video player"
-        />
+></iframe>
       {/if}
     {:else}
       <h1 class="text-center text-xl font-bold text-error">

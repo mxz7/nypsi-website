@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { MStoTime, daysAgo } from "$lib/functions/time";
   import type Game from "$lib/types/Game";
   import type { Item } from "$lib/types/Item";
@@ -13,7 +15,8 @@
   import Punishment from "./Punishment.svelte";
   import SmallInfo from "./SmallInfo.svelte";
 
-  export let baseData: {
+  interface Props {
+    baseData: {
     id: string;
     blacklisted: boolean;
     lastKnownUsername: string;
@@ -27,15 +30,27 @@
       selected: boolean;
     }[];
   } | null;
-  export let userData: UserApiResponsexd | Promise<UserApiResponsexd>;
-  export let items: Item[];
-  export let gamesPromise: Promise<{
+    userData: UserApiResponsexd | Promise<UserApiResponsexd>;
+    items: Item[];
+    gamesPromise: Promise<{
     ok: boolean;
     games: Game[];
   }>;
-  export let gamesBefore: number;
+    gamesBefore: number;
+  }
 
-  $: games = [] as Game[];
+  let {
+    baseData,
+    userData,
+    items,
+    gamesPromise,
+    gamesBefore
+  }: Props = $props();
+
+  let games;
+  run(() => {
+    games = [] as Game[];
+  });
 
   async function infiniteHandler({ detail: { loaded, complete } }) {
     const id = await Promise.resolve(userData).then((r) => r.id);
@@ -313,9 +328,11 @@
                   </a>
                 {/each}
                 <InfiniteLoading on:infinite={infiniteHandler}>
-                  <div class="relative mt-8 w-full" slot="spinner">
-                    <Loading />
-                  </div>
+                  {#snippet spinner()}
+                                    <div class="relative mt-8 w-full" >
+                      <Loading />
+                    </div>
+                                  {/snippet}
                 </InfiniteLoading>
               </div>
             </div>

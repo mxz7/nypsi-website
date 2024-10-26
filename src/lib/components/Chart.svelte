@@ -2,10 +2,14 @@
   import { Chart, registerables, type ChartConfiguration, type ChartOptions } from "chart.js";
   import { onMount } from "svelte";
 
-  let chartCanvas: HTMLCanvasElement;
+  let chartCanvas: HTMLCanvasElement = $state();
 
-  export let chartData: ChartConfiguration;
-  export let chartOptions: ChartOptions = {};
+  interface Props {
+    chartData: ChartConfiguration;
+    chartOptions?: ChartOptions;
+  }
+
+  let { chartData, chartOptions = {} }: Props = $props();
 
   Chart.register(...registerables);
 
@@ -18,5 +22,5 @@
 </script>
 
 <div class="h-full w-full">
-  <canvas style="width: 100%;" bind:this={chartCanvas} />
+  <canvas style="width: 100%;" bind:this={chartCanvas}></canvas>
 </div>

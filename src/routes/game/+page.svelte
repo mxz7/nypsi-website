@@ -6,9 +6,9 @@
   import InfiniteLoading from "svelte-infinite-loading";
   import { fly } from "svelte/transition";
 
-  export let data;
+  let { data } = $props();
 
-  let games: Game[] = [];
+  let games: Game[] = $state([]);
 
   if (data.recentGames.ok) games = [...data.recentGames.games];
 
@@ -102,9 +102,11 @@
         {/each}
       </div>
       <InfiniteLoading on:infinite={infiniteHandler}>
-        <div class="relative mt-8 w-full" slot="spinner">
-          <Loading />
-        </div></InfiniteLoading
+        {#snippet spinner()}
+                <div class="relative mt-8 w-full" >
+            <Loading />
+          </div>
+              {/snippet}</InfiniteLoading
       >
     {/if}
   </div>

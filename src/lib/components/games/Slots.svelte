@@ -1,5 +1,9 @@
 <script lang="ts">
-  export let outcome: string;
+  interface Props {
+    outcome: string;
+  }
+
+  let { outcome }: Props = $props();
 </script>
 
 <div class="flex w-full items-center justify-center">

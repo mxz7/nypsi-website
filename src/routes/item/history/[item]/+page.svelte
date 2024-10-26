@@ -7,8 +7,8 @@
 
   import { fade } from "svelte/transition";
 
-  export let data;
-  let days = $page.url.searchParams.get("days") || "30";
+  let { data } = $props();
+  let days = $state($page.url.searchParams.get("days") || "30");
 
   const chartOptions: ChartOptions = {
     plugins: {
@@ -79,7 +79,7 @@
   <h1 class="text-4xl font-bold text-white sm:text-5xl">
     {data.item?.name} history
   </h1>
-  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+  <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
 </header>
 
 {#key data.graphData}
@@ -89,7 +89,7 @@
       id="days"
       class="bg-gray-950 text-gray-100"
       bind:value={days}
-      on:change={() => {
+      onchange={() => {
         const params = new URLSearchParams($page.url.searchParams.toString());
 
         params.set("days", days);

@@ -4,11 +4,15 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
-  export let guildData: GuildSuccess;
+  interface Props {
+    guildData: GuildSuccess;
+  }
+
+  let { guildData }: Props = $props();
 
   const { guild } = guildData;
 
-  const avatars: HTMLImageElement[] = [];
+  const avatars: HTMLImageElement[] = $state([]);
 
   const handleFallbackImage = (el) =>
     (el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png");
@@ -39,7 +43,7 @@
           class="m-0 h-5 rounded-full"
           alt="owner pfp"
           src={guild.owner.user.avatar}
-          on:error={handleFallbackImage}
+          onerror={handleFallbackImage}
         />
         {guild.owner.user.lastKnownUsername}</a
       >
@@ -86,7 +90,7 @@
             class="h-10 w-10 rounded-full"
             src={member.economy.user.avatar}
             alt="{member.economy.user.lastKnownUsername}'s avatar"
-            on:error={handleFallbackImage}
+            onerror={handleFallbackImage}
           />
           <a
             class="link-hover line-clamp-1 w-fit break-all text-lg font-medium"

@@ -1,5 +1,9 @@
 <script lang="ts">
-  export let outcome: string;
+  interface Props {
+    outcome: string;
+  }
+
+  let { outcome }: Props = $props();
 
   const outcomeData = JSON.parse(outcome) as {
     player: { cards: string[]; total: number };

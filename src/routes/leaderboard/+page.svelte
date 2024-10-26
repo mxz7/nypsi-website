@@ -8,9 +8,9 @@
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
 
-  export let data;
+  let { data } = $props();
 
-  const options = [
+  const options = $state([
     {
       name: "balance",
       leaderboardName: "top balance",
@@ -79,7 +79,7 @@
       descriptor: "uses",
     },
     { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
-  ];
+  ]);
 
   if ($page.url.searchParams.get("lb")) {
     if (!options.find((i) => i.name === $page.url.searchParams.get("lb"))) {
@@ -146,7 +146,7 @@
           : -1) === i
           ? 'btn-primary '
           : ''}"
-        on:click={() => {
+        onclick={() => {
           const selected = options[i];
 
           if (selected.name !== "items") $page.url.searchParams.delete("item");

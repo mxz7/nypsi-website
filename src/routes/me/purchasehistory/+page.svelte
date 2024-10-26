@@ -4,9 +4,9 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
-  export let data;
+  let { data } = $props();
 
-  let loadingText = ".";
+  let loadingText = $state(".");
 
   const interval = setInterval(() => {
     if (loadingText.length >= 3) {

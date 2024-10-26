@@ -6,7 +6,7 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
-  let serverCount: number;
+  let serverCount: number = $state();
 
   onMount(async () => {
     const res = await fetch("/api/server-count").then(async (r) => r.json());

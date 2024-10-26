@@ -1,10 +1,13 @@
 <script lang="ts">
   import { writable } from "svelte/store";
 
-  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
-    [];
-  export let url: string | undefined = undefined;
-  export let onClick = (itemId?: string) => {};
+  interface Props {
+    items?: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
+    url?: string | undefined;
+    onClick?: any;
+  }
+
+  let { items = [], url = undefined, onClick = (itemId?: string) => {} }: Props = $props();
 
   let search = writable("");
   let filteredItems: {
@@ -13,7 +16,7 @@
     emoji: string;
     aliases: string[];
     role: string;
-  }[] = [];
+  }[] = $state([]);
 
   search.subscribe((value) => {
     filteredItems = [
@@ -36,7 +39,7 @@
     {#each filteredItems as item}
       <li class="w-full">
         <a href={url?.replaceAll("{item}", item.id)} class="w-full">
-          <button on:click={() => onClick(item.id)} class="w-full">
+          <button onclick={() => onClick(item.id)} class="w-full">
             <div class="flex w-full items-center gap-4 rounded-lg bg-base-200 p-3">
               <div class="flex h-6 w-6 items-center justify-center">
                 <img

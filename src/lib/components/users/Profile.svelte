@@ -11,7 +11,8 @@
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
-  export let baseData: {
+  interface Props {
+    baseData: {
     id: string;
     blacklisted: boolean;
     lastKnownUsername: string;
@@ -25,8 +26,11 @@
       selected: boolean;
     }[];
   } | null;
-  export let userData: UserApiResponsexd | Promise<UserApiResponsexd>;
-  export let items: Item[];
+    userData: UserApiResponsexd | Promise<UserApiResponsexd>;
+    items: Item[];
+  }
+
+  let { baseData, userData, items }: Props = $props();
 
   const premiumMap = new Map([
     [
@@ -68,7 +72,7 @@
     ],
   ]);
 
-  let avatar: HTMLImageElement;
+  let avatar: HTMLImageElement = $state();
 
   const handleFallbackImage = (el) => {
     el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
@@ -95,7 +99,7 @@
         width="256"
         src={baseData.avatar}
         alt="{baseData.lastKnownUsername}'s avatar"
-        on:error={handleFallbackImage}
+        onerror={handleFallbackImage}
       />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}
@@ -201,7 +205,7 @@
       {/await}
     </div>
 
-    <div class="grow" />
+    <div class="grow"></div>
     {#if baseData.Tags?.length > 0 || premiumMap.get(baseData.Premium?.level || 0)}
       <div class="flex h-fit flex-col rounded-lg bg-base-300 p-2 pb-0">
         {#if baseData.Tags?.length > 0}

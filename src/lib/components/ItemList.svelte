@@ -7,14 +7,23 @@
   import { onMount } from "svelte";
   import ItemIcon from "./ItemIcon.svelte";
 
-  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
-    [];
-  export let url: string;
-  export let includeSearchParams = false;
-  export let onClick = (itemId?: string) => {};
-  export let selectedList: string[] = [];
+  interface Props {
+    items?: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
+    url: string;
+    includeSearchParams?: boolean;
+    onClick?: any;
+    selectedList?: string[];
+  }
 
-  $: filteredItems = items.filter((i) => {
+  let {
+    items = $bindable([]),
+    url,
+    includeSearchParams = false,
+    onClick = (itemId?: string) => {},
+    selectedList = []
+  }: Props = $props();
+
+  let filteredItems = $derived(items.filter((i) => {
     if ($gameSearchTerm.length == 0) return true;
     if (i.name.includes($gameSearchTerm.toLowerCase())) return true;
     if (i.id.includes($gameSearchTerm.toLowerCase())) return true;
@@ -23,7 +32,7 @@
       for (const alias of i.aliases) {
         if (alias.includes($gameSearchTerm.toLowerCase())) return true;
       }
-  });
+  }));
 
   onMount(async () => {
     if (!items || items.length === 0)

@@ -1,8 +1,12 @@
 <script lang="ts">
   import { fade, type FadeParams } from "svelte/transition";
 
-  export let fadeOutSettings: FadeParams = { duration: 0 };
-  export let fadeInSettings: FadeParams = { duration: 0 };
+  interface Props {
+    fadeOutSettings?: FadeParams;
+    fadeInSettings?: FadeParams;
+  }
+
+  let { fadeOutSettings = { duration: 0 }, fadeInSettings = { duration: 0 } }: Props = $props();
 </script>
 
 <div
@@ -10,5 +14,5 @@
   in:fade|global={fadeInSettings}
   out:fade|global={fadeOutSettings}
 >
-  <span class="loading loading-spinner loading-lg text-primary" />
+  <span class="loading loading-spinner loading-lg text-primary"></span>
 </div>

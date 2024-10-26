@@ -2,7 +2,7 @@
   import { page } from "$app/stores";
   import { auth } from "$lib/data/stores";
 
-  export let data;
+  let { data, children } = $props();
 
   $auth = { authenticated: Boolean(data.user), user: data.user };
 </script>
@@ -14,7 +14,7 @@
 </svelte:head>
 
 {#if data.premium}
-  <slot />
+  {@render children?.()}
 {:else if data.user}
   <h1 class="mt-10 text-center text-2xl font-bold text-white">
     you need a <a

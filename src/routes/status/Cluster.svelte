@@ -2,7 +2,8 @@
   import { MStoTime } from "$lib/functions/time";
   import { sort } from "fast-sort";
 
-  export let clusterData: {
+  interface Props {
+    clusterData: {
     id: number;
     online: boolean;
     responsive: boolean;
@@ -10,10 +11,13 @@
     uptime: number;
     restarting: boolean;
   };
-  export let selected = false;
+    selected?: boolean;
+  }
 
-  let colour = "text-error";
-  let description = "cluster is unavailable";
+  let { clusterData, selected = false }: Props = $props();
+
+  let colour = $state("text-error");
+  let description = $state("cluster is unavailable");
 
   const shards: number[] = [];
 

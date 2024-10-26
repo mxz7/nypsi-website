@@ -9,6 +9,11 @@
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   if (!dev) {
     injectSpeedInsights();
@@ -67,7 +72,7 @@
 
   <Navigation />
 
-  <slot />
+  {@render children?.()}
 </div>
 
 <Footer />

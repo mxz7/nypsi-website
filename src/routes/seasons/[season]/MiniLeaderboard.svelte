@@ -1,9 +1,13 @@
 <script lang="ts">
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
 
-  export let data: LeaderboardData;
-  export let title: string;
-  export let valueSuffix = "";
+  interface Props {
+    data: LeaderboardData;
+    title: string;
+    valueSuffix?: string;
+  }
+
+  let { data, title, valueSuffix = "" }: Props = $props();
 </script>
 
 <div class="mx-5 sm:grow">

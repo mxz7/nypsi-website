@@ -2,7 +2,11 @@
   import type Game from "$lib/types/Game";
   import DiscordButton from "./DiscordButton.svelte";
 
-  export let game: Game;
+  interface Props {
+    game: Game;
+  }
+
+  let { game }: Props = $props();
 
   const outcome = JSON.parse(game.outcome) as {
     components: { emoji: { name: string; id?: string; animated: boolean }; style: 1 | 2 | 3 | 4 }[];

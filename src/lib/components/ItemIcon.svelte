@@ -2,11 +2,21 @@
   import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips";
 
-  export let item: { name: string; emoji: string; id: string; aliases: string[] };
-  export let url: string = "";
-  export let onClick = (itemId?: string) => {};
-  export let selected = false;
-  export let includeSearchParams = false;
+  interface Props {
+    item: { name: string; emoji: string; id: string; aliases: string[] };
+    url?: string;
+    onClick?: any;
+    selected?: boolean;
+    includeSearchParams?: boolean;
+  }
+
+  let {
+    item,
+    url = "",
+    onClick = (itemId?: string) => {},
+    selected = false,
+    includeSearchParams = false
+  }: Props = $props();
 </script>
 
 <a
@@ -17,7 +27,7 @@
           : ""
       }`
     : null}
-  on:click={() => {
+  onclick={() => {
     onClick(item.id);
   }}
   class="flex h-16 w-16 items-center justify-center rounded-md border border-primary border-opacity-5 bg-base-200 duration-200 ease-in hover:scale-105 hover:border-opacity-50 sm:m-1.5 sm:h-20 sm:w-20 {selected

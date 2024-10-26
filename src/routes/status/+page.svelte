@@ -5,10 +5,10 @@
   import Cluster from "./Cluster.svelte";
   import Shard from "./Shard.svelte";
 
-  export let data;
+  let { data } = $props();
 
-  let descriptionText = "offline";
-  let descriptionColour = "text-error";
+  let descriptionText = $state("offline");
+  let descriptionColour = $state("text-error");
 
   let guildIdSearch = writable("");
   let guild: {
@@ -24,7 +24,7 @@
       ping: number;
       lastPing: number;
     };
-  };
+  } = $state();
 
   if (data.status.main) {
     let online = 0;
@@ -128,7 +128,7 @@
       {/if}
     {/if}
 
-    <div class="divider" />
+    <div class="divider"></div>
 
     <div class="grid w-full grid-cols-2 gap-4">
       <div class="card bg-base-200">

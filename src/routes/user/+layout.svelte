@@ -1,6 +1,11 @@
 <script lang="ts">
   import { navigating, page } from "$app/stores";
   import { userSearchTerm } from "$lib/data/stores.js";
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   $userSearchTerm = $page.url.searchParams.get("search") || $page.params.id || "";
 </script>
@@ -25,4 +30,4 @@
   </form>
 </div>
 
-<slot />
+{@render children?.()}
