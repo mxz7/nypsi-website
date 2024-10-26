@@ -40,9 +40,9 @@ export async function load({ url, locals }) {
 export const actions = {
   default: async ({ request, fetch, url }) => {
     const formData = await request.formData();
-    const id = url.searchParams.get("id");
 
-    const token = formData.get("token");
+    const captchaId = url.searchParams.get("id");
+    const token = formData.get("h-captcha-response");
 
     const body = new URLSearchParams({
       secret: HCAPTCHA_SECRET,
@@ -61,7 +61,7 @@ export const actions = {
 
     if (res.success) {
       await prisma.captcha.update({
-        where: { id },
+        where: { id: captchaId },
         data: {
           solved: true,
           solvedAt: new Date(),
