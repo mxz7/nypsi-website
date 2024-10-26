@@ -1,13 +1,13 @@
 <script lang="ts">
   import { navigating, page } from "$app/stores";
-  import { guildSearchTerm } from "$lib/data/stores.js";
+  import { guildSearchTerm } from "$lib/state.svelte";
   interface Props {
-    children?: import('svelte').Snippet;
+    children?: import("svelte").Snippet;
   }
 
   let { children }: Props = $props();
 
-  $guildSearchTerm = $page.url.searchParams.get("search") || $page.params.name || "";
+  guildSearchTerm.value = $page.url.searchParams.get("search") || $page.params.name || "";
 </script>
 
 <div class="mb-2 mt-5 flex justify-center">
@@ -18,7 +18,7 @@
       type="text"
       name="search"
       placeholder="guild name"
-      bind:value={$guildSearchTerm}
+      bind:value={guildSearchTerm.value}
       required
       autocorrect="off"
       autocapitalize="off"

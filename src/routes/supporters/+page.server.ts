@@ -1,5 +1,5 @@
+import { getTags } from "$lib/functions/tags";
 import prisma from "$lib/server/database";
-import { getTags } from "$lib/stores";
 
 export const config = {
   isr: {

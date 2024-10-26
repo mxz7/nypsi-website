@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import BigLeaderboard from "$lib/components/leaderboards/Leaderboard.svelte";
-  import { getTags } from "$lib/stores.js";
+  import { getTags } from "$lib/functions/tags.js";
   import { fade } from "svelte/transition";
 
   let { data } = $props();

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { MStoTime } from "$lib/functions/time.js";
   import dayjs from "dayjs";
-  import { writable } from "svelte/store";
   import Cluster from "./Cluster.svelte";
   import Shard from "./Shard.svelte";
 
@@ -10,7 +9,7 @@
   let descriptionText = $state("offline");
   let descriptionColour = $state("text-error");
 
-  let guildIdSearch = writable("");
+  let guildIdSearch = $state("");
   let guild: {
     id: string;
     cluster: {
@@ -64,13 +63,13 @@
     }
   }
 
-  guildIdSearch.subscribe((value) => {
+  $effect(() => {
     guild = null;
-    if (!value) return;
-    const cluster = data.status.clusters.find((i) => i.guilds.find((i) => i.id === value));
-    if (!cluster) return;
+    if (!guildIdSearch) return;
+    const cluster = data.status.clusters.find((i) => i.guilds.find((i) => i.id === guildIdSearch));
+    if (!guildIdSearch) return;
     const shard = cluster.shards.find(
-      (i) => i.id === cluster.guilds.find((i) => i.id === value).shard,
+      (i) => i.id === cluster.guilds.find((i) => i.id === guildIdSearch).shard,
     );
 
     guild = {
@@ -79,7 +78,7 @@
         online: cluster.online,
         responsive: cluster.responsive,
       },
-      id: value,
+      id: guildIdSearch,
       shard,
     };
   });
@@ -100,12 +99,12 @@
     <input
       type="text"
       name="server"
-      bind:value={$guildIdSearch}
+      bind:value={guildIdSearch}
       placeholder="server ID"
       class="input input-bordered mt-4"
     />
 
-    {#if $guildIdSearch}
+    {#if guildIdSearch}
       {#if guild}
         <div class="card mt-4 w-fit bg-base-200 shadow-xl">
           <div class="card-body">

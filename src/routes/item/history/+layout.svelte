@@ -1,10 +1,9 @@
 <script>
   import { page } from "$app/stores";
-  import { auth } from "$lib/data/stores";
 
   let { data, children } = $props();
 
-  $auth = { authenticated: Boolean(data.user), user: data.user };
+   = { authenticated: Boolean(data.user), user: data.user };
 </script>
 
 <svelte:head>

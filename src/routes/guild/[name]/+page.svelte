@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import Chart from "$lib/components/Chart.svelte";
-  import { userSearchTerm } from "$lib/data/stores.js";
+  import { userSearchTerm } from "$lib/state.svelte";
   import type { ApiGuildResponse } from "$lib/types/Guild.js";
   import type { ChartOptions } from "chart.js";
   import { fly } from "svelte/transition";
@@ -15,7 +15,7 @@
     if (!data.success) return;
 
     title = `${data.guild.guildName} / nypsi`;
-    $userSearchTerm = data.guild.guildName;
+    userSearchTerm.value = data.guild.guildName;
   }
 
   $effect(() => {

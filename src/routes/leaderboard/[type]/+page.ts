@@ -1,5 +1,5 @@
 import { getCommandsData } from "$lib/functions/getCommandsData.js";
-import getItems from "$lib/functions/getItems.js";
+import getItems from "$lib/functions/items.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 import { error } from "@sveltejs/kit";
 

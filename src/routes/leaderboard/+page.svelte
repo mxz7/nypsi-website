@@ -2,8 +2,8 @@
   import { onNavigate, pushState, replaceState } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
-  import getItems from "$lib/functions/getItems";
-  import { getTags } from "$lib/stores";
+  import getItems from "$lib/functions/items";
+  import { getTags } from "$lib/functions/tags";
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";

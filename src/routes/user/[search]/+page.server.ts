@@ -1,5 +1,5 @@
 import { VIEW_AUTH } from "$env/static/private";
-import getItems from "$lib/functions/getItems.js";
+import getItems from "$lib/functions/items.js";
 import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { error } from "@sveltejs/kit";

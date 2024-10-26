@@ -3,8 +3,8 @@
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
+  import { getTags } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
-  import { getTags } from "$lib/stores";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
@@ -13,19 +13,19 @@
 
   interface Props {
     baseData: {
-    id: string;
-    blacklisted: boolean;
-    lastKnownUsername: string;
-    lastCommand: Date;
-    avatar: string;
-    Premium: {
-      level: number;
-    };
-    Tags: {
-      tagId: string;
-      selected: boolean;
-    }[];
-  } | null;
+      id: string;
+      blacklisted: boolean;
+      lastKnownUsername: string;
+      lastCommand: Date;
+      avatar: string;
+      Premium: {
+        level: number;
+      };
+      Tags: {
+        tagId: string;
+        selected: boolean;
+      }[];
+    } | null;
     userData: UserApiResponsexd | Promise<UserApiResponsexd>;
     items: Item[];
   }

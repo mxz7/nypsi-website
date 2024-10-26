@@ -4,13 +4,15 @@
   import Footer from "$lib/components/Footer.svelte";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
-  import { auth, getClientAuth } from "$lib/stores";
+  import { getClientAuth } from "$lib/functions/auth";
+  import { auth } from "$lib/state.svelte";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
+
   interface Props {
-    children?: import('svelte').Snippet;
+    children?: import("svelte").Snippet;
   }
 
   let { children }: Props = $props();
@@ -20,12 +22,15 @@
   }
 
   onMount(async () => {
-    await getClientAuth();
+    const authData = await getClientAuth();
+
+    auth.value = authData;
 
     if ($page.url.searchParams.get("loggedin")) {
-      if (!$auth || !$auth.authenticated) return;
+      if (!auth.value || !auth.value.authenticated) return;
       setTimeout(async () => {
-        toast.success(`logged in as ${$auth.user.username}`, {
+        if (!auth.value || !auth.value.authenticated) return;
+        toast.success(`logged in as ${auth.value.user.username}`, {
           position: "bottom-center",
           style:
             "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",

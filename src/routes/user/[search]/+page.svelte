@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { userSearchTerm } from "$lib/data/stores.js";
+  import { userSearchTerm } from "$lib/state.svelte";
   import { fade } from "svelte/transition";
   import UserData from "./UserData.svelte";
 
@@ -8,7 +8,7 @@
   let title = $derived(`${data.baseUserData.lastKnownUsername} / nypsi`);
 
   $effect(() => {
-    $userSearchTerm = data.baseUserData.lastKnownUsername;
+    userSearchTerm.value = data.baseUserData.lastKnownUsername;
   });
 </script>
 

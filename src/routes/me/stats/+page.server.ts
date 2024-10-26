@@ -1,4 +1,4 @@
-import getItems from "$lib/functions/getItems.js";
+import getItems from "$lib/functions/items.js";
 import prisma from "$lib/server/database.js";
 import { inPlaceSort } from "fast-sort";
 

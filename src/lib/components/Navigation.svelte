@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import logo from "$lib/assets/nypsi-transparent.webp?as=run:0";
-  import { auth } from "$lib/stores";
+  import { auth } from "$lib/state.svelte";
   import Img from "@zerodevx/svelte-img";
   import { Menu } from "lucide-svelte";
 </script>
@@ -54,11 +54,11 @@
     <div class="grow"></div>
 
     <div class="w-auto">
-      {#if !$auth}
-        <button class="btn btn-ghost">
+      {#if !auth.value}
+        <button class="btn btn-ghost" aria-label="loading">
           <span class="loading loading-spinner"></span>
         </button>
-      {:else if !$auth.authenticated}
+      {:else if !auth.value.authenticated}
         <a href="/login?next={encodeURIComponent($page.url.pathname)}" class="btn btn-ghost"
           >log in</a
         >
@@ -66,7 +66,7 @@
         <a href="/me" class="btn btn-ghost">
           <div class="avatar">
             <div class=" h-10 w-10 rounded-full">
-              <img src={$auth.user.avatar} alt="your avatar" />
+              <img src={auth.value.user.avatar} alt="your avatar" />
             </div>
           </div>
         </a>

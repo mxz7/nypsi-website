@@ -1,4 +1,4 @@
-import getItems from "$lib/functions/getItems.js";
+import getItems from "$lib/functions/items.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { redirect } from "@sveltejs/kit";
 
