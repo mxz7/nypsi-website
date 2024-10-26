@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import { page } from "$app/stores";
   import Chart from "$lib/components/Chart.svelte";
   import { userSearchTerm } from "$lib/data/stores.js";
@@ -20,7 +18,7 @@
     $userSearchTerm = data.guild.guildName;
   }
 
-  run(() => {
+  $effect(() => {
     updateTags(data.guild);
   });
 
