@@ -2,17 +2,16 @@
   import { page } from "$app/stores";
   import tooltip from "$lib/Tooltips.js";
   import Profile from "$lib/components/users/Profile.svelte";
-  import { auth } from "$lib/data/stores.js";
+  import { auth } from "$lib/state.svelte.js";
   import { onMount } from "svelte";
 
-  let graphsAllowed = false;
+  let graphsAllowed = $state(false);
 
-  export let data;
-
-  $auth = { authenticated: Boolean(data.user), user: data.user };
+  let { data, children } = $props();
 
   onMount(() => {
     if (data.baseData?.Premium?.level > 0) graphsAllowed = true;
+    auth.value = { authenticated: Boolean(data.user), user: data.user };
   });
 </script>
 
@@ -81,6 +80,6 @@
       </a>
     </div>
 
-    <slot />
+    {@render children?.()}
   </div>
 </div>

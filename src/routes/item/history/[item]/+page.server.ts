@@ -1,4 +1,4 @@
-import getItems from "$lib/functions/getItems.js";
+import getItems from "$lib/functions/items.js";
 import getItemHistoryData from "$lib/server/functions/graphs/getItemHistoryData.js";
 
 export const ssr = false;

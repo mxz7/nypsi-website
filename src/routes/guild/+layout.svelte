@@ -1,19 +1,24 @@
 <script lang="ts">
   import { navigating, page } from "$app/stores";
-  import { guildSearchTerm } from "$lib/data/stores.js";
+  import { guildSearchTerm } from "$lib/state.svelte";
+  interface Props {
+    children?: import("svelte").Snippet;
+  }
 
-  $guildSearchTerm = $page.url.searchParams.get("search") || $page.params.name || "";
+  let { children }: Props = $props();
+
+  guildSearchTerm.value = $page.url.searchParams.get("search") || $page.params.name || "";
 </script>
 
 <div class="mb-2 mt-5 flex justify-center">
   <form>
-    <!-- svelte-ignore a11y-autofocus -->
+    <!-- svelte-ignore a11y_autofocus -->
     <input
       class="input input-bordered"
       type="text"
       name="search"
       placeholder="guild name"
-      bind:value={$guildSearchTerm}
+      bind:value={guildSearchTerm.value}
       required
       autocorrect="off"
       autocapitalize="off"
@@ -25,4 +30,4 @@
   </form>
 </div>
 
-<slot />
+{@render children?.()}

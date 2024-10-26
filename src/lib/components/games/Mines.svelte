@@ -1,9 +1,13 @@
 <script lang="ts">
   import DiscordButton from "./DiscordButton.svelte";
 
-  export let outcome: {
+  interface Props {
+    outcome: {
     components: { emoji: { name: string; id?: string; animated: boolean }; style: 1 | 2 | 3 | 4 }[];
   }[];
+  }
+
+  let { outcome }: Props = $props();
 
   outcome[4].components.pop();
 </script>

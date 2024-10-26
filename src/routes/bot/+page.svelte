@@ -3,7 +3,7 @@
   import type { ChartOptions } from "chart.js";
   import dayjs from "dayjs";
 
-  export let data;
+  let { data } = $props();
 
   const queryChartOptions: ChartOptions = {
     plugins: {

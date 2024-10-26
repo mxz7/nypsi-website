@@ -6,9 +6,9 @@
   import Loading from "$lib/components/Loading.svelte";
   import type { ChartOptions } from "chart.js";
 
-  export let data;
-  let charts: HTMLDivElement;
-  let days = $page.url.searchParams.get("days") || "30";
+  let { data = $bindable() } = $props();
+  let charts: HTMLDivElement = $state();
+  let days = $state($page.url.searchParams.get("days") || "30");
 
   const moneyChartOptions: ChartOptions = {
     plugins: {
@@ -142,9 +142,11 @@
     },
   };
 
-  let selectedItems: string[];
+  let selectedItems: string[] = $state([]);
 
-  $: selectedItems = $page.url.searchParams.get("items")?.split(" ") || [];
+  page.subscribe((value) => {
+    selectedItems = value.url.searchParams.get("items")?.split("+") || [];
+  });
 </script>
 
 <svelte:head>
@@ -159,7 +161,7 @@
         id="days"
         class="bg-gray-950 text-gray-100"
         bind:value={days}
-        on:change={() => {
+        onchange={() => {
           const params = new URLSearchParams($page.url.searchParams.toString());
           params.set("days", days);
 
@@ -194,7 +196,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">balance</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -215,7 +217,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">net worth</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -236,7 +238,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">karma</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -257,7 +259,7 @@
       <div class="flex w-full flex-col gap-4 px-4">
         <div>
           <h1 class="text-center text-xl font-semibold text-white">level</h1>
-          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+          <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
         </div>
 
         <div class="h-[30vh] w-full sm:h-[45vh]">

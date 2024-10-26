@@ -1,9 +1,13 @@
 <script lang="ts">
   import { ArrowLeft, ArrowRight } from "lucide-svelte";
 
-  export let data: string[];
-  export let title: string;
-  let currentPage = "1";
+  interface Props {
+    data: string[];
+    title: string;
+  }
+
+  let { data, title }: Props = $props();
+  let currentPage = $state("1");
 
   const pages = new Map<number, string[]>();
 
@@ -25,7 +29,7 @@
   </div>
   <div class="mt-3 flex justify-center gap-8">
     <button
-      on:click={() => {
+      onclick={() => {
         if (!pages.get(parseInt(currentPage) - 1)) return;
         currentPage = (parseInt(currentPage) - 1).toString();
       }}
@@ -40,7 +44,7 @@
     />
 
     <button
-      on:click={() => {
+      onclick={() => {
         if (!pages.get(parseInt(currentPage) + 1)) return;
         currentPage = (parseInt(currentPage) + 1).toString();
       }}

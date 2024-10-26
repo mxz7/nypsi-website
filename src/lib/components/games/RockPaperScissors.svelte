@@ -1,7 +1,11 @@
 <script lang="ts">
   import { parse } from "$lib/functions/twemoji";
 
-  export let outcome: string;
+  interface Props {
+    outcome: string;
+  }
+
+  let { outcome }: Props = $props();
 
   const mappedEmojis = new Map([
     ["rock", "🪨"],

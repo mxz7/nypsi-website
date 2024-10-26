@@ -10,7 +10,7 @@
     easing: cubicOut,
   });
 
-  let isVisible = false;
+  let isVisible = $state(false);
 
   function increase() {
     if ($p >= 0 && $p < 0.2) {
@@ -33,14 +33,14 @@
     }
   }
 
-  $: {
-    if ($navigating) {
-      if ($navigating.to.url.pathname !== $page.url.pathname) {
+  navigating.subscribe((value) => {
+    if (value) {
+      if (value.to.url.pathname !== $page.url.pathname) {
         increase();
         isVisible = true;
       }
     }
-    if (!$navigating) {
+    if (!value) {
       p.update((_) => _ + 0.3);
       setTimeout(function () {
         p.set(1);
@@ -50,7 +50,7 @@
         }, 100);
       }, 100);
     }
-  }
+  });
 </script>
 
 <div class="sticky top-0 h-[2px] w-full overflow-hidden">
@@ -60,6 +60,6 @@
       out:fade={{ duration: 300, delay: 250 }}
       style="width: {$p * 115}%;"
       class="top-0 h-[2px] rounded-lg bg-primary duration-100"
-    />
+    ></div>
   {/if}
 </div>

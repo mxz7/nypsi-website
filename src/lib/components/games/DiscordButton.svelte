@@ -1,19 +1,23 @@
 <script lang="ts">
   import { parse } from "$lib/functions/twemoji";
 
-  export let data: {
+  interface Props {
+    data: {
     style: 1 | 2 | 3 | 4;
     emoji?: { name: string; id?: string; animated?: boolean };
   };
+  }
 
-  let background = "#1f2937";
+  let { data }: Props = $props();
+
+  let background = $state("#1f2937");
   if (data.style === 3) {
     background = "#166534";
   } else if (data.style === 4) {
     background = "#c62828";
   }
 
-  let emojiUrl = "";
+  let emojiUrl = $state("");
 
   // console.log(data.emoji?.name);
 

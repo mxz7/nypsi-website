@@ -1,42 +1,39 @@
 <script lang="ts">
-  import { writable } from "svelte/store";
+  interface Props {
+    items?: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
+    url?: string | undefined;
+    onClick?: any;
+  }
 
-  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
-    [];
-  export let url: string | undefined = undefined;
-  export let onClick = (itemId?: string) => {};
+  let { items = [], url = undefined, onClick = (itemId?: string) => {} }: Props = $props();
 
-  let search = writable("");
+  let search = $state("");
   let filteredItems: {
     id: string;
     name: string;
     emoji: string;
     aliases: string[];
     role: string;
-  }[] = [];
-
-  search.subscribe((value) => {
-    filteredItems = [
-      ...items.filter((i) => i.name.includes(value.toLowerCase()) || i.id.startsWith(value)),
-    ];
-  });
+  }[] = $derived(
+    items.filter((i) => i.name.includes(search.toLowerCase()) || i.id.startsWith(search)),
+  );
 </script>
 
 <input
   type="search"
-  bind:value={$search}
+  bind:value={search}
   class="input input-bordered w-full max-w-xs"
   placeholder="search for an item"
   autocapitalize="off"
   autocorrect="off"
 />
 
-{#if filteredItems.length > 0 && $search}
+{#if filteredItems.length > 0 && search}
   <ul class="mt-4 flex max-h-[272px] w-full max-w-xs flex-col gap-2 overflow-y-scroll">
     {#each filteredItems as item}
       <li class="w-full">
         <a href={url?.replaceAll("{item}", item.id)} class="w-full">
-          <button on:click={() => onClick(item.id)} class="w-full">
+          <button onclick={() => onClick(item.id)} class="w-full">
             <div class="flex w-full items-center gap-4 rounded-lg bg-base-200 p-3">
               <div class="flex h-6 w-6 items-center justify-center">
                 <img

@@ -1,24 +1,26 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import Chart from "$lib/components/Chart.svelte";
-  import { userSearchTerm } from "$lib/data/stores.js";
+  import { userSearchTerm } from "$lib/state.svelte";
   import type { ApiGuildResponse } from "$lib/types/Guild.js";
   import type { ChartOptions } from "chart.js";
   import { fly } from "svelte/transition";
   import Guild from "./Guild.svelte";
 
-  export let data;
-  let title = `${$page.params.name} / nypsi`;
+  let { data } = $props();
+  let title = $state(`${$page.params.name} / nypsi`);
 
   async function updateTags(userData: Promise<ApiGuildResponse> | ApiGuildResponse) {
     const data = await Promise.resolve(userData);
     if (!data.success) return;
 
     title = `${data.guild.guildName} / nypsi`;
-    $userSearchTerm = data.guild.guildName;
+    userSearchTerm.value = data.guild.guildName;
   }
 
-  $: updateTags(data.guild);
+  $effect(() => {
+    updateTags(data.guild);
+  });
 
   const moneyChartOptions: ChartOptions = {
     plugins: {
@@ -168,7 +170,7 @@
           <div class="flex w-full flex-col gap-4 px-4">
             <div>
               <h1 class="text-center text-lg font-semibold text-white">balance</h1>
-              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
             </div>
 
             <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -183,7 +185,7 @@
           <div class="flex w-full flex-col gap-4 px-4">
             <div>
               <h1 class="text-center text-lg font-semibold text-white">xp</h1>
-              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
             </div>
 
             <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -198,7 +200,7 @@
           <div class="flex w-full flex-col gap-4 px-4">
             <div>
               <h1 class="text-center text-lg font-semibold text-white">level</h1>
-              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2" />
+              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
             </div>
 
             <div class="h-[30vh] w-full sm:h-[45vh]">

@@ -4,16 +4,20 @@
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { fade } from "svelte/transition";
 
-  export let title: string;
-  export let data: LeaderboardData | Promise<LeaderboardData>;
-  export let tags:
+  interface Props {
+    title: string;
+    data: LeaderboardData | Promise<LeaderboardData>;
+    tags: 
     | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
     | { [key: string]: { tagId: string; emoji: string; name: string } };
+  }
+
+  let { title, data, tags }: Props = $props();
 </script>
 
 <div class="">
   <h2 class="text-center text-lg font-bold text-white md:text-2xl">{title}</h2>
-  <div class="m-auto mt-1 h-1 w-1/2 rounded-full bg-primary" />
+  <div class="m-auto mt-1 h-1 w-1/2 rounded-full bg-primary"></div>
   {#if data}
     <div class="mt-4 px-4 sm:px-0 md:text-lg">
       {#await data}
@@ -25,18 +29,18 @@
                 ? 'border-primary border-opacity-40 hover:border-opacity-60 md:hover:scale-110 lg:scale-105'
                 : 'border-slate-400 border-opacity-5 hover:border-opacity-20 '}"
             >
-              <div class="my-1 h-4 w-8 animate-pulse rounded-xl bg-slate-600" />
+              <div class="my-1 h-4 w-8 animate-pulse rounded-xl bg-slate-600"></div>
               <div
                 style="width: {Math.floor(Math.random() * 13) + 4}rem"
                 class="my-1 h-4 animate-pulse rounded-xl md:h-5 {i === 0
                   ? 'bg-primary'
                   : 'bg-slate-400'}"
-              />
+></div>
               <div class="grow"></div>
               <div
                 style="width: {Math.floor(Math.random() * 4) + 4}rem"
                 class="h-4 animate-pulse rounded-xl {i === 0 ? 'bg-primary' : 'bg-slate-500'}"
-              />
+></div>
             </div>
           {/each}
         </div>

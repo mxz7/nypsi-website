@@ -1,5 +1,5 @@
 import filterOutliers from "$lib/functions/filterOutliers";
-import getItems from "$lib/functions/getItems";
+import getItems from "$lib/functions/items";
 import prisma from "$lib/server/database.js";
 import type { GraphMetrics } from "@prisma/client";
 import type { ChartConfiguration } from "chart.js";

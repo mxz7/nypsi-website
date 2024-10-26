@@ -1,29 +1,40 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import search from "$lib/assets/search.png?as=run:0";
-  import { gameSearchTerm } from "$lib/data/stores";
-  import getItems from "$lib/functions/getItems";
+  import getItems from "$lib/functions/items";
+  import { gameSearchTerm } from "$lib/state.svelte";
   import Img from "@zerodevx/svelte-img";
   import { onMount } from "svelte";
   import ItemIcon from "./ItemIcon.svelte";
 
-  export let items: { id: string; name: string; emoji: string; aliases: string[]; role: string }[] =
-    [];
-  export let url: string;
-  export let includeSearchParams = false;
-  export let onClick = (itemId?: string) => {};
-  export let selectedList: string[] = [];
+  interface Props {
+    items?: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
+    url: string;
+    includeSearchParams?: boolean;
+    onClick?: any;
+    selectedList?: string[];
+  }
 
-  $: filteredItems = items.filter((i) => {
-    if ($gameSearchTerm.length == 0) return true;
-    if (i.name.includes($gameSearchTerm.toLowerCase())) return true;
-    if (i.id.includes($gameSearchTerm.toLowerCase())) return true;
-    if (i.role.includes($gameSearchTerm.toLowerCase())) return true;
-    if (i.aliases)
-      for (const alias of i.aliases) {
-        if (alias.includes($gameSearchTerm.toLowerCase())) return true;
-      }
-  });
+  let {
+    items = $bindable([]),
+    url,
+    includeSearchParams = false,
+    onClick = (itemId?: string) => {},
+    selectedList = $bindable([]),
+  }: Props = $props();
+
+  let filteredItems = $derived(
+    items.filter((i) => {
+      if (gameSearchTerm.value.length == 0) return true;
+      if (i.name.includes(gameSearchTerm.value.toLowerCase())) return true;
+      if (i.id.includes(gameSearchTerm.value.toLowerCase())) return true;
+      if (i.role.includes(gameSearchTerm.value.toLowerCase())) return true;
+      if (i.aliases)
+        for (const alias of i.aliases) {
+          if (alias.includes(gameSearchTerm.value.toLowerCase())) return true;
+        }
+    }),
+  );
 
   onMount(async () => {
     if (!items || items.length === 0)
@@ -51,7 +62,7 @@
         type="search"
         name="search"
         placeholder="search"
-        bind:value={$gameSearchTerm}
+        bind:value={gameSearchTerm.value}
         autocapitalize="off"
       />
     </form>

@@ -1,5 +1,5 @@
+import { getTags } from "$lib/functions/tags";
 import prisma from "$lib/server/database";
-import { getTags } from "$lib/stores";
 
 const contributorIds = ["672793821850894347", "499720078770831360", "191179161010831360"];
 

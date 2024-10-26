@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { navigating, page } from "$app/stores";
-  import { userSearchTerm } from "$lib/data/stores.js";
+  import { navigating } from "$app/stores";
+  import { userSearchTerm } from "$lib/state.svelte";
+  interface Props {
+    children?: import("svelte").Snippet;
+  }
 
-  $userSearchTerm = $page.url.searchParams.get("search") || $page.params.id || "";
+  let { children }: Props = $props();
 </script>
 
 <div class="mb-2 mt-3 flex justify-center">
@@ -12,7 +15,7 @@
       type="text"
       name="search"
       placeholder="search"
-      bind:value={$userSearchTerm}
+      bind:value={userSearchTerm.value}
       required
       autocorrect="off"
       autocapitalize="off"
@@ -25,4 +28,4 @@
   </form>
 </div>
 
-<slot />
+{@render children?.()}

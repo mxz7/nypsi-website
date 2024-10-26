@@ -1,18 +1,38 @@
 <script lang="ts">
+  import { invalidateAll } from "$app/navigation";
   import { enhance } from "$app/forms";
   import { env } from "$env/dynamic/public";
   import { Check } from "lucide-svelte";
-  import HCaptcha from "svelte-hcaptcha";
+  import { onMount } from "svelte";
 
-  export let data;
+  let { data } = $props();
 
-  let token: string;
-  let formElement: HTMLFormElement;
-  let captcha;
+  let captchaElement: HTMLDivElement = $state();
+  let form: HTMLFormElement = $state();
+
+  onMount(() => {
+    // @ts-expect-error
+    hcaptcha.render(captchaElement, {
+      sitekey: env.PUBLIC_HCAPTCHA_SITEKEY,
+      theme: "dark",
+      callback: () => {
+        form.submit();
+      },
+      "error-callback": () => {
+        invalidateAll();
+      },
+    });
+  });
 </script>
 
 <svelte:head>
   <title>captcha / nypsi</title>
+
+  <script
+    src="https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off"
+    async
+    defer
+  ></script>
 </svelte:head>
 
 <div class="mt-16 flex w-full justify-center md:mt-32">
@@ -27,29 +47,16 @@
           class="h-[200px] w-full rounded-xl md:h-[432px]"
           src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
           title="YouTube video player"
-        />
+        ></iframe>
       {/if}
     {:else}
       <h1 class="text-center text-xl font-bold text-error">
         complete the captcha to continue using commands
       </h1>
-      <form use:enhance method="post" bind:this={formElement}>
-        <input type="hidden" name="token" bind:value={token} />
-      </form>
 
-      <div class="flex w-full justify-center">
-        <HCaptcha
-          bind:this={captcha}
-          sitekey={env.PUBLIC_HCAPTCHA_SITEKEY}
-          on:error={() => captcha.reset()}
-          on:success={(payload) => {
-            token = payload.detail.token;
-            setTimeout(() => {
-              formElement.submit();
-            }, 500);
-          }}
-        />
-      </div>
+      <form method="POST" class="flex w-full flex-col items-center justify-center" bind:this={form}>
+        <div class="h-captcha" bind:this={captchaElement}></div>
+      </form>
 
       <div>
         <h2 class="font-semibold text-slate-500">why do i have to do this?</h2>

@@ -1,7 +1,11 @@
 <script lang="ts">
   import DiscordButton from "./DiscordButton.svelte";
 
-  export let outcome: string;
+  interface Props {
+    outcome: string;
+  }
+
+  let { outcome }: Props = $props();
 
   const difficulty = outcome.split("difficulty: ")[1].split("\n")[0].trim();
 

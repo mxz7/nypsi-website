@@ -1,12 +1,15 @@
 <script lang="ts">
-  import { userSearchTerm } from "$lib/data/stores.js";
+  import { userSearchTerm } from "$lib/state.svelte";
   import { fade } from "svelte/transition";
   import UserData from "./UserData.svelte";
 
-  export let data;
+  let { data } = $props();
 
-  $: title = `${data.baseUserData.lastKnownUsername} / nypsi`;
-  $: $userSearchTerm = data.baseUserData.lastKnownUsername;
+  let title = $derived(`${data.baseUserData.lastKnownUsername} / nypsi`);
+
+  $effect(() => {
+    userSearchTerm.value = data.baseUserData.lastKnownUsername;
+  });
 </script>
 
 <svelte:head>

@@ -1,16 +1,20 @@
 <script lang="ts">
   import dayjs from "dayjs";
 
-  export let data: {
+  interface Props {
+    data: {
     id: number;
     status: "idle" | "connecting" | "resuming" | "ready";
     ping: number;
     lastPing: number;
   };
-  export let guildCount: number;
-  export let selected = false;
+    guildCount: number;
+    selected?: boolean;
+  }
 
-  let colour = "text-error";
+  let { data, guildCount, selected = false }: Props = $props();
+
+  let colour = $state("text-error");
 
   switch (data.status) {
     case "idle":

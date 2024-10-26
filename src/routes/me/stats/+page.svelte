@@ -4,8 +4,8 @@
   import { fly, fade } from "svelte/transition";
   import Stats from "./Stats.svelte";
 
-  export let data;
-  let loading = true;
+  let { data } = $props();
+  let loading = $state(true);
 
   onMount(async () => {
     await Promise.resolve(data.streamed.gambleStats);

@@ -6,7 +6,7 @@ export async function GET({ cookies, locals, url }) {
   if (await locals.validate()) return redirect(302, "/");
 
   const state = generateState();
-  const oauthUrl = await discord.createAuthorizationURL(state, { scopes: ["identify"] });
+  const oauthUrl = discord.createAuthorizationURL(state, ["identify"]);
   const next = url.searchParams.get("next");
 
   cookies.set("oauth_state", state, {

@@ -1,11 +1,10 @@
-import { items } from "$lib/stores";
+import { items } from "$lib/state.svelte";
 import type { Item } from "$lib/types/Item";
 import { inPlaceSort } from "fast-sort";
-import { get } from "svelte/store";
 import parseEmoji from "./parseEmoji";
 
 export default async function getItems() {
-  if (get(items)) return get(items) as Item[];
+  if (items.value) return items.value;
 
   let itemsData: Item[] = Object.values(
     JSON.parse(
@@ -25,7 +24,7 @@ export default async function getItems() {
 
   inPlaceSort(itemsData).asc((i) => i.name);
 
-  items.set(itemsData);
+  items.value = itemsData;
 
   return itemsData;
 }

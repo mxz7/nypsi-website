@@ -10,7 +10,7 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
-  export let data;
+  let { data } = $props();
 
   onMount(async () => {
     console.log(await Promise.resolve(data.game));

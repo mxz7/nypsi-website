@@ -4,23 +4,33 @@
   import Footer from "$lib/components/Footer.svelte";
   import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/Navigation.svelte";
-  import { auth, getClientAuth } from "$lib/stores";
+  import { getClientAuth } from "$lib/functions/auth";
+  import { auth } from "$lib/state.svelte";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
+
+  interface Props {
+    children?: import("svelte").Snippet;
+  }
+
+  let { children }: Props = $props();
 
   if (!dev) {
     injectSpeedInsights();
   }
 
   onMount(async () => {
-    await getClientAuth();
+    const authData = await getClientAuth();
+
+    auth.value = authData;
 
     if ($page.url.searchParams.get("loggedin")) {
-      if (!$auth || !$auth.authenticated) return;
+      if (!auth.value || !auth.value.authenticated) return;
       setTimeout(async () => {
-        toast.success(`logged in as ${$auth.user.username}`, {
+        if (!auth.value || !auth.value.authenticated) return;
+        toast.success(`logged in as ${auth.value.user.username}`, {
           position: "bottom-center",
           style:
             "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
@@ -58,6 +68,13 @@
       src="https://analytics.maxz.dev/js/script.tagged-events.js"
     ></script>
   {/if}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet"
+  />
 </svelte:head>
 
 <div class="min-h-[100vh]">
@@ -67,7 +84,7 @@
 
   <Navigation />
 
-  <slot />
+  {@render children?.()}
 </div>
 
 <Footer />

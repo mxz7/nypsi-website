@@ -3,30 +3,34 @@
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
+  import { getTags } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
-  import { getTags } from "$lib/stores";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
-  export let baseData: {
-    id: string;
-    blacklisted: boolean;
-    lastKnownUsername: string;
-    lastCommand: Date;
-    avatar: string;
-    Premium: {
-      level: number;
-    };
-    Tags: {
-      tagId: string;
-      selected: boolean;
-    }[];
-  } | null;
-  export let userData: UserApiResponsexd | Promise<UserApiResponsexd>;
-  export let items: Item[];
+  interface Props {
+    baseData: {
+      id: string;
+      blacklisted: boolean;
+      lastKnownUsername: string;
+      lastCommand: Date;
+      avatar: string;
+      Premium: {
+        level: number;
+      };
+      Tags: {
+        tagId: string;
+        selected: boolean;
+      }[];
+    } | null;
+    userData: UserApiResponsexd | Promise<UserApiResponsexd>;
+    items: Item[];
+  }
+
+  let { baseData, userData, items }: Props = $props();
 
   const premiumMap = new Map([
     [
@@ -68,7 +72,7 @@
     ],
   ]);
 
-  let avatar: HTMLImageElement;
+  let avatar: HTMLImageElement = $state();
 
   const handleFallbackImage = (el) => {
     el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
@@ -95,7 +99,7 @@
         width="256"
         src={baseData.avatar}
         alt="{baseData.lastKnownUsername}'s avatar"
-        on:error={handleFallbackImage}
+        onerror={handleFallbackImage}
       />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}
@@ -201,7 +205,7 @@
       {/await}
     </div>
 
-    <div class="grow" />
+    <div class="grow"></div>
     {#if baseData.Tags?.length > 0 || premiumMap.get(baseData.Premium?.level || 0)}
       <div class="flex h-fit flex-col rounded-lg bg-base-300 p-2 pb-0">
         {#if baseData.Tags?.length > 0}

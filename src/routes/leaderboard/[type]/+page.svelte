@@ -1,10 +1,10 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import BigLeaderboard from "$lib/components/leaderboards/Leaderboard.svelte";
-  import { getTags } from "$lib/stores.js";
+  import { getTags } from "$lib/functions/tags.js";
   import { fade } from "svelte/transition";
 
-  export let data;
+  let { data } = $props();
 </script>
 
 <svelte:head>
@@ -44,7 +44,7 @@
     <h1 class="text-4xl font-bold text-white sm:text-5xl">
       {data.title}
     </h1>
-    <div class="m-auto mt-3 h-1 w-9/12 rounded-full bg-primary sm:w-full sm:max-w-2xl" />
+    <div class="m-auto mt-3 h-1 w-9/12 rounded-full bg-primary sm:w-full sm:max-w-2xl"></div>
   </header>
   <div class="mt-10 px-5 sm:px-24">
     {#if data.data.length === 0}

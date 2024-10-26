@@ -2,15 +2,15 @@
   import { onNavigate, pushState, replaceState } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
-  import getItems from "$lib/functions/getItems";
-  import { getTags } from "$lib/stores";
+  import getItems from "$lib/functions/items";
+  import { getTags } from "$lib/functions/tags";
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
 
-  export let data;
+  let { data } = $props();
 
-  const options = [
+  const options = $state([
     {
       name: "balance",
       leaderboardName: "top balance",
@@ -79,7 +79,7 @@
       descriptor: "uses",
     },
     { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
-  ];
+  ]);
 
   if ($page.url.searchParams.get("lb")) {
     if (!options.find((i) => i.name === $page.url.searchParams.get("lb"))) {
@@ -146,7 +146,7 @@
           : -1) === i
           ? 'btn-primary '
           : ''}"
-        on:click={() => {
+        onclick={() => {
           const selected = options[i];
 
           if (selected.name !== "items") $page.url.searchParams.delete("item");
