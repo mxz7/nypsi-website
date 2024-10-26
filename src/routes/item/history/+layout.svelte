@@ -1,9 +1,13 @@
 <script>
   import { page } from "$app/stores";
+  import { auth } from "$lib/state.svelte";
+  import { onMount } from "svelte";
 
   let { data, children } = $props();
 
-   = { authenticated: Boolean(data.user), user: data.user };
+  onMount(() => {
+    auth.value = { authenticated: Boolean(data.user), user: data.user };
+  });
 </script>
 
 <svelte:head>
