@@ -59,8 +59,8 @@
   {#if !dev}
     <script
       defer
-      src="https://max-umami.fly.dev/script.js"
-      data-website-id="1a4d6baa-e261-45ce-90f0-26a2c03edcde"
+      data-domain="nypsi.xyz"
+      src="https://analytics.maxz.dev/js/script.tagged-events.js"
     ></script>
   {/if}
 
