@@ -77,7 +77,7 @@
 </script>
 
 <div
-  class="flex w-full flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+  class="flex w-full flex-col rounded-lg border border-primary border-opacity-15 bg-base-200 p-4 shadow duration-300 hover:border-opacity-30"
 >
   <div class="flex w-full flex-row text-sm">
     <div class="w-20 lg:w-44">
