@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-  <title>{title || `${data.baseUserData.lastKnownUsername} / nypsi`}</title>
+  <!-- <title>{title || `${data.baseUserData.lastKnownUsername} / nypsi`}</title> -->
   <meta name="og:title" content="{data.baseUserData.lastKnownUsername}'s nypsi profile" />
 
   <meta name="description" content="view {data.baseUserData.lastKnownUsername}'s nypsi profile" />
@@ -25,13 +25,11 @@
 </svelte:head>
 
 <div in:fade={{ delay: 0, duration: 200 }}>
-  {#key data}
-    <UserData
-      baseData={data.baseUserData}
-      userData={data.allUserData}
-      items={data.items}
-      gamesPromise={data.games}
-      gamesBefore={data.gamesBefore}
-    />
-  {/key}
+  <UserData
+    baseData={data.baseUserData}
+    userData={data.allUserData}
+    items={data.items}
+    gamesPromise={data.games}
+    gamesBefore={data.gamesBefore}
+  />
 </div>

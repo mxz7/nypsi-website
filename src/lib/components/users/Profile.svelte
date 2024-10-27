@@ -9,7 +9,7 @@
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
   import { onMount } from "svelte";
-  import { fade, fly } from "svelte/transition";
+  import { fade } from "svelte/transition";
 
   interface Props {
     baseData: {
@@ -88,7 +88,6 @@
 
 <div
   class="flex w-full flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
-  in:fly={{ delay: 300, duration: 500, y: 75 }}
 >
   <div class="flex w-full flex-row text-sm">
     <div class="flex w-20 flex-col lg:w-44">
