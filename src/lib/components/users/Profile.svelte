@@ -8,7 +8,6 @@
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
-  import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
   interface Props {
@@ -72,18 +71,9 @@
     ],
   ]);
 
-  let avatar: HTMLImageElement = $state();
-
-  const handleFallbackImage = (el) => {
+  const handleFallbackImage = (el: any) => {
     el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
   };
-
-  onMount(async () => {
-    if (avatar.src.endsWith("avatars/0.png")) return;
-    const res = await fetch(avatar.src);
-
-    if (!res.ok) avatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
-  });
 </script>
 
 <div
@@ -92,13 +82,14 @@
   <div class="flex w-full flex-row text-sm">
     <div class="flex w-20 flex-col lg:w-44">
       <img
-        bind:this={avatar}
         class="rounded-full"
         height="256"
         width="256"
         src={baseData.avatar}
         alt="{baseData.lastKnownUsername}'s avatar"
         onerror={handleFallbackImage}
+        loading="eager"
+        decoding="async"
       />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}
