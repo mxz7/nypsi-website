@@ -80,7 +80,7 @@
   class="flex w-full flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
 >
   <div class="flex w-full flex-row text-sm">
-    <div class="flex w-20 flex-col lg:w-44">
+    <div class="w-20 lg:w-44">
       <img
         class="rounded-full"
         height="256"
@@ -89,7 +89,7 @@
         alt="{baseData.lastKnownUsername}'s avatar"
         onerror={handleFallbackImage}
         loading="eager"
-        decoding="async"
+        decoding="sync"
       />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}
@@ -101,6 +101,7 @@
                   class="h-5 lg:h-7"
                   src={items.find((i) => i.id === gem)?.emoji}
                   alt="{gem} emoji"
+                  decoding="async"
                 />
               {/if}
             {/each}
@@ -108,17 +109,15 @@
         {/await}
       </div>
     </div>
-    <div class="ml-2 flex flex-col lg:text-lg">
-      <div class="flex flex-row items-center text-2xl font-extrabold text-white lg:text-4xl">
-        <h1
-          style="color: {premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''}; !important"
-          class="line-clamp-1"
+    <div class="ml-2 lg:text-lg">
+      <h1
+        style="color: {premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''}; !important"
+        class="line-clamp-1 text-2xl font-extrabold text-white lg:text-4xl"
+      >
+        <a target="_blank" href="https://discord.com/users/{baseData.id}"
+          >{baseData.lastKnownUsername}</a
         >
-          <a target="_blank" href="https://discord.com/users/{baseData.id}"
-            >{baseData.lastKnownUsername}</a
-          >
-        </h1>
-      </div>
+      </h1>
       {#await userData then userData}
         {#if userData.Economy}
           <p in:fade|global={{ duration: 400 }} class="mb-2 text-xs text-slate-300 lg:text-base">
@@ -140,6 +139,7 @@
               src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
               alt="money emoji"
               class="mr-1 inline h-4 lg:h-6"
+              decoding="async"
             />
             <span class="font-medium">${userData.Economy.money.toLocaleString()}</span>
           </p>
@@ -152,15 +152,9 @@
               src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
               alt="credit card (bank) emoji"
               class="mr-1 inline h-4 lg:h-6"
+              decoding="async"
             />
-            <span class="font-medium"
-              >${userData.Economy.bank.toLocaleString()}
-              <!-- / ${(
-                userData.Economy.bankStorage +
-                userData.Economy.xp * 1000 +
-                15000
-              ).toLocaleString()} -->
-            </span>
+            <span class="font-medium">${userData.Economy.bank.toLocaleString()}</span>
           </p>
           <p
             in:fade|global={{ duration: 400, delay: 600 }}
@@ -171,6 +165,7 @@
               src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
               alt="globe (net worth) emoji"
               class="mr-1 inline h-4 lg:h-6"
+              decoding="async"
             />
             <span class="font-medium">${userData.Economy.netWorth.toLocaleString()}</span>
           </p>
@@ -214,13 +209,14 @@
                   class="mb-2 h-4 lg:h-6"
                   src={badges.get(tag.tagId)?.icon}
                   alt="{tag.tagId} emoji"
+                  decoding="async"
+                  loading="lazy"
                 />
               </a>
             {:else}
               {#await getTags() then tagData}
                 {#if tagData[tag.tagId] && tag.selected}
                   <div
-                    in:fade|global={{ duration: 400, delay: i * 200 }}
                     use:tooltip={{
                       content: tagData[tag.tagId].name,
                       theme: "tooltip",
@@ -232,6 +228,7 @@
                       class="mb-2 h-4 lg:h-6"
                       src={parseEmoji(tagData[tag.tagId].emoji)}
                       alt="{tag.tagId} emoji"
+                      decoding="async"
                     />
                   </div>
                 {/if}
@@ -241,21 +238,18 @@
         {/if}
 
         {#if premiumMap.get(baseData.Premium?.level || 0)}
-          <div
-            in:fade|global={{ duration: 400, delay: baseData.Tags?.length * 200 + 0 }}
+          <img
             use:tooltip={{
               content: `${premiumMap.get(baseData.Premium?.level || 0)?.text} membership`,
               theme: "tooltip",
               placement: "left",
             }}
-          >
-            <img
-              loading="lazy"
-              class="mb-2 h-4 lg:h-6"
-              src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
-              alt="premium level {baseData.Premium?.level} emoji"
-            />
-          </div>
+            loading="lazy"
+            class="mb-2 h-4 lg:h-6"
+            src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
+            alt="premium level {baseData.Premium?.level} emoji"
+            decoding="async"
+          />
         {/if}
       </div>
     {/if}
