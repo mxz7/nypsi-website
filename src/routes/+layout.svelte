@@ -64,8 +64,8 @@
   {#if !dev}
     <script
       defer
-      data-domain="nypsi.xyz"
-      src="https://analytics.maxz.dev/js/script.tagged-events.js"
+      src="https://analytics.maxz.dev/script.js"
+      data-website-id="d0bd590b-cc67-4315-b725-0105ada8ce61"
     ></script>
   {/if}
 
