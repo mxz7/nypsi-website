@@ -67,16 +67,24 @@ export async function load({ parent, setHeaders }) {
 
           const wins = new Map<string, number>();
 
+          const promises: Promise<void>[] = [];
+
           for (const game of res) {
-            wins.set(
-              game.game,
-              await prisma.game.count({
-                where: {
-                  AND: [{ userId: user ? user.id : "0" }, { game: game.game }, { win: 1 }],
-                },
-              }),
-            );
+            const func = async () => {
+              wins.set(
+                game.game,
+                await prisma.game.count({
+                  where: {
+                    AND: [{ userId: user ? user.id : "0" }, { game: game.game }, { win: 1 }],
+                  },
+                }),
+              );
+            };
+
+            promises.push(func());
           }
+
+          await Promise.all(promises);
 
           return res.map((game) => {
             return { ...game, wins: wins.get(game.game) };
