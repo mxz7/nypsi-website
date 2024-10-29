@@ -114,9 +114,7 @@
         style="color: {premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''}; !important"
         class="line-clamp-1 text-2xl font-extrabold text-white lg:text-4xl"
       >
-        <a target="_blank" href="https://discord.com/users/{baseData.id}"
-          >{baseData.lastKnownUsername}</a
-        >
+        {baseData.lastKnownUsername}
       </h1>
       {#await userData then userData}
         {#if userData.Economy}
