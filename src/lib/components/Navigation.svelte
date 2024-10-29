@@ -1,8 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import logo from "$lib/assets/nypsi-transparent.webp?as=run:0";
   import { auth } from "$lib/state.svelte";
-  import Img from "@zerodevx/svelte-img";
   import { Menu } from "lucide-svelte";
 </script>
 
@@ -34,7 +32,11 @@
       </div>
       <div class="hidden items-center text-sm lg:flex">
         <a class="btn btn-ghost" href="/">
-          <Img src={logo} class="h-10 w-10" />
+          <enhanced:img
+            src="$lib/assets/nypsi-transparent.webp"
+            decoding="async"
+            class="h-10 w-10"
+          />
         </a>
         <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>
         <a href="/status" class="btn btn-ghost font-semibold">status</a>
@@ -66,7 +68,7 @@
         <a href="/me" class="btn btn-ghost">
           <div class="avatar">
             <div class=" h-10 w-10 rounded-full">
-              <img src={auth.value.user.avatar} alt="your avatar" />
+              <img src={auth.value.user.avatar} alt="your avatar" decoding="async" />
             </div>
           </div>
         </a>

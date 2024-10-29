@@ -1,8 +1,6 @@
 <script lang="ts">
-  import logo from "$lib/assets/hero.webp?as=run:0";
   import Discord from "$lib/assets/svg/discord.svelte";
   import Features from "$lib/components/features/Features.svelte";
-  import Img from "@zerodevx/svelte-img";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
@@ -74,7 +72,13 @@
 <div class="hero min-h-screen">
   <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
     <div class="fly-up">
-      <Img src={logo} class=" hidden max-w-sm lg:block" />
+      <enhanced:img
+        src="$lib/assets/hero.webp"
+        class="hidden max-w-sm lg:block"
+        decoding="async"
+        fetchpriority="high"
+        loading="eager"
+      />
     </div>
 
     <div class="-mt-64 text-center lg:mt-0 lg:text-left">
