@@ -1,12 +1,12 @@
-import { VIEW_AUTH } from "$env/static/private";
 import getItems from "$lib/functions/items.js";
+import { env } from "$env/dynamic/private";
 import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { error } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
 export const load = async ({ params, fetch, getClientAddress, request, locals, setHeaders }) => {
-  setHeaders({ "cache-control": "s-maxage=600" });
+  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
   const search = params.search;
   let userId: string;
 
@@ -89,7 +89,7 @@ export const load = async ({ params, fetch, getClientAddress, request, locals, s
 
         return fetch("/api/user/view/add", {
           method: "POST",
-          headers: { Authorization: VIEW_AUTH },
+          headers: { Authorization: env.VIEW_AUTH },
           body: JSON.stringify({
             userId,
             viewerId: auth ? auth.user.id : undefined,

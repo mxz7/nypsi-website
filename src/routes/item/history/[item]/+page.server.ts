@@ -8,7 +8,7 @@ export const load = async ({ params, parent, setHeaders, url }) => {
 
   if (!parentData.premium || !parentData.user) return;
 
-  setHeaders({ "cache-control": "max-age=3600" });
+  setHeaders({ "cache-control": "public, max-age=600" });
 
   const item = await getItems().then((items) => items.find((i) => i.id === params.item));
 
