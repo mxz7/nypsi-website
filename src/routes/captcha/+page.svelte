@@ -1,27 +1,28 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
-  import { enhance } from "$app/forms";
-  import { env } from "$env/dynamic/public";
+  import { PUBLIC_HCAPTCHA_SITEKEY } from "$env/static/public";
   import { Check } from "lucide-svelte";
-  import { onMount } from "svelte";
 
   let { data } = $props();
 
   let captchaElement: HTMLDivElement = $state();
   let form: HTMLFormElement = $state();
+  let loaded = $state(false);
 
-  onMount(() => {
-    // @ts-expect-error
-    hcaptcha.render(captchaElement, {
-      sitekey: env.PUBLIC_HCAPTCHA_SITEKEY,
-      theme: "dark",
-      callback: () => {
-        form.submit();
-      },
-      "error-callback": () => {
-        invalidateAll();
-      },
-    });
+  $effect(() => {
+    if (!data.solved && loaded) {
+      // @ts-expect-error
+      hcaptcha?.render(captchaElement, {
+        sitekey: PUBLIC_HCAPTCHA_SITEKEY,
+        theme: "dark",
+        callback: () => {
+          form.submit();
+        },
+        "error-callback": () => {
+          invalidateAll();
+        },
+      });
+    }
   });
 </script>
 
@@ -32,6 +33,7 @@
     src="https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off"
     async
     defer
+    onload={() => (loaded = true)}
   ></script>
 </svelte:head>
 

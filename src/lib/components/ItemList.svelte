@@ -1,9 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import search from "$lib/assets/search.png?as=run:0";
   import getItems from "$lib/functions/items";
   import { gameSearchTerm } from "$lib/state.svelte";
-  import Img from "@zerodevx/svelte-img";
   import { onMount } from "svelte";
   import ItemIcon from "./ItemIcon.svelte";
 
@@ -54,7 +52,12 @@
       class="m-2 flex w-fit flex-row rounded-md border border-primary border-opacity-0 bg-base-200 p-3 duration-150 focus-within:border focus-within:border-opacity-50"
     >
       <div class="mr-1 flex items-center justify-center">
-        <Img src={search} alt="search icon" class="h-4 w-4" />
+        <enhanced:img
+          src="$lib/assets/search.png"
+          decoding="async"
+          alt="search icon"
+          class="h-4 w-4"
+        />
       </div>
 
       <input

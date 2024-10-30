@@ -1,4 +1,3 @@
-import { VIEW_AUTH } from "$env/static/private";
 import getItems from "$lib/functions/items.js";
 import { env } from "$env/dynamic/private";
 import type Game from "$lib/types/Game.js";
