@@ -1,1 +1,95 @@
-stats
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { cubicInOut } from "svelte/easing";
+  import { tweened } from "svelte/motion";
+
+  let { data } = $props();
+
+  const progress = tweened(0, { duration: 300, easing: cubicInOut });
+
+  onMount(async () => {
+    $progress = (1 / 6) * 100;
+    await Promise.resolve(data.scratchStats);
+    $progress = (2 / 6) * 100;
+    await Promise.resolve(data.commandStats);
+    $progress = (3 / 6) * 100;
+    await Promise.resolve(data.itemStats);
+    $progress = (4 / 6) * 100;
+    await Promise.resolve(data.leaderboards);
+    $progress = (5 / 6) * 100;
+    await Promise.resolve(data.gambleStats);
+
+    $progress = (6 / 6) * 100;
+  });
+</script>
+
+<h1 class=" text-center text-3xl font-bold text-white">statistics</h1>
+
+{#if $progress !== 100}
+  <div class="mt-14 flex w-full justify-center">
+    <progress class="progress progress-primary w-56" value={$progress} max="100"></progress>
+  </div>
+{:else}
+  {#await data.gambleStats then gambleStats}
+    <h2 class="mt-9 text-center text-xl font-semibold">gamble stats</h2>
+    <div class="mt-4 grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
+      {#each gambleStats as stat}
+        <a
+          href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
+          class="block rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+        >
+          <h1 class="text-center text-xl font-bold">{stat.game}</h1>
+
+          <p class="text-center">
+            {stat.wins.toLocaleString()}/{stat._count._all.toLocaleString()} ({(
+              (stat.wins / stat._count._all) *
+              100
+            ).toFixed(1)}%)
+          </p>
+          <div
+            class="gamble-template mt-2 grid w-full grid-cols-2 gap-y-3 align-middle [&>p]:text-center"
+          >
+            <p>
+              earned:<br /><span class="text-sm font-semibold text-primary"
+                >${stat._sum.earned.toLocaleString()}</span
+              >
+            </p>
+            <p>
+              spent:<br /><span class="text-sm font-semibold text-primary"
+                >${stat._sum.bet.toLocaleString()}</span
+              >
+            </p>
+            <p>
+              profit: <span class="text-sm font-semibold text-primary"
+                >${(stat._sum.earned - stat._sum.bet).toLocaleString()}</span
+              >
+            </p>
+            <p>
+              xp: <span class="text-sm font-semibold text-primary"
+                >{stat._sum.xpEarned.toLocaleString()}</span
+              >
+            </p>
+            <p class="gamble-bottom">
+              avg bet: <span class="text-sm font-semibold text-primary"
+                >${Math.floor(stat._avg.bet).toLocaleString()}</span
+              >
+            </p>
+          </div>
+        </a>
+      {/each}
+    </div>
+  {/await}
+{/if}
+
+<style>
+  .gamble-template {
+    grid-template:
+      ". ."
+      ". ."
+      "a a";
+  }
+
+  .gamble-bottom {
+    grid-area: a;
+  }
+</style>

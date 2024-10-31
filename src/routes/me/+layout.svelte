@@ -5,8 +5,8 @@
   let { children } = $props();
 </script>
 
-<div class="mx-auto mt-4 flex w-full max-w-6xl gap-8 p-4 lg:p-0">
-  <ul class="menu hidden w-72 rounded-box bg-base-200 p-4 lg:block">
+<div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
+  <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
     <li><h2 class="font-semibold">dashboard</h2></li>
 
     <div class="pl-2">
@@ -47,6 +47,7 @@
       </li>
     </div>
   </ul>
-
-  {@render children()}
+  <div class="w-full p-4 lg:p-0">
+    {@render children()}
+  </div>
 </div>
