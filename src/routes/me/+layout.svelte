@@ -5,7 +5,7 @@
   let { children } = $props();
 </script>
 
-<div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
+<div class="mx-auto mt-4 flex w-full max-w-6xl gap-8 p-4 lg:p-0">
   <ul class="menu hidden w-72 rounded-box bg-base-200 p-4 lg:block">
     <li><h2 class="font-semibold">dashboard</h2></li>
 
