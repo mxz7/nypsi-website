@@ -105,7 +105,7 @@
       {/await}
     </div>
 
-    <div class="mt-9 flex gap-6 text-center">
+    <div class="mt-9 flex gap-6 text-center text-sm">
       <div class="h-[500px] w-1/2 overflow-y-scroll rounded-lg bg-base-200 p-4">
         <h2 class=" text-xl font-bold">item stats</h2>
         <div class="mt-6 grid w-full grid-cols-1 gap-2">
