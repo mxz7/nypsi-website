@@ -23,6 +23,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>statistics / nypsi</title>
+</svelte:head>
+
 <h1 class=" text-center text-3xl font-bold text-white">statistics</h1>
 
 {#if $progress !== 100}
