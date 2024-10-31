@@ -102,6 +102,8 @@
 
   $effect(() => {
     const params = new URLSearchParams($page.url.searchParams.toString());
+    if (days === "30" && !params.has("days")) return;
+
     params.set("days", days);
     goto(`?${params.toString()}`);
   });
