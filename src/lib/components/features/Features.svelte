@@ -1,11 +1,4 @@
 <script>
-  import chatReaction from "$lib/assets/features/chatreaction.webp";
-  import economy from "$lib/assets/features/economy.webp";
-  import moderation from "$lib/assets/features/moderation.webp";
-  import pings from "$lib/assets/features/pings.webp";
-  import reactionRoles from "$lib/assets/features/reactionroles.webp";
-  import rolePersist from "$lib/assets/features/rolepersist.webp";
-  import scratchCard from "$lib/assets/features/scratchcard.webp";
   import { BadgeDollarSign, Bell, Book, Clipboard, Coins, Hammer, Keyboard } from "lucide-svelte";
 </script>
 
@@ -26,7 +19,12 @@
         <li><a href="/leaderboard" class="link" target="_blank">view leaderboards</a></li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <img src={economy} alt="networth command" loading="lazy" />
+        <enhanced:img
+          src="$lib/assets/features/economy.webp"
+          alt="networth command"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </div>
@@ -61,7 +59,12 @@
         </li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
-        <img src={chatReaction} alt="chat reaction message" loading="lazy" />
+        <enhanced:img
+          src="$lib/assets/features/chatreaction.webp"
+          alt="chat reaction message"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </div>
@@ -86,7 +89,12 @@
         <li>use boosters to push the limits</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <img src={scratchCard} alt="scratch card finished game" loading="lazy" decoding="async" />
+        <enhanced:img
+          src="$lib/assets/features/scratchcard.webp"
+          alt="scratch card finished game"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </div>
@@ -109,7 +117,12 @@
         <li>alt management - add known alts to users to punish together</li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
-        <img src={moderation} alt="modlogs" loading="lazy" decoding="async" />
+        <enhanced:img
+          src="$lib/assets/features/moderation.webp"
+          alt="modlogs"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </div>
@@ -131,7 +144,12 @@
         <li>role whitelist - require members to have a specific role before using</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <img src={reactionRoles} alt="reaction roles" loading="lazy" decoding="async" />
+        <enhanced:img
+          src="$lib/assets/features/reactionroles.webp"
+          alt="reaction roles"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </div>
@@ -154,7 +172,12 @@
         <li>role data is deleted after 30 days</li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
-        <img src={rolePersist} alt="role persist list" loading="lazy" decoding="async" />
+        <enhanced:img
+          src="$lib/assets/features/rolepersist.webp"
+          alt="role persist list"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </div>
@@ -175,7 +198,12 @@
         <li>your messages are safe with two layer encryption</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <img src={pings} alt="pings command" loading="lazy" decoding="async" />
+        <img
+          src="$lib/assets/features/pings.webp"
+          alt="pings command"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   </div>
