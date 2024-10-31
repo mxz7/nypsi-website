@@ -198,7 +198,7 @@
         <li>your messages are safe with two layer encryption</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <img
+        <enhanced:img
           src="$lib/assets/features/pings.webp"
           alt="pings command"
           loading="lazy"
