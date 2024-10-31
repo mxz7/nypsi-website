@@ -17,6 +17,8 @@
       <X strokeWidth={2.5} />
     </button>
 
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <ul class="menu font-medium" onclick={() => (visible = !visible)}>
       <li><a href="/" class={$page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
       <li>
