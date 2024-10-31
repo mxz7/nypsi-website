@@ -1,4 +1,6 @@
 <script lang="ts">
+  import getItems from "$lib/functions/items.js";
+  import type { Item } from "$lib/types/Item.js";
   import { onMount } from "svelte";
   import { cubicInOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
@@ -7,15 +9,17 @@
 
   const progress = tweened(0, { duration: 300, easing: cubicInOut });
 
+  let items: Item[] = $state();
+
   onMount(async () => {
     $progress = (1 / 6) * 100;
-    await Promise.resolve(data.scratchStats);
+    items = await getItems();
     $progress = (2 / 6) * 100;
     await Promise.resolve(data.commandStats);
     $progress = (3 / 6) * 100;
     await Promise.resolve(data.itemStats);
     $progress = (4 / 6) * 100;
-    await Promise.resolve(data.leaderboards);
+    await Promise.resolve(data.scratchStats);
     $progress = (5 / 6) * 100;
     await Promise.resolve(data.gambleStats);
 
@@ -42,7 +46,7 @@
           href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
           class="block rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
         >
-          <h1 class="text-center text-xl font-bold">{stat.game}</h1>
+          <h3 class="text-center text-xl font-bold">{stat.game}</h3>
 
           <p class="text-center">
             {stat.wins.toLocaleString()}/{stat._count._all.toLocaleString()} ({(
@@ -81,6 +85,60 @@
           </div>
         </a>
       {/each}
+
+      {#await data.scratchStats then scratchStats}
+        {#each scratchStats as stat}
+          <a
+            href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
+            class="block h-fit break-inside-avoid-column rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+          >
+            <h1 class="text-center text-xl font-bold">{stat.game.replaceAll("_", " ")}</h1>
+
+            <p class="text-center">
+              {stat._sum.win.toLocaleString()}/{stat._count._all.toLocaleString()} ({(
+                (stat._sum.win / stat._count._all) *
+                100
+              ).toFixed(1)}%)
+            </p>
+          </a>
+        {/each}
+      {/await}
+    </div>
+
+    <div class="mt-9 flex gap-6 text-center">
+      <div class="h-[500px] w-1/2 overflow-y-scroll rounded-lg bg-base-200 p-4">
+        <h2 class=" text-xl font-bold">item stats</h2>
+        <div class="mt-6 grid w-full grid-cols-1 gap-2">
+          {#await data.itemStats then itemStats}
+            {#each itemStats as stat}
+              {@const itemData = items.find((i) => i.id === stat.itemId)}
+              {#if itemData}
+                <div class="flex items-center justify-center gap-1">
+                  <img
+                    src={items.find((i) => i.id === stat.itemId)?.emoji}
+                    decoding="async"
+                    loading="lazy"
+                    alt={stat.itemId}
+                    class="h-4"
+                  />
+                  <span>{stat.itemId}: {stat.amount.toLocaleString()} uses</span>
+                </div>
+              {/if}
+            {/each}
+          {/await}
+        </div>
+      </div>
+
+      <div class="h-[500px] w-1/2 overflow-y-scroll rounded-lg bg-base-200 p-4">
+        <h2 class=" text-xl font-bold">command stats</h2>
+        <div class="mt-6 grid w-full grid-cols-1 gap-2">
+          {#await data.commandStats then commandStats}
+            {#each commandStats as stat}
+              <p>${stat.command}: {stat.uses.toLocaleString()} uses</p>
+            {/each}
+          {/await}
+        </div>
+      </div>
     </div>
   {/await}
 {/if}

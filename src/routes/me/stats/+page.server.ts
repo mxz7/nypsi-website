@@ -23,11 +23,7 @@ export async function load({ parent, setHeaders }) {
       select: { itemId: true, amount: true },
       orderBy: { amount: "desc" },
     }),
-    leaderboards: prisma.leaderboards.findMany({
-      where: { userId: user.id },
-      select: { leaderboard: true, position: true },
-      orderBy: [{ position: "asc" }, { leaderboard: "desc" }],
-    }),
+
     scratchStats: prisma.game
       .groupBy({
         where: {
