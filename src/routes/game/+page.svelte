@@ -76,7 +76,7 @@
           <a
             href="/game/{game.id.toString(36)}"
             target="_blank"
-            class="rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 text-center duration-300 hover:border-opacity-20 {game.win ===
+            class="flex flex-col justify-center rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 text-center duration-300 hover:border-opacity-20 {game.win ===
             1
               ? 'text-success'
               : game.win === 2
