@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
   import Loadbar from "$lib/components/Loadbar.svelte";
-  import Navigation from "$lib/components/Navigation.svelte";
+  import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth } from "$lib/state.svelte";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";

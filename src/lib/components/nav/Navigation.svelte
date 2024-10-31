@@ -2,43 +2,31 @@
   import { page } from "$app/stores";
   import { auth } from "$lib/state.svelte";
   import { Menu } from "lucide-svelte";
+  import MobileScreen from "./MobileScreen.svelte";
+
+  let sidebarVisible = $state(false);
 </script>
+
+<MobileScreen bind:visible={sidebarVisible} />
 
 <div class="flex w-full justify-center">
   <div class="navbar bg-base-200 lg:mt-3 lg:max-w-6xl lg:rounded-xl">
     <div class="navbar-start">
-      <div class="dropdown">
-        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-          <Menu strokeWidth={2.5} />
-        </div>
-        <ul
-          tabindex="0"
-          class="menu dropdown-content menu-sm z-[1] mt-3 w-52 gap-3 rounded-box bg-base-200 p-2 shadow"
-        >
-          <li><a href="/" class="text-xl">home</a></li>
-          <li><a href="/leaderboard" class="text-xl">leaderboards</a></li>
-          <li><a href="/status" class="text-xl">status</a></li>
-          <li><a href="/discord" target="_blank" class="text-xl">discord</a></li>
-          <li><a href="https://docs.nypsi.xyz/" target="_blank" class="text-xl">docs</a></li>
-          <li>
-            <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="text-xl">
-              <span
-                class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text font-semibold text-transparent"
-                >premium</span
-              >
-            </a>
-          </li>
-        </ul>
-      </div>
+      <button class="btn btn-ghost lg:hidden" onclick={() => (sidebarVisible = !sidebarVisible)}>
+        <Menu strokeWidth={2.5} />
+      </button>
+
       <div class="hidden items-center text-sm lg:flex">
-        <a class="btn btn-ghost" href="/">
+        <a class="btn btn-ghost" href="/" aria-label="home">
           <enhanced:img
             src="$lib/assets/nypsi-transparent.webp"
             decoding="async"
             class="h-10 w-10"
             alt="nypsi logo"
+            fetchpriority="high"
           />
         </a>
+
         <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>
         <a href="/status" class="btn btn-ghost font-semibold">status</a>
         <a href="/discord" class="btn btn-ghost font-semibold" target="_blank">discord</a>
@@ -68,8 +56,13 @@
       {:else}
         <a href="/me" class="btn btn-ghost">
           <div class="avatar">
-            <div class=" h-10 w-10 rounded-full">
-              <img src={auth.value.user.avatar} alt="your avatar" decoding="async" />
+            <div class="h-10 w-10 rounded-full">
+              <img
+                src={auth.value.user.avatar}
+                alt="your avatar"
+                decoding="async"
+                fetchpriority="high"
+              />
             </div>
           </div>
         </a>
