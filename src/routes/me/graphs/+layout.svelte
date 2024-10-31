@@ -10,7 +10,7 @@
 
 {#if data.premium}
   <div class="flex w-full justify-center">
-    <ul class="menu menu-horizontal rounded-box bg-base-200 text-sm lg:text-base">
+    <ul class="menu menu-horizontal rounded-box bg-base-200 text-xs lg:text-sm">
       <li>
         <a
           class={$page.url.pathname.startsWith("/me/graphs/balance") ? "focus" : ""}
