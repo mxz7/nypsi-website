@@ -3,11 +3,16 @@
     items?: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
     url?: string | undefined;
     onClick?: any;
+    search?: string;
   }
 
-  let { items = [], url = undefined, onClick = (itemId?: string) => {} }: Props = $props();
+  let {
+    items = [],
+    url = undefined,
+    onClick = (itemId?: string) => {},
+    search = $bindable(""),
+  }: Props = $props();
 
-  let search = $state("");
   let filteredItems: {
     id: string;
     name: string;
