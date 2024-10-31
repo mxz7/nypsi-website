@@ -36,6 +36,7 @@
             src="$lib/assets/nypsi-transparent.webp"
             decoding="async"
             class="h-10 w-10"
+            alt="nypsi logo"
           />
         </a>
         <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>

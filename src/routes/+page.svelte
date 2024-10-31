@@ -78,6 +78,7 @@
         decoding="async"
         fetchpriority="high"
         loading="eager"
+        alt="hero"
       />
     </div>
 
