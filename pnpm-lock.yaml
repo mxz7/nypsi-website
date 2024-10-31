@@ -24,8 +24,8 @@ importers:
         specifier: ^1.0.14
         version: 1.0.14(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.6)(vite@5.4.10))(svelte@5.1.6)(vite@5.4.10))(svelte@5.1.6)
       arctic:
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ^2.2.1
+        version: 2.2.1
       chart.js:
         specifier: ^4.4.6
         version: 4.4.6
@@ -826,8 +826,8 @@ packages:
   aproba@2.0.0:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
 
-  arctic@2.0.1:
-    resolution: {integrity: sha512-2UxVMEGtBkWf5GkriStLuJ+YnkBQZ5V/PapL6nCUOySxxUPgaXt8VSauzrzQZpaoP0kEHV5lk5CsdzX4/eqnZg==}
+  arctic@2.2.1:
+    resolution: {integrity: sha512-ZaHREgEur4APnlhm7uQwIRFVMjr+z1YPD2O8qpqndPt7m1AW/BeT23nNn+xfoo2iAYx57A8ehq7ACiDQmgIGSw==}
 
   are-we-there-yet@2.0.0:
     resolution: {integrity: sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==}
@@ -2674,7 +2674,7 @@ snapshots:
 
   aproba@2.0.0: {}
 
-  arctic@2.0.1:
+  arctic@2.2.1:
     dependencies:
       '@oslojs/crypto': 1.0.1
       '@oslojs/encoding': 1.1.0
