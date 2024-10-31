@@ -143,12 +143,12 @@
   }
 
   .animation-2 {
-    animation: fly-up-mobile 400ms ease-out 300ms forwards;
+    animation: fly-up-mobile 500ms ease-out 300ms forwards;
     opacity: 0%;
   }
 
   .animation-3 {
-    animation: fly-up-mobile 400ms ease-out 400ms forwards;
+    animation: fly-up-mobile 500ms ease-out 400ms forwards;
     opacity: 0%;
   }
 
