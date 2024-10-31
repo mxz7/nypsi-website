@@ -5,9 +5,11 @@ export async function load({ setHeaders, locals, url }) {
 
   if (!auth) return redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
 
-  setHeaders({
-    "cache-control": "private, max-age=0",
-  });
+  try {
+    setHeaders({
+      "cache-control": "private, max-age=0",
+    });
+  } catch {}
 
   return { user: auth.user };
 }
