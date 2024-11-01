@@ -30,4 +30,4 @@ the percent chance to get cakes continues to run until it fails, so it is possib
 
 ## how do you get upgrades?
 
-upgrades can be obtained from [crates](docs/economy/items/crates) and [scratch cards](docs/economy/items/scratchcards)
+upgrades can be obtained from [crates](/docs/economy/items/crates) and [scratch cards](/docs/economy/items/scratchcards)
