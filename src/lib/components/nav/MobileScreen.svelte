@@ -33,8 +33,8 @@
           >status</a
         >
       </li>
+      <li><a href="/docs">docs</a></li>
       <li><a href="/discord" target="_blank">discord</a></li>
-      <li><a href="https://docs.nypsi.xyz" target="_blank">docs</a></li>
 
       {#if auth.value?.authenticated}
         <li class="mt-1">

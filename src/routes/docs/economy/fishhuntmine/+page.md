@@ -2,7 +2,7 @@
 
 ## how do i get a fishing rod / pickaxe / gun?
 
-you can obtain a fishing rod, pickaxe or gun through [crates](https://docs.nypsi.xyz/economy/crates). the easiest way to get crates is by voting daily with `/vote`. you can
+you can obtain a fishing rod, pickaxe or gun through [crates](/docs/economy/crates). the easiest way to get crates is by voting daily with `/vote`. you can
 earn more vote crates each day by working hard and reaching high levels of prestige. p.s don't forget to turn vote reminders
 on!! (`/settings me notifications`)
 
@@ -12,10 +12,10 @@ the fishing rod, pickaxe and gun have different item ratings, terrible, normal a
 of these you receive each time you find one in a crate, the amount of items you can get as well as what rarity items you will
 receive.
 
-higher level guns, pickaxes and fishing rods make it easier to find items that have a higher rarity rating. you can also use boosters like efficiency, fortune, worm etc to get better items. 
+higher level guns, pickaxes and fishing rods make it easier to find items that have a higher rarity rating. you can also use boosters like efficiency, fortune, worm etc to get better items.
 
 ## how long do they last?
 
 in your inventory there's a number next to every item to indicate how many of those items you have, in the case for guns, pickaxes and
 fishing rods, this number is used to indicate how many times you can hunt / fish / mine before you need to find more guns / fishing
-rods / pickaxes. if you use an unbreaking, it will allow you to use tools without the number going down for an hour. 
+rods / pickaxes. if you use an unbreaking, it will allow you to use tools without the number going down for an hour.
