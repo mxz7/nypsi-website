@@ -47,8 +47,6 @@ for (const path of pathsRaw) {
 export function load() {
   const paths = sort(Object.values(pathsData)).asc([(i) => Boolean(i.children), (i) => i.name]);
 
-  console.log(paths[7]);
-
   return {
     paths,
   };
