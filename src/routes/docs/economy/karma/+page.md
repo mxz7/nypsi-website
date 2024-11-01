@@ -28,4 +28,4 @@ the karma shop opens a few times a month, use the `/karmashop view` command to s
 
 ## karma shop items
 
-{% @nypsi/karmashop %}
+<!-- {% @nypsi/karmashop %} -->

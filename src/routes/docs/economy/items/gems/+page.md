@@ -28,8 +28,9 @@ the effects listed of each gem are averaged. this means that at any given time t
 
 ranged values (ex: 1-17%) have an equal chance for all options
 
-{% tabs %}
-{% tab title="green gem" %}
+<!-- {% tabs %}
+{% tab title="green gem" %} -->
+
 ### effects
 
 \+20% max storage for all workers
@@ -48,16 +49,18 @@ mines: 20% chance to spawn, <mark style="color:green;">0.5% chance to drop when 
 
 <mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
 
-< 0.01% chance to obtain from fishing with an incredible rod
+<!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-{% @nypsi/green-gem-chance %}
+<!-- {% @nypsi/green-gem-chance %} -->
 
 ### shattering
 
 cannot shatter
-{% endtab %}
 
-{% tab title="blue gem" %}
+<!-- {% endtab %}
+
+{% tab title="blue gem" %} -->
+
 ### effects
 
 60% chance to increase worker output by 17%, <mark style="color:blue;">other 40% decreases output by 20%</mark>
@@ -76,9 +79,9 @@ crafting: 5 gem shards
 
 <mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
 
-< 0.01% chance to obtain from fishing with an incredible rod
+<!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-{% @nypsi/blue-gem-chance %}
+<!-- {% @nypsi/blue-gem-chance %} -->
 
 ### shattering
 
@@ -87,9 +90,11 @@ crafting: 5 gem shards
 0.004% chance when claiming workers
 
 max shards given from shattering: 3
-{% endtab %}
 
-{% tab title="purple gem" %}
+<!-- {% endtab %} -->
+
+<!-- {% tab title="purple gem" %} -->
+
 ### effects
 
 50% chance to increase worker item value by 17%, <mark style="color:blue;">other 50% decreases value by 17%</mark>
@@ -116,9 +121,9 @@ crafting: 15 gem shards
 
 <mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
 
-< 0.01% chance to obtain from fishing with an incredible rod
+<!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-{% @nypsi/purple-gem-chance %}
+<!-- {% @nypsi/purple-gem-chance %} -->
 
 ### shattering
 
@@ -131,9 +136,11 @@ crafting: 15 gem shards
 0.003885% chance when deteriorating karma
 
 max shards given from shattering: 10
-{% endtab %}
 
-{% tab title="pink gem" %}
+<!-- {% endtab %}
+
+{% tab title="pink gem" %} -->
+
 ### effects
 
 \+0.92% gamble multiplier <mark style="color:blue;">(20% chance to reduce multi by 3%)</mark>
@@ -152,9 +159,9 @@ crafting: 20 gem shards
 
 <mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
 
-< 0.01% chance to obtain from fishing with an incredible rod
+<!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-{% @nypsi/pink-gem-chance %}
+<!-- {% @nypsi/pink-gem-chance %} -->
 
 ### shattering
 
@@ -163,9 +170,11 @@ crafting: 20 gem shards
 0.056% chance every time you $sell something
 
 max shards given from shattering: 15
-{% endtab %}
 
-{% tab title="white gem" %}
+<!-- {% endtab %} -->
+
+<!-- {% tab title="white gem" %} -->
+
 ### effects
 
 \+70% max worker storage
@@ -190,9 +199,9 @@ crafting: 2 blue gems, 2 green gems, 1 pink gem, 1 purple gem
 
 0.02% chance to obtain when buying an item from the store (NOT the shop)
 
-< 0.01% chance to obtain from fishing with an incredible rod
+<!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-{% @nypsi/white-gem-chance %}
+<!-- {% @nypsi/white-gem-chance %} -->
 
 ### shattering
 
@@ -207,9 +216,11 @@ crafting: 2 blue gems, 2 green gems, 1 pink gem, 1 purple gem
 7% chance to shatter from saving your daily streak (crystal heart does NOT prevent this and no gem shards are given)
 
 max shards given from shattering: 30
-{% endtab %}
 
-{% tab title="crystal heart" %}
+<!-- {% endtab %} -->
+
+<!-- {% tab title="crystal heart" %} -->
+
 ### effects
 
 prevents **all gems** from shattering
@@ -226,10 +237,11 @@ removes almost all negative effects possible from other gems
 
 every time you do an action that would cause a gem to break (and have 5 unique gems), there's a 50% chance to trigger the crafting sequence of a crystal heart. otherwise, your gem shatters and you only get shards ):
 
-{% @nypsi/crystal-heart-chance %}
+<!-- {% @nypsi/crystal-heart-chance %} -->
 
 ### shattering
 
 cannot shatter
-{% endtab %}
-{% endtabs %}
+
+<!-- {% endtab %}
+{% endtabs %} -->

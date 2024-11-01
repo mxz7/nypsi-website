@@ -1,6 +1,6 @@
 # premium ranks
 
-i love you <3
+i love you 3
 
 ## what is premium?
 
