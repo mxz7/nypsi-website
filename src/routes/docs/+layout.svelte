@@ -1,13 +1,7 @@
 <script>
   import { page } from "$app/stores";
-  import { BadgePoundSterling, ChartArea, Coins } from "lucide-svelte";
-  import { onMount } from "svelte";
 
   let { children, data } = $props();
-
-  onMount(() => {
-    console.log(data.paths);
-  });
 </script>
 
 <svelte:head>
@@ -23,43 +17,13 @@
   <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
     <li><h2 class="font-semibold">nypsi docs</h2></li>
 
-    <div class="pl-2">
+    {#each data.paths as path}
       <li>
-        <a
-          class="flex items-center {$page.url.pathname.startsWith('/me/stats')
-            ? 'text-primary'
-            : ''}"
-          href="/me/stats"
+        <a class={path.path === $page.url.pathname ? "text-primary" : ""} href={path.path}
+          >{path.name}</a
         >
-          <Coins />
-          <span>stats</span>
-        </a>
       </li>
-
-      <li>
-        <a
-          class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
-            ? 'text-primary'
-            : ''}"
-          href="/me/graphs"
-        >
-          <ChartArea />
-          <span>graphs</span>
-        </a>
-      </li>
-
-      <li>
-        <a
-          class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
-            ? 'text-primary'
-            : ''}"
-          href="/me/purchases"
-        >
-          <BadgePoundSterling />
-          <span>purchases</span>
-        </a>
-      </li>
-    </div>
+    {/each}
   </ul>
   <div class="docs-content w-full p-4 lg:p-0">
     {@render children()}
