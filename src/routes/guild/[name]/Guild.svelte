@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { GuildSuccess } from "$lib/types/Guild";
   import { inPlaceSort } from "fast-sort";
-  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   interface Props {
@@ -16,15 +15,6 @@
 
   const handleFallbackImage = (el) =>
     (el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png");
-
-  onMount(async () => {
-    for (const avatar of avatars) {
-      if (avatar.src.endsWith("avatars/0.png")) continue;
-      const res = await fetch(avatar.src);
-
-      if (!res.ok) avatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
-    }
-  });
 </script>
 
 <div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
@@ -44,6 +34,8 @@
           alt="owner pfp"
           src={guild.owner.user.avatar}
           onerror={handleFallbackImage}
+          decoding="async"
+          loading="lazy"
         />
         {guild.owner.user.lastKnownUsername}</a
       >
@@ -91,6 +83,8 @@
             src={member.economy.user.avatar}
             alt="{member.economy.user.lastKnownUsername}'s avatar"
             onerror={handleFallbackImage}
+            decoding="async"
+            loading="lazy"
           />
           <a
             class="link-hover line-clamp-1 w-fit break-all text-lg font-medium"
