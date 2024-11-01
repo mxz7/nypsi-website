@@ -18,7 +18,7 @@
     userSearchTerm.value = data.guild.guildName;
   }
 
-  $effect(() => {
+  $effect.pre(() => {
     updateTags(data.guild);
   });
 
