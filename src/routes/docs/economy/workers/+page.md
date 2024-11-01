@@ -10,4 +10,4 @@ you can buy, upgrade and claim money from your workers using `/workers`
 
 ## rare upgrades
 
-some upgrades for workers you cannot buy in the upgrade menu (launchpad, warehouse permit, nasa computers, etc). these can be found in [crates](/docs/economy/items/crates) or bought from other players through [auctions](/docs/economy/items/inventory.md) or trading.
+some upgrades for workers you cannot buy in the upgrade menu (launchpad, warehouse permit, nasa computers, etc). these can be found in [crates](/docs/economy/items/crates) or bought from other players through [auctions](/docs/economy/items/inventory) or trading.
