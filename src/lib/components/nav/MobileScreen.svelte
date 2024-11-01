@@ -81,11 +81,13 @@
     </ul>
   </div>
 
+  <!-- svelte-ignore a11y_click_events_have_key_events  -->
+  <!-- svelte-ignore a11y_interactive_supports_focus -->
   <div
     in:fade={{ duration: 250 }}
     out:fade={{ duration: 250 }}
     class="fixed left-0 top-0 z-10 h-full w-full backdrop-blur-sm"
     role="button"
     onclick={() => (visible = !visible)}
-  />
+  ></div>
 {/if}
