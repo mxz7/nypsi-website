@@ -20,7 +20,7 @@ you can increase your cookie production with cursors, super cursors, and grandma
 
 with ovens, cookies will build up from grandmas up to the max afk time. this means that with 12 ovens you can store 6 cookies per grandma, maxing out after 12 hours.
 
-cookie production also has chance to be doubled either from [guild upgrades](/docs/economy/guilds#guild-shop-upgrades) or certain [gems](/docs/economy/items/gems)
+cookie production also has chance to be doubled either from [guild upgrades](/docs/economy/guilds) or certain [gems](/docs/economy/items/gems)
 
 ## how do i bake cakes?
 
