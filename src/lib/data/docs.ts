@@ -1,6 +1,6 @@
 import { sort } from "fast-sort";
 
-const pathsRaw = Object.keys(import.meta.glob("../../routes/docs/**/*.{md,svx}")).map((i) =>
+export const pathsRaw = Object.keys(import.meta.glob("../../routes/docs/**/*.{md,svx}")).map((i) =>
   i.replace("../../routes/docs/", ""),
 );
 
