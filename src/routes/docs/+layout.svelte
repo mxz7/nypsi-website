@@ -53,7 +53,7 @@
 
 <style>
   :global(.docs-content h1) {
-    @apply mb-6 text-4xl font-bold text-white;
+    @apply mb-6 text-3xl font-bold text-white lg:text-4xl;
     font-family: "Poppins", sans-serif;
   }
 
@@ -63,7 +63,7 @@
   }
 
   :global(.docs-content h3) {
-    @apply my-2 text-2xl font-semibold text-white;
+    @apply my-2 text-xl font-semibold text-white;
     font-family: "Poppins", sans-serif;
   }
 
