@@ -2,7 +2,7 @@
 
 ## how do i get a fishing rod / pickaxe / gun?
 
-you can obtain a fishing rod, pickaxe or gun through [crates](/docs/economy/crates). the easiest way to get crates is by voting daily with `/vote`. you can
+you can obtain a fishing rod, pickaxe or gun through [crates](/docs/economy/items/crates). the easiest way to get crates is by voting daily with `/vote`. you can
 earn more vote crates each day by working hard and reaching high levels of prestige. p.s don't forget to turn vote reminders
 on!! (`/settings me notifications`)
 
