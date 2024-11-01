@@ -1,8 +1,11 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import type { PathsData } from "./+layout";
+  import type { PathsData } from "$lib/data/docs";
+  import { paths } from "$lib/data/docs";
 
-  let { children, data } = $props();
+  console.log(paths);
+
+  let { children } = $props();
 </script>
 
 <svelte:head>
@@ -39,7 +42,7 @@
   <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
     <li><h2 class="menu-title">nypsi docs</h2></li>
 
-    {#each data.paths as path}
+    {#each paths as path}
       {@render renderPath(path)}
     {/each}
   </ul>

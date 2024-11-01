@@ -1,11 +1,35 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { navigating, page } from "$app/stores";
+  import { paths, type PathsData } from "$lib/data/docs";
   import { auth } from "$lib/state.svelte";
-  import { BadgePoundSterling, ChartArea, Coins, X } from "lucide-svelte";
+  import { ArrowLeft, BadgePoundSterling, ChartArea, Coins, X } from "lucide-svelte";
   import { fade, fly } from "svelte/transition";
 
   let { visible = $bindable(false) } = $props();
+
+  navigating.subscribe(() => (visible = false));
 </script>
+
+{#snippet renderDocsPath(path: { name: string; path: string; children?: PathsData })}
+  <li>
+    {#if path.children}
+      <details open={$page.url.pathname.startsWith(path.path)}>
+        <summary class={$page.url.pathname.startsWith(path.path) ? "text-primary" : ""}
+          >{path.name}</summary
+        >
+        <ul>
+          {#each Object.values(path.children) as child}
+            {@render renderDocsPath(child)}
+          {/each}
+        </ul>
+      </details>
+    {:else}
+      <a class={path.path === $page.url.pathname ? "text-primary" : ""} href={path.path}>
+        {path.name}
+      </a>
+    {/if}
+  </li>
+{/snippet}
 
 {#if visible}
   <div
@@ -17,68 +41,91 @@
       <X strokeWidth={2.5} />
     </button>
 
-    <!-- svelte-ignore a11y_click_events_have_key_events -->
-    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-    <ul class="menu font-medium" onclick={() => (visible = !visible)}>
-      <li><a href="/" class={$page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
-      <li>
-        <a
-          href="/leaderboard"
-          class={$page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
-          >leaderboards</a
-        >
-      </li>
-      <li>
-        <a href="/status" class={$page.url.pathname.startsWith("/status") ? "text-primary" : ""}
-          >status</a
-        >
-      </li>
-      <li><a href="/docs">docs</a></li>
-      <li><a href="/discord" target="_blank">discord</a></li>
+    <br />
 
-      {#if auth.value?.authenticated}
-        <li class="mt-1">
-          <h2 class={$page.url.pathname.startsWith("/me") ? "text-primary" : ""}>dashboard</h2>
+    {#if $page.url.pathname.startsWith("/docs")}
+      <ul class="menu font-medium">
+        <li>
+          <a class="opacity-70" href="/">
+            <ArrowLeft size={16} />
+            <span>back home</span>
+          </a>
         </li>
-        <div class="pl-2">
-          <li>
-            <a
-              class="flex items-center {$page.url.pathname.startsWith('/me/stats')
-                ? 'text-primary'
-                : ''}"
-              href="/me/stats"
-            >
-              <Coins size={16} />
-              <span>stats</span>
-            </a>
-          </li>
+      </ul>
 
-          <li>
-            <a
-              class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
-                ? 'text-primary'
-                : ''}"
-              href="/me/graphs"
-            >
-              <ChartArea size={16} />
-              <span>graphs</span>
-            </a>
-          </li>
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+      <ul class="menu font-medium">
+        <h2 class="menu-title">nypsi docs</h2>
 
-          <li>
-            <a
-              class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
-                ? 'text-primary'
-                : ''}"
-              href="/me/purchases"
-            >
-              <BadgePoundSterling size={16} />
-              <span>purchases</span>
-            </a>
+        {#each paths as path}
+          {@render renderDocsPath(path)}
+        {/each}
+      </ul>
+    {:else}
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+      <ul class="menu font-medium">
+        <li><a href="/" class={$page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
+        <li>
+          <a
+            href="/leaderboard"
+            class={$page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
+            >leaderboards</a
+          >
+        </li>
+        <li>
+          <a href="/status" class={$page.url.pathname.startsWith("/status") ? "text-primary" : ""}
+            >status</a
+          >
+        </li>
+        <li><a href="/docs">docs</a></li>
+        <li><a href="/discord" target="_blank">discord</a></li>
+
+        {#if auth.value?.authenticated}
+          <li class="mt-1">
+            <h2 class={$page.url.pathname.startsWith("/me") ? "text-primary" : ""}>dashboard</h2>
           </li>
-        </div>
-      {/if}
-    </ul>
+          <div class="pl-2">
+            <li>
+              <a
+                class="flex items-center {$page.url.pathname.startsWith('/me/stats')
+                  ? 'text-primary'
+                  : ''}"
+                href="/me/stats"
+              >
+                <Coins size={16} />
+                <span>stats</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
+                  ? 'text-primary'
+                  : ''}"
+                href="/me/graphs"
+              >
+                <ChartArea size={16} />
+                <span>graphs</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
+                  ? 'text-primary'
+                  : ''}"
+                href="/me/purchases"
+              >
+                <BadgePoundSterling size={16} />
+                <span>purchases</span>
+              </a>
+            </li>
+          </div>
+        {/if}
+      </ul>
+    {/if}
   </div>
 
   <!-- svelte-ignore a11y_click_events_have_key_events  -->
