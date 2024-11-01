@@ -4,11 +4,9 @@ import { sort } from "fast-sort";
 //   i.replace("./", ""),
 // );
 
-const pathsRaw = Object.keys(import.meta.glob("../../routes/docs/**/*.md")).map((i) =>
+const pathsRaw = Object.keys(import.meta.glob("../../routes/docs/**/*.{md,svx}")).map((i) =>
   i.replace("../../routes/docs/", ""),
 );
-
-console.log(pathsRaw);
 
 export interface PathsData {
   [key: string]: { name: string; path: string; children?: PathsData };
