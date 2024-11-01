@@ -6,7 +6,7 @@ const pathsRaw = Object.keys(import.meta.glob("./**/*.md")).map((i) => i.replace
 
 const folders = pathsRaw.filter((i) => i.split("/").length > 2);
 
-interface PathsData {
+export interface PathsData {
   [key: string]: { name: string; path: string; children?: PathsData };
 }
 
@@ -19,7 +19,11 @@ for (const path of pathsRaw) {
     const name = path.split("/")[0];
 
     if (node[name]) {
-      return func(path.split("/").slice(1).join("/"), node[name].children!, parent);
+      return func(
+        path.split("/").slice(1).join("/"),
+        node[name].children!,
+        parent ? `${parent}/${name}` : name,
+      );
     }
 
     node[name] = {
@@ -43,7 +47,7 @@ for (const path of pathsRaw) {
 export function load() {
   const paths = sort(Object.values(pathsData)).asc([(i) => Boolean(i.children), (i) => i.name]);
 
-  console.log(paths);
+  console.log(paths[7]);
 
   return {
     paths,

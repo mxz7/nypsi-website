@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
   import { page } from "$app/stores";
+  import type { PathsData } from "./+layout";
 
   let { children, data } = $props();
 </script>
@@ -13,16 +14,33 @@
   />
 </svelte:head>
 
+{#snippet renderPath(path: { name: string; path: string; children?: PathsData })}
+  <li>
+    {#if path.children}
+      <details open={$page.url.pathname.startsWith(path.path)}>
+        <summary class={$page.url.pathname.startsWith(path.path) ? "text-primary" : ""}
+          >{path.name}</summary
+        >
+        <ul>
+          {#each Object.values(path.children) as child}
+            {@render renderPath(child)}
+          {/each}
+        </ul>
+      </details>
+    {:else}
+      <a class={path.path === $page.url.pathname ? "text-primary" : ""} href={path.path}>
+        {path.name}
+      </a>
+    {/if}
+  </li>
+{/snippet}
+
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
   <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
     <li><h2 class="menu-title">nypsi docs</h2></li>
 
     {#each data.paths as path}
-      <li>
-        <a class={path.path === $page.url.pathname ? "text-primary" : ""} href={path.path}
-          >{path.name}</a
-        >
-      </li>
+      {@render renderPath(path)}
     {/each}
   </ul>
   <div class="docs-content w-full p-4 lg:p-0">
@@ -51,12 +69,16 @@
   }
 
   :global(.docs-content pre) {
-    @apply rounded-lg bg-base-200 p-2;
+    @apply rounded-lg bg-base-300 p-2;
     font-family: "Fira Mono", monospace;
   }
 
   :global(.docs-content code) {
-    @apply rounded-lg bg-base-200 p-1;
+    @apply rounded-lg bg-base-300 p-1;
     font-family: "Fira Mono", monospace;
+  }
+
+  :global(.docs-content a) {
+    @apply link;
   }
 </style>
