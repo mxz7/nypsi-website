@@ -14,7 +14,7 @@ you can use the `$use <name of crate> <amount>` command to open specific number 
 
 ## crate odds
 
-{% tabs %}
+<!-- {% tabs %}
 {% tab title="vote/basic/69420" %}
 {% @nypsi/basic-crate-odds %}
 {% endtab %}
@@ -42,4 +42,4 @@ you can use the `$use <name of crate> <amount>` command to open specific number 
 {% tab title="gem" %}
 {% @nypsi/gem-crate-odds %}
 {% endtab %}
-{% endtabs %}
+{% endtabs %} -->
