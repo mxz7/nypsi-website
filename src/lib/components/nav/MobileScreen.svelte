@@ -35,7 +35,7 @@
   <div
     in:fly={{ x: -200, duration: 250 }}
     out:fly={{ x: -200, duration: 250 }}
-    class="fixed left-0 top-0 z-20 h-full w-[70%] rounded-box bg-base-200 bg-opacity-95 p-2 shadow-xl shadow-base-300"
+    class="fixed left-0 top-0 z-20 h-full w-[70%] overflow-y-scroll rounded-box bg-base-200 bg-opacity-95 p-2 shadow-xl shadow-base-300"
   >
     <button class="btn btn-ghost" onclick={() => (visible = !visible)}>
       <X strokeWidth={2.5} />
