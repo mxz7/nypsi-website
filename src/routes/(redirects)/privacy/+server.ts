@@ -2,6 +2,6 @@ import { redirect } from "@sveltejs/kit";
 
 export const prerender = true;
 
-export function load() {
+export function GET() {
   return redirect(301, "/docs/privacy");
 }
