@@ -7,7 +7,7 @@
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
   <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
-    <li><h2 class="font-semibold">dashboard</h2></li>
+    <li><h2 class="menu-title">dashboard</h2></li>
 
     <div class="pl-2">
       <li>

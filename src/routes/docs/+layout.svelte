@@ -15,7 +15,7 @@
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
   <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
-    <li><h2 class="font-semibold">nypsi docs</h2></li>
+    <li><h2 class="menu-title">nypsi docs</h2></li>
 
     {#each data.paths as path}
       <li>
