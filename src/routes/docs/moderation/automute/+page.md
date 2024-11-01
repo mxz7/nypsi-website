@@ -1,7 +1,9 @@
-# auto mute
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
 
-auto mute will be configured by default to mute members for an increasing amount of time when they
-violate the chat filter
+<DocsTemplate title='auto mute' desc="auto mute will be configured by default to mute members for an increasing amount of time when they
+violate the chat filter" />
 
 ## configuring auto mute
 

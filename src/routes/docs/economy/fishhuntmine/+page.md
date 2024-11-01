@@ -1,4 +1,8 @@
-# fish, hunt and mine
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='fish hunt mine' />
 
 ## how do i get a fishing rod / pickaxe / gun?
 

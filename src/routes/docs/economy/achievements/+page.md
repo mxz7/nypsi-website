@@ -1,4 +1,8 @@
-# achievements
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='achievements' desc='achievements are goals that when completed, give you some rewards.' />
 
 achievements are goals that when completed, give you some rewards.
 

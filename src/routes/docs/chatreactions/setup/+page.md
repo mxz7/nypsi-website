@@ -1,4 +1,8 @@
-# setup
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='chat reactions setup' />
 
 ## enabling automatic start
 

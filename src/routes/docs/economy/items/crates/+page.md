@@ -1,4 +1,8 @@
-# crates
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='crates' />
 
 ## how do i get a crate?
 

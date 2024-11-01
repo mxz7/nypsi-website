@@ -1,4 +1,8 @@
-# word lists
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='chat reactions word lists' />
 
 ## default
 

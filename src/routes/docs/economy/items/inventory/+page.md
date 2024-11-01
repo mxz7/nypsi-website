@@ -1,4 +1,8 @@
-# inventory system
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='inventory system' />
 
 ## how to get items
 

@@ -1,4 +1,8 @@
-# last.fm integration
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='last.fm integration' />
 
 ## getting started
 

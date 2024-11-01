@@ -1,4 +1,8 @@
-# scratch cards
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='scratch cards' />
 
 ## how do they work
 

@@ -1,6 +1,8 @@
-# automatic alt punishments
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
 
-with this server setting enabled, all of a user's accounts will be punished when one account is punished. this helps prevent mute/ban evasion and the hassle of punishing multiple accounts.
+<DocsTemplate title='automatic alt punishments' desc="with this server setting enabled, all of a user's accounts will be punished when one account is punished. this helps prevent mute/ban evasion and the hassle of punishing multiple accounts." />
 
 ## configuration
 

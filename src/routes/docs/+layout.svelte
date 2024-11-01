@@ -3,8 +3,6 @@
   import type { PathsData } from "$lib/data/docs";
   import { paths } from "$lib/data/docs";
 
-  console.log(paths);
-
   let { children } = $props();
 </script>
 

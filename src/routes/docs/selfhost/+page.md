@@ -1,4 +1,8 @@
-# self host
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='self host' />
 
 since nypsi is _almost_ entirely public, you can self host and make your own version!
 
@@ -9,12 +13,12 @@ technical knowledge. you will be ignored if you ask the owner for help.
 
 ## prerequisites
 
--   a computer
--   nodejs 20
--   postgres
--   redis
--   a discord server
--   git
+- a computer
+- nodejs 20
+- postgres
+- redis
+- a discord server
+- git
 
 ## get started
 
@@ -55,12 +59,12 @@ run `setup.sh`, this will create needed folders, install a placeholder anticheat
 you must fill in your .env with your values. the below keys are **NOT required** for nypsi to
 function, however there will be missing functionality.
 
--   `TOPGG_TOKEN`
--   `DISCORD_IMAGE_AVATAR_CHANNEL`
--   `DISCORD_IMAGE_CHANNEL`
--   `LASTFM_TOKEN`
--   `S3_*`
--   `KOFI_VERIFICATION`
+- `TOPGG_TOKEN`
+- `DISCORD_IMAGE_AVATAR_CHANNEL`
+- `DISCORD_IMAGE_CHANNEL`
+- `LASTFM_TOKEN`
+- `S3_*`
+- `KOFI_VERIFICATION`
 
 ### database migration
 

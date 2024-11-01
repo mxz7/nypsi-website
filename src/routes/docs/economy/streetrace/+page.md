@@ -1,4 +1,8 @@
-# street races
+#<script>
+import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='street races' />
 
 ## how do they work?
 

@@ -1,4 +1,8 @@
-# gems
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='gems' />
 
 ## what are gems?
 

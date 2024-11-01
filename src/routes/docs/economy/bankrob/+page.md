@@ -1,6 +1,8 @@
-# bankrob
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
 
-bankrob allows you to rob from the nypsi bank
+<DocsTemplate title='bankrob' desc='bankrob allows you to rob from the nypsi bank' />
 
 ## nypsi bank is closed
 

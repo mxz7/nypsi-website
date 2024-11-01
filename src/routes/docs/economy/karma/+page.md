@@ -1,4 +1,8 @@
-# karma
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='karma' />
 
 ## how to get karma
 

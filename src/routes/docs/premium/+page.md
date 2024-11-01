@@ -1,6 +1,8 @@
-# premium ranks
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
 
-i love you 3
+<DocsTemplate title='premium ranks' desc='i love you <3' />
 
 ## what is premium?
 

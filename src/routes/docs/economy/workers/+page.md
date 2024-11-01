@@ -1,4 +1,8 @@
-# workers
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='workers' />
 
 ## what do workers do
 

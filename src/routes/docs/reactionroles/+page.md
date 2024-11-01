@@ -1,6 +1,8 @@
-# reaction roles
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
 
-reaction roles allow you to set up buttons where members can click to receive designated roles.
+<DocsTemplate title='reaction roles' desc='reaction roles allow you to set up buttons where members can click to receive designated roles' />
 
 ## setup
 

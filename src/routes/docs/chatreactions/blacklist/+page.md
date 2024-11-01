@@ -1,4 +1,8 @@
-# blacklist
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='chat reactions blacklist' />
 
 the chat reaction blacklist prevents a list of users in your server from competing in chat reactions
 

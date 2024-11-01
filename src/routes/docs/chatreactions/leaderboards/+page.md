@@ -1,4 +1,8 @@
-# leaderboards
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='chat reactions leaderboards' />
 
 ## types of chat reaction leaderboards
 

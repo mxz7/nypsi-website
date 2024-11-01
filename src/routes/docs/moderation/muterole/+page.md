@@ -1,4 +1,8 @@
-# mute role
+<script>
+  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+</script>
+
+<DocsTemplate title='mute role' />
 
 ## default value
 
