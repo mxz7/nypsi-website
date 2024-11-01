@@ -1,4 +1,4 @@
-#<script>
+<script>
 import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
