@@ -72,7 +72,7 @@
   }
 
   :global(.docs-content pre) {
-    @apply overflow-x-scroll rounded-lg bg-base-300 p-2;
+    @apply overflow-x-auto rounded-lg bg-base-300 p-2;
     font-family: "Fira Mono", monospace;
   }
 
