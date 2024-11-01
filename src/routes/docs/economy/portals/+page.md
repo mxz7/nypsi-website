@@ -4,7 +4,7 @@
 
 <DocsTemplate title='portals' />
 
-portals allow you to [mine or hunt](/docs/economy/fishhuntmine) in other dimensions to get more valuable items. there are two kinds of portals, nether portal and end portal.
+portals allow you to [mine or hunt](/docs/economy/fish-hunt-mine) in other dimensions to get more valuable items. there are two kinds of portals, nether portal and end portal.
 
 ## how do i get a portal?
 

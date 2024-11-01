@@ -45,7 +45,9 @@
           uses word lists from
           <a href="https://monkeytype.com" target="_blank" class="link"> monkeytype </a>
           - or
-          <a href="/docs/chatreactions/wordlists" target="_blank" class="link"> create your own </a>
+          <a href="/docs/chat-reactions/word-lists" target="_blank" class="link">
+            create your own
+          </a>
         </li>
         <li>customisable timings</li>
         <li>duel specific players with $cr duel</li>
