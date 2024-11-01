@@ -20,3 +20,7 @@ the server, which will gain you certain benefits.
 
 there are other payment methods, such as direct payment via crypto. if you're interested, contact
 `@m.axz`.
+
+## when do i get my premium crates
+
+premium crates are automatic on friday nights / saturday mornings (00:15 GMT/UTC)
