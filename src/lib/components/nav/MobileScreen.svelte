@@ -15,7 +15,7 @@
     {#if path.children}
       <details open={$page.url.pathname.startsWith(path.path)}>
         <summary class={$page.url.pathname.startsWith(path.path) ? "text-primary" : ""}
-          >{path.name}</summary
+          >{path.name.replaceAll("-", " ")}</summary
         >
         <ul>
           {#each Object.values(path.children) as child}
@@ -25,7 +25,7 @@
       </details>
     {:else}
       <a class={path.path === $page.url.pathname ? "text-primary" : ""} href={path.path}>
-        {path.name}
+        {path.name.replaceAll("-", " ")}
       </a>
     {/if}
   </li>
