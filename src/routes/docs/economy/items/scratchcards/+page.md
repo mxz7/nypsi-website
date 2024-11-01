@@ -10,8 +10,8 @@ daily scratch cards can be obtained from doing `/daily` each day
 
 corner shop scratchies can be purchased from the shop with `/buy`
 
-karma scratch cards can be purchased from the [karma shop](../karma.md#karma-shop)
+karma scratch cards can be purchased from the [karma shop](/docs/economy/karma)
 
-lucky scratch cards and legendary scratch cards can be obtained from achievements or [crates](crates.md)
+lucky scratch cards and legendary scratch cards can be obtained from achievements or [crates](/docs/economy/items/crates)
 
 there are 3 other scratch cards which you can only get , or from achievements. these are the lucky scratch card, karma scratch card and the legendary scratch card.

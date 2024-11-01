@@ -4,7 +4,7 @@ the bakery is a way to produce cookies and cakes
 
 ## how it works
 
-you need a furnace and 1 coal each time you bake. your furnace wont be used while baking, but coal will be used. if you want to bake, do  `/bake`
+you need a furnace and 1 coal each time you bake. your furnace wont be used while baking, but coal will be used. if you want to bake, do `/bake`
 
 ## how do i bake more cookies?
 
@@ -20,7 +20,7 @@ you can increase your cookie production with cursors, super cursors, and grandma
 
 with ovens, cookies will build up from grandmas up to the max afk time. this means that with 12 ovens you can store 6 cookies per grandma, maxing out after 12 hours.
 
-cookie production also has chance to be doubled either from [guild upgrades](guilds.md#guild-shop-upgrades) or certain [gems](items/gems.md)
+cookie production also has chance to be doubled either from [guild upgrades](/docs/economy/guilds#guild-shop-upgrades) or certain [gems](/docs/economy/items/gems)
 
 ## how do i bake cakes?
 
@@ -30,4 +30,4 @@ the percent chance to get cakes continues to run until it fails, so it is possib
 
 ## how do you get upgrades?
 
-upgrades can be obtained from [crates](items/crates.md) and [scratch cards](items/scratchcards.md)
+upgrades can be obtained from [crates](docs/economy/items/crates) and [scratch cards](docs/economy/items/scratchcards)

@@ -1,10 +1,8 @@
 export const prerender = true;
 
+const paths = import.meta.glob("./**/*.md");
+
 export function load() {
-  const paths = import.meta.glob("./**/*.md");
-
-  console.log(paths);
-
   return {
     paths,
   };

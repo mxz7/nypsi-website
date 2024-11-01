@@ -2,9 +2,9 @@
 
 ## how to get items
 
-to get any items, you need to obtain [crates](crates.md). the easiest way to obtain crates is through voting. you can vote every 12 hours and enable vote reminders through `/settings me notifications`
+to get any items, you need to obtain [crates](/docs/economy/items/crates). the easiest way to obtain crates is through voting. you can vote every 12 hours and enable vote reminders through `/settings me notifications`
 
-voting will give you varying rewards depending on your prestige, but generally, you will receive [vote crates](crates.md#vote-basic-69420), [karma](../karma.md), money, temporary multiplier booster and 5 lottery tickets.
+voting will give you varying rewards depending on your prestige, but generally, you will receive [vote crates](/docs/economy/items/crates), [karma](/docs/economy/karma), money, temporary multiplier booster and 5 lottery tickets.
 
 ## auctions
 

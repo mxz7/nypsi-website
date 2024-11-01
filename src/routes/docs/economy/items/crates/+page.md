@@ -2,7 +2,7 @@
 
 ## how do i get a crate?
 
-you can easily obtain vote crates by voting for nypsi with `$vote`. you can also get crates from tasks, daily rewards, fishing, loot drops, [premium](../../premium.md) rewards every friday night / saturday morning or the [online shop](https://ko-fi.com/tekoh/shop).
+you can easily obtain vote crates by voting for nypsi with `$vote`. you can also get crates from tasks, daily rewards, fishing, loot drops, [premium](/docs/premium) rewards every friday night / saturday morning or the [online shop](https://ko-fi.com/tekoh/shop).
 
 ## what do i get from crates?
 
