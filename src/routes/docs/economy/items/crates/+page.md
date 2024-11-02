@@ -30,9 +30,7 @@ you can use the `$use <name of crate> <amount>` command to open specific number 
 
 ## crate odds
 
-<div class="bg-base-200" style="border-width: 5px 10px 1px 10px; border-radius:10px; border-color: oklch(0.193144 0.037037 265.755)">
-
-<div class="flex w-full justify-center" style="margin-bottom: 5px">
+<div class="mb-2" >
   <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm">
     {#each tabs as tab}
       <li>
@@ -57,5 +55,3 @@ you can use the `$use <name of crate> <amount>` command to open specific number 
 {:else if selected === "gem"}
 <CrateOdds crate="gem_crate" />
 {/if}
-
-</div>
