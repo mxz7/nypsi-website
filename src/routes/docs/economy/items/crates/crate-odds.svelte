@@ -3,7 +3,7 @@
   import type { Item } from "$lib/types/Item";
   import { onMount } from "svelte";
 
-  let { crate = "" } = $props();
+  let { crate }: { crate: string } = $props();
 
   let items: Item[] = $state();
 

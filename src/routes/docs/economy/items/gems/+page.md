@@ -2,19 +2,10 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
   import GemChance from "./gem-chance.svelte"
 
-  let selected = "green gem";
+  let selected = $state("green gem");
   const tabs = ["green gem", "blue gem", "purple gem", "pink gem", "white gem", "crystal heart"];
 
 </script>
-
-<style>
-  blue {
-    color: #6097d2;
-  }
-  green {
-    color: #68f78c;
-  }
-</style>
 
 <DocsTemplate title='gems' />
 
@@ -46,20 +37,16 @@ the effects listed of each gem are averaged. this means that at any given time t
 
 ranged values (ex: 1-17%) have an equal chance for all options
 
-<div class="bg-base-200" style="border-width: 5px 10px 1px 10px; border-radius:10px; border-color: oklch(0.193144 0.037037 265.755)">
-
-<div class="flex w-full justify-center" style="margin-bottom: 5px">
-  <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm">
+  <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm mb-2 mt-4">
     {#each tabs as tab}
       <li>
         <button class={selected === tab ? "focus" : ""} on:click={() => selected = tab}>{tab}</button>
       </li>
     {/each}
   </ul>
-</div>
-
 
 {#if selected === "green gem"}
+
 ### effects
 
 \+20% max storage for all workers
@@ -274,4 +261,11 @@ cannot shatter
 
 {/if}
 
-</div>
+<style>
+  blue {
+    color: #6097d2;
+  }
+  green {
+    @apply text-success;
+  }
+</style>
