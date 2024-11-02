@@ -29,9 +29,8 @@
 
         <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>
         <a href="/status" class="btn btn-ghost font-semibold">status</a>
+        <a href="/docs" class="btn btn-ghost font-semibold">docs</a>
         <a href="/discord" class="btn btn-ghost font-semibold" target="_blank">discord</a>
-        <a href="https://docs.nypsi.xyz" target="_blank" class="btn btn-ghost font-semibold">docs</a
-        >
         <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="btn btn-ghost font-semibold">
           <span
             class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"

@@ -1,5 +1,16 @@
+import { pathsRaw } from "$lib/data/docs";
+
+export const prerender = true;
+
 const site = "https://nypsi.xyz"; // change this to reflect your domain
 const pages: string[] = ["leaderboard", "status"]; // populate this with all the slugs you wish to include
+
+pages.push(
+  ...pathsRaw
+    .map((i) => i.replace("/+page.md", ""))
+    .map((i) => i.replace("/+page.svelte", ""))
+    .map((i) => `docs/${i}`),
+);
 
 export async function GET() {
   const body = sitemap(pages);

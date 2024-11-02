@@ -45,7 +45,7 @@
           uses word lists from
           <a href="https://monkeytype.com" target="_blank" class="link"> monkeytype </a>
           - or
-          <a href="https://docs.nypsi.xyz/chatreactions/wordlists" target="_blank" class="link">
+          <a href="/docs/chat-reactions/word-lists" target="_blank" class="link">
             create your own
           </a>
         </li>

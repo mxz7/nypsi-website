@@ -7,7 +7,9 @@
   <meta name="robots" content="noindex" />
 </svelte:head>
 
-<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-  <h1 class="text-9xl font-extrabold text-primary">{$page.status}</h1>
-  <p class="text-lg text-slate-400">{$page.error.message}</p>
+<div class="mt-24 flex w-full justify-center">
+  <div class="text-center">
+    <h1 class="text-9xl font-extrabold text-primary">{$page.status}</h1>
+    <p class="text-lg text-slate-400">{$page.error.message}</p>
+  </div>
 </div>
