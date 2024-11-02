@@ -2,13 +2,14 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
   import CrateOdds from "./crate-odds.svelte"
   import { onMount } from "svelte";
+  import { page } from '$app/stores';
   
-  let selected = "vote/basic/69420";
+  let selected = $state("vote/basic/69420");
 
   const tabs = ["vote/basic/69420", "boosters", "workers", "mineshaft chest", "nypsi", "omega", "gem"];
 
   onMount(() => {
-    if (tabs.includes(document.location.hash.substring(1))) selected = document.location.hash.substring(1);
+    if (tabs.includes($page.url.searchParams.get('crate'))) selected = $page.url.searchParams.get('crate');
   })
 
 </script>
@@ -28,6 +29,7 @@ you can get random items such as collectables and cars, but most notably being t
 you can use the `$use <name of crate> <amount>` command to open specific number of a specific crate.
 
 ## crate odds
+
 <div class="bg-base-200" style="border-width: 5px 10px 1px 10px; border-radius:10px; border-color: oklch(0.193144 0.037037 265.755)">
 
 <div class="flex w-full justify-center" style="margin-bottom: 5px">
