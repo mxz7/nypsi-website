@@ -1,3 +1,4 @@
+import { building } from "$app/environment";
 import type { RequestEvent } from "@sveltejs/kit";
 import pino from "pino";
 
@@ -9,6 +10,8 @@ export function log(
   statusCode: number,
   event: RequestEvent<Partial<Record<string, string>>, string>,
 ) {
+  if (building) return;
+
   const error = event.locals?.error || undefined;
   const errorId = event.locals?.errorId || undefined;
   const errorStackTrace = event.locals?.errorStackTrace || undefined;
