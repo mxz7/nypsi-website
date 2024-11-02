@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { GuildSuccess } from "$lib/types/Guild";
   import { inPlaceSort } from "fast-sort";
-  import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
 
   interface Props {
     guildData: GuildSuccess;
@@ -16,21 +14,11 @@
 
   const handleFallbackImage = (el) =>
     (el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png");
-
-  onMount(async () => {
-    for (const avatar of avatars) {
-      if (avatar.src.endsWith("avatars/0.png")) continue;
-      const res = await fetch(avatar.src);
-
-      if (!res.ok) avatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
-    }
-  });
 </script>
 
 <div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
   <div
     class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
-    in:fly|global={{ delay: 300, duration: 500, y: 75 }}
   >
     <h1 class="text-center text-2xl font-bold text-white">{guild.guildName} [{guild.level}]</h1>
 
@@ -44,6 +32,8 @@
           alt="owner pfp"
           src={guild.owner.user.avatar}
           onerror={handleFallbackImage}
+          decoding="async"
+          loading="lazy"
         />
         {guild.owner.user.lastKnownUsername}</a
       >
@@ -58,7 +48,6 @@
 
   <div
     class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
-    in:fly|global={{ delay: 400, duration: 500, y: 75 }}
   >
     <div class="flex flex-col justify-center gap-4 sm:flex-row">
       <div class="grow text-center">
@@ -78,7 +67,6 @@
 
   <div
     class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
-    in:fly|global={{ delay: 500, duration: 500, y: 75 }}
   >
     <div
       class="flex flex-col justify-center gap-2 [&>*:nth-child(1)]:font-semibold [&>*:nth-child(1)]:text-primary"
@@ -91,6 +79,8 @@
             src={member.economy.user.avatar}
             alt="{member.economy.user.lastKnownUsername}'s avatar"
             onerror={handleFallbackImage}
+            decoding="async"
+            loading="lazy"
           />
           <a
             class="link-hover line-clamp-1 w-fit break-all text-lg font-medium"

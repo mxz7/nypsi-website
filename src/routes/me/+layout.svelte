@@ -1,85 +1,53 @@
-<script lang="ts">
+<script>
   import { page } from "$app/stores";
-  import tooltip from "$lib/Tooltips.js";
-  import Profile from "$lib/components/users/Profile.svelte";
-  import { auth } from "$lib/state.svelte.js";
-  import { onMount } from "svelte";
+  import { BadgePoundSterling, ChartArea, ChartBar, Coins } from "lucide-svelte";
 
-  let graphsAllowed = $state(false);
-
-  let { data, children } = $props();
-
-  onMount(() => {
-    if (data.baseData?.Premium?.level > 0) graphsAllowed = true;
-    auth.value = { authenticated: Boolean(data.user), user: data.user };
-  });
+  let { children } = $props();
 </script>
 
-<div class="mt-4 flex w-full justify-center">
-  <div class="w-full px-4 lg:max-w-5xl lg:px-0">
-    {#if data.baseData}
-      <a
-        href="/user/{data.baseData.id}"
-        use:tooltip={{
-          content: "click to view your profile",
-          theme: "tooltip",
-          placement: "bottom",
-        }}
-      >
-        <Profile baseData={data.baseData} userData={data.userData} items={data.items} />
-      </a>
-    {/if}
+<div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
+  <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
+    <li><h2 class="menu-title">dashboard</h2></li>
 
-    <div class="mb-4 mt-3 flex w-full flex-row justify-center">
-      {#if graphsAllowed}
+    <div class="pl-2">
+      <li>
         <a
-          class="grow {$page.url.pathname.includes('/graphs')
-            ? 'border-b-primary'
-            : ''} border-b border-slate-700 pb-2 text-center hover:border-primary"
+          class="flex items-center {$page.url.pathname.startsWith('/me/stats')
+            ? 'text-primary'
+            : ''}"
+          href="/me/stats"
+        >
+          <Coins />
+          <span>stats</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
+            ? 'text-primary'
+            : ''}"
           href="/me/graphs"
         >
-          graphs
+          <ChartArea />
+          <span>graphs</span>
         </a>
-      {:else}
+      </li>
+
+      <li>
         <a
-          class="grow cursor-not-allowed border-b border-slate-700 pb-2 text-center hover:border-error"
-          href="/me"
-          use:tooltip={{
-            theme: "tooltip",
-            placement: "top",
-            allowHTML: true,
-            content:
-              'you require <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="text-primary link">premium</a> to view graphs',
-            interactive: true,
-          }}
+          class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
+            ? 'text-primary'
+            : ''}"
+          href="/me/purchases"
         >
-          graphs
+          <BadgePoundSterling />
+          <span>purchases</span>
         </a>
-      {/if}
-
-      <a
-        class="grow border-b border-slate-700 pb-2 text-center hover:border-primary {$page.url.pathname.includes(
-          '/stats',
-        )
-          ? 'border-b-primary'
-          : ''}"
-        href="/me/stats"
-      >
-        stats
-      </a>
-
-      <a
-        class="grow border-b border-slate-700 pb-2 text-center hover:border-primary {$page.url.pathname.includes(
-          '/purchasehistory',
-        )
-          ? 'border-b-primary'
-          : ''}"
-        href="/me/purchasehistory"
-      >
-        purchases
-      </a>
+      </li>
     </div>
-
-    {@render children?.()}
+  </ul>
+  <div class="w-full p-4 lg:p-0">
+    {@render children()}
   </div>
 </div>

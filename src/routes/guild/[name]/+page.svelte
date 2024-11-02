@@ -1,25 +1,17 @@
 <script lang="ts">
-  import { page } from "$app/stores";
   import Chart from "$lib/components/Chart.svelte";
-  import { userSearchTerm } from "$lib/state.svelte";
-  import type { ApiGuildResponse } from "$lib/types/Guild.js";
+  import { guildSearchTerm } from "$lib/state.svelte";
   import type { ChartOptions } from "chart.js";
   import { fly } from "svelte/transition";
   import Guild from "./Guild.svelte";
 
   let { data } = $props();
-  let title = $state(`${$page.params.name} / nypsi`);
-
-  async function updateTags(userData: Promise<ApiGuildResponse> | ApiGuildResponse) {
-    const data = await Promise.resolve(userData);
-    if (!data.success) return;
-
-    title = `${data.guild.guildName} / nypsi`;
-    userSearchTerm.value = data.guild.guildName;
-  }
+  let title = $derived(
+    `${data.guild.success ? data.guild.guild.guildName : "unknown guild"} / nypsi`,
+  );
 
   $effect(() => {
-    updateTags(data.guild);
+    if (data.guild.success) guildSearchTerm.value = data.guild.guild.guildName;
   });
 
   const moneyChartOptions: ChartOptions = {

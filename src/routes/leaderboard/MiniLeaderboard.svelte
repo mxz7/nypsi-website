@@ -7,9 +7,9 @@
   interface Props {
     title: string;
     data: LeaderboardData | Promise<LeaderboardData>;
-    tags: 
-    | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
-    | { [key: string]: { tagId: string; emoji: string; name: string } };
+    tags:
+      | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
+      | { [key: string]: { tagId: string; emoji: string; name: string } };
   }
 
   let { title, data, tags }: Props = $props();
@@ -35,12 +35,12 @@
                 class="my-1 h-4 animate-pulse rounded-xl md:h-5 {i === 0
                   ? 'bg-primary'
                   : 'bg-slate-400'}"
-></div>
+              ></div>
               <div class="grow"></div>
               <div
                 style="width: {Math.floor(Math.random() * 4) + 4}rem"
                 class="h-4 animate-pulse rounded-xl {i === 0 ? 'bg-primary' : 'bg-slate-500'}"
-></div>
+              ></div>
             </div>
           {/each}
         </div>
@@ -84,7 +84,7 @@
                 {:else}
                   <a
                     href={user.username === "[hidden]"
-                      ? "https://docs.nypsi.xyz/economy/user-settings/hidden"
+                      ? "/docs/economy/user-settings/hidden"
                       : `/user/${user.id}`}
                     class="{i === 0
                       ? 'font-semibold text-primary'
