@@ -1,5 +1,16 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import CrateOdds from "./crate-odds.svelte"
+  import { onMount } from "svelte";
+  
+  let selected = "vote/basic/69420";
+
+  const tabs = ["vote/basic/69420", "boosters", "workers", "mineshaft chest", "nypsi", "omega", "gem"];
+
+  onMount(() => {
+    if (tabs.includes(document.location.hash.substring(1))) selected = document.location.hash.substring(1);
+  })
+
 </script>
 
 <DocsTemplate title='crates' />
@@ -17,33 +28,32 @@ you can get random items such as collectables and cars, but most notably being t
 you can use the `$use <name of crate> <amount>` command to open specific number of a specific crate.
 
 ## crate odds
+<div class="bg-base-200" style="border-width: 5px 10px 1px 10px; border-radius:10px; border-color: oklch(0.193144 0.037037 265.755)">
 
-<!-- {% tabs %}
-{% tab title="vote/basic/69420" %}
-{% @nypsi/basic-crate-odds %}
-{% endtab %}
+<div class="flex w-full justify-center" style="margin-bottom: 5px">
+  <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm">
+    {#each tabs as tab}
+      <li>
+        <button class={selected === tab ? "focus" : ""} on:click={() => selected = tab}>{tab}</button>
+      </li>
+    {/each}
+  </ul>
+</div>
 
-{% tab title="boosters" %}
-{% @nypsi/boosters-crate-odds %}
-{% endtab %}
+{#if selected === "vote/basic/69420"}
+<CrateOdds crate="basic_crate" />
+{:else if selected === "boosters"}
+<CrateOdds crate="boosters_crate" />
+{:else if selected === "workers"}
+<CrateOdds crate="workers_crate" />
+{:else if selected === "mineshaft chest"}
+<CrateOdds crate="mineshaft_chest" />
+{:else if selected === "nypsi"}
+<CrateOdds crate="nypsi_crate" />
+{:else if selected === "omega"}
+<CrateOdds crate="omega_crate" />
+{:else if selected === "gem"}
+<CrateOdds crate="gem_crate" />
+{/if}
 
-{% tab title="workers" %}
-{% @nypsi/workers-crate-odds %}
-{% endtab %}
-
-{% tab title="mineshaft chest" %}
-{% @nypsi/mineshaft-chest-odds %}
-{% endtab %}
-
-{% tab title="nypsi" %}
-{% @nypsi/nypsi-crate-odds %}
-{% endtab %}
-
-{% tab title="omega" %}
-{% @nypsi/omega-crate-odds %}
-{% endtab %}
-
-{% tab title="gem" %}
-{% @nypsi/gem-crate-odds %}
-{% endtab %}
-{% endtabs %} -->
+</div>
