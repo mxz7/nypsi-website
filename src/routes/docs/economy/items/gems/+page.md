@@ -1,5 +1,10 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import GemChance from "./gem-chance.svelte"
+
+  let selected = $state("green gem");
+  const tabs = ["green gem", "blue gem", "purple gem", "pink gem", "white gem", "crystal heart"];
+
 </script>
 
 <DocsTemplate title='gems' />
@@ -26,14 +31,21 @@ double cookies from baking only take the highest chance from all gems
 
 the effects listed of each gem are averaged. this means that at any given time their effects could be higher or lower than what's listed.
 
-<mark style="color:blue;">blue text</mark> = removed when you have a crystal heart (except shattering). any time it is the other half of a percentage (ex: 60% is positive, <mark style="color:blue;">other 40% is negative</mark>), the positive happens 100% of the time with a heart.
+<blue>blue text</blue> = removed when you have a crystal heart (except shattering). any time it is the other half of a percentage (ex: 60% is positive, <blue>other 40% is negative</blue>), the positive happens 100% of the time with a heart.
 
-<mark style="color:green;">green text</mark> means that, combined, only one gem can be given every 24 hours globally from any of these methods.
+<br><br><green>green text</green> means that, combined, only one gem can be given every 24 hours globally from any of these methods.
 
 ranged values (ex: 1-17%) have an equal chance for all options
 
-<!-- {% tabs %}
-{% tab title="green gem" %} -->
+  <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm mb-2 mt-4">
+    {#each tabs as tab}
+      <li>
+        <button class={selected === tab ? "focus" : ""} on:click={() => selected = tab}>{tab}</button>
+      </li>
+    {/each}
+  </ul>
+
+{#if selected === "green gem"}
 
 ### effects
 
@@ -45,29 +57,29 @@ crafting: 10 gem shards
 
 tower: 1.5% chance to spawn per row (max 1 per game), 0.5% chance to drop when clicked
 
-mines: 20% chance to spawn, <mark style="color:green;">0.5% chance to drop when clicked</mark>
+mines: 20% chance to spawn, <green>0.5% chance to drop when clicked</green>
 
 1% chance to obtain when buying an item from the store (NOT the shop)
 
-<mark style="color:green;">0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</mark>
+<green>0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</green>
 
-<mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
+<br><br><green>0.175% chance to obtain from completing any achievement</green>
 
 <!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-<!-- {% @nypsi/green-gem-chance %} -->
+<GemChance type="green_gem"/>
 
 ### shattering
 
 cannot shatter
 
-<!-- {% endtab %}
+{/if}
 
-{% tab title="blue gem" %} -->
+{#if selected === "blue gem"}
 
 ### effects
 
-60% chance to increase worker output by 17%, <mark style="color:blue;">other 40% decreases output by 20%</mark>
+60% chance to increase worker output by 17%, <blue>other 40% decreases output by 20%</blue>
 
 0.1% chance to double cookies baked
 
@@ -75,17 +87,17 @@ cannot shatter
 
 crafting: 5 gem shards
 
-<mark style="color:green;">0.03% chance to obtain from $daily</mark>
+<green>0.03% chance to obtain from $daily</green>
 
 1% chance to obtain when buying an item from the store (NOT the shop)
 
-<mark style="color:green;">0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</mark>
+<green>0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</green>
 
-<mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
+<br><br><green>0.175% chance to obtain from completing any achievement</green>
 
 <!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-<!-- {% @nypsi/blue-gem-chance %} -->
+<GemChance type="blue_gem"/>
 
 ### shattering
 
@@ -95,13 +107,13 @@ crafting: 5 gem shards
 
 max shards given from shattering: 3
 
-<!-- {% endtab %} -->
+{/if}
 
-<!-- {% tab title="purple gem" %} -->
+{#if selected === "purple gem"}
 
 ### effects
 
-50% chance to increase worker item value by 17%, <mark style="color:blue;">other 50% decreases value by 17%</mark>
+50% chance to increase worker item value by 17%, <blue>other 50% decreases value by 17%</blue>
 
 50% chance to reduce karma deterioration by 56.25%
 
@@ -113,21 +125,21 @@ max shards given from shattering: 3
 
 crafting: 15 gem shards
 
-<mark style="color:green;">0.9% chance to obtain from winning the lottery</mark>
+<green>0.9% chance to obtain from winning the lottery</green>
 
 0.007% chance to obtain from doing any animal command (cooldown of 1 minute per check)
 
 1% chance to obtain when buying an item from the store (NOT the shop)
 
-<mark style="color:green;">0.1% chance to obtain when buying an item from the karmashop</mark>
+<green>0.1% chance to obtain when buying an item from the karmashop</green>
 
-<mark style="color:green;">0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</mark>
+<br><br><green>0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</green>
 
-<mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
+<br><br><green>0.175% chance to obtain from completing any achievement</green>
 
 <!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-<!-- {% @nypsi/purple-gem-chance %} -->
+<GemChance type="purple_gem"/>
 
 ### shattering
 
@@ -141,15 +153,15 @@ crafting: 15 gem shards
 
 max shards given from shattering: 10
 
-<!-- {% endtab %}
+{/if}
 
-{% tab title="pink gem" %} -->
+{#if selected === "pink gem"}
 
 ### effects
 
-\+0.92% gamble multiplier <mark style="color:blue;">(20% chance to reduce multi by 3%)</mark>
+\+0.92% gamble multiplier <blue>(20% chance to reduce multi by 3%)</blue>
 
-\+4% sell multiplier <mark style="color:blue;">(20% chance to reduce multi by 3%)</mark>
+\+4% sell multiplier <blue>(20% chance to reduce multi by 3%)</blue>
 
 ### obtaining
 
@@ -159,13 +171,13 @@ crafting: 20 gem shards
 
 1% chance to obtain when buying an item from the store (NOT the shop)
 
-<mark style="color:green;">0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</mark>
+<green>0.00025% (1/400,000) chance to obtain from doing any command (cooldown of 1 minute per check)</green>
 
-<mark style="color:green;">0.175% chance to obtain from completing any achievement</mark>
+<br><br><green>0.175% chance to obtain from completing any achievement</green>
 
 <!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-<!-- {% @nypsi/pink-gem-chance %} -->
+<GemChance type="pink_gem"/>
 
 ### shattering
 
@@ -175,21 +187,21 @@ crafting: 20 gem shards
 
 max shards given from shattering: 15
 
-<!-- {% endtab %} -->
+{/if}
 
-<!-- {% tab title="white gem" %} -->
+{#if selected === "white gem"}
 
 ### effects
 
 \+70% max worker storage
 
-\+60% chance for +70% more worker items per hour and item value, <mark style="color:blue;">other 40% cuts items/hr and value in half</mark>
+\+60% chance for +70% more worker items per hour and item value, <blue>other 40% cuts items/hr and value in half</blue>
 
-\+80% chance to increase max xp gain by 1-17% for each gamble, <mark style="color:blue;">other 20% decreases by 1-7%</mark>
+\+80% chance to increase max xp gain by 1-17% for each gamble, <blue>other 20% decreases by 1-7%</blue>
 
-\+2% gamble multiplier <mark style="color:blue;">(20% chance to reduce multi by 1-3%)</mark>
+\+2% gamble multiplier <blue>(20% chance to reduce multi by 1-3%)</blue>
 
-\+2.4% sell multiplier <mark style="color:blue;">(20% chance to reduce multi by 1-6%)</mark>
+\+2.4% sell multiplier <blue>(20% chance to reduce multi by 1-6%)</blue>
 
 50% chance to save your daily streak from resetting
 
@@ -205,7 +217,7 @@ crafting: 2 blue gems, 2 green gems, 1 pink gem, 1 purple gem
 
 <!-- < 0.01% chance to obtain from fishing with an incredible rod -->
 
-<!-- {% @nypsi/white-gem-chance %} -->
+<GemChance type="white_gem"/>
 
 ### shattering
 
@@ -221,9 +233,9 @@ crafting: 2 blue gems, 2 green gems, 1 pink gem, 1 purple gem
 
 max shards given from shattering: 30
 
-<!-- {% endtab %} -->
+{/if}
 
-<!-- {% tab title="crystal heart" %} -->
+{#if selected === "crystal heart"}
 
 ### effects
 
@@ -241,11 +253,19 @@ removes almost all negative effects possible from other gems
 
 every time you do an action that would cause a gem to break (and have 5 unique gems), there's a 50% chance to trigger the crafting sequence of a crystal heart. otherwise, your gem shatters and you only get shards ):
 
-<!-- {% @nypsi/crystal-heart-chance %} -->
+<GemChance type="crystal_heart"/>
 
 ### shattering
 
 cannot shatter
 
-<!-- {% endtab %}
-{% endtabs %} -->
+{/if}
+
+<style>
+  blue {
+    color: #6097d2;
+  }
+  green {
+    @apply text-success;
+  }
+</style>
