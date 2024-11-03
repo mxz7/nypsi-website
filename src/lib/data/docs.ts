@@ -1,5 +1,3 @@
-import { sort } from "fast-sort";
-
 export const pathsRaw = Object.keys(import.meta.glob("../../routes/docs/**/*.{md,svx}")).map((i) =>
   i.replace("../../routes/docs/", ""),
 );
@@ -42,7 +40,4 @@ for (const path of pathsRaw) {
   func(path, pathsData);
 }
 
-export const paths = sort(Object.values(pathsData)).asc([
-  (i) => Boolean(i.children),
-  (i) => i.name,
-]);
+export const paths = Object.values(pathsData);
