@@ -8,9 +8,9 @@
 
 these rules apply to usage of the discord bot
 
-### automating commands
+### automating commands / cheating
 
-<p>this is not allowed. use of this will result in a ban and potentially a profile reset.</p>
+'cheating', by automating commands, using a macro, multiple people on the same account etc. is not allowed. you will be banned and potentially have your profile reset.
 
 ### exploits
 
