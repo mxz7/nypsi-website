@@ -25,11 +25,13 @@
 </svelte:head>
 
 <div in:fade={{ delay: 0, duration: 200 }}>
-  <UserData
-    baseData={data.baseUserData}
-    userData={data.allUserData}
-    items={data.items}
-    gamesPromise={data.games}
-    gamesBefore={data.gamesBefore}
-  />
+  {#key data}
+    <UserData
+      baseData={data.baseUserData}
+      userData={data.allUserData}
+      items={data.items}
+      gamesPromise={data.games}
+      gamesBefore={data.gamesBefore}
+    />
+  {/key}
 </div>
