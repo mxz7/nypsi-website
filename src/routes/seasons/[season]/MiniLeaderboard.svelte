@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
+  import User from "./user.svelte";
 
   interface Props {
     data: LeaderboardData;
@@ -7,22 +8,37 @@
     valueSuffix?: string;
   }
 
-  let { data, title, valueSuffix = "" }: Props = $props();
+  let { data, title }: Props = $props();
 </script>
 
-<div class="mx-5 sm:grow">
-  <h2 class="text-center font-bold sm:text-3xl">{title}</h2>
-  <table class="mx-auto mt-1 text-sm sm:text-lg">
-    <tbody>
-      {#each data.slice(0, 10) as { user, value, position }}
-        <tr
-          class="border-b-[8px] border-slate-900 border-opacity-100 bg-base-200 duration-200 ease-in hover:scale-105"
-        >
-          <td class="px-1 py-1 text-right text-slate-400">#{position}</td>
-          <td class="line-clamp-1 px-4 py-1">{user.username}</td>
-          <td class="px-4 py-1 text-right">{value} {valueSuffix}</td>
-        </tr>
-      {/each}
-    </tbody>
-  </table>
+<div class="w-full max-w-md">
+  <h2 class="text-center text-lg font-bold text-white md:text-2xl">{title}</h2>
+  <div class="m-auto mt-1 h-1 w-1/2 rounded-full bg-primary"></div>
+  {#if data}
+    <div class="mt-4 px-4 sm:px-0 md:text-lg">
+      <div class="flex flex-col gap-2">
+        {#each data.slice(0, 10) as { position, user, value }, i}
+          <div
+            class="flex w-full items-center gap-2 rounded-lg border bg-base-200 px-2 py-2 duration-200 ease-in
+              hover:scale-105 hover:border-primary hover:border-opacity-20 {i === 0
+              ? 'border-primary border-opacity-40 hover:border-opacity-60 md:hover:scale-110 lg:scale-105'
+              : 'border-slate-400 border-opacity-5 hover:border-opacity-20 '}"
+          >
+            <div class="text-slate-400 {i === 0 ? 'font-semibold' : ''}">#{position}</div>
+
+            <div class="flex w-full items-center overflow-hidden">
+              <User {user} pos={position} />
+            </div>
+            <div
+              class="{i === 0
+                ? 'font-semibold text-primary'
+                : 'text-slate-300'} w-fit whitespace-nowrap pl-2 text-right"
+            >
+              {value}
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/if}
 </div>
