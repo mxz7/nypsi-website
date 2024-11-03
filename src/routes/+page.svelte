@@ -92,7 +92,7 @@
           class="animation-3 btn btn-primary flex gap-3 bg-gradient-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
           target="_blank"
           data-umami-event="add-to-discord"
-          data-umami-event-user={auth.value.authenticated ? auth.value.user.id : undefined}
+          data-umami-event-user={auth.value?.authenticated ? auth.value.user.id : undefined}
         >
           <Discord class="h-6 w-6 lg:h-7 lg:w-7" />
           <span class="lg:text-2xl">add to discord</span>
