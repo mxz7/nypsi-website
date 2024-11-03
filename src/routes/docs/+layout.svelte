@@ -79,4 +79,8 @@
   :global(.docs-content a) {
     @apply link;
   }
+
+  :global(.docs-content table) {
+    @apply table;
+  }
 </style>
