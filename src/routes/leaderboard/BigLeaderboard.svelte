@@ -7,20 +7,14 @@
   interface Props {
     title: string;
     data: LeaderboardData | Promise<LeaderboardData>;
-    tags: 
-    | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
-    | { [key: string]: { tagId: string; emoji: string; name: string } };
+    tags:
+      | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
+      | { [key: string]: { tagId: string; emoji: string; name: string } };
     userRoute: string;
     descriptor?: string;
   }
 
-  let {
-    title,
-    data,
-    tags,
-    userRoute,
-    descriptor = ""
-  }: Props = $props();
+  let { title, data, tags, userRoute, descriptor = "" }: Props = $props();
 </script>
 
 <div class="w-full md:max-w-3xl">
@@ -47,12 +41,12 @@
                 class="my-1 h-4 animate-pulse rounded-xl md:h-5 {i === 0
                   ? 'bg-primary'
                   : 'bg-slate-400'}"
-></div>
+              ></div>
               <div class="grow"></div>
               <div
                 style="width: {Math.floor(Math.random() * 4) + 4}rem"
                 class="h-4 animate-pulse rounded-xl {i === 0 ? 'bg-primary' : 'bg-slate-500'}"
-></div>
+              ></div>
             </div>
           {/each}
         </div>
@@ -84,6 +78,8 @@
                         class="h-5 sm:h-6"
                         src={parseEmoji(tags[user.tag]?.emoji)}
                         alt=""
+                        decoding="async"
+                        loading="lazy"
                         use:tooltip={{
                           placement: "top",
                           content: tags[user.tag]?.name,

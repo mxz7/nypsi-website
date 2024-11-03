@@ -64,6 +64,7 @@
                         class="h-5 sm:h-6"
                         src={parseEmoji(tags[user.tag]?.emoji)}
                         alt=""
+                        decoding="async"
                         use:tooltip={{
                           placement: "top",
                           content: tags[user.tag]?.name,
