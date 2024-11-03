@@ -7,6 +7,7 @@
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
+  import { auth } from "$lib/state.svelte";
 
   let { data } = $props();
 
@@ -140,7 +141,9 @@
   >
     {#each options as option, i}
       <button
-        class="plausible-event-name={option.name.replaceAll(' ', '+')}+lb btn
+        data-umami-event="lb-{option.name.replaceAll(' ', '-')}"
+        data-umami-event-user={auth.value.authenticated ? auth.value.user.id : undefined}
+        class=" btn
         {(typeof $page.state.leaderboardSelection === 'number'
           ? $page.state.leaderboardSelection
           : -1) === i

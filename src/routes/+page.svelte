@@ -1,6 +1,7 @@
 <script lang="ts">
   import Discord from "$lib/assets/svg/discord.svelte";
   import Features from "$lib/components/features/Features.svelte";
+  import { auth } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
@@ -90,6 +91,8 @@
           href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
           class="animation-3 btn btn-primary flex gap-3 bg-gradient-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
           target="_blank"
+          data-umami-event="add-to-discord"
+          data-umami-event-user={auth.value.authenticated ? auth.value.user.id : undefined}
         >
           <Discord class="h-6 w-6 lg:h-7 lg:w-7" />
           <span class="lg:text-2xl">add to discord</span>
