@@ -1,10 +1,9 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import Achievements from "./achievements.svelte"
 </script>
 
 <DocsTemplate title='achievements' desc='achievements are goals that when completed, give you some rewards.' />
-
-achievements are goals that when completed, give you some rewards.
 
 ## how can i see achievements?
 
@@ -19,3 +18,7 @@ this will show the details of the achievement as well as the rewards you get for
 ## what rewards can i get from achievements?
 
 achievements can give a variety of rewards including crates, scratch cards, xp and exclusive tags.
+
+## all achievements
+
+<Achievements />
