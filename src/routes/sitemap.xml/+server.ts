@@ -31,7 +31,6 @@ const sitemap = (pages: string[]) => `<?xml version="1.0" encoding="UTF-8" ?>
 >
 <url>
     <loc>${site}</loc>
-    <priority>1</priority>
   </url>
   ${pages
     .map(
