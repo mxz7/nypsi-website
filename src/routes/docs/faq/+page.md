@@ -8,6 +8,10 @@
 
 the karma shop (`/karmashop view`) opens a few times a month. you can use the karma shop command to see when it is next scheduled to be opened. you can also join the [official nypsi server](https://discord.gg/hJTDNST), and give yourself the karma shop role, to be notified when it does open
 
+## my server does not qualify to track mentions
+
+this means that your server is either too large (> 150,000 members), or the server owner has not used nypsi in a while. if you have too many members and want to use this feature, please contact me (`@m.axz`), otherwise, ask the server owner to do some commands.
+
 ## how do i get vote reminders
 
 use the below command to open your notification settings. there will be a 'vote reminders' option for you to enable
