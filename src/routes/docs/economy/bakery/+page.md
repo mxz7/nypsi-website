@@ -2,7 +2,9 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
-<DocsTemplate title='bakery' desc='the bakery is a way to produce cookies and cakes' />
+<DocsTemplate title='bakery' />
+
+the bakery is a way to produce cookies and cakes
 
 ## how it works
 

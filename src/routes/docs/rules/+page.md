@@ -2,7 +2,9 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
-<DocsTemplate title='rules' desc="if you're a respectable person and use common sense, you should be fine" />
+<DocsTemplate title='rules' />
+
+if you're a respectable person and use common sense, you should be fine
 
 ## bot rules
 

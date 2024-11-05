@@ -2,7 +2,9 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
-<DocsTemplate title='evidence' desc='evidence is a system that allows moderators to upload evidence to a nypsi moderation case' />
+<DocsTemplate title='evidence' />
+
+evidence is a system that allows moderators to upload evidence to a nypsi moderation case
 
 ## whats the point?
 

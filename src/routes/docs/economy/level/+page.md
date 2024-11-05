@@ -2,7 +2,9 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
-<DocsTemplate title='levelling' desc="levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if you don't explicitly prestige" />
+<DocsTemplate title='levelling' />
+
+levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if you don't explicitly prestige
 
 ## how do i level up?
 

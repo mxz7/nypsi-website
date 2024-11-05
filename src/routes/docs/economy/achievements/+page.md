@@ -3,7 +3,9 @@
   import Achievements from "./achievements.svelte"
 </script>
 
-<DocsTemplate title='achievements' desc='achievements are goals that when completed, give you some rewards.' />
+<DocsTemplate title='achievements' />
+
+achievements are goals that when completed, give you some rewards.
 
 ## how can i see achievements?
 
