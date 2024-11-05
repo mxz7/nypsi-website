@@ -1,5 +1,4 @@
 import { pathsRaw } from "$lib/data/docs";
-import { statSync } from "fs";
 
 export const prerender = true;
 
@@ -32,13 +31,14 @@ const sitemap = (pages: string[]) => `<?xml version="1.0" encoding="UTF-8" ?>
 >
 <url>
     <loc>${site}</loc>
+    <priority>1</priority>
   </url>
   ${pages
     .map(
       (page) => `
   <url>
     <loc>${site}/${page}</loc>
-    ${page.startsWith("docs") ? `<lastmod>${new Date(statSync(`src/routes/${page}`).mtime).toISOString()}</lastmod>` : ""}
+    <priority>${1 - page.split("/").length * 0.1}</priority>
   </url>
   `,
     )
