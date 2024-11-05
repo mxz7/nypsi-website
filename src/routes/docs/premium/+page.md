@@ -4,7 +4,7 @@
 
 <DocsTemplate title='premium ranks' />
 
-i love you <3
+i love you
 
 ## what is premium?
 
