@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import type { PathsData } from "$lib/data/docs";
   import { paths } from "$lib/data/docs";
+  import { blur, fly } from "svelte/transition";
 
   let { children } = $props();
 </script>
@@ -44,9 +45,11 @@
       {@render renderPath(path)}
     {/each}
   </ul>
-  <div class="docs-content w-full p-4 lg:p-0">
-    {@render children()}
-  </div>
+  {#key $page.url.pathname}
+    <div in:fly={{ duration: 200, y: 25 }} class="docs-content w-full p-4 lg:p-0">
+      {@render children()}
+    </div>
+  {/key}
 </div>
 
 <style>
