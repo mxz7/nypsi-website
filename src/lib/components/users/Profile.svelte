@@ -90,6 +90,7 @@
         onerror={handleFallbackImage}
         loading="eager"
         decoding="sync"
+        fetchpriority="high"
       />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}
@@ -190,7 +191,7 @@
 
     <div class="grow"></div>
     {#if baseData.Tags?.length > 0 || premiumMap.get(baseData.Premium?.level || 0)}
-      <div class="flex h-fit flex-col rounded-lg bg-base-300 p-2 gap-2 pb-0">
+      <div class="flex h-fit flex-col gap-2 rounded-lg bg-base-300 p-2 pb-0">
         {#if baseData.Tags?.length > 0}
           {#each baseData.Tags as tag, i}
             {#if badges.has(tag.tagId)}
@@ -203,7 +204,7 @@
                 }}
               >
                 <img
-                  class="h-4 w-4 lg:w-6 lg:h-6"
+                  class="h-4 w-4 lg:h-6 lg:w-6"
                   src={badges.get(tag.tagId)?.icon}
                   alt="{tag.tagId} emoji"
                   decoding="async"
@@ -221,7 +222,7 @@
                     }}
                   >
                     <img
-                      class="h-4 w-4 lg:w-6 lg:h-6"
+                      class="h-4 w-4 lg:h-6 lg:w-6"
                       src={parseEmoji(tagData[tag.tagId].emoji)}
                       alt="{tag.tagId} emoji"
                       loading="lazy"
