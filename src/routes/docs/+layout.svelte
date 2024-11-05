@@ -2,7 +2,7 @@
   import { page } from "$app/stores";
   import type { PathsData } from "$lib/data/docs";
   import { paths } from "$lib/data/docs";
-  import { blur, fly } from "svelte/transition";
+  import { fly } from "svelte/transition";
 
   let { children } = $props();
 </script>
@@ -41,7 +41,7 @@
   <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
     <li><h2 class="menu-title">nypsi docs</h2></li>
 
-    {#each paths as path}
+    {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
       {@render renderPath(path)}
     {/each}
   </ul>
