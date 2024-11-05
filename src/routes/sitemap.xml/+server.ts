@@ -38,7 +38,6 @@ const sitemap = (pages: string[]) => `<?xml version="1.0" encoding="UTF-8" ?>
       (page) => `
   <url>
     <loc>${site}/${page}</loc>
-    <priority>${1 - page.split("/").length * 0.1}</priority>
   </url>
   `,
     )
