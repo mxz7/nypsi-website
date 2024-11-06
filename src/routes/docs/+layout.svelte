@@ -46,7 +46,7 @@
     {/each}
   </ul>
   {#key $page.url.pathname}
-    <div in:fly={{ duration: 200, y: 25 }} class="docs-content w-full p-4 lg:p-0">
+    <div in:fly={{ duration: 400, y: 25 }} class="docs-content w-full p-4 lg:p-0">
       {@render children()}
     </div>
   {/key}
