@@ -116,7 +116,7 @@
             options.forEach((i) => (i.selected = false));
             option.selected = true;
 
-            data.data = new Promise(() => {});
+            delete data.data;
 
             invalidate("lb");
           }}>{option.name}</a
@@ -176,6 +176,9 @@
           onClick={async (itemId) => {
             const params = new URLSearchParams($page.url.searchParams.toString());
             params.set("item", itemId);
+
+            delete data.data;
+
             return goto(`?${params.toString()}`);
           }}
         />
