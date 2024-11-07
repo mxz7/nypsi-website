@@ -155,15 +155,17 @@
 
 {#if options.find((o) => o.selected)}
   {@const selected = options.find((o) => o.selected)}
-  <div class="mt-10 flex w-full justify-center">
-    <BigLeaderboard
-      tags={getTags()}
-      data={data[`lb-${selected.data || selected.name}`] || new Promise(() => {})}
-      title={selected.name === "items"
-        ? `top ${data.items.find((i) => i.id === $page.url.searchParams.get("item"))?.name}`
-        : selected.leaderboardName}
-      userRoute={selected.name === "guilds" ? "/guild" : "/user"}
-      descriptor={selected.descriptor}
-    />
-  </div>
+  {#if !(selected.showItems && !$page.url.searchParams.has("item"))}
+    <div class="mt-10 flex w-full justify-center">
+      <BigLeaderboard
+        tags={getTags()}
+        data={data[`lb-${selected.data || selected.name}`] || new Promise(() => {})}
+        title={selected.name === "items"
+          ? `top ${data.items.find((i) => i.id === $page.url.searchParams.get("item"))?.name}`
+          : selected.leaderboardName}
+        userRoute={selected.name === "guilds" ? "/guild" : "/user"}
+        descriptor={selected.descriptor}
+      />
+    </div>
+  {/if}
 {/if}
