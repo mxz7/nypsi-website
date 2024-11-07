@@ -3,9 +3,9 @@
 
   interface Props {
     data: {
-    style: 1 | 2 | 3 | 4;
-    emoji?: { name: string; id?: string; animated?: boolean };
-  };
+      style: 1 | 2 | 3 | 4;
+      emoji?: { name: string; id?: string; animated?: boolean };
+    };
   }
 
   let { data }: Props = $props();
@@ -18,8 +18,6 @@
   }
 
   let emojiUrl = $state("");
-
-  // console.log(data.emoji?.name);
 
   if (data.emoji && parse(data.emoji.name, { assetType: "png" })) {
     emojiUrl = parse(data.emoji.name, { assetType: "png" });

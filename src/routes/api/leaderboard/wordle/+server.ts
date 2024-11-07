@@ -68,7 +68,5 @@ export async function GET({ setHeaders }) {
       });
     });
 
-  console.log(query);
-
   return json(query);
 }
