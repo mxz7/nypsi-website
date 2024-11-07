@@ -113,7 +113,6 @@
           class={option.selected ? "focus" : ""}
           href="?lb={option.data || option.name}"
           onclick={() => {
-            data.data = new Promise(() => {});
             options.forEach((i) => (i.selected = false));
             option.selected = true;
 
@@ -143,7 +142,6 @@
         <ItemSearch
           {items}
           onClick={async (itemId) => {
-            data.data = new Promise(() => {});
             const params = new URLSearchParams($page.url.searchParams.toString());
             params.set("item", itemId);
 
@@ -155,12 +153,12 @@
   {/await}
 {/if}
 
-{#if options.find((o) => o.selected) && data.data}
+{#if options.find((o) => o.selected)}
   {@const selected = options.find((o) => o.selected)}
   <div class="mt-10 flex w-full justify-center">
     <BigLeaderboard
       tags={getTags()}
-      data={data.data}
+      data={data[`lb-${selected.data || selected.name}`] || new Promise(() => {})}
       title={selected.name === "items"
         ? `top ${data.items.find((i) => i.id === $page.url.searchParams.get("item"))?.name}`
         : selected.leaderboardName}

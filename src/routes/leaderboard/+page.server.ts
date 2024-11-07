@@ -31,32 +31,48 @@ export async function load({ fetch, isDataRequest, setHeaders, url, depends }) {
       };
     }
   } else {
-    let data: Promise<LeaderboardData>;
+    let leaderboardData: Promise<LeaderboardData>;
 
     if (url.searchParams.get("lb") === "balance") {
-      data = fetch("/api/leaderboard/balance").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/balance").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "net-worth") {
-      data = fetch("/api/leaderboard/networth").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/networth").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "level") {
-      data = fetch("/api/leaderboard/prestige").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/prestige").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "guilds") {
-      data = fetch("/api/leaderboard/guild").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/guild").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "streak") {
-      data = fetch("/api/leaderboard/streak").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/streak").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "vote") {
-      data = fetch("/api/leaderboard/vote").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/vote").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "wordle") {
-      data = fetch("/api/leaderboard/wordle").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/wordle").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "lottery") {
-      data = fetch("/api/leaderboard/lottery").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/lottery").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "commands") {
-      data = fetch("/api/leaderboard/commands").then((r) => r.json() as Promise<LeaderboardData>);
+      leaderboardData = fetch("/api/leaderboard/commands").then(
+        (r) => r.json() as Promise<LeaderboardData>,
+      );
     } else if (url.searchParams.get("lb") === "items") {
       if (url.searchParams.get("item")) {
-        const items = await getItems();
-
         if (items.find((i) => i.id === url.searchParams.get("item"))) {
-          data = fetch(`/api/leaderboard/item/${url.searchParams.get("item")}`).then(
+          leaderboardData = fetch(`/api/leaderboard/item/${url.searchParams.get("item")}`).then(
             (r) => r.json() as Promise<LeaderboardData>,
           );
         } else {
@@ -65,11 +81,16 @@ export async function load({ fetch, isDataRequest, setHeaders, url, depends }) {
       }
     }
 
-    if (!data) return {};
+    if (!leaderboardData) return {};
+
     if (isDataRequest) {
-      return { data, items };
+      const data = { items };
+      data[`lb-${url.searchParams.get("lb")}`] = leaderboardData;
+      return data;
     } else {
-      return { data: await data, items };
+      const data = { items };
+      data[`lb-${url.searchParams.get("lb")}`] = await leaderboardData;
+      return data;
     }
   }
 }
