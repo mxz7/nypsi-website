@@ -105,8 +105,8 @@
   <title>leaderboards / nypsi</title>
 </svelte:head>
 
-<div class="mt-8 flex w-full justify-center">
-  <ul class="menu menu-horizontal rounded-box bg-base-200 text-xs lg:text-sm">
+<div class="mt-8 flex w-full justify-center px-4">
+  <ul class="menu menu-horizontal justify-center rounded-box bg-base-200 text-xs lg:text-sm">
     {#each options as option}
       <li>
         <a
