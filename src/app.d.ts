@@ -6,12 +6,7 @@ declare global {
     // interface Error {}
     // interface PageData {}
     // interface Platform {}
-    interface PageState {
-      leaderboardSelection?: number;
-      leaderboardItem?: string;
-      leaderboardPath?: string;
-      leaderboardName?: string;
-    }
+    // interface PageState {}
     interface Locals {
       validate: () => Promise<{
         user: import("lucia").User;

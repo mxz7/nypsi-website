@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { onNavigate, pushState, replaceState } from "$app/navigation";
+  import { goto, invalidate, onNavigate } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import getItems from "$lib/functions/items";
   import { getTags } from "$lib/functions/tags";
-  import { auth } from "$lib/state.svelte";
+  import { items } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
@@ -17,42 +17,37 @@
       leaderboardName: "top balance",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/balance",
     },
     {
       name: "net worth",
       leaderboardName: "top net worth",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/networth",
+      data: "net-worth",
     },
     {
       name: "level",
       leaderboardName: "top level",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/prestige",
     },
     {
       name: "guilds",
       leaderboardName: "top guilds",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/guild",
     },
     {
       name: "streak",
       leaderboardName: "top daily streak",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/streak",
     },
     {
       name: "vote",
       leaderboardName: "top monthly votes",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/vote",
       descriptor: "votes",
     },
     {
@@ -60,7 +55,6 @@
       leaderboardName: "top wordle wins",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/wordle",
       descriptor: "wins",
     },
     {
@@ -68,7 +62,6 @@
       leaderboardName: "top lottery wins",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/lottery",
       descriptor: "wins",
     },
     {
@@ -76,58 +69,35 @@
       leaderboardName: "top command uses",
       selected: false,
       showItems: false,
-      path: "/api/leaderboard/commands",
       descriptor: "uses",
     },
     { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
   ]);
 
   if ($page.url.searchParams.get("lb")) {
-    if (!options.find((i) => i.name === $page.url.searchParams.get("lb"))) {
-      options[0].selected = true;
-    } else {
-      options.find((i) => i.name === $page.url.searchParams.get("lb")).selected = true;
+    if (
+      options.find(
+        (i) =>
+          i?.data === $page.url.searchParams.get("lb") ||
+          i.name === $page.url.searchParams.get("lb"),
+      )
+    ) {
+      options.find(
+        (i) =>
+          i?.data === $page.url.searchParams.get("lb") ||
+          i.name === $page.url.searchParams.get("lb"),
+      ).selected = true;
     }
   }
 
-  onNavigate((e) => {
-    if (!e.to.url.searchParams.has("lb")) {
-      options.forEach((i) => (i.selected = false));
-      replaceState(e.to.url, {});
+  onNavigate((event) => {
+    if (!event.to.url.searchParams.has("lb")) {
+      options.forEach((o) => (o.selected = false));
     }
   });
 
   onMount(() => {
-    setTimeout(async () => {
-      let selected = options.find((i) => i.selected);
-
-      if (!selected) return;
-
-      const state = {
-        leaderboardSelection: options.findIndex((i) => i.selected),
-        leaderboardItem: null,
-        leaderboardPath: selected.path,
-        leaderboardName: selected.leaderboardName,
-      };
-
-      if (selected.name === "items") {
-        if ($page.url.searchParams.get("item")) {
-          const items = await getItems();
-
-          const item = items.find((i) => i.id === $page.url.searchParams.get("item"));
-
-          if (item) {
-            state.leaderboardItem = item.id;
-            state.leaderboardPath = `/api/leaderboard/item/${item.id}`;
-            state.leaderboardName = `top ${item.name}`;
-
-            options[9].descriptor = item.plural;
-          }
-        }
-      }
-
-      replaceState("", state);
-    }, 0);
+    items.value = data.items;
   });
 </script>
 
@@ -135,20 +105,30 @@
   <title>leaderboards / nypsi</title>
 </svelte:head>
 
-<div class="flex w-full justify-center">
-  <div
+<div class="mt-8 flex w-full justify-center">
+  <ul class="menu menu-horizontal rounded-box bg-base-200 text-xs lg:text-sm">
+    {#each options as option}
+      <li>
+        <a
+          class={option.selected ? "focus" : ""}
+          href="?lb={option.data || option.name}"
+          onclick={() => {
+            options.forEach((i) => (i.selected = false));
+            option.selected = true;
+
+            invalidate("lb");
+          }}>{option.name}</a
+        >
+      </li>
+    {/each}
+  </ul>
+  <!-- <div
     class="mt-8 flex flex-wrap justify-center gap-4 px-4 lg:w-full lg:max-w-5xl lg:justify-evenly lg:px-0"
   >
     {#each options as option, i}
       <button
         data-umami-event="lb-{option.name.replaceAll(' ', '-')}"
         data-umami-event-user={auth.value?.authenticated ? auth.value.user.id : undefined}
-        class=" btn
-        {(typeof $page.state.leaderboardSelection === 'number'
-          ? $page.state.leaderboardSelection
-          : -1) === i
-          ? 'btn-primary '
-          : ''}"
         onclick={() => {
           const selected = options[i];
 
@@ -171,10 +151,10 @@
         <h3>{option.name}</h3>
       </button>
     {/each}
-  </div>
+  </div> -->
 </div>
 
-{#if typeof $page.state?.leaderboardSelection !== "number"}
+{#if !options.find((o) => o.selected)}
   <div class="mt-8 flex w-full justify-center">
     <div
       class="grid w-full grid-cols-1 flex-wrap justify-center gap-16 lg:max-w-4xl lg:grid-cols-2"
@@ -185,27 +165,16 @@
   </div>
 {/if}
 
-{#if options.find((o) => o.selected)?.name === "items" || options[$page.state.leaderboardSelection]?.name === "items"}
+{#if options.find((o) => o.selected)?.showItems}
   {#await getItems() then items}
     <div class="mt-14 flex w-full justify-center">
       <div class="px-4 lg:max-w-3xl lg:px-0">
         <ItemSearch
           {items}
           onClick={async (itemId) => {
-            $page.url.searchParams.set("item", itemId);
-
-            const item = items.find((i) => i.id === itemId);
-
-            pushState($page.url, {
-              leaderboardPath: `/api/leaderboard/item/${itemId}`,
-              leaderboardItem: itemId,
-              leaderboardSelection: $page.state.leaderboardSelection,
-              leaderboardName: `top ${item.name}`,
-            });
-
-            setTimeout(() => {
-              options[$page.state.leaderboardSelection].descriptor = item.plural;
-            }, 50);
+            const params = new URLSearchParams($page.url.searchParams.toString());
+            params.set("item", itemId);
+            return goto(`?${params.toString()}`);
           }}
         />
       </div>
@@ -213,15 +182,18 @@
   {/await}
 {/if}
 
-{#if $page.state.leaderboardPath}
-  {#key $page.state.leaderboardPath}
+{#if options.find((o) => o.selected) && data.data}
+  {@const selected = options.find((o) => o.selected)}
+  {#key data.data}
     <div class="mt-10 flex w-full justify-center">
       <BigLeaderboard
         tags={getTags()}
-        data={fetch($page.state.leaderboardPath).then((r) => r.json())}
-        title={$page.state.leaderboardName}
-        userRoute={options[$page.state.leaderboardSelection].name === "guilds" ? "/guild" : "/user"}
-        descriptor={options[$page.state.leaderboardSelection].descriptor}
+        data={data.data}
+        title={selected.name === "items"
+          ? `top ${data.items.find((i) => i.id === $page.url.searchParams.get("item"))?.name}`
+          : selected.leaderboardName}
+        userRoute={selected.name === "guilds" ? "/guild" : "/user"}
+        descriptor={selected.descriptor}
       />
     </div>
   {/key}
