@@ -116,7 +116,7 @@
             options.forEach((i) => (i.selected = false));
             option.selected = true;
 
-            delete data.data;
+            data.data = new Promise(() => {});
 
             invalidate("lb");
           }}>{option.name}</a
@@ -124,36 +124,6 @@
       </li>
     {/each}
   </ul>
-  <!-- <div
-    class="mt-8 flex flex-wrap justify-center gap-4 px-4 lg:w-full lg:max-w-5xl lg:justify-evenly lg:px-0"
-  >
-    {#each options as option, i}
-      <button
-        data-umami-event="lb-{option.name.replaceAll(' ', '-')}"
-        data-umami-event-user={auth.value?.authenticated ? auth.value.user.id : undefined}
-        onclick={() => {
-          const selected = options[i];
-
-          if (selected.name !== "items") $page.url.searchParams.delete("item");
-          $page.url.searchParams.set("lb", encodeURIComponent(selected.name));
-
-          const state = {
-            leaderboardSelection: i,
-            leaderboardPath: null,
-            leaderboardName: null,
-          };
-
-          if (selected.name !== "items") {
-            state.leaderboardPath = selected.path;
-            state.leaderboardName = selected.leaderboardName;
-          }
-          pushState($page.url, state);
-        }}
-      >
-        <h3>{option.name}</h3>
-      </button>
-    {/each}
-  </div> -->
 </div>
 
 {#if !options.find((o) => o.selected)}
@@ -177,7 +147,7 @@
             const params = new URLSearchParams($page.url.searchParams.toString());
             params.set("item", itemId);
 
-            delete data.data;
+            data.data = new Promise(() => {});
 
             return goto(`?${params.toString()}`);
           }}
@@ -189,17 +159,15 @@
 
 {#if options.find((o) => o.selected) && data.data}
   {@const selected = options.find((o) => o.selected)}
-  {#key data.data}
-    <div class="mt-10 flex w-full justify-center">
-      <BigLeaderboard
-        tags={getTags()}
-        data={data.data}
-        title={selected.name === "items"
-          ? `top ${data.items.find((i) => i.id === $page.url.searchParams.get("item"))?.name}`
-          : selected.leaderboardName}
-        userRoute={selected.name === "guilds" ? "/guild" : "/user"}
-        descriptor={selected.descriptor}
-      />
-    </div>
-  {/key}
+  <div class="mt-10 flex w-full justify-center">
+    <BigLeaderboard
+      tags={getTags()}
+      data={data.data}
+      title={selected.name === "items"
+        ? `top ${data.items.find((i) => i.id === $page.url.searchParams.get("item"))?.name}`
+        : selected.leaderboardName}
+      userRoute={selected.name === "guilds" ? "/guild" : "/user"}
+      descriptor={selected.descriptor}
+    />
+  </div>
 {/if}
