@@ -62,11 +62,11 @@
   }
 
   :global(.docs-content h3) {
-    @apply my-2 text-xl font-semibold text-white;
+    @apply my-1 text-lg font-semibold text-white;
   }
 
   :global(.docs-content p) {
-    @apply my-4;
+    @apply my-2;
   }
 
   :global(.docs-content pre) {
