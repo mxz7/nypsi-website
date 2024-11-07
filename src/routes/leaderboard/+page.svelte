@@ -113,10 +113,9 @@
           class={option.selected ? "focus" : ""}
           href="?lb={option.data || option.name}"
           onclick={() => {
+            data.data = new Promise(() => {});
             options.forEach((i) => (i.selected = false));
             option.selected = true;
-
-            data.data = new Promise(() => {});
 
             invalidate("lb");
           }}>{option.name}</a
@@ -144,10 +143,9 @@
         <ItemSearch
           {items}
           onClick={async (itemId) => {
+            data.data = new Promise(() => {});
             const params = new URLSearchParams($page.url.searchParams.toString());
             params.set("item", itemId);
-
-            data.data = new Promise(() => {});
 
             return goto(`?${params.toString()}`);
           }}
