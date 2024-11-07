@@ -116,6 +116,8 @@
             options.forEach((i) => (i.selected = false));
             option.selected = true;
 
+            data.data = new Promise(() => {});
+
             invalidate("lb");
           }}>{option.name}</a
         >
