@@ -1,4 +1,5 @@
 <script lang="ts">
+  import tooltip from "$lib/Tooltips.js";
   import { sort } from "fast-sort";
 
   let { data } = $props();
@@ -43,8 +44,8 @@
   {/if}
 
   <div class="mt-2 grid w-full grid-cols-3 gap-3 rounded-box bg-base-300 p-3">
-    <div class="w-full text-center text-lg">
-      <h2 class="font-semibold text-white">in world</h2>
+    <div class="w-full text-center">
+      <h2 class="text-lg font-semibold text-white">in world</h2>
       {#await data.inWorld}
         <span class="loading loading-spinner loading-sm"></span>
       {:then inWorld}
@@ -61,8 +62,8 @@
       {/await}
     </div>
 
-    <div class="w-full text-center text-lg">
-      <h2 class="font-semibold text-white">rarity</h2>
+    <div class="w-full text-center">
+      <h2 class="text-lg font-semibold text-white">rarity</h2>
 
       <span class="text-sm">{rarityMap.get(data.item.rarity)}</span>
     </div>
