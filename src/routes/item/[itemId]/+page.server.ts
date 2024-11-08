@@ -1,6 +1,7 @@
 import { BOT_SERVER_URL } from "$env/static/private";
 import prisma from "$lib/server/database.js";
 import { error } from "@sveltejs/kit";
+import { sort } from "fast-sort";
 
 export const config = {
   isr: {
@@ -24,6 +25,49 @@ export async function load({ params, parent, isDataRequest, fetch }) {
     } = { found: {} };
 
     const promises = [];
+
+    if (selected.role === "crate") {
+      promises.push(
+        fetch(
+          `https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${selected.id === "69420_crate" ? "basic_crate" : selected.id}.txt`,
+        ).then((response) =>
+          response.text().then((text) => {
+            const arr: { itemId: string; chance: string }[] = [];
+
+            const lines = text.split("\n");
+
+            for (const line of lines) {
+              arr.push({
+                itemId: line.split(":")[0],
+                chance: line.split(":")[1].split("%")[0] + "%",
+              });
+            }
+
+            odds.crate_open = arr;
+          }),
+        ),
+      );
+    } else if (selected.role === "scratch-card") {
+      const arr: { itemId: string; chance: string }[] = [];
+
+      for (const item of selected.items) {
+        if (item.split(":")[0] === "id") {
+          arr.push({
+            itemId: item.split(":")[1],
+            chance: (item.split(":")[2] || "100") + "%",
+          });
+        } else {
+          arr.push({
+            itemId: item.split(":")[0] + ":" + item.split(":")[1],
+            chance: (item.split(":")[2] || "100") + "%",
+          });
+        }
+      }
+
+      odds.crate_open = sort(arr).desc((i) =>
+        parseFloat(i.chance.substring(0, i.chance.length - 1)),
+      );
+    }
 
     if (selected.random_drop_chance) {
       odds.found["loot drop"] = selected.random_drop_chance + "%";

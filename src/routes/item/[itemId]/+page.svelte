@@ -69,8 +69,8 @@
     </div>
   </div>
 
-  {#await data.odds then obtaining}
-    {#if Object.values(obtaining.found).length > 0}
+  {#await data.odds then odds}
+    {#if Object.values(odds.found).length > 0}
       <div class="mt-2 w-full rounded-box bg-base-300 p-3">
         <h3
           class="link text-center font-medium text-white"
@@ -78,7 +78,7 @@
         >
           obtaining
         </h3>
-        {#each sort(Object.entries(obtaining.found)).desc((i) => i[1]) as foundEntry}
+        {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)), ) as foundEntry}
           {@const item = data.items.find((i) => i.id === foundEntry[0])}
           <div class="flex items-center gap-1">
             {#if item}
@@ -94,6 +94,39 @@
             <span class="grow text-right">{foundEntry[1]}</span>
           </div>
         {/each}
+      </div>
+    {/if}
+
+    {#if odds.crate_open}
+      <div class="mt-2 rounded-box bg-base-300 p-3">
+        <h3 class="text-center font-medium text-white">items</h3>
+        <div class="max-h-64 overflow-scroll">
+          <div>
+            {#each odds.crate_open as { itemId, chance }}
+              {@const item = data.items.find((i) => i.id === itemId)}
+              {#if !item}
+                <div class="flex items-center gap-1">
+                  <span>{itemId}</span>
+                  <span class="grow text-right">{chance}</span>
+                </div>
+              {:else}
+                <div class="flex items-center gap-1">
+                  <div class="h-5 w-5">
+                    <img
+                      src={item.emoji}
+                      alt={item.id}
+                      decoding="async"
+                      loading="lazy"
+                      class="h-full w-full object-contain"
+                    />
+                  </div>
+                  <span>{item.name}</span>
+                  <span class="grow text-right">{chance}</span>
+                </div>
+              {/if}
+            {/each}
+          </div>
+        </div>
       </div>
     {/if}
   {/await}
