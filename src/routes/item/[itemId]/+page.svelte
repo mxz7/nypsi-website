@@ -104,26 +104,21 @@
           <div>
             {#each odds.crate_open as { itemId, chance }}
               {@const item = data.items.find((i) => i.id === itemId)}
-              {#if !item}
-                <div class="flex items-center gap-1">
-                  <span>{itemId}</span>
-                  <span class="grow text-right">{chance}</span>
+              <div class="flex items-center gap-1">
+                <div class="h-5 w-5">
+                  <img
+                    src={(item ? item : data.items.find(
+                      (i) => i.id == (itemId === "xp" ? "double_xp" : "highroller"),
+                    )).emoji}
+                    alt={itemId}
+                    decoding="async"
+                    loading="lazy"
+                    class="h-full w-full object-contain"
+                  />
                 </div>
-              {:else}
-                <div class="flex items-center gap-1">
-                  <div class="h-5 w-5">
-                    <img
-                      src={item.emoji}
-                      alt={item.id}
-                      decoding="async"
-                      loading="lazy"
-                      class="h-full w-full object-contain"
-                    />
-                  </div>
-                  <span>{item.name}</span>
-                  <span class="grow text-right">{chance}</span>
-                </div>
-              {/if}
+                <span>{item ? item.name : itemId}</span>
+                <span class="grow text-right">{chance}</span>
+              </div>
             {/each}
           </div>
         </div>
