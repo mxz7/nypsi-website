@@ -108,7 +108,7 @@
                 <div class="h-5 w-5">
                   <img
                     src={(item ? item : data.items.find(
-                      (i) => i.id == (itemId === "xp" ? "double_xp" : "highroller"),
+                      (i) => i.id == (itemId.startsWith("xp") ? "double_xp" : itemId.startsWith("money") ? "highroller" : "karma_tag"),
                     )).emoji}
                     alt={itemId}
                     decoding="async"
