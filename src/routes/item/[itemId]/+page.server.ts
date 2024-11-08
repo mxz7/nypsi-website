@@ -30,12 +30,13 @@ export async function load({ params, parent, isDataRequest, fetch }) {
     }
 
     for (const item of items) {
-      if (item.role === "scratch_card") {
-        if (item.items.find((i) => i.split(":")[0] === selected.id)) {
-          odds.found[item.name] = item.items.find((i) => i.split(":")[1] + "%");
+      if (item.role === "scratch-card") {
+        if (item.items.find((i) => i.split(":")[1] === selected.id)) {
+          odds.found[item.id] =
+            item.items.find((i) => i.split(":")[1] === selected.id).split(":")[2] + "%";
         }
       } else if (item.role === "crate") {
-        if (item.items.find((i) => i.split(":")[0] === selected.id)) {
+        if (item.items?.find((i) => i.split(":")[1] === selected.id)) {
           promises.push(
             fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${item.id}.txt`).then(
               (response) =>
@@ -45,17 +46,33 @@ export async function load({ params, parent, isDataRequest, fetch }) {
 
                   if (!line) return;
 
-                  odds.found[item.name] = line.split(":")[1].split("%")[0] + "%";
+                  odds.found[item.id] = line.split(":")[1].split("%")[0] + "%";
                 }),
             ),
           );
         }
       }
-
-      await Promise.all(promises);
-
-      return odds;
     }
+
+    if (selected.in_crates) {
+      promises.push(
+        fetch("https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/basic_crate.txt").then(
+          (response) =>
+            response.text().then((text) => {
+              const lines = text.split("\n");
+              const line = lines.find((i) => i.split(":")[0] === selected.id);
+
+              if (!line) return;
+
+              odds.found["basic_crate"] = line.split(":")[1].split("%")[0] + "%";
+            }),
+        ),
+      );
+    }
+
+    await Promise.all(promises);
+
+    return odds;
   };
 
   const inWorld = prisma.inventory.aggregate({
