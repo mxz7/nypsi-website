@@ -31,9 +31,9 @@
         <a href="/status" class="btn btn-ghost font-semibold">status</a>
         <a href="/docs" class="btn btn-ghost font-semibold">docs</a>
         <a href="/discord" class="btn btn-ghost font-semibold" target="_blank">discord</a>
-        <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="btn btn-ghost font-semibold">
+        <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="btn btn-ghost py-0">
           <span
-            class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"
+            class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text py-1 font-bold text-transparent"
           >
             premium
           </span>
