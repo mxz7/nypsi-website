@@ -20,7 +20,7 @@
           data.items.filter(
             (i) => i.name.includes(search.toLowerCase()) || i.id.startsWith(search),
           ),
-        ).asc((i) => {
+        ).desc((i) => {
           let score = 0;
 
           if (i.name.startsWith(search.toLowerCase())) {
