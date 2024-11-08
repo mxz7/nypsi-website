@@ -82,7 +82,11 @@
           <div class="flex items-center gap-1">
             {#if item}
               <img src={item.emoji} alt={item.id} decoding="async" loading="lazy" class="w-5" />
-              <span>{item.name}</span>
+              {#if item.role === "scratch-card"}
+                <a href="/docs/economy/items/scratchcards" class="link">{item.name}</a>
+              {:else}
+                <span>{item.name}</span>
+              {/if}
             {:else}
               <span>{foundEntry[0]}</span>
             {/if}
