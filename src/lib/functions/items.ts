@@ -1,7 +1,7 @@
 import { browser } from "$app/environment";
 import { items } from "$lib/state.svelte";
 import type { Item } from "$lib/types/Item";
-import { inPlaceSort } from "fast-sort";
+import { inPlaceSort, sort } from "fast-sort";
 import parseEmoji from "./parseEmoji";
 
 export default async function getItems() {
@@ -14,7 +14,9 @@ export default async function getItems() {
       ),
     );
 
-    itemsData = itemsData.filter((i) => !["beginner_booster", "cycle"].includes(i.id));
+    itemsData = sort(itemsData)
+      .asc((i) => i.name)
+      .filter((i) => !["beginner_booster", "cycle"].includes(i.id));
 
     for (const item of itemsData) {
       const thumbnail = parseEmoji(item.emoji);
@@ -35,7 +37,9 @@ export default async function getItems() {
     ),
   );
 
-  itemsData = itemsData.filter((i) => !["beginner_booster", "cycle"].includes(i.id));
+  itemsData = sort(itemsData)
+    .asc((i) => i.name)
+    .filter((i) => !["beginner_booster", "cycle"].includes(i.id));
 
   for (const item of itemsData) {
     const thumbnail = parseEmoji(item.emoji);
