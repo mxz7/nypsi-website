@@ -33,7 +33,7 @@ export async function load({ params, parent, isDataRequest, fetch }) {
       if (item.role === "scratch-card") {
         if (item.items.find((i) => i.split(":")[1] === selected.id)) {
           odds.found[item.id] =
-            item.items.find((i) => i.split(":")[1] === selected.id).split(":")[2] + "%";
+            (item.items.find((i) => i.split(":")[1] === selected.id).split(":")[2] || "100") + "%";
         }
       } else if (item.role === "crate") {
         if (item.items?.find((i) => i.split(":")[1] === selected.id)) {
