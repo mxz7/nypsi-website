@@ -2,10 +2,14 @@ import getItems from "$lib/functions/items.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 import { error } from "@sveltejs/kit";
 
-export async function load({ fetch, isDataRequest, setHeaders, url }) {
-  // depends("lb");
-  setHeaders({ "cache-control": "s-maxage=600" });
+export const config = {
+  isr: {
+    expiration: 600,
+    allowQuery: ["lb", "item"],
+  },
+};
 
+export async function load({ fetch, isDataRequest, url }) {
   const items = await getItems();
 
   if (!url.searchParams.has("lb")) {
