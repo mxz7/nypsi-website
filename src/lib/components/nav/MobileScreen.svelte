@@ -79,6 +79,11 @@
             >status</a
           >
         </li>
+        <li>
+          <a href="/item" class={$page.url.pathname.startsWith("/item") ? "text-primary" : ""}
+            >items</a
+          >
+        </li>
         <li><a href="/docs">docs</a></li>
         <li><a href="/discord" target="_blank">discord</a></li>
 
