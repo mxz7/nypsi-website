@@ -71,7 +71,12 @@
   {#await data.odds then obtaining}
     {#if Object.values(obtaining.found).length > 0}
       <div class="mt-2 w-full rounded-box bg-base-300 p-3">
-        <h3 class="text-center font-semibold text-white">obtaining</h3>
+        <h3
+          class="link text-center font-medium text-white"
+          use:tooltip={{ content: "(crates and scratch cards)" }}
+        >
+          obtaining
+        </h3>
         {#each sort(Object.entries(obtaining.found)).desc((i) => i[1]) as foundEntry}
           {@const item = data.items.find((i) => i.id === foundEntry[0])}
           <div class="flex items-center gap-1">
