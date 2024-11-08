@@ -116,7 +116,7 @@
             options.forEach((i) => (i.selected = false));
             option.selected = true;
 
-            invalidate("lb");
+            // invalidate("lb");
           }}>{option.name}</a
         >
       </li>
