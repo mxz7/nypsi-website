@@ -1,5 +1,15 @@
 <script lang="ts">
   let { data } = $props();
+
+  const rarityMap = new Map<number, string>();
+
+  rarityMap.set(0, "common");
+  rarityMap.set(1, "uncommon");
+  rarityMap.set(2, "rare");
+  rarityMap.set(3, "very rare");
+  rarityMap.set(4, "exotic");
+  rarityMap.set(5, "impossible");
+  rarityMap.set(6, "literally not possible within your lifetime");
 </script>
 
 <svelte:head>
@@ -36,8 +46,23 @@
       {#await data.inWorld}
         <span class="loading loading-spinner loading-sm"></span>
       {:then inWorld}
-        <span>{inWorld._sum.amount.toLocaleString()}</span>
+        <span class="text-sm">{inWorld._sum.amount.toLocaleString()}</span>
       {/await}
+    </div>
+
+    <div class="w-full text-center">
+      <h2 class="font-semibold text-white">value</h2>
+      {#await data.value}
+        <span class="loading loading-spinner loading-sm"></span>
+      {:then value}
+        <span class="text-sm">${value.toLocaleString()}</span>
+      {/await}
+    </div>
+
+    <div class="w-full text-center">
+      <h2 class="font-semibold text-white">rarity</h2>
+
+      <span class="text-sm">{rarityMap.get(data.item.rarity)}</span>
     </div>
   </div>
 </div>
