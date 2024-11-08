@@ -39,8 +39,8 @@
       <input type="text" class="grow" placeholder="search" bind:value={search} />
     </label>
 
-    <div class="flex flex-col-reverse gap-4 md:flex-row">
-      <div class="grid flex-initial grow grid-cols-3 gap-3 lg:grid-cols-4 xl:grid-cols-4">
+    <div class="flex h-fit flex-col-reverse gap-4 md:flex-row">
+      <div class="grid h-fit flex-initial grow grid-cols-3 gap-3 lg:grid-cols-4 xl:grid-cols-4">
         {#each filteredItems as item}
           <div class="flex items-center justify-center">
             <a
