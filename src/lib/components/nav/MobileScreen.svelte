@@ -75,13 +75,13 @@
           >
         </li>
         <li>
-          <a href="/status" class={$page.url.pathname.startsWith("/status") ? "text-primary" : ""}
-            >status</a
+          <a href="/item" class={$page.url.pathname.startsWith("/item") ? "text-primary" : ""}
+            >items</a
           >
         </li>
         <li>
-          <a href="/item" class={$page.url.pathname.startsWith("/item") ? "text-primary" : ""}
-            >items</a
+          <a href="/status" class={$page.url.pathname.startsWith("/status") ? "text-primary" : ""}
+            >status</a
           >
         </li>
         <li><a href="/docs">docs</a></li>
