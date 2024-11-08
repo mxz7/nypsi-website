@@ -25,28 +25,6 @@ export async function load({ params, parent, isDataRequest, fetch }) {
 
     const promises = [];
 
-    if (selected.role === "crate") {
-      promises.push(
-        fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${selected.id}.txt`).then(
-          (response) =>
-            response.text().then((text) => {
-              const arr: { itemId: string; chance: string }[] = [];
-
-              const lines = text.split("\n");
-
-              for (const line of lines) {
-                arr.push({
-                  itemId: line.split(":")[0],
-                  chance: line.split(":")[1].split("%")[0] + "%",
-                });
-              }
-
-              odds.crate_open = arr;
-            }),
-        ),
-      );
-    }
-
     if (selected.random_drop_chance) {
       odds.found["loot drop"] = selected.random_drop_chance + "%";
     }
