@@ -51,7 +51,7 @@
     </div>
 
     <div class="w-full text-center">
-      <h2 class="font-semibold text-white">value</h2>
+      <h2 class="font-semibold text-white">worth</h2>
       {#await data.value}
         <span class="loading loading-spinner loading-sm"></span>
       {:then value}
