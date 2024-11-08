@@ -1,6 +1,7 @@
 <script lang="ts">
   import tooltip from "$lib/Tooltips.js";
   import { sort } from "fast-sort";
+  import { ChartArea, Crown } from "lucide-svelte";
 
   let { data } = $props();
 
@@ -67,6 +68,15 @@
 
       <span class="text-sm">{rarityMap.get(data.item.rarity)}</span>
     </div>
+  </div>
+
+  <div class="mt-2 flex w-full gap-3">
+    <a href="/leaderboard?lb=items&item={data.item.id}" class="btn grow">
+      <Crown />
+    </a>
+    <a href="/item/history/{data.item.id}" class="btn grow">
+      <ChartArea />
+    </a>
   </div>
 
   {#await data.odds then odds}
