@@ -91,7 +91,7 @@
             {:else}
               <span>{foundEntry[0]}</span>
             {/if}
-            <span class="ml-2">{foundEntry[1]}</span>
+            <span class="grow text-right">{foundEntry[1]}</span>
           </div>
         {/each}
       </div>
