@@ -71,7 +71,7 @@
   </div>
 
   <div class="mt-2 flex w-full gap-3">
-    <a href="/leaderboard?lb=items&item={data.item.id}" class="btn grow text-primary">
+    <a href="/leaderboard/{data.item.id}" class="btn grow text-primary">
       <Crown />
     </a>
     <a href="/item/history/{data.item.id}" class="btn grow text-primary">
