@@ -124,7 +124,10 @@
             >
               <h2 class="text-center">
                 <a
-                  href="/guild/{userData.Economy.EconomyGuildMember.guild.guildName}"
+                  href="/guild/{userData.Economy.EconomyGuildMember.guild.guildName.replaceAll(
+                    ' ',
+                    '-',
+                  )}"
                   class="text-lg text-white lg:text-2xl"
                 >
                   {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy

@@ -90,7 +90,7 @@
                     {/await}
                   {/if}
                   <a
-                    href="{userRoute}/{user.id}"
+                    href="{userRoute}/{user.id.replaceAll(' ', '-')}"
                     class="min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
                     >{user.username}</a
                   >
