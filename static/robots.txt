@@ -4,6 +4,7 @@ Disallow: /login
 Disallow: /logout
 Disallow: /game/*
 Disallow: /api
+Disallow: /item/history/*
 
 User-agent: AhrefsBot
 User-agent: Baiduspider
