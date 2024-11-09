@@ -1,5 +1,4 @@
 import { BOT_SERVER_URL } from "$env/static/private";
-import sleep from "$lib/functions/sleep.js";
 import prisma from "$lib/server/database.js";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
@@ -122,7 +121,6 @@ export async function load({ params, parent, isDataRequest, fetch, setHeaders })
   });
 
   const value = fetch(`${BOT_SERVER_URL}/item/value/${selected.id}`).then(async (r) => {
-    await sleep(1000);
     if (r.ok) return r.json().then((r) => r.value as number);
     else return 0;
   });
