@@ -24,6 +24,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>{data.item ? `top ${data.item.name}` : selected.leaderboardName} / nypsi</title>
+</svelte:head>
+
 <div class="mt-10 flex w-full justify-center">
   <BigLeaderboard
     tags={getTags()}
