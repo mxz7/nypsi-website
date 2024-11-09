@@ -14,6 +14,16 @@
   rarityMap.set(4, "exotic");
   rarityMap.set(5, "impossible");
   rarityMap.set(6, "literally not possible within your lifetime");
+
+  function formatName(itemId: string) {
+    const [id, value] = itemId.split(":");
+
+    if (id === "money") return `$${Number(value).toLocaleString()}`;
+    if (id === "xp") return `${value} xp`;
+    if (id === "karma") return `${value} karma`;
+
+    return itemId;
+  }
 </script>
 
 <svelte:head>
@@ -126,7 +136,7 @@
                     class="h-full w-full object-contain"
                   />
                 </div>
-                <span>{item ? item.name : itemId}</span>
+                <span>{item ? item.name : formatName(itemId)}</span>
                 <span class="grow text-right">{chance}</span>
               </div>
             {/each}
