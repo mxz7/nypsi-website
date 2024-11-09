@@ -34,8 +34,8 @@ export async function load({ params, parent, isDataRequest, fetch, setHeaders })
 
             for (const line of lines) {
               arr.push({
-                itemId: line.split(":")[0],
-                chance: line.split(":")[1].split("%")[0] + "%",
+                itemId: line.split(": ")[0],
+                chance: line.split(": ")[1].split("%")[0] + "%",
               });
             }
 
