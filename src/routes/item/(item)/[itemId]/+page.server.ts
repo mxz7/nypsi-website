@@ -130,5 +130,6 @@ export async function load({ params, parent, isDataRequest, fetch, setHeaders })
     odds: isDataRequest ? getOddsData() : await getOddsData(),
     inWorld: isDataRequest ? inWorld : await inWorld,
     value: isDataRequest ? value : await value,
+    isDataRequest,
   };
 }
