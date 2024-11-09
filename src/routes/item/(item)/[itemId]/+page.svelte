@@ -16,14 +16,16 @@
   rarityMap.set(6, "literally not possible within your lifetime");
 
   function formatName(itemId: string) {
-    const [id, value] = itemId.split(":");
+    let [id, value] = itemId.split(":");
 
-    if (!value) return itemId;
+    if (value) {
+      value = Number(value).toLocaleString();
 
-    if (id === "money") return `$${Number(value).toLocaleString()}`;
-    if (id === "xp") return `${value} xp`;
-    if (id === "karma") return `${value} karma`;
-
+      if (id === "money") return `$${value}`;
+      if (id === "xp") return `${value} xp`;
+      if (id === "karma") return `${value} karma`;
+    }
+    
     return itemId;
   }
 </script>
