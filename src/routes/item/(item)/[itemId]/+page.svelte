@@ -50,7 +50,7 @@
       {#await data.inWorld}
         <span class="loading loading-spinner loading-sm"></span>
       {:then inWorld}
-        <span class="text-sm">{inWorld._sum.amount.toLocaleString()}</span>
+        <span class="text-sm">{(inWorld?._sum?.amount || 0).toLocaleString()}</span>
       {/await}
     </div>
 
@@ -117,9 +117,18 @@
               <div class="flex items-center gap-1">
                 <div class="h-5 w-5">
                   <img
-                    src={(item ? item : data.items.find(
-                      (i) => i.id == (itemId.startsWith("xp") ? "double_xp" : itemId.startsWith("money") ? "highroller" : "karma_tag"),
-                    )).emoji}
+                    src={(item
+                      ? item
+                      : data.items.find(
+                          (i) =>
+                            i.id ==
+                            (itemId.startsWith("xp")
+                              ? "double_xp"
+                              : itemId.startsWith("money")
+                                ? "highroller"
+                                : "karma_tag"),
+                        )
+                    ).emoji}
                     alt={itemId}
                     decoding="async"
                     loading="lazy"
