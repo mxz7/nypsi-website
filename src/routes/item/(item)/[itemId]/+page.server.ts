@@ -3,14 +3,10 @@ import prisma from "$lib/server/database.js";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
 
-export const config = {
-  isr: {
-    expiration: 3600,
-  },
-};
-
-export async function load({ params, parent, isDataRequest, fetch }) {
+export async function load({ params, parent, isDataRequest, fetch, setHeaders }) {
   const { items } = await parent();
+
+  setHeaders({ "cache-control": "public, s-maxage=3600" });
 
   const selected = items.find((i) => i.id === params.itemId);
 
