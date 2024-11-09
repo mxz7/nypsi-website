@@ -18,6 +18,8 @@
   function formatName(itemId: string) {
     const [id, value] = itemId.split(":");
 
+    if (!value) return itemId;
+
     if (id === "money") return `$${Number(value).toLocaleString()}`;
     if (id === "xp") return `${value} xp`;
     if (id === "karma") return `${value} karma`;
