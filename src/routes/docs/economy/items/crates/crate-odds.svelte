@@ -20,12 +20,19 @@
 
   function getItemEmoji(item: string) {
     return items.find(
-      (i) => i.id == (item === "xp" ? "double_xp" : item === "money" ? "highroller" : item),
+      (i) => i.id == (item.startsWith("xp") ? "double_xp" : item.startsWith("money") ? "highroller" : item),
     ).emoji;
   }
 
-  function getItemName(item: string) {
-    return item === "xp" || item === "money" ? item : items.find((i) => i.id === item).name;
+  function getItemName(itemId: string) {
+    const [id, value] = itemId.split(":");
+    
+    if (value) {
+      if (id === "money") return `$${Number(value).toLocaleString()}`;
+      if (id === "xp") return `${Number(value).toLocaleString()} xp`;
+    }
+
+    return items.find((i) => i.id === itemId).name;
   }
 </script>
 
@@ -34,13 +41,13 @@
     {#each Object.values(crateItems) as item}
       <div class="flex items-center gap-2">
         <img
-          src={getItemEmoji(item.split(":")[0])}
+          src={getItemEmoji(item.split(": ")[0])}
           class="h-4"
           alt={item}
           loading="lazy"
           decoding="async"
         />
-        <span>{getItemName(item.split(":")[0])}:{item.split(":")[1]}</span>
+        <span>{getItemName(item.split(": ")[0])}: {item.split(": ")[1]}</span>
       </div>
     {/each}
   {:else}
