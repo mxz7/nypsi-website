@@ -2,9 +2,10 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
-  import getItems from "$lib/functions/items";
+  import { items } from "$lib/state.svelte";
+  import { onMount, setContext } from "svelte";
 
-  let { children } = $props();
+  let { children, data } = $props();
 
   const options = $state([
     {
@@ -69,27 +70,22 @@
     { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
   ]);
 
+  let showChild = $state(true);
+
+  setContext("leaderboard-options", options);
+
   if (!$page.url.pathname.endsWith("leaderboard")) {
-    const selected = options.find((i) => $page.url.pathname.endsWith(i.data || i.name))!;
+    const selected = options.find((i) => $page.url.pathname.endsWith(i.data || i.name));
 
-    selected.selected = true;
+    if (selected) selected.selected = true;
+    else options[options.length - 1].selected = true;
   }
 
-  if ($page.url.searchParams.get("lb")) {
-    if (
-      options.find(
-        (i) =>
-          i?.data === $page.url.searchParams.get("lb") ||
-          i.name === $page.url.searchParams.get("lb"),
-      )
-    ) {
-      options.find(
-        (i) =>
-          i?.data === $page.url.searchParams.get("lb") ||
-          i.name === $page.url.searchParams.get("lb"),
-      ).selected = true;
-    }
-  }
+  let selected = $derived(options.find((i) => i.selected));
+
+  onMount(() => {
+    items.value = data.items;
+  });
 </script>
 
 <div class="mt-8 flex w-full justify-center px-4">
@@ -100,8 +96,14 @@
           class={option.selected ? "focus" : ""}
           href="/leaderboard{option.showItems ? '' : `/${option.data || option.name}`}"
           onclick={() => {
-            options.forEach((i) => (i.selected = false));
-            option.selected = true;
+            options.forEach((i) => {
+              if (i.name === option.name) i.selected = true;
+              else i.selected = false;
+            });
+
+            if (option.showItems) {
+              showChild = false;
+            }
           }}>{option.name}</a
         >
       </li>
@@ -109,19 +111,20 @@
   </ul>
 </div>
 
-{#if options.find((i) => i.selected)?.showItems}
-  {#await getItems() then items}
-    <div class="mt-14 flex w-full justify-center">
-      <div class="px-4 lg:max-w-3xl lg:px-0">
-        <ItemSearch
-          {items}
-          onClick={async (itemId) => {
-            return goto(`/leaderboard/${itemId}`);
-          }}
-        />
-      </div>
+{#if selected?.showItems}
+  <div class="mt-14 flex w-full justify-center">
+    <div class="px-4 lg:max-w-3xl lg:px-0">
+      <ItemSearch
+        items={data.items}
+        onClick={async (itemId) => {
+          showChild = true;
+          return goto(`/leaderboard/${itemId}`);
+        }}
+      />
     </div>
-  {/await}
-{:else}
+  </div>
+{/if}
+
+{#if showChild}
   {@render children()}
 {/if}

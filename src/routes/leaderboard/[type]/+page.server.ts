@@ -1,9 +1,8 @@
-import getItems from "$lib/functions/items.js";
 import type { Item } from "$lib/types/Item.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData";
 import { error } from "@sveltejs/kit";
 
-export async function load({ params, fetch, isDataRequest, setHeaders }) {
+export async function load({ params, fetch, isDataRequest, setHeaders, parent }) {
   setHeaders({ "cache-control": "s-maxage=600" });
 
   let leaderboardData: Promise<LeaderboardData>;
@@ -49,7 +48,7 @@ export async function load({ params, fetch, isDataRequest, setHeaders }) {
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else {
-    items = await getItems();
+    items = await parent().then((d) => d.items);
 
     item = items.find((i) => i.id === type);
 

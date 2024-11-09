@@ -1,13 +1,26 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { getTags } from "$lib/functions/tags";
-  import { onMount } from "svelte";
+  import { items } from "$lib/state.svelte";
+  import { getContext, onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
 
   let { data } = $props();
 
+  let options: {
+    name: string;
+    leaderboardName: string;
+    selected: boolean;
+    showItems: boolean;
+    data?: string;
+    descriptor?: string;
+    path?: string;
+  }[] = getContext("leaderboard-options");
+
+  let selected = $derived(options.find((i) => i.selected));
+
   onMount(() => {
-    console.log(data);
+    if (data.items && !items.value) items.value = data.items;
   });
 </script>
 
@@ -15,8 +28,8 @@
   <BigLeaderboard
     tags={getTags()}
     data={data.leaderboardData}
-    title={"meow"}
+    title={data.item ? `top ${data.item.name}` : selected.leaderboardName}
     userRoute={$page.url.pathname.endsWith("guilds") ? "/guild" : "/user"}
-    descriptor={"meow"}
+    descriptor={data.item ? data.item.plural || data.item.name + "s" : selected.descriptor}
   />
 </div>
