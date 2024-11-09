@@ -3,7 +3,6 @@ import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 import { error } from "@sveltejs/kit";
 
 export async function load({ fetch, isDataRequest, setHeaders, url }) {
-  // depends("lb");
   setHeaders({ "cache-control": "s-maxage=600" });
 
   const items = await getItems();
