@@ -1,3 +1,4 @@
+import sleep from "$lib/functions/sleep.js";
 import type { Item } from "$lib/types/Item.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData";
 import { error } from "@sveltejs/kit";
@@ -59,10 +60,14 @@ export async function load({ params, fetch, isDataRequest, setHeaders, parent })
   }
 
   if (isDataRequest) {
-    const data = { items, leaderboardData: leaderboardData, item };
-    return data;
+    const res = await Promise.race([leaderboardData, sleep(69)]);
+
+    if (typeof res === "boolean") {
+      return { items, leaderboardData: leaderboardData, item };
+    }
+
+    return { items, leaderboardData: await leaderboardData, item };
   } else {
-    const data = { items, leaderboardData: await leaderboardData, item };
-    return data;
+    return { items, leaderboardData: await leaderboardData, item };
   }
 }
