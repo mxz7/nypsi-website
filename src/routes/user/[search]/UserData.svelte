@@ -172,7 +172,7 @@
                 {#each inPlaceSort(userData.Economy.Inventory).asc((i) => i.item) as item}
                   {#if items.find((i) => i.id === item.item)}
                     <a
-                      href="/leaderboard/{item.item}"
+                      href="/item/{item.item}"
                       class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded-lg border border-primary border-opacity-5 bg-base-300 py-2 align-middle text-xs shadow duration-300 hover:border-opacity-25 lg:text-sm"
                     >
                       <div
@@ -249,7 +249,7 @@
               >
                 {#each inPlaceSort(userData.Leaderboards).asc((i) => i.position) as lb}
                   <a
-                    href="/leaderboard/{lb.leaderboard.replace('item-', '')}"
+                    href="/item/{lb.leaderboard.replace('item-', '')}"
                     class="mx-2 flex flex-col items-center justify-center rounded-lg border border-primary border-opacity-5 bg-base-300 py-2 align-middle text-xs shadow duration-300 hover:border-opacity-25 lg:text-sm"
                   >
                     {#if lb.leaderboard.startsWith("item-")}
