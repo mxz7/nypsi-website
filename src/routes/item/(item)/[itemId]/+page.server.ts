@@ -129,6 +129,8 @@ export async function load({ params, parent, isDataRequest, fetch }) {
     else return 0;
   });
 
+  console.log(isDataRequest);
+
   return {
     item: selected,
     odds: isDataRequest ? getOddsData() : await getOddsData(),
