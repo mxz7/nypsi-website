@@ -22,7 +22,7 @@ there are 3 other scratch cards which you can only get , or from achievements. t
 
 ## how the prize pool works
 
-you may see on the [items page](/items/daily_scratch_card) that some items have a 100% chance in scratch cards (or lootdrops). this is because of how scratch cards work, and how it's not exactly super easy possible to generate the odds like it is with crates.
+you may see on the [items page](/item/daily_scratch_card) that some items have a 100% chance in scratch cards (or lootdrops). this is because of how scratch cards work, and how it's not exactly super easy possible to generate the odds like it is with crates.
 
 the percentage that you see is the chance of the item appearing in the prize pool during the scratch card generation.
 
