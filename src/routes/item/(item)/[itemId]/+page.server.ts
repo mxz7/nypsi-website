@@ -25,7 +25,7 @@ export async function load({ params, parent, isDataRequest, fetch, setHeaders })
     if (selected.role === "crate") {
       promises.push(
         fetch(
-          `https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${selected.id === "69420_crate" ? "basic_crate" : selected.id}.txt`,
+          `https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${["vote_crate", "69420_crate"].includes(selected.id) ? "basic_crate" : selected.id}.txt`,
         ).then((response) =>
           response.text().then((text) => {
             const arr: { itemId: string; chance: string }[] = [];
