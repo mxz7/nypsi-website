@@ -1,6 +1,8 @@
 <script lang="ts">
+  import type { Item } from "$lib/types/Item";
+
   interface Props {
-    items?: { id: string; name: string; emoji: string; aliases: string[]; role: string }[];
+    items?: Item[];
     url?: string | undefined;
     onClick?: any;
     search?: string;
@@ -13,13 +15,7 @@
     search = $bindable(""),
   }: Props = $props();
 
-  let filteredItems: {
-    id: string;
-    name: string;
-    emoji: string;
-    aliases: string[];
-    role: string;
-  }[] = $derived(
+  let filteredItems: Item[] = $derived(
     items.filter((i) => i.name.includes(search.toLowerCase()) || i.id.startsWith(search)),
   );
 </script>
