@@ -6,7 +6,9 @@ declare global {
     // interface Error {}
     // interface PageData {}
     // interface Platform {}
-    // interface PageState {}
+    interface PageState {
+      docsItemModal?: Record<string, any>;
+    }
     interface Locals {
       validate: () => Promise<{
         user: import("lucia").User;

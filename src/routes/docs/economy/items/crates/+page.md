@@ -1,5 +1,6 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
   import CrateOdds from "./crate-odds.svelte"
   import { onMount } from "svelte";
   import { page } from '$app/stores';
@@ -18,7 +19,7 @@
 
 ## how do i get a crate?
 
-you can easily obtain vote crates by voting for nypsi with `$vote`. you can also get crates from tasks, daily rewards, fishing, loot drops, [premium](/docs/premium) rewards every friday night / saturday morning or the [online shop](https://ko-fi.com/tekoh/shop).
+you can easily obtain <ItemModal item="vote_crate">vote crates</ItemModal> by voting for nypsi with `$vote`. you can also get crates from tasks, daily rewards, fishing, loot drops, [premium](/docs/premium) rewards every friday night / saturday morning or the [online shop](https://ko-fi.com/tekoh/shop).
 
 ## what do i get from crates?
 
