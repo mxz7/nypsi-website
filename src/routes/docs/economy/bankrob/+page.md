@@ -1,5 +1,6 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='bankrob'  />
@@ -12,7 +13,7 @@ this means that the bank currently doesn't have enough funds to be robbed
 
 ## lawyers
 
-lawyers reduce the maximum potential loss from robbing by 65%
+<ItemModal item="lawyer">lawyers</ItemModal> reduce the maximum potential loss from robbing by 65%
 
 ## how does the bank get its money
 

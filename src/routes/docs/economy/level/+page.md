@@ -1,5 +1,6 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='levelling' />
@@ -16,7 +17,7 @@ level up rewards are spread out between levels, for example, every 50 levels you
 
 ## how do i increase bank size?
 
-the main way of increasing your bank size is with `stolen credit cards`. you can buy these from other users or find them yourself in [crates](/docs/economy/items/crates), [scratch cards](/docs/economy/items/scratchcards), etc. another way to increase your bank is to level up, however, sometimes you will need to use a credit card to have enough bank storage to be able to level up
+the main way of increasing your bank size is with <ItemModal item="stolen_credit_card">stolen credit cards.</ItemModal> you can buy these from other users or find them yourself in [crates](/docs/economy/items/crates), [scratch cards](/docs/economy/items/scratchcards), etc. another way to increase your bank is to level up, however, sometimes you will need to use a credit card to have enough bank storage to be able to level up
 
 ## prestiging
 

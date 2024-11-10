@@ -1,5 +1,6 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='scratch cards' />
@@ -10,15 +11,13 @@ scratch cards work just as you would expect them to do `/use <scratch card>` to 
 
 ## how do i get them
 
-daily scratch cards can be obtained from doing `/daily` each day
-
-corner shop scratchies can be purchased from the shop with `/buy`
-
-karma scratch cards can be purchased from the [karma shop](/docs/economy/karma)
-
-lucky scratch cards and legendary scratch cards can be obtained from achievements or [crates](/docs/economy/items/crates)
-
-there are 3 other scratch cards which you can only get , or from achievements. these are the lucky scratch card, karma scratch card and the legendary scratch card.
+<ItemModal item="daily_scratch_card">daily scratch cards</ItemModal> can be obtained from doing `/daily` each day
+<br><br>
+<ItemModal item="corner_shop_scratchie">corner shop scratchies</ItemModal> can be purchased from the shop with `/buy`
+<br><br>
+<ItemModal item="karma_scratch_card">karma scratch cards</ItemModal> can be purchased from the [karma shop](/docs/economy/karma)
+<br><br>
+<ItemModal item="lucky_scratch_card">lucky scratch cards</ItemModal> and <ItemModal item="legendary_scratch_card">legendary scratch cards</ItemModal> can be obtained from achievements or [crates](/docs/economy/items/crates)
 
 ## how the prize pool works
 
