@@ -28,7 +28,7 @@
         </a>
 
         <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>
-        <a href="/item" class="btn btn-ghost font-semibold">items</a>
+        <a href="/item/dave" class="btn btn-ghost font-semibold">items</a>
         <a href="/status" class="btn btn-ghost font-semibold">status</a>
         <a href="/docs" class="btn btn-ghost font-semibold">docs</a>
         <a href="/discord" class="btn btn-ghost font-semibold" target="_blank">discord</a>

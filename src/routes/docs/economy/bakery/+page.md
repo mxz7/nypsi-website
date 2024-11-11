@@ -1,26 +1,27 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='bakery' />
 
-the bakery is a way to produce cookies and cakes
+the bakery is a way to produce <ItemModal item="cookie">cookies</ItemModal> and <ItemModal item="cake">cakes</ItemModal>
 
 ## how it works
 
-you need a furnace and 1 coal each time you bake. your furnace wont be used while baking, but coal will be used. if you want to bake, do `/bake`
+you need a <ItemModal item="furnace">furnace</ItemModal> and 1 <ItemModal item="coal">coal</ItemModal> each time you bake. your furnace wont be used while baking, but coal will be used. if you want to bake, do `/bake`
 
 ## how do i bake more cookies?
 
 you can increase your cookie production with cursors, super cursors, and grandmas
 
-| item         | effect                        |
-| ------------ | ----------------------------- |
-| cursor       | +1 max cookie                 |
-| super cursor | +1 min & max cookie           |
-| grandmas     | bakes 0.5 cookies each hour   |
-| grandpa      | +0.5% chance of baking a cake |
-| oven         | +1 hour of afk time           |
+| item                                                      | effect                        |
+| --------------------------------------------------------- | ----------------------------- |
+| <ItemModal item="cursor">cursor</ItemModal>               | +1 max cookie                 |
+| <ItemModal item="super_cursor">super cursor</ItemModal>   | +1 min & max cookie           |
+| <ItemModal item="grandma">grandma</ItemModal>             | bakes 0.5 cookies each hour   |
+| <ItemModal item="grandpa">grandpa</ItemModal>             | +0.5% chance of baking a cake |
+| <ItemModal item="oven">oven</ItemModal>                   | +1 hour of afk time           |
 
 with ovens, cookies will build up from grandmas up to the max afk time. this means that with 12 ovens you can store 6 cookies per grandma, maxing out after 12 hours.
 
@@ -34,4 +35,4 @@ the percent chance to get cakes continues to run until it fails, so it is possib
 
 ## how do you get upgrades?
 
-upgrades can be obtained from [crates](/docs/economy/items/crates) and [scratch cards](/docs/economy/items/scratchcards)
+upgrades can be obtained from [crates](/docs/economy/items/crates) and [scratch cards](/docs/economy/items/scratch-cards)
