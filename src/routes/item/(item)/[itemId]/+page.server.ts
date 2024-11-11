@@ -76,7 +76,10 @@ export async function load({ params, parent, isDataRequest, fetch, setHeaders })
             (item.items.find((i) => i.split(":")[1] === selected.id).split(":")[2] || "100") + "%";
         }
       } else if (item.role === "crate") {
-        if (item.items?.find((i) => i.split(":")[1] === selected.id)) {
+        if (
+          item.items?.find((i) => i.split(":")[1] === selected.id) ||
+          item.items?.find((i) => i.startsWith("role:") && i.endsWith(selected.role))
+        ) {
           promises.push(
             fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${item.id}.txt`).then(
               (response) =>
