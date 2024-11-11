@@ -1,4 +1,4 @@
-import { BOT_SERVER_URL } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import prisma from "$lib/server/database.js";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
@@ -123,7 +123,7 @@ export async function load({ params, parent, isDataRequest, fetch, setHeaders })
     where: { item: selected.id },
   });
 
-  const value = fetch(`${BOT_SERVER_URL}/item/value/${selected.id}`).then(async (r) => {
+  const value = fetch(`${env.BOT_SERVER_URL}/item/value/${selected.id}`).then(async (r) => {
     if (r.ok) return r.json().then((r) => r.value as number);
     else return 0;
   });
