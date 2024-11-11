@@ -18,19 +18,6 @@
       resolve({});
     }),
   }: Props = $props();
-
-  onMount(async () => {
-    const tagData = await Promise.resolve(tags);
-
-    console.log(tagData);
-
-    for (const user of data) {
-      if (user.user.tag) {
-        console.log(user);
-        console.log(tagData[user.user.tag]);
-      }
-    }
-  });
 </script>
 
 <table class="mx-auto mt-1 w-full px-4 text-slate-200 sm:max-w-2xl sm:px-0 sm:text-xl">

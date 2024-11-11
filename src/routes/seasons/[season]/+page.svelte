@@ -23,11 +23,11 @@
         </h2>
 
         {#if season.winners}
-          <div class="mt-16 text-left text-white">
+          <div class="mt-6 flex w-full justify-center">
             <MiniLeaderboard
               data={season.winners.map((i) => {
                 return {
-                  user: { username: i.username },
+                  user: { username: i.username, id: i.id },
                   value: i.value,
                   position: season.winners ? season.winners?.indexOf(i) + 1 : 0,
                 };

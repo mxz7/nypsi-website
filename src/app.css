@@ -4,16 +4,12 @@
 
 * {
   scroll-behavior: smooth;
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
 }
 
-/* h1,
-h2,
-h3,
-h4 {
-  font-family: "Poppins", sans-serif;
-} */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-optical-sizing: auto;
+}
 
 .tippy-box {
   @apply rounded-lg border border-primary border-opacity-30 bg-base-300 px-2 py-1 text-sm shadow shadow-black;

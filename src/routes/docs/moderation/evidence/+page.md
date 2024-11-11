@@ -2,7 +2,9 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
-<DocsTemplate title='evidence' desc='evidence is a system that allows moderators to upload evidence to a nypsi moderation case' />
+<DocsTemplate title='evidence' />
+
+evidence is a system that allows moderators to upload evidence to a nypsi moderation case
 
 ## whats the point?
 
@@ -13,9 +15,7 @@ your evidence in a specific channel
 
 ## how is it stored?
 
-evidence is stored in an S3 bucket with a long and randomized name, making attempting to look for
-this evidence by url scraping almost impossible. it would take years to find an image due to the
-immense amount of different possible combinations
+evidence is stored in a secure object storage bucket with a long name of random characters.
 
 ## how do i add evidence to a case
 

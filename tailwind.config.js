@@ -21,6 +21,7 @@ export default {
           "base-100": "#0f172a",
           error: "#e31e3b",
           success: "#68f78c",
+          "base-content": "#d9dce1",
 
           // https://www.canva.com/colors/color-wheel/
         },

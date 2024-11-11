@@ -1,0 +1,130 @@
+<script lang="ts">
+  import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
+  import ItemSearch from "$lib/components/items/ItemSearch.svelte";
+  import { items } from "$lib/state.svelte";
+  import { onMount, setContext } from "svelte";
+
+  let { children, data } = $props();
+
+  const options = $state([
+    {
+      name: "balance",
+      leaderboardName: "top balance",
+      selected: false,
+      showItems: false,
+    },
+    {
+      name: "net worth",
+      leaderboardName: "top net worth",
+      selected: false,
+      showItems: false,
+      data: "net-worth",
+    },
+    {
+      name: "level",
+      leaderboardName: "top level",
+      selected: false,
+      showItems: false,
+    },
+    {
+      name: "guilds",
+      leaderboardName: "top guilds",
+      selected: false,
+      showItems: false,
+    },
+    {
+      name: "streak",
+      leaderboardName: "top daily streak",
+      selected: false,
+      showItems: false,
+    },
+    {
+      name: "vote",
+      leaderboardName: "top monthly votes",
+      selected: false,
+      showItems: false,
+      descriptor: "votes",
+    },
+    {
+      name: "wordle",
+      leaderboardName: "top wordle wins",
+      selected: false,
+      showItems: false,
+      descriptor: "wins",
+    },
+    {
+      name: "lottery",
+      leaderboardName: "top lottery wins",
+      selected: false,
+      showItems: false,
+      descriptor: "wins",
+    },
+    {
+      name: "commands",
+      leaderboardName: "top command uses",
+      selected: false,
+      showItems: false,
+      descriptor: "uses",
+    },
+    { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
+  ]);
+
+  let showChild = $state(true);
+
+  setContext("leaderboard-options", options);
+
+  if (!$page.url.pathname.endsWith("leaderboard")) {
+    const selected = options.find((i) => $page.url.pathname.endsWith(i.data || i.name));
+
+    if (selected) selected.selected = true;
+    else options[options.length - 1].selected = true;
+  }
+
+  let selected = $derived(options.find((i) => i.selected));
+
+  onMount(() => {
+    items.value = data.items;
+  });
+</script>
+
+<div class="mt-8 flex w-full justify-center px-4">
+  <ul class="menu menu-horizontal justify-center rounded-box bg-base-200 text-xs lg:text-sm">
+    {#each options as option}
+      <li>
+        <a
+          class={option.selected ? "focus" : ""}
+          href="/leaderboard{option.showItems ? '' : `/${option.data || option.name}`}"
+          onclick={() => {
+            options.forEach((i) => {
+              if (i.name === option.name) i.selected = true;
+              else i.selected = false;
+            });
+
+            if (option.showItems) {
+              showChild = false;
+            }
+          }}>{option.name}</a
+        >
+      </li>
+    {/each}
+  </ul>
+</div>
+
+{#if selected?.showItems}
+  <div class="mt-14 flex w-full justify-center">
+    <div class="px-4 lg:max-w-3xl lg:px-0">
+      <ItemSearch
+        items={data.items}
+        onClick={async (itemId) => {
+          showChild = true;
+          return goto(`/leaderboard/${itemId}`);
+        }}
+      />
+    </div>
+  </div>
+{/if}
+
+{#if showChild}
+  {@render children()}
+{/if}

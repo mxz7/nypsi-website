@@ -58,7 +58,7 @@
       <ul class="menu font-medium">
         <h2 class="menu-title">nypsi docs</h2>
 
-        {#each paths as path}
+        {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
           {@render renderDocsPath(path)}
         {/each}
       </ul>
@@ -72,6 +72,11 @@
             href="/leaderboard"
             class={$page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
             >leaderboards</a
+          >
+        </li>
+        <li>
+          <a href="/item/dave" class={$page.url.pathname.startsWith("/item") ? "text-primary" : ""}
+            >items</a
           >
         </li>
         <li>

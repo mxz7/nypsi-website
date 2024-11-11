@@ -14,13 +14,13 @@ export default async function getItems() {
       ),
     );
 
-    itemsData = itemsData.filter((i) => !["beginner_booster", "cycle"].includes(i.id));
-
     for (const item of itemsData) {
       const thumbnail = parseEmoji(item.emoji);
 
       if (thumbnail) item.emoji = thumbnail;
     }
+
+    inPlaceSort(itemsData).asc((i) => i.name);
 
     return itemsData;
   }
@@ -34,8 +34,6 @@ export default async function getItems() {
       ),
     ),
   );
-
-  itemsData = itemsData.filter((i) => !["beginner_booster", "cycle"].includes(i.id));
 
   for (const item of itemsData) {
     const thumbnail = parseEmoji(item.emoji);

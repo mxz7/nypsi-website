@@ -11,10 +11,6 @@
   import { fly } from "svelte/transition";
 
   let { data } = $props();
-
-  onMount(async () => {
-    console.log(await Promise.resolve(data.game));
-  });
 </script>
 
 <svelte:head>

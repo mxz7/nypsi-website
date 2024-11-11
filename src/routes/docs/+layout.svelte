@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import type { PathsData } from "$lib/data/docs";
   import { paths } from "$lib/data/docs";
+  import { fly } from "svelte/transition";
 
   let { children } = $props();
 </script>
@@ -40,13 +41,15 @@
   <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
     <li><h2 class="menu-title">nypsi docs</h2></li>
 
-    {#each paths as path}
+    {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
       {@render renderPath(path)}
     {/each}
   </ul>
-  <div class="docs-content w-full p-4 lg:p-0">
-    {@render children()}
-  </div>
+  {#key $page.url.pathname}
+    <div in:fly={{ duration: 400, y: 25 }} class="docs-content w-full p-4 lg:p-0">
+      {@render children()}
+    </div>
+  {/key}
 </div>
 
 <style>
@@ -59,11 +62,11 @@
   }
 
   :global(.docs-content h3) {
-    @apply my-2 text-xl font-semibold text-white;
+    @apply my-1 text-lg font-semibold text-white;
   }
 
   :global(.docs-content p) {
-    @apply my-4;
+    @apply my-2;
   }
 
   :global(.docs-content pre) {
@@ -78,5 +81,9 @@
 
   :global(.docs-content a) {
     @apply link;
+  }
+
+  :global(.docs-content table) {
+    @apply table;
   }
 </style>

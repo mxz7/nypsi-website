@@ -4,7 +4,6 @@
   let stored: number | undefined = $state(0);
 
   $effect(() => {
-    console.log(isNaN(stored));
     if (stored && isNaN(stored)) stored = 0;
   });
 
@@ -15,10 +14,16 @@
   const perRadar = 0.00027;
 
   let scrapChance = $derived(
-    Math.round(Math.min(scrapBase + perScanner * scanners, 0.5) * stored * 10 ** 5) / 10 ** 5,
+    Math.min(
+      50,
+      Math.round(Math.min(scrapBase + perScanner * scanners, 0.5) * stored * 10 ** 5) / 10 ** 5,
+    ),
   );
   let shardChance = $derived(
-    Math.round(Math.min(shardBase + perRadar * radars, 0.1) * stored * 10 ** 5) / 10 ** 5,
+    Math.min(
+      10,
+      Math.round(Math.min(shardBase + perRadar * radars, 0.1) * stored * 10 ** 5) / 10 ** 5,
+    ),
   );
 </script>
 

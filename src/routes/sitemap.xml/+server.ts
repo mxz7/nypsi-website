@@ -1,6 +1,5 @@
 import { pathsRaw } from "$lib/data/docs";
-
-export const prerender = true;
+import getItems from "$lib/functions/items";
 
 const site = "https://nypsi.xyz"; // change this to reflect your domain
 const pages: string[] = ["leaderboard", "status"]; // populate this with all the slugs you wish to include
@@ -13,6 +12,10 @@ pages.push(
 );
 
 export async function GET() {
+  const items = await getItems();
+
+  pages.push(...items.map((i) => `item/${i.id}`));
+
   const body = sitemap(pages);
   const response = new Response(body);
   response.headers.set("Cache-Control", "public, max-age=3600, must-revalidate");
@@ -31,14 +34,12 @@ const sitemap = (pages: string[]) => `<?xml version="1.0" encoding="UTF-8" ?>
 >
 <url>
     <loc>${site}</loc>
-    <priority>1</priority>
   </url>
   ${pages
     .map(
       (page) => `
   <url>
     <loc>${site}/${page}</loc>
-    <priority>${1 - page.split("/").length * 0.1}</priority>
   </url>
   `,
     )

@@ -2,7 +2,9 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
-<DocsTemplate title='loot drops' desc='loot drops are little minigames that spawn with activity in a channel, the first to complete the game receives a random reward' />
+<DocsTemplate title='loot drops' />
+
+loot drops are little minigames that spawn with activity in a channel, the first to complete the game receives a random reward
 
 ## how do they spawn?
 

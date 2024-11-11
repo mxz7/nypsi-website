@@ -1,5 +1,6 @@
 <script lang="ts">
   import getItems from "$lib/functions/items";
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
   import type { Item } from "$lib/types/Item";
   import { onMount } from "svelte";
 
@@ -20,27 +21,41 @@
 
   function getItemEmoji(item: string) {
     return items.find(
-      (i) => i.id == (item === "xp" ? "double_xp" : item === "money" ? "highroller" : item),
+      (i) => i.id == (item.startsWith("xp") ? "double_xp" : item.startsWith("money") ? "highroller" : item),
     ).emoji;
   }
 
-  function getItemName(item: string) {
-    return item === "xp" || item === "money" ? item : items.find((i) => i.id === item).name;
+  function getItemName(itemId: string) {
+    const [id, value] = itemId.split(":");
+    
+    if (value) {
+      if (id === "money") return `$${Number(value).toLocaleString()}`;
+      if (id === "xp") return `${Number(value).toLocaleString()} xp`;
+    }
+
+    return items.find((i) => i.id === itemId).name;
   }
 </script>
 
 <div class="grid grid-cols-1 gap-2 lg:grid-cols-3">
   {#if crateItems}
     {#each Object.values(crateItems) as item}
+      {@const itemId = item.split(": ")[0]}
       <div class="flex items-center gap-2">
-        <img
-          src={getItemEmoji(item.split(":")[0])}
-          class="h-4"
-          alt={item}
-          loading="lazy"
-          decoding="async"
-        />
-        <span>{getItemName(item.split(":")[0])}:{item.split(":")[1]}</span>
+        <div class="h-4 w-4">
+          <img
+            src={getItemEmoji(itemId)}
+            class="h-full w-full object-contain"
+            alt={item}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        {#if items.find((i) => i.id == itemId)}
+          <span><ItemModal item={itemId}>{getItemName(itemId)}</ItemModal>: {item.split(": ")[1]}</span>
+        {:else}
+          <span>{getItemName(itemId)}: {item.split(": ")[1]}</span>
+        {/if}
       </div>
     {/each}
   {:else}

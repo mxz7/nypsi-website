@@ -37,7 +37,6 @@ export const load = async ({ params, fetch, getClientAddress, request, locals, s
   ]);
 
   const before = dayjs()
-    .set("hours", 0)
     .set("minutes", 0)
     .set("seconds", 0)
     .set("milliseconds", 0)

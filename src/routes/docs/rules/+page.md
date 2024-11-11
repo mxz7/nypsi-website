@@ -2,15 +2,17 @@
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
 </script>
 
-<DocsTemplate title='rules' desc="if you're a respectable person and use common sense, you should be fine" />
+<DocsTemplate title='rules' />
+
+if you're a respectable person and use common sense, you should be fine
 
 ## bot rules
 
 these rules apply to usage of the discord bot
 
-### automating commands
+### automating commands / cheating
 
-<p>this is not allowed. use of this will result in a ban and potentially a profile reset.</p>
+'cheating', by automating commands, using a macro, multiple people on the same account etc. is not allowed. you will be banned and potentially have your profile reset.
 
 ### exploits
 

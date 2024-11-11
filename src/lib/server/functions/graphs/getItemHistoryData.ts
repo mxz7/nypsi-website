@@ -1,13 +1,19 @@
 import filterOutliers from "$lib/functions/filterOutliers";
 import getItems from "$lib/functions/items";
 import prisma from "$lib/server/database.js";
+import type { Item } from "$lib/types/Item";
 import type { GraphMetrics } from "@prisma/client";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export default async function getItemHistoryData(item: string, user?: string, days = 30) {
-  const items = await getItems();
+export default async function getItemHistoryData(
+  item: string,
+  user?: string,
+  days = 30,
+  items?: Item[],
+) {
+  if (!items) items = await getItems();
 
   if (!items.find((i) => i.id === item)) return "invalid item";
 

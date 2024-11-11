@@ -1,9 +1,12 @@
+import getItems from "$lib/functions/items.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
-export async function load({ fetch, request, setHeaders }) {
+export async function load({ fetch, isDataRequest, setHeaders }) {
   setHeaders({ "cache-control": "public, max-age=600" });
 
-  if (request.headers.get("user-agent").toLowerCase().includes("bot")) {
+  const items = await getItems();
+
+  if (!isDataRequest) {
     return {
       balance: await fetch("/api/leaderboard/balance").then(
         (r) => r.json() as Promise<LeaderboardData>,
@@ -11,6 +14,7 @@ export async function load({ fetch, request, setHeaders }) {
       prestige: await fetch("/api/leaderboard/prestige").then(
         (r) => r.json() as Promise<LeaderboardData>,
       ),
+      items,
     };
   } else {
     return {
@@ -18,6 +22,7 @@ export async function load({ fetch, request, setHeaders }) {
       prestige: fetch("/api/leaderboard/prestige").then(
         (r) => r.json() as Promise<LeaderboardData>,
       ),
+      items,
     };
   }
 }

@@ -9,10 +9,7 @@ declare global {
     // interface PageData {}
     // interface Platform {}
     interface PageState {
-      leaderboardSelection?: number;
-      leaderboardItem?: string;
-      leaderboardPath?: string;
-      leaderboardName?: string;
+      docsItemModal?: Record<string, Record<string, any>>;
     }
     interface Locals {
       validate: () => Promise<{
