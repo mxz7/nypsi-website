@@ -34,21 +34,26 @@
         inWorld: await result.data.inWorld,
         value: await result.data.value,
       };
-      pushState(href, { docsItemModal: data });
+
+      const docsItemModal = {};
+
+      docsItemModal[item] = data;
+
+      pushState(href, { docsItemModal });
     } else {
       goto(href);
     }
   }}>{@render children()}</a
 >
 
-{#if $page.state.docsItemModal}
+{#if $page.state.docsItemModal && $page.state.docsItemModal[item]}
   <div
     in:fade={{ duration: 100 }}
     out:fade={{ duration: 100 }}
     class="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform"
   >
     <div class="rounded-box shadow">
-      <ItemPage data={$page.state.docsItemModal as unknown as any} />
+      <ItemPage data={$page.state.docsItemModal[item] as unknown as any} />
     </div>
   </div>
 

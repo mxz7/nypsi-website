@@ -7,7 +7,7 @@ declare global {
     // interface PageData {}
     // interface Platform {}
     interface PageState {
-      docsItemModal?: Record<string, any>;
+      docsItemModal?: Record<string, Record<string, any>>;
     }
     interface Locals {
       validate: () => Promise<{
