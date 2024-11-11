@@ -25,7 +25,7 @@
       if (id === "xp") return `${value} xp`;
       if (id === "karma") return `${value} karma`;
     }
-    
+
     return itemId;
   }
 </script>
@@ -34,7 +34,7 @@
   <title>{data.item.name} / nypsi</title>
 </svelte:head>
 
-<div class="w-full rounded-box bg-base-200 p-3">
+<div class="w-full rounded-box bg-base-200 p-3 sm:sticky sm:top-4">
   <div class="flex w-full gap-3">
     <div class="h-24 w-24 rounded-box bg-base-300 p-4">
       <img
@@ -102,29 +102,31 @@
         >
           obtaining
         </h3>
-        {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)), ) as foundEntry}
-          {@const item = data.items.find((i) => i.id === foundEntry[0])}
-          <div class="flex items-center gap-1">
-            {#if item}
-              <img src={item.emoji} alt={item.id} decoding="async" loading="lazy" class="w-5" />
-              {#if item.role === "scratch-card"}
-                <a href="/docs/economy/items/scratch-cards" class="link">{item.name}</a>
+        <div class="max-h-48 overflow-auto">
+          {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)), ) as foundEntry}
+            {@const item = data.items.find((i) => i.id === foundEntry[0])}
+            <div class="flex items-center gap-1">
+              {#if item}
+                <img src={item.emoji} alt={item.id} decoding="async" loading="lazy" class="w-5" />
+                {#if item.role === "scratch-card"}
+                  <a href="/docs/economy/items/scratch-cards" class="link">{item.name}</a>
+                {:else}
+                  <span>{item.name}</span>
+                {/if}
               {:else}
-                <span>{item.name}</span>
+                <span>{foundEntry[0]}</span>
               {/if}
-            {:else}
-              <span>{foundEntry[0]}</span>
-            {/if}
-            <span class="grow text-right">{foundEntry[1]}</span>
-          </div>
-        {/each}
+              <span class="grow text-right">{foundEntry[1]}</span>
+            </div>
+          {/each}
+        </div>
       </div>
     {/if}
 
     {#if odds.crate_open}
       <div class="mt-2 rounded-box bg-base-300 p-3">
         <h3 class="text-center font-medium text-white">items</h3>
-        <div class="max-h-64 overflow-scroll">
+        <div class="max-h-48 overflow-auto">
           <div>
             {#each odds.crate_open as { itemId, chance }}
               {@const item = data.items.find((i) => i.id === itemId)}
