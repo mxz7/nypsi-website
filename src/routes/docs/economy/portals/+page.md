@@ -1,10 +1,11 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='portals' />
 
-portals allow you to [mine or hunt](/docs/economy/fish-hunt-mine) in other dimensions to get more valuable items. there are two kinds of portals, nether portal and end portal.
+portals allow you to [mine or hunt](/docs/economy/fish-hunt-mine) in other dimensions to get more valuable items. there are two kinds of portals: <ItemModal item="nether_portal">nether portal</ItemModal> and <ItemModal item="end_portal">end portal.</ItemModal>
 
 ## how do i get a portal?
 

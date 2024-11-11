@@ -108,7 +108,7 @@
             {#if item}
               <img src={item.emoji} alt={item.id} decoding="async" loading="lazy" class="w-5" />
               {#if item.role === "scratch-card"}
-                <a href="/docs/economy/items/scratchcards" class="link">{item.name}</a>
+                <a href="/docs/economy/items/scratch-cards" class="link">{item.name}</a>
               {:else}
                 <span>{item.name}</span>
               {/if}

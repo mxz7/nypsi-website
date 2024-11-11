@@ -12,11 +12,10 @@ on!! (`/settings me notifications`)
 
 ## different levels of item
 
-the fishing rod, pickaxe and gun have different item ratings, terrible, normal and incredible for fishing rods and guns and wooden, iron and diamond for pickaxes. the diffence between these is how many
-of these you receive each time you find one in a crate, the amount of items you can get as well as what rarity items you will
+the fishing rod, pickaxe and gun have different item ratings, terrible, normal and incredible for fishing rods and guns and wooden, iron and diamond for pickaxes. the difference between these is how many of these you receive each time you find one in a crate, the amount of items you can get as well as what rarity items you will
 receive.
 
-higher level guns, pickaxes and fishing rods make it easier to find items that have a higher rarity rating. you can also use boosters like efficiency, fortune, worm etc to get better items.
+higher level guns, pickaxes and fishing rods make it easier to find items that have a higher rarity rating. you can also use [boosters](/docs/economy/items/crates?crate=boosters) like efficiency, fortune, worm etc to get better items.
 
 ## how long do they last?
 
