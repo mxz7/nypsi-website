@@ -4,7 +4,7 @@ import type { LeaderboardData } from "$lib/types/LeaderboardData";
 import { error } from "@sveltejs/kit";
 
 export async function load({ params, fetch, isDataRequest, setHeaders, parent }) {
-  setHeaders({ "cache-control": "s-maxage=600" });
+  setHeaders({ "cache-control": "public, max-age=600" });
 
   let leaderboardData: Promise<LeaderboardData>;
 

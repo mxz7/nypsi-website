@@ -6,7 +6,7 @@ import { sort } from "fast-sort";
 export async function load({ params, parent, isDataRequest, fetch, setHeaders }) {
   const { items } = await parent();
 
-  setHeaders({ "cache-control": "public, s-maxage=3600" });
+  setHeaders({ "cache-control": "public, max-age=3600" });
 
   const selected = items.find((i) => i.id === params.itemId);
 
