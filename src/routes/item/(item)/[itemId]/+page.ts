@@ -1,12 +1,9 @@
-import { env } from "$env/dynamic/private";
-import prisma from "$lib/server/database.js";
+import { browser } from "$app/environment";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
 
-export async function load({ params, parent, isDataRequest, fetch, setHeaders }) {
+export async function load({ params, parent, fetch }) {
   const { items } = await parent();
-
-  setHeaders({ "cache-control": "public, max-age=3600" });
 
   const selected = items.find((i) => i.id === params.itemId);
 
@@ -118,20 +115,20 @@ export async function load({ params, parent, isDataRequest, fetch, setHeaders })
     return odds;
   };
 
-  const inWorld = prisma.inventory.aggregate({
-    _sum: { amount: true },
-    where: { item: selected.id },
+  const inWorld = fetch(`/api/item/inworld/${selected.id}`).then((r) => {
+    if (r.status !== 200) return 0;
+    return r.json().then((r) => r.count);
   });
 
-  const value = fetch(`${env.BOT_SERVER_URL}/item/value/${selected.id}`).then(async (r) => {
-    if (r.ok) return r.json().then((r) => r.value as number);
-    else return 0;
+  const value = fetch(`/api/item/value/${selected.id}`).then((r) => {
+    if (r.status !== 200) return 0;
+    return r.json().then((r) => r.value);
   });
 
   return {
     item: selected,
-    odds: isDataRequest ? getOddsData() : await getOddsData(),
-    inWorld: isDataRequest ? inWorld : await inWorld,
-    value: isDataRequest ? value : await value,
+    odds: browser ? getOddsData() : await getOddsData(),
+    inWorld: browser ? inWorld : await inWorld,
+    value: browser ? value : await value,
   };
 }

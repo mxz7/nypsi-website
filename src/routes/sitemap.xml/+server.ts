@@ -11,6 +11,8 @@ pages.push(
     .map((i) => `docs/${i}`),
 );
 
+export const prerender = true;
+
 export async function GET() {
   const items = await getItems();
 
@@ -18,7 +20,6 @@ export async function GET() {
 
   const body = sitemap(pages);
   const response = new Response(body);
-  response.headers.set("Cache-Control", "public, max-age=3600, must-revalidate");
   response.headers.set("Content-Type", "application/xml");
   return response;
 }
