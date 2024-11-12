@@ -18,6 +18,7 @@ export async function GET({ setHeaders, params, fetch }) {
       console.error(r);
       console.error(r.status);
       console.error(r.statusText);
+      console.error(JSON.stringify(r.headers));
       return 0;
     }
   });
