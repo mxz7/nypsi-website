@@ -11,9 +11,11 @@ export async function GET({ setHeaders, params, fetch }) {
 
   const value = await fetch(`${BOT_SERVER_URL}/item/value/${params.itemId}`).then(async (r) => {
     if (r.ok) {
-      console.error(r);
       return r.json().then((r) => r.value as number);
-    } else return 0;
+    } else {
+      console.error(r);
+      return 0;
+    }
   });
 
   console.log(value);
