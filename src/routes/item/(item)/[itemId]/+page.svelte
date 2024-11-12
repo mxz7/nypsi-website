@@ -64,7 +64,7 @@
       {#await data.inWorld}
         <span class="loading loading-spinner loading-sm"></span>
       {:then inWorld}
-        <span class="text-sm">{(inWorld?._sum?.amount || 0).toLocaleString()}</span>
+        <span class="text-sm">{(inWorld || 0).toLocaleString()}</span>
       {/await}
     </div>
 
