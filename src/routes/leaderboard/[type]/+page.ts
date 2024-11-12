@@ -1,11 +1,10 @@
-import sleep from "$lib/functions/sleep.js";
+import { browser } from "$app/environment";
+import sleep from "$lib/functions/sleep";
 import type { Item } from "$lib/types/Item.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData";
 import { error } from "@sveltejs/kit";
 
-export async function load({ params, fetch, isDataRequest, setHeaders, parent }) {
-  setHeaders({ "cache-control": "s-maxage=600" });
-
+export async function load({ params, fetch, parent }) {
   let leaderboardData: Promise<LeaderboardData>;
 
   const { type } = params;
@@ -59,7 +58,7 @@ export async function load({ params, fetch, isDataRequest, setHeaders, parent })
     );
   }
 
-  if (isDataRequest) {
+  if (browser) {
     const res = await Promise.race([leaderboardData, sleep(69)]);
 
     if (typeof res === "boolean") {
