@@ -1,12 +1,12 @@
-import getItems from "$lib/functions/items.js";
+import { browser } from "$app/environment";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
-export async function load({ fetch, isDataRequest, setHeaders, url }) {
+export async function load({ fetch, setHeaders, parent }) {
   setHeaders({ "cache-control": "s-maxage=600" });
 
-  const items = await getItems();
+  const { items } = await parent();
 
-  if (!isDataRequest) {
+  if (!browser) {
     return {
       balance: await fetch("/api/leaderboard/balance").then(
         (r) => r.json() as Promise<LeaderboardData>,
