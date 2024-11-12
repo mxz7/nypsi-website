@@ -20,7 +20,6 @@ export async function GET() {
 
   const body = sitemap(pages);
   const response = new Response(body);
-  response.headers.set("Cache-Control", "max-age=0, s-maxage=3600");
   response.headers.set("Content-Type", "application/xml");
   return response;
 }
