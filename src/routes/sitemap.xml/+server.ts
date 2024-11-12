@@ -11,6 +11,8 @@ pages.push(
     .map((i) => `docs/${i}`),
 );
 
+export const prerender = true;
+
 export async function GET() {
   const items = await getItems();
 
