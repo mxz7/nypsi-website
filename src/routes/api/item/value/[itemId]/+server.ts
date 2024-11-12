@@ -1,6 +1,11 @@
 import { BOT_SERVER_URL } from "$env/static/private";
 import { json } from "@sveltejs/kit";
 
+export const config = {
+  runtime: "edge",
+  regions: "all",
+};
+
 export async function GET({ setHeaders, params, fetch }) {
   setHeaders({ "cache-control": "public, s-maxage=600" });
 
