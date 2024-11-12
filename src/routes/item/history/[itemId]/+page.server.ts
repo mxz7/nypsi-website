@@ -15,7 +15,7 @@ export async function load({ locals, params, url, fetch }) {
     return { premium: false };
   }
 
-  const items = await getItems();
+  const items = await getItems(fetch);
 
   const item = items.find((i) => i.id === params.itemId);
 
@@ -23,7 +23,7 @@ export async function load({ locals, params, url, fetch }) {
 
   const days = parseInt(url.searchParams.get("days") || "30");
 
-  const graphData = getItemHistoryData(item.id, auth.user.id, days, items);
+  const graphData = getItemHistoryData(items, item.id, auth.user.id, days);
 
   return { premium: true, graphData: await graphData, item, user: auth.user };
 }

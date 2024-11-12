@@ -4,7 +4,9 @@ import type { Item } from "$lib/types/Item";
 import { inPlaceSort } from "fast-sort";
 import parseEmoji from "./parseEmoji";
 
-export default async function getItems() {
+export default async function getItems(
+  fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
+) {
   if (!browser) {
     let itemsData: Item[] = Object.values(
       JSON.parse(

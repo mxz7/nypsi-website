@@ -5,6 +5,6 @@ export const config = {
   regions: "all",
 };
 
-export async function load() {
-  return { items: await getItems() };
+export async function load({ fetch }) {
+  return { items: await getItems(fetch) };
 }

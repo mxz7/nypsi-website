@@ -13,7 +13,7 @@
 
   onMount(async () => {
     $progress = (1 / 6) * 100;
-    items = await getItems();
+    items = await getItems(fetch);
     $progress = (2 / 6) * 100;
     await Promise.resolve(data.commandStats);
     $progress = (3 / 6) * 100;

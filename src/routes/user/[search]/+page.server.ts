@@ -33,7 +33,7 @@ export const load = async ({ params, fetch, getClientAddress, request, locals, s
 
   const [baseUserData, items] = await Promise.all([
     fetch(`/api/user/${userId}/base`).then((r) => r.json() as Promise<BaseUserData>),
-    getItems(),
+    getItems(fetch),
   ]);
 
   const before = dayjs()

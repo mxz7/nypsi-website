@@ -4,7 +4,9 @@
   import Chart from "$lib/components/Chart.svelte";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import getItems from "$lib/functions/items.js";
+  import type { Item } from "$lib/types/Item.js";
   import type { ChartOptions } from "chart.js";
+  import { onMount } from "svelte";
 
   const itemChartOptions: ChartOptions = {
     plugins: {
@@ -54,12 +56,17 @@
 
   let days = $state($page.url.searchParams.get("days") || "30");
   let itemId: string = $state();
+  let items: Item[] = $state();
 
   $effect(() => {
     const params = new URLSearchParams($page.url.searchParams.toString());
     params.set("days", days);
     if (itemId) params.set("item", itemId);
     goto(`?${params.toString()}`);
+  });
+
+  onMount(async () => {
+    items = await getItems(fetch);
   });
 </script>
 
@@ -79,7 +86,7 @@
   </select>
 </div>
 
-{#await getItems() then items}
+{#if items}
   <div class="mt-14 flex w-full justify-center">
     <div class="px-4 lg:max-w-3xl lg:px-0">
       <ItemSearch
@@ -90,7 +97,7 @@
       />
     </div>
   </div>
-{/await}
+{/if}
 
 {#key data}
   {#if data.chartData}
