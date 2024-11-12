@@ -10,7 +10,7 @@ export async function getTags(
 }> {
   if (!browser) {
     const tagsData: { [key: string]: Tag } = JSON.parse(
-      await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/items.json").then((r) =>
+      await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json").then((r) =>
         r.text(),
       ),
     );
@@ -21,7 +21,7 @@ export async function getTags(
   if (tags.value) return tags.value;
 
   const tagsData: { [key: string]: Tag } = JSON.parse(
-    await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/items.json").then((r) =>
+    await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json").then((r) =>
       r.text(),
     ),
   );
