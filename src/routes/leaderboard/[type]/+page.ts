@@ -77,7 +77,7 @@ export async function load({ params, fetch, parent }) {
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else {
-    items = await parent().then((d) => d.items);
+    items = (await parent()).items;
 
     item = items.find((i) => i.id === type);
 
