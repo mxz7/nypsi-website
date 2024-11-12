@@ -11,11 +11,13 @@ export async function GET({ setHeaders, params, fetch }) {
 
   console.log(`${BOT_SERVER_URL}/item/value/${params.itemId}`);
 
-  const value = await fetch(`${BOT_SERVER_URL}/item/value/${params.itemId}`).then(async (r) => {
+  const value = await fetch(`${BOT_SERVER_URL}/item/value/${params.itemId}`).then((r) => {
     if (r.ok) {
       return r.json().then((r) => r.value as number);
     } else {
       console.error(r);
+      console.error(r.status);
+      console.error(r.statusText);
       return 0;
     }
   });
