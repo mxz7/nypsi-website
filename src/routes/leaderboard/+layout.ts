@@ -1,4 +1,5 @@
 import getItems from "$lib/functions/items";
+import { getTags } from "$lib/functions/tags.js";
 
 export const config = {
   runtime: "edge",
@@ -6,5 +7,5 @@ export const config = {
 };
 
 export async function load({ fetch }) {
-  return { items: await getItems(fetch) };
+  return { items: await getItems(fetch), tags: await getTags(fetch) };
 }

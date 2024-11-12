@@ -7,9 +7,7 @@
   interface Props {
     title: string;
     data: LeaderboardData | Promise<LeaderboardData>;
-    tags:
-      | Promise<{ [key: string]: { tagId: string; emoji: string; name: string } }>
-      | { [key: string]: { tagId: string; emoji: string; name: string } };
+    tags: { [key: string]: { tagId: string; emoji: string; name: string } };
     userRoute: string;
     descriptor?: string;
   }
@@ -72,22 +70,20 @@
               >
                 {#if user.id}
                   {#if user.tag}
-                    {#await tags then tags}
-                      <p>[</p>
-                      <img
-                        class="h-5 sm:h-6"
-                        src={parseEmoji(tags[user.tag]?.emoji)}
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                        use:tooltip={{
-                          placement: "top",
-                          content: tags[user.tag]?.name,
-                          followCursor: true,
-                        }}
-                      />
-                      <p class="mr-1">]</p>
-                    {/await}
+                    <p>[</p>
+                    <img
+                      class="h-5 sm:h-6"
+                      src={parseEmoji(tags[user.tag]?.emoji)}
+                      alt=""
+                      decoding="async"
+                      loading="lazy"
+                      use:tooltip={{
+                        placement: "top",
+                        content: tags[user.tag]?.name,
+                        followCursor: true,
+                      }}
+                    />
+                    <p class="mr-1">]</p>
                   {/if}
                   <a
                     href="{userRoute}/{user.id.replaceAll(' ', '-')}"

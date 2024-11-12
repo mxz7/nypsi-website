@@ -16,7 +16,7 @@
       const data: BaseUserData = await res.json();
 
       if (data.Tags[0]?.tagId) {
-        const tags = await getTags();
+        const tags = await getTags(fetch);
 
         tag = tags[data.Tags[0].tagId].emoji;
       }
