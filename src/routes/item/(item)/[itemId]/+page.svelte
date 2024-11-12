@@ -183,7 +183,7 @@
   {#if data.items.find((i) => i.craft && i.craft.ingredients.find((j) => j.startsWith(data.item.id)))}
     <div class="mt-2 rounded-box bg-base-300 p-3">
       <h3 class="text-center font-medium text-white">used in recipe</h3>
-      <div class="max-h-48 overflow-auto grid grid-cols-1 lg:grid-cols-2">
+      <div class="max-h-48 overflow-auto grid grid-cols-2">
         {#each data.items.filter((i) => i.craft && i.craft.ingredients.find((j) => j.startsWith(data.item.id))) as item}
           <div class="flex items-center gap-1">
             <img src={item.emoji} alt={item.id} decoding="async" loading="lazy" class="w-5" />
