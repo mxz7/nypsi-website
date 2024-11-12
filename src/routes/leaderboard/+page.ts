@@ -1,6 +1,11 @@
 import { browser } from "$app/environment";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
+export const config = {
+  runtime: "edge",
+  regions: "all",
+};
+
 export async function load({ fetch, setHeaders, parent }) {
   setHeaders({ "cache-control": "s-maxage=600" });
 
