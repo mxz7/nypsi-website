@@ -12,12 +12,12 @@ export async function GET({ setHeaders }) {
 
   const query =
     await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownTag", "Economy"."banned", "Tags"."tagId" from "User"
-     left join "CommandUse" on "CommandUse"."userId" = "User"."id" 
-     left join "Economy" on "Economy"."userId" = "User"."id"
-     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-     group by "CommandUse"."userId", "User"."id", "Economy"."userId", "Tags"."tagId"
-     having sum("CommandUse"."uses") is not null and "User"."blacklisted" = false
-     order by "value" desc limit 100`.then(
+    right join "CommandUse" on "CommandUse"."userId" = "User"."id" 
+    left join "Economy" on "Economy"."userId" = "User"."id"
+    left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    where "User"."blacklisted" = false
+    group by "CommandUse"."userId", "User"."id", "Economy"."userId", "Tags"."tagId"
+    order by "value" desc limit 100`.then(
       (
         i: {
           value: bigint;
