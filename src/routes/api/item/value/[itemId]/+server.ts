@@ -16,5 +16,7 @@ export async function GET({ setHeaders, params, fetch }) {
     } else return 0;
   });
 
+  console.log(value);
+
   return json({ value });
 }
