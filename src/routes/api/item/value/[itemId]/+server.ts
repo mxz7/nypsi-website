@@ -10,8 +10,10 @@ export async function GET({ setHeaders, params, fetch }) {
   setHeaders({ "cache-control": "public, s-maxage=3600" });
 
   const value = await fetch(`${BOT_SERVER_URL}/item/value/${params.itemId}`).then(async (r) => {
-    if (r.ok) return r.json().then((r) => r.value as number);
-    else return 0;
+    if (r.ok) {
+      console.error(r);
+      return r.json().then((r) => r.value as number);
+    } else return 0;
   });
 
   return json({ value });
