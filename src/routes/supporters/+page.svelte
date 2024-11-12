@@ -1,9 +1,15 @@
 <script>
   import parseEmoji from "$lib/functions/parseEmoji";
+  import { tags } from "$lib/state.svelte.js";
   import tooltip from "$lib/Tooltips";
   import { BadgeDollarSign, Code } from "lucide-svelte";
+  import { onMount } from "svelte";
 
   let { data } = $props();
+
+  onMount(() => {
+    tags.value = data.tags;
+  });
 </script>
 
 <svelte:head>
