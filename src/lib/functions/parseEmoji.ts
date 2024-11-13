@@ -18,7 +18,7 @@ export default function parseEmoji(emoji: string) {
     thumbnail += "?size=80";
   } else {
     try {
-      thumbnail = parse(emoji, { assetType: "png" });
+      thumbnail = parse(emoji, { assetType: "svg" });
     } catch (e) {
       console.error(e);
     }
