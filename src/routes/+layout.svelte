@@ -2,10 +2,10 @@
   import { dev } from "$app/environment";
   import { page } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
-  import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth } from "$lib/state.svelte";
+  import { ProgressBar } from "@prgm/sveltekit-progress-bar";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
@@ -78,9 +78,9 @@
 </svelte:head>
 
 <div class="min-h-[100vh]">
-  <Toaster />
+  <ProgressBar class="text-primary" />
 
-  <Loadbar />
+  <Toaster />
 
   <Navigation />
 

@@ -43,7 +43,7 @@
 
     <br />
 
-    {#if $page.url.pathname.startsWith("/docs")}
+    {#if $page.url.pathname.startsWith("/docs/faq")}
       <ul class="menu font-medium">
         <li>
           <a class="opacity-70" href="/">
@@ -84,7 +84,7 @@
             >status</a
           >
         </li>
-        <li><a href="/docs">docs</a></li>
+        <li><a href="/docs/faq">docs</a></li>
         <li><a href="/discord" target="_blank">discord</a></li>
 
         {#if auth.value?.authenticated}
