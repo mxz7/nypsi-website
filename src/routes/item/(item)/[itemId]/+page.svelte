@@ -160,4 +160,37 @@
       </div>
     {/if}
   {/await}
+  
+  {#if data.item.craft}
+    <div class="mt-2 rounded-box bg-base-300 p-3">
+      <h3 class="text-center font-medium text-white">recipe</h3>
+      <div class="max-h-48 overflow-auto">
+        <div>
+          {#each data.item.craft.ingredients as ingredient}
+            {@const [ itemId, amount ] = ingredient.split(":")}
+            {@const item = data.items.find((i) => i.id === itemId)}
+            <div class="flex items-center gap-1">
+              <img src={item.emoji} alt={itemId} decoding="async" loading="lazy" class="w-5" />
+              <a class="link" href="/item/{itemId}">{item ? item.name : formatName(itemId)}</a>
+              <span class="grow text-right">x{amount}</span>
+            </div>
+          {/each}
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  {#if data.items.find((i) => i.craft && i.craft.ingredients.find((j) => j.startsWith(data.item.id)))}
+    <div class="mt-2 rounded-box bg-base-300 p-3">
+      <h3 class="text-center font-medium text-white">used in recipe</h3>
+      <div class="max-h-48 overflow-auto grid grid-cols-2">
+        {#each data.items.filter((i) => i.craft && i.craft.ingredients.find((j) => j.startsWith(data.item.id))) as item}
+          <div class="flex items-center gap-1">
+            <img src={item.emoji} alt={item.id} decoding="async" loading="lazy" class="w-5" />
+            <a class="link" href="/item/{item.id}">{item ? item.name : formatName(item.id)}</a>
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/if}
 </div>
