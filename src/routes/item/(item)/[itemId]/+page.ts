@@ -1,4 +1,5 @@
 import { browser } from "$app/environment";
+import sleep from "$lib/functions/sleep.js";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
 
@@ -129,6 +130,23 @@ export async function load({ params, parent, fetch }) {
     if (r.status !== 200) return 0;
     return r.json().then((r) => r.value);
   });
+
+  const oddsData = getOddsData();
+
+  if (browser) {
+    const race = await Promise.race([oddsData, inWorld, value, sleep(69)]);
+
+    if (typeof race === "boolean") {
+      return { item: selected, odds: oddsData, inWorld, value };
+    }
+
+    return {
+      item: selected,
+      odds: await oddsData,
+      inWorld: await inWorld,
+      value: await value,
+    };
+  }
 
   return {
     item: selected,
