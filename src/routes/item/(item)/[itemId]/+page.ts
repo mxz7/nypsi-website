@@ -110,7 +110,9 @@ export async function load({ params, parent, fetch }) {
 
               if (!line) return;
 
+              odds.found["vote_crate"] = line.split(":")[1].split("%")[0] + "%";
               odds.found["basic_crate"] = line.split(":")[1].split("%")[0] + "%";
+              odds.found["69420_crate"] = line.split(":")[1].split("%")[0] + "%";
             }),
         ),
       );
