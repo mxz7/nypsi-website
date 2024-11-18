@@ -1,6 +1,6 @@
 <script lang="ts">
+  import ItemModal from "$lib/components/docs/ItemModal.svelte";
   import getItems from "$lib/functions/items";
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
   import type { Item } from "$lib/types/Item";
   import { onMount } from "svelte";
 
@@ -11,7 +11,7 @@
   let crateItems: string[] = $state();
 
   onMount(async () => {
-    items = await getItems();
+    items = await getItems(fetch);
     const text = await fetch(
       `https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${crate}.txt`,
     ).then((response) => response.text());
@@ -21,13 +21,15 @@
 
   function getItemEmoji(item: string) {
     return items.find(
-      (i) => i.id == (item.startsWith("xp") ? "double_xp" : item.startsWith("money") ? "highroller" : item),
+      (i) =>
+        i.id ==
+        (item.startsWith("xp") ? "double_xp" : item.startsWith("money") ? "highroller" : item),
     ).emoji;
   }
 
   function getItemName(itemId: string) {
     const [id, value] = itemId.split(":");
-    
+
     if (value) {
       if (id === "money") return `$${Number(value).toLocaleString()}`;
       if (id === "xp") return `${Number(value).toLocaleString()} xp`;
@@ -52,7 +54,9 @@
           />
         </div>
         {#if items.find((i) => i.id == itemId)}
-          <span><ItemModal item={itemId}>{getItemName(itemId)}</ItemModal>: {item.split(": ")[1]}</span>
+          <span
+            ><ItemModal item={itemId}>{getItemName(itemId)}</ItemModal>: {item.split(": ")[1]}</span
+          >
         {:else}
           <span>{getItemName(itemId)}: {item.split(": ")[1]}</span>
         {/if}

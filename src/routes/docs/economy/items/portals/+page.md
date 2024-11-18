@@ -5,7 +5,8 @@
 
 <DocsTemplate title='portals' />
 
-portals allow you to [mine or hunt](/docs/economy/fish-hunt-mine) in other dimensions to get more valuable items. there are two kinds of portals: <ItemModal item="nether_portal">nether portal</ItemModal> and <ItemModal item="end_portal">end portal.</ItemModal>
+portals allow you to [mine or hunt](/docs/economy/fish-hunt-mine) in other dimensions to get more valuable items.
+there are two kinds of portals: <ItemModal item="nether_portal">nether portal</ItemModal> and <ItemModal item="end_portal">end portal.</ItemModal>
 
 ## how do i get a portal?
 

@@ -6,6 +6,8 @@
 
 i love you
 
+please note that when you buy anything from the online store, you **MUST** set your email with `/settings me email`. when you buy from ko-fi, the bot only knows the email address that was used. you must set your email to receive your purchased items.
+
 ## what is premium?
 
 premium is for users that would like to donate some money to the creator of nypsi. in return, you
@@ -26,3 +28,7 @@ there are other payment methods, such as direct payment via crypto. if you're in
 ## when do i get my premium crates
 
 premium crates are automatic on friday nights / saturday mornings (00:15 GMT/UTC)
+
+## buying items
+
+you can buy crates from the online store too in a very similar fashion. just make sure to set your email with `/settings me email` on the bot once you've bought stuff.

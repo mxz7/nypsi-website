@@ -2,7 +2,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
-  import { items } from "$lib/state.svelte";
+  import { items, tags } from "$lib/state.svelte";
   import { onMount } from "svelte";
 
   let { children, data } = $props();
@@ -79,6 +79,7 @@
 
   onMount(() => {
     items.value = data.items;
+    tags.value = data.tags;
   });
 </script>
 

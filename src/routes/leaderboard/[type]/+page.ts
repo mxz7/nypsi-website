@@ -4,6 +4,11 @@ import type { Item } from "$lib/types/Item.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData";
 import { error } from "@sveltejs/kit";
 
+export const config = {
+  runtime: "edge",
+  regions: "all",
+};
+
 export async function load({ params, fetch, parent }) {
   let leaderboardData: Promise<LeaderboardData>;
 
@@ -72,7 +77,7 @@ export async function load({ params, fetch, parent }) {
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else {
-    items = await parent().then((d) => d.items);
+    items = (await parent()).items;
 
     item = items.find((i) => i.id === type);
 

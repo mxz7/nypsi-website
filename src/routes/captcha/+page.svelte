@@ -35,6 +35,8 @@
     defer
     onload={() => (loaded = true)}
   ></script>
+
+  <meta name="robots" content="noindex" />
 </svelte:head>
 
 <div class="mt-16 flex w-full justify-center md:mt-32">

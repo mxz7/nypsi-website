@@ -13,8 +13,8 @@ pages.push(
 
 export const prerender = true;
 
-export async function GET() {
-  const items = await getItems();
+export async function GET({ fetch }) {
+  const items = await getItems(fetch);
 
   pages.push(...items.map((i) => `item/${i.id}`));
 

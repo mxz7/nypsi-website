@@ -1,6 +1,12 @@
 import { browser } from "$app/environment";
+import sleep from "$lib/functions/sleep.js";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
+
+export const config = {
+  runtime: "edge",
+  regions: "all",
+};
 
 export async function load({ params, parent, fetch }) {
   const { items } = await parent();
@@ -104,7 +110,9 @@ export async function load({ params, parent, fetch }) {
 
               if (!line) return;
 
+              odds.found["vote_crate"] = line.split(":")[1].split("%")[0] + "%";
               odds.found["basic_crate"] = line.split(":")[1].split("%")[0] + "%";
+              odds.found["69420_crate"] = line.split(":")[1].split("%")[0] + "%";
             }),
         ),
       );
@@ -124,6 +132,23 @@ export async function load({ params, parent, fetch }) {
     if (r.status !== 200) return 0;
     return r.json().then((r) => r.value);
   });
+
+  const oddsData = getOddsData();
+
+  if (browser) {
+    const race = await Promise.race([oddsData, inWorld, value, sleep(69)]);
+
+    if (typeof race === "boolean") {
+      return { item: selected, odds: oddsData, inWorld, value };
+    }
+
+    return {
+      item: selected,
+      odds: await oddsData,
+      inWorld: await inWorld,
+      value: await value,
+    };
+  }
 
   return {
     item: selected,

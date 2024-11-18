@@ -4,8 +4,8 @@ import prisma from "$lib/server/database";
 
 const contributorIds = ["672793821850894347", "499720078770831360", "191179161010831360"];
 
-export async function load({ setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=600" });
+export async function load({ fetch, setHeaders }) {
+  setHeaders({'cache-control': 'public, max-age=3600'})
 
   const supporters = prisma.user.findMany({
     where: {
@@ -37,7 +37,7 @@ export async function load({ setHeaders }) {
   });
 
   return {
-    tags: await getTags(),
+    tags: await getTags(fetch),
     supporters: await supporters,
     contributors: await contributors,
   };

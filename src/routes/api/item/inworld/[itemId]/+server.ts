@@ -2,7 +2,7 @@ import prisma from "$lib/server/database.js";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params }) {
-  setHeaders({ "cache-control": "public, max-age=600" });
+  setHeaders({ "cache-control": "public, max-age=3600" });
 
   const query = await prisma.inventory.aggregate({
     where: { item: params.itemId },

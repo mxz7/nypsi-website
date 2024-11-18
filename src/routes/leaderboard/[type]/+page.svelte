@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { getTags } from "$lib/functions/tags";
   import { items } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
@@ -18,7 +17,7 @@
 
 <div class="mt-10 flex w-full justify-center">
   <BigLeaderboard
-    tags={getTags()}
+    tags={data.tags}
     data={data.leaderboardData}
     title={data.title}
     userRoute={$page.url.pathname.endsWith("guilds") ? "/guild" : "/user"}

@@ -3,11 +3,12 @@
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
-  import { getTags } from "$lib/functions/tags";
+  import { getTags, type Tag } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
+  import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
   interface Props {
@@ -75,6 +76,12 @@
   const handleFallbackImage = (el: any) => {
     el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
   };
+
+  let tagData: { [key: string]: Tag } = $state();
+
+  onMount(async () => {
+    tagData = await getTags(fetch);
+  });
 </script>
 
 <div
@@ -212,26 +219,24 @@
                   loading="lazy"
                 />
               </a>
-            {:else}
-              {#await getTags() then tagData}
-                {#if tagData[tag.tagId] && tag.selected}
-                  <div
-                    use:tooltip={{
-                      content: tagData[tag.tagId].name,
-                      theme: "tooltip",
-                      placement: "left",
-                    }}
-                  >
-                    <img
-                      class="h-4 w-4 lg:h-6 lg:w-6"
-                      src={parseEmoji(tagData[tag.tagId].emoji)}
-                      alt="{tag.tagId} emoji"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                {/if}
-              {/await}
+            {:else if tagData}
+              {#if tagData[tag.tagId] && tag.selected}
+                <div
+                  use:tooltip={{
+                    content: tagData[tag.tagId].name,
+                    theme: "tooltip",
+                    placement: "left",
+                  }}
+                >
+                  <img
+                    class="h-4 w-4 lg:h-6 lg:w-6"
+                    src={parseEmoji(tagData[tag.tagId].emoji)}
+                    alt="{tag.tagId} emoji"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              {/if}
             {/if}
           {/each}
         {/if}
