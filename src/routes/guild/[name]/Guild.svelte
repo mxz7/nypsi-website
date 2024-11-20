@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { GuildSuccess } from "$lib/types/Guild";
   import { inPlaceSort } from "fast-sort";
+  import { cubicOut, quintOut } from "svelte/easing";
+  import { fade, fly } from "svelte/transition";
 
   interface Props {
     guildData: GuildSuccess;
@@ -45,17 +47,18 @@
 
   <div
     class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
+    in:fly|global={{ duration: 300, y: 25, easing: cubicOut }}
   >
     <div class="flex flex-col justify-center gap-4 sm:flex-row">
-      <div class="grow text-center">
+      <div class="grow text-center" in:fade|global={{ delay: 100, duration: 1000 }}>
         <h2 class="text-lg text-white">xp</h2>
         <p class="font-semibold text-primary">{guild.xp.toLocaleString()}</p>
       </div>
-      <div class="grow text-center">
+      <div class="grow text-center" in:fade|global={{ delay: 200, duration: 1000 }}>
         <h2 class="text-lg text-white">money</h2>
         <p class="font-semibold text-primary">${guild.balance.toLocaleString()}</p>
       </div>
-      <div class="grow text-center">
+      <div class="grow text-center" in:fade|global={{ delay: 300, duration: 1000 }}>
         <h2 class="text-lg text-white">tokens</h2>
         <p class="font-semibold text-primary">{guild.tokens.toLocaleString()}</p>
       </div>
@@ -64,12 +67,16 @@
 
   <div
     class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
+    in:fly|global={{ duration: 300, delay: 100, y: 25, easing: cubicOut }}
   >
     <div
       class="flex flex-col justify-center gap-2 [&>*:nth-child(1)]:font-semibold [&>*:nth-child(1)]:text-primary"
     >
       {#each inPlaceSort(guild.members).desc( [(i) => i.contributedXp, (i) => i.contributedMoney], ) as member, index}
-        <div class="flex items-center gap-3 rounded-lg bg-base-300 p-3">
+        <div
+          class="flex items-center gap-3 rounded-lg bg-base-300 p-3"
+          in:fly|global={{ delay: (index + 1) * 100, duration: 1250, y: 25, easing: cubicOut }}
+        >
           <img
             bind:this={avatars[index]}
             class="h-10 w-10 rounded-full"
