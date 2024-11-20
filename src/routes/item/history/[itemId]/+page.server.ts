@@ -2,7 +2,7 @@ import getItems from "$lib/functions/items.js";
 import getItemHistoryData from "$lib/server/functions/graphs/getItemHistoryData.js";
 import { error, redirect } from "@sveltejs/kit";
 
-export async function load({ locals, params, url, fetch }) {
+export async function load({ locals, params, url, fetch, setHeaders }) {
   const auth = await locals.validate();
 
   if (!auth) {
@@ -14,6 +14,8 @@ export async function load({ locals, params, url, fetch }) {
   if (!premium.premium) {
     return { premium: false };
   }
+
+  setHeaders({ "cache-control": "private, max-age=3600" });
 
   const items = await getItems(fetch);
 
