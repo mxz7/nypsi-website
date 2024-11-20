@@ -8,13 +8,13 @@
   let { children }: Props = $props();
 </script>
 
-<div class="mb-2 mt-3 flex justify-center">
+<div class="mb-2 mt-5 flex justify-center">
   <form>
     <input
       class="input input-bordered"
       type="text"
       name="search"
-      placeholder="search"
+      placeholder="username"
       bind:value={userSearchTerm.value}
       required
       autocorrect="off"

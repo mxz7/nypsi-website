@@ -18,7 +18,7 @@
 
 <div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
   <div
-    class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
+    class="w-full rounded-lg border border-primary border-opacity-15 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-30"
   >
     <h1 class="text-center text-2xl font-bold text-white">{guild.guildName} [{guild.level}]</h1>
 
