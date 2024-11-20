@@ -16,6 +16,7 @@ export async function GET({ params, setHeaders }) {
       motd: true,
       tokens: true,
       xp: true,
+      avatarId: true,
       owner: {
         select: {
           user: {

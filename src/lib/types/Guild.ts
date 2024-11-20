@@ -16,6 +16,7 @@ export interface GuildSuccess extends BaseGuild {
     tokens: number;
     level: number;
     motd: string;
+    avatarId?: string;
     owner: {
       user: {
         avatar: string;
