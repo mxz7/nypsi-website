@@ -5,7 +5,6 @@
   import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth } from "$lib/state.svelte";
-  import { ProgressBar } from "@prgm/sveltekit-progress-bar";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
@@ -78,7 +77,7 @@
 </svelte:head>
 
 <div class="min-h-[100vh]">
-  <ProgressBar class="text-primary" />
+  <!-- <ProgressBar class="text-primary" /> -->
 
   <Toaster />
 
