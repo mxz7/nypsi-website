@@ -1,15 +1,23 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { navigating } from "$app/stores";
-  import { userSearchTerm } from "$lib/state.svelte";
-  interface Props {
-    children?: import("svelte").Snippet;
-  }
+  import { items, userSearchTerm } from "$lib/state.svelte";
+  import { onMount } from "svelte";
 
-  let { children }: Props = $props();
+  let { children, data } = $props();
+
+  onMount(() => {
+    if (!items.value) items.value = data.items;
+  });
 </script>
 
 <div class="mb-2 mt-5 flex justify-center">
-  <form>
+  <form
+    onsubmit={(e) => {
+      e.preventDefault();
+      goto(`/user/${userSearchTerm.value}`);
+    }}
+  >
     <input
       class="input input-bordered"
       type="text"
