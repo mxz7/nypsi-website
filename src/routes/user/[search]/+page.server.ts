@@ -1,4 +1,3 @@
-import { VIEW_AUTH } from "$env/static/private";
 import getItems from "$lib/functions/items.js";
 import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
@@ -79,35 +78,7 @@ export const load = async ({
         games: Game[];
       }>,
       gamesBefore: before,
-      _view: (async () => {
-        if (request.headers.get("user-agent").includes("bot")) return;
-        const auth = await locals.validate();
-
-        if (auth) {
-          if (auth.user.id === userId) return;
-        }
-
-        let ip: string;
-
-        try {
-          ip = getClientAddress();
-        } catch {
-          ip = "127.0.0.1";
-        }
-
-        return fetch("/api/user/view/add", {
-          method: "POST",
-          headers: { Authorization: VIEW_AUTH },
-          body: JSON.stringify({
-            userId,
-            viewerId: auth ? auth.user.id : undefined,
-            viewerIp: ip,
-            referrer: request.headers.get("referer") || undefined,
-          }),
-        })
-          .then((r) => r.json().catch(() => null))
-          .catch(() => null);
-      })(),
+      _view: fetch(`/api/user/${userId}/view`, { method: "post" }),
     };
   }
 };
