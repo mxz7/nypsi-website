@@ -25,7 +25,7 @@ export default async function getGuildData(guild: string, type: "balance" | "xp"
     counts.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
   }
 
-  const graphData: ChartConfiguration = {
+  const graphData: ChartConfiguration<"line"> = {
     type: "line",
     data: {
       labels: [],
