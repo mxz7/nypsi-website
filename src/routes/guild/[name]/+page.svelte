@@ -2,7 +2,6 @@
   import Chart from "$lib/components/Chart.svelte";
   import { guildSearchTerm } from "$lib/state.svelte";
   import type { ChartOptions } from "chart.js";
-  import { fly } from "svelte/transition";
   import Guild from "./Guild.svelte";
 
   let { data } = $props();
@@ -141,16 +140,11 @@
 
 <div>
   {#if !data.guild.success}
-    <div
-      class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform"
-      in:fly={{ delay: 300, duration: 500, y: 75 }}
-    >
+    <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
       <p class="text-xl font-bold text-slate-300">unknown guild</p>
     </div>
   {:else}
-    {#key data.guild}
-      <Guild guildData={data.guild}></Guild>
-    {/key}
+    <Guild guildData={data.guild} />
   {/if}
 </div>
 
