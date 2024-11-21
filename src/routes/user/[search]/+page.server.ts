@@ -5,36 +5,45 @@ import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { error } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
-export const load = async ({ params, fetch, getClientAddress, request, locals, setHeaders }) => {
+export const load = async ({
+  params,
+  fetch,
+  getClientAddress,
+  request,
+  locals,
+  setHeaders,
+  parent,
+}) => {
   setHeaders({ "cache-control": "s-maxage=600" });
   const search = params.search;
   let userId: string;
 
-  if (!search) error(404, { message: "not found" });
+  if (!search) return error(404, { message: "not found" });
 
   if (search.match(/^\d{17,19}$/)) {
     userId = search;
-
-    const res = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
-
-    if (!res.exists) error(404, { message: "not found" });
-    if (res.private) error(403, { message: "private profile" });
   } else {
     const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
 
     if (res.id) {
       userId = res.id;
     } else if (res.message === "private profile") {
-      if (res.private) error(403, { message: "private profile" });
+      if (res.private) return error(403, { message: "private profile" });
     } else {
-      error(404, { message: "unknown user" });
+      return error(404, { message: "unknown user" });
     }
   }
 
-  const [baseUserData, items] = await Promise.all([
-    fetch(`/api/user/${userId}/base`).then((r) => r.json() as Promise<BaseUserData>),
+  const [baseUserDataResponse, items] = await Promise.all([
+    fetch(`/api/user/${userId}/base`),
     getItems(fetch),
   ]);
+
+  if (baseUserDataResponse.status !== 200) {
+    const errorData = await baseUserDataResponse.json();
+
+    return error(baseUserDataResponse.status, errorData.message);
+  }
 
   const before = dayjs()
     .set("minutes", 0)
@@ -45,7 +54,7 @@ export const load = async ({ params, fetch, getClientAddress, request, locals, s
 
   if (request.headers.get("user-agent").toLowerCase().includes("bot")) {
     return {
-      baseUserData,
+      baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
       items,
       allUserData: await fetch(`/api/user/${userId}`).then(
         (r) => r.json() as Promise<UserApiResponsexd>,
@@ -60,7 +69,7 @@ export const load = async ({ params, fetch, getClientAddress, request, locals, s
     };
   } else {
     return {
-      baseUserData,
+      baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
       items,
       allUserData: fetch(`/api/user/${userId}`).then((r) => r.json() as Promise<UserApiResponsexd>),
       games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
