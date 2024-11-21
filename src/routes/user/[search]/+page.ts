@@ -1,5 +1,3 @@
-import { browser } from "$app/environment";
-import sleep from "$lib/functions/sleep.js";
 import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { error } from "@sveltejs/kit";
@@ -43,44 +41,6 @@ export async function load({ params, fetch, setHeaders, parent }) {
     .set("milliseconds", 0)
     .toDate()
     .getTime();
-
-  if (browser) {
-    const allData = fetch(`/api/user/${userId}`).then(
-      (r) => r.json() as Promise<UserApiResponsexd>,
-    );
-
-    const race = await Promise.race([allData, sleep(69)]);
-
-    if (typeof race === "boolean") {
-      return {
-        baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
-        items,
-        allUserData: allData,
-        gamesBefore: before,
-        games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
-          r.json(),
-        ) as Promise<{
-          ok: boolean;
-          games: Game[];
-        }>,
-        _view: fetch(`/api/user/${userId}/view`, { method: "post" }),
-      };
-    }
-
-    return {
-      baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
-      items,
-      allUserData: await allData,
-      gamesBefore: before,
-      games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
-        r.json(),
-      ) as Promise<{
-        ok: boolean;
-        games: Game[];
-      }>,
-      _view: fetch(`/api/user/${userId}/view`, { method: "post" }),
-    };
-  }
 
   return {
     baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
