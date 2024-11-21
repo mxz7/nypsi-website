@@ -1,18 +1,11 @@
-import getItems from "$lib/functions/items.js";
+import { browser } from "$app/environment";
+import sleep from "$lib/functions/sleep.js";
 import type Game from "$lib/types/Game.js";
 import type { BaseUserData, UserApiResponsexd } from "$lib/types/User.js";
 import { error } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
-export const load = async ({
-  params,
-  fetch,
-  getClientAddress,
-  request,
-  locals,
-  setHeaders,
-  parent,
-}) => {
+export async function load({ params, fetch, setHeaders, parent }) {
   setHeaders({ "cache-control": "s-maxage=600" });
   const search = params.search;
   let userId: string;
@@ -33,9 +26,9 @@ export const load = async ({
     }
   }
 
-  const [baseUserDataResponse, items] = await Promise.all([
+  const [baseUserDataResponse, { items }] = await Promise.all([
     fetch(`/api/user/${userId}/base`),
-    getItems(fetch),
+    parent(),
   ]);
 
   if (baseUserDataResponse.status !== 200) {
@@ -51,34 +44,55 @@ export const load = async ({
     .toDate()
     .getTime();
 
-  if (request.headers.get("user-agent").toLowerCase().includes("bot")) {
+  if (browser) {
+    const allData = fetch(`/api/user/${userId}`).then(
+      (r) => r.json() as Promise<UserApiResponsexd>,
+    );
+
+    const race = await Promise.race([allData, sleep(69)]);
+
+    if (typeof race === "boolean") {
+      return {
+        baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
+        items,
+        allUserData: allData,
+        gamesBefore: before,
+        games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
+          r.json(),
+        ) as Promise<{
+          ok: boolean;
+          games: Game[];
+        }>,
+        _view: fetch(`/api/user/${userId}/view`, { method: "post" }),
+      };
+    }
+
     return {
       baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
       items,
-      allUserData: await fetch(`/api/user/${userId}`).then(
-        (r) => r.json() as Promise<UserApiResponsexd>,
-      ),
-      games: (await fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
-        r.json(),
-      )) as Promise<{
-        ok: boolean;
-        games: Game[];
-      }>,
+      allUserData: await allData,
       gamesBefore: before,
-    };
-  } else {
-    return {
-      baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
-      items,
-      allUserData: fetch(`/api/user/${userId}`).then((r) => r.json() as Promise<UserApiResponsexd>),
       games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
         r.json(),
       ) as Promise<{
         ok: boolean;
         games: Game[];
       }>,
-      gamesBefore: before,
       _view: fetch(`/api/user/${userId}/view`, { method: "post" }),
     };
   }
-};
+
+  return {
+    baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
+    items,
+    allUserData: fetch(`/api/user/${userId}`).then((r) => r.json() as Promise<UserApiResponsexd>),
+    games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
+      r.json(),
+    ) as Promise<{
+      ok: boolean;
+      games: Game[];
+    }>,
+    gamesBefore: before,
+    _view: fetch(`/api/user/${userId}/view`, { method: "post" }),
+  };
+}
