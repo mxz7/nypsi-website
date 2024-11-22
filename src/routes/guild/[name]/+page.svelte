@@ -139,12 +139,12 @@
 </svelte:head>
 
 <div>
-  {#if !data.guild.success}
+  {#if data.guild.success}
+    <Guild guildData={data.guild} />
+  {:else}
     <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
       <p class="text-xl font-bold text-slate-300">unknown guild</p>
     </div>
-  {:else}
-    <Guild guildData={data.guild} />
   {/if}
 </div>
 
