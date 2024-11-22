@@ -5,7 +5,9 @@
   import { fade } from "svelte/transition";
   import ItemPage from "../../../routes/item/(item)/[itemId]/+page.svelte";
 
-  let { children, item }: { children: Snippet; item: string } = $props();
+  type Props = { children: Snippet; item: string };
+
+  let { children, item }: Props = $props();
 </script>
 
 <a
@@ -28,12 +30,14 @@
 
     if (result.type === "loaded" && result.status === 200) {
       const data = {
-        items: result.data.items,
-        item: result.data.item,
+        items: $state.snapshot(await result.data.items),
+        item: $state.snapshot(await result.data.item),
         odds: await result.data.odds,
         inWorld: await result.data.inWorld,
         value: await result.data.value,
       };
+
+      console.log(data);
 
       const docsItemModal = {};
 
