@@ -15,7 +15,7 @@ export async function load({ locals, params, url, fetch, setHeaders }) {
     return { premium: false };
   }
 
-  setHeaders({ "cache-control": "private, max-age=3600" });
+  setHeaders({ "cache-control": "private, max-age=300" });
 
   const items = await getItems(fetch);
 

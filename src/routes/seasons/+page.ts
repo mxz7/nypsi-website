@@ -1,3 +1,1 @@
-export function load({ setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=600" });
-}
+export const prerender = true;

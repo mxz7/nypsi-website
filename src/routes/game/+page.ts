@@ -1,9 +1,7 @@
 import type Game from "$lib/types/Game.js";
 import dayjs from "dayjs";
 
-export async function load({ fetch, url, setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
-
+export async function load({ fetch, url }) {
   const loadedDate = dayjs()
     .set("minute", 0)
     .set("seconds", 0)

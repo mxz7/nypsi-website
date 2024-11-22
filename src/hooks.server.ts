@@ -47,6 +47,10 @@ export async function handle({ event, resolve }) {
 
   const res = await resolve(event);
 
+  if (!res.headers.get("cache-control")) {
+    res.headers.set("cache-control", "no-cache");
+  }
+
   log(res.status, event);
 
   return res;

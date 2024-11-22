@@ -2,9 +2,7 @@ import { env } from "$env/dynamic/private";
 import prisma from "$lib/server/database.js";
 import type { BotStatus } from "$lib/types/Status.js";
 
-export async function load({ setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=15, must-revalidate" });
-
+export async function load() {
   return {
     status: await fetch(`${env.BOT_SERVER_URL}/status`)
       .then(async (r) => ({ ...(await r.json()), time: Date.now() }) as Promise<BotStatus>)

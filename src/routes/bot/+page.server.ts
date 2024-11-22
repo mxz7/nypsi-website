@@ -3,9 +3,7 @@ import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { sort } from "fast-sort";
 
-export async function load({ url, setHeaders }) {
-  setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
-
+export async function load({ url }) {
   const days = parseInt(url.searchParams.get("days") || "30") || 30;
 
   return {
