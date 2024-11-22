@@ -2,9 +2,9 @@
   import { goto, preloadData, pushState } from "$app/navigation";
   import { page } from "$app/stores";
   import type { Snippet } from "svelte";
+  import { cubicOut } from "svelte/easing";
   import { fade, fly } from "svelte/transition";
   import ItemPage from "../../../routes/item/(item)/[itemId]/+page.svelte";
-  import { cubicOut } from "svelte/easing";
 
   type Props = { children: Snippet; item: string };
 
@@ -37,8 +37,6 @@
         inWorld: await result.data.inWorld,
         value: await result.data.value,
       };
-
-      console.log(data);
 
       const docsItemModal = {};
 
