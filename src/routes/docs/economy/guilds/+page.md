@@ -14,6 +14,8 @@ guild owners can buy things from the guild shop with tokens, this will give you 
 
 on each level up, the top contributors will receive rewards.
 
+at the end of the season, the top guilds will receive premium and real money as rewards.
+
 ## how do i upgrade my guild
 
 your guild will upgraded automatically, once the requirements have been met. you can do `/guild upgrade` to look at the requirements for the next upgrade
@@ -30,7 +32,7 @@ to leave your guild, use the `/guild leave` command. if you are the owner howeve
 
 ## how can i get my money back after depositing?
 
-this is not possible, as it could easily be abused. however, when the guild is deleted, each member will receive a percentage back of what they contributed to the guild
+you can't get your money back after it has been deposited into the guild. that money is now used for the guild's level ups.
 
 ## guild shop upgrades
 
