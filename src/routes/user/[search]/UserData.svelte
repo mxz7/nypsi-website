@@ -8,7 +8,7 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import Loading from "../../../lib/components/Loading.svelte";
-  import Profile from "../../../lib/components/users/Profile.svelte";
+  import Profile from "./Profile.svelte";
   import Punishment from "./Punishment.svelte";
   import SmallInfo from "./SmallInfo.svelte";
 

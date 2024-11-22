@@ -10,3 +10,5 @@ export const tags: { value: { [key: string]: Tag } } = $state({ value: null });
 export const gameSearchTerm = $state({ value: "" });
 export const userSearchTerm = $state({ value: "" });
 export const guildSearchTerm = $state({ value: "" });
+
+export const initialLoad = $state({ value: true });

@@ -9,7 +9,7 @@ export async function GET({ params, fetch, setHeaders }) {
     "cache-control": "public, max-age=600, must-revalidate",
   });
 
-  if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
+  if (!userId.match(/^\d{17,19}$/)) return error(400, "invalid user id");
 
   const cont = await privacyCheck(userId, fetch);
   if (cont !== "continue") throw cont;

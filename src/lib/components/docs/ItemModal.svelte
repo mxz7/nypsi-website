@@ -2,10 +2,13 @@
   import { goto, preloadData, pushState } from "$app/navigation";
   import { page } from "$app/stores";
   import type { Snippet } from "svelte";
-  import { fade } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
+  import { fade, fly } from "svelte/transition";
   import ItemPage from "../../../routes/item/(item)/[itemId]/+page.svelte";
 
-  let { children, item }: { children: Snippet; item: string } = $props();
+  type Props = { children: Snippet; item: string };
+
+  let { children, item }: Props = $props();
 </script>
 
 <a
@@ -28,8 +31,8 @@
 
     if (result.type === "loaded" && result.status === 200) {
       const data = {
-        items: result.data.items,
-        item: result.data.item,
+        items: $state.snapshot(await result.data.items),
+        item: $state.snapshot(await result.data.item),
         odds: await result.data.odds,
         inWorld: await result.data.inWorld,
         value: await result.data.value,
@@ -48,8 +51,8 @@
 
 {#if $page.state.docsItemModal && $page.state.docsItemModal[item]}
   <div
-    in:fade={{ duration: 100 }}
-    out:fade={{ duration: 100 }}
+    in:fly={{ duration: 250, y: 20, easing: cubicOut }}
+    out:fly={{ duration: 250, y: 20, easing: cubicOut }}
     class="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform"
   >
     <div class="rounded-box shadow">
@@ -58,8 +61,8 @@
   </div>
 
   <button
-    in:fade={{ duration: 100 }}
-    out:fade={{ duration: 100 }}
+    in:fade={{ duration: 250 }}
+    out:fade={{ duration: 250 }}
     class="fixed left-0 top-0 z-10 h-full w-full cursor-default backdrop-blur-sm"
     aria-label="close modal"
     onclick={() => {

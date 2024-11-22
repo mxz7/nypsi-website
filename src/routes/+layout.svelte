@@ -1,11 +1,11 @@
 <script lang="ts">
   import { dev } from "$app/environment";
+  import { onNavigate } from "$app/navigation";
   import { page } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
   import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
-  import { auth } from "$lib/state.svelte";
-  import { ProgressBar } from "@prgm/sveltekit-progress-bar";
+  import { auth, initialLoad } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
@@ -36,6 +36,10 @@
 
       history.replaceState({}, "", $page.url); // remove search params without reloading page
     }
+  });
+
+  onNavigate(() => {
+    initialLoad.value = false;
   });
 </script>
 
@@ -73,7 +77,7 @@
 </svelte:head>
 
 <div class="min-h-[100vh]">
-  <ProgressBar class="text-primary" />
+  <!-- <ProgressBar class="text-primary" /> -->
 
   <Toaster />
 

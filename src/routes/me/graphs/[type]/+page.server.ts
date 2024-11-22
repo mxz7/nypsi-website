@@ -5,7 +5,7 @@ import { redirect } from "@sveltejs/kit";
 export async function load({ parent, setHeaders, params, url, fetch }) {
   try {
     setHeaders({
-      "cache-control": "private, max-age=0",
+      "cache-control": "private, max-age=3600",
     });
   } catch {}
 

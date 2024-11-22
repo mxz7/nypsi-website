@@ -1,11 +1,5 @@
-import { redirect } from "@sveltejs/kit";
+import getItems from "$lib/functions/items.js";
 
-export const load = async ({ url }) => {
-  const search = url.searchParams.get("search");
-
-  if (!search) {
-    return;
-  }
-
-  redirect(302, "/user/" + search);
-};
+export async function load({ url, fetch }) {
+  return { items: await getItems(fetch) };
+}

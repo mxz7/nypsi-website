@@ -7,7 +7,7 @@ export async function privacyCheck(
 ) {
   const privacyCheck: APIUserCheck = await fetch(`/api/user/check/${userId}`).then((r) => r.json());
 
-  if (!privacyCheck?.ok || !privacyCheck.exists) return error(404, { message: "user not found" });
-  if (privacyCheck.private) return error(403, { message: "user has a private profile" });
+  if (!privacyCheck?.ok || !privacyCheck.exists) return error(404, "user not found");
+  if (privacyCheck.private) return error(403, "user has a private profile");
   return "continue";
 }
