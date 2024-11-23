@@ -15,8 +15,8 @@
   "devDependencies": {
     "@flydotio/dockerfile": "^0.5.8",
     "@hcaptcha/types": "^1.0.4",
-    "@sveltejs/adapter-node": "^5.2.9",
     "@prgm/sveltekit-progress-bar": "3.0.1",
+    "@sveltejs/adapter-node": "^5.2.9",
     "@sveltejs/enhanced-img": "^0.4.1",
     "@sveltejs/kit": "^2.8.1",
     "@sveltejs/vite-plugin-svelte": "^4.0.1",
@@ -43,6 +43,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@axiomhq/pino": "^1.3.0",
     "@lucia-auth/adapter-prisma": "^4.0.1",
     "@prisma/client": "5.22.0",
     "@upstash/ratelimit": "2.0.4",
