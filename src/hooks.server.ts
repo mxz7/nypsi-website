@@ -46,11 +46,6 @@ export async function handle({ event, resolve }) {
     return { user, session };
   };
 
-  if (!dev && !building) {
-    console.log(event.request.headers);
-    console.log(event.getClientAddress());
-  }
-
   const res = await resolve(event);
 
   if (!res.headers.get("cache-control")) {
