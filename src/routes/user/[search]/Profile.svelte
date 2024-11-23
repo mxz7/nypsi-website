@@ -9,6 +9,7 @@
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
   import { onMount } from "svelte";
+  import toast from "svelte-french-toast";
   import { fade } from "svelte/transition";
 
   interface Props {
@@ -72,7 +73,6 @@
     ],
   ]);
 
-
   const handleFallbackImage = (el: any) => {
     el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
   };
@@ -123,7 +123,20 @@
         style="color: {premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''}; !important"
         class="line-clamp-1 text-2xl font-extrabold text-white lg:text-4xl"
       >
-        {baseData.lastKnownUsername}
+        <button
+          onclick={() => {
+            navigator.clipboard.writeText(baseData.id);
+
+            toast.success("user id copied", {
+              position: "top-center",
+              style:
+                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+            });
+          }}
+          class="link-hover"
+        >
+          {baseData.lastKnownUsername}
+        </button>
       </h1>
       {#await userData then userData}
         {#if userData.Economy}
