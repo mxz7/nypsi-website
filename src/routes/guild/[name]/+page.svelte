@@ -110,26 +110,6 @@
   {#if data.guild.success}
     <meta name="og:title" content={data.guild.guild.guildName} />
     <meta name="og:site_name" content="nypsi" />
-    <meta
-      name="description"
-      content="level {data.guild.guild.level} guild created by {data.guild.guild.owner.user
-        .lastKnownUsername} on {new Date(
-        data.guild.guild.createdAt,
-      ).toLocaleDateString()} with {data.guild.guild.members
-        .length} members: {data.guild.guild.members
-        .map((i) => i.economy.user.lastKnownUsername)
-        .join(', ')}"
-    />
-    <meta
-      name="og:description"
-      content="level {data.guild.guild.level} guild created by {data.guild.guild.owner.user
-        .lastKnownUsername} on {new Date(
-        data.guild.guild.createdAt,
-      ).toLocaleDateString()} with {data.guild.guild.members
-        .length} members: {data.guild.guild.members
-        .map((i) => i.economy.user.lastKnownUsername)
-        .join(', ')}"
-    />
     <meta name="og:image" content={data.guild.guild.owner.user.avatar} />
     <meta property="og:image:width" content="128" />
     <meta property="og:image:height" content="128" />
