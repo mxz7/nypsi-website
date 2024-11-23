@@ -136,7 +136,7 @@ export async function load({ params, parent, fetch }) {
   const oddsData = getOddsData();
 
   if (browser) {
-    const race = await Promise.race([oddsData, inWorld, value, sleep(69)]);
+    const race = await Promise.race([oddsData, inWorld, value, sleep(30)]);
 
     if (typeof race === "boolean") {
       return { item: selected, odds: oddsData, inWorld, value };
