@@ -51,6 +51,8 @@ export function log(
     errorStackTrace,
   };
 
+  if (dev) return;
+
   if (statusCode >= 400) logger.error(logData);
   else logger.info(logData);
 }

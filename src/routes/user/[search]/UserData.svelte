@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { replaceState } from "$app/navigation";
+  import { page } from "$app/stores";
   import { MStoTime, daysAgo } from "$lib/functions/time";
   import type Game from "$lib/types/Game";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
   import { inPlaceSort } from "fast-sort";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { fly } from "svelte/transition";
   import Loading from "../../../lib/components/Loading.svelte";
   import Profile from "./Profile.svelte";
@@ -62,6 +64,10 @@
   }
 
   onMount(async () => {
+    if ($page.params.search.match(/^\d{17,19}$/)) {
+      tick().then(() => replaceState(`/user/${baseData.lastKnownUsername}`, {}));
+    }
+
     const resolved = await Promise.resolve(gamesPromise);
     if (resolved.ok) {
       games.push(...resolved.games);
