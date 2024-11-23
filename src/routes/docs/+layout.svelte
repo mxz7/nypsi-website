@@ -31,7 +31,7 @@
       </details>
     {:else}
       <a
-        data-sveltekit-preload-code="viewport"
+        data-sveltekit-preload-code="eager"
         class={path.path === $page.url.pathname ? "text-primary" : ""}
         href={path.path}
       >

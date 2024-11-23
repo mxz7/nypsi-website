@@ -25,7 +25,7 @@
       </details>
     {:else}
       <a
-        data-sveltekit-preload-code="viewport"
+        data-sveltekit-preload-code="eager"
         class={path.path === $page.url.pathname ? "text-primary" : ""}
         href={path.path}
       >
@@ -73,7 +73,6 @@
         <li><a href="/" class={$page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
         <li>
           <a
-            data-sveltekit-preload-code="viewport"
             href="/leaderboard"
             class={$page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
             >leaderboards</a
