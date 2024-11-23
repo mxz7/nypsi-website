@@ -128,7 +128,7 @@
                     ' ',
                     '-',
                   )}"
-                  class="text-lg text-white lg:text-2xl"
+                  class="link-hover text-lg text-white lg:text-2xl"
                 >
                   {userData.Economy.EconomyGuildMember.guild.guildName} [{userData.Economy
                     .EconomyGuildMember.guild.level}]
