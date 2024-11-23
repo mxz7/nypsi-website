@@ -45,6 +45,8 @@ export async function handle({ event, resolve }) {
     return { user, session };
   };
 
+  console.log(event.request.headers);
+
   const res = await resolve(event);
 
   if (!res.headers.get("cache-control")) {
