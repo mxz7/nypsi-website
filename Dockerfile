@@ -7,21 +7,6 @@ LABEL fly_launch_runtime="SvelteKit/Prisma"
 # SvelteKit/Prisma app lives here
 WORKDIR /app
 
-# set dummy env variables for build
-# ENV DATABASE_URL
-# ENV REDIS_URL
-# ENV REDIS_PASS
-# ENV TOPGG_TOKEN
-# ENV DISCORD_OAUTH_CLIENTID
-# ENV DISCORD_OAUTH_SECRET
-# ENV PUBLIC_OAUTH_URL
-# ENV DISCORD_OAUTH_REDIRECT
-# ENV BOT_SERVER_URL
-# ENV PUBLIC_URL
-# ENV VIEW_AUTH
-# ENV PUBLIC_HCAPTCHA_SITEKEY
-# ENV HCAPTCHA_SECRET
-
 # Install pnpm
 RUN npm install -g pnpm
 
@@ -65,6 +50,7 @@ COPY --from=build /app/package.json /app
 
 # Set production environment
 ENV NODE_ENV="production"
+ENV ADDRESS_HEADER="cf-connecting-ip"
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
