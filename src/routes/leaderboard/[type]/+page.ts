@@ -4,11 +4,6 @@ import type { Item } from "$lib/types/Item.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData";
 import { error } from "@sveltejs/kit";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
-
 export async function load({ params, fetch, parent, setHeaders }) {
   let leaderboardData: Promise<LeaderboardData>;
 

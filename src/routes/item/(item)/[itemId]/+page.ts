@@ -3,11 +3,6 @@ import sleep from "$lib/functions/sleep.js";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
 
-export const config = {
-  runtime: "edge",
-  regions: "all",
-};
-
 export async function load({ params, parent, fetch, setHeaders }) {
   const { items } = await parent();
 
