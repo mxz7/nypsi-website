@@ -1,3 +1,4 @@
+import { building, dev } from "$app/environment";
 import { log } from "$lib/server/logger";
 import { redirect } from "@sveltejs/kit";
 
@@ -45,8 +46,10 @@ export async function handle({ event, resolve }) {
     return { user, session };
   };
 
-  console.log(event.request.headers);
-  console.log(event.getClientAddress());
+  if (!dev && !building) {
+    console.log(event.request.headers);
+    console.log(event.getClientAddress());
+  }
 
   const res = await resolve(event);
 
