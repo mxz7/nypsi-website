@@ -47,7 +47,7 @@
 
     <br />
 
-    {#if $page.url.pathname.startsWith("/docs/faq")}
+    {#if $page.url.pathname.startsWith("/docs")}
       <ul class="menu font-medium">
         <li>
           <a class="opacity-70" href="/">
