@@ -15,8 +15,8 @@ export function handleError({ event, error, message, status }) {
 export async function handle({ event, resolve }) {
   event.locals.startTimer = performance.now();
 
-  if (event.url.hostname === "nypsi-website.fly.dev")
-    return redirect(303, `https://fly.nypsi.xyz${event.url.pathname}`);
+  if (event.url.hostname !== "nypsi.xyz")
+    return redirect(303, `https://nypsi.xyz${event.url.pathname}`);
 
   // if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
   //  const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
