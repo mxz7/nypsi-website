@@ -1,8 +1,27 @@
-export const handle = async ({ event, resolve }) => {
+import { log } from "$lib/server/logger";
+import { redirect } from "@sveltejs/kit";
+
+export function handleError({ event, error, message, status }) {
+  const errorId = crypto.randomUUID();
+  event.locals.error = error?.toString() || undefined;
+  event.locals.errorStackTrace = (error as Error)?.stack || undefined;
+  event.locals.errorId = errorId;
+
+  log(status, event);
+
+  return { message: message || "an unexpected error occured", errorId: errorId };
+}
+
+export async function handle({ event, resolve }) {
+  event.locals.startTimer = performance.now();
+
+  if (event.url.hostname === "nypsi-website.fly.dev")
+    return redirect(303, `https://fly.nypsi.xyz${event.url.pathname}`);
+
   // if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
-  //   const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
-  //     return { success: true, reset: 69 };
-  //   });
+  //  const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
+  //    return { success: true, reset: 69 };
+  //  });
 
   //   if (!rateLimitAttempt.success) {
   //     const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
@@ -10,6 +29,10 @@ export const handle = async ({ event, resolve }) => {
   //     return error(429, `too many requests. please try again in ${timeRemaining} seconds.`);
   //   }
   // }
+  //    log(429, event);
+  //    return error(429, `too many requests. please try again in ${timeRemaining} seconds.`);
+  //  }
+  //}
 
   event.locals.validate = async () => {
     if (event.cookies.getAll().length === 0) return null;
@@ -24,11 +47,11 @@ export const handle = async ({ event, resolve }) => {
 
   const res = await resolve(event);
 
-  if (
-    (res.redirected || res.status === 404 || res.status === 500) &&
-    res.headers.get("cache-control")
-  )
-    res.headers.delete("cache-control");
+  if (!res.headers.get("cache-control")) {
+    res.headers.set("cache-control", "no-cache");
+  }
+
+  log(res.status, event);
 
   return res;
-};
+}

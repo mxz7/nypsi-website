@@ -1,9 +1,9 @@
-import { REDIS_PASS, REDIS_URL } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { Redis } from "@upstash/redis";
 
 const redis = new Redis({
-  url: REDIS_URL,
-  token: REDIS_PASS,
+  url: env.REDIS_URL,
+  token: env.REDIS_PASS,
 });
 
 export default redis;

@@ -3,8 +3,6 @@ import sleep from "$lib/functions/sleep.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
 export async function load({ fetch, setHeaders }) {
-  setHeaders({ "cache-control": "s-maxage=600" });
-
   const balanceData = fetch("/api/leaderboard/balance").then(
     (r) => r.json() as Promise<LeaderboardData>,
   );

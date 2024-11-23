@@ -1,9 +1,7 @@
 import type { ApiGuildResponse } from "$lib/types/Guild.js";
 import type { APIGuildGraphData } from "../../api/guild/[name]/[graphData]/+server.js";
 
-export const load = async ({ params, fetch, setHeaders }) => {
-  setHeaders({ "cache-control": "s-maxage=900" });
-
+export const load = async ({ params, fetch }) => {
   const guild = fetch(`/api/guild/${params.name.replaceAll("-", " ")}`).then(
     (r) => r.json() as unknown as ApiGuildResponse,
   );

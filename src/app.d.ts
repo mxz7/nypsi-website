@@ -3,7 +3,9 @@
 // for information about these interfaces
 declare global {
   namespace App {
-    // interface Error {}
+    interface Error {
+      errorId: string;
+    }
     // interface PageData {}
     // interface Platform {}
     interface PageState {
@@ -14,6 +16,11 @@ declare global {
         user: import("lucia").User;
         session: import("lucia").Session;
       } | null>;
+      startTimer: number;
+      error: string;
+      errorId: string;
+      errorStackTrace: string;
+      message: unknown;
     }
   }
 }

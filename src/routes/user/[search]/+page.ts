@@ -4,7 +4,6 @@ import { error } from "@sveltejs/kit";
 import dayjs from "dayjs";
 
 export async function load({ params, fetch, setHeaders, parent }) {
-  setHeaders({ "cache-control": "s-maxage=600" });
   const search = params.search;
   let userId: string;
 
