@@ -16,7 +16,7 @@ export function handleError({ event, error, message, status }) {
 export async function handle({ event, resolve }) {
   event.locals.startTimer = performance.now();
 
-  if (event.url.hostname !== "nypsi.xyz")
+  if (!dev && !building && event.url.hostname !== "nypsi.xyz")
     return redirect(303, `https://nypsi.xyz${event.url.pathname}`);
 
   // if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
