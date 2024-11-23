@@ -42,6 +42,10 @@ export function log(
     ip_address: event.getClientAddress(),
     user_agent: event.request.headers.get("user-agent") || "",
     elapsed: performance.now() - event.locals.startTimer,
+    params:
+      event.url.searchParams.size > 0
+        ? { ...Object.fromEntries(event.url.searchParams.entries()) }
+        : undefined,
     error,
     errorId,
     errorStackTrace,
