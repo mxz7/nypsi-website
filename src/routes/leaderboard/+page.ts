@@ -14,6 +14,8 @@ export async function load({ fetch, setHeaders }) {
     const res = await Promise.race([balanceData, prestigeData, sleep(69)]);
 
     if (typeof res === "boolean") {
+      setHeaders({ "x-accel-buffering": "no" });
+
       return {
         balance: balanceData,
         prestige: prestigeData,

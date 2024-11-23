@@ -41,6 +41,8 @@ export async function load({ params, fetch, setHeaders, parent }) {
     .toDate()
     .getTime();
 
+  setHeaders({ "x-accel-buffering": "no" });
+
   return {
     baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
     items,

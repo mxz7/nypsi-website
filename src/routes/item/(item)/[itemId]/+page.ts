@@ -8,7 +8,7 @@ export const config = {
   regions: "all",
 };
 
-export async function load({ params, parent, fetch }) {
+export async function load({ params, parent, fetch, setHeaders }) {
   const { items } = await parent();
 
   const selected = items.find((i) => i.id === params.itemId);
@@ -139,6 +139,7 @@ export async function load({ params, parent, fetch }) {
     const race = await Promise.race([oddsData, inWorld, value, sleep(30)]);
 
     if (typeof race === "boolean") {
+      setHeaders({ "x-accel-buffering": "no" });
       return { item: selected, odds: oddsData, inWorld, value };
     }
 

@@ -12,6 +12,8 @@ export async function load({ parent, setHeaders }) {
     });
   } catch {}
 
+  setHeaders({ "x-accel-buffering": "no" });
+
   return {
     commandStats: prisma.commandUse.findMany({
       where: { userId: user.id },

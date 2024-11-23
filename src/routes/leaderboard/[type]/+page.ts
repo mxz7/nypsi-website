@@ -9,7 +9,7 @@ export const config = {
   regions: "all",
 };
 
-export async function load({ params, fetch, parent }) {
+export async function load({ params, fetch, parent, setHeaders }) {
   let leaderboardData: Promise<LeaderboardData>;
 
   const { type } = params;
@@ -95,6 +95,8 @@ export async function load({ params, fetch, parent }) {
     const res = await Promise.race([leaderboardData, sleep(69)]);
 
     if (typeof res === "boolean") {
+      setHeaders({ "x-accel-buffering": "no" });
+
       return { items, leaderboardData: leaderboardData, item, title, descriptor };
     }
 
