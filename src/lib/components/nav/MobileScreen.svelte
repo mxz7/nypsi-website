@@ -24,7 +24,11 @@
         </ul>
       </details>
     {:else}
-      <a class={path.path === $page.url.pathname ? "text-primary" : ""} href={path.path}>
+      <a
+        data-sveltekit-preload-code="viewport"
+        class={path.path === $page.url.pathname ? "text-primary" : ""}
+        href={path.path}
+      >
         {path.name.replaceAll("-", " ")}
       </a>
     {/if}
@@ -69,6 +73,7 @@
         <li><a href="/" class={$page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
         <li>
           <a
+            data-sveltekit-preload-code="viewport"
             href="/leaderboard"
             class={$page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
             >leaderboards</a

@@ -30,7 +30,11 @@
         </ul>
       </details>
     {:else}
-      <a class={path.path === $page.url.pathname ? "text-primary" : ""} href={path.path}>
+      <a
+        data-sveltekit-preload-code="viewport"
+        class={path.path === $page.url.pathname ? "text-primary" : ""}
+        href={path.path}
+      >
         {path.name.replaceAll("-", " ")}
       </a>
     {/if}
