@@ -7,7 +7,7 @@ const logger = pino(
   {
     base: null,
   },
-  dev
+  dev || building
     ? undefined
     : pino.transport({
         target: "@axiomhq/pino",
