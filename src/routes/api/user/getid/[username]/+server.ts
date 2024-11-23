@@ -13,17 +13,10 @@ export const GET = async ({ params, setHeaders }) => {
     select: {
       id: true,
       lastKnownUsername: true,
-      Preferences: {
-        select: {
-          leaderboards: true,
-        },
-      },
     },
   });
 
   if (!query) return error(404, { message: "unknown user" });
-
-  if (!query?.Preferences?.leaderboards) return error(451, { message: "private profile" });
 
   return json({ id: query.id, username: query.lastKnownUsername });
 };

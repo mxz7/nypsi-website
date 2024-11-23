@@ -1,5 +1,4 @@
 import prisma from "$lib/server/database.js";
-import { privacyCheck } from "$lib/server/functions/user/privacy.js";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET({ params, fetch, setHeaders }) {
@@ -10,9 +9,6 @@ export async function GET({ params, fetch, setHeaders }) {
   });
 
   if (!userId.match(/^\d{17,19}$/)) return error(400, "invalid user id");
-
-  const cont = await privacyCheck(userId, fetch);
-  if (cont !== "continue") throw cont;
 
   const query = await prisma.user.findUnique({
     where: {
@@ -35,8 +31,21 @@ export async function GET({ params, fetch, setHeaders }) {
           level: true,
         },
       },
+      Preferences: {
+        select: {
+          leaderboards: true,
+        },
+      },
     },
   });
+
+  if (!query) return error(404, "unknown user");
+
+  if (query.Preferences) {
+    if (!query.Preferences.leaderboards) {
+      return error(403, "private profile");
+    }
+  }
 
   return json(query);
 }
