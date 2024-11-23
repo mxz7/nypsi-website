@@ -46,6 +46,7 @@ export async function handle({ event, resolve }) {
   };
 
   console.log(event.request.headers);
+  console.log(event.getClientAddress());
 
   const res = await resolve(event);
 
