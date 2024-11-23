@@ -29,7 +29,7 @@ export function log(
 
   if (event.request.headers.has("referer")) {
     referer = event.request.headers.get("referer");
-    if (referer.startsWith("http://localhost:5173") || referer.startsWith("https://nypsi.xyz")) {
+    if (new URL(referer)?.hostname === "nypsi.xyz") {
       referer = `/${referer.split("/").slice(3).join("/")}`;
     }
   }
