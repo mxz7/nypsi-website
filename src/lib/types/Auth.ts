@@ -1,4 +1,4 @@
-import type { User } from "lucide-svelte";
+import type { User } from "lucia";
 
 export type Authed = {
   authenticated: true;
