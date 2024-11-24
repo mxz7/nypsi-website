@@ -31,10 +31,7 @@
   />
   <meta name="og:site_name" content="nypsi" />
 
-  <meta
-    name="og:image"
-    content="https://cdn.discordapp.com/avatars/678711738845102087/cb2dcd61010f2b89ceb1cd5ff15816cf.webp?size=128"
-  />
+  <meta name="og:image" content="https://cdn.nypsi.xyz/static/logo.png" />
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
 </svelte:head>
