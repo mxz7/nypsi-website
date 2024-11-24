@@ -2,7 +2,15 @@
   import { navigating, page } from "$app/stores";
   import { paths, type PathsData } from "$lib/data/docs";
   import { auth } from "$lib/state.svelte";
-  import { ArrowLeft, BadgePoundSterling, ChartArea, Coins, X } from "lucide-svelte";
+  import {
+    ArrowLeft,
+    BadgePoundSterling,
+    ChartArea,
+    Coins,
+    LogOut,
+    UserRound,
+    X,
+  } from "lucide-svelte";
   import { fade, fly } from "svelte/transition";
 
   let { visible = $bindable(false) } = $props();
@@ -130,6 +138,27 @@
                 <BadgePoundSterling size={16} />
                 <span>purchases</span>
               </a>
+            </li>
+
+            <div class="divider my-0"></div>
+
+            <li>
+              <a
+                href="/user/{auth.value.authenticated ? auth.value.user.id : null}"
+                class="flex items-center text-xs"
+              >
+                <UserRound size={12} />
+                <span>profile</span>
+              </a>
+            </li>
+
+            <div class="divider my-0"></div>
+
+            <li>
+              <a href="/logout" class="flex items-center text-xs text-error">
+                <LogOut size={12} />
+                <span>log out</span></a
+              >
             </li>
           </div>
         {/if}
