@@ -47,7 +47,7 @@
   <div
     in:fly={{ x: -200, duration: 250 }}
     out:fly={{ x: -200, duration: 250 }}
-    class="fixed left-0 top-0 z-20 h-full w-[70%] overflow-y-scroll rounded-box bg-base-200 bg-opacity-95 p-2 shadow-xl shadow-base-300"
+    class="fixed left-0 top-0 z-20 h-full w-[70%] overflow-y-scroll rounded-box border-r border-primary border-opacity-15 bg-base-200 bg-opacity-95 p-2 shadow-xl shadow-base-300"
   >
     <button class="btn btn-ghost" onclick={() => (visible = !visible)}>
       <X strokeWidth={2.5} />
@@ -111,65 +111,61 @@
         {#if auth.value?.authenticated}
           <li class="mt-1">
             <h2 class="menu-title">dashboard</h2>
+
+            <ul>
+              <li>
+                <a
+                  class="flex items-center {$page.url.pathname.startsWith('/me/stats')
+                    ? 'text-primary'
+                    : ''}"
+                  href="/me/stats"
+                >
+                  <Coins size={16} />
+                  <span>stats</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
+                    ? 'text-primary'
+                    : ''}"
+                  href="/me/graphs"
+                >
+                  <ChartArea size={16} />
+                  <span>graphs</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
+                    ? 'text-primary'
+                    : ''}"
+                  href="/me/purchases"
+                >
+                  <BadgePoundSterling size={16} />
+                  <span>purchases</span>
+                </a>
+              </li>
+
+              <li class="mt-2">
+                <a
+                  href="/user/{auth.value?.authenticated ? auth.value.user.id : null}"
+                  class="flex items-center"
+                >
+                  <UserRound size={16} />
+                  <span>profile</span>
+                </a>
+              </li>
+            </ul>
           </li>
-          <div class="pl-2">
-            <li>
-              <a
-                class="flex items-center {$page.url.pathname.startsWith('/me/stats')
-                  ? 'text-primary'
-                  : ''}"
-                href="/me/stats"
-              >
-                <Coins size={16} />
-                <span>stats</span>
-              </a>
-            </li>
-
-            <li>
-              <a
-                class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
-                  ? 'text-primary'
-                  : ''}"
-                href="/me/graphs"
-              >
-                <ChartArea size={16} />
-                <span>graphs</span>
-              </a>
-            </li>
-
-            <li>
-              <a
-                class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
-                  ? 'text-primary'
-                  : ''}"
-                href="/me/purchases"
-              >
-                <BadgePoundSterling size={16} />
-                <span>purchases</span>
-              </a>
-            </li>
-
-            <div class="divider my-0"></div>
-
-            <li>
-              <a
-                href="/user/{auth.value?.authenticated ? auth.value.user.id : null}"
-                class="flex items-center text-xs"
-              >
-                <UserRound size={12} />
-                <span>profile</span>
-              </a>
-            </li>
-
-            <div class="divider my-0"></div>
-
-            <li>
-              <a href="/logout" class="flex items-center text-xs text-error">
-                <LogOut size={12} />
-                <span>log out</span></a
-              >
-            </li>
-          </div>
+          <li>
+            <a href="/logout" class="flex items-center text-xs text-error">
+              <LogOut size={12} />
+              <span>log out</span></a
+            >
+          </li>
         {/if}
       </ul>
     {/if}
