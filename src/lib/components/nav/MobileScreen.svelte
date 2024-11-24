@@ -144,7 +144,7 @@
 
             <li>
               <a
-                href="/user/{auth.value.authenticated ? auth.value.user.id : null}"
+                href="/user/{auth.value?.authenticated ? auth.value.user.id : null}"
                 class="flex items-center text-xs"
               >
                 <UserRound size={12} />

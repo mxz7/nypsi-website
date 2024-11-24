@@ -3,6 +3,7 @@ import { log } from "$lib/server/logger";
 import { redirect } from "@sveltejs/kit";
 
 export function handleError({ event, error, message, status }) {
+  if (dev) return console.error(error);
   const errorId = crypto.randomUUID();
   event.locals.error = error?.toString() || undefined;
   event.locals.errorStackTrace = (error as Error)?.stack || undefined;
