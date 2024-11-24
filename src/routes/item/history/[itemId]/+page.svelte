@@ -2,7 +2,9 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Chart from "$lib/components/Chart.svelte";
+  import { auth } from "$lib/state.svelte.js";
   import type { ChartOptions } from "chart.js";
+  import { onMount } from "svelte";
 
   let { data } = $props();
   let days = $state($page.url.searchParams.get("days") || "30");
@@ -66,6 +68,15 @@
       },
     },
   };
+
+  onMount(() => {
+    if (data.user && !auth?.value) {
+      auth.value = {
+        authenticated: true,
+        user: data.user,
+      };
+    }
+  });
 </script>
 
 <svelte:head>

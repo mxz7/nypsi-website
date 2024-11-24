@@ -1,7 +1,9 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
   import { env } from "$env/dynamic/public";
+  import { auth } from "$lib/state.svelte.js";
   import { Check } from "lucide-svelte";
+  import { onMount } from "svelte";
 
   let { data } = $props();
 
@@ -22,6 +24,19 @@
           invalidateAll();
         },
       });
+    }
+  });
+
+  onMount(() => {
+    if (data.authUser && !auth?.value) {
+      auth.value = {
+        authenticated: true,
+        user: data.authUser,
+      };
+    } else {
+      auth.value = {
+        authenticated: false,
+      };
     }
   });
 </script>

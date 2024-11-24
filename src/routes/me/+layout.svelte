@@ -2,8 +2,18 @@
   import { page } from "$app/stores";
   import { auth } from "$lib/state.svelte";
   import { BadgePoundSterling, ChartArea, Coins, LogOut, UserRound } from "lucide-svelte";
+  import { onMount } from "svelte";
 
-  let { children } = $props();
+  let { children, data } = $props();
+
+  onMount(() => {
+    if (data.user && !auth?.value) {
+      auth.value = {
+        authenticated: true,
+        user: data.user,
+      };
+    }
+  });
 </script>
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">

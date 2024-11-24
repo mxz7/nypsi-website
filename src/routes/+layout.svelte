@@ -6,7 +6,7 @@
   import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth, initialLoad } from "$lib/state.svelte";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
 
@@ -17,9 +17,12 @@
   let { children }: Props = $props();
 
   onMount(async () => {
-    const authData = await getClientAuth();
+    await tick();
+    if (!auth.value) {
+      const authData = await getClientAuth();
 
-    auth.value = authData;
+      auth.value = authData;
+    }
 
     if ($page.url.searchParams.get("loggedin")) {
       if (!auth.value || !auth.value.authenticated) return;
@@ -32,9 +35,6 @@
           duration: 5000,
         });
       }, 250);
-      $page.url.searchParams.delete("loggedin");
-
-      history.replaceState({}, "", $page.url); // remove search params without reloading page
     }
   });
 
