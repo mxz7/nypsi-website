@@ -37,18 +37,20 @@
   {#each playerCards as card}
     <img
       style="opacity: {card === 'invisible' ? '0' : '100'}%"
-      src="/cards/{card === 'invisible' ? '2C' : card}.svg"
+      src="https://cdn.nypsi.xyz/static/cards/{card === 'invisible' ? '2C' : card}.svg"
       alt={card}
       class="-ml-8 h-16 sm:h-24"
+      decoding="async"
     />
   {/each}
   <p class="mx-3 text-center text-5xl text-slate-200">-</p>
   {#each dealerCards as card}
     <img
       style="opacity: {card === 'invisible' ? '0' : '100'}%"
-      src="/cards/{card === 'invisible' ? '2C' : card}.svg"
+      src="https://cdn.nypsi.xyz/static/cards/{card === 'invisible' ? '2C' : card}.svg"
       alt={card}
       class="-mr-8 h-16 sm:h-24"
+      decoding="async"
     />
   {/each}
 </div>

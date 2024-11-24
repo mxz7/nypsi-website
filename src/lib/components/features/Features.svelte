@@ -19,12 +19,15 @@
         <li><a href="/leaderboard" class="link" target="_blank">view leaderboards</a></li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <enhanced:img
-          src="$lib/assets/features/economy.webp"
-          alt="networth command"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source srcset="https://cdn.nypsi.xyz/static/features/economy.avif" type="image/avif" />
+          <img
+            src="https://cdn.nypsi.xyz/static/features/economy.webp"
+            alt="networth command"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   </div>
@@ -59,12 +62,18 @@
         </li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
-        <enhanced:img
-          src="$lib/assets/features/chatreaction.webp"
-          alt="chat reaction message"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source
+            srcset="https://cdn.nypsi.xyz/static/features/chatreaction.avif"
+            type="image/avif"
+          />
+          <img
+            src="https://cdn.nypsi.xyz/static/features/chatreaction.webp"
+            alt="chat reaction"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   </div>
@@ -89,12 +98,18 @@
         <li>use boosters to push the limits</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <enhanced:img
-          src="$lib/assets/features/scratchcard.webp"
-          alt="scratch card finished game"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source
+            srcset="https://cdn.nypsi.xyz/static/features/scratchcard.avif"
+            type="image/avif"
+          />
+          <img
+            src="https://cdn.nypsi.xyz/static/features/scratchcard.webp"
+            alt="finished scratch card"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   </div>
@@ -117,12 +132,18 @@
         <li>alt management - add known alts to users to punish together</li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
-        <enhanced:img
-          src="$lib/assets/features/moderation.webp"
-          alt="modlogs"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source
+            srcset="https://cdn.nypsi.xyz/static/features/moderation.avif"
+            type="image/avif"
+          />
+          <img
+            src="https://cdn.nypsi.xyz/static/features/moderation.webp"
+            alt="modlogs"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   </div>
@@ -144,12 +165,18 @@
         <li>role whitelist - require members to have a specific role before using</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <enhanced:img
-          src="$lib/assets/features/reactionroles.webp"
-          alt="reaction roles"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source
+            srcset="https://cdn.nypsi.xyz/static/features/reactionroles.avif"
+            type="image/avif"
+          />
+          <img
+            src="https://cdn.nypsi.xyz/static/features/reactionroles.webp"
+            alt="reaction roles"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   </div>
@@ -172,12 +199,18 @@
         <li>role data is deleted after 30 days</li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
-        <enhanced:img
-          src="$lib/assets/features/rolepersist.webp"
-          alt="role persist list"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source
+            srcset="https://cdn.nypsi.xyz/static/features/rolepersist.avif"
+            type="image/avif"
+          />
+          <img
+            src="https://cdn.nypsi.xyz/static/features/rolepersist.webp"
+            alt="role persist list"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   </div>
@@ -198,12 +231,15 @@
         <li>your messages are safe with two layer encryption</li>
       </ul>
       <div class="pt-0 lg:pl-12">
-        <enhanced:img
-          src="$lib/assets/features/pings.webp"
-          alt="pings command"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source srcset="https://cdn.nypsi.xyz/static/features/pings.avif" type="image/avif" />
+          <img
+            src="https://cdn.nypsi.xyz/static/features/pings.webp"
+            alt="pings command"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   </div>

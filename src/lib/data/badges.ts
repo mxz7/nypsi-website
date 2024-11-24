@@ -1,10 +1,8 @@
-import crownBadge from "$lib/assets/badges/crown.png";
-
 const badges = new Map([
   [
     "owner",
     {
-      icon: crownBadge,
+      icon: "https://cdn.nypsi.xyz/static/badges/crown.webp",
       text: "i own nypsi lol",
       name: "owner",
       description: "owner of nypsi",

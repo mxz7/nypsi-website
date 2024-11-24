@@ -18,13 +18,18 @@
 
       <div class="hidden items-center text-sm lg:flex">
         <a class="btn btn-ghost" href="/" aria-label="home">
-          <enhanced:img
-            src="$lib/assets/nypsi-transparent.webp"
-            decoding="async"
-            class="h-10 w-10"
-            alt="nypsi logo"
-            fetchpriority="high"
-          />
+          <picture>
+            <source
+              srcset="https://cdn.nypsi.xyz/static/nypsi-transparent.avif"
+              type="image/avif"
+            />
+            <img
+              src="https://cdn.nypsi.xyz/static/nypsi-transparent.webp"
+              alt="nypsi logo"
+              decoding="async"
+              class="h-10 w-10"
+            />
+          </picture>
         </a>
 
         <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>

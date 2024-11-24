@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Discord from "$lib/assets/svg/discord.svelte";
   import Features from "$lib/components/features/Features.svelte";
+  import Discord from "$lib/components/icons/Discord.svelte";
   import { auth } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
@@ -73,14 +73,16 @@
 <div class="hero min-h-screen">
   <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
     <div class="fly-up">
-      <enhanced:img
-        src="$lib/assets/hero.webp"
-        class="hidden max-w-sm lg:block"
-        decoding="async"
-        fetchpriority="high"
-        loading="eager"
-        alt="hero"
-      />
+      <picture>
+        <source srcset="https://cdn.nypsi.xyz/static/hero.avif" type="image/avif" />
+        <img
+          src="https://cdn.nypsi.xyz/static/hero.webp"
+          alt="hero"
+          class="hidden max-w-sm lg:block"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
     </div>
 
     <div class="-mt-64 text-center lg:mt-0 lg:text-left">
