@@ -14,7 +14,7 @@ technical knowledge. you will be ignored if you ask the owner for help.
 ## prerequisites
 
 - a computer
-- nodejs 20
+- nodejs 22
 - postgres
 - redis
 - a discord server
