@@ -3,7 +3,7 @@ import { error, json } from "@sveltejs/kit";
 
 export const GET = async ({ params, setHeaders }) => {
   setHeaders({
-    "cache-control": "public, max-age=3600",
+    "cache-control": "public, max-age=3600, must-revalidate",
   });
 
   const query = await prisma.user.findFirst({

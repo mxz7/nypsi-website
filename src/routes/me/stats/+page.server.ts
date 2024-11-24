@@ -8,7 +8,7 @@ export async function load({ parent, setHeaders }) {
 
   try {
     setHeaders({
-      "cache-control": "private, max-age=300",
+      "cache-control": "private, max-age=300, must-revalidate",
     });
   } catch {}
 
