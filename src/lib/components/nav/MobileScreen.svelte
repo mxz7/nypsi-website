@@ -99,9 +99,18 @@
         <li><a href="/docs/faq">docs</a></li>
         <li><a href="/discord" target="_blank">discord</a></li>
 
+        <li>
+          <a href="https://ko-fi.com/tekoh/tiers" target="_blank">
+            <span
+              class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"
+              >premium</span
+            >
+          </a>
+        </li>
+
         {#if auth.value?.authenticated}
           <li class="mt-1">
-            <h2 class={$page.url.pathname.startsWith("/me") ? "text-primary" : ""}>dashboard</h2>
+            <h2 class="menu-title">dashboard</h2>
           </li>
           <div class="pl-2">
             <li>
