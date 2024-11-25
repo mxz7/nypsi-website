@@ -88,6 +88,7 @@
     {#each options as option}
       <li>
         <a
+          data-sveltekit-preload-code="viewport"
           class={option.selected ? "focus" : ""}
           href="/leaderboard{option.showItems ? '' : `/${option.data || option.name}`}"
           onclick={() => {
