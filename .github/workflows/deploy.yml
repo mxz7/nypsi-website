@@ -34,6 +34,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+            - cache-from: type=gha
+            - cache-to: type=gha,mode=max
           file: ./Dockerfile
           push: true
           tags: ${{ env.IMAGE_URL }}
