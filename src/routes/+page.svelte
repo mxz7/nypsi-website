@@ -78,6 +78,7 @@
           class="hidden max-w-sm lg:block"
           loading="eager"
           decoding="async"
+          fetchpriority="high"
         />
       </picture>
     </div>
