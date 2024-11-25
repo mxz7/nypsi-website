@@ -29,7 +29,6 @@
     name="og:description"
     content="the best discord bot. includes gambling, economy, items, fake cryptocurrency, moderation, reaction roles, channel stats"
   />
-  <meta name="og:site_name" content="nypsi" />
 
   <meta name="og:image" content="https://cdn.nypsi.xyz/static/logo.png" />
   <meta property="og:image:width" content="128" />

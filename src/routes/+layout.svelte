@@ -67,6 +67,7 @@
   />
 
   <meta name="og:url" content={$page.url.toString()} />
+  <meta name="og:site_name" content="nypsi" />
 
   <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: light)" />
