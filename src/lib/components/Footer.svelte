@@ -3,7 +3,7 @@
 </script>
 
 <footer class="mt-24 flex w-full justify-center bg-base-200 py-5">
-  <div class="flex flex-wrap justify-evenly gap-8 px-4 lg:max-w-5xl lg:px-0">
+  <div class="flex flex-wrap justify-evenly gap-x-10 gap-y-6 px-12 lg:max-w-5xl lg:px-0">
     <a href="/terms">
       <FileText size={16} strokeWidth={2} />
       <span>terms</span>
