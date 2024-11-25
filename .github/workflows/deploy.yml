@@ -37,6 +37,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ env.IMAGE_URL }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Deploy Image to CapRover
         uses: caprover/deploy-from-github@v1.1.2
