@@ -31,7 +31,7 @@
     "mdsvex": "^0.12.3",
     "postcss": "8.4.49",
     "prettier": "3.3.3",
-    "prettier-plugin-svelte": "3.2.8",
+    "prettier-plugin-svelte": "3.3.2",
     "prettier-plugin-tailwindcss": "0.6.9",
     "svelte": "^5.2.7",
     "svelte-check": "4.0.9",
