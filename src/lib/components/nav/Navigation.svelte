@@ -34,15 +34,13 @@
 
         <a
           href="/leaderboard"
-          data-sveltekit-preload-code="viewport"
+          data-sveltekit-preload-code="eager"
           class="btn btn-ghost font-semibold">leaderboards</a
         >
-        <a
-          href="/item/dave"
-          data-sveltekit-preload-code="viewport"
-          class="btn btn-ghost font-semibold">items</a
+        <a href="/item/dave" data-sveltekit-preload-code="eager" class="btn btn-ghost font-semibold"
+          >items</a
         >
-        <a href="/status" data-sveltekit-preload-code="viewport" class="btn btn-ghost font-semibold"
+        <a href="/status" data-sveltekit-preload-code="eager" class="btn btn-ghost font-semibold"
           >status</a
         >
         <a href="/docs/faq" class="btn btn-ghost font-semibold">docs</a>
