@@ -45,6 +45,7 @@
 
 <svelte:head>
   <title>games / nypsi</title>
+  <meta name="og:title" content="games / nypsi" />
 </svelte:head>
 
 <div class="mt-12 flex w-full justify-center">

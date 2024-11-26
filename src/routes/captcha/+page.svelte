@@ -43,6 +43,7 @@
 
 <svelte:head>
   <title>captcha / nypsi</title>
+  <meta name="og:title" content="captcha / nypsi" />
 
   <script
     src="https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off"

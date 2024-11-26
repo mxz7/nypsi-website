@@ -32,6 +32,10 @@
 
 <svelte:head>
   <title>{data.item.name} / nypsi</title>
+  <meta name="og:title" content="{data.item.name} / nypsi" />
+  <meta name="og:image" content={data.item.emoji} />
+  <meta property="og:image:width" content="128" />
+  <meta property="og:image:height" content="128" />
 </svelte:head>
 
 <div class="w-full rounded-box bg-base-200 p-3 sm:sticky sm:top-4">

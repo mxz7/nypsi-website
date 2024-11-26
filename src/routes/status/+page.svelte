@@ -86,6 +86,7 @@
 
 <svelte:head>
   <title>status / nypsi</title>
+  <meta name="og:title" content="status / nypsi" />
 </svelte:head>
 
 <div class="mt-16 flex w-full justify-center">

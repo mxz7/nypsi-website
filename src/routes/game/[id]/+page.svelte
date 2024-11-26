@@ -15,6 +15,7 @@
 
 <svelte:head>
   <title>game: {$page.params.id} / nypsi</title>
+  <meta name="og:title" content="game: {$page.params.id} / nypsi" />
 </svelte:head>
 
 <div class="mt-8 flex flex-col justify-center">
