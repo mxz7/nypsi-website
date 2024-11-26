@@ -118,7 +118,7 @@
         {/await}
       </div>
     </div>
-    <div class="ml-2 lg:text-lg">
+    <div class="ml-2 grow lg:text-lg">
       <h1
         style="color: {premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''}; !important"
         class="line-clamp-1 text-2xl font-extrabold text-white lg:text-4xl"
@@ -210,14 +210,14 @@
       {/await}
     </div>
 
-    <div class="grow"></div>
     {#if baseData.Tags?.length > 0 || premiumMap.get(baseData.Premium?.level || 0)}
-      <div class="flex h-fit flex-col gap-2 rounded-lg bg-base-300 p-2 pb-0">
+      <div class="flex h-fit flex-col gap-1 rounded-lg bg-base-300 p-1 sm:gap-2 sm:p-2">
         {#if baseData.Tags?.length > 0}
           {#each baseData.Tags as tag, i}
             {#if badges.has(tag.tagId)}
               <a
                 href="/badges#{badges.get(tag.tagId)?.name}"
+                class="block h-4 w-4 sm:h-6 sm:w-6"
                 use:tooltip={{
                   content: badges.get(tag.tagId).name,
                   theme: "tooltip",
@@ -225,7 +225,7 @@
                 }}
               >
                 <img
-                  class="h-4 w-4 lg:h-6 lg:w-6"
+                  class="h-full w-full object-contain"
                   src={badges.get(tag.tagId)?.icon}
                   alt="{tag.tagId} emoji"
                   decoding="async"
@@ -235,6 +235,7 @@
             {:else if tagData}
               {#if tagData[tag.tagId] && tag.selected}
                 <div
+                  class="h-4 w-4 sm:h-6 sm:w-6"
                   use:tooltip={{
                     content: tagData[tag.tagId].name,
                     theme: "tooltip",
@@ -242,7 +243,7 @@
                   }}
                 >
                   <img
-                    class="h-4 w-4 lg:h-6 lg:w-6"
+                    class="h-full w-full object-contain"
                     src={parseEmoji(tagData[tag.tagId].emoji)}
                     alt="{tag.tagId} emoji"
                     loading="lazy"
@@ -262,7 +263,7 @@
               placement: "left",
             }}
             loading="lazy"
-            class="mb-2 h-4 lg:h-6"
+            class="h-4 sm:h-6"
             src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
             alt="premium level {baseData.Premium?.level} emoji"
             decoding="async"
