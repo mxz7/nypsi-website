@@ -4,6 +4,8 @@ import { json } from "@sveltejs/kit";
 export async function GET({ setHeaders, params }) {
   setHeaders({ "cache-control": "public, max-age=3600, must-revalidate" });
 
+  if (params.itemId === "lottery_ticket") return json({ count: 0 });
+
   const query = await prisma.inventory.aggregate({
     where: { item: params.itemId },
     _sum: { amount: true },
