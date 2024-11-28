@@ -22,7 +22,7 @@ async function getStatus() {
   const cache = await redis.get("cache:status");
 
   if (cache) {
-    return { ...JSON.parse(cache), age: 30 - (await redis.ttl("cache:status")) };
+    return { ...JSON.parse(cache), age: 30 - ((await redis.ttl("cache:status")) || 0) };
   }
 
   const status = (await fetch(`${env.BOT_SERVER_URL}/status`).then((r) => r.json())) as BotStatus;
