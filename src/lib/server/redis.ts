@@ -1,9 +1,10 @@
 import { env } from "$env/dynamic/private";
-import { Redis } from "@upstash/redis";
+import Redis from "ioredis";
 
 const redis = new Redis({
-  url: env.REDIS_URL,
-  token: env.REDIS_PASS,
+  host: env.REDIS_HOST,
+  port: env.REDIS_PORT,
+  password: env.REDIS_PASSWORD,
 });
 
 export default redis;
