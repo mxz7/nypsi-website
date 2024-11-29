@@ -1,10 +1,16 @@
 <script lang="ts">
+  import { invalidate } from "$app/navigation";
   import { MStoTime } from "$lib/functions/time.js";
   import dayjs from "dayjs";
+  import { RefreshCw } from "lucide-svelte";
+  import { onDestroy, onMount } from "svelte";
+  import toast from "svelte-french-toast";
   import Cluster from "./Cluster.svelte";
   import Shard from "./Shard.svelte";
 
   let { data } = $props();
+
+  let interval: number;
 
   let descriptionText = $state("offline");
   let descriptionColour = $state("text-error");
@@ -24,6 +30,9 @@
       lastPing: number;
     };
   } = $state();
+  let age: number = $state();
+
+  let reloading = $state(false);
 
   if (data.status.main) {
     let online = 0;
@@ -67,7 +76,8 @@
     guild = null;
     if (!guildIdSearch) return;
     const cluster = data.status.clusters.find((i) => i.guilds.find((i) => i.id === guildIdSearch));
-    if (!guildIdSearch) return;
+    if (!guildIdSearch || !cluster) return;
+
     const shard = cluster.shards.find(
       (i) => i.id === cluster.guilds.find((i) => i.id === guildIdSearch).shard,
     );
@@ -82,6 +92,21 @@
       shard,
     };
   });
+
+  $effect(() => {
+    age = data.status.age;
+  });
+
+  onMount(() => {
+    interval = setInterval(() => {
+      age++;
+      console.log(age);
+    }, 1000);
+  });
+
+  onDestroy(() => {
+    clearInterval(interval);
+  });
 </script>
 
 <svelte:head>
@@ -91,11 +116,36 @@
 
 <div class="mt-16 flex w-full justify-center">
   <div class="w-full px-4 lg:max-w-3xl lg:px-0">
-    <h1 class="text-5xl font-bold text-white">status</h1>
-    <p class="font-mono text-xs opacity-50">{dayjs(data.status.time).format("HH:mm:ss")}</p>
-    <h2 class="mt-4 text-xl {descriptionColour}">
-      {descriptionText}
-    </h2>
+    <div class="flex">
+      <div class="flex-1">
+        <h1 class="text-5xl font-bold text-white">status</h1>
+        <p class="font-mono text-xs opacity-50">{dayjs(data.status.time).format("HH:mm:ss")}</p>
+        <h2 class="mt-4 text-xl {descriptionColour}">
+          {descriptionText}
+        </h2>
+      </div>
+
+      <div class="flex-none">
+        <button
+          onclick={async () => {
+            reloading = true;
+            await invalidate("status");
+            reloading = false;
+
+            toast.success("status updated", {
+              position: "top-center",
+              style:
+                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+            });
+          }}
+          disabled={age < 30 || reloading}
+          class="btn text-sm"
+        >
+          <RefreshCw size={16} class={reloading ? "animate-spin" : ""} />
+          <span>refresh</span>
+        </button>
+      </div>
+    </div>
 
     <input
       type="text"
@@ -138,6 +188,10 @@
           <p>
             uptime: {MStoTime(data.status.uptime)}
           </p>
+
+          {#if data.status.load}
+            <p>load: {data.status.load}</p>
+          {/if}
         </div>
       </div>
 

@@ -3,7 +3,9 @@ import prisma from "$lib/server/database.js";
 import redis from "$lib/server/redis";
 import type { BotStatus } from "$lib/types/Status";
 
-export async function load() {
+export async function load({ depends }) {
+  depends("status");
+
   return {
     status: await getStatus(),
     database: await (async () => {
@@ -18,7 +20,7 @@ export async function load() {
   };
 }
 
-async function getStatus() {
+async function getStatus(): Promise<BotStatus> {
   const cache = await redis.get("cache:status");
 
   if (cache) {

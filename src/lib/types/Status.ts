@@ -18,4 +18,6 @@ export interface BotStatus {
     }[];
   }[];
   cached: number;
+  age: number;
+  load: string;
 }
