@@ -16,20 +16,20 @@
   let descriptionColour = $state("text-error");
 
   let guildIdSearch = $state("");
-  let guild: {
-    id: string;
-    cluster: {
-      id: number;
-      online: boolean;
-      responsive: boolean;
-    };
-    shard: {
-      id: number;
-      status: "idle" | "connecting" | "resuming" | "ready";
-      ping: number;
-      lastPing: number;
-    };
-  } = $state();
+  // let guild: {
+  //   id: string;
+  //   cluster: {
+  //     id: number;
+  //     online: boolean;
+  //     responsive: boolean;
+  //   };
+  //   shard: {
+  //     id: number;
+  //     status: "idle" | "connecting" | "resuming" | "ready";
+  //     ping: number;
+  //     lastPing: number;
+  //   };
+  // } = $state();
   let age: number = $state();
 
   let reloading = $state(false);
@@ -72,17 +72,28 @@
     }
   }
 
-  $effect(() => {
-    guild = null;
-    if (!guildIdSearch) return;
+  const guild: {
+    id: string;
+    cluster: {
+      id: number;
+      online: boolean;
+      responsive: boolean;
+    };
+    shard: {
+      id: number;
+      status: "idle" | "connecting" | "resuming" | "ready";
+      ping: number;
+      lastPing: number;
+    };
+  } = $derived.by(() => {
     const cluster = data.status.clusters.find((i) => i.guilds.find((i) => i.id === guildIdSearch));
-    if (!guildIdSearch || !cluster) return;
+    if (!cluster) return;
 
     const shard = cluster.shards.find(
       (i) => i.id === cluster.guilds.find((i) => i.id === guildIdSearch).shard,
     );
 
-    guild = {
+    return {
       cluster: {
         id: cluster.id,
         online: cluster.online,
@@ -91,6 +102,25 @@
       id: guildIdSearch,
       shard,
     };
+  });
+
+  $effect(() => {
+    // guild = null;
+    // if (!guildIdSearch) return;
+    // const cluster = data.status.clusters.find((i) => i.guilds.find((i) => i.id === guildIdSearch));
+    // if (!guildIdSearch || !cluster) return;
+    // const shard = cluster.shards.find(
+    //   (i) => i.id === cluster.guilds.find((i) => i.id === guildIdSearch).shard,
+    // );
+    // guild = {
+    //   cluster: {
+    //     id: cluster.id,
+    //     online: cluster.online,
+    //     responsive: cluster.responsive,
+    //   },
+    //   id: guildIdSearch,
+    //   shard,
+    // };
   });
 
   $effect(() => {
