@@ -1,6 +1,5 @@
-import { building, dev } from "$app/environment";
+import { dev } from "$app/environment";
 import { log } from "$lib/server/logger";
-import { redirect } from "@sveltejs/kit";
 
 export function handleError({ event, error, message, status }) {
   if (dev) return console.error(error);
@@ -17,8 +16,8 @@ export function handleError({ event, error, message, status }) {
 export async function handle({ event, resolve }) {
   event.locals.startTimer = performance.now();
 
-  if (!dev && !building && event.url.hostname !== "nypsi.xyz")
-    return redirect(303, `https://nypsi.xyz${event.url.pathname}`);
+  // if (!dev && !building && event.url.hostname !== "nypsi.xyz")
+  //   return redirect(303, `https://nypsi.xyz${event.url.pathname}`);
 
   // if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
   //  const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
