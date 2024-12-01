@@ -30,7 +30,7 @@
   //     lastPing: number;
   //   };
   // } = $state();
-  let age: number = $state();
+  let age: number = $state(data.status.age);
 
   let reloading = $state(false);
 
