@@ -9,22 +9,14 @@ export async function getTags(
   [key: string]: Tag;
 }> {
   if (!browser) {
-    const tagsData: { [key: string]: Tag } = JSON.parse(
-      await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json").then((r) =>
-        r.text(),
-      ),
-    );
+    const tagsData: { [key: string]: Tag } = await fetch("/api/tags").then((r) => r.json());
 
     return tagsData;
   }
 
   if (tags.value) return tags.value;
 
-  const tagsData: { [key: string]: Tag } = JSON.parse(
-    await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json").then((r) =>
-      r.text(),
-    ),
-  );
+  const tagsData: { [key: string]: Tag } = await fetch("/api/tags").then((r) => r.json());
 
   tags.value = tagsData;
 
