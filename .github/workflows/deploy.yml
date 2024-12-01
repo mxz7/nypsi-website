@@ -40,12 +40,12 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-        - name: Deploy to server
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.HOST }}
-            username: root
-            port: 22
-            key: ${{ secrets.PRIV_KEY }}
-            script: |
-              dokku git:from-image nypsi-website ${{ env.IMAGE_URL }}
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: root
+          port: 22
+          key: ${{ secrets.PRIV_KEY }}
+          script: |
+            dokku git:from-image nypsi-website ${{ env.IMAGE_URL }}
