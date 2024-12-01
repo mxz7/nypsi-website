@@ -141,16 +141,16 @@
   }
 
   .animation-1 {
-    animation: fly-up-mobile 500ms ease-out 0ms;
+    animation: fly-up-mobile 250ms ease-out 0ms;
   }
 
   .animation-2 {
-    animation: fly-up-mobile 500ms ease-out 300ms forwards;
+    animation: fly-up-mobile 300ms ease-out 200ms forwards;
     opacity: 0%;
   }
 
   .animation-3 {
-    animation: fly-up-mobile 500ms ease-out 400ms forwards;
+    animation: fly-up-mobile 400ms ease-out 250ms forwards;
     opacity: 0%;
   }
 
@@ -179,7 +179,7 @@
 
   @keyframes fly-up-mobile {
     from {
-      transform: translateY(50px);
+      transform: translateY(20px);
       opacity: 0%;
     }
     to {
