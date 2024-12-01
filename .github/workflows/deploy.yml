@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.PA_TOKEN }}
 
       - name: Preset Image Name
-        run: echo "IMAGE_URL=$(echo ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$(echo ${{ github.sha }} | cut -c1-7) | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        run: echo "IMAGE_URL=$(echo ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }})" >> $GITHUB_ENV
 
       - name: Build and push Docker Image
         uses: docker/build-push-action@v5
@@ -40,10 +40,12 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Deploy Image to CapRover
-        uses: caprover/deploy-from-github@v1.1.2
-        with:
-          server: "${{ secrets.CAPROVER_SERVER }}"
-          app: "${{ secrets.CAPROVER_APP_NAME }}"
-          token: "${{ secrets.CAPROVER_SECRET }}"
-          image: ${{ env.IMAGE_URL }}
+        - name: Deploy to server
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST }}
+            username: root
+            port: 22
+            key: ${{ secrets.PRIV_KEY }}
+            script: |
+              dokku git:from-image nypsi-website ${{ env.IMAGE_URL }}
