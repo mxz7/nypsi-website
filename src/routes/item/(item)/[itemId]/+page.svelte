@@ -50,6 +50,7 @@
         src={data.item.emoji}
         alt={data.item.id}
         decoding="async"
+        loading="eager"
       />
     </div>
     <div class="flex grow flex-col justify-center">
