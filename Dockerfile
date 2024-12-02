@@ -50,7 +50,7 @@ COPY --from=build /app/package.json /app
 
 # Set production environment
 ENV NODE_ENV="production"
-ENV ADDRESS_HEADER="cf-connecting-ip"
+ENV XFF_DEPTH="3"
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
