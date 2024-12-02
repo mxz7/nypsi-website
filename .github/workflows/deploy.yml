@@ -27,8 +27,8 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Preset Image Name
-        run: echo "IMAGE_URL=$(echo ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }})" >> $GITHUB_ENV
+      - name: Set Image Prefix
+        run: echo "IMAGE_PREFIX=$(echo ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }})" >> $GITHUB_ENV
 
       - name: Build and push Docker Image
         uses: docker/build-push-action@v5
@@ -37,8 +37,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ env.IMAGE_URL }}
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
+            ${{ env.IMAGE_PREFIX }}:${{ github.sha }}
+            ${{ env.IMAGE_PREFIX }}:latest
 
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -51,4 +51,4 @@ jobs:
           port: 22
           key: ${{ secrets.PRIV_KEY }}
           script: |
-            dokku git:from-image nypsi-website ${{ env.IMAGE_URL }}
+            dokku git:from-image nypsi-website ${{ env.IMAGE_PREFIX }}:${{ github.sha }}
