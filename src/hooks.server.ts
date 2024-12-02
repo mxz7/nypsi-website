@@ -14,28 +14,7 @@ export function handleError({ event, error, message, status }) {
 }
 
 export async function handle({ event, resolve }) {
-  console.log(event.request.headers);
-
   event.locals.startTimer = performance.now();
-
-  // if (!dev && !building && event.url.hostname !== "nypsi.xyz")
-  //   return redirect(303, `https://nypsi.xyz${event.url.pathname}`);
-
-  // if (!dev && !event.isSubRequest && event.url.pathname.startsWith("/api")) {
-  //  const rateLimitAttempt = await rateLimiter.limit(event.getClientAddress()).catch(() => {
-  //    return { success: true, reset: 69 };
-  //  });
-
-  //   if (!rateLimitAttempt.success) {
-  //     const timeRemaining = Math.floor((rateLimitAttempt.reset - new Date().getTime()) / 1000);
-
-  //     return error(429, `too many requests. please try again in ${timeRemaining} seconds.`);
-  //   }
-  // }
-  //    log(429, event);
-  //    return error(429, `too many requests. please try again in ${timeRemaining} seconds.`);
-  //  }
-  //}
 
   event.locals.validate = async () => {
     if (event.cookies.getAll().length === 0) return null;

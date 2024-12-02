@@ -34,12 +34,18 @@ export function log(
     }
   }
 
+  let address: string | undefined;
+
+  try {
+    address = event.getClientAddress();
+  } catch {}
+
   const logData = {
     method: event.request.method,
     status: statusCode,
     path: event.url.pathname,
     referer,
-    ip_address: event.getClientAddress(),
+    ip_address: address,
     user_agent: event.request.headers.get("user-agent") || "",
     elapsed: performance.now() - event.locals.startTimer,
     params:
