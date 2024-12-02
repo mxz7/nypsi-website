@@ -33,6 +33,10 @@
 <svelte:head>
   <title>{data.item.name} / nypsi</title>
   <meta name="og:title" content="{data.item.name} / nypsi" />
+
+  <meta name="description" content={data.item.shortDesc} />
+  <meta name="og:description" content={data.item.shortDesc} />
+
   <meta name="og:image" content={data.item.emoji} />
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />

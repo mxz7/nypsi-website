@@ -109,6 +109,9 @@
 
   {#if data.guild.success}
     <meta name="og:title" content={data.guild.guild.guildName} />
+
+    <meta name="description" content={data.guild.guild.motd} />
+    <meta name="og:description" content={data.guild.guild.motd} />
     <meta
       name="og:image"
       content={data.guild.guild.avatarId

@@ -16,6 +16,12 @@
   <title>{title || `${data.baseUserData.lastKnownUsername} / nypsi`}</title>
   <meta name="og:title" content="{data.baseUserData.lastKnownUsername}'s nypsi profile" />
 
+  <meta name="description" content="view {data.baseUserData.lastKnownUsername}'s nypsi profile" />
+  <meta
+    name="og:description"
+    content="view {data.baseUserData.lastKnownUsername}'s nypsi profile"
+  />
+
   <meta name="og:image" content={data.baseUserData.avatar} />
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
