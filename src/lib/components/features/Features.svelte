@@ -26,6 +26,8 @@
             alt="networth command"
             loading="lazy"
             decoding="async"
+            width="814"
+            height="954"
           />
         </picture>
       </div>
@@ -72,6 +74,8 @@
             alt="chat reaction"
             loading="lazy"
             decoding="async"
+            width="682"
+            height="510"
           />
         </picture>
       </div>
@@ -108,6 +112,8 @@
             alt="finished scratch card"
             loading="lazy"
             decoding="async"
+            width="674"
+            height="716"
           />
         </picture>
       </div>
@@ -142,6 +148,8 @@
             alt="modlogs"
             loading="lazy"
             decoding="async"
+            width="924"
+            height="1150"
           />
         </picture>
       </div>
@@ -175,6 +183,8 @@
             alt="reaction roles"
             loading="lazy"
             decoding="async"
+            width="872"
+            height="1158"
           />
         </picture>
       </div>
@@ -209,6 +219,8 @@
             alt="role persist list"
             loading="lazy"
             decoding="async"
+            width="550"
+            height="316"
           />
         </picture>
       </div>
@@ -238,6 +250,8 @@
             alt="pings command"
             loading="lazy"
             decoding="async"
+            width="606"
+            height="706"
           />
         </picture>
       </div>
