@@ -53,7 +53,7 @@
     <div class="w-auto">
       {#if !auth.value}
         <button class="btn btn-ghost" aria-label="loading">
-          <span class="loading loading-spinner"></span>
+          <span class="loading loading-spinner loading-sm"></span>
         </button>
       {:else if !auth.value.authenticated}
         <a href="/login?next={encodeURIComponent($page.url.pathname)}" class="btn btn-ghost"
