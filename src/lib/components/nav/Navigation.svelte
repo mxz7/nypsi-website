@@ -28,6 +28,7 @@
               alt="nypsi logo"
               decoding="async"
               class="h-10 w-10"
+              loading="lazy"
             />
           </picture>
         </a>

@@ -75,9 +75,8 @@
           src="https://cdn.nypsi.xyz/static/hero.webp"
           alt="hero"
           class="hidden max-w-sm lg:block"
-          loading="eager"
+          loading="lazy"
           decoding="async"
-          fetchpriority="high"
         />
       </picture>
     </div>
