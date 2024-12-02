@@ -14,6 +14,8 @@ export function handleError({ event, error, message, status }) {
 }
 
 export async function handle({ event, resolve }) {
+  console.log(event.request.headers);
+
   event.locals.startTimer = performance.now();
 
   // if (!dev && !building && event.url.hostname !== "nypsi.xyz")
