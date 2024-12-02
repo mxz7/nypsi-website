@@ -12,7 +12,11 @@
 <div class="flex w-full justify-center px-3 lg:px-0">
   <div class="navbar mt-3 rounded-xl bg-base-200 lg:max-w-6xl">
     <div class="navbar-start">
-      <button class="btn btn-ghost lg:hidden" onclick={() => (sidebarVisible = !sidebarVisible)}>
+      <button
+        aria-label="show mobile navigation"
+        class="btn btn-ghost lg:hidden"
+        onclick={() => (sidebarVisible = !sidebarVisible)}
+      >
         <Menu strokeWidth={2.5} />
       </button>
 
