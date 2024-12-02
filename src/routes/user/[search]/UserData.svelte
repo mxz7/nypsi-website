@@ -110,9 +110,24 @@
           </SmallInfo>
 
           <SmallInfo>
-            <h2>daily streak</h2>
-            <p class="text-sm text-slate-300 lg:text-base">
-              {(userData.Economy?.dailyStreak || 0).toLocaleString()}
+            <h2>last seen</h2>
+
+            <p class="text-sm lg:text-base">
+              {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(3, "months"))}
+                {new Date(userData.lastCommand).toLocaleDateString()}
+              {:else if daysAgo(userData.lastCommand) < 1}
+                {@const hours = (dayjs().unix() - dayjs(userData.lastCommand).unix()) / 3600}
+                {#if hours < 1}
+                  just now
+                {:else}
+                  {Math.floor(hours)} hour{Math.floor(hours) > 1 ? "s" : ""} ago
+                {/if}
+              {:else}
+                {daysAgo(userData.lastCommand).toLocaleString()} day{daysAgo(userData.lastCommand) >
+                1
+                  ? "s"
+                  : ""} ago
+              {/if}
             </p>
           </SmallInfo>
         </div>
@@ -204,24 +219,9 @@
           in:fly|global={{ delay: 800, duration: 500, y: 75 }}
         >
           <SmallInfo>
-            <h2>last seen</h2>
-
-            <p class="text-sm lg:text-base">
-              {#if dayjs(userData.lastCommand).isBefore(dayjs().subtract(3, "months"))}
-                {new Date(userData.lastCommand).toLocaleDateString()}
-              {:else if daysAgo(userData.lastCommand) < 1}
-                {@const hours = (dayjs().unix() - dayjs(userData.lastCommand).unix()) / 3600}
-                {#if hours < 1}
-                  just now
-                {:else}
-                  {Math.floor(hours)} hour{Math.floor(hours) > 1 ? "s" : ""} ago
-                {/if}
-              {:else}
-                {daysAgo(userData.lastCommand).toLocaleString()} day{daysAgo(userData.lastCommand) >
-                1
-                  ? "s"
-                  : ""} ago
-              {/if}
+            <h2>daily streak</h2>
+            <p class="text-sm text-slate-300 lg:text-base">
+              {(userData.Economy?.dailyStreak || 0).toLocaleString()}
             </p>
           </SmallInfo>
 
