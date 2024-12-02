@@ -72,23 +72,23 @@
 <div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto md:w-full md:max-w-3xl">
   <Profile {baseData} {userData} {items} />
 
-  <div in:fly|global={{ delay: 400, duration: 500, y: 30 }}>
-    {#if baseData.blacklisted}
-      <Punishment>
-        {baseData.lastKnownUsername} is blacklisted from nypsi
-      </Punishment>
-    {:else}
-      {#await userData then userData}
-        {#if userData.Economy?.banned && new Date(userData.Economy.banned).getTime() > Date.now()}
+  {#if baseData.blacklisted}
+    <Punishment>
+      {baseData.lastKnownUsername} is blacklisted from nypsi
+    </Punishment>
+  {:else}
+    {#await userData then userData}
+      {#if userData.Economy?.banned && new Date(userData.Economy.banned).getTime() > Date.now()}
+        <div in:fly|global={{ delay: 400, duration: 500, y: 30 }}>
           <Punishment>
             {userData.lastKnownUsername} is economy banned until {new Date(
               userData.Economy.banned,
             ).toLocaleDateString()}
           </Punishment>
-        {/if}
-      {/await}
-    {/if}
-  </div>
+        </div>
+      {/if}
+    {/await}
+  {/if}
 
   {#if userData}
     {#await userData}
