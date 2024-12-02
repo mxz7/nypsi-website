@@ -57,17 +57,24 @@
                 {#if user.id}
                   {#if user.tag}
                     <p>[</p>
-                    <img
-                      class="h-5 sm:h-6"
-                      src={parseEmoji(tags[user.tag]?.emoji)}
-                      alt=""
-                      decoding="async"
+                    <div
+                      class="h-5 w-5 sm:h-6 sm:w-6"
                       use:tooltip={{
                         placement: "top",
                         content: tags[user.tag]?.name,
                         followCursor: true,
                       }}
-                    />
+                    >
+                      <img
+                        class="h-full w-full object-contain"
+                        height="32"
+                        width="32"
+                        src={parseEmoji(tags[user.tag]?.emoji)}
+                        alt="{user.username}'s tag"
+                        decoding="async"
+                      />
+                    </div>
+
                     <p class="mr-1">]</p>
                   {/if}
                   <a
