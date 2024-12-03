@@ -97,8 +97,7 @@
         alt="{baseData.lastKnownUsername}'s avatar"
         onerror={handleFallbackImage}
         loading="eager"
-        decoding="sync"
-        fetchpriority="high"
+        decoding="async"
       />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}

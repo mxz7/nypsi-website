@@ -75,8 +75,9 @@
         alt=""
         class="h-full w-full rounded-full"
         loading="eager"
-        decoding="sync"
-        fetchpriority="high"
+        decoding="async"
+        width="256"
+        height="256"
       />
     </div>
     <div class="w-fit">

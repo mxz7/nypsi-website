@@ -67,12 +67,7 @@
         <a href="/me" class="btn btn-ghost">
           <div class="avatar">
             <div class="h-10 w-10 rounded-full">
-              <img
-                src={auth.value.user.avatar}
-                alt="your avatar"
-                decoding="async"
-                fetchpriority="high"
-              />
+              <img src={auth.value.user.avatar} alt="your avatar" decoding="async" />
             </div>
           </div>
         </a>
