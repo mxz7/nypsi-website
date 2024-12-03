@@ -10,6 +10,9 @@ concurrency:
 
 jobs:
   build_and_deploy:
+    env:
+      IMAGE_PREFIX: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
+
     runs-on: ubuntu-latest
     environment: production
 
@@ -26,9 +29,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set Image Prefix
-        run: echo "IMAGE_PREFIX=$(echo ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }})" >> $GITHUB_ENV
 
       - name: Build and push Docker Image
         uses: docker/build-push-action@v5
