@@ -154,39 +154,49 @@
             in:fade|global={{ duration: 400, delay: 200 }}
             class="flex items-center text-slate-200"
           >
-            <img
-              loading="lazy"
-              src="https://em-content.zobj.net/thumbs/120/twitter/322/money-bag_1f4b0.png"
-              alt="money emoji"
-              class="mr-1 inline h-4 lg:h-6"
-              decoding="async"
-            />
+            <span class="mr-1 h-4 w-4 lg:h-6 lg:w-6">
+              <img
+                src="https://jdecked.github.io/twemoji/v/latest/svg/1f4b0.svg"
+                alt="money emoji"
+                class="h-full w-full object-contain"
+                decoding="async"
+                height="32"
+                width="32"
+              />
+            </span>
+
             <span class="font-medium">${userData.Economy.money.toLocaleString()}</span>
           </p>
           <p
             in:fade|global={{ duration: 400, delay: 400 }}
             class="flex items-center text-slate-200"
           >
-            <img
-              loading="lazy"
-              src="https://em-content.zobj.net/thumbs/240/twitter/322/credit-card_1f4b3.png"
-              alt="credit card (bank) emoji"
-              class="mr-1 inline h-4 lg:h-6"
-              decoding="async"
-            />
+            <span class="mr-1 h-4 w-4 lg:h-6 lg:w-6">
+              <img
+                src="https://jdecked.github.io/twemoji/v/latest/svg/1f4b3.svg"
+                alt="credit card (bank) emoji"
+                class="h-full w-full object-contain"
+                decoding="async"
+                height="32"
+                width="32"
+              />
+            </span>
             <span class="font-medium">${userData.Economy.bank.toLocaleString()}</span>
           </p>
           <p
             in:fade|global={{ duration: 400, delay: 600 }}
             class="mt-2 flex items-center text-slate-200"
           >
-            <img
-              loading="lazy"
-              src="https://em-content.zobj.net/thumbs/240/twitter/322/globe-showing-europe-africa_1f30d.png"
-              alt="globe (net worth) emoji"
-              class="mr-1 inline h-4 lg:h-6"
-              decoding="async"
-            />
+            <span class="mr-1 h-4 w-4 lg:h-6 lg:w-6">
+              <img
+                src="https://jdecked.github.io/twemoji/v/latest/svg/1f30d.svg"
+                alt="globe (net worth) emoji"
+                class="h-full w-full object-contain"
+                decoding="async"
+                height="32"
+                width="32"
+              />
+            </span>
             <span class="font-medium">${userData.Economy.netWorth.toLocaleString()}</span>
           </p>
         {:else}
