@@ -77,6 +77,8 @@
           class="hidden max-w-sm lg:block"
           loading="lazy"
           decoding="async"
+          height="1000"
+          width="1000"
         />
       </picture>
     </div>
