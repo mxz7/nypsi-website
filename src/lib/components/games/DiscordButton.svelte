@@ -17,7 +17,8 @@
     background = "#c62828";
   }
 
-  let emojiUrl = $state("");
+  // svelte-ignore non_reactive_update
+  let emojiUrl = "";
 
   if (data.emoji && parse(data.emoji.name, { assetType: "png" })) {
     emojiUrl = parse(data.emoji.name, { assetType: "png" });

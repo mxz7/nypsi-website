@@ -18,75 +18,77 @@
   <meta name="og:title" content="game: {$page.params.id} / nypsi" />
 </svelte:head>
 
-<div class="mt-8 flex flex-col justify-center">
-  <div in:fly={{ y: 25, delay: 300, duration: 500 }} out:fly={{ y: 15, duration: 250 }}>
-    {#if data.game && data.game.ok}
-      <div class="my-3">
-        {#if data.game.game === "slots"}
-          <Slots outcome={data.game.outcome} />
-        {:else if data.game.game === "rps"}
-          <RockPaperScissors outcome={data.game.outcome} />
-        {:else if data.game.game === "blackjack"}
-          <Blackjack outcome={data.game.outcome} />
-        {:else if data.game.game.includes("scratch")}
-          <Scratch game={data.game} />
-        {:else if data.game.game === "tower"}
-          <Tower outcome={data.game.outcome} />
-        {:else if data.game.game === "mines"}
-          <Mines outcome={JSON.parse(data.game.outcome.slice(6))} />
-        {:else if data.game.game === "roulette"}
-          <Roulette outcome={data.game.outcome} />
-        {:else}
-          <p class="text-center text-white">
-            game: {data.game.game}<br />outcome: {data.game.outcome}
-          </p>
-        {/if}
-      </div>
-      <div class="text-center text-xl font-bold">
-        <!-- <p class="text-xs text-white">{game.outcome}</p> -->
-        {#if data.game.win == 1 && !data.game.game.includes("scratch")}
-          <p class=" success">won</p>
-
-          <p class="success text-lg opacity-75">
-            ${(data.game.earned - data.game.bet).toLocaleString()} profit
-          </p>
-        {:else if data.game.win == 0 && !data.game.game.includes("scratch")}
-          <p class=" text-error">lost</p>
-        {:else if data.game.win == 2 && !data.game.game.includes("scratch")}
-          <p class=" text-yellow-500">draw</p>
-        {/if}
-      </div>
-
-      <div class="mt-5 px-2 text-center text-slate-300">
-        {#if data.game.win == 1 && !data.game.game.includes("scratch")}
-          <p>
-            bet ${data.game.bet.toLocaleString()} and won ${data.game.earned.toLocaleString()}{data
-              .game.xpEarned > 0
-              ? ` (${data.game.xpEarned.toLocaleString()}xp)`
-              : ""}
-          </p>
-        {:else if !data.game.game.includes("scratch")}
-          <p>bet ${data.game.bet.toLocaleString()}</p>
-        {/if}
-
-        <p class="mt-3 text-center text-slate-300">
-          played by
-          {#if data.game.userId}
-            <a
-              href="/user/{data.game.userId}"
-              class="font-bold text-primary underline-offset-4 hover:underline"
-              >{data.game.username}</a
-            >
+{#key data}
+  <div class="mt-8 flex flex-col justify-center">
+    <div in:fly={{ y: 25, delay: 300, duration: 500 }} out:fly={{ y: 15, duration: 250 }}>
+      {#if data.game && data.game.ok}
+        <div class="my-3">
+          {#if data.game.game === "slots"}
+            <Slots outcome={data.game.outcome} />
+          {:else if data.game.game === "rps"}
+            <RockPaperScissors outcome={data.game.outcome} />
+          {:else if data.game.game === "blackjack"}
+            <Blackjack outcome={data.game.outcome} />
+          {:else if data.game.game.includes("scratch")}
+            <Scratch game={data.game} />
+          {:else if data.game.game === "tower"}
+            <Tower outcome={data.game.outcome} />
+          {:else if data.game.game === "mines"}
+            <Mines outcome={JSON.parse(data.game.outcome.slice(6))} />
+          {:else if data.game.game === "roulette"}
+            <Roulette outcome={data.game.outcome} />
           {:else}
-            <span class="font-bold text-primary">{data.game.username}</span>
+            <p class="text-center text-white">
+              game: {data.game.game}<br />outcome: {data.game.outcome}
+            </p>
           {/if}
-          on {new Date(data.game.date).toLocaleDateString()} at {new Date(
-            data.game.date,
-          ).toLocaleTimeString()}
-        </p>
-      </div>
-    {:else}
-      <p class="text-center text-xl font-bold text-white">unknown game</p>
-    {/if}
+        </div>
+        <div class="text-center text-xl font-bold">
+          <!-- <p class="text-xs text-white">{game.outcome}</p> -->
+          {#if data.game.win == 1 && !data.game.game.includes("scratch")}
+            <p class=" success">won</p>
+
+            <p class="success text-lg opacity-75">
+              ${(data.game.earned - data.game.bet).toLocaleString()} profit
+            </p>
+          {:else if data.game.win == 0 && !data.game.game.includes("scratch")}
+            <p class=" text-error">lost</p>
+          {:else if data.game.win == 2 && !data.game.game.includes("scratch")}
+            <p class=" text-yellow-500">draw</p>
+          {/if}
+        </div>
+
+        <div class="mt-5 px-2 text-center text-slate-300">
+          {#if data.game.win == 1 && !data.game.game.includes("scratch")}
+            <p>
+              bet ${data.game.bet.toLocaleString()} and won ${data.game.earned.toLocaleString()}{data
+                .game.xpEarned > 0
+                ? ` (${data.game.xpEarned.toLocaleString()}xp)`
+                : ""}
+            </p>
+          {:else if !data.game.game.includes("scratch")}
+            <p>bet ${data.game.bet.toLocaleString()}</p>
+          {/if}
+
+          <p class="mt-3 text-center text-slate-300">
+            played by
+            {#if data.game.userId}
+              <a
+                href="/user/{data.game.userId}"
+                class="font-bold text-primary underline-offset-4 hover:underline"
+                >{data.game.username}</a
+              >
+            {:else}
+              <span class="font-bold text-primary">{data.game.username}</span>
+            {/if}
+            on {new Date(data.game.date).toLocaleDateString()} at {new Date(
+              data.game.date,
+            ).toLocaleTimeString()}
+          </p>
+        </div>
+      {:else}
+        <p class="text-center text-xl font-bold text-white">unknown game</p>
+      {/if}
+    </div>
   </div>
-</div>
+{/key}
