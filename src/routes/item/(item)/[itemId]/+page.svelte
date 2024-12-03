@@ -205,7 +205,7 @@
       <h3 class="text-center font-medium text-white">used in recipe</h3>
       <div class="grid max-h-48 grid-cols-2 overflow-auto">
         {#each data.items.filter((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), )) as item}
-          <div class="flex items-center gap-1">
+          <div class="flex items-center justify-center gap-1">
             <div class="h-5 w-5">
               <img
                 src={item.emoji}
