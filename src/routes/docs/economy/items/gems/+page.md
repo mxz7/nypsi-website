@@ -40,7 +40,7 @@ ranged values (ex: 1-17%) have an equal chance for all options
   <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm mb-2 mt-4">
     {#each tabs as tab}
       <li>
-        <button class={selected === tab ? "focus" : ""} on:click={() => selected = tab}>{tab}</button>
+        <button class={selected === tab ? "focus" : ""} onclick={() => selected = tab}>{tab}</button>
       </li>
     {/each}
   </ul>
