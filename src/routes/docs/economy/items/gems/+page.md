@@ -1,6 +1,7 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
   import GemChance from "./gem-chance.svelte"
+  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 
   let selected = $state("green gem");
   const tabs = ["green gem", "blue gem", "purple gem", "pink gem", "white gem", "crystal heart"];
@@ -9,7 +10,7 @@
 
 <DocsTemplate title='gems' />
 
-## what are gems?
+<DocsHeader header='h2' text="what are gems?" />
 
 gems are basically just passive boosters. they are always active and give buffs to whoever wields them. the downside of this, however, is that they can shatter. when a gem uses its passive ability (for example, boosting how much money your workers gain) it has a very small chance to shatter. while this chance is small, it adds up over time.
 
@@ -17,17 +18,17 @@ using gems that can shatter based on command usage is risky and should only be d
 
 having more than 1 of a single colour gem does nothing. for example, having 2 green gems doesn’t stack the effect, although more than one of some are needed to craft higher tier gems.
 
-## how do i get gems?
+<DocsHeader header='h2' text="how do i get gems?" />
 
 the way you obtain a gem varies on which gem you want to obtain. each one has multiple different ways of obtaining, all of which are broken down in more detail below.
 
 scratch cards can also drop gems. some gems have a slight chance to spawn depending on which scratch card you use.
 
-## extra information
+<DocsHeader header='h2' text="extra information" />
 
 double cookies from baking only take the highest chance from all gems
 
-### gem-breakdown details
+<DocsHeader header='h3' text="gem-breakdown details" />
 
 the effects listed of each gem are averaged. this means that at any given time their effects could be higher or lower than what's listed.
 
@@ -47,11 +48,11 @@ ranged values (ex: 1-17%) have an equal chance for all options
 
 {#if selected === "green gem"}
 
-### effects
+<DocsHeader header='h3' text="effects" />
 
 \+20% max storage for all workers
 
-### obtaining
+<DocsHeader header='h3' text="obtaining" />
 
 crafting: 10 gem shards
 
@@ -69,7 +70,7 @@ mines: 20% chance to spawn, <green>0.5% chance to drop when clicked</green>
 
 <GemChance type="green_gem"/>
 
-### shattering
+<DocsHeader header='h3' text="shattering" />
 
 cannot shatter
 
@@ -77,13 +78,13 @@ cannot shatter
 
 {#if selected === "blue gem"}
 
-### effects
+<DocsHeader header='h3' text="effects" />
 
 60% chance to increase worker output by 17%, <blue>other 40% decreases output by 20%</blue>
 
 0.1% chance to double cookies baked
 
-### obtaining
+<DocsHeader header='h3' text="obtaining" />
 
 crafting: 5 gem shards
 
@@ -99,7 +100,7 @@ crafting: 5 gem shards
 
 <GemChance type="blue_gem"/>
 
-### shattering
+<DocsHeader header='h3' text="shattering" />
 
 0.04% chance every hour
 
@@ -111,7 +112,7 @@ max shards given from shattering: 3
 
 {#if selected === "purple gem"}
 
-### effects
+<DocsHeader header='h3' text="effects" />
 
 50% chance to increase worker item value by 17%, <blue>other 50% decreases value by 17%</blue>
 
@@ -121,7 +122,7 @@ max shards given from shattering: 3
 
 0.2% chance to roll one more time on hunt/fish/mine
 
-### obtaining
+<DocsHeader header='h3' text="obtaining" />
 
 crafting: 15 gem shards
 
@@ -141,7 +142,7 @@ crafting: 15 gem shards
 
 <GemChance type="purple_gem"/>
 
-### shattering
+<DocsHeader header='h3' text="shattering" />
 
 0.05% chance every hour
 
@@ -157,13 +158,13 @@ max shards given from shattering: 10
 
 {#if selected === "pink gem"}
 
-### effects
+<DocsHeader header='h3' text="effects" />
 
 \+0.92% gamble multiplier <blue>(20% chance to reduce multi by 3%)</blue>
 
 \+4% sell multiplier <blue>(20% chance to reduce multi by 3%)</blue>
 
-### obtaining
+<DocsHeader header='h3' text="obtaining" />
 
 crafting: 20 gem shards
 
@@ -179,7 +180,7 @@ crafting: 20 gem shards
 
 <GemChance type="pink_gem"/>
 
-### shattering
+<DocsHeader header='h3' text="shattering" />
 
 0.056% chance every time you gamble
 
@@ -191,7 +192,7 @@ max shards given from shattering: 15
 
 {#if selected === "white gem"}
 
-### effects
+<DocsHeader header='h3' text="effects" />
 
 \+70% max worker storage
 
@@ -209,7 +210,7 @@ max shards given from shattering: 15
 
 2% chance to double cookies baked
 
-### obtaining
+<DocsHeader header='h3' text="obtaining" />
 
 crafting: 2 blue gems, 2 green gems, 1 pink gem, 1 purple gem
 
@@ -219,7 +220,7 @@ crafting: 2 blue gems, 2 green gems, 1 pink gem, 1 purple gem
 
 <GemChance type="white_gem"/>
 
-### shattering
+<DocsHeader header='h3' text="shattering" />
 
 0.03% chance every hour
 
@@ -237,7 +238,7 @@ max shards given from shattering: 30
 
 {#if selected === "crystal heart"}
 
-### effects
+<DocsHeader header='h3' text="effects" />
 
 prevents **all gems** from shattering
 
@@ -249,13 +250,13 @@ prevents **all gems** from shattering
 
 removes almost all negative effects possible from other gems
 
-### obtaining
+<DocsHeader header='h3' text="obtaining" />
 
 every time you do an action that would cause a gem to break (and have 5 unique gems), there's a 50% chance to trigger the crafting sequence of a crystal heart. otherwise, your gem shatters and you only get shards ):
 
 <GemChance type="crystal_heart"/>
 
-### shattering
+<DocsHeader header='h3' text="shattering" />
 
 cannot shatter
 

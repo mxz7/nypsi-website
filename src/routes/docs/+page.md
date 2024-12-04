@@ -1,6 +1,6 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte";
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte'
+  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title="nypsi documentation" />

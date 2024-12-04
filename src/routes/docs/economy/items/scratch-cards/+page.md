@@ -1,15 +1,16 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
   import ItemModal from "$lib/components/docs/ItemModal.svelte"
+  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='scratch cards' />
 
-## how do they work
+<DocsHeader header='h2' text="how do they work?" />
 
 scratch cards work just as you would expect them to do `/use <scratch card>` to use a scratch card. to win, you must get 3 in a row (horizontally or vertically).
 
-## how do i get them
+<DocsHeader header='h2' text="how do i get them?" />
 
 <ItemModal item="daily_scratch_card">daily scratch cards</ItemModal> can be obtained from doing `/daily` each day
 <br><br>
@@ -19,7 +20,7 @@ scratch cards work just as you would expect them to do `/use <scratch card>` to 
 <br><br>
 <ItemModal item="lucky_scratch_card">lucky scratch cards</ItemModal> and <ItemModal item="legendary_scratch_card">legendary scratch cards</ItemModal> can be obtained from achievements or [crates](/docs/economy/items/crates)
 
-## how the prize pool works
+<DocsHeader header='h2' text="how the prize pool works" />
 
 you may see on the [items page](/item/daily_scratch_card) that some items have a 100% chance in scratch cards (or lootdrops). this is because of how scratch cards work, and how it's not exactly super easy possible to generate the odds like it is with crates.
 

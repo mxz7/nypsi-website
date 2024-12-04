@@ -1,14 +1,15 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='guilds' />
 
-## what are guilds
+<DocsHeader header='h2' text="what are guilds?" />
 
 guilds work similarly to how they do on hypixel. you create your own guild, invite friends, and work together to level it up.
 
-## what's the point of a guild
+<DocsHeader header='h2' text="what's the point of a guild?" />
 
 guild owners can buy things from the guild shop with tokens, this will give you upgrades and allow you to earn more money quicker. you receive guild tokens from levelling up
 
@@ -16,11 +17,11 @@ on each level up, the top contributors will receive rewards.
 
 at the end of the season, the top guilds will receive premium and real money as rewards.
 
-## how do i upgrade my guild
+<DocsHeader header='h2' text="how do i upgrade my build?" />
 
 your guild will upgraded automatically, once the requirements have been met. you can do `/guild upgrade` to look at the requirements for the next upgrade
 
-## guild members
+<DocsHeader header='h2' text="guild members" />
 
 a guild can only hold so many members, this can be upgraded from the shop with guild tokens.
 
@@ -30,11 +31,11 @@ only the top 4 xp AND top 4 money contributors will receive rewards on each leve
 
 to leave your guild, use the `/guild leave` command. if you are the owner however, you will need to delete your guild, using `/guild delete`
 
-## how can i get my money back after depositing?
+<DocsHeader header='h2' text="how can i get my money back after depositing?" />
 
 you can't get your money back after it has been deposited into the guild. that money is now used for the guild's level ups.
 
-## guild shop upgrades
+<DocsHeader header='h2' text="guild shop upgrades" />
 
 | id (used to purchase) | full name         | effect per level                      |
 | --------------------- | ----------------- | ------------------------------------- |

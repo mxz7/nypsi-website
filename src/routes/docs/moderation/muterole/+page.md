@@ -1,15 +1,16 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='mute role' />
 
-## default value
+<DocsHeader header='h2' text="default value" />
 
 by default, the mute role will be set to `default`. this means that nypsi will attempt to use the a role with the name of
 `muted` for muting, unmuting and updating channel permissions.
 
-## changing the mute role
+<DocsHeader header='h2' text="changing the mute role" />
 
 you change the muterole using the command below
 
@@ -23,7 +24,7 @@ you should also use the `$muterole update` command to set mute permissions for t
 
 with a custom mute role, if the bot at some point isn't able to find the role, the mute role will be reset back to `default`.
 
-## fixing mute role permissions
+<DocsHeader header='h2' text="fixing mute role permissions" />
 
 by default, nypsi removes the permission for users with the mute role to be able to send a message in any server. of course,
 this could be overridden by another role's permissions.
@@ -37,7 +38,7 @@ $muterole update
 this will disable the send messages permission for the current muterole in every channel. if there is still problems with the
 mute role, the problem is most likely with other role permissions.
 
-## resetting mute role
+<DocsHeader header='h2' text="resetting the mute role" />
 
 you can reset the mute role back to `default`, meaning that the bot will look for a role with the name of `muted` to use. the
 command for this is below.
@@ -46,7 +47,7 @@ command for this is below.
 $muterole reset
 ```
 
-## viewing current mute role
+<DocsHeader header='h2' text="viewing current mute role" />
 
 you can view the current muterole by using the `$muterole` command without any arguments, it will be shown at the bottom of
 the message.
