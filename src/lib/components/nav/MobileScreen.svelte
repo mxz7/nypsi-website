@@ -96,7 +96,7 @@
             >status</a
           >
         </li>
-        <li><a href="/docs/faq">docs</a></li>
+        <li><a href="/docs">docs</a></li>
         <li><a href="/discord" target="_blank">discord</a></li>
 
         <li>

@@ -39,6 +39,8 @@ for (const path of pathsRaw) {
     }
   };
 
+  if (path === "+page.md") continue;
+
   func(path, pathsData);
 }
 

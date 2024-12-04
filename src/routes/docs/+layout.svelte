@@ -62,15 +62,15 @@
   }
 
   :global(.docs-content h2) {
-    @apply my-4 text-2xl font-bold text-white;
+    @apply mb-2 mt-5 text-2xl font-bold text-white;
   }
 
   :global(.docs-content h3) {
-    @apply my-1 text-lg font-semibold text-white;
+    @apply mt-2 text-lg font-semibold text-white;
   }
 
   :global(.docs-content p) {
-    @apply my-2;
+    @apply mb-2 mt-1;
   }
 
   :global(.docs-content pre) {
