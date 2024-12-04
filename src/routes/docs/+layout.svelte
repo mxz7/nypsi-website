@@ -83,8 +83,8 @@
     font-family: "Fira Mono", monospace;
   }
 
-  :global(.docs-content a) {
-    @apply link;
+  :global(.docs-content p a) {
+    @apply link link-primary;
   }
 
   :global(.docs-content table) {
