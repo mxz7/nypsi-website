@@ -1,4 +1,6 @@
 <script lang="ts">
+  import DocsHeader from "./DocsHeader.svelte";
+
   interface Props {
     title: string;
   }
@@ -11,4 +13,4 @@
   <meta name="og:title" content="{title} / nypsi docs" />
 </svelte:head>
 
-<h1>{title}</h1>
+<DocsHeader anchor={title.replaceAll(" ", "-")} header="h1" text={title} />
