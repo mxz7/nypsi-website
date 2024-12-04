@@ -36,10 +36,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: |
-            ${{ env.IMAGE_PREFIX }}:${{ github.sha }}
-            ${{ env.IMAGE_PREFIX }}:latest
-
+          platforms: linux/amd64
+          tags: ${{ env.IMAGE_PREFIX }}:${{ github.sha }},${{ env.IMAGE_PREFIX }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
