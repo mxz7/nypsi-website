@@ -26,6 +26,12 @@ the [official nypsi server](/discord), which will gain you certain benefits.
 there are other payment methods, such as direct payment via crypto. if you're interested, contact
 `@m.axz`.
 
+<DocsHeader header='h2' text="credits" />
+
+credits work with the `expire date` which can be seen in the output of the `$premium` command. the expire date is handled by a premium subscription with the store, the credits are handled by premium credit items, which can be found in crates, scratch cards etc.
+
+once the expire date has been passed, credits will be used every day. if you have no credits and the expire date is passed, your premium will expire.
+
 <DocsHeader header='h2' text="when do i get my premium crates?" />
 
 premium crates are automatic on friday nights / saturday mornings (00:10 GMT/UTC)
