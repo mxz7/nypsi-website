@@ -1,4 +1,4 @@
-import { parse } from "$lib/functions/twemoji";
+import { parse } from "@twemoji/parser";
 
 export default function parseEmoji(emoji: string) {
   if (!emoji) return "";
@@ -18,11 +18,13 @@ export default function parseEmoji(emoji: string) {
     thumbnail += "?size=80";
   } else {
     try {
-      thumbnail = parse(emoji, { assetType: "svg" });
+      thumbnail = parse(emoji, { assetType: "svg" })[0].url;
     } catch (e) {
       console.error(e);
     }
   }
+
+  console.log(thumbnail);
 
   return thumbnail;
 }
