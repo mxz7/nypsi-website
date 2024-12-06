@@ -28,9 +28,14 @@ export function log(
   let referer: string | undefined;
 
   if (event.request.headers.has("referer")) {
-    referer = event.request.headers.get("referer");
-    if (new URL(referer)?.hostname === "nypsi.xyz") {
-      referer = `/${referer.split("/").slice(3).join("/")}`;
+    try {
+      referer = event.request.headers.get("referer");
+      if (new URL(referer)?.hostname === "nypsi.xyz") {
+        referer = `/${referer.split("/").slice(3).join("/")}`;
+      }
+    } catch (e) {
+      console.error(e);
+      console.error("failed to process referrer: " + referer);
     }
   }
 
