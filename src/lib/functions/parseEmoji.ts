@@ -24,7 +24,5 @@ export default function parseEmoji(emoji: string) {
     }
   }
 
-  console.log(thumbnail);
-
   return thumbnail;
 }
