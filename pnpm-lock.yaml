@@ -17,6 +17,9 @@ importers:
       '@prisma/client':
         specifier: 6.0.1
         version: 6.0.1(prisma@6.0.1)
+      '@twemoji/parser':
+        specifier: ^15.1.1
+        version: 15.1.1
       arctic:
         specifier: ^2.3.0
         version: 2.3.0
@@ -78,9 +81,6 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.2
         version: 4.0.2(svelte@5.6.0)(vite@5.4.11)
-      '@twemoji/parser':
-        specifier: ^15.1.1
-        version: 15.1.1
       '@types/ms':
         specifier: 0.7.34
         version: 0.7.34
