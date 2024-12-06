@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parse } from "twemoji-parser";
+  import { parse } from "@twemoji/parser";
 
   interface Props {
     outcome: string;
