@@ -19,6 +19,7 @@ User-agent: ImagesiftBot
 User-agent: MJ12bot
 User-agent: MJ12bot
 User-agent: Nutch
+User-agent: PetalBot
 User-agent: Rogerbot
 User-agent: Semrushbot
 User-agent: Wget
