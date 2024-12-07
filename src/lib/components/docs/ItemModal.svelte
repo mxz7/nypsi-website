@@ -13,7 +13,7 @@
 
 <a
   href="/item/{item}"
-  class="link"
+  class="link link-primary"
   onclick={async (e) => {
     if (
       innerWidth < 640 || // bail if the screen is too small
