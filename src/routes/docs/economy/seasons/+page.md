@@ -5,8 +5,6 @@
 
 <DocsTemplate title='seasons' />
 
-<DocsHeader header='h2' text="what are seasons?" />
-
 a nypsi season will typically last 6 months. at the end of the season, an _economy reset_ takes place, where
 everything **except prestige, achievements, tags and karma** is reset for every user. any banned users will also be unbanned, but
 will be completely reset. meaning prestige 0.
@@ -16,7 +14,7 @@ will be completely reset. meaning prestige 0.
 its a good way to keep economy fresh and under control 🙂. and at the end of every season, the top 5 balances globally get
 rewards, such as nypsi premium & real money
 
-<DocsHeader header='h2' text="what are the rewards?" />
+<DocsHeader header='h2' text="rewards" />
 
 typically, the top 10 will receive rewards, all of which including a form of [premium membership](/docs/premium).
 

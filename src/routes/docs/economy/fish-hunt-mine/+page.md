@@ -5,7 +5,7 @@
 
 <DocsTemplate title='fish hunt mine' />
 
-<DocsHeader header='h2' text="how do i get a fishing rod / pickaxe / gun?" anchor="how-do-i-get-a-fishing-rod-pickaxe-gun" />
+<DocsHeader header='h2' text="obtaining" />
 
 you can obtain a fishing rod, pickaxe or gun through [crates](/docs/economy/items/crates). the easiest way to get crates is by voting daily with `/vote`. you can
 earn more vote crates each day by working hard and reaching high levels of prestige. p.s don't forget to turn vote reminders
@@ -18,7 +18,7 @@ receive.
 
 higher level guns, pickaxes and fishing rods make it easier to find items that have a higher rarity rating. you can also use [boosters](/docs/economy/items/crates?crate=boosters) like efficiency, fortune, worm etc to get better items.
 
-<DocsHeader header='h2' text="how long do they last?" />
+<DocsHeader header='h2' text="durability" />
 
 in your inventory there's a number next to every item to indicate how many of those items you have, in the case for guns, pickaxes and
 fishing rods, this number is used to indicate how many times you can hunt / fish / mine before you need to find more guns / fishing

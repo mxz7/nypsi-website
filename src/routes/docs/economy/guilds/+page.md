@@ -5,11 +5,9 @@
 
 <DocsTemplate title='guilds' />
 
-<DocsHeader header='h2' text="what are guilds?" />
-
 guilds work similarly to how they do on hypixel. you create your own guild, invite friends, and work together to level it up.
 
-<DocsHeader header='h2' text="what's the point of a guild?" />
+<DocsHeader header='h2' text="what's the point?" />
 
 guild owners can buy things from the guild shop with tokens, this will give you upgrades and allow you to earn more money quicker. you receive guild tokens from levelling up
 
@@ -17,7 +15,7 @@ on each level up, the top contributors will receive rewards.
 
 at the end of the season, the top guilds will receive premium and real money as rewards.
 
-<DocsHeader header='h2' text="how do i upgrade my build?" />
+<DocsHeader header='h2' text="upgrading" />
 
 your guild will upgraded automatically, once the requirements have been met. you can do `/guild upgrade` to look at the requirements for the next upgrade
 

@@ -29,15 +29,15 @@
 
 <DocsTemplate title='crates' />
 
-<DocsHeader header='h2' text="how do i ge ta crate?" />
+<DocsHeader header='h2' text="obtaining" />
 
 you can easily obtain <ItemModal item="vote_crate">vote crates</ItemModal> by voting for nypsi with `$vote`. you can also get crates from tasks, daily rewards, fishing, loot drops, [premium](/docs/premium) rewards every friday night / saturday morning or the [online shop](https://ko-fi.com/tekoh/shop).
 
-<DocsHeader header='h2' text="what do i get from crates?" />
+<DocsHeader header='h2' text="items you can get from crates" />
 
 you can get random items such as collectables and cars, but most notably being tools such as fishing rods, guns, pickaxes, other crates, boosters or scratch cards.
 
-<DocsHeader header='h2' text="how do i open my crates?" />
+<DocsHeader header='h2' text="opening your crates" />
 
 you can use the `$use <name of crate> <amount>` command to open specific number of a specific crate.
 

@@ -7,11 +7,9 @@
 
 <DocsTemplate title='workers' />
 
-<DocsHeader header='h2' text="what do workers do?" />
-
 workers passively earn money for you, meaning that you will be making money by doing nothing, however you still need to claim money from them periodically. you can do this with `/workers claim`, or by having worker notifications enabled. you will receive a dm with a button to claim money from your workers
 
-<DocsHeader header='h2' text="how do i buy workers?" />
+<DocsHeader header='h2' text="buying workers" />
 
 you can buy, upgrade and claim money from your workers using `/workers`
 

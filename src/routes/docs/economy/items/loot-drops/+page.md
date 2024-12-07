@@ -7,7 +7,7 @@
 
 loot drops are little minigames that spawn with activity in a channel, the first to complete the game receives a random reward
 
-<DocsHeader header='h2' text="how do they spawn?" />
+<DocsHeader header='h2' text="spawning" />
 
 loot drops will spawn randomly when there is activity in a channel. the more people that are active in the same channel, the higher probability that one will spawn
 

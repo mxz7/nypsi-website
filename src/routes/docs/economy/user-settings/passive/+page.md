@@ -9,7 +9,7 @@
 
 enabling passive mode allows you to not be robbed or attacked by other players, at the expense of reduced multiplier, xp gain and cookie production
 
-<DocsHeader header='h2' text="how do i enable it?" />
+<DocsHeader header='h2' text="enabling/disabling" anchor="enabling-disabling" />
 
 there is a 20 minute cooldown on enabling and disabling passive mode to prevent abuse.
 
