@@ -42,30 +42,27 @@
 
     <div class="flex h-fit flex-col-reverse gap-4 md:flex-row">
       <div class="grid h-fit flex-initial grow grid-cols-3 gap-3 lg:grid-cols-4 xl:grid-cols-4">
-        {#each filteredItems as item}
-          <div class="flex items-center justify-center">
-            <a
-              data-sveltekit-noscroll={browser ? (innerWidth > 640 ? true : false) : false}
-              href="/item/{item.id}"
-              class="w-full overflow-hidden rounded-box border border-primary border-opacity-5 bg-base-200 duration-300 hover:border-opacity-25 {$page
-                .params.itemId === item.id
-                ? 'border-opacity-50 hover:border-opacity-50'
-                : ''}"
+        {#each filteredItems as item (item.id)}
+          <a
+            data-sveltekit-noscroll={browser ? (innerWidth > 640 ? true : false) : false}
+            href="/item/{item.id}"
+            class="w-full overflow-hidden rounded-box border border-primary border-opacity-5 bg-base-200 duration-300 hover:border-opacity-25 {$page
+              .params.itemId === item.id
+              ? 'border-opacity-50 hover:border-opacity-50'
+              : ''}"
+          >
+            <div class="h-16 bg-base-300 p-3">
+              <img
+                src={item.emoji}
+                alt={item.id}
+                decoding="async"
+                loading="lazy"
+                class="h-full w-full object-contain"
+              />
+            </div>
+            <span class="block w-full truncate p-2 text-center text-xs lg:text-sm">{item.name}</span
             >
-              <div class="h-16 bg-base-300 p-3">
-                <img
-                  src={item.emoji}
-                  alt={item.id}
-                  decoding="async"
-                  loading="lazy"
-                  class="h-full w-full object-contain"
-                />
-              </div>
-              <span class="block w-full truncate p-2 text-center text-xs lg:text-sm"
-                >{item.name}</span
-              >
-            </a>
-          </div>
+          </a>
         {/each}
       </div>
       <div class="md:w-1/3">
