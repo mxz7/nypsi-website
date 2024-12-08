@@ -188,7 +188,8 @@
                 class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
               >
                 {#each inPlaceSort(userData.Economy.Inventory).asc((i) => i.item) as item}
-                  {#if items.find((i) => i.id === item.item)}
+                  {@const itemData = items.find((i) => i.id === item.item)}
+                  {#if itemData}
                     <a
                       href="/item/{item.item}"
                       class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded-lg border border-primary border-opacity-5 bg-base-300 py-2 align-middle text-xs shadow duration-300 hover:border-opacity-25 lg:text-sm"
@@ -199,12 +200,12 @@
                         <img
                           loading="lazy"
                           class="h-auto max-h-full w-auto max-w-full object-contain"
-                          src={items.find((i) => i.id === item.item)?.emoji}
+                          src={itemData.emoji}
                           alt=""
                           decoding="async"
                         />
                       </div>
-                      <p class="my-1">{items.find((i) => i.id === item.item)?.name}</p>
+                      <p class="my-1">{itemData.name}</p>
                       <p>{item.amount.toLocaleString()}</p>
                     </a>
                   {/if}
@@ -256,19 +257,20 @@
                     class="mx-2 flex flex-col items-center justify-center rounded-lg border border-primary border-opacity-5 bg-base-300 py-2 align-middle text-xs shadow duration-300 hover:border-opacity-25 lg:text-sm"
                   >
                     {#if lb.leaderboard.startsWith("item-")}
+                      {@const itemData = items.find((i) => i.id === lb.leaderboard.split("-")[1])}
                       <div
                         class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8"
                       >
                         <img
                           loading="lazy"
                           class="h-auto max-h-full w-auto max-w-full object-contain"
-                          src={items.find((i) => i.id === lb.leaderboard.split("-")[1])?.emoji}
+                          src={itemData.emoji}
                           alt=""
                           decoding="async"
                         />
                       </div>
                       <p class="my-1 {lb.position === 1 ? 'text-primary' : ''}">
-                        {items.find((i) => i.id === lb.leaderboard.split("-")[1])?.name}
+                        {itemData.name}
                       </p>
                     {:else}
                       <p class="my-1">
