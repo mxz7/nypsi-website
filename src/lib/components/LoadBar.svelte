@@ -11,20 +11,20 @@
   beforeNavigate(() => {
     width.set(0, { duration: 0 });
     visible = false;
-    console.log("before navigate");
+    // console.log("before navigate");
 
     timeout = setTimeout(() => {
-      console.log("timeout ran");
+      // console.log("timeout ran");
       visible = true;
       width.set(75, { duration: 7500 });
     }, 1000);
   });
 
   onNavigate(() => {
-    console.log("navigating");
+    // console.log("navigating");
 
     return () => {
-      console.log("timeout cancelled");
+      // console.log("timeout cancelled");
       clearInterval(timeout);
 
       if (width.current > 0 && visible) {
