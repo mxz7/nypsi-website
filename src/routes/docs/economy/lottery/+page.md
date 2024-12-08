@@ -1,7 +1,6 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
-  import Date from './Date.svelte';
 </script>
 
 <DocsTemplate title='lottery' />
