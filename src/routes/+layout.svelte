@@ -3,6 +3,7 @@
   import { onNavigate } from "$app/navigation";
   import { page } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
+  import LoadBar from "$lib/components/LoadBar.svelte";
   import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth, initialLoad } from "$lib/state.svelte";
@@ -83,6 +84,8 @@
 </svelte:head>
 
 <div class="min-h-[100vh]">
+  <LoadBar />
+
   <!-- <ProgressBar class="text-primary" /> -->
 
   <Toaster />
