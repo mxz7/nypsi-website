@@ -68,10 +68,10 @@ importers:
         version: 1.0.4
       '@sveltejs/adapter-node':
         specifier: ^5.2.9
-        version: 5.2.9(@sveltejs/kit@2.9.0(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11))
+        version: 5.2.9(@sveltejs/kit@2.9.1(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11))
       '@sveltejs/kit':
-        specifier: ^2.9.0
-        version: 2.9.0(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11)
+        specifier: ^2.9.1
+        version: 2.9.1(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11)
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.2
         version: 4.0.2(svelte@5.9.0)(vite@5.4.11)
@@ -94,8 +94,8 @@ importers:
         specifier: 10.4.20
         version: 10.4.20(postcss@8.4.49)
       daisyui:
-        specifier: ^4.12.14
-        version: 4.12.14(postcss@8.4.49)
+        specifier: ^4.12.20
+        version: 4.12.20(postcss@8.4.49)
       eslint:
         specifier: 8.57.1
         version: 8.57.1
@@ -569,8 +569,8 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^2.4.0
 
-  '@sveltejs/kit@2.9.0':
-    resolution: {integrity: sha512-W3E7ed3ChB6kPqRs2H7tcHp+Z7oiTFC6m+lLyAQQuyXeqw6LdNuuwEUla+5VM0OGgqQD+cYD6+7Xq80vVm17Vg==}
+  '@sveltejs/kit@2.9.1':
+    resolution: {integrity: sha512-D+yH3DTvvkjXdl3Xv7akKmolrArDZRtsFv3nlxJPjlIKsZEpkkInnomKJuAql2TrNGJ2dJMGBO1YYgVn2ILmag==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
@@ -869,8 +869,8 @@ packages:
     resolution: {integrity: sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  daisyui@4.12.14:
-    resolution: {integrity: sha512-hA27cdBasdwd4/iEjn+aidoCrRroDuo3G5W9NDKaVCJI437Mm/3eSL/2u7MkZ0pt8a+TrYF3aT2pFVemTS3how==}
+  daisyui@4.12.20:
+    resolution: {integrity: sha512-uHr3SQsd2yTjRdVuswTiqGFvZTxX0sGSBRa8JJdbKgmZCk/kRFh4B7Z2jg9vLIdwsHTHPyPgCkZadQo1ce0tAw==}
     engines: {node: '>=16.9.0'}
 
   dayjs@1.11.13:
@@ -1310,6 +1310,9 @@ packages:
 
   magic-string@0.30.14:
     resolution: {integrity: sha512-5c99P1WKTed11ZC0HMJOj6CDIue6F8ySu+bJL+85q1zBEIY8IklrJ1eiKC2NDRh3Ct3FcvmJPyQHb9erXMTJNw==}
+
+  magic-string@0.30.15:
+    resolution: {integrity: sha512-zXeaYRgZ6ldS1RJJUrMrYgNJ4fdwnyI6tVqoiIhyCyv5IVTK9BU8Ic2l253GGETQHxI4HNUwhJ3fjDhKqEoaAw==}
 
   mdsvex@0.12.3:
     resolution: {integrity: sha512-C/uIJamjNo5PHHnR3JHqsBPoLcfUBpzRmAEB6FLMXI/s7XHOceswjDMKqSPEW2WHmYpKm0taZ3U20GSyhMridA==}
@@ -2236,7 +2239,7 @@ snapshots:
       estree-walker: 2.0.2
       fdir: 6.4.2(picomatch@4.0.2)
       is-reference: 1.2.1
-      magic-string: 0.30.14
+      magic-string: 0.30.15
       picomatch: 4.0.2
     optionalDependencies:
       rollup: 4.25.0
@@ -2319,15 +2322,15 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.25.0':
     optional: true
 
-  '@sveltejs/adapter-node@5.2.9(@sveltejs/kit@2.9.0(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11))':
+  '@sveltejs/adapter-node@5.2.9(@sveltejs/kit@2.9.1(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11))':
     dependencies:
       '@rollup/plugin-commonjs': 28.0.1(rollup@4.25.0)
       '@rollup/plugin-json': 6.1.0(rollup@4.25.0)
       '@rollup/plugin-node-resolve': 15.3.0(rollup@4.25.0)
-      '@sveltejs/kit': 2.9.0(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11)
+      '@sveltejs/kit': 2.9.1(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11)
       rollup: 4.25.0
 
-  '@sveltejs/kit@2.9.0(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11)':
+  '@sveltejs/kit@2.9.1(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.9.0)(vite@5.4.11))(svelte@5.9.0)(vite@5.4.11)':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.9.0)(vite@5.4.11)
       '@types/cookie': 0.6.0
@@ -2336,7 +2339,7 @@ snapshots:
       esm-env: 1.2.1
       import-meta-resolve: 4.1.0
       kleur: 4.1.5
-      magic-string: 0.30.14
+      magic-string: 0.30.15
       mrmime: 2.0.0
       sade: 1.8.1
       set-cookie-parser: 2.7.1
@@ -2646,7 +2649,7 @@ snapshots:
 
   culori@3.3.0: {}
 
-  daisyui@4.12.14(postcss@8.4.49):
+  daisyui@4.12.20(postcss@8.4.49):
     dependencies:
       css-selector-tokenizer: 0.8.0
       culori: 3.3.0
@@ -3105,6 +3108,10 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   magic-string@0.30.14:
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.5.0
+
+  magic-string@0.30.15:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
