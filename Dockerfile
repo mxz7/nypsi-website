@@ -39,9 +39,9 @@ RUN pnpm prune --prod
 FROM base
 
 # # # Install packages needed for deployment
-# RUN apt update -qq && \
-#     apt install --no-install-recommends -y openssl && \
-#     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+RUN apt update -qq && \
+    apt install --no-install-recommends -y openssl && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built application
 COPY --from=build /app/build /app/build
