@@ -1,6 +1,5 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
