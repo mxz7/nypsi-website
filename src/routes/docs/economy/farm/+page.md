@@ -32,7 +32,7 @@ fertilising is the exact same story. except they only need to be fertilised arou
 
 <DocsHeader header='h2' text="farm upgrades" />
 
-there are certain items that you can use to upgrade farms. these upgrade apply for all plants of a single plant type.
+there are certain items that you can use to upgrade farms. these upgrades apply for all plants of a single plant type.
 
 you can use a <ItemModal item="farm_silo">silo</ItemModal> to upgrade the plant storage by 10%, up to a max of 50%.
 
