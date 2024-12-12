@@ -20,7 +20,7 @@ the current seeds can be found on the [items page](/item)
 
 <DocsHeader header='h2' text="caring for your farm" />
 
-to keep your farm plants happy and healthy, you need to care for them! generally you can just check `$farm` every few days, if they're unhealthy, water and fertilise.
+to keep your farm plants happy and healthy, you need to care for them! generally you can just check `$farm` every few days, if they're unhealthy, water **then** fertilise if needed.
 
 <DocsHeader header='h3' text="watering" />
 
