@@ -97,7 +97,6 @@
         alt="{baseData.lastKnownUsername}'s avatar"
         onerror={handleFallbackImage}
         loading="eager"
-        decoding="async"
       />
       <div class="mt-2 flex flex-row flex-wrap">
         {#await userData then userData}
@@ -155,7 +154,7 @@
           >
             <span class="mr-1 h-4 w-4 lg:h-6 lg:w-6">
               <img
-                src="https://jdecked.github.io/twemoji/v/latest/svg/1f4b0.svg"
+                src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f4b0.svg"
                 alt="money emoji"
                 class="h-full w-full object-contain"
                 decoding="async"
@@ -172,7 +171,7 @@
           >
             <span class="mr-1 h-4 w-4 lg:h-6 lg:w-6">
               <img
-                src="https://jdecked.github.io/twemoji/v/latest/svg/1f4b3.svg"
+                src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f4b3.svg"
                 alt="credit card (bank) emoji"
                 class="h-full w-full object-contain"
                 decoding="async"
@@ -188,7 +187,7 @@
           >
             <span class="mr-1 h-4 w-4 lg:h-6 lg:w-6">
               <img
-                src="https://jdecked.github.io/twemoji/v/latest/svg/1f30d.svg"
+                src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f30d.svg"
                 alt="globe (net worth) emoji"
                 class="h-full w-full object-contain"
                 decoding="async"
