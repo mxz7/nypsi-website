@@ -16,7 +16,7 @@
     "@flydotio/dockerfile": "^0.5.8",
     "@hcaptcha/types": "^1.0.4",
     "@sveltejs/adapter-node": "^5.2.9",
-    "@sveltejs/kit": "^2.9.0",
+    "@sveltejs/kit": "^2.10.1",
     "@sveltejs/vite-plugin-svelte": "^4.0.2",
     "@twemoji/parser": "^15.1.1",
     "@types/ms": "0.7.34",
