@@ -94,7 +94,7 @@
     },
   };
 
-  const dayOptions = ["14", "30", "60", "90"];
+  const dayOptions = ["14", "30", "60", "90", "180"];
 
   let { data } = $props();
 
