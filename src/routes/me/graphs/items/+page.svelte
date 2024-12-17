@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Chart from "$lib/components/Chart.svelte";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import getItems from "$lib/functions/items.js";
@@ -54,12 +54,12 @@
 
   let { data } = $props();
 
-  let days = $state($page.url.searchParams.get("days") || "30");
+  let days = $state(page.url.searchParams.get("days") || "30");
   let itemId: string = $state();
   let items: Item[] = $state();
 
   $effect(() => {
-    const params = new URLSearchParams($page.url.searchParams.toString());
+    const params = new URLSearchParams(page.url.searchParams.toString());
     params.set("days", days);
     if (itemId) params.set("item", itemId);
     goto(`?${params.toString()}`);

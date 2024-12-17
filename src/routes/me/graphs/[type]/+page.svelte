@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Chart from "$lib/components/Chart.svelte";
   import type { ChartOptions } from "chart.js";
 
@@ -98,10 +98,10 @@
 
   let { data } = $props();
 
-  let days = $state($page.url.searchParams.get("days") || "30");
+  let days = $state(page.url.searchParams.get("days") || "30");
 
   $effect(() => {
-    const params = new URLSearchParams($page.url.searchParams.toString());
+    const params = new URLSearchParams(page.url.searchParams.toString());
     if (days === "30" && !params.has("days")) return;
 
     params.set("days", days);
@@ -110,7 +110,7 @@
 </script>
 
 <svelte:head>
-  <title>{$page.params.type} graph / nypsi</title>
+  <title>{page.params.type} graph / nypsi</title>
 </svelte:head>
 
 <div class="mt-4 flex w-full justify-center">

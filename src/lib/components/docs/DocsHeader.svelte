@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
 
   let {
     text,
@@ -11,7 +11,7 @@
 </script>
 
 {#snippet content()}
-  <a href="#{anchor}" class={$page.url.hash === `#${anchor}` ? "link" : "link-hover"}>{text}</a>
+  <a href="#{anchor}" class={page.url.hash === `#${anchor}` ? "link" : "link-hover"}>{text}</a>
 {/snippet}
 
 {#if header === "h1"}

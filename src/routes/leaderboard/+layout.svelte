@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import { items, tags } from "$lib/state.svelte";
   import { onMount } from "svelte";
@@ -68,8 +68,8 @@
 
   let showChild = $state(true);
 
-  if (!$page.url.pathname.endsWith("leaderboard")) {
-    const selected = options.find((i) => $page.url.pathname.endsWith(i.data || i.name));
+  if (!page.url.pathname.endsWith("leaderboard")) {
+    const selected = options.find((i) => page.url.pathname.endsWith(i.data || i.name));
 
     if (selected) selected.selected = true;
     else options[options.length - 1].selected = true;

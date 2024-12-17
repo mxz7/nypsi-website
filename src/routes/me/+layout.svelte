@@ -1,5 +1,5 @@
 <script>
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import { auth } from "$lib/state.svelte";
   import { BadgePoundSterling, ChartArea, Coins, LogOut, UserRound } from "lucide-svelte";
   import { onMount } from "svelte";
@@ -23,7 +23,7 @@
     <div class="pl-2">
       <li>
         <a
-          class="flex items-center {$page.url.pathname.startsWith('/me/stats')
+          class="flex items-center {page.url.pathname.startsWith('/me/stats')
             ? 'text-primary'
             : ''}"
           href="/me/stats"
@@ -35,7 +35,7 @@
 
       <li>
         <a
-          class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
+          class="flex items-center {page.url.pathname.startsWith('/me/graphs')
             ? 'text-primary'
             : ''}"
           href="/me/graphs"
@@ -47,7 +47,7 @@
 
       <li>
         <a
-          class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
+          class="flex items-center {page.url.pathname.startsWith('/me/purchases')
             ? 'text-primary'
             : ''}"
           href="/me/purchases"

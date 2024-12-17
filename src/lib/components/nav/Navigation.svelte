@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import { auth } from "$lib/state.svelte";
   import { Menu } from "lucide-svelte";
   import MobileScreen from "./MobileScreen.svelte";
@@ -60,7 +60,7 @@
           <span class="loading loading-spinner loading-sm"></span>
         </button>
       {:else if !auth.value.authenticated}
-        <a href="/login?next={encodeURIComponent($page.url.pathname)}" class="btn btn-ghost"
+        <a href="/login?next={encodeURIComponent(page.url.pathname)}" class="btn btn-ghost"
           >log in</a
         >
       {:else}

@@ -1,13 +1,13 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Chart from "$lib/components/Chart.svelte";
   import { auth } from "$lib/state.svelte.js";
   import type { ChartOptions } from "chart.js";
   import { onMount } from "svelte";
 
   let { data } = $props();
-  let days = $state($page.url.searchParams.get("days") || "30");
+  let days = $state(page.url.searchParams.get("days") || "30");
 
   const chartOptions: ChartOptions = {
     plugins: {

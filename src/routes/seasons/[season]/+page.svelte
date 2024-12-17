@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import seasons from "$lib/data/seasons";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
 
-  const season = seasons[$page.params.season];
+  const season = seasons[page.params.season];
 </script>
 
 <svelte:head>
-  <title>season {$page.params.season} / nypsi</title>
-  <meta name="og:title" content="season {$page.params.season} / nypsi" />
+  <title>season {page.params.season} / nypsi</title>
+  <meta name="og:title" content="season {page.params.season} / nypsi" />
 </svelte:head>
 
 <div class="w-full">
   <div class="mt-16 w-full text-center">
     {#if season}
-      <h1 class="text-4xl font-bold text-white">season {$page.params.season}</h1>
+      <h1 class="text-4xl font-bold text-white">season {page.params.season}</h1>
 
       <div class="m-auto mt-3 h-1 w-52 rounded-full bg-primary"></div>
 

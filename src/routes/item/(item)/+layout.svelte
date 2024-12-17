@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import { items } from "$lib/state.svelte";
   import { sort } from "fast-sort";
   import { Search } from "lucide-svelte";
@@ -46,7 +46,7 @@
           <a
             data-sveltekit-noscroll={browser ? (innerWidth > 640 ? true : false) : false}
             href="/item/{item.id}"
-            class="w-full overflow-hidden rounded-box border border-primary border-opacity-5 bg-base-200 duration-300 hover:border-opacity-25 {$page
+            class="w-full overflow-hidden rounded-box border border-primary border-opacity-5 bg-base-200 duration-300 hover:border-opacity-25 {page
               .params.itemId === item.id
               ? 'border-opacity-50 hover:border-opacity-50'
               : ''}"

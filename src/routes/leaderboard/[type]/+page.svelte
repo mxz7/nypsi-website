@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import { items } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import BigLeaderboard from "./BigLeaderboard.svelte";
@@ -21,7 +21,7 @@
     tags={data.tags}
     data={data.leaderboardData}
     title={data.title}
-    userRoute={$page.url.pathname.endsWith("guilds") ? "/guild" : "/user"}
+    userRoute={page.url.pathname.endsWith("guilds") ? "/guild" : "/user"}
     descriptor={data.descriptor}
   />
 </div>

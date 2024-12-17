@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
 
   let { data, children } = $props();
 </script>
@@ -13,39 +13,39 @@
     <ul class="menu menu-horizontal rounded-box bg-base-200 text-xs lg:text-sm">
       <li>
         <a
-          class={$page.url.pathname.startsWith("/me/graphs/balance") ? "focus" : ""}
-          href="/me/graphs/balance{$page.url.searchParams.toString()
-            ? `?${$page.url.searchParams.toString()}`
+          class={page.url.pathname.startsWith("/me/graphs/balance") ? "focus" : ""}
+          href="/me/graphs/balance{page.url.searchParams.toString()
+            ? `?${page.url.searchParams.toString()}`
             : ''}">balance</a
         >
       </li>
       <li>
         <a
-          class={$page.url.pathname.startsWith("/me/graphs/net") ? "focus" : ""}
-          href="/me/graphs/net{$page.url.searchParams.toString()
-            ? `?${$page.url.searchParams.toString()}`
+          class={page.url.pathname.startsWith("/me/graphs/net") ? "focus" : ""}
+          href="/me/graphs/net{page.url.searchParams.toString()
+            ? `?${page.url.searchParams.toString()}`
             : ''}">net worth</a
         >
       </li>
       <li>
         <a
-          class={$page.url.pathname.startsWith("/me/graphs/level") ? "focus" : ""}
-          href="/me/graphs/level{$page.url.searchParams.toString()
-            ? `?${$page.url.searchParams.toString()}`
+          class={page.url.pathname.startsWith("/me/graphs/level") ? "focus" : ""}
+          href="/me/graphs/level{page.url.searchParams.toString()
+            ? `?${page.url.searchParams.toString()}`
             : ''}">level</a
         >
       </li>
       <li>
         <a
-          class={$page.url.pathname.startsWith("/me/graphs/karma") ? "focus" : ""}
-          href="/me/graphs/karma{$page.url.searchParams.toString()
-            ? `?${$page.url.searchParams.toString()}`
+          class={page.url.pathname.startsWith("/me/graphs/karma") ? "focus" : ""}
+          href="/me/graphs/karma{page.url.searchParams.toString()
+            ? `?${page.url.searchParams.toString()}`
             : ''}">karma</a
         >
       </li>
       <li>
         <a
-          class={$page.url.pathname.startsWith("/me/graphs/items") ? "focus" : ""}
+          class={page.url.pathname.startsWith("/me/graphs/items") ? "focus" : ""}
           href="/me/graphs/items">items</a
         >
       </li>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Blackjack from "$lib/components/games/Blackjack.svelte";
   import Mines from "$lib/components/games/Mines.svelte";
   import RockPaperScissors from "$lib/components/games/RockPaperScissors.svelte";
@@ -14,8 +14,8 @@
 </script>
 
 <svelte:head>
-  <title>game: {$page.params.id} / nypsi</title>
-  <meta name="og:title" content="game: {$page.params.id} / nypsi" />
+  <title>game: {page.params.id} / nypsi</title>
+  <meta name="og:title" content="game: {page.params.id} / nypsi" />
 </svelte:head>
 
 {#key data}

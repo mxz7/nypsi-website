@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Loading from "$lib/components/Loading.svelte";
   import type Game from "$lib/types/Game";
   import dayjs from "dayjs";
@@ -20,7 +20,7 @@
     status = "loading";
     console.log("fetching more");
 
-    const params = $page.url.searchParams;
+    const params = page.url.searchParams;
 
     params.set("take", "50");
     params.set("skip", games.length.toString());

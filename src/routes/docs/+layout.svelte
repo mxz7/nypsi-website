@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import type { PathsData } from "$lib/data/docs";
   import { paths } from "$lib/data/docs";
   import { fly } from "svelte/transition";
@@ -19,8 +19,8 @@
 {#snippet renderPath(path: { name: string; path: string; children?: PathsData })}
   <li>
     {#if path.children}
-      <details open={$page.url.pathname.startsWith(path.path)}>
-        <summary class={$page.url.pathname.startsWith(path.path) ? "text-primary" : ""}
+      <details open={page.url.pathname.startsWith(path.path)}>
+        <summary class={page.url.pathname.startsWith(path.path) ? "text-primary" : ""}
           >{path.name.replaceAll("-", " ")}</summary
         >
         <ul>
@@ -32,7 +32,7 @@
     {:else}
       <a
         data-sveltekit-preload-code="eager"
-        class={path.path === $page.url.pathname ? "text-primary" : ""}
+        class={path.path === page.url.pathname ? "text-primary" : ""}
         href={path.path}
       >
         {path.name.replaceAll("-", " ")}
@@ -49,7 +49,7 @@
       {@render renderPath(path)}
     {/each}
   </ul>
-  {#key $page.url.pathname}
+  {#key page.url.pathname}
     <div in:fly={{ duration: 400, y: 25 }} class="docs-content w-full p-4 lg:p-0">
       {@render children()}
     </div>

@@ -1,6 +1,7 @@
+<!-- @migration task: review uses of `navigating` -->
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { navigating } from "$app/stores";
+  import { navigating } from "$app/state";
   import { items, userSearchTerm } from "$lib/state.svelte";
   import { onMount } from "svelte";
 
@@ -29,7 +30,7 @@
       autocapitalize="off"
       minlength="2"
       maxlength="32"
-      disabled={Boolean($navigating)}
+      disabled={Boolean(navigating)}
       pattern={String.raw`^[_\.\w0-9]{2,32}$`}
       title="discord username"
     />

@@ -1,5 +1,5 @@
 <script>
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
 </script>
 
 <svelte:head>
@@ -8,9 +8,9 @@
 </svelte:head>
 
 <h1 class="w-full text-center text-xl font-bold text-slate-200">
-  {#if $page.url.searchParams.get("user")}
+  {#if page.url.searchParams.get("user")}
     couldn't find a user matching <span class="font-mono opacity-80"
-      >{$page.url.searchParams.get("user")}</span
+      >{page.url.searchParams.get("user")}</span
     >
   {:else}
     unknown user

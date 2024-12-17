@@ -1,7 +1,7 @@
 <script lang="ts">
   import { dev } from "$app/environment";
   import { onNavigate } from "$app/navigation";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Footer from "$lib/components/Footer.svelte";
   import LoadBar from "$lib/components/LoadBar.svelte";
   import Navigation from "$lib/components/nav/Navigation.svelte";
@@ -25,7 +25,7 @@
       auth.value = authData;
     }
 
-    if ($page.url.searchParams.get("loggedin")) {
+    if (page.url.searchParams.get("loggedin")) {
       if (!auth.value || !auth.value.authenticated) return;
       setTimeout(async () => {
         if (!auth.value || !auth.value.authenticated) return;
@@ -67,7 +67,7 @@
     content="nypsi, discord, bot, server, economy, gambling, moderation, reaction roles, wholesome"
   />
 
-  <meta name="og:url" content={$page.url.toString()} />
+  <meta name="og:url" content={page.url.toString()} />
   <meta name="og:site_name" content="nypsi" />
 
   <meta name="theme-color" content="#081121" media="(prefers-color-scheme: dark)" />
