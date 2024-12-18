@@ -30,7 +30,7 @@
       autocapitalize="off"
       minlength="2"
       maxlength="32"
-      disabled={Boolean(navigating)}
+      disabled={Boolean(navigating.to)}
       pattern={String.raw`^[_\.\w0-9]{2,32}$`}
       title="discord username"
     />

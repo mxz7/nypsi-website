@@ -27,7 +27,7 @@
       autocapitalize="off"
       minlength="2"
       maxlength="32"
-      disabled={Boolean(navigating)}
+      disabled={Boolean(navigating.to)}
       title="guild name"
     />
   </form>
