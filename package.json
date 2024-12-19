@@ -17,7 +17,7 @@
     "@hcaptcha/types": "^1.0.4",
     "@sveltejs/adapter-node": "^5.2.11",
     "@sveltejs/kit": "^2.12.2",
-    "@sveltejs/vite-plugin-svelte": "^4.0.2",
+    "@sveltejs/vite-plugin-svelte": "^4.0.4",
     "@twemoji/parser": "^15.1.1",
     "@types/ms": "0.7.34",
     "@types/twemoji-parser": "13.1.4",
