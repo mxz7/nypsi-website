@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import sleep from "$lib/functions/sleep.js";
+import sleep from "$lib/functions/sleep";
 import { error } from "@sveltejs/kit";
 import { sort } from "fast-sort";
 
@@ -131,7 +131,9 @@ export async function load({ params, parent, fetch, setHeaders }) {
   const oddsData = getOddsData();
 
   if (browser) {
-    const race = await Promise.race([oddsData, inWorld, value, sleep(50)]);
+    const race = await Promise.race([Promise.all([oddsData, inWorld, value]), sleep(50)]);
+
+    console.log(race);
 
     if (typeof race === "boolean") {
       setHeaders({ "x-accel-buffering": "no" });
@@ -148,8 +150,8 @@ export async function load({ params, parent, fetch, setHeaders }) {
 
   return {
     item: selected,
-    odds: browser ? getOddsData() : await getOddsData(),
-    inWorld: browser ? inWorld : await inWorld,
-    value: browser ? value : await value,
+    odds: await getOddsData(),
+    inWorld: await inWorld,
+    value: await value,
   };
 }
