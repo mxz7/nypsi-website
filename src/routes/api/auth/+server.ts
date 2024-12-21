@@ -17,15 +17,20 @@ export async function GET({ cookies, setHeaders }) {
   const cache = await redis.get(`cache:session:${sessionId}`);
 
   if (cache) {
-    session = JSON.parse(cache).session;
-    user = JSON.parse(cache).user;
+    session = JSON.parse(cache)?.session;
+    user = JSON.parse(cache)?.user;
   } else {
     const authData = await lucia.validateSession(sessionId);
 
     session = authData?.session;
     user = authData?.user;
 
-    await redis.set(`cache:session:${sessionId}`, JSON.stringify(authData), "EX", 3600);
+    await redis.set(
+      `cache:session:${sessionId}`,
+      JSON.stringify(authData),
+      "PXAT",
+      session.expiresAt.getTime(),
+    );
   }
 
   if (session && session.fresh) {
