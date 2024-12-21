@@ -131,7 +131,7 @@ export async function load({ params, parent, fetch, setHeaders }) {
   const oddsData = getOddsData();
 
   if (browser) {
-    const race = await Promise.race([oddsData, inWorld, value, sleep(30)]);
+    const race = await Promise.race([oddsData, inWorld, value, sleep(50)]);
 
     if (typeof race === "boolean") {
       setHeaders({ "x-accel-buffering": "no" });
