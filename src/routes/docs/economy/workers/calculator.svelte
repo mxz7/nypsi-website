@@ -13,13 +13,14 @@
   const perScanner = 0.00077;
   const perRadar = 0.00027;
 
-  let scrapChance = $derived(
+  const scrapChance = $derived(
     Math.min(
       50,
       Math.round(Math.min(scrapBase + perScanner * scanners, 0.5) * stored * 10 ** 5) / 10 ** 5,
     ),
   );
-  let shardChance = $derived(
+
+  const shardChance = $derived(
     Math.min(
       10,
       Math.round(Math.min(shardBase + perRadar * radars, 0.1) * stored * 10 ** 5) / 10 ** 5,

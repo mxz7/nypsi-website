@@ -5,7 +5,7 @@
   import Guild from "./Guild.svelte";
 
   let { data } = $props();
-  let title = $derived(
+  const title = $derived(
     `${data.guild.success ? data.guild.guild.guildName : "unknown guild"} | nypsi`,
   );
 

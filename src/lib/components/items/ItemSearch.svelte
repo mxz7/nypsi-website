@@ -15,7 +15,7 @@
     search = $bindable(""),
   }: Props = $props();
 
-  let filteredItems: Item[] = $derived(
+  const filteredItems: Item[] = $derived(
     items.filter((i) => i.name.includes(search.toLowerCase()) || i.id.startsWith(search)),
   );
 </script>

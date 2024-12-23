@@ -14,7 +14,7 @@
 
   let search: string = $state();
 
-  let filteredItems = $derived(
+  const filteredItems = $derived(
     (search || "").length === 0
       ? data.items
       : sort(

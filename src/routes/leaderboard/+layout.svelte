@@ -75,7 +75,7 @@
     else options[options.length - 1].selected = true;
   }
 
-  let selected = $derived(options.find((i) => i.selected));
+  const selected = $derived(options.find((i) => i.selected));
 
   onMount(() => {
     items.value = data.items;

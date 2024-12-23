@@ -5,7 +5,7 @@
 
   let { data } = $props();
 
-  let title = $derived(`${data.baseUserData.lastKnownUsername}'s profile | nypsi`);
+  const title = $derived(`${data.baseUserData.lastKnownUsername}'s profile | nypsi`);
 
   $effect(() => {
     userSearchTerm.value = data.baseUserData.lastKnownUsername;
