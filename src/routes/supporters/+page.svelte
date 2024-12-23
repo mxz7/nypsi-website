@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-  <title>supporters / nypsi</title>
+  <title>supporters | nypsi</title>
 </svelte:head>
 
 <div class="mt-8 flex w-full justify-center">

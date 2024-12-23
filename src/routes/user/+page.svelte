@@ -1,4 +1,4 @@
 <svelte:head>
-  <title>users / nypsi</title>
-  <meta name="og:title" content="users / nypsi" />
+  <title>users | nypsi</title>
+  <meta name="og:title" content="users | nypsi" />
 </svelte:head>

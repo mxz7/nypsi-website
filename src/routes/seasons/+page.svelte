@@ -4,8 +4,8 @@
 </script>
 
 <svelte:head>
-  <title>seasons / nypsi</title>
-  <meta name="og:title" content="seasons / nypsi" />
+  <title>seasons | nypsi</title>
+  <meta name="og:title" content="seasons | nypsi" />
 </svelte:head>
 
 <div class="flex h-screen items-center justify-center">

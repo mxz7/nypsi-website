@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>graphs / nypsi</title>
+  <title>graphs | nypsi</title>
 </svelte:head>
 
 {#if data.premium}

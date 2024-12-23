@@ -80,7 +80,7 @@
 </script>
 
 <svelte:head>
-  <title>{data.item?.name} history / nypsi</title>
+  <title>{data.item?.name} history | nypsi</title>
 </svelte:head>
 
 {#if data.premium}

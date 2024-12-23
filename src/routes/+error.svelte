@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>{page.status} - {page.error.message} / nypsi</title>
+  <title>{page.status} - {page.error.message} | nypsi</title>
   <meta name="robots" content="noindex" />
 </svelte:head>
 

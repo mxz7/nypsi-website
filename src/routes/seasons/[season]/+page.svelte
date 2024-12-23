@@ -7,8 +7,8 @@
 </script>
 
 <svelte:head>
-  <title>season {page.params.season} / nypsi</title>
-  <meta name="og:title" content="season {page.params.season} / nypsi" />
+  <title>season {page.params.season} | nypsi</title>
+  <meta name="og:title" content="season {page.params.season} | nypsi" />
 </svelte:head>
 
 <div class="w-full">

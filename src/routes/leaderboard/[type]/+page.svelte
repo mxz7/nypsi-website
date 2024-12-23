@@ -12,8 +12,8 @@
 </script>
 
 <svelte:head>
-  <title>{data.title} / nypsi</title>
-  <meta name="og:title" content="{data.title} / nypsi" />
+  <title>{data.title} | nypsi</title>
+  <meta name="og:title" content="{data.title} | nypsi" />
 </svelte:head>
 
 <div class="mt-10 flex w-full justify-center">

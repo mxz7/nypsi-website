@@ -9,8 +9,8 @@
 </script>
 
 <svelte:head>
-  <title>{title} / nypsi docs</title>
-  <meta name="og:title" content="{title} / nypsi docs" />
+  <title>{title} | nypsi docs</title>
+  <meta name="og:title" content="{title} | nypsi docs" />
 </svelte:head>
 
 <DocsHeader anchor={title.replaceAll(" ", "-")} header="h1" text={title} />

@@ -32,8 +32,8 @@
 </script>
 
 <svelte:head>
-  <title>{data.item.name} / nypsi</title>
-  <meta name="og:title" content="{data.item.name} / nypsi" />
+  <title>{data.item.name} | nypsi</title>
+  <meta name="og:title" content="{data.item.name} | nypsi" />
 
   <meta name="description" content={data.item.longDesc} />
   <meta name="og:description" content={data.item.longDesc} />

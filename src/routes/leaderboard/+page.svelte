@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { getTags } from "$lib/functions/tags";
   import MiniLeaderboard from "./MiniLeaderboard.svelte";
 
   let { data } = $props();
 </script>
 
 <svelte:head>
-  <title>leaderboards / nypsi</title>
-  <meta name="og:title" content="leaderboards / nypsi" />
+  <title>leaderboards | nypsi</title>
+  <meta name="og:title" content="leaderboards | nypsi" />
 </svelte:head>
 
 <div class="mt-8 flex w-full justify-center">

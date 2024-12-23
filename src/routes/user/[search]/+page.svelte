@@ -5,7 +5,7 @@
 
   let { data } = $props();
 
-  let title = $derived(`${data.baseUserData.lastKnownUsername} / nypsi`);
+  let title = $derived(`${data.baseUserData.lastKnownUsername}'s profile | nypsi`);
 
   $effect(() => {
     userSearchTerm.value = data.baseUserData.lastKnownUsername;
@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-  <title>{title || `${data.baseUserData.lastKnownUsername} / nypsi`}</title>
+  <title>{title || `${data.baseUserData.lastKnownUsername}'s profile | nypsi`}</title>
   <meta name="og:title" content="{data.baseUserData.lastKnownUsername}'s nypsi profile" />
 
   <meta name="description" content="view {data.baseUserData.lastKnownUsername}'s nypsi profile" />

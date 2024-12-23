@@ -71,7 +71,7 @@
 </script>
 
 <svelte:head>
-  <title>items graph / nypsi</title>
+  <title>items graph | nypsi</title>
 </svelte:head>
 
 <div class="mt-4 flex w-full justify-center">

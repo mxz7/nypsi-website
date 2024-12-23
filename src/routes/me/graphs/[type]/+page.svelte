@@ -110,7 +110,7 @@
 </script>
 
 <svelte:head>
-  <title>{page.params.type} graph / nypsi</title>
+  <title>{page.params.type} graph | nypsi</title>
 </svelte:head>
 
 <div class="mt-4 flex w-full justify-center">

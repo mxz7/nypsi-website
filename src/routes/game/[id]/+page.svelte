@@ -7,15 +7,14 @@
   import Scratch from "$lib/components/games/Scratch.svelte";
   import Slots from "$lib/components/games/Slots.svelte";
   import Tower from "$lib/components/games/Tower.svelte";
-  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
   let { data } = $props();
 </script>
 
 <svelte:head>
-  <title>game: {page.params.id} / nypsi</title>
-  <meta name="og:title" content="game: {page.params.id} / nypsi" />
+  <title>game: {page.params.id} | nypsi</title>
+  <meta name="og:title" content="game: {page.params.id} | nypsi" />
 </svelte:head>
 
 {#key data}

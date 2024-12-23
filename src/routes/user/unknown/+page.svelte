@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>unknown user / nypsi</title>
+  <title>unknown user | nypsi</title>
   <meta name="robots" content="noindex" />
 </svelte:head>
 

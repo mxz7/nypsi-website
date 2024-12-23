@@ -6,7 +6,7 @@
 
   let { data } = $props();
   let title = $derived(
-    `${data.guild.success ? data.guild.guild.guildName : "unknown guild"} / nypsi`,
+    `${data.guild.success ? data.guild.guild.guildName : "unknown guild"} | nypsi`,
   );
 
   $effect(() => {
