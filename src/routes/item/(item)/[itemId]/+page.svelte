@@ -72,7 +72,7 @@
     <div class="w-full text-center">
       <h2 class="text-lg font-semibold text-white">in world</h2>
       {#await data.inWorld}
-        <span class="loading loading-spinner loading-sm" in:fade={{ delay: 100, duration: 100 }}
+        <span class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}
         ></span>
       {:then inWorld}
         <span class="text-sm">{(inWorld || 0).toLocaleString()}</span>
@@ -82,7 +82,7 @@
     <div class="w-full text-center">
       <h2 class="text-lg font-semibold text-white">worth</h2>
       {#await data.value}
-        <span class="loading loading-spinner loading-sm" in:fade={{ delay: 100, duration: 100 }}
+        <span class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}
         ></span>
       {:then value}
         <span class="text-sm">${value.toLocaleString()}</span>
