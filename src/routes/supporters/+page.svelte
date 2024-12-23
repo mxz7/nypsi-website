@@ -27,25 +27,25 @@
     <div class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.supporters as supporter}
         <a
-          class="flex min-w-0 items-center overflow-hidden overflow-ellipsis whitespace-nowrap duration-300 hover:text-white"
+          class="link-hover flex min-w-0 items-center overflow-hidden overflow-ellipsis whitespace-nowrap"
           href="/user/{supporter.id}"
         >
-          {#if supporter.Tags[0]?.tagId}
+          {#if supporter.tagId}
             <span>[</span>
             <img
               class="h-4"
-              src={parseEmoji(data.tags[supporter.Tags[0].tagId]?.emoji)}
+              src={parseEmoji(data.tags[supporter.tagId]?.emoji)}
               alt=""
               use:tooltip={{
                 placement: "top",
-                content: data.tags[supporter.Tags[0].tagId]?.name,
+                content: data.tags[supporter.tagId]?.name,
                 followCursor: true,
               }}
             />
             <span class="mr-1">]</span>
           {/if}
           <span class="min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
-            >{supporter.lastKnownUsername}</span
+            >{supporter.username}</span
           >
         </a>
       {/each}
@@ -60,7 +60,7 @@
     <div class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.contributors as supporter}
         <a
-          class="flex items-center overflow-hidden overflow-ellipsis whitespace-nowrap duration-300 hover:text-white"
+          class="link-hover flex items-center overflow-hidden overflow-ellipsis whitespace-nowrap"
           href="/user/{supporter.id}"
         >
           {#if supporter.Tags[0]?.tagId}
