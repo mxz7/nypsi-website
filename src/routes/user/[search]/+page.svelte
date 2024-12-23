@@ -26,6 +26,7 @@
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
 
+  <meta name="robots" content="noindex" />
   <link rel="canonical" href="https://nypsi.xyz/user/{data.baseUserData.id}" />
 </svelte:head>
 
