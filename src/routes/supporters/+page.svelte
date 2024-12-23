@@ -14,6 +14,9 @@
 
 <svelte:head>
   <title>supporters | nypsi</title>
+  <meta name="og:title" content="nypsi supporters" />
+
+  <meta name="description" content={data.supporters.map((i) => i.username).join(", ")} />
 </svelte:head>
 
 <div class="mt-8 flex w-full justify-center">
