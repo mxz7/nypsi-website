@@ -4,6 +4,10 @@
   let { data } = $props();
 </script>
 
+<svelte:head>
+  <title>{data.guild.name} modlogs | nypsi</title>
+</svelte:head>
+
 <h1 class="flex items-center gap-3 text-3xl font-bold text-white">
   <img
     src={data.guild.icon
