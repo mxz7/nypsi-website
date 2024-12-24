@@ -4,7 +4,7 @@
 
   let { data } = $props();
 
-  const settings = [{ name: "chat filter", href: "/chat-filter" }];
+  const settings = [{ name: "chat filter", href: "chatfilter" }];
 
   let modLogsData = $state<
     {
@@ -45,7 +45,7 @@
   <h2 class="mt-4 text-xl font-semibold text-white">settings</h2>
   <div class="mt-1 flex gap-4">
     {#each settings as setting}
-      <a href={setting.href} class="btn">
+      <a href="/me/guilds/{data.guild.id}/{setting.href}" class="btn">
         {setting.name}
       </a>
     {/each}
