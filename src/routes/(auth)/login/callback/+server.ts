@@ -1,6 +1,7 @@
 import { env } from "$env/dynamic/public";
 import prisma from "$lib/server/database.js";
 import { discord, lucia } from "$lib/server/functions/auth.js";
+import redis from "$lib/server/redis.js";
 import { OAuth2RequestError } from "arctic";
 
 export async function GET({ cookies, url }) {
@@ -41,6 +42,13 @@ export async function GET({ cookies, url }) {
     } else {
       return new Response(null, { status: 302, headers: { Location: "/" } });
     }
+
+    await redis.set(
+      `discord:accesstoken:${user.id}`,
+      tokens.accessToken(),
+      "EX",
+      tokens.accessTokenExpiresInSeconds(),
+    );
 
     const nextUrl = new URL(`${env.PUBLIC_URL}${next ? next : ""}`);
 

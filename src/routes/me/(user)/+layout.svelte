@@ -1,7 +1,7 @@
 <script>
   import { page } from "$app/state";
   import { auth } from "$lib/state.svelte";
-  import { BadgePoundSterling, ChartArea, Coins, LogOut, UserRound } from "lucide-svelte";
+  import { BadgePoundSterling, ChartArea, Coins, LogOut, Server, UserRound } from "lucide-svelte";
   import { onMount } from "svelte";
 
   let { children, data } = $props();
@@ -66,6 +66,15 @@
         >
           <UserRound size={16} />
           <span>profile</span>
+        </a>
+      </li>
+
+      <div class="divider my-0"></div>
+
+      <li>
+        <a href="/me/guilds" class="flex items-center text-sm">
+          <Server size={16} />
+          <span>manage servers</span>
         </a>
       </li>
 
