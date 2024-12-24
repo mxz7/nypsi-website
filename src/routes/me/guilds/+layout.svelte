@@ -31,7 +31,7 @@
       <li class={(parseInt(guild.permissions) & 0x20) == 0x20 ? "" : "disabled"}>
         <a
           class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
-            ? 'text-primary'
+            ? 'font-medium text-primary'
             : ''} {(parseInt(guild.permissions) & 0x20) == 0x20 ? '' : 'cursor-not-allowed'}"
           href="/me/guilds/{guild.id}"
         >
