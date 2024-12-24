@@ -1,7 +1,29 @@
 <script lang="ts">
+  import { preloadData } from "$app/navigation";
+  import Table from "./modlogs/Table.svelte";
+
   let { data } = $props();
 
   const settings = [{ name: "chat filter", href: "/chat-filter" }];
+
+  let modLogsData = $state<
+    {
+      user: string;
+      caseId: number;
+      type: string;
+      moderator: string;
+      command: string;
+    }[]
+  >([]);
+
+  $effect(() => {
+    modLogsData = [];
+    preloadData(`/me/guilds/${data.guild.id}/modlogs`).then((result) => {
+      if (result.type === "loaded" && result.status === 200) {
+        modLogsData = result.data.modlogs;
+      }
+    });
+  });
 </script>
 
 <svelte:head>
@@ -28,6 +50,12 @@
       </a>
     {/each}
   </div>
+
+  {#if modLogsData.length > 0}
+    <h2 class="mt-4 text-xl font-semibold text-white">modlogs</h2>
+
+    <Table tableData={modLogsData} />
+  {/if}
 {:else}
   <p class="mt-4 text-error">you do not have the 'manage server' permission in {data.guild.name}</p>
 {/if}
