@@ -27,15 +27,16 @@ export async function getGuilds(user: User): Promise<null | number | DiscordGuil
     return guildsResponse.status;
   }
 
-  const guilds: DiscordGuild[] = await guildsResponse.json();
+  let guilds: DiscordGuild[] = await guildsResponse.json();
 
-  for (const guild of guilds) {
-    const query = await prisma.guild.findUnique({ where: { id: guild.id }, select: { id: true } });
+  const nypsiGuilds = await prisma.guild
+    .findMany({
+      where: { id: { in: guilds.map((i) => i.id) } },
+      select: { id: true },
+    })
+    .then((q) => q.map((i) => i.id));
 
-    if (!query) {
-      guilds.splice(guilds.indexOf(guild), 1);
-    }
-  }
+  guilds = guilds.filter((i) => nypsiGuilds.includes(i.id));
 
   inPlaceSort(guilds).asc([(g) => g.name]);
 
