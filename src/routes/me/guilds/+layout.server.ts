@@ -6,7 +6,7 @@ export async function load({ locals, url }) {
 
   if (!auth) return redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
 
-  const guilds = await getGuilds(auth.user);
+  const guilds = await getGuilds(auth.user, locals);
 
   if (!guilds) return error(400, "unknown guilds error");
 

@@ -1,10 +1,12 @@
+import { dev } from "$app/environment";
 import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
 import type { DiscordGuild } from "$lib/types/Discord";
+import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
 import type { User } from "lucia";
 
-export async function getGuilds(user: User): Promise<null | number | DiscordGuild[]> {
+export async function getGuilds(user: User, locals?: any): Promise<null | number | DiscordGuild[]> {
   const accessToken = await redis.get(`discord:accesstoken:${user.id}`);
 
   if (!accessToken) return null;
@@ -24,7 +26,11 @@ export async function getGuilds(user: User): Promise<null | number | DiscordGuil
       await redis.del(`discord:accesstoken:${user.id}`);
     }
 
-    return guildsResponse.status;
+    if (dev) console.error(guildsResponse);
+
+    locals.error = JSON.stringify(guildsResponse);
+
+    error(guildsResponse.status, guildsResponse.statusText);
   }
 
   let guilds: DiscordGuild[] = await guildsResponse.json();
