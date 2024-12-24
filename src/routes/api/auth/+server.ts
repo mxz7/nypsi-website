@@ -25,12 +25,13 @@ export async function GET({ cookies, setHeaders }) {
     session = authData?.session;
     user = authData?.user;
 
-    await redis.set(
-      `cache:session:${sessionId}`,
-      JSON.stringify(authData),
-      "PXAT",
-      session.expiresAt.getTime(),
-    );
+    if (session)
+      await redis.set(
+        `cache:session:${sessionId}`,
+        JSON.stringify(authData),
+        "PXAT",
+        session.expiresAt.getTime(),
+      );
   }
 
   if (session && session.fresh) {
