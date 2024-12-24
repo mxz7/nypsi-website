@@ -4,7 +4,7 @@
   import { BadgePoundSterling, ChartArea, Coins, LogOut, UserRound } from "lucide-svelte";
   import { onMount } from "svelte";
 
-  let { children, data } = $props();
+  let../$types.js { children, data } = $props();
 
   onMount(() => {
     if (data.user && !auth?.value) {
