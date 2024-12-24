@@ -1,6 +1,7 @@
 import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
 import type { DiscordGuild } from "$lib/types/Discord";
+import { inPlaceSort } from "fast-sort";
 import type { User } from "lucia";
 
 export async function getGuilds(user: User): Promise<null | number | DiscordGuild[]> {
@@ -35,6 +36,8 @@ export async function getGuilds(user: User): Promise<null | number | DiscordGuil
       guilds.splice(guilds.indexOf(guild), 1);
     }
   }
+
+  inPlaceSort(guilds).asc([(g) => g.name]);
 
   await redis.set(`discord:guilds:${user.id}`, JSON.stringify(guilds), "EX", 5);
 

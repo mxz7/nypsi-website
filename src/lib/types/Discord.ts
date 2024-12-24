@@ -3,7 +3,6 @@ export type DiscordGuild = {
   name: string;
   icon: string;
   owner: boolean;
-  permissions: number;
+  permissions: string;
   features: string[];
-  permissions_new: string;
 };
