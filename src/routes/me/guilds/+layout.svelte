@@ -35,7 +35,7 @@
           <a
             class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
               ? 'text-primary'
-              : ''}"
+              : ''} {(parseInt(guild.permissions) & 0x20) == 0x20 ? '' : 'cursor-not-allowed'}"
             href="/me/guilds/{guild.id}"
           >
             <img
@@ -43,7 +43,9 @@
                 ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`
                 : "https://cdn.discordapp.com/avatars/678711738845102087/cb2dcd61010f2b89ceb1cd5ff15816cf.png?size=256"}
               alt=""
-              class="h-8 rounded-box"
+              height="256"
+              width="256"
+              class="h-8 w-8 rounded-xl"
               loading="lazy"
               decoding="async"
             />
