@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Table from "./Table.svelte";
+
   let { data } = $props();
 </script>
 
@@ -16,3 +18,5 @@
   />
   <span>{data.guild.name} chat filter</span>
 </h1>
+
+<Table chatFilter={data.chatFilter} />
