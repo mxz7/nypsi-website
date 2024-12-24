@@ -39,7 +39,7 @@ export async function getGuilds(user: User): Promise<null | number | DiscordGuil
 
   inPlaceSort(guilds).asc([(g) => g.name]);
 
-  await redis.set(`discord:guilds:${user.id}`, JSON.stringify(guilds), "EX", 5);
+  await redis.set(`discord:guilds:${user.id}`, JSON.stringify(guilds), "EX", 30);
 
   return guilds;
 }
