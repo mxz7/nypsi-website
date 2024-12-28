@@ -1,3 +1,4 @@
+import { env } from "$env/dynamic/private";
 import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
 import { error, redirect } from "@sveltejs/kit";
@@ -40,7 +41,7 @@ export async function load({ parent, params }) {
 }
 
 export const actions = {
-  create: async ({ request, params, locals }) => {
+  create: async ({ request, params, locals, fetch }) => {
     const auth = await locals.validate();
 
     if (!auth.user) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
@@ -85,6 +86,12 @@ export const actions = {
 
     if (!form.valid) return fail(400, { form });
 
+    await fetch(`${env.BOT_SERVER_URL}/redis`, {
+      method: "delete",
+      body: `cache:guild:chatfilter:${params.guildId}`,
+      headers: { authorization: env.BOT_API_AUTH },
+    });
+
     return message(form, "success");
   },
   delete: async ({ request, params, locals }) => {
@@ -115,6 +122,12 @@ export const actions = {
           guildId: params.guildId,
         },
       },
+    });
+
+    await fetch(`${env.BOT_SERVER_URL}/redis`, {
+      method: "delete",
+      body: `cache:guild:chatfilter:${params.guildId}`,
+      headers: { authorization: env.BOT_API_AUTH },
     });
   },
   edit: async ({ request, params, locals }) => {
@@ -161,6 +174,12 @@ export const actions = {
       data: {
         percentMatch: percentageNumber,
       },
+    });
+
+    await fetch(`${env.BOT_SERVER_URL}/redis`, {
+      method: "delete",
+      body: `cache:guild:chatfilter:${params.guildId}`,
+      headers: { authorization: env.BOT_API_AUTH },
     });
   },
 };
