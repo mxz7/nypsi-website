@@ -18,11 +18,13 @@ nypsi is a bit unique and uses a 'percentage matching' algorithm to attempt to c
 to change the percentage match, use `$filter match <percentage>`
 
 <DocsHeader header='h3' text="disabling" />
-### disabling
 
 use `$filter match 100` to only filter exact matches.
 
 <DocsHeader header='h2' text="testing the filter" />
-## testing the filter
 
 you can test the filter with `$filter test <phrase>`, this will allow you to easily test and perfect your percentage match
+
+<DocsHeader header='h2' text="caveats" />
+
+when a user message has more than 69 words (spaces), there will be no fancy similarity checking. just a simple raw includes check. this is due to performance limitations.
