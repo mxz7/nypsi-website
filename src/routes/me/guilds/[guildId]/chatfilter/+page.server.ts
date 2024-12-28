@@ -59,6 +59,11 @@ export const actions = {
 
     if (!form.valid) return fail(400, { form });
 
+    if (form.data.content.normalize("NFD").trim().length === 0) {
+      setError(form, "content", "no content");
+      return fail(400, { form });
+    }
+
     const count = await prisma.chatFilter.count({ where: { guildId: params.guildId } });
 
     if (count >= 250) {
@@ -70,7 +75,7 @@ export const actions = {
       .create({
         data: {
           guildId: params.guildId,
-          content: form.data.content,
+          content: form.data.content.normalize("NFD").trim(),
           percentMatch: form.data.match,
         },
       })
