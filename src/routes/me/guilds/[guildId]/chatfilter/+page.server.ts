@@ -105,4 +105,50 @@ export const actions = {
       },
     });
   },
+  edit: async ({ request, params, locals }) => {
+    const auth = await locals.validate();
+
+    if (!auth.user) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
+
+    const guilds = await getGuilds(auth.user, locals);
+
+    if (!guilds) return error(400, "unknown guilds error");
+
+    if (typeof guilds === "number") return error(guilds, "discord api error");
+
+    const guild = guilds.find((g) => g.id === params.guildId);
+
+    if (!guild) return redirect(302, "/me/guilds");
+
+    const formData = await request.formData();
+
+    const content = formData.get("content")?.toString();
+
+    if (!content) return fail(400, { message: "no content" });
+
+    const percentage = formData.get("percent")?.toString();
+
+    console.log(percentage);
+
+    if (!percentage) return fail(400, { message: "invalid percent" });
+
+    const percentageNumber = parseInt(percentage);
+
+    if (isNaN(percentageNumber)) return fail(400, { message: "invalid percent" });
+
+    if (percentageNumber < 1 || percentageNumber > 100)
+      return fail(400, { message: "invalid percent" });
+
+    await prisma.chatFilter.update({
+      where: {
+        guildId_content: {
+          content,
+          guildId: params.guildId,
+        },
+      },
+      data: {
+        percentMatch: percentageNumber,
+      },
+    });
+  },
 };
