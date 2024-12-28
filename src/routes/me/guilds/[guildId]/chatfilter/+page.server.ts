@@ -1,5 +1,6 @@
 import prisma from "$lib/server/database.js";
-import { redirect } from "@sveltejs/kit";
+import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
+import { error, redirect } from "@sveltejs/kit";
 import { fail, message, setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { number, object, string } from "zod";
@@ -39,7 +40,21 @@ export async function load({ parent, params }) {
 }
 
 export const actions = {
-  default: async ({ request, params }) => {
+  create: async ({ request, params, locals }) => {
+    const auth = await locals.validate();
+
+    if (!auth.user) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
+
+    const guilds = await getGuilds(auth.user, locals);
+
+    if (!guilds) return error(400, "unknown guilds error");
+
+    if (typeof guilds === "number") return error(guilds, "discord api error");
+
+    const guild = guilds.find((g) => g.id === params.guildId);
+
+    if (!guild) return redirect(302, "/me/guilds");
+
     const form = await superValidate(request, zod(newFilterSchema));
 
     if (!form.valid) return fail(400, { form });
@@ -59,5 +74,35 @@ export const actions = {
     if (!form.valid) return fail(400, { form });
 
     return message(form, "success");
+  },
+  delete: async ({ request, params, locals }) => {
+    const auth = await locals.validate();
+
+    if (!auth.user) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
+
+    const guilds = await getGuilds(auth.user, locals);
+
+    if (!guilds) return error(400, "unknown guilds error");
+
+    if (typeof guilds === "number") return error(guilds, "discord api error");
+
+    const guild = guilds.find((g) => g.id === params.guildId);
+
+    if (!guild) return redirect(302, "/me/guilds");
+
+    const formData = await request.formData();
+
+    const content = formData.get("content")?.toString();
+
+    if (!content) return fail(400);
+
+    await prisma.chatFilter.delete({
+      where: {
+        guildId_content: {
+          content,
+          guildId: params.guildId,
+        },
+      },
+    });
   },
 };

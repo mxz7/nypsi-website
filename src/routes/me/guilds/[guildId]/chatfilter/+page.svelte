@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { sort } from "fast-sort";
   import { superForm } from "sveltekit-superforms";
-  import Table from "./Table.svelte";
+  import TableRow from "./TableRow.svelte";
 
   let { data } = $props();
 
@@ -23,8 +24,27 @@
 </h1>
 
 <div class="flex w-full gap-8">
-  <Table chatFilter={data.filter} />
-  <form method="post" class="mt-4 flex flex-col gap-2" use:enhance>
+  {#if data.filter.length > 0}
+    <table class="table mt-4 w-full flex-1 text-xs">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>content</th>
+          <th>percent</th>
+          <th>actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each sort(data.filter).asc((i) => i) as filterItem}
+          <TableRow {filterItem} />
+        {/each}
+      </tbody>
+    </table>
+  {:else}
+    <p class="text-error">no filter items</p>
+  {/if}
+
+  <form method="post" action="?/create" class="mt-4 flex flex-col gap-2" use:enhance>
     <label class="form-control w-full max-w-xs">
       <div class="label">
         <span class="label-text">add to filter</span>
