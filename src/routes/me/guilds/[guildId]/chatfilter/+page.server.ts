@@ -59,6 +59,13 @@ export const actions = {
 
     if (!form.valid) return fail(400, { form });
 
+    const count = await prisma.chatFilter.count({ where: { guildId: params.guildId } });
+
+    if (count >= 250) {
+      setError(form, "content", "you have reached the limit (250)");
+      return fail(400, { form });
+    }
+
     await prisma.chatFilter
       .create({
         data: {
