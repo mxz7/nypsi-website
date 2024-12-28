@@ -41,11 +41,8 @@ export async function load({ parent, params }) {
 export const actions = {
   default: async ({ request, params }) => {
     const form = await superValidate(request, zod(newFilterSchema));
-    console.log("a");
 
     if (!form.valid) return fail(400, { form });
-
-    console.log("b");
 
     await prisma.chatFilter
       .create({
@@ -59,11 +56,7 @@ export const actions = {
         setError(form, "content", "already exists");
       });
 
-    console.log("c");
-
     if (!form.valid) return fail(400, { form });
-
-    console.log("d");
 
     return message(form, "success");
   },
