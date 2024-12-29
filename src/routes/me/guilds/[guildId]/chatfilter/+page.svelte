@@ -25,22 +25,27 @@
   <span>{data.guild.name} chat filter</span>
 </h1>
 
-<div class="flex w-full gap-8">
+<div class="flex w-full flex-col-reverse gap-8 lg:flex-row">
   {#if data.filter.length > 0}
     <Table filter={data.filter} />
   {:else}
     <p class="text-error">no filter items</p>
   {/if}
 
-  <form method="post" action="?/create" class="mt-4 flex flex-col gap-2" use:superEnhance>
-    <label class="form-control w-full max-w-xs">
+  <form
+    method="post"
+    action="?/create"
+    class="mt-4 flex w-full flex-col gap-2 lg:max-w-xs"
+    use:superEnhance
+  >
+    <label class="form-control w-full">
       <div class="label">
         <span class="label-text">add to filter</span>
       </div>
       <input
         type="text"
         placeholder="word"
-        class="input input-bordered w-full max-w-xs"
+        class="input input-bordered w-full"
         name="content"
         bind:value={$form.content}
       />
@@ -51,7 +56,7 @@
       defaultValue="100"
       max="100"
       min="1"
-      class="input input-bordered w-full max-w-xs"
+      class="input input-bordered w-full"
       name="match"
       bind:value={$form.match}
     />

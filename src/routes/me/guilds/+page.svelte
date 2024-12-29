@@ -1,5 +1,11 @@
 <script lang="ts">
+  import { guildsData } from "$lib/state.svelte.js";
+
   let { data } = $props();
+
+  $effect(() => {
+    guildsData.value = data.guilds;
+  });
 </script>
 
 <svelte:head>

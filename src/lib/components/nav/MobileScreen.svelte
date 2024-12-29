@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { navigating, page } from "$app/stores";
+  import { navigating, page } from "$app/state";
   import { paths, type PathsData } from "$lib/data/docs";
-  import { auth } from "$lib/state.svelte";
+  import { auth, guildsData } from "$lib/state.svelte";
   import {
     ArrowLeft,
     BadgePoundSterling,
     ChartArea,
     Coins,
     LogOut,
+    Server,
     UserRound,
     X,
   } from "lucide-svelte";
@@ -15,14 +16,16 @@
 
   let { visible = $bindable(false) } = $props();
 
-  navigating.subscribe(() => (visible = false));
+  $effect(() => {
+    if (navigating.to) visible = false;
+  });
 </script>
 
 {#snippet renderDocsPath(path: { name: string; path: string; children?: PathsData })}
   <li>
     {#if path.children}
-      <details open={$page.url.pathname.startsWith(path.path)}>
-        <summary class={$page.url.pathname.startsWith(path.path) ? "text-primary" : ""}
+      <details open={page.url.pathname.startsWith(path.path)}>
+        <summary class={page.url.pathname.startsWith(path.path) ? "text-primary" : ""}
           >{path.name.replaceAll("-", " ")}</summary
         >
         <ul>
@@ -34,7 +37,7 @@
     {:else}
       <a
         data-sveltekit-preload-code="eager"
-        class={path.path === $page.url.pathname ? "text-primary" : ""}
+        class={path.path === page.url.pathname ? "text-primary" : ""}
         href={path.path}
       >
         {path.name.replaceAll("-", " ")}
@@ -55,7 +58,7 @@
 
     <br />
 
-    {#if $page.url.pathname.startsWith("/docs")}
+    {#if page.url.pathname.startsWith("/docs")}
       <ul class="menu font-medium">
         <li>
           <a class="opacity-70" href="/">
@@ -74,25 +77,62 @@
           {@render renderDocsPath(path)}
         {/each}
       </ul>
+    {:else if page.url.pathname.startsWith("/me/guilds") && guildsData.value}
+      <ul class="menu font-medium">
+        <li>
+          <a class="opacity-70" href="/me/stats">
+            <ArrowLeft size={16} />
+            <span>back</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="menu font-medium">
+        <h2 class="menu-title">server management</h2>
+
+        {#each guildsData.value as guild}
+          <li class={(parseInt(guild.permissions) & 0x20) == 0x20 ? "" : "disabled"}>
+            <a
+              class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
+                ? 'font-medium text-primary'
+                : ''} {(parseInt(guild.permissions) & 0x20) == 0x20 ? '' : 'cursor-not-allowed'}"
+              href="/me/guilds/{guild.id}"
+            >
+              <img
+                src={guild.icon
+                  ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`
+                  : "https://cdn.discordapp.com/avatars/678711738845102087/cb2dcd61010f2b89ceb1cd5ff15816cf.png?size=256"}
+                alt=""
+                height="256"
+                width="256"
+                class="h-8 w-8 rounded-xl"
+                loading="lazy"
+                decoding="async"
+              />
+              <span>{guild.name}</span>
+            </a>
+          </li>
+        {/each}
+      </ul>
     {:else}
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <ul class="menu font-medium">
-        <li><a href="/" class={$page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
+        <li><a href="/" class={page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
         <li>
           <a
             href="/leaderboard"
-            class={$page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
+            class={page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
             >leaderboards</a
           >
         </li>
         <li>
-          <a href="/item" class={$page.url.pathname.startsWith("/item") ? "text-primary" : ""}
+          <a href="/item" class={page.url.pathname.startsWith("/item") ? "text-primary" : ""}
             >items</a
           >
         </li>
         <li>
-          <a href="/status" class={$page.url.pathname.startsWith("/status") ? "text-primary" : ""}
+          <a href="/status" class={page.url.pathname.startsWith("/status") ? "text-primary" : ""}
             >status</a
           >
         </li>
@@ -115,7 +155,7 @@
             <ul>
               <li>
                 <a
-                  class="flex items-center {$page.url.pathname.startsWith('/me/stats')
+                  class="flex items-center {page.url.pathname.startsWith('/me/stats')
                     ? 'text-primary'
                     : ''}"
                   href="/me/stats"
@@ -127,7 +167,7 @@
 
               <li>
                 <a
-                  class="flex items-center {$page.url.pathname.startsWith('/me/graphs')
+                  class="flex items-center {page.url.pathname.startsWith('/me/graphs')
                     ? 'text-primary'
                     : ''}"
                   href="/me/graphs"
@@ -139,7 +179,7 @@
 
               <li>
                 <a
-                  class="flex items-center {$page.url.pathname.startsWith('/me/purchases')
+                  class="flex items-center {page.url.pathname.startsWith('/me/purchases')
                     ? 'text-primary'
                     : ''}"
                   href="/me/purchases"
@@ -156,6 +196,13 @@
                 >
                   <UserRound size={16} />
                   <span>profile</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/me/guilds" class="flex items-center">
+                  <Server size={16} />
+                  <span>manage servers</span>
                 </a>
               </li>
             </ul>
