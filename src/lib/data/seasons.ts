@@ -113,6 +113,62 @@ export default {
   },
   "8": {
     started: new Date("2024-06-01"),
+    ended: new Date("2025-01-01"),
+    winners: [
+      {
+        id: "779696205629489172",
+        username: ".arinaaa.",
+        value: "$577,330,628,090",
+      },
+      {
+        id: "275987102263541761",
+        username: "amasos",
+        value: "$303,741,889,854",
+      },
+      {
+        id: "1292270938557120523",
+        username: "isaac_lool",
+        value: "$118,870,102,552",
+      },
+      {
+        id: "295132625591599104",
+        username: "bakbanaan",
+        value: "83,573,302,896",
+      },
+      {
+        id: "846019969753415711",
+        username: "blackalice1st",
+        value: "$80,260,284,367",
+      },
+      {
+        id: "362340653742555139",
+        username: "e1w",
+        value: "$77,081,704,205",
+      },
+      {
+        id: "202204065625669632",
+        username: "savenzo.",
+        value: "$34,534,704,953",
+      },
+      {
+        id: "1269844318814736465",
+        username: "_noname_1019",
+        value: "$24,035,781,940",
+      },
+      {
+        id: "871750637090668594",
+        username: "alyx.alyx",
+        value: "$12,150,439,463",
+      },
+      {
+        id: "1057409876252430387",
+        username: "pxqdd",
+        value: "$7,579,556,778",
+      },
+    ],
+  },
+  "9": {
+    started: new Date("2025-01-01"),
   },
 } as {
   [key: string]: {
