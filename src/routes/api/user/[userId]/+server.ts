@@ -114,18 +114,6 @@ export const GET = async ({ params, setHeaders, fetch }) => {
       },
       lastKnownUsername: true,
       avatar: true,
-      WordleStats: {
-        select: {
-          history: true,
-          lose: true,
-          win1: true,
-          win2: true,
-          win4: true,
-          win5: true,
-          win3: true,
-          win6: true,
-        },
-      },
     },
   });
 
