@@ -8,9 +8,10 @@
     title: string;
     data: LeaderboardData | Promise<LeaderboardData>;
     tags: { [key: string]: { tagId: string; emoji: string; name: string } };
+    limit?: number;
   }
 
-  let { title, data, tags }: Props = $props();
+  let { title, data, tags, limit = 10 }: Props = $props();
 </script>
 
 <div class="">
@@ -44,7 +45,7 @@
         </div>
       {:then data}
         <div in:fade={{ delay: 100, duration: 100 }} class="flex flex-col gap-2">
-          {#each data.slice(0, 10) as { position, user, value }, i}
+          {#each data.slice(0, limit) as { position, user, value }, i}
             <div
               class="flex w-full items-center gap-2 rounded-lg border bg-base-200 px-2 py-2 duration-200 ease-in
               hover:scale-105 hover:border-primary hover:border-opacity-20 {i === 0
