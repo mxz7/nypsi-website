@@ -1,72 +1,34 @@
 import prisma from "$lib/server/database";
 import { json } from "@sveltejs/kit";
-import { inPlaceSort } from "fast-sort";
 
 export async function GET({ setHeaders }) {
   setHeaders({
     "cache-control": "public, max-age=300, must-revalidate",
   });
 
-  const query = await prisma.wordleStats
-    .findMany({
-      where: {
-        user: { blacklisted: false },
+  const query =
+    await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownTag", "Tags"."tagId" from "User" 
+    right join "WordleGame" on "WordleGame"."userId" = "User"."id" 
+    left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    where "WordleGame"."won" = true and "User"."blacklisted" = false 
+    group by "WordleGame"."userId", "User"."id", "Tags"."tagId"
+    order by "value" desc limit 100`.then(
+      (
+        i: {
+          value: bigint;
+          userId: string;
+          lastKnownTag: string;
+          banned: Date;
+          tagId: string;
+        }[],
+      ) => {
+        return i.map((i, index) => ({
+          value: i.value.toLocaleString(),
+          position: index + 1,
+          user: { username: i.lastKnownTag, id: i.userId, tag: i.tagId },
+        }));
       },
-      select: {
-        userId: true,
-        win1: true,
-        win2: true,
-        win3: true,
-        win4: true,
-        win5: true,
-        win6: true,
-        user: {
-          select: {
-            Tags: {
-              where: {
-                selected: true,
-              },
-              select: {
-                tagId: true,
-              },
-            },
-            Preferences: {
-              select: {
-                leaderboards: true,
-              },
-            },
-            lastKnownUsername: true,
-          },
-        },
-      },
-    })
-    .then((r) => {
-      let count = 0;
-      const a = r
-        .map((x) => {
-          const user = x.user.lastKnownUsername.split("#")[0];
-          return {
-            value: x.win1 + x.win2 + x.win3 + x.win4 + x.win5 + x.win6,
-            user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
-            },
-          };
-        })
-        .filter((x) => x.value > 0);
-
-      inPlaceSort(a).desc((x) => x.value);
-
-      return a.map((x) => {
-        count++;
-        return {
-          value: x.value.toLocaleString(),
-          user: { username: x.user.username, id: x.user.id, tag: x.user.tag },
-          position: count,
-        };
-      });
-    });
+    );
 
   return json(query);
 }
