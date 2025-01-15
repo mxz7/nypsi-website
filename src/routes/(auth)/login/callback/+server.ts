@@ -18,7 +18,7 @@ export async function GET({ cookies, url }) {
   }
 
   try {
-    const tokens = await discord.validateAuthorizationCode(code);
+    const tokens = await discord.validateAuthorizationCode(code, null);
     const response = await fetch("https://discord.com/api/users/@me", {
       headers: {
         Authorization: `Bearer ${tokens.accessToken()}`,
