@@ -58,8 +58,8 @@ importers:
         version: 6.3.7
     devDependencies:
       '@flydotio/dockerfile':
-        specifier: ^0.5.8
-        version: 0.5.9
+        specifier: ^0.7.0
+        version: 0.7.0(@sveltejs/kit@2.15.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.18.0)(vite@5.4.11))(svelte@5.18.0)(vite@5.4.11))
       '@hcaptcha/types':
         specifier: ^1.0.4
         version: 1.0.4
@@ -335,9 +335,38 @@ packages:
   '@exodus/schemasafe@1.3.0':
     resolution: {integrity: sha512-5Aap/GaRupgNx/feGBwLLTVv8OQFfv3pq2lPRzPg9R+IOBnDgghTGW7l7EuVXOvg5cc/xSAlRW8rBrjIC3Nvqw==}
 
-  '@flydotio/dockerfile@0.5.9':
-    resolution: {integrity: sha512-ZPvMw9ABrE6W4nc92NL5Jy4XdAehldsU4LZ6pJP+H0sAqHqw3Bk9qKbMcjKJN1aM5AuKqfWm/I4ABGnkDjcqEw==}
+  '@flydotio/dockerfile@0.7.0':
+    resolution: {integrity: sha512-Rg+v+kX3hrPGLITwk+H9HDa65YYkD8fNjNl8LzpZDA7mII+D8/s45/ZukHblwWqb1F3r2URPenIIkPEyJj51Ag==}
     engines: {node: '>=16.0.0'}
+    hasBin: true
+
+  '@flydotio/litestream-darwin-arm64@1.0.1':
+    resolution: {integrity: sha512-LI663pEbO1RZzzkqDbXen6UIDeOBkGJqfyl8FGm4Y+zbcKiLQhopuQLMs4BHlWelGMb2ZnwpcpM+OcimoDhqHA==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@flydotio/litestream-darwin-x64@1.0.1':
+    resolution: {integrity: sha512-AecPpC1mu5QJ12+UWEaeCZbtNbde+t7qqgxrIYEZ+ZmrfgvCmsuZIqz67/IuRtaXTzr0COKD/uv9KRHIx+xHsQ==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@flydotio/litestream-linux-arm64@1.0.1':
+    resolution: {integrity: sha512-/kukXjY+8xnAVUY3ywZIHIrW2gmKg5dXFVmSR/IQtdEwWZrKqdJ77fbK4u9bkacZqf94xn9jej8Cr4sToy6gNg==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@flydotio/litestream-linux-x64@1.0.1':
+    resolution: {integrity: sha512-zmcAR8q2TNiAsWRSWscrN+r4NNQ+FwfatKhcE3G/YticNSkNyIhtCTlvXxIyOG+E+UWa+j441cjbmb7p83JPEw==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [linux]
+
+  '@flydotio/litestream@1.0.1':
+    resolution: {integrity: sha512-hGIR37D1o8+AKcHa0PmdOG7dPm1RQsFQE3cqgt2udQVo3Q0NI5ruarLeaFWTFB6l+hjs97Xdlt0TgEufxLTzaQ==}
+    engines: {node: '>=18'}
     hasBin: true
 
   '@gcornut/valibot-json-schema@0.31.0':
@@ -2416,13 +2445,36 @@ snapshots:
   '@exodus/schemasafe@1.3.0':
     optional: true
 
-  '@flydotio/dockerfile@0.5.9':
+  '@flydotio/dockerfile@0.7.0(@sveltejs/kit@2.15.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.18.0)(vite@5.4.11))(svelte@5.18.0)(vite@5.4.11))':
     dependencies:
+      '@flydotio/litestream': 1.0.1
+      '@sveltejs/adapter-node': 5.2.11(@sveltejs/kit@2.15.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.18.0)(vite@5.4.11))(svelte@5.18.0)(vite@5.4.11))
       chalk: 5.3.0
       diff: 5.2.0
       ejs: 3.1.10
       shell-quote: 1.8.1
       yargs: 17.7.2
+    transitivePeerDependencies:
+      - '@sveltejs/kit'
+
+  '@flydotio/litestream-darwin-arm64@1.0.1':
+    optional: true
+
+  '@flydotio/litestream-darwin-x64@1.0.1':
+    optional: true
+
+  '@flydotio/litestream-linux-arm64@1.0.1':
+    optional: true
+
+  '@flydotio/litestream-linux-x64@1.0.1':
+    optional: true
+
+  '@flydotio/litestream@1.0.1':
+    optionalDependencies:
+      '@flydotio/litestream-darwin-arm64': 1.0.1
+      '@flydotio/litestream-darwin-x64': 1.0.1
+      '@flydotio/litestream-linux-arm64': 1.0.1
+      '@flydotio/litestream-linux-x64': 1.0.1
 
   '@gcornut/valibot-json-schema@0.31.0':
     dependencies:
