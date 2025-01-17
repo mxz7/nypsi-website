@@ -1,7 +1,12 @@
 import { getTags } from "$lib/functions/tags";
 import prisma from "$lib/server/database";
 
-const contributorIds = ["672793821850894347", "499720078770831360", "191179161010831360"];
+const contributorIds = [
+  "672793821850894347",
+  "499720078770831360",
+  "191179161010831360",
+  "223953495982735363",
+];
 
 export async function load({ fetch }) {
   const supporters = prisma.$queryRaw<
