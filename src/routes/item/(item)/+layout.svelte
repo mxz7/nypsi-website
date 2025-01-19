@@ -19,13 +19,20 @@
       ? data.items
       : sort(
           data.items.filter(
-            (i) => i.name.includes(search.toLowerCase()) || i.id.startsWith(search),
+            (i) =>
+              i.name.includes(search.toLowerCase()) ||
+              i.id.startsWith(search.toLowerCase()) ||
+              i.role.includes(search.toLowerCase()),
           ),
         ).desc((i) => {
           let score = 0;
 
           if (i.name.startsWith(search.toLowerCase())) {
             score += search.length;
+          }
+
+          if (i.role.startsWith(search.toLowerCase())) {
+            score += search.length / 1.5;
           }
 
           return score;
