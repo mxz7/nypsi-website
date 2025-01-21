@@ -15,7 +15,7 @@
   "devDependencies": {
     "@hcaptcha/types": "^1.0.4",
     "@sveltejs/adapter-node": "^5.2.12",
-    "@sveltejs/kit": "^2.15.3",
+    "@sveltejs/kit": "^2.16.1",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
     "@twemoji/parser": "^15.1.1",
     "@types/ms": "0.7.34",
