@@ -29,6 +29,7 @@ export async function GET({ params, fetch, setHeaders }) {
       Premium: {
         select: {
           level: true,
+          embedColor: true,
         },
       },
       Preferences: {

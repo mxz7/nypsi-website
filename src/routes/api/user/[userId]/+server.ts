@@ -110,6 +110,7 @@ export const GET = async ({ params, setHeaders, fetch }) => {
       Premium: {
         select: {
           level: true,
+          embedColor: true,
         },
       },
       lastKnownUsername: true,

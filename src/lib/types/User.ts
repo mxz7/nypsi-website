@@ -69,6 +69,7 @@ export interface UserApiResponsexd extends BaseUserApiResponse {
   };
   Premium?: {
     level: number;
+    embedColour: string;
   };
   lastKnownUsername: string;
   avatar: string;
@@ -94,6 +95,7 @@ export type BaseUserData = {
   blacklisted: boolean;
   Premium: {
     level: number;
+    embedColor: string;
   };
   Tags: {
     tagId: string;

@@ -6,27 +6,14 @@
   import { getTags, type Tag } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
   import type { Item } from "$lib/types/Item";
-  import type { UserApiResponsexd } from "$lib/types/User";
+  import type { BaseUserData, UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
   import { onMount } from "svelte";
   import toast from "svelte-french-toast";
   import { fade } from "svelte/transition";
 
   interface Props {
-    baseData: {
-      id: string;
-      blacklisted: boolean;
-      lastKnownUsername: string;
-      lastCommand: Date;
-      avatar: string;
-      Premium: {
-        level: number;
-      };
-      Tags: {
-        tagId: string;
-        selected: boolean;
-      }[];
-    } | null;
+    baseData: BaseUserData;
     userData: UserApiResponsexd | Promise<UserApiResponsexd>;
     items: Item[];
   }
@@ -118,7 +105,9 @@
     </div>
     <div class="ml-2 grow lg:text-lg">
       <h1
-        style="color: {premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''}; !important"
+        style="color: {baseData?.Premium?.embedColor === 'default'
+          ? premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''
+          : baseData?.Premium?.embedColor}; !important"
         class="line-clamp-1 text-2xl font-extrabold text-white lg:text-4xl"
       >
         <button
