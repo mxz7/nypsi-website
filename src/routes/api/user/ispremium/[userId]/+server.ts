@@ -10,19 +10,6 @@ export const GET = async ({ params, setHeaders }) => {
 
   if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
 
-  const privacyCheck = await prisma.preferences.findUnique({
-    where: {
-      userId: userId,
-    },
-    select: {
-      leaderboards: true,
-    },
-  });
-
-  if (!privacyCheck) return error(404, { message: "user not found" });
-
-  if (!privacyCheck.leaderboards) return error(403, { message: "user has a private profile" });
-
   const query = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -37,6 +24,8 @@ export const GET = async ({ params, setHeaders }) => {
       },
     },
   });
+
+  if (!query) return error(404, { message: "user not found" });
 
   return json({
     premium: Boolean(query?.booster || query?.Premium?.level || query?.adminLevel > 0),
