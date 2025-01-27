@@ -73,10 +73,11 @@ export async function load({ params, parent, fetch, setHeaders }) {
           odds.found[item.id] =
             (item.items.find((i) => i.split(":")[1] === selected.id).split(":")[2] || "100") + "%";
         }
-      } else if (item.role === "crate") {
+      } else if (item.role === "crate" || item.role === "tool") {
         if (
           item.items?.find((i) => i.split(":")[1] === selected.id) ||
-          item.items?.find((i) => i.startsWith("role:") && i.endsWith(selected.role))
+          item.items?.find((i) => i.startsWith("role:") && i.endsWith(selected.role)) ||
+          item.role === "tool"
         ) {
           promises.push(
             fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${item.id}.txt`).then(
@@ -87,7 +88,7 @@ export async function load({ params, parent, fetch, setHeaders }) {
 
                   if (!line) return;
 
-                  odds.found[item.id] = line.split(":")[1].split("%")[0] + "%";
+                  odds.found[item.id] = line.split(":")[1].split("%")[0].trim() + "%";
                 }),
             ),
           );
