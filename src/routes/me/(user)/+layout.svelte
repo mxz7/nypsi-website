@@ -1,7 +1,15 @@
 <script>
   import { page } from "$app/state";
   import { auth } from "$lib/state.svelte";
-  import { BadgePoundSterling, ChartArea, Coins, LogOut, Server, UserRound } from "lucide-svelte";
+  import {
+    BadgePoundSterling,
+    ChartArea,
+    Coins,
+    Image,
+    LogOut,
+    Server,
+    UserRound,
+  } from "lucide-svelte";
   import { onMount } from "svelte";
 
   let { children, data } = $props();
@@ -54,6 +62,18 @@
         >
           <BadgePoundSterling />
           <span>purchases</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          class="flex items-center {page.url.pathname.startsWith('/me/avatars')
+            ? 'text-primary'
+            : ''}"
+          href="/me/avatars"
+        >
+          <Image />
+          <span>avatars</span>
         </a>
       </li>
 
