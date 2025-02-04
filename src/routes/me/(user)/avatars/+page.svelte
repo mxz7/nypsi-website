@@ -21,7 +21,15 @@
 <div class="mt-4 grid w-full grid-cols-2 gap-3 md:grid-cols-4">
   {#each data.avatars as avatar}
     <div class="rounded-box bg-base-200 p-3 pb-1">
-      <img src={avatar.value} alt="" class="w-full rounded-box" loading="lazy" decoding="async" />
+      <img
+        src={avatar.value}
+        alt=""
+        class="w-full rounded-box"
+        loading="lazy"
+        decoding="async"
+        height="256"
+        width="256"
+      />
 
       <div class="flex w-full items-center pt-1">
         <p class="btn btn-xs text-xs font-normal text-slate-400">
