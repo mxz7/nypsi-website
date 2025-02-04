@@ -7,6 +7,7 @@
     BadgePoundSterling,
     ChartArea,
     Coins,
+    Image,
     LogOut,
     Server,
     UserRound,
@@ -186,6 +187,18 @@
                 >
                   <BadgePoundSterling size={16} />
                   <span>purchases</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="flex items-center {page.url.pathname.startsWith('/me/avatars')
+                    ? 'text-primary'
+                    : ''}"
+                  href="/me/avatars"
+                >
+                  <Image size={16} />
+                  <span>avatars</span>
                 </a>
               </li>
 
