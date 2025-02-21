@@ -6,27 +6,27 @@ export async function load({ fetch, setHeaders }) {
   const balanceData = fetch("/api/leaderboard/balance").then(
     (r) => r.json() as Promise<LeaderboardData>,
   );
-  const prestigeData = fetch("/api/leaderboard/prestige").then(
+  const guildsData = fetch("/api/leaderboard/guild").then(
     (r) => r.json() as Promise<LeaderboardData>,
   );
 
   if (browser) {
-    const res = await Promise.race([Promise.all([balanceData, prestigeData]), sleep(50)]);
+    const res = await Promise.race([Promise.all([balanceData, guildsData]), sleep(50)]);
 
     if (typeof res === "boolean") {
       setHeaders({ "x-accel-buffering": "no" });
 
       return {
         balance: balanceData,
-        prestige: prestigeData,
+        guilds: guildsData,
       };
     } else {
-      return { balance: await balanceData, prestige: await prestigeData };
+      return { balance: await balanceData, guilds: await guildsData };
     }
   } else {
     return {
       balance: await balanceData,
-      prestige: await prestigeData,
+      guilds: await guildsData,
     };
   }
 }
