@@ -8,10 +8,11 @@
     title: string;
     data: LeaderboardData | Promise<LeaderboardData>;
     tags: { [key: string]: { tagId: string; emoji: string; name: string } };
+    href?: string;
     limit?: number;
   }
 
-  let { title, data, tags, limit = 10 }: Props = $props();
+  let { title, data, tags, limit = 10, href = "/user/" }: Props = $props();
 </script>
 
 <div class="">
@@ -82,7 +83,7 @@
                     class="{i === 0
                       ? 'font-semibold text-primary'
                       : 'text-slate-300'} min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
-                    href="/user/{user.id}"
+                    href="{href}{user.id}"
                   >
                     {user.username}
                   </a>
