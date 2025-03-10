@@ -73,7 +73,7 @@
         <source srcset="https://cdn.nypsi.xyz/static/hero.avif" type="image/avif" />
         <img
           src="https://cdn.nypsi.xyz/static/hero.webp"
-          alt="hero"
+          alt="nypsi logo hero"
           class="hidden max-w-sm lg:block"
           decoding="async"
           height="1000"
