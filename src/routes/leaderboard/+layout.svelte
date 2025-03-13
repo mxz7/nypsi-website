@@ -113,7 +113,7 @@
 
 {#if selected?.showItems}
   <div class="mt-14 flex w-full justify-center">
-    <div class="px-4 lg:max-w-3xl lg:px-0">
+    <div class=" w-full px-4 lg:max-w-xs lg:px-0">
       <ItemSearch
         items={data.items}
         onClick={async (itemId) => {
