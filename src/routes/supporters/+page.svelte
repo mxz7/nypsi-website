@@ -30,7 +30,7 @@
     <div class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.supporters as supporter}
         <a
-          class="link-hover flex min-w-0 items-center overflow-hidden overflow-ellipsis whitespace-nowrap"
+          class="link-hover flex min-w-0 items-center overflow-hidden text-ellipsis whitespace-nowrap"
           href="/user/{supporter.id}"
         >
           {#if supporter.tagId}
@@ -47,7 +47,7 @@
             />
             <span class="mr-1">]</span>
           {/if}
-          <span class="min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+          <span class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
             >{supporter.username}</span
           >
         </a>
@@ -63,7 +63,7 @@
     <div class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.contributors as supporter}
         <a
-          class="link-hover flex items-center overflow-hidden overflow-ellipsis whitespace-nowrap"
+          class="link-hover flex items-center overflow-hidden text-ellipsis whitespace-nowrap"
           href="/user/{supporter.id}"
         >
           {#if supporter.Tags[0]?.tagId}
@@ -80,7 +80,7 @@
             />
             <span class="mr-1">]</span>
           {/if}
-          <span class="min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+          <span class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
             >{supporter.lastKnownUsername}</span
           >
         </a>

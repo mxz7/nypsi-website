@@ -21,25 +21,25 @@
   <div class="flex flex-col justify-center gap-4 sm:flex-row">
     <div class="grow text-center">
       <h2 class="text-lg text-white">xp</h2>
-      <p class="font-semibold text-primary">{guildData.guild.xp.toLocaleString()}</p>
+      <p class="text-primary font-semibold">{guildData.guild.xp.toLocaleString()}</p>
     </div>
     <div class="grow text-center">
       <h2 class="text-lg text-white">money</h2>
-      <p class="font-semibold text-primary">${guildData.guild.balance.toLocaleString()}</p>
+      <p class="text-primary font-semibold">${guildData.guild.balance.toLocaleString()}</p>
     </div>
     <div class="grow text-center">
       <h2 class="text-lg text-white">tokens</h2>
-      <p class="font-semibold text-primary">{guildData.guild.tokens.toLocaleString()}</p>
+      <p class="text-primary font-semibold">{guildData.guild.tokens.toLocaleString()}</p>
     </div>
   </div>
 {/snippet}
 
 {#snippet userStats()}
   <div
-    class="flex flex-col justify-center gap-2 [&>*:nth-child(1)]:font-semibold [&>*:nth-child(1)]:text-primary"
+    class="[&>*:nth-child(1)]:text-primary flex flex-col justify-center gap-2 [&>*:nth-child(1)]:font-semibold"
   >
     {#each inPlaceSort(guildData.guild.members).desc( [(i) => i.contributedXp, (i) => i.contributedMoney], ) as member, index}
-      <div class="flex items-center gap-3 rounded-lg bg-base-300 p-3">
+      <div class="bg-base-300 flex items-center gap-3 rounded-lg p-3">
         <img
           bind:this={avatars[index]}
           class="h-10 w-10 rounded-full"
@@ -50,7 +50,7 @@
           loading="lazy"
         />
         <a
-          class="link-hover line-clamp-1 w-fit break-all text-lg font-medium"
+          class="link-hover line-clamp-1 w-fit text-lg font-medium break-all"
           href="/user/{member.economy.user.lastKnownUsername}"
           >{member.economy.user.lastKnownUsername}</a
         >
@@ -63,9 +63,9 @@
   </div>
 {/snippet}
 
-<div class="mx-3 mb-10 mt-7 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
+<div class="mx-3 mt-7 mb-10 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
   <div
-    class="flex w-full gap-2 rounded-lg border border-primary border-opacity-15 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-30"
+    class="border-primary border-opacity-15 bg-base-200 hover:border-primary hover:border-opacity-30 flex w-full gap-2 rounded-lg border p-4 duration-300"
   >
     <div class="h-24 w-24 sm:h-36 sm:w-36">
       <img
@@ -98,14 +98,14 @@
 
   {#key guildData}
     <div
-      class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
+      class="border-primary border-opacity-5 bg-base-200 hover:border-primary hover:border-opacity-20 w-full rounded-lg border p-4 duration-300"
       in:fly|global={{ duration: initialLoad.value ? 0 : 300, y: 25, easing: cubicOut }}
     >
       {@render guildStats()}
     </div>
 
     <div
-      class="w-full rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-primary hover:border-opacity-20"
+      class="border-primary border-opacity-5 bg-base-200 hover:border-primary hover:border-opacity-20 w-full rounded-lg border p-4 duration-300"
       in:fly|global={{ duration: initialLoad.value ? 0 : 300, delay: 100, y: 25, easing: cubicOut }}
     >
       {@render userStats()}
@@ -114,6 +114,8 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
+
   h2 {
     @apply font-semibold;
   }

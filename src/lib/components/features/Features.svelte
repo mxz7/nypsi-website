@@ -12,10 +12,10 @@
 </script>
 
 <div id="features">
-  <div class="w-full bg-base-200">
+  <div class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
-        <div class="rounded-lg bg-base-300 p-3">
+        <div class="bg-base-300 rounded-lg p-3">
           <BadgeDollarSign class="text-primary" size={32} strokeWidth={2.5} />
         </div>
         <span>economy</span>
@@ -47,7 +47,7 @@
 
   <div class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
-      <div class="rounded-lg bg-base-300 p-3">
+      <div class="bg-base-300 rounded-lg p-3">
         <Keyboard class="text-primary" size={32} strokeWidth={2.5} />
       </div>
       <span>chat reactions</span>
@@ -91,10 +91,10 @@
     </div>
   </div>
 
-  <div class="w-full bg-base-200">
+  <div class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
-        <div class="rounded-lg bg-base-300 p-3">
+        <div class="bg-base-300 rounded-lg p-3">
           <Coins class="text-primary" size={32} strokeWidth={2.5} />
         </div>
         <span>gambling</span>
@@ -131,7 +131,7 @@
 
   <div class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
-      <div class="rounded-lg bg-base-300 p-3">
+      <div class="bg-base-300 rounded-lg p-3">
         <Hammer class="text-primary" size={32} strokeWidth={2.5} />
       </div>
       <span>moderation</span>
@@ -163,10 +163,10 @@
     </div>
   </div>
 
-  <div class="w-full bg-base-200">
+  <div class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
-        <div class="rounded-lg bg-base-300 p-3">
+        <div class="bg-base-300 rounded-lg p-3">
           <Book class="text-primary" size={32} strokeWidth={2.5} />
         </div>
         <span>reaction roles</span>
@@ -200,7 +200,7 @@
 
   <div class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
-      <div class="rounded-lg bg-base-300 p-3">
+      <div class="bg-base-300 rounded-lg p-3">
         <Clipboard class="text-primary" size={32} strokeWidth={2.5} />
       </div>
       <span>role persist</span>
@@ -232,10 +232,10 @@
     </div>
   </div>
 
-  <div class="w-full bg-base-200">
+  <div class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
-        <div class="rounded-lg bg-base-300 p-3">
+        <div class="bg-base-300 rounded-lg p-3">
           <Bell class="text-primary" size={32} strokeWidth={2.5} />
         </div>
         <span>mention history</span>
@@ -265,7 +265,7 @@
 
   <div class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
-      <div class="rounded-lg bg-base-300 p-3">
+      <div class="bg-base-300 rounded-lg p-3">
         <Leaf class="text-primary" size={32} strokeWidth={2.5} />
       </div>
       <span>farms</span>
@@ -293,6 +293,8 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
+
   ul {
     @apply flex h-full w-full flex-col justify-center gap-2 md:gap-3 md:text-lg;
   }

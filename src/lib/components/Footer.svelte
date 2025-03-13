@@ -2,7 +2,7 @@
   import { BadgeDollarSign, Code, FileText, Hammer, Lock } from "lucide-svelte";
 </script>
 
-<footer class="mt-24 flex w-full justify-center bg-base-200 py-5">
+<footer class="bg-base-200 mt-24 flex w-full justify-center py-5">
   <div class="flex flex-wrap justify-evenly gap-x-10 gap-y-6 px-12 lg:max-w-5xl lg:px-0">
     <a href="/terms">
       <FileText size={16} strokeWidth={2} />
@@ -32,8 +32,10 @@
 </footer>
 
 <style>
+  @reference "../../app.css";
+
   a {
-    @apply flex items-center gap-1 fill-base-content duration-300 hover:fill-white hover:text-white;
+    @apply fill-base-content flex items-center gap-1 duration-300 hover:fill-white hover:text-white;
   }
 
   a > span {

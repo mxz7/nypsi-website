@@ -143,7 +143,7 @@
         <li>
           <a href="https://ko-fi.com/tekoh/tiers" target="_blank">
             <span
-              class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"
+              class="bg-linear-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"
               >premium</span
             >
           </a>
@@ -236,7 +236,7 @@
   <div
     in:fade={{ duration: 250 }}
     out:fade={{ duration: 250 }}
-    class="fixed left-0 top-0 z-10 h-full w-full backdrop-blur-sm"
+    class="fixed left-0 top-0 z-10 h-full w-full backdrop-blur-xs"
     role="button"
     onclick={() => (visible = !visible)}
   ></div>

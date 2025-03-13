@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MStoTime, daysAgo } from "$lib/functions/time";
+  import { daysAgo } from "$lib/functions/time";
   import type Game from "$lib/types/Game";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
@@ -69,7 +69,7 @@
   });
 </script>
 
-<div class="mx-3 mb-10 mt-7 flex flex-col sm:mx-auto md:w-full md:max-w-3xl">
+<div class="mx-3 mt-7 mb-10 flex flex-col sm:mx-auto md:w-full md:max-w-3xl">
   <Profile {baseData} {userData} {items} />
 
   {#if baseData.blacklisted}
@@ -135,7 +135,7 @@
         <div in:fly|global={{ delay: 600, duration: 500, y: 75 }}>
           {#if userData.Economy.EconomyGuildMember?.guild}
             <div
-              class="ho mt-4 flex w-full flex-col rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+              class="ho border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mt-4 flex w-full flex-col rounded-lg border p-4 duration-300"
             >
               <h2 class="text-center">
                 <a
@@ -168,7 +168,7 @@
               <div class="mt-4 flex w-full flex-row flex-wrap justify-center gap-2">
                 {#each userData.Economy.EconomyGuildMember.guild.members as member}
                   <a
-                    class="rounded-lg border border-primary border-opacity-5 bg-base-300 p-2 text-xs shadow duration-300 hover:border-opacity-25 hover:text-primary lg:text-sm"
+                    class="border-primary border-opacity-5 bg-base-300 hover:border-opacity-25 hover:text-primary rounded-lg border p-2 text-xs shadow-sm duration-300 lg:text-sm"
                     href="/user/{member.economy.user.id}">{member.economy.user.lastKnownUsername}</a
                   >
                 {/each}
@@ -180,19 +180,19 @@
         <div in:fly|global={{ delay: 700, duration: 500, y: 75 }}>
           {#if userData.Economy.Inventory.length > 1}
             <div
-              class="mt-4 flex w-full flex-col justify-center rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+              class="border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
               id="inventory"
             >
               <h2 class="mb-3 w-full text-center">inventory</h2>
               <div
-                class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
+                class="mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto lg:max-h-84"
               >
                 {#each inPlaceSort(userData.Economy.Inventory).asc((i) => i.item) as item}
                   {@const itemData = items.find((i) => i.id === item.item)}
                   {#if itemData}
                     <a
                       href="/item/{item.item}"
-                      class="hover:bg-opacity- mx-2 flex flex-col items-center justify-center rounded-lg border border-primary border-opacity-5 bg-base-300 py-2 align-middle text-xs shadow duration-300 hover:border-opacity-25 lg:text-sm"
+                      class="hover:bg-opacity- border-primary border-opacity-5 bg-base-300 hover:border-opacity-25 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
                     >
                       <div
                         class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8"
@@ -244,17 +244,17 @@
         <div in:fly|global={{ delay: 900, duration: 500, y: 75 }}>
           {#if userData.Leaderboards.length > 0}
             <div
-              class="mt-4 flex w-full flex-col justify-center rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+              class="border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
               id="leaderboards"
             >
               <h2 class="mb-3 w-full text-center">leaderboards</h2>
               <div
-                class="lg:max-h-84 mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto"
+                class="mt-3 grid max-h-64 grid-flow-row grid-cols-2 gap-2 overflow-y-auto lg:max-h-84"
               >
                 {#each inPlaceSort(userData.Leaderboards).asc((i) => i.position) as lb}
                   <a
                     href="/leaderboard/{lb.leaderboard.replace('item-', '')}"
-                    class="mx-2 flex flex-col items-center justify-center rounded-lg border border-primary border-opacity-5 bg-base-300 py-2 align-middle text-xs shadow duration-300 hover:border-opacity-25 lg:text-sm"
+                    class="border-primary border-opacity-5 bg-base-300 hover:border-opacity-25 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
                   >
                     {#if lb.leaderboard.startsWith("item-")}
                       {@const itemData = items.find((i) => i.id === lb.leaderboard.split("-")[1])}
@@ -291,7 +291,7 @@
         <div in:fly|global={{ delay: 1000, duration: 500, y: 75 }}>
           {#if games.length > 0}
             <div
-              class="mx-auto mt-4 rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20 lg:w-full"
+              class="border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mx-auto mt-4 rounded-lg border p-4 duration-300 lg:w-full"
             >
               <h2 class="text-center">recent games</h2>
               <div class="max-h-64 overflow-y-auto">
@@ -301,7 +301,7 @@
                   {#each games as game}
                     <a
                       href="/game/{game.id.toString(36)}"
-                      class=" w-full justify-center rounded-lg border border-primary border-opacity-10 bg-base-300 p-2 px-4 align-middle shadow duration-300 hover:border-opacity-25 lg:mt-0
+                      class=" border-primary border-opacity-10 bg-base-300 hover:border-opacity-25 w-full justify-center rounded-lg border p-2 px-4 align-middle shadow duration-300 lg:mt-0
                     {game.win === 0
                         ? 'text-error'
                         : game.win === 1
@@ -347,6 +347,8 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
+
   h2 {
     @apply font-semibold text-white lg:text-lg;
   }

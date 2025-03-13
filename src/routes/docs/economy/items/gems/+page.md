@@ -261,6 +261,8 @@ cannot shatter
 {/if}
 
 <style>
+  @reference "../../../../../app.css";
+
   blue {
     color: #6097d2;
   }

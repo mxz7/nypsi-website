@@ -82,7 +82,7 @@
                   <a
                     class="{i === 0
                       ? 'font-semibold text-primary'
-                      : 'text-slate-300'} min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+                      : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
                     href="{href}{user.id}"
                   >
                     {user.username}
@@ -94,7 +94,7 @@
                       : `/user/${user.id}`}
                     class="{i === 0
                       ? 'font-semibold text-primary'
-                      : 'text-slate-300'} min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+                      : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
                   >
                     {user.username}
                   </a>
