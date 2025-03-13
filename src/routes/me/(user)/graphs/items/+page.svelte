@@ -55,15 +55,7 @@
   let { data } = $props();
 
   let days = $state(page.url.searchParams.get("days") || "30");
-  let itemId: string = $state();
   let items: Item[] = $state();
-
-  $effect(() => {
-    const params = new URLSearchParams(page.url.searchParams.toString());
-    params.set("days", days);
-    if (itemId) params.set("item", itemId);
-    goto(`?${params.toString()}`);
-  });
 
   onMount(async () => {
     items = await getItems(fetch);
@@ -88,11 +80,15 @@
 
 {#if items}
   <div class="mt-14 flex w-full justify-center">
-    <div class="px-4 lg:max-w-3xl lg:px-0">
+    <div class="w-full px-4 lg:max-w-xs lg:px-0">
       <ItemSearch
         {items}
-        onClick={async (eventItemId: string) => {
-          itemId = eventItemId;
+        onClick={(eventItemId: string) => {
+          const params = new URLSearchParams(page.url.searchParams.toString());
+          params.set("days", days);
+
+          params.set("item", eventItemId);
+          goto(`?${params.toString()}`);
         }}
       />
     </div>
@@ -101,8 +97,12 @@
 
 {#key data}
   {#if data.chartData}
-    <div class="h-[500px]">
-      <Chart chartData={data.chartData} chartOptions={itemChartOptions} />
-    </div>
+    {#if typeof data.chartData === "string"}
+      <p>not enough data</p>
+    {:else}
+      <div class="h-[500px]">
+        <Chart chartData={data.chartData} chartOptions={itemChartOptions} />
+      </div>
+    {/if}
   {/if}
 {/key}
