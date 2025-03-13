@@ -72,7 +72,7 @@
 </script>
 
 <div
-  class="flex w-full flex-col rounded-lg border border-primary border-opacity-15 bg-base-200 p-4 shadow-sm duration-300 hover:border-opacity-30"
+  class="border-primary/15 bg-base-200 hover:border-primary/30 flex w-full flex-col rounded-lg border p-4 shadow-sm duration-300"
 >
   <div class="flex w-full flex-row text-sm">
     <div class="w-20 lg:w-44">
@@ -208,7 +208,7 @@
     </div>
 
     {#if baseData.Tags?.length > 0 || premiumMap.get(baseData.Premium?.level || 0)}
-      <div class="flex h-fit flex-col gap-1 rounded-lg bg-base-300 p-1 sm:gap-2 sm:p-2">
+      <div class="bg-base-300 flex h-fit flex-col gap-1 rounded-lg p-1 sm:gap-2 sm:p-2">
         {#if baseData.Tags?.length > 0}
           {#each baseData.Tags as tag, i}
             {#if badges.has(tag.tagId)}

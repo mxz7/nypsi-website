@@ -3,11 +3,11 @@
 
   interface Props {
     data: {
-    id: number;
-    status: "idle" | "connecting" | "resuming" | "ready";
-    ping: number;
-    lastPing: number;
-  };
+      id: number;
+      status: "idle" | "connecting" | "resuming" | "ready";
+      ping: number;
+      lastPing: number;
+    };
     guildCount: number;
     selected?: boolean;
   }
@@ -28,7 +28,7 @@
   }
 </script>
 
-<div class="card bg-base-200 {selected ? 'border border-primary border-opacity-50' : ''}">
+<div class="card bg-base-200 {selected ? 'border-primary/50 border' : ''}">
   <div class="card-body">
     <h5 class="card-title {colour}">shard {data.id}</h5>
 

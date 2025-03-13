@@ -44,7 +44,7 @@
       {#each gambleStats as stat}
         <a
           href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
-          class="block rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+          class="border-primary/5 bg-base-200 hover:border-primary/20 block rounded-lg border p-4 duration-300"
         >
           <h3 class="text-center text-xl font-bold">{stat.game}</h3>
 
@@ -58,27 +58,27 @@
             class="gamble-template mt-2 grid w-full grid-cols-2 gap-y-3 align-middle [&>p]:text-center"
           >
             <p>
-              earned:<br /><span class="text-sm font-semibold text-primary"
+              earned:<br /><span class="text-primary text-sm font-semibold"
                 >${stat._sum.earned.toLocaleString()}</span
               >
             </p>
             <p>
-              spent:<br /><span class="text-sm font-semibold text-primary"
+              spent:<br /><span class="text-primary text-sm font-semibold"
                 >${stat._sum.bet.toLocaleString()}</span
               >
             </p>
             <p>
-              profit: <span class="text-sm font-semibold text-primary"
+              profit: <span class="text-primary text-sm font-semibold"
                 >${(stat._sum.earned - stat._sum.bet).toLocaleString()}</span
               >
             </p>
             <p>
-              xp: <span class="text-sm font-semibold text-primary"
+              xp: <span class="text-primary text-sm font-semibold"
                 >{stat._sum.xpEarned.toLocaleString()}</span
               >
             </p>
             <p class="gamble-bottom">
-              avg bet: <span class="text-sm font-semibold text-primary"
+              avg bet: <span class="text-primary text-sm font-semibold"
                 >${Math.floor(stat._avg.bet).toLocaleString()}</span
               >
             </p>
@@ -90,7 +90,7 @@
         {#each scratchStats as stat}
           <a
             href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
-            class="block h-fit break-inside-avoid-column rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 duration-300 hover:border-opacity-20"
+            class="border-primary/5 bg-base-200 hover:border-primary/20 block h-fit break-inside-avoid-column rounded-lg border p-4 duration-300"
           >
             <h1 class="text-center text-xl font-bold">{stat.game.replaceAll("_", " ")}</h1>
 
@@ -106,7 +106,7 @@
     </div>
 
     <div class="mt-9 flex gap-6 text-center text-sm">
-      <div class="h-[500px] w-1/2 overflow-y-scroll rounded-lg bg-base-200 p-4">
+      <div class="bg-base-200 h-[500px] w-1/2 overflow-y-scroll rounded-lg p-4">
         <h2 class=" text-xl font-bold">item stats</h2>
         <div class="mt-6 grid w-full grid-cols-1 gap-2">
           {#await data.itemStats then itemStats}
@@ -129,7 +129,7 @@
         </div>
       </div>
 
-      <div class="h-[500px] w-1/2 overflow-y-scroll rounded-lg bg-base-200 p-4">
+      <div class="bg-base-200 h-[500px] w-1/2 overflow-y-scroll rounded-lg p-4">
         <h2 class=" text-xl font-bold">command stats</h2>
         <div class="mt-6 grid w-full grid-cols-1 gap-2">
           {#await data.commandStats then commandStats}

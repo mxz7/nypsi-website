@@ -51,7 +51,7 @@
   <div
     in:fly={{ x: -200, duration: 250 }}
     out:fly={{ x: -200, duration: 250 }}
-    class="fixed left-0 top-0 z-20 h-full w-[70%] overflow-y-scroll rounded-box border-r border-primary border-opacity-15 bg-base-200 bg-opacity-95 p-2 shadow-xl shadow-base-300"
+    class="rounded-box border-primary/15 bg-base-200/95 shadow-base-300 fixed top-0 left-0 z-20 h-full w-[70%] overflow-y-scroll border-r p-2 shadow-xl"
   >
     <button class="btn btn-ghost" onclick={() => (visible = !visible)}>
       <X strokeWidth={2.5} />
@@ -95,7 +95,7 @@
           <li class={(parseInt(guild.permissions) & 0x20) == 0x20 ? "" : "disabled"}>
             <a
               class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
-                ? 'font-medium text-primary'
+                ? 'text-primary font-medium'
                 : ''} {(parseInt(guild.permissions) & 0x20) == 0x20 ? '' : 'cursor-not-allowed'}"
               href="/me/guilds/{guild.id}"
             >
@@ -221,7 +221,7 @@
             </ul>
           </li>
           <li>
-            <a href="/logout" class="flex items-center text-xs text-error">
+            <a href="/logout" class="text-error flex items-center text-xs">
               <LogOut size={12} />
               <span>log out</span></a
             >
@@ -236,7 +236,7 @@
   <div
     in:fade={{ duration: 250 }}
     out:fade={{ duration: 250 }}
-    class="fixed left-0 top-0 z-10 h-full w-full backdrop-blur-xs"
+    class="fixed top-0 left-0 z-10 h-full w-full backdrop-blur-xs"
     role="button"
     onclick={() => (visible = !visible)}
   ></div>

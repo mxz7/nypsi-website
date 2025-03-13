@@ -21,6 +21,7 @@
       avatar: string;
       Premium: {
         level: number;
+        embedColor: string;
       };
       Tags: {
         tagId: string;
@@ -135,7 +136,7 @@
         <div in:fly|global={{ delay: 600, duration: 500, y: 75 }}>
           {#if userData.Economy.EconomyGuildMember?.guild}
             <div
-              class="ho border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mt-4 flex w-full flex-col rounded-lg border p-4 duration-300"
+              class="border-primary/5 bg-base-200 hover:border-primary/20 mt-4 flex w-full flex-col rounded-lg border p-4 duration-300"
             >
               <h2 class="text-center">
                 <a
@@ -168,7 +169,7 @@
               <div class="mt-4 flex w-full flex-row flex-wrap justify-center gap-2">
                 {#each userData.Economy.EconomyGuildMember.guild.members as member}
                   <a
-                    class="border-primary border-opacity-5 bg-base-300 hover:border-opacity-25 hover:text-primary rounded-lg border p-2 text-xs shadow-sm duration-300 lg:text-sm"
+                    class="border-primary/5 bg-base-200 hover:border-primary/20 hover:text-primary rounded-lg border p-2 text-xs shadow-sm duration-300 lg:text-sm"
                     href="/user/{member.economy.user.id}">{member.economy.user.lastKnownUsername}</a
                   >
                 {/each}
@@ -180,7 +181,7 @@
         <div in:fly|global={{ delay: 700, duration: 500, y: 75 }}>
           {#if userData.Economy.Inventory.length > 1}
             <div
-              class="border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
+              class="border-primary/5 bg-base-200 hover:border-primary/20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
               id="inventory"
             >
               <h2 class="mb-3 w-full text-center">inventory</h2>
@@ -192,7 +193,7 @@
                   {#if itemData}
                     <a
                       href="/item/{item.item}"
-                      class="hover:bg-opacity- border-primary border-opacity-5 bg-base-300 hover:border-opacity-25 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
+                      class="border-primary/5 bg-base-200 hover:border-primary/20 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
                     >
                       <div
                         class="flex h-6 w-6 items-center justify-center align-middle lg:h-8 lg:w-8"
@@ -244,7 +245,7 @@
         <div in:fly|global={{ delay: 900, duration: 500, y: 75 }}>
           {#if userData.Leaderboards.length > 0}
             <div
-              class="border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
+              class="border-primary/5 bg-base-200 hover:border-primary/20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
               id="leaderboards"
             >
               <h2 class="mb-3 w-full text-center">leaderboards</h2>
@@ -254,7 +255,7 @@
                 {#each inPlaceSort(userData.Leaderboards).asc((i) => i.position) as lb}
                   <a
                     href="/leaderboard/{lb.leaderboard.replace('item-', '')}"
-                    class="border-primary border-opacity-5 bg-base-300 hover:border-opacity-25 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
+                    class="border-primary/5 bg-base-200 hover:border-primary/20 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
                   >
                     {#if lb.leaderboard.startsWith("item-")}
                       {@const itemData = items.find((i) => i.id === lb.leaderboard.split("-")[1])}
@@ -291,7 +292,7 @@
         <div in:fly|global={{ delay: 1000, duration: 500, y: 75 }}>
           {#if games.length > 0}
             <div
-              class="border-primary border-opacity-5 bg-base-200 hover:border-opacity-20 mx-auto mt-4 rounded-lg border p-4 duration-300 lg:w-full"
+              class="border-primary/5 bg-base-200 hover:border-primary/20 mx-auto mt-4 rounded-lg border p-4 duration-300 lg:w-full"
             >
               <h2 class="text-center">recent games</h2>
               <div class="max-h-64 overflow-y-auto">
@@ -301,7 +302,7 @@
                   {#each games as game}
                     <a
                       href="/game/{game.id.toString(36)}"
-                      class=" border-primary border-opacity-10 bg-base-300 hover:border-opacity-25 w-full justify-center rounded-lg border p-2 px-4 align-middle shadow duration-300 lg:mt-0
+                      class=" border-primary/10 bg-base-300 hover:border-primary/25 w-full justify-center rounded-lg border p-2 px-4 align-middle shadow duration-300 lg:mt-0
                     {game.win === 0
                         ? 'text-error'
                         : game.win === 1

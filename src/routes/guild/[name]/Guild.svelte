@@ -65,7 +65,7 @@
 
 <div class="mx-3 mt-7 mb-10 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
   <div
-    class="border-primary border-opacity-15 bg-base-200 hover:border-primary hover:border-opacity-30 flex w-full gap-2 rounded-lg border p-4 duration-300"
+    class="border-primary/15 bg-base-200 hover:border-primary/30 flex w-full gap-2 rounded-lg border p-4 duration-300"
   >
     <div class="h-24 w-24 sm:h-36 sm:w-36">
       <img
@@ -98,14 +98,14 @@
 
   {#key guildData}
     <div
-      class="border-primary border-opacity-5 bg-base-200 hover:border-primary hover:border-opacity-20 w-full rounded-lg border p-4 duration-300"
+      class="border-primary/5 bg-base-200 hover:border-primary/20 w-full rounded-lg border p-4 duration-300"
       in:fly|global={{ duration: initialLoad.value ? 0 : 300, y: 25, easing: cubicOut }}
     >
       {@render guildStats()}
     </div>
 
     <div
-      class="border-primary border-opacity-5 bg-base-200 hover:border-primary hover:border-opacity-20 w-full rounded-lg border p-4 duration-300"
+      class="border-primary/5 bg-base-200 hover:border-primary/20 w-full rounded-lg border p-4 duration-300"
       in:fly|global={{ duration: initialLoad.value ? 0 : 300, delay: 100, y: 25, easing: cubicOut }}
     >
       {@render userStats()}
