@@ -99,6 +99,10 @@
 
             if (option.showItems) {
               showChild = false;
+            } else {
+              setTimeout(() => {
+                showChild = true;
+              }, 50);
             }
           }}>{option.name}</a
         >
