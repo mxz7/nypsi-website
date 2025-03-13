@@ -84,12 +84,12 @@
 </script>
 
 <div class="mt-8 flex w-full justify-center px-4">
-  <ul class="menu menu-horizontal justify-center rounded-box bg-base-200 text-xs lg:text-sm">
+  <ul class="menu menu-md menu-horizontal rounded-box bg-base-200 justify-center gap-2">
     {#each options as option}
       <li>
         <a
           data-sveltekit-preload-code="viewport"
-          class={option.selected ? "focus" : ""}
+          class={option.selected ? "menu-active" : ""}
           href="/leaderboard{option.showItems ? '' : `/${option.data || option.name}`}"
           onclick={() => {
             options.forEach((i) => {

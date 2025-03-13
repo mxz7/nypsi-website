@@ -47,7 +47,7 @@ you can use the `$use <name of crate> <amount>` command to open specific number 
   <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm">
     {#each tabs as tab}
       <li>
-        <button class={selected === tab.id ? "focus" : ""} onclick={() => {
+        <button class={selected === tab.id ? "menu-active" : ""} onclick={() => {
           selected = tab.id;
           goto(`?crate=${tab.id}`);
           }}>{tab.name}</button>
