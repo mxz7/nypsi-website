@@ -4,13 +4,13 @@
 
   interface Props {
     clusterData: {
-    id: number;
-    online: boolean;
-    responsive: boolean;
-    guilds: { id: string; shard: number }[];
-    uptime: number;
-    restarting: boolean;
-  };
+      id: number;
+      online: boolean;
+      responsive: boolean;
+      guilds: { id: string; shard: number }[];
+      uptime: number;
+      restarting: boolean;
+    };
     selected?: boolean;
   }
 
@@ -41,7 +41,7 @@
   }
 </script>
 
-<div class="card bg-base-200 {selected ? 'border border-primary border-opacity-50' : ''}">
+<div class="card bg-base-200 {selected ? 'border-primary/50 border' : ''}">
   <div class="card-body">
     <h4 class="card-title {colour}">cluster {clusterData.id}</h4>
     <p class="text-sm">{description}</p>

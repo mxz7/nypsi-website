@@ -1,6 +1,57 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin 'daisyui';
+@plugin "daisyui/theme" {
+  name: "nypsi";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(17.93% 0.0354 263.08);
+  --color-base-200: oklch(16.57% 0.0337 263.46);
+  --color-base-300: oklch(15.56% 0.0299 262.93);
+  --color-base-content: oklch(89.36% 0.0076 260.73);
+  --color-primary: oklch(60.56% 0.2189 292.72);
+  --color-primary-content: oklch(93% 0.034 272.788);
+  --color-secondary: oklch(35.4% 0.1319 281.75);
+  --color-secondary-content: oklch(94% 0.028 342.258);
+  --color-accent: oklch(51.03% 0.1766 294.08);
+  --color-accent-content: oklch(38% 0.063 188.416);
+  --color-neutral: oklch(14% 0.0354 263.08);
+  --color-neutral-content: oklch(89.36% 0.0076 260.73);
+  --color-info: oklch(74% 0.16 232.661);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(87.28% 0.1919 149.1);
+  --color-success-content: oklch(37% 0.077 168.94);
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(41% 0.112 45.904);
+  --color-error: oklch(58.79% 0.2236 21.68);
+  --color-error-content: oklch(27% 0.105 12.094);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @font-face {
   font-family: "Inter";
@@ -10,8 +61,9 @@
   src:
     local("Inter"),
     url(https://fonts.gstatic.com/s/inter/v18/UcCo3FwrK3iLTcviYwYZ8UA3.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
-    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -22,8 +74,9 @@
   src:
     local("Inter"),
     url(https://fonts.gstatic.com/s/inter/v18/UcCm3FwrK3iLTcvnUwQT9mI1F54.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
-    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 * {
@@ -36,5 +89,5 @@ body {
 }
 
 .tippy-box {
-  @apply rounded-lg border border-primary border-opacity-30 bg-base-300 px-2 py-1 text-sm shadow shadow-black;
+  @apply border-primary/30 bg-base-300 rounded-lg border px-2 py-1 text-sm shadow-sm shadow-black;
 }

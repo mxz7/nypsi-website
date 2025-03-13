@@ -42,7 +42,7 @@
 {/snippet}
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
-  <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
+  <ul class="menu rounded-box bg-base-200 hidden h-fit w-72 p-4 lg:block">
     <li><h2 class="menu-title">nypsi docs</h2></li>
 
     {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
@@ -57,12 +57,14 @@
 </div>
 
 <style>
+  @reference "../../app.css";
+
   :global(.docs-content h1) {
     @apply mb-6 text-3xl font-bold text-white lg:text-4xl;
   }
 
   :global(.docs-content h2) {
-    @apply mb-2 mt-5 text-2xl font-bold text-white;
+    @apply mt-5 mb-2 text-2xl font-bold text-white;
   }
 
   :global(.docs-content h3) {
@@ -70,16 +72,16 @@
   }
 
   :global(.docs-content p) {
-    @apply mb-2 mt-1;
+    @apply mt-1 mb-2;
   }
 
   :global(.docs-content pre) {
-    @apply overflow-x-auto rounded-lg bg-base-300 p-2;
+    @apply bg-base-300 overflow-x-auto rounded-lg p-2;
     font-family: "Fira Mono", monospace;
   }
 
   :global(.docs-content code) {
-    @apply rounded-lg bg-base-300 p-1;
+    @apply bg-base-300 rounded-lg p-1;
     font-family: "Fira Mono", monospace;
   }
 

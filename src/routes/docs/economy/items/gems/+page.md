@@ -39,7 +39,7 @@ ranged values (ex: 1-17%) have an equal chance for all options
   <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm mb-2 mt-4">
     {#each tabs as tab}
       <li>
-        <button class={selected === tab ? "focus" : ""} onclick={() => selected = tab}>{tab}</button>
+        <button class={selected === tab ? "menu-active" : ""} onclick={() => selected = tab}>{tab}</button>
       </li>
     {/each}
   </ul>
@@ -261,6 +261,8 @@ cannot shatter
 {/if}
 
 <style>
+  @reference "../../../../../app.css";
+
   blue {
     color: #6097d2;
   }
