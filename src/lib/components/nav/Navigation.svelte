@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { auth } from "$lib/state.svelte";
-  import { Menu } from "lucide-svelte";
+  import { Menu } from "@lucide/svelte";
   import MobileScreen from "./MobileScreen.svelte";
 
   let sidebarVisible = $state(false);
@@ -10,7 +10,7 @@
 <MobileScreen bind:visible={sidebarVisible} />
 
 <div class="flex w-full justify-center px-3 lg:px-0">
-  <div class="navbar mt-3 rounded-xl bg-base-200 lg:max-w-6xl">
+  <div class="navbar bg-base-200 mt-3 rounded-xl lg:max-w-6xl">
     <div class="navbar-start">
       <button
         aria-label="show mobile navigation"

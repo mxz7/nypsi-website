@@ -9,7 +9,7 @@
     LogOut,
     Server,
     UserRound,
-  } from "lucide-svelte";
+  } from "@lucide/svelte";
   import { onMount } from "svelte";
 
   let { children, data } = $props();
@@ -25,7 +25,7 @@
 </script>
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
-  <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
+  <ul class="menu rounded-box bg-base-200 hidden h-fit w-72 p-4 lg:block">
     <li><h2 class="menu-title">dashboard</h2></li>
 
     <div class="pl-2">
@@ -101,7 +101,7 @@
       <div class="divider my-0"></div>
 
       <li>
-        <a href="/logout" class="flex items-center text-sm text-error">
+        <a href="/logout" class="text-error flex items-center text-sm">
           <LogOut size={16} />
           <span>log out</span></a
         >

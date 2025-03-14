@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Trash } from "lucide-svelte";
+  import { Trash } from "@lucide/svelte";
 
   interface Props {
     avatar: {

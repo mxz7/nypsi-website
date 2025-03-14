@@ -12,7 +12,7 @@
     Server,
     UserRound,
     X,
-  } from "lucide-svelte";
+  } from "@lucide/svelte";
   import { fade, fly } from "svelte/transition";
 
   let { visible = $bindable(false) } = $props();

@@ -8,7 +8,7 @@
     Hammer,
     Keyboard,
     Leaf,
-  } from "lucide-svelte";
+  } from "@lucide/svelte";
 </script>
 
 <div id="features">

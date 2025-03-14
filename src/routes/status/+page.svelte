@@ -2,7 +2,7 @@
   import { invalidate } from "$app/navigation";
   import { MStoTime } from "$lib/functions/time.js";
   import dayjs from "dayjs";
-  import { RefreshCw } from "lucide-svelte";
+  import { RefreshCw } from "@lucide/svelte";
   import { onDestroy, onMount } from "svelte";
   import toast from "svelte-french-toast";
   import Cluster from "./Cluster.svelte";
@@ -187,7 +187,7 @@
 
     {#if guildIdSearch}
       {#if guild}
-        <div class="card mt-4 w-fit bg-base-200 shadow-xl">
+        <div class="card bg-base-200 mt-4 w-fit shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-success">{guild.id}</h2>
             <p>
@@ -196,10 +196,10 @@
           </div>
         </div>
       {:else}
-        <div class="card mt-4 w-96 bg-base-200 shadow-xl">
+        <div class="card bg-base-200 mt-4 w-96 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-error">unknown server</h2>
-            <p class="text-sm text-error opacity-90">
+            <p class="text-error text-sm opacity-90">
               to get your server ID, enable discord developer mode, right click on your server, and
               click copy id
             </p>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import { sort } from "fast-sort";
-  import { Pencil, Trash } from "lucide-svelte";
+  import { Pencil, Trash } from "@lucide/svelte";
   import toast from "svelte-french-toast";
 
   interface Props {
@@ -17,7 +17,7 @@
   let modal: HTMLDialogElement;
 </script>
 
-<table class="table mt-4 w-full flex-1 text-xs">
+<table class="mt-4 table w-full flex-1 text-xs">
   <thead>
     <tr>
       <th>content</th>

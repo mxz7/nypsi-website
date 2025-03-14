@@ -2,7 +2,7 @@
   import parseEmoji from "$lib/functions/parseEmoji";
   import { tags } from "$lib/state.svelte";
   import tooltip from "$lib/Tooltips";
-  import { BadgeDollarSign, Code } from "lucide-svelte";
+  import { BadgeDollarSign, Code } from "@lucide/svelte";
   import { onMount } from "svelte";
 
   let { data } = $props();

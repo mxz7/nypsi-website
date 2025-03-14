@@ -2,7 +2,7 @@
   import { invalidateAll } from "$app/navigation";
   import { env } from "$env/dynamic/public";
   import { auth } from "$lib/state.svelte.js";
-  import { Check } from "lucide-svelte";
+  import { Check } from "@lucide/svelte";
   import { onMount } from "svelte";
 
   let { data } = $props();
@@ -58,7 +58,7 @@
 <div class="mt-16 flex w-full justify-center md:mt-32">
   <div class="flex w-full flex-col gap-4 px-4 md:max-w-lg md:px-0">
     {#if data.solved}
-      <h1 class="flex justify-center gap-2 text-xl font-bold text-success">
+      <h1 class="text-success flex justify-center gap-2 text-xl font-bold">
         verified <Check strokeWidth={3} />
       </h1>
 
@@ -70,7 +70,7 @@
         ></iframe>
       {/if}
     {:else}
-      <h1 class="text-center text-xl font-bold text-error">
+      <h1 class="text-error text-center text-xl font-bold">
         complete the captcha to continue using commands
       </h1>
 

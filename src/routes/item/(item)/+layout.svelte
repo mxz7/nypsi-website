@@ -3,7 +3,7 @@
   import { page } from "$app/state";
   import { items } from "$lib/state.svelte";
   import { sort } from "fast-sort";
-  import { Search } from "lucide-svelte";
+  import { Search } from "@lucide/svelte";
   import { onMount } from "svelte";
 
   let { children, data } = $props();
