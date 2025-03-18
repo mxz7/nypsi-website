@@ -88,7 +88,7 @@
       <div class="px-4 lg:px-0">
         <a
           href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
-          class="animation-3 btn btn-primary flex gap-3 bg-linear-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
+          class="animation-3 btn btn-primary btn-lg flex gap-3 bg-linear-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
           target="_blank"
           data-umami-event="add-to-discord"
           data-umami-event-user={auth.value?.authenticated ? auth.value.user.id : undefined}
