@@ -11,8 +11,8 @@
   } from "@lucide/svelte";
 </script>
 
-<div id="features">
-  <div class="bg-base-200 w-full">
+<section id="features">
+  <section class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
         <div class="bg-base-300 rounded-lg p-3">
@@ -43,9 +43,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="mx-auto w-full py-28 lg:max-w-5xl">
+  <section class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
       <div class="bg-base-300 rounded-lg p-3">
         <Keyboard class="text-primary" size={32} strokeWidth={2.5} />
@@ -89,9 +89,9 @@
         </picture>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="bg-base-200 w-full">
+  <section class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
         <div class="bg-base-300 rounded-lg p-3">
@@ -127,9 +127,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="mx-auto w-full py-28 lg:max-w-5xl">
+  <section class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
       <div class="bg-base-300 rounded-lg p-3">
         <Hammer class="text-primary" size={32} strokeWidth={2.5} />
@@ -161,9 +161,9 @@
         </picture>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="bg-base-200 w-full">
+  <section class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
         <div class="bg-base-300 rounded-lg p-3">
@@ -196,9 +196,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="mx-auto w-full py-28 lg:max-w-5xl">
+  <section class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
       <div class="bg-base-300 rounded-lg p-3">
         <Clipboard class="text-primary" size={32} strokeWidth={2.5} />
@@ -230,9 +230,9 @@
         </picture>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="bg-base-200 w-full">
+  <section class="bg-base-200 w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
         <div class="bg-base-300 rounded-lg p-3">
@@ -261,9 +261,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="mx-auto w-full py-28 lg:max-w-5xl">
+  <section class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
       <div class="bg-base-300 rounded-lg p-3">
         <Leaf class="text-primary" size={32} strokeWidth={2.5} />
@@ -289,8 +289,8 @@
         </picture>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+</section>
 
 <style>
   @reference "../../../app.css";

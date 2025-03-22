@@ -42,13 +42,15 @@
 {/snippet}
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
-  <ul class="menu rounded-box bg-base-200 hidden h-fit w-72 p-4 lg:block">
-    <li><h2 class="menu-title">nypsi docs</h2></li>
+  <nav>
+    <ul class="menu rounded-box bg-base-200 hidden h-fit w-72 p-4 lg:block">
+      <li><h2 class="menu-title">nypsi docs</h2></li>
 
-    {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
-      {@render renderPath(path)}
-    {/each}
-  </ul>
+      {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
+        {@render renderPath(path)}
+      {/each}
+    </ul>
+  </nav>
   {#key page.url.pathname}
     <div in:fly={{ duration: 400, y: 25 }} class="docs-content w-full p-4 lg:p-0">
       {@render children()}

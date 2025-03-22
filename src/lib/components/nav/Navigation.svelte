@@ -10,7 +10,7 @@
 <MobileScreen bind:visible={sidebarVisible} />
 
 <div class="flex w-full justify-center px-3 lg:px-0">
-  <div class="navbar bg-base-200 mt-3 rounded-xl lg:max-w-6xl">
+  <nav class="navbar bg-base-200 mt-3 rounded-xl lg:max-w-6xl">
     <div class="navbar-start">
       <button
         aria-label="show mobile navigation"
@@ -79,5 +79,5 @@
         </a>
       {/if}
     </div>
-  </div>
+  </nav>
 </div>
