@@ -23,7 +23,7 @@ export async function load({ locals, params, url, fetch, setHeaders }) {
 
   if (!item) return error(404, "item not found");
 
-  const days = parseInt(url.searchParams.get("days") || "30");
+  const days = parseInt(url.searchParams.get("days") || "60");
 
   const graphData = getItemHistoryData(items, item.id, auth.user.id, days);
 

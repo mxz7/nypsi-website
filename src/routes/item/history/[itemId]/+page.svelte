@@ -7,7 +7,7 @@
   import { onMount } from "svelte";
 
   let { data } = $props();
-  let days = $state(page.url.searchParams.get("days") || "30");
+  let days = $state(page.url.searchParams.get("days") || "60");
 
   const chartOptions: ChartOptions = {
     plugins: {
@@ -84,11 +84,11 @@
 </svelte:head>
 
 {#if data.premium}
-  <header class="mb-10 mt-5 text-center sm:mb-3 sm:w-full">
+  <header class="mt-5 mb-10 text-center sm:mb-3 sm:w-full">
     <h1 class="text-4xl font-bold text-white sm:text-5xl">
       {data.item?.name} history
     </h1>
-    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
+    <div class="bg-primary m-auto mt-3 h-1 w-3/4 rounded-full sm:w-1/2"></div>
   </header>
 
   {#key data.graphData}
@@ -112,11 +112,11 @@
     </div>
     <div>
       {#if data.graphData === "invalid item"}
-        <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
+        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
           <h1>invalid item</h1>
         </div>
       {:else if data.graphData === "not enough data"}
-        <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
+        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
           <h1>not enough data</h1>
         </div>
       {:else if typeof data.graphData !== "string"}
@@ -131,7 +131,7 @@
 {:else}
   <div class="flex w-full justify-center">
     <div class="mt-14 text-center">
-      <h1 class="text-3xl font-bold text-primary">you must have premium for item graphs</h1>
+      <h1 class="text-primary text-3xl font-bold">you must have premium for item graphs</h1>
       <p>
         you can buy premium <a href="https://ko-fi.com/tekoh" target="_blank" class="link">here</a>
       </p>
