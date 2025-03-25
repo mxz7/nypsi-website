@@ -166,7 +166,7 @@ max shards given from shattering: 10
 
 \+4% sell multiplier <blue>(20% chance to reduce multi by 3%)</blue>
 
-\+20% storage for all plants **when combined with a** pink gem
+\+20% storage for all plants **when combined with a** purple gem
 
 80% chance to increase farm production by 25% (20% chance to reduce production by 20%)
 
