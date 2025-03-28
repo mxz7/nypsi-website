@@ -23,24 +23,29 @@
 )}
   <section class="{flipped ? '' : 'bg-base-200'} w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
-      <h2>
-        <div class="bg-base-300 rounded-lg p-3">
-          <Icon class="text-primary" size={32} strokeWidth={2.5} />
-        </div>
-        <span>{title}</span>
-      </h2>
       <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-        <ul>
-          {#each list as item}
-            <li>{@html item}</li>
-          {/each}
-        </ul>
+        <div class="flex flex-col justify-center gap-12">
+          <h2
+            class="flex w-full items-center gap-4 text-3xl font-bold text-white md:text-5xl lg:-mt-8"
+          >
+            <div class="bg-base-300 rounded-lg p-3">
+              <Icon class="text-primary" size={32} strokeWidth={2.5} />
+            </div>
+            <span>{title}</span>
+          </h2>
+          <ul class="flex w-full flex-col justify-center gap-2 md:gap-3 md:text-lg">
+            {#each list as item}
+              <li>{@html item}</li>
+            {/each}
+          </ul>
+        </div>
         <div class="pt-0 {flipped ? 'lg:-order-1 lg:pr-12' : 'lg:pl-12'}">
           <picture>
             <source srcset="https://cdn.nypsi.xyz/static/features/{image}.avif" type="image/avif" />
             <img
               src="https://cdn.nypsi.xyz/static/features/{image}.webp"
               alt="networth command"
+              class="h-auto max-h-full w-auto max-w-full rounded-lg object-contain"
               loading="lazy"
               decoding="async"
             />
@@ -67,6 +72,30 @@
   )}
 
   {@render section(
+    "cats",
+    [
+      "collect popular silly cats you know and love from tiktok and instagram",
+      "dave is the bot owner's personal cat (:",
+      "there's also flowers if you're not a cat person. you loser.",
+    ],
+    "cats",
+    Cat,
+    true,
+  )}
+
+  {@render section(
+    "farms",
+    [
+      "grow plants and make money from your yield",
+      "take care of your plants with watering and fertiliser",
+      "upgrade your farms with silos and hoes for even more production",
+    ],
+    "farm",
+    Leaf,
+    false,
+  )}
+
+  {@render section(
     "chat reactions",
     [
       "fun typing game for all server members",
@@ -74,11 +103,22 @@
       "customisable timings",
       "duel specific players with $cr duel",
       "view leaderboards with $cr lb",
-      "compete in official tournaments for a <a href='/badges#keyboard' class='link'>keyboard tag</a>",
     ],
     "chatreaction",
     Keyboard,
     true,
+  )}
+
+  {@render section(
+    "guess the flag",
+    [
+      "fun game to play on your own or against others",
+      "uses a global list of every country's flag",
+      "helps you to learn all the flags (i'm still shit at them)",
+    ],
+    "guesstheflag",
+    Flag,
+    false,
   )}
 
   {@render section(
@@ -91,7 +131,7 @@
     ],
     "gambling",
     Coins,
-    false,
+    true,
   )}
 
   {@render section(
@@ -105,7 +145,7 @@
     ],
     "moderation",
     Hammer,
-    true,
+    false,
   )}
 
   {@render section(
@@ -118,18 +158,6 @@
     ],
     "reactionroles",
     Book,
-    false,
-  )}
-
-  {@render section(
-    "guess the flag",
-    [
-      "fun game to play on your own or against others",
-      "uses a global list of every country's flag",
-      "helps you to learn all the flags (i'm still shit at them)",
-    ],
-    "guesstheflag",
-    Flag,
     true,
   )}
 
@@ -144,44 +172,4 @@
     Bell,
     false,
   )}
-
-  {@render section(
-    "farms",
-    [
-      "grow plants and make money from your yield",
-      "take care of your plants with watering and fertiliser",
-      "upgrade your farms with silos and hoes for even more production",
-    ],
-    "farm",
-    Leaf,
-    true,
-  )}
-
-  {@render section(
-    "cats",
-    [
-      "collect popular silly cats you know and love from tiktok and instagram",
-      "dave is the bot owner's personal cat (:",
-      "there's also flowers if you're not a cat person. you loser.",
-    ],
-    "cats",
-    Cat,
-    false,
-  )}
 </section>
-
-<style>
-  @reference "../../../app.css";
-
-  ul {
-    @apply flex h-full w-full flex-col justify-center gap-2 md:gap-3 md:text-lg;
-  }
-
-  h2 {
-    @apply mb-14 flex w-full items-center justify-center gap-4 text-center text-4xl font-bold text-white md:text-5xl;
-  }
-
-  img {
-    @apply h-auto max-h-full w-auto max-w-full rounded-lg object-contain;
-  }
-</style>
