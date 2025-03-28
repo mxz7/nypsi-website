@@ -66,7 +66,7 @@
   </a>
 </div>
 
-<div class="hero min-h-screen">
+<main class="hero min-h-screen">
   <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
     <div class="fly-up">
       <picture>
@@ -99,7 +99,7 @@
       </div>
     </div>
   </div>
-</div>
+</main>
 
 <Features />
 
