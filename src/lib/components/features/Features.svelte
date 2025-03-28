@@ -3,8 +3,10 @@
     BadgeDollarSign,
     Bell,
     Book,
+    Cat,
     Clipboard,
     Coins,
+    Flag,
     Hammer,
     Keyboard,
     Leaf,
@@ -36,8 +38,8 @@
               alt="networth command"
               loading="lazy"
               decoding="async"
-              width="814"
-              height="954"
+              width="840"
+              height="1010"
             />
           </picture>
         </div>
@@ -83,8 +85,8 @@
             alt="chat reaction"
             loading="lazy"
             decoding="async"
-            width="682"
-            height="510"
+            width="818"
+            height="484"
           />
         </picture>
       </div>
@@ -112,15 +114,15 @@
         <div class="pt-0 lg:pl-12">
           <picture>
             <source
-              srcset="https://cdn.nypsi.xyz/static/features/scratchcard.avif"
+              srcset="https://cdn.nypsi.xyz/static/features/gambling.avif"
               type="image/avif"
             />
             <img
-              src="https://cdn.nypsi.xyz/static/features/scratchcard.webp"
+              src="https://cdn.nypsi.xyz/static/features/gambling.webp"
               alt="finished scratch card"
               loading="lazy"
               decoding="async"
-              width="674"
+              width="818"
               height="716"
             />
           </picture>
@@ -155,8 +157,8 @@
             alt="modlogs"
             loading="lazy"
             decoding="async"
-            width="924"
-            height="1150"
+            width="990"
+            height="788"
           />
         </picture>
       </div>
@@ -189,8 +191,8 @@
               alt="reaction roles"
               loading="lazy"
               decoding="async"
-              width="872"
-              height="1158"
+              width="902"
+              height="1116"
             />
           </picture>
         </div>
@@ -201,31 +203,29 @@
   <section class="mx-auto w-full py-28 lg:max-w-5xl">
     <h2>
       <div class="bg-base-300 rounded-lg p-3">
-        <Clipboard class="text-primary" size={32} strokeWidth={2.5} />
+        <Flag class="text-primary" size={32} strokeWidth={2.5} />
       </div>
-      <span>role persist</span>
+      <span>guess the flag</span>
     </h2>
     <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
       <ul>
-        <li>prevent members from losing specific roles when they leave the server</li>
-        <li>
-          it's as easy as doing /role persist add {"<role>"}
-        </li>
-        <li>role data is deleted after 30 days</li>
+        <li>fun game to play on your own or against others</li>
+        <li>uses a global list of every country's flag</li>
+        <li>helps you to learn all the flags (i'm still shit at them)</li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
         <picture>
           <source
-            srcset="https://cdn.nypsi.xyz/static/features/rolepersist.avif"
+            srcset="https://cdn.nypsi.xyz/static/features/guesstheflag.avif"
             type="image/avif"
           />
           <img
-            src="https://cdn.nypsi.xyz/static/features/rolepersist.webp"
-            alt="role persist list"
+            src="https://cdn.nypsi.xyz/static/features/guesstheflag.webp"
+            alt="guess the flag game"
             loading="lazy"
             decoding="async"
-            width="550"
-            height="316"
+            width="990"
+            height="996"
           />
         </picture>
       </div>
@@ -248,14 +248,17 @@
         </ul>
         <div class="pt-0 lg:pl-12">
           <picture>
-            <source srcset="https://cdn.nypsi.xyz/static/features/pings.avif" type="image/avif" />
+            <source
+              srcset="https://cdn.nypsi.xyz/static/features/mentions.avif"
+              type="image/avif"
+            />
             <img
-              src="https://cdn.nypsi.xyz/static/features/pings.webp"
+              src="https://cdn.nypsi.xyz/static/features/mentions.webp"
               alt="pings command"
               loading="lazy"
               decoding="async"
-              width="606"
-              height="706"
+              width="628"
+              height="702"
             />
           </picture>
         </div>
@@ -274,6 +277,7 @@
       <ul>
         <li>grow plants and make money from your yield</li>
         <li>take care of your plants with watering and fertiliser</li>
+        <li>upgrade your farms with silos and hoes for even more production</li>
       </ul>
       <div class="pt-0 lg:-order-1 lg:pr-12">
         <picture>
@@ -283,10 +287,41 @@
             alt="role persist list"
             loading="lazy"
             decoding="async"
-            width="1196"
+            width="974"
             height="668"
           />
         </picture>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-base-200 w-full">
+    <div class="mx-auto w-full py-28 lg:max-w-5xl">
+      <h2>
+        <div class="bg-base-300 rounded-lg p-3">
+          <Cat class="text-primary" size={32} strokeWidth={2.5} />
+        </div>
+        <span>cats</span>
+      </h2>
+      <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
+        <ul>
+          <li>collect popular silly cats you know and love from tiktok and instagram</li>
+          <li>dave is the bot owner's personal cat {"(:"}</li>
+          <li>there's also flowers if you're not a cat person. you loser.</li>
+        </ul>
+        <div class="pt-0 lg:pl-12">
+          <picture>
+            <source srcset="https://cdn.nypsi.xyz/static/features/cats.avif" type="image/avif" />
+            <img
+              src="https://cdn.nypsi.xyz/static/features/cats.webp"
+              alt="collect cats commanad"
+              loading="lazy"
+              decoding="async"
+              width="452"
+              height="460"
+            />
+          </picture>
+        </div>
       </div>
     </div>
   </section>
