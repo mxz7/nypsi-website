@@ -17,3 +17,7 @@ items may also be unvalued if they have simply never been sold on auction or thr
 <DocsHeader header='h2' text="manipulation" />
 
 you may think that it's easy to manipulate the worth of items since it's based on auctions and offers. and it is pretty easy, but this is incredibly easy to find and remove, and is **very much against the rules**. you will be caught and you will be banned.
+
+<DocsHeader header='h2' text="history" />
+
+[premium members](https://nypsi.xyz/docs/premium) have access to view the item worth history graphs. these graphs are visible from the [items page](https://nypsi.xyz/item), or from a button on the `/item` command. this shows the past of item worth, auction value, offers value and the amount of items in the world.
