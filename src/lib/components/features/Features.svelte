@@ -1,330 +1,173 @@
-<script>
+<script lang="ts">
+  import type { IconProps } from "@lucide/svelte";
   import {
     BadgeDollarSign,
     Bell,
     Book,
     Cat,
-    Clipboard,
     Coins,
     Flag,
     Hammer,
     Keyboard,
     Leaf,
   } from "@lucide/svelte";
+  import type { Component } from "svelte";
 </script>
 
-<section id="features">
-  <section class="bg-base-200 w-full">
+{#snippet section(
+  title: string,
+  list: string[],
+  image: string,
+  Icon: Component<IconProps, {}, "">,
+  flipped: boolean,
+)}
+  <section class="{flipped ? '' : 'bg-base-200'} w-full">
     <div class="mx-auto w-full py-28 lg:max-w-5xl">
       <h2>
         <div class="bg-base-300 rounded-lg p-3">
-          <BadgeDollarSign class="text-primary" size={32} strokeWidth={2.5} />
+          <Icon class="text-primary" size={32} strokeWidth={2.5} />
         </div>
-        <span>economy</span>
+        <span>{title}</span>
       </h2>
       <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
         <ul>
-          <li>resets twice a year with <strong>real money rewards</strong></li>
-          <li>over 150+ items to collect</li>
-          <li>bakery, gambling, farming, workers, minecraft, cryptocurrency and much more</li>
-          <li><a href="/seasons" class="link" target="_blank">view season history</a></li>
-          <li><a href="/leaderboard" class="link" target="_blank">view leaderboards</a></li>
+          {#each list as item}
+            <li>{@html item}</li>
+          {/each}
         </ul>
-        <div class="pt-0 lg:pl-12">
+        <div class="pt-0 {flipped ? 'lg:-order-1 lg:pr-12' : 'lg:pl-12'}">
           <picture>
-            <source srcset="https://cdn.nypsi.xyz/static/features/economy.avif" type="image/avif" />
+            <source srcset="https://cdn.nypsi.xyz/static/features/{image}.avif" type="image/avif" />
             <img
-              src="https://cdn.nypsi.xyz/static/features/economy.webp"
+              src="https://cdn.nypsi.xyz/static/features/{image}.webp"
               alt="networth command"
               loading="lazy"
               decoding="async"
-              width="840"
-              height="1010"
             />
           </picture>
         </div>
       </div>
     </div>
   </section>
+{/snippet}
 
-  <section class="mx-auto w-full py-28 lg:max-w-5xl">
-    <h2>
-      <div class="bg-base-300 rounded-lg p-3">
-        <Keyboard class="text-primary" size={32} strokeWidth={2.5} />
-      </div>
-      <span>chat reactions</span>
-    </h2>
-    <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-      <ul>
-        <li>fun typing game for all server members</li>
-        <li>
-          uses word lists from
-          <a href="https://monkeytype.com" target="_blank" class="link"> monkeytype </a>
-          - or
-          <a href="/docs/chat-reactions/word-lists" target="_blank" class="link">
-            create your own
-          </a>
-        </li>
-        <li>customisable timings</li>
-        <li>duel specific players with $cr duel</li>
-        <li>view leaderboards with $cr lb</li>
-        <li>
-          compete in official tournaments for a <a href="/badges#keyboard" class="link"
-            >keyboard tag</a
-          >
-        </li>
-      </ul>
-      <div class="pt-0 lg:-order-1 lg:pr-12">
-        <picture>
-          <source
-            srcset="https://cdn.nypsi.xyz/static/features/chatreaction.avif"
-            type="image/avif"
-          />
-          <img
-            src="https://cdn.nypsi.xyz/static/features/chatreaction.webp"
-            alt="chat reaction"
-            loading="lazy"
-            decoding="async"
-            width="818"
-            height="484"
-          />
-        </picture>
-      </div>
-    </div>
-  </section>
+<section id="features">
+  {@render section(
+    "economy",
+    [
+      "resets twice a year with <strong>real money rewards</strong>",
+      "over 150+ items to collect",
+      "bakery, gambling, farming, workers, minecraft, cryptocurrency and much more",
+      "<a href='/seasons' class='link' target='_blank'>view season history</a>",
+      "<a href='/leaderboard' class='link' target='_blank'>view leaderboards</a>",
+    ],
+    "economy",
+    BadgeDollarSign,
+    false,
+  )}
 
-  <section class="bg-base-200 w-full">
-    <div class="mx-auto w-full py-28 lg:max-w-5xl">
-      <h2>
-        <div class="bg-base-300 rounded-lg p-3">
-          <Coins class="text-primary" size={32} strokeWidth={2.5} />
-        </div>
-        <span>gambling</span>
-      </h2>
-      <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-        <ul>
-          <li>
-            many different gambling games including blackjack, mines, dragon tower, races and
-            scratch cards
-          </li>
-          <li>earn xp to level up</li>
-          <li>contribute earned rewards to guilds for higher bonuses</li>
-          <li>use boosters to push the limits</li>
-        </ul>
-        <div class="pt-0 lg:pl-12">
-          <picture>
-            <source
-              srcset="https://cdn.nypsi.xyz/static/features/gambling.avif"
-              type="image/avif"
-            />
-            <img
-              src="https://cdn.nypsi.xyz/static/features/gambling.webp"
-              alt="finished scratch card"
-              loading="lazy"
-              decoding="async"
-              width="818"
-              height="716"
-            />
-          </picture>
-        </div>
-      </div>
-    </div>
-  </section>
+  {@render section(
+    "chat reactions",
+    [
+      "fun typing game for all server members",
+      "uses word lists from <a href='https://monkeytype.com' target='_blank' class='link'>monkeytype</a> - or <a href='/docs/chat-reactions/word-lists' target='_blank' class='link'>create your own</a>",
+      "customisable timings",
+      "duel specific players with $cr duel",
+      "view leaderboards with $cr lb",
+      "compete in official tournaments for a <a href='/badges#keyboard' class='link'>keyboard tag</a>",
+    ],
+    "chatreaction",
+    Keyboard,
+    true,
+  )}
 
-  <section class="mx-auto w-full py-28 lg:max-w-5xl">
-    <h2>
-      <div class="bg-base-300 rounded-lg p-3">
-        <Hammer class="text-primary" size={32} strokeWidth={2.5} />
-      </div>
-      <span>moderation</span>
-    </h2>
-    <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-      <ul>
-        <li>full standard moderation suite</li>
-        <li>case system with uploadable evidence screenshots</li>
-        <li>customisable automute with custom cooldown time</li>
-        <li>chat filter with similarity % to catch people trying to evade detection</li>
-        <li>alt management - add known alts to users to punish together</li>
-      </ul>
-      <div class="pt-0 lg:-order-1 lg:pr-12">
-        <picture>
-          <source
-            srcset="https://cdn.nypsi.xyz/static/features/moderation.avif"
-            type="image/avif"
-          />
-          <img
-            src="https://cdn.nypsi.xyz/static/features/moderation.webp"
-            alt="modlogs"
-            loading="lazy"
-            decoding="async"
-            width="990"
-            height="788"
-          />
-        </picture>
-      </div>
-    </div>
-  </section>
+  {@render section(
+    "gambling",
+    [
+      "many different gambling games including blackjack, mines, dragon tower, races and scratch cards",
+      "earn xp to level up",
+      "contribute earned rewards to guilds for higher bonuses",
+      "use boosters to push the limits",
+    ],
+    "gambling",
+    Coins,
+    false,
+  )}
 
-  <section class="bg-base-200 w-full">
-    <div class="mx-auto w-full py-28 lg:max-w-5xl">
-      <h2>
-        <div class="bg-base-300 rounded-lg p-3">
-          <Book class="text-primary" size={32} strokeWidth={2.5} />
-        </div>
-        <span>reaction roles</span>
-      </h2>
-      <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-        <ul>
-          <li>modern implementation using buttons rather than emojis reactions</li>
-          <li>use an emoji or a text label</li>
-          <li>unique and many modes preventing users from collecting all roles</li>
-          <li>role whitelist - require members to have a specific role before using</li>
-        </ul>
-        <div class="pt-0 lg:pl-12">
-          <picture>
-            <source
-              srcset="https://cdn.nypsi.xyz/static/features/reactionroles.avif"
-              type="image/avif"
-            />
-            <img
-              src="https://cdn.nypsi.xyz/static/features/reactionroles.webp"
-              alt="reaction roles"
-              loading="lazy"
-              decoding="async"
-              width="902"
-              height="1116"
-            />
-          </picture>
-        </div>
-      </div>
-    </div>
-  </section>
+  {@render section(
+    "moderation",
+    [
+      "full standard moderation suite",
+      "case system with uploadable evidence screenshots",
+      "customisable automute with custom cooldown time",
+      "chat filter with similarity % to catch people trying to evade detection",
+      "alt management - add known alts to users to punish together",
+    ],
+    "moderation",
+    Hammer,
+    true,
+  )}
 
-  <section class="mx-auto w-full py-28 lg:max-w-5xl">
-    <h2>
-      <div class="bg-base-300 rounded-lg p-3">
-        <Flag class="text-primary" size={32} strokeWidth={2.5} />
-      </div>
-      <span>guess the flag</span>
-    </h2>
-    <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-      <ul>
-        <li>fun game to play on your own or against others</li>
-        <li>uses a global list of every country's flag</li>
-        <li>helps you to learn all the flags (i'm still shit at them)</li>
-      </ul>
-      <div class="pt-0 lg:-order-1 lg:pr-12">
-        <picture>
-          <source
-            srcset="https://cdn.nypsi.xyz/static/features/guesstheflag.avif"
-            type="image/avif"
-          />
-          <img
-            src="https://cdn.nypsi.xyz/static/features/guesstheflag.webp"
-            alt="guess the flag game"
-            loading="lazy"
-            decoding="async"
-            width="990"
-            height="996"
-          />
-        </picture>
-      </div>
-    </div>
-  </section>
+  {@render section(
+    "reaction roles",
+    [
+      "modern implementation using buttons rather than emojis reactions",
+      "use an emoji or a text label",
+      "unique and many modes preventing users from collecting all roles",
+      "role whitelist - require members to have a specific role before using",
+    ],
+    "reactionroles",
+    Book,
+    false,
+  )}
 
-  <section class="bg-base-200 w-full">
-    <div class="mx-auto w-full py-28 lg:max-w-5xl">
-      <h2>
-        <div class="bg-base-300 rounded-lg p-3">
-          <Bell class="text-primary" size={32} strokeWidth={2.5} />
-        </div>
-        <span>mention history</span>
-      </h2>
-      <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-        <ul>
-          <li>no more annoying ghost pings 🙄</li>
-          <li>works in every server</li>
-          <li>your messages are safe with two layer encryption</li>
-        </ul>
-        <div class="pt-0 lg:pl-12">
-          <picture>
-            <source
-              srcset="https://cdn.nypsi.xyz/static/features/mentions.avif"
-              type="image/avif"
-            />
-            <img
-              src="https://cdn.nypsi.xyz/static/features/mentions.webp"
-              alt="pings command"
-              loading="lazy"
-              decoding="async"
-              width="628"
-              height="702"
-            />
-          </picture>
-        </div>
-      </div>
-    </div>
-  </section>
+  {@render section(
+    "guess the flag",
+    [
+      "fun game to play on your own or against others",
+      "uses a global list of every country's flag",
+      "helps you to learn all the flags (i'm still shit at them)",
+    ],
+    "guesstheflag",
+    Flag,
+    true,
+  )}
 
-  <section class="mx-auto w-full py-28 lg:max-w-5xl">
-    <h2>
-      <div class="bg-base-300 rounded-lg p-3">
-        <Leaf class="text-primary" size={32} strokeWidth={2.5} />
-      </div>
-      <span>farms</span>
-    </h2>
-    <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-      <ul>
-        <li>grow plants and make money from your yield</li>
-        <li>take care of your plants with watering and fertiliser</li>
-        <li>upgrade your farms with silos and hoes for even more production</li>
-      </ul>
-      <div class="pt-0 lg:-order-1 lg:pr-12">
-        <picture>
-          <source srcset="https://cdn.nypsi.xyz/static/features/farm.avif" type="image/avif" />
-          <img
-            src="https://cdn.nypsi.xyz/static/features/farm.webp"
-            alt="role persist list"
-            loading="lazy"
-            decoding="async"
-            width="974"
-            height="668"
-          />
-        </picture>
-      </div>
-    </div>
-  </section>
+  {@render section(
+    "mention history",
+    [
+      "no more annoying ghost pings 🙄",
+      "works in every server",
+      "your messages are safe with two layer encryption",
+    ],
+    "mentions",
+    Bell,
+    false,
+  )}
 
-  <section class="bg-base-200 w-full">
-    <div class="mx-auto w-full py-28 lg:max-w-5xl">
-      <h2>
-        <div class="bg-base-300 rounded-lg p-3">
-          <Cat class="text-primary" size={32} strokeWidth={2.5} />
-        </div>
-        <span>cats</span>
-      </h2>
-      <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
-        <ul>
-          <li>collect popular silly cats you know and love from tiktok and instagram</li>
-          <li>dave is the bot owner's personal cat {"(:"}</li>
-          <li>there's also flowers if you're not a cat person. you loser.</li>
-        </ul>
-        <div class="pt-0 lg:pl-12">
-          <picture>
-            <source srcset="https://cdn.nypsi.xyz/static/features/cats.avif" type="image/avif" />
-            <img
-              src="https://cdn.nypsi.xyz/static/features/cats.webp"
-              alt="collect cats commanad"
-              loading="lazy"
-              decoding="async"
-              width="452"
-              height="460"
-            />
-          </picture>
-        </div>
-      </div>
-    </div>
-  </section>
+  {@render section(
+    "farms",
+    [
+      "grow plants and make money from your yield",
+      "take care of your plants with watering and fertiliser",
+      "upgrade your farms with silos and hoes for even more production",
+    ],
+    "farm",
+    Leaf,
+    true,
+  )}
+
+  {@render section(
+    "cats",
+    [
+      "collect popular silly cats you know and love from tiktok and instagram",
+      "dave is the bot owner's personal cat (:",
+      "there's also flowers if you're not a cat person. you loser.",
+    ],
+    "cats",
+    Cat,
+    false,
+  )}
 </section>
 
 <style>
