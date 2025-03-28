@@ -26,7 +26,7 @@
       <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
         <div class="flex flex-col justify-center gap-12">
           <h2
-            class="flex w-full items-center gap-4 text-3xl font-bold text-white md:text-5xl lg:-mt-8"
+            class="flex w-full items-center justify-center gap-4 text-3xl font-bold text-white md:text-5xl lg:-mt-8 lg:justify-start"
           >
             <div class="bg-base-300 rounded-lg p-3">
               <Icon class="text-primary" size={32} strokeWidth={2.5} />
