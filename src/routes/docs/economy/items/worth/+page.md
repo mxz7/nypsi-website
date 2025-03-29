@@ -21,3 +21,7 @@ you may think that it's easy to manipulate the worth of items since it's based o
 <DocsHeader header='h2' text="history" />
 
 [premium members](https://nypsi.xyz/docs/premium) have access to view the item worth history graphs. these graphs are visible from the [items page](https://nypsi.xyz/item), or from a button on the `/item` command. this shows the past of item worth, auction value, offers value and the amount of items in the world.
+
+<DocsHeader header='h2' text="sell price" />
+
+the sell price which you see in the `/item` command is the amount you will get for selling an item to nypsi with `/sell`. this is usually not recommended unless the item is supposed to be sold, which would be things like `prey`, `fish`, `sellables`. for the majority of items, players will pay a higher price than this to buy the item from you, whether that be in auction, offers, or a private sale.
