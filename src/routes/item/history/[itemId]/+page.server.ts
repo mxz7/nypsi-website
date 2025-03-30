@@ -1,18 +1,18 @@
 import getItems from "$lib/functions/items.js";
 import getItemHistoryData from "$lib/server/functions/graphs/getItemHistoryData.js";
-import { error, redirect } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 
 export async function load({ locals, params, url, fetch, setHeaders }) {
   const auth = await locals.validate();
 
   if (!auth) {
-    return redirect(302, `/login?next=${encodeURIComponent(url.pathname)}`);
+    return { auth: false };
   }
 
   const premium = await fetch(`/api/user/ispremium/${auth.user.id}`).then((r) => r.json());
 
   if (!premium.premium) {
-    return { premium: false };
+    return { premium: false, auth: true };
   }
 
   setHeaders({ "cache-control": "private, max-age=300, must-revalidate" });
@@ -27,5 +27,5 @@ export async function load({ locals, params, url, fetch, setHeaders }) {
 
   const graphData = getItemHistoryData(items, item.id, auth.user.id, days);
 
-  return { premium: true, graphData: await graphData, item, user: auth.user };
+  return { auth: true, premium: true, graphData: await graphData, item, user: auth.user };
 }

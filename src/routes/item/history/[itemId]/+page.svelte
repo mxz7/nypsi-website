@@ -83,7 +83,22 @@
   <title>{data.item?.name} history | nypsi</title>
 </svelte:head>
 
-{#if data.premium}
+{#if !data.auth}
+  <div class="flex w-full justify-center">
+    <main class="mt-14 text-center">
+      <h1 class="mb-4 text-2xl font-bold text-white">you must be logged in to view this page</h1>
+      <p>
+        to view item history you need a <a
+          href="https://ko-fi.com/tekoh"
+          target="_blank"
+          class="link link-primary">premium membership</a
+        >
+      </p>
+
+      <a href="/login?next={encodeURIComponent(page.url.pathname)}" class="btn mt-4">log in</a>
+    </main>
+  </div>
+{:else if data.premium}
   <header class="mt-5 mb-10 text-center sm:mb-3 sm:w-full">
     <h1 class="text-4xl font-bold text-white sm:text-5xl">
       {data.item?.name} history
@@ -131,9 +146,13 @@
 {:else}
   <div class="flex w-full justify-center">
     <div class="mt-14 text-center">
-      <h1 class="text-primary text-3xl font-bold">you must have premium for item graphs</h1>
+      <h1 class="text-3xl font-bold text-white">you must have premium for item graphs</h1>
       <p>
-        you can buy premium <a href="https://ko-fi.com/tekoh" target="_blank" class="link">here</a>
+        you can buy premium <a
+          href="https://ko-fi.com/tekoh"
+          target="_blank"
+          class="link link-primary">here</a
+        >
       </p>
     </div>
   </div>
