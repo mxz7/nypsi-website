@@ -8,8 +8,8 @@
   let { children } = $props();
 </script>
 
-<div
+<section
   class="border-primary/5 bg-base-200 hover:border-primary/20 grow rounded-lg border p-4 text-center duration-300"
 >
   {@render children?.()}
-</div>
+</section>

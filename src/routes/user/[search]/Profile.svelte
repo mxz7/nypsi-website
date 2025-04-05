@@ -71,44 +71,26 @@
   });
 </script>
 
-<div
+<main
   class="border-primary/15 bg-base-200 hover:border-primary/30 flex w-full flex-col rounded-lg border p-4 shadow-sm duration-300"
 >
   <div class="flex w-full flex-row text-sm">
-    <div class="w-20 lg:w-44">
-      <img
-        class="rounded-full"
-        height="256"
-        width="256"
-        src={baseData.avatar}
-        alt="{baseData.lastKnownUsername}'s avatar"
-        onerror={handleFallbackImage}
-        loading="eager"
-      />
-      <div class="mt-2 flex flex-row flex-wrap">
-        {#await userData then userData}
-          {#if userData.Economy}
-            {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
-              {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-                <img
-                  loading="lazy"
-                  class="h-5 lg:h-7"
-                  src={items.find((i) => i.id === gem)?.emoji}
-                  alt="{gem} emoji"
-                  decoding="async"
-                />
-              {/if}
-            {/each}
-          {/if}
-        {/await}
-      </div>
-    </div>
+    <img
+      class="h-20 w-20 rounded-full lg:h-44 lg:w-44"
+      height="256"
+      width="256"
+      src={baseData.avatar}
+      alt="{baseData.lastKnownUsername}'s avatar"
+      onerror={handleFallbackImage}
+      loading="eager"
+    />
+
     <div class="ml-2 grow lg:text-lg">
       <h1
         style="color: {baseData?.Premium?.embedColor === 'default'
           ? premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''
           : baseData?.Premium?.embedColor}; !important"
-        class="line-clamp-1 text-2xl font-extrabold text-white lg:text-4xl"
+        class="max-w-10 text-2xl font-extrabold text-white lg:text-4xl"
       >
         <button
           onclick={() => {
@@ -116,8 +98,6 @@
 
             toast.success("user id copied", {
               position: "top-center",
-              style:
-                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
             });
           }}
           class="link-hover"
@@ -269,4 +249,22 @@
       </div>
     {/if}
   </div>
-</div>
+
+  <div class="mt-2 flex w-full flex-row justify-evenly gap-0.5 rounded-lg">
+    {#await userData then userData}
+      {#if userData.Economy}
+        {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
+          {#if userData.Economy.Inventory.find((i) => i.item === gem)}
+            <img
+              loading="lazy"
+              class="h-5 lg:h-7"
+              src={items.find((i) => i.id === gem)?.emoji}
+              alt="{gem} emoji"
+              decoding="async"
+            />
+          {/if}
+        {/each}
+      {/if}
+    {/await}
+  </div>
+</main>

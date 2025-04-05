@@ -135,7 +135,7 @@
 
         <div in:fly|global={{ delay: 600, duration: 500, y: 75 }}>
           {#if userData.Economy.EconomyGuildMember?.guild}
-            <div
+            <section
               class="border-primary/5 bg-base-200 hover:border-primary/20 mt-4 flex w-full flex-col rounded-lg border p-4 duration-300"
             >
               <h2 class="text-center">
@@ -174,13 +174,13 @@
                   >
                 {/each}
               </div>
-            </div>
+            </section>
           {/if}
         </div>
 
         <div in:fly|global={{ delay: 700, duration: 500, y: 75 }}>
           {#if userData.Economy.Inventory.length > 1}
-            <div
+            <section
               class="border-primary/5 bg-base-200 hover:border-primary/20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
               id="inventory"
             >
@@ -212,7 +212,7 @@
                   {/if}
                 {/each}
               </div>
-            </div>
+            </section>
           {/if}
         </div>
 
@@ -244,7 +244,7 @@
 
         <div in:fly|global={{ delay: 900, duration: 500, y: 75 }}>
           {#if userData.Leaderboards.length > 0}
-            <div
+            <section
               class="border-primary/5 bg-base-200 hover:border-primary/20 mt-4 flex w-full flex-col justify-center rounded-lg border p-4 duration-300"
               id="leaderboards"
             >
@@ -285,13 +285,13 @@
                   </a>
                 {/each}
               </div>
-            </div>
+            </section>
           {/if}
         </div>
 
         <div in:fly|global={{ delay: 1000, duration: 500, y: 75 }}>
           {#if games.length > 0}
-            <div
+            <section
               class="border-primary/5 bg-base-200 hover:border-primary/20 mx-auto mt-4 rounded-lg border p-4 duration-300 lg:w-full"
             >
               <h2 class="text-center">recent games</h2>
@@ -339,7 +339,7 @@
                   {/if}
                 </div>
               </div>
-            </div>
+            </section>
           {/if}
         </div>
       {/if}
