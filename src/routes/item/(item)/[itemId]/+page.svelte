@@ -85,7 +85,11 @@
         <span class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}
         ></span>
       {:then value}
-        <span class="text-sm">${value.toLocaleString()}</span>
+        {#if value}
+          <span class="text-sm">${value.toLocaleString()}</span>
+        {:else}
+          <a href="/docs/economy/items/worth#unvalued" class="link">unvalued</a>
+        {/if}
       {/await}
     </div>
 
