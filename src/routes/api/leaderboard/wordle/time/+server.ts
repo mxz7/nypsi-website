@@ -41,7 +41,7 @@ export async function GET({ setHeaders }) {
           user: {
             username: i.privacy ? i.lastKnownTag : "[hidden]",
             id: i.privacy ? i.userId : undefined,
-            tag: i.tagId,
+            tag: i.privacy ? i.tagId : undefined,
           },
         }));
       },

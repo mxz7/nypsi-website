@@ -11,12 +11,13 @@ export async function GET({ setHeaders }) {
   // prisma group by was very limiting and intellisense wasnt working so i built it myself 😀
 
   const query =
-    await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownTag", "Economy"."banned", "Tags"."tagId" from "User"
+    await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownTag", "Economy"."banned", "Tags"."tagId", "Preferences"."leaderboards" from "User"
     right join "CommandUse" on "CommandUse"."userId" = "User"."id" 
     left join "Economy" on "Economy"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    left join "Preferences" on "Preferences"."userId" = "User"."id"
     where "User"."blacklisted" = false
-    group by "CommandUse"."userId", "User"."id", "Economy"."userId", "Tags"."tagId"
+    group by "CommandUse"."userId", "User"."id", "Economy"."userId", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" desc limit 100`.then(
       (
         i: {
@@ -25,6 +26,7 @@ export async function GET({ setHeaders }) {
           lastKnownTag: string;
           banned: Date;
           tagId: string;
+          leaderboards: boolean;
         }[],
       ) => {
         return i
@@ -32,7 +34,11 @@ export async function GET({ setHeaders }) {
           .map((i, index) => ({
             value: i.value.toLocaleString(),
             position: index + 1,
-            user: { username: i.lastKnownTag, id: i.userId, tag: i.tagId },
+            user: {
+              username: i.leaderboards ? i.lastKnownTag : "[hidden]",
+              id: i.leaderboards ? i.userId : undefined,
+              tag: i.leaderboards ? i.tagId : undefined,
+            },
           }));
       },
     );
