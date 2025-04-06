@@ -21,10 +21,7 @@
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((el) => {
-          console.log("meowmeow");
           if (el.isIntersecting && el.target.id === `feature-${title}`) {
-            console.log("meow");
-
             section.classList.add("animate-visible");
             observer.unobserve(el.target);
           }
