@@ -83,7 +83,7 @@
               : game.win === 2
                 ? 'text-warning'
                 : 'text-error'}"
-            in:fly|global={{ y: 50, duration: 500, delay: (i % 48) * 50 }}
+            in:fly|global={{ y: 50, duration: 350, delay: (i % 48) * 25 }}
           >
             <h1 class="text-xl font-semibold">{game.game.replaceAll("_", " ")}</h1>
 
