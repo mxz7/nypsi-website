@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { IconProps } from "@lucide/svelte";
-  import type { Component } from "svelte";
+  import { type IconProps } from "@lucide/svelte";
+  import { onMount, type Component } from "svelte";
 
   interface Props {
     title: string;
@@ -11,9 +11,33 @@
   }
 
   let { title, list, image, Icon, flipped }: Props = $props();
+
+  let section: HTMLElement;
+
+  onMount(() => {
+    section.classList.add("animate-on-scroll");
+    section.classList.add("animate-on-scroll-transition");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((el) => {
+          console.log("meowmeow");
+          if (el.isIntersecting && el.target.id === `feature-${title}`) {
+            console.log("meow");
+
+            section.classList.add("animate-visible");
+            observer.unobserve(el.target);
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(section);
+  });
 </script>
 
-<section class="{flipped ? '' : 'bg-base-200'} w-full">
+<section class="{flipped ? '' : 'bg-base-200'} w-full" id="feature-{title}" bind:this={section}>
   <div class="mx-auto w-full py-28 lg:max-w-5xl">
     <div class="grid w-full grid-cols-1 px-3 lg:grid-cols-2 lg:px-0">
       <div class="flex flex-col justify-center gap-12">
@@ -46,3 +70,29 @@
     </div>
   </div>
 </section>
+
+<style>
+  :global(.animate-on-scroll h2, .animate-on-scroll ul, .animate-on-scroll img) {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+
+  :global(
+    .animate-on-scroll-transition h2,
+    .animate-on-scroll-transition ul,
+    .animate-on-scroll-transition img
+  ) {
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+  }
+
+  :global(
+    .animate-on-scroll.animate-visible h2,
+    .animate-on-scroll.animate-visible ul,
+    .animate-on-scroll.animate-visible img
+  ) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
