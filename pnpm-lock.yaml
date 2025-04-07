@@ -121,8 +121,8 @@ importers:
         specifier: ^2.24.0
         version: 2.24.0(@sveltejs/kit@2.20.4(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.25.6)(vite@5.4.11(lightningcss@1.29.2)))(svelte@5.25.6)(vite@5.4.11(lightningcss@1.29.2)))(@types/json-schema@7.0.15)(svelte@5.25.6)(typescript@5.8.3)
       tailwindcss:
-        specifier: 4.0.17
-        version: 4.0.17
+        specifier: 4.1.3
+        version: 4.1.3
       tslib:
         specifier: 2.8.1
         version: 2.8.1
@@ -290,6 +290,18 @@ packages:
     resolution: {integrity: sha512-OJykPaF4v8JidKNGz8c/q1lBO44sQNUQtq1KktJXdBLn1hPod5rE/Hko5ugKKZd+D2+o1a9MFGUEIUwO2YfgkQ==}
     engines: {node: '>=18'}
     cpu: [ia32]
+    os: [linux]
+
+  '@esbuild/linux-loong64@0.21.5':
+    resolution: {integrity: sha512-uHf1BmMG8qEvzdrzAqg2SIG/02+4/DHB6a9Kbya0XDvwDEKCoC8ZRWI5JJvNdUjtciBGFQ5PuBlpEOXQj+JQSg==}
+    engines: {node: '>=12'}
+    cpu: [loong64]
+    os: [linux]
+
+  '@esbuild/linux-loong64@0.25.1':
+    resolution: {integrity: sha512-nGfornQj4dzcq5Vp835oM/o21UMlXzn79KobKlcs3Wz9smwiifknLy4xDCLUU0BWp7b/houtdrgUz7nOGnfIYg==}
+    engines: {node: '>=18'}
+    cpu: [loong64]
     os: [linux]
 
   '@esbuild/linux-mips64el@0.21.5':
@@ -2098,6 +2110,9 @@ packages:
   tailwindcss@4.0.17:
     resolution: {integrity: sha512-OErSiGzRa6rLiOvaipsDZvLMSpsBZ4ysB4f0VKGXUrjw2jfkJRd6kjRKV2+ZmTCNvwtvgdDam5D7w6WXsdLJZw==}
 
+  tailwindcss@4.1.3:
+    resolution: {integrity: sha512-2Q+rw9vy1WFXu5cIxlvsabCwhU2qUwodGq03ODhLJ0jW4ek5BUtoCsnLB0qG+m8AHgEsSJcJGDSDe06FXlP74g==}
+
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
@@ -2362,6 +2377,12 @@ snapshots:
     optional: true
 
   '@esbuild/linux-ia32@0.25.1':
+    optional: true
+
+  '@esbuild/linux-loong64@0.21.5':
+    optional: true
+
+  '@esbuild/linux-loong64@0.25.1':
     optional: true
 
   '@esbuild/linux-mips64el@0.21.5':
@@ -3203,6 +3224,7 @@ snapshots:
       '@esbuild/linux-arm': 0.21.5
       '@esbuild/linux-arm64': 0.21.5
       '@esbuild/linux-ia32': 0.21.5
+      '@esbuild/linux-loong64': 0.21.5
       '@esbuild/linux-mips64el': 0.21.5
       '@esbuild/linux-ppc64': 0.21.5
       '@esbuild/linux-riscv64': 0.21.5
@@ -3228,6 +3250,7 @@ snapshots:
       '@esbuild/linux-arm': 0.25.1
       '@esbuild/linux-arm64': 0.25.1
       '@esbuild/linux-ia32': 0.25.1
+      '@esbuild/linux-loong64': 0.25.1
       '@esbuild/linux-mips64el': 0.25.1
       '@esbuild/linux-ppc64': 0.25.1
       '@esbuild/linux-riscv64': 0.25.1
@@ -4049,6 +4072,8 @@ snapshots:
       - typescript
 
   tailwindcss@4.0.17: {}
+
+  tailwindcss@4.1.3: {}
 
   tapable@2.2.1: {}
 
