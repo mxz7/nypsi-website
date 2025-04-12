@@ -106,11 +106,13 @@ export async function load({ params, parent, fetch, setHeaders }) {
         if (
           item.items?.find((i) => i.split(":")[1] === selected.id) ||
           item.items?.find((i) => i.startsWith("role:") && i.endsWith(selected.role)) ||
-          item.role === "tool"
+          item.id.includes("pickaxe") ||
+          item.id.includes("fishing_rod") ||
+          item.id.includes("gun")
         ) {
           promises.push(
-            fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${item.id}.txt`).then(
-              (response) =>
+            fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${item.id}.txt`)
+              .then((response) =>
                 response.text().then((text) => {
                   const lines = text.split("\n");
                   const line = lines.find((i) => i.split(":")[0] === selected.id);
@@ -119,7 +121,8 @@ export async function load({ params, parent, fetch, setHeaders }) {
 
                   odds.found[item.id] = line.split(":")[1].split("%")[0].trim() + "%";
                 }),
-            ),
+              )
+              .catch(() => {}),
           );
         }
       }
@@ -162,8 +165,6 @@ export async function load({ params, parent, fetch, setHeaders }) {
 
   if (browser) {
     const race = await Promise.race([Promise.all([oddsData, inWorld, value]), sleep(50)]);
-
-    console.log(race);
 
     if (typeof race === "boolean") {
       setHeaders({ "x-accel-buffering": "no" });
