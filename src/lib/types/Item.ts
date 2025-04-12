@@ -1,4 +1,4 @@
-export type Item = {
+export interface Item {
   id: string;
   name: string;
   emoji: string;
@@ -7,6 +7,7 @@ export type Item = {
   buy?: number;
   sell?: number;
   role: string;
+  default_count?: number;
   booster_desc?: string;
   aliases?: string[];
   speed?: number;
@@ -29,14 +30,14 @@ export type Item = {
   };
   in_crates: boolean;
   account_locked?: boolean;
-  items?: string[]; // used for crates with specific items format: <id|role>:(value)
-  crate_runs?: number; // how many times to do crate thing
+  loot_pools?: {
+    [pool: string]: number;
+  }; // used for crates and scratches, indicates which pools to run and how many times
   clicks?: number; // amount of clicks for scratch cards
-  random_drop_chance?: number; // chance to appear in random drop pool
   tagId?: string;
-  // upgrades?: CarUpgradeType;
   plantId: string; // for seeds
-};
+  unique: boolean; // only allow one in world at a time
+}
 
 export type LootPool = {
   nothing?: number; // weight
