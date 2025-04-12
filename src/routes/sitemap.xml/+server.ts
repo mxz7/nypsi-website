@@ -6,9 +6,9 @@ const pages: string[] = ["leaderboard", "status"]; // populate this with all the
 
 pages.push(
   ...pathsRaw
-    .map((i) => i.replace("/+page.md", ""))
-    .map((i) => i.replace("/+page.svelte", ""))
-    .map((i) => `docs/${i}`),
+    .map((i) => `docs/${i}`)
+    .map((i) => i.replaceAll("/+page.md", ""))
+    .map((i) => i.replaceAll("/+page.svelte", "")),
 );
 
 export const prerender = true;
