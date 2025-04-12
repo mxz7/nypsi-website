@@ -2,8 +2,8 @@
   import { browser } from "$app/environment";
   import { page } from "$app/state";
   import { items } from "$lib/state.svelte";
-  import { sort } from "fast-sort";
   import { Search } from "@lucide/svelte";
+  import { sort } from "fast-sort";
   import { onMount } from "svelte";
 
   let { children, data } = $props();
@@ -48,30 +48,34 @@
     </label>
 
     <div class="flex h-fit flex-col-reverse gap-4 md:flex-row">
-      <div class="grid h-fit flex-initial grow grid-cols-3 gap-3 lg:grid-cols-4 xl:grid-cols-4">
+      <ol class="grid h-fit flex-initial grow grid-cols-3 gap-3 lg:grid-cols-4 xl:grid-cols-4">
         {#each filteredItems as item (item.id)}
-          <a
-            data-sveltekit-noscroll={browser ? (innerWidth > 640 ? true : false) : false}
-            href="/item/{item.id}"
+          <li
             class="rounded-box border-primary/5 bg-base-200 hover:border-primary/25 w-full overflow-hidden border duration-300 {page
               .params.itemId === item.id
               ? 'border-primary/50 hover:border-primary/50'
               : ''}"
           >
-            <div class="bg-base-300 h-16 p-3">
-              <img
-                src={item.emoji}
-                alt={item.id}
-                decoding="async"
-                loading="lazy"
-                class="h-full w-full object-contain"
-              />
-            </div>
-            <span class="block w-full truncate p-2 text-center text-xs lg:text-sm">{item.name}</span
+            <a
+              href="/item/{item.id}"
+              data-sveltekit-noscroll={browser ? (innerWidth > 640 ? true : false) : false}
             >
-          </a>
+              <div class="bg-base-300 h-16 p-3">
+                <img
+                  src={item.emoji}
+                  alt={item.id}
+                  decoding="async"
+                  loading="lazy"
+                  class="h-full w-full object-contain"
+                />
+              </div>
+              <span class="block w-full truncate p-2 text-center text-xs lg:text-sm"
+                >{item.name}</span
+              >
+            </a>
+          </li>
         {/each}
-      </div>
+      </ol>
       <div class="md:w-1/3">
         {@render children()}
       </div>

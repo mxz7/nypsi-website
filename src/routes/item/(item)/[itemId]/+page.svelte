@@ -1,7 +1,7 @@
 <script lang="ts">
   import tooltip from "$lib/Tooltips.js";
-  import { sort } from "fast-sort";
   import { ChartArea, Crown } from "@lucide/svelte";
+  import { sort } from "fast-sort";
   import { fade } from "svelte/transition";
 
   let { data } = $props();
@@ -43,7 +43,7 @@
   <meta property="og:image:height" content="128" />
 </svelte:head>
 
-<div class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
+<main class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
   <div class="flex w-full gap-3">
     <div class="rounded-box bg-base-300 h-24 w-24 p-4">
       <img
@@ -229,4 +229,4 @@
       </div>
     </div>
   {/if}
-</div>
+</main>
