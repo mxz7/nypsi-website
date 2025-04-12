@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import Chart from "$lib/components/Chart.svelte";
   import { auth } from "$lib/state.svelte.js";
@@ -7,7 +6,7 @@
   import { onMount } from "svelte";
 
   let { data } = $props();
-  let days = $state(page.url.searchParams.get("days") || "60");
+  const days = $derived(page.url.searchParams.get("days") || "60");
 
   const chartOptions: ChartOptions = {
     plugins: {
@@ -107,8 +106,22 @@
   </header>
 
   {#key data.graphData}
-    <div class="my-10 flex w-full justify-center">
-      <select
+    <ol
+      class="menu menu-horizontal rounded-box bg-base-200 mx-auto my-10 flex justify-center gap-2"
+    >
+      {#each [14, 30, 45, 60, 90, 69420] as option}
+        {@const focused = days === option.toString()}
+        <li>
+          <a href="?days={option}" class={focused ? "menu-active" : ""}
+            >{#if option === 69420}
+              all time
+            {:else}
+              {option} days
+            {/if}</a
+          >
+        </li>
+      {/each}
+      <!-- <select
         name="days"
         id="days"
         class="bg-gray-950 text-gray-100"
@@ -123,8 +136,9 @@
         <option value="60">60 days</option>
         <option value="90">90 days</option>
         <option value="69420">all time</option>
-      </select>
-    </div>
+      </select> -->
+    </ol>
+
     <div>
       {#if data.graphData === "invalid item"}
         <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
