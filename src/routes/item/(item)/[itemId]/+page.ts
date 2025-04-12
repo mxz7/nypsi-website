@@ -82,10 +82,6 @@ export async function load({ params, parent, fetch, setHeaders }) {
       );
     }
 
-    if (selected.random_drop_chance) {
-      odds.found["loot drop"] = selected.random_drop_chance + "%";
-    }
-
     for (const item of items) {
       if (item.role === "scratch-card") {
         const lootPool = crateOdds[item.id];
@@ -102,29 +98,26 @@ export async function load({ params, parent, fetch, setHeaders }) {
             }
           }
         }
-      } else if (item.role === "crate" || item.role === "tool") {
-        if (
-          item.items?.find((i) => i.split(":")[1] === selected.id) ||
-          item.items?.find((i) => i.startsWith("role:") && i.endsWith(selected.role)) ||
-          item.id.includes("pickaxe") ||
-          item.id.includes("fishing_rod") ||
-          item.id.includes("gun")
-        ) {
-          promises.push(
-            fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${item.id}.txt`)
-              .then((response) =>
-                response.text().then((text) => {
-                  const lines = text.split("\n");
-                  const line = lines.find((i) => i.split(":")[0] === selected.id);
+      } else if (
+        item.role === "crate" ||
+        item.id.includes("pickaxe") ||
+        item.id.includes("fishing_rod") ||
+        item.id.includes("gun")
+      ) {
+        promises.push(
+          fetch(`https://raw.githubusercontent.com/mxz7/nypsi-odds/main/out/${item.id}.txt`)
+            .then((response) =>
+              response.text().then((text) => {
+                const lines = text.split("\n");
+                const line = lines.find((i) => i.split(":")[0] === selected.id);
 
-                  if (!line) return;
+                if (!line) return;
 
-                  odds.found[item.id] = line.split(":")[1].split("%")[0].trim() + "%";
-                }),
-              )
-              .catch(() => {}),
-          );
-        }
+                odds.found[item.id] = line.split(":")[1].split("%")[0].trim() + "%";
+              }),
+            )
+            .catch(() => {}),
+        );
       }
     }
 
@@ -146,6 +139,15 @@ export async function load({ params, parent, fetch, setHeaders }) {
       );
     }
 
+    const randomDrop = crateOdds["random_drop"].items[selected.id];
+
+    if (randomDrop) {
+      if (typeof randomDrop === "number") {
+        odds.found["loot drop"] = randomDrop + "%";
+      } else {
+        odds.found["loot drop"] = randomDrop.weight + "%";
+      }
+    }
     await Promise.all(promises);
 
     return odds;
