@@ -90,7 +90,7 @@
         style="color: {baseData?.Premium?.embedColor === 'default'
           ? premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''
           : baseData?.Premium?.embedColor}; !important"
-        class="max-w-10 text-2xl font-extrabold text-white lg:text-4xl"
+        class="text-2xl font-extrabold text-white lg:text-4xl"
       >
         <button
           onclick={() => {
@@ -100,7 +100,7 @@
               position: "top-center",
             });
           }}
-          class="link-hover"
+          class="link-hover max-w-48 overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-96"
         >
           {baseData.lastKnownUsername}
         </button>
