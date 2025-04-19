@@ -1,8 +1,8 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
   import { MStoTime } from "$lib/functions/time.js";
-  import dayjs from "dayjs";
   import { RefreshCw } from "@lucide/svelte";
+  import dayjs from "dayjs";
   import { onDestroy, onMount } from "svelte";
   import toast from "svelte-french-toast";
   import Cluster from "./Cluster.svelte";
@@ -162,10 +162,11 @@
             await invalidate("status");
             reloading = false;
 
-            toast.success("status updated", {
+            toast("status updated", {
               position: "top-center",
+              icon: "✅",
               style:
-                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
             });
           }}
           disabled={age < 30 || reloading}
