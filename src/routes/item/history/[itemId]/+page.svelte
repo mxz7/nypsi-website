@@ -84,7 +84,7 @@
 
 {#if !data.auth}
   <div class="flex w-full justify-center">
-    <main class="mt-14 text-center">
+    <main class="mt-14 px-3 text-center">
       <h1 class="mb-4 text-2xl font-bold text-white">you must be logged in to view this page</h1>
       <p>
         to view item history you need a <a
