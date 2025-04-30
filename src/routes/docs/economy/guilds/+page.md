@@ -35,7 +35,7 @@ you can't get your money back after it has been deposited into the guild. that m
 
 <DocsHeader header='h2' text="guild shop upgrades" />
 
-| id (used to purchase) | full name         | effect per level                      |
+| id (used to purchase) | name              | effect per level                      |
 | --------------------- | ----------------- | ------------------------------------- |
 | member                | member slot       | +1 member slot                        |
 | maxbet                | max bet increase  | +25k maxbet                           |
