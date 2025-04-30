@@ -42,8 +42,8 @@
 {/snippet}
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
-  <nav>
-    <ul class="menu rounded-box bg-base-200 hidden h-fit w-72 p-4 lg:block">
+  <nav class="hidden lg:block">
+    <ul class="menu rounded-box bg-base-200 h-fit w-72 p-4">
       <li><h2 class="menu-title">nypsi docs</h2></li>
 
       {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
