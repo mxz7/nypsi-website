@@ -66,11 +66,11 @@
   }
 
   :global(.docs-content h2) {
-    @apply mt-5 mb-2 text-2xl font-bold text-white;
+    @apply mt-8 mb-3 text-2xl font-bold text-white;
   }
 
   :global(.docs-content h3) {
-    @apply mt-2 text-lg font-semibold text-white;
+    @apply mt-3 mb-1 text-xl font-bold text-white;
   }
 
   :global(.docs-content p) {
