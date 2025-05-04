@@ -7,6 +7,10 @@
 <svelte:head>
   <title>leaderboards | nypsi</title>
   <meta name="og:title" content="leaderboards | nypsi" />
+  <meta
+    name="description"
+    content="view nypsi's leaderboards for balance, guilds, networth, streaks, items and more"
+  />
 </svelte:head>
 
 <div class="mt-8 flex w-full justify-center">
