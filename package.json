@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@hcaptcha/types": "^1.0.4",
-    "@lucide/svelte": "^0.507.0",
+    "@lucide/svelte": "^0.508.0",
     "@sveltejs/adapter-node": "^5.2.12",
     "@sveltejs/kit": "^2.20.8",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",

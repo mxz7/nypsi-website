@@ -58,8 +58,8 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
       '@lucide/svelte':
-        specifier: ^0.507.0
-        version: 0.507.0(svelte@5.28.2)
+        specifier: ^0.508.0
+        version: 0.508.0(svelte@5.28.2)
       '@sveltejs/adapter-node':
         specifier: ^5.2.12
         version: 5.2.12(@sveltejs/kit@2.20.8(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.28.2)(vite@5.4.11(lightningcss@1.29.2)))(svelte@5.28.2)(vite@5.4.11(lightningcss@1.29.2)))
@@ -531,8 +531,8 @@ packages:
       '@prisma/client': ^4.2.0 || ^5.0.0
       lucia: 3.x
 
-  '@lucide/svelte@0.507.0':
-    resolution: {integrity: sha512-kXIg/2IHEo1bAwZG94fjA9O6+E3Sv5aQrW2yyPf4JvCYIUIF8DGLIQI4vfjoUyNq2dEX4cI33pZarzGOHr0npg==}
+  '@lucide/svelte@0.508.0':
+    resolution: {integrity: sha512-yJZz7QMP4VvtyHlnjSIvM+DGyeCoZJlWMJJDm9K7op4Vf41Q5kguq25uXH8t9I5y0xT2aWpRlxbpvK9L0K1uRA==}
     peerDependencies:
       svelte: ^5
 
@@ -2561,7 +2561,7 @@ snapshots:
       '@prisma/client': 6.7.0(prisma@6.7.0(typescript@5.8.3))(typescript@5.8.3)
       lucia: 3.2.2
 
-  '@lucide/svelte@0.507.0(svelte@5.28.2)':
+  '@lucide/svelte@0.508.0(svelte@5.28.2)':
     dependencies:
       svelte: 5.28.2
 
