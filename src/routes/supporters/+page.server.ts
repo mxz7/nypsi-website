@@ -19,7 +19,7 @@ export async function load({ fetch }) {
       id: true,
       Tags: { where: { selected: true }, select: { tagId: true } },
     },
-    orderBy: { adminLevel: "desc" },
+    orderBy: [{ adminLevel: "desc" }, { lastKnownUsername: "asc" }],
   });
 
   return {
