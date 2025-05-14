@@ -13,7 +13,7 @@ export async function load({ fetch }) {
     order by sum("Purchases".cost) desc`;
 
   const contributors = prisma.user.findMany({
-    where: { Tags: { some: { tagId: "contributor" } } },
+    where: { OR: [{ Tags: { some: { tagId: "contributor" } } }, { id: "672793821850894347" }] },
     select: {
       lastKnownUsername: true,
       id: true,
