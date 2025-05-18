@@ -27,7 +27,7 @@ trading things outside of nypsi is allowed, but **can be incredibly risky**. it'
 
 scamming is **not allowed**. if you have been scammed, dm nypsi with the following screenshots: trade agreement, the trade, and refusal.
 
-<DocsHeader header='h3' text="auctions" />
+<DocsHeader header='h3' text="the market" />
 
 [the market](/docs/economy/market) is for selling items to players, not for transferring items between your accounts.
 there's a command for that you imbecile.
