@@ -23,7 +23,7 @@ export async function load({ params, fetch, setHeaders, parent }) {
     }
   }
 
-  const [baseUserDataResponse, { items }] = await Promise.all([
+  const [baseUserDataResponse, { items, tags }] = await Promise.all([
     fetch(`/api/user/${userId}/base`),
     parent(),
   ]);
@@ -45,6 +45,7 @@ export async function load({ params, fetch, setHeaders, parent }) {
 
   return {
     baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
+    tagData: tags,
     items,
     allUserData: fetch(`/api/user/${userId}`).then((r) => r.json() as Promise<UserApiResponsexd>),
     games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>

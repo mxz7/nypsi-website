@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Tag } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
   import type Game from "$lib/types/Game";
   import type { Item } from "$lib/types/Item";
@@ -35,9 +36,10 @@
       games: Game[];
     }>;
     gamesBefore: number;
+    tagData: { [key: string]: Tag };
   }
 
-  let { baseData, userData, items, gamesPromise, gamesBefore }: Props = $props();
+  let { baseData, userData, items, gamesPromise, gamesBefore, tagData }: Props = $props();
 
   let games: Game[] = $state([]);
   let gamesStatus: "more" | "loading" | "complete" | "error" = $state("more");
@@ -71,7 +73,7 @@
 </script>
 
 <div class="mx-3 mt-7 mb-10 flex flex-col sm:mx-auto md:w-full md:max-w-3xl">
-  <Profile {baseData} {userData} {items} />
+  <Profile {baseData} {userData} {items} {tagData} />
 
   {#if baseData.blacklisted}
     <Punishment>

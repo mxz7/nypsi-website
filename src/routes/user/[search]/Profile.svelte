@@ -3,12 +3,11 @@
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
-  import { getTags, type Tag } from "$lib/functions/tags";
+  import type { Tag } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
   import type { Item } from "$lib/types/Item";
   import type { BaseUserData, UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
-  import { onMount } from "svelte";
   import toast from "svelte-french-toast";
   import { fade } from "svelte/transition";
 
@@ -16,9 +15,10 @@
     baseData: BaseUserData;
     userData: UserApiResponsexd | Promise<UserApiResponsexd>;
     items: Item[];
+    tagData: { [key: string]: Tag };
   }
 
-  let { baseData, userData, items }: Props = $props();
+  let { baseData, userData, items, tagData }: Props = $props();
 
   const premiumMap = new Map([
     [
@@ -63,12 +63,6 @@
   const handleFallbackImage = (el: any) => {
     el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
   };
-
-  let tagData: { [key: string]: Tag } = $state();
-
-  onMount(async () => {
-    tagData = await getTags(fetch);
-  });
 </script>
 
 <main
@@ -195,41 +189,38 @@
         {#if baseData.Tags?.length > 0}
           {#each baseData.Tags as tag, i}
             {#if badges.has(tag.tagId)}
-              <a
-                href="/badges#{badges.get(tag.tagId)?.name}"
-                class="block h-4 w-4 sm:h-6 sm:w-6"
-                use:tooltip={{
-                  content: badges.get(tag.tagId).name,
-                  theme: "tooltip",
-                  placement: "left",
-                }}
-              >
+              <a href="/badges#{badges.get(tag.tagId)?.name}" class="block">
                 <img
-                  class="h-full w-full object-contain"
+                  use:tooltip={{
+                    content: badges.get(tag.tagId).name,
+                    theme: "tooltip",
+                    placement: "left",
+                  }}
+                  class="w-4 object-contain sm:w-6"
                   src={badges.get(tag.tagId)?.icon}
                   alt="{tag.tagId} emoji"
                   decoding="async"
                   loading="lazy"
+                  height="16"
+                  width="16"
                 />
               </a>
             {:else if tagData}
               {#if tagData[tag.tagId] && tag.selected}
-                <div
-                  class="h-4 w-4 sm:h-6 sm:w-6"
+                <img
                   use:tooltip={{
                     content: tagData[tag.tagId].name,
                     theme: "tooltip",
                     placement: "left",
                   }}
-                >
-                  <img
-                    class="h-full w-full object-contain"
-                    src={parseEmoji(tagData[tag.tagId].emoji)}
-                    alt="{tag.tagId} emoji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
+                  class="w-4 object-contain sm:w-6"
+                  src={parseEmoji(tagData[tag.tagId].emoji)}
+                  alt="{tag.tagId} emoji"
+                  loading="lazy"
+                  decoding="async"
+                  height="16"
+                  width="16"
+                />
               {/if}
             {/if}
           {/each}
@@ -243,10 +234,12 @@
               placement: "left",
             }}
             loading="lazy"
-            class="h-4 sm:h-6"
+            class="w-4 sm:w-6"
             src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
             alt="premium level {baseData.Premium?.level} emoji"
             decoding="async"
+            height="16"
+            width="16"
           />
         {/if}
       </div>
