@@ -14,36 +14,34 @@ export default async function getItemHistoryData(
 ) {
   if (!items.find((i) => i.id === item)) return "invalid item";
 
-  const auctions = await prisma.auction
+  const orders = await prisma.market
     .findMany({
       where: {
         AND: [
           { itemId: item },
-          { sold: true },
+          { completed: true },
           { createdAt: { gte: dayjs().subtract(days, "days").toDate() } },
         ],
       },
       select: {
-        bin: true,
-        createdAt: true,
         itemAmount: true,
+        createdAt: true,
+        price: true,
       },
     })
-    .then((q) => {
+    .then((r) => {
       const filtered = filterOutliers(
-        q.map((i) => {
-          return { amount: Number(i.itemAmount), money: Number(i.bin), date: i.createdAt };
-        }),
+        r.map((i) => ({ amount: Number(i.itemAmount), money: Number(i.price), date: i.createdAt })),
       );
       if (!filtered) {
         console.warn(`failed to filter outliers on ${item}`);
       }
 
-      return (
-        filtered.map((i) => {
-          return { itemAmount: BigInt(i.amount), bin: BigInt(i.money), createdAt: i.date };
-        }) || q
-      );
+      return filtered.map((i) => ({
+        itemAmount: BigInt(i.amount),
+        price: BigInt(i.money),
+        date: i.date,
+      }));
     });
 
   const offers = await prisma.offer
@@ -112,18 +110,20 @@ export default async function getItemHistoryData(
     });
   }
 
-  if (auctions.length < 2 && offers.length < 2 && itemCount.length < 2 && value.length < 2)
+  if (orders.length < 2 && offers.length < 2 && itemCount.length < 2 && value.length < 2)
     return "not enough data";
 
   const auctionAverages = new Map<string, number[]>();
 
-  for (const item of auctions) {
-    const date = dayjs(item.createdAt).format("YYYY-MM-DD");
+  for (const item of orders) {
+    const date = dayjs(item.date).format("YYYY-MM-DD");
 
     if (auctionAverages.has(date)) {
-      auctionAverages.get(date)?.push(Number(item.bin / item.itemAmount));
+      auctionAverages
+        .get(date)
+        ?.push(...new Array(Number(item.itemAmount)).fill(Number(item.price)));
     } else {
-      auctionAverages.set(date, [Number(item.bin / item.itemAmount)]);
+      auctionAverages.set(date, new Array(Number(item.itemAmount)).fill(Number(item.price)));
     }
   }
 
@@ -164,7 +164,7 @@ export default async function getItemHistoryData(
       datasets: [
         {
           yAxisID: "y1",
-          label: "auctions",
+          label: "market",
           data: [],
           fill: false,
           borderColor: "#0ea5e9",
