@@ -84,12 +84,12 @@
 </script>
 
 <div class="mt-8 flex w-full justify-center px-4">
-  <ul class="menu menu-horizontal justify-center rounded-box bg-base-200 text-xs lg:text-sm">
+  <ul class="menu menu-md menu-horizontal rounded-box bg-base-200 justify-center gap-2">
     {#each options as option}
       <li>
         <a
           data-sveltekit-preload-code="viewport"
-          class={option.selected ? "focus" : ""}
+          class={option.selected ? "menu-active" : ""}
           href="/leaderboard{option.showItems ? '' : `/${option.data || option.name}`}"
           onclick={() => {
             options.forEach((i) => {
@@ -99,6 +99,10 @@
 
             if (option.showItems) {
               showChild = false;
+            } else {
+              setTimeout(() => {
+                showChild = true;
+              }, 50);
             }
           }}>{option.name}</a
         >
@@ -109,7 +113,7 @@
 
 {#if selected?.showItems}
   <div class="mt-14 flex w-full justify-center">
-    <div class="px-4 lg:max-w-3xl lg:px-0">
+    <div class=" w-full px-4 lg:max-w-xs lg:px-0">
       <ItemSearch
         items={data.items}
         onClick={async (itemId) => {

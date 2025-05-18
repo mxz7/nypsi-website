@@ -1,7 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import { Pencil, Trash } from "@lucide/svelte";
   import { sort } from "fast-sort";
-  import { Pencil, Trash } from "lucide-svelte";
   import toast from "svelte-french-toast";
 
   interface Props {
@@ -17,7 +17,7 @@
   let modal: HTMLDialogElement;
 </script>
 
-<table class="table mt-4 w-full flex-1 text-xs">
+<table class="mt-4 table w-full flex-1 text-xs">
   <thead>
     <tr>
       <th>content</th>
@@ -50,10 +50,11 @@
               loading = true;
               return async ({ update, result }) => {
                 if (result.type === "success") {
-                  toast.success(`deleted ${filterItem.content}`, {
+                  toast(`deleted ${filterItem.content}`, {
                     position: "bottom-center",
+                    icon: "✅",
                     style:
-                      "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+                      "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
                     duration: 5000,
                   });
                 }
@@ -87,17 +88,19 @@
         return async ({ update, result }) => {
           modal.close();
           if (result.type === "success") {
-            toast.success(`updated ${editContent}`, {
+            toast(`updated ${editContent}`, {
               position: "bottom-center",
+              icon: "✅",
               style:
-                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
               duration: 5000,
             });
           } else if (result.type === "failure") {
-            toast.error(`error: ${result.data.message}`, {
+            toast(`error: ${result.data.message}`, {
               position: "bottom-center",
+              icon: "❌",
               style:
-                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
               duration: 5000,
             });
           }

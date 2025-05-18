@@ -1,7 +1,7 @@
 <script lang="ts">
   import tooltip from "$lib/Tooltips.js";
+  import { ChartArea, Crown } from "@lucide/svelte";
   import { sort } from "fast-sort";
-  import { ChartArea, Crown } from "lucide-svelte";
   import { fade } from "svelte/transition";
 
   let { data } = $props();
@@ -43,9 +43,9 @@
   <meta property="og:image:height" content="128" />
 </svelte:head>
 
-<div class="w-full rounded-box bg-base-200 p-3 sm:sticky sm:top-4">
+<main class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
   <div class="flex w-full gap-3">
-    <div class="h-24 w-24 rounded-box bg-base-300 p-4">
+    <div class="rounded-box bg-base-300 h-24 w-24 p-4">
       <img
         class="h-full w-full object-contain"
         src={data.item.emoji}
@@ -61,14 +61,14 @@
   </div>
 
   {#if data.item.shortDesc}
-    <div class="mt-2 w-full rounded-box bg-base-300 p-3 text-sm italic">{data.item.shortDesc}</div>
+    <div class="rounded-box bg-base-300 mt-2 w-full p-3 text-sm italic">{data.item.shortDesc}</div>
   {/if}
 
   {#if data.item.longDesc}
-    <div class="mt-2 w-full rounded-box bg-base-300 p-3">{data.item.longDesc}</div>
+    <div class="rounded-box bg-base-300 mt-2 w-full p-3">{data.item.longDesc}</div>
   {/if}
 
-  <div class="mt-2 grid w-full grid-cols-3 gap-3 rounded-box bg-base-300 p-3">
+  <div class="rounded-box bg-base-300 mt-2 grid w-full grid-cols-3 gap-3 p-3">
     <div class="w-full text-center">
       <h2 class="text-lg font-semibold text-white">in world</h2>
       {#await data.inWorld}
@@ -85,7 +85,11 @@
         <span class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}
         ></span>
       {:then value}
-        <span class="text-sm">${value.toLocaleString()}</span>
+        {#if value}
+          <span class="text-sm">${value.toLocaleString()}</span>
+        {:else}
+          <a href="/docs/economy/items/worth#unvalued" class="link">unvalued</a>
+        {/if}
       {/await}
     </div>
 
@@ -97,17 +101,17 @@
   </div>
 
   <div class="mt-2 flex w-full gap-3">
-    <a href="/leaderboard/{data.item.id}" class="btn grow text-primary">
+    <a href="/leaderboard/{data.item.id}" class="btn text-primary grow">
       <Crown />
     </a>
-    <a href="/item/history/{data.item.id}" class="btn grow text-primary">
+    <a href="/item/history/{data.item.id}" class="btn text-primary grow">
       <ChartArea />
     </a>
   </div>
 
   {#await data.odds then odds}
     {#if Object.values(odds.found).length > 0}
-      <div class="mt-2 w-full rounded-box bg-base-300 p-3">
+      <div class="rounded-box bg-base-300 mt-2 w-full p-3">
         <h3
           class="link text-center font-medium text-white"
           use:tooltip={{ content: "(crates and scratch cards)" }}
@@ -136,7 +140,7 @@
     {/if}
 
     {#if odds.crate_open}
-      <div class="mt-2 rounded-box bg-base-300 p-3">
+      <div class="rounded-box bg-base-300 mt-2 p-3">
         <h3 class="text-center font-medium text-white">items</h3>
         <div class="max-h-48 overflow-auto">
           <div>
@@ -176,7 +180,7 @@
   {/await}
 
   {#if data.item.craft}
-    <div class="mt-2 rounded-box bg-base-300 p-3">
+    <div class="rounded-box bg-base-300 mt-2 p-3">
       <h3 class="text-center font-medium text-white">recipe</h3>
       <div class="max-h-48 overflow-auto">
         <div>
@@ -204,7 +208,7 @@
   {/if}
 
   {#if data.items.find((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), ))}
-    <div class="mt-2 rounded-box bg-base-300 p-3">
+    <div class="rounded-box bg-base-300 mt-2 p-3">
       <h3 class="text-center font-medium text-white">used in recipe</h3>
       <div class="grid max-h-48 grid-cols-2 overflow-auto">
         {#each data.items.filter((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), )) as item}
@@ -225,4 +229,4 @@
       </div>
     </div>
   {/if}
-</div>
+</main>

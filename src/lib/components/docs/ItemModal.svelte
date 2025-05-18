@@ -53,9 +53,11 @@
   <div
     in:fly={{ duration: 250, y: 20, easing: cubicOut }}
     out:fly={{ duration: 250, y: 20, easing: cubicOut }}
-    class="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform"
+    class="fixed top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform"
   >
-    <div class="rounded-box shadow">
+    <div
+      class="rounded-box border-primary/25 bg-base-200 hover:border-primary/40 border p-2 shadow-lg duration-100"
+    >
       <ItemPage data={$page.state.docsItemModal[item] as unknown as any} />
     </div>
   </div>
@@ -63,7 +65,7 @@
   <button
     in:fade={{ duration: 250 }}
     out:fade={{ duration: 250 }}
-    class="fixed left-0 top-0 z-10 h-full w-full cursor-default backdrop-blur-sm"
+    class="fixed top-0 left-0 z-10 h-full w-full cursor-default backdrop-blur-xs"
     aria-label="close modal"
     onclick={() => {
       history.back();

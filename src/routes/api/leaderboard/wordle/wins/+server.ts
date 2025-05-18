@@ -7,11 +7,12 @@ export async function GET({ setHeaders }) {
   });
 
   const query =
-    await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownTag", "Tags"."tagId" from "User" 
+    await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownTag", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User" 
     right join "WordleGame" on "WordleGame"."userId" = "User"."id" 
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    left join "Preferences" on "Preferences"."userId" = "User"."id"
     where "WordleGame"."won" = true and "User"."blacklisted" = false 
-    group by "WordleGame"."userId", "User"."id", "Tags"."tagId"
+    group by "WordleGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" desc limit 100`.then(
       (
         i: {
@@ -20,12 +21,17 @@ export async function GET({ setHeaders }) {
           lastKnownTag: string;
           banned: Date;
           tagId: string;
+          privacy: boolean;
         }[],
       ) => {
         return i.map((i, index) => ({
           value: i.value.toLocaleString(),
           position: index + 1,
-          user: { username: i.lastKnownTag, id: i.userId, tag: i.tagId },
+          user: {
+            username: i.privacy ? i.lastKnownTag : "[hidden]",
+            id: i.privacy ? i.userId : undefined,
+            tag: i.privacy ? i.tagId : undefined,
+          },
         }));
       },
     );

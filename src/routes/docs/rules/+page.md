@@ -23,15 +23,11 @@ if you have found an exploit or potentially serious issue please contact [@m.axz
 
 <DocsHeader header='h3' text="trading" />
 
-trading things outside of nypsi is allowed, but **at your own risk**. it's recommended to find a trusted middleman for this.
+trading things outside of nypsi is allowed, but **can be incredibly risky**. it's recommended to find a trusted middleman for this. if you have been scammed, make a support request with nypsi and our staff can help you out.
 
 scamming is **not allowed**. if you have been scammed, dm nypsi with the following screenshots: trade agreement, the trade, and refusal.
 
-the exception to this is gambling with other players, such as with coinflips and roll. this is
-not protected and at your own risk, if you don't want to be scammed, use a middleman or use
-safe bets within your maxbet.
-
-<DocsHeader header='h3' text="the market" />
+<DocsHeader header='h3' text="auctions" />
 
 [the market](/docs/economy/market) is for selling items to players, not for transferring items between your accounts.
 there's a command for that you imbecile.

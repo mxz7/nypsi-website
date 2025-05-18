@@ -38,6 +38,7 @@
       items={data.items}
       gamesPromise={data.games}
       gamesBefore={data.gamesBefore}
+      tagData={data.tagData}
     />
   {/key}
 </div>

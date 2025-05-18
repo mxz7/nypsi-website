@@ -1,8 +1,8 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
   import { MStoTime } from "$lib/functions/time.js";
+  import { RefreshCw } from "@lucide/svelte";
   import dayjs from "dayjs";
-  import { RefreshCw } from "lucide-svelte";
   import { onDestroy, onMount } from "svelte";
   import toast from "svelte-french-toast";
   import Cluster from "./Cluster.svelte";
@@ -162,10 +162,11 @@
             await invalidate("status");
             reloading = false;
 
-            toast.success("status updated", {
+            toast("status updated", {
               position: "top-center",
+              icon: "✅",
               style:
-                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
             });
           }}
           disabled={age < 30 || reloading}
@@ -187,7 +188,7 @@
 
     {#if guildIdSearch}
       {#if guild}
-        <div class="card mt-4 w-fit bg-base-200 shadow-xl">
+        <div class="card bg-base-200 mt-4 w-fit shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-success">{guild.id}</h2>
             <p>
@@ -196,10 +197,10 @@
           </div>
         </div>
       {:else}
-        <div class="card mt-4 w-96 bg-base-200 shadow-xl">
+        <div class="card bg-base-200 mt-4 w-96 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-error">unknown server</h2>
-            <p class="text-sm text-error opacity-90">
+            <p class="text-error text-sm opacity-90">
               to get your server ID, enable discord developer mode, right click on your server, and
               click copy id
             </p>

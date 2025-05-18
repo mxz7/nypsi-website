@@ -3,12 +3,11 @@
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
-  import { getTags, type Tag } from "$lib/functions/tags";
+  import type { Tag } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
   import type { Item } from "$lib/types/Item";
   import type { BaseUserData, UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
-  import { onMount } from "svelte";
   import toast from "svelte-french-toast";
   import { fade } from "svelte/transition";
 
@@ -16,9 +15,10 @@
     baseData: BaseUserData;
     userData: UserApiResponsexd | Promise<UserApiResponsexd>;
     items: Item[];
+    tagData: { [key: string]: Tag };
   }
 
-  let { baseData, userData, items }: Props = $props();
+  let { baseData, userData, items, tagData }: Props = $props();
 
   const premiumMap = new Map([
     [
@@ -63,64 +63,41 @@
   const handleFallbackImage = (el: any) => {
     el.target.src = "https://cdn.discordapp.com/embed/avatars/0.png";
   };
-
-  let tagData: { [key: string]: Tag } = $state();
-
-  onMount(async () => {
-    tagData = await getTags(fetch);
-  });
 </script>
 
-<div
-  class="flex w-full flex-col rounded-lg border border-primary border-opacity-15 bg-base-200 p-4 shadow duration-300 hover:border-opacity-30"
+<main
+  class="border-primary/15 bg-base-200 hover:border-primary/30 flex w-full flex-col rounded-lg border p-4 shadow-sm duration-300"
 >
   <div class="flex w-full flex-row text-sm">
-    <div class="w-20 lg:w-44">
-      <img
-        class="rounded-full"
-        height="256"
-        width="256"
-        src={baseData.avatar}
-        alt="{baseData.lastKnownUsername}'s avatar"
-        onerror={handleFallbackImage}
-        loading="eager"
-      />
-      <div class="mt-2 flex flex-row flex-wrap">
-        {#await userData then userData}
-          {#if userData.Economy}
-            {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
-              {#if userData.Economy.Inventory.find((i) => i.item === gem)}
-                <img
-                  loading="lazy"
-                  class="h-5 lg:h-7"
-                  src={items.find((i) => i.id === gem)?.emoji}
-                  alt="{gem} emoji"
-                  decoding="async"
-                />
-              {/if}
-            {/each}
-          {/if}
-        {/await}
-      </div>
-    </div>
+    <img
+      class="h-20 w-20 rounded-full lg:h-44 lg:w-44"
+      height="256"
+      width="256"
+      src={baseData.avatar}
+      alt="{baseData.lastKnownUsername}'s avatar"
+      onerror={handleFallbackImage}
+      loading="eager"
+    />
+
     <div class="ml-2 grow lg:text-lg">
       <h1
         style="color: {baseData?.Premium?.embedColor === 'default'
           ? premiumMap.get(baseData?.Premium?.level || 0)?.colour || ''
           : baseData?.Premium?.embedColor}; !important"
-        class="line-clamp-1 text-2xl font-extrabold text-white lg:text-4xl"
+        class="text-2xl font-extrabold text-white lg:text-4xl"
       >
         <button
           onclick={() => {
             navigator.clipboard.writeText(baseData.id);
 
-            toast.success("user id copied", {
+            toast("user id copied", {
               position: "top-center",
+              icon: "✅",
               style:
-                "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
             });
           }}
-          class="link-hover"
+          class="link-hover max-w-48 overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-96"
         >
           {baseData.lastKnownUsername}
         </button>
@@ -208,45 +185,42 @@
     </div>
 
     {#if baseData.Tags?.length > 0 || premiumMap.get(baseData.Premium?.level || 0)}
-      <div class="flex h-fit flex-col gap-1 rounded-lg bg-base-300 p-1 sm:gap-2 sm:p-2">
+      <div class="bg-base-300 flex h-fit flex-col gap-1 rounded-lg p-1 sm:gap-2 sm:p-2">
         {#if baseData.Tags?.length > 0}
           {#each baseData.Tags as tag, i}
             {#if badges.has(tag.tagId)}
-              <a
-                href="/badges#{badges.get(tag.tagId)?.name}"
-                class="block h-4 w-4 sm:h-6 sm:w-6"
-                use:tooltip={{
-                  content: badges.get(tag.tagId).name,
-                  theme: "tooltip",
-                  placement: "left",
-                }}
-              >
+              <a href="/badges#{badges.get(tag.tagId)?.name}" class="block">
                 <img
-                  class="h-full w-full object-contain"
+                  use:tooltip={{
+                    content: badges.get(tag.tagId).name,
+                    theme: "tooltip",
+                    placement: "left",
+                  }}
+                  class="w-4 object-contain sm:w-6"
                   src={badges.get(tag.tagId)?.icon}
                   alt="{tag.tagId} emoji"
                   decoding="async"
                   loading="lazy"
+                  height="16"
+                  width="16"
                 />
               </a>
             {:else if tagData}
               {#if tagData[tag.tagId] && tag.selected}
-                <div
-                  class="h-4 w-4 sm:h-6 sm:w-6"
+                <img
                   use:tooltip={{
                     content: tagData[tag.tagId].name,
                     theme: "tooltip",
                     placement: "left",
                   }}
-                >
-                  <img
-                    class="h-full w-full object-contain"
-                    src={parseEmoji(tagData[tag.tagId].emoji)}
-                    alt="{tag.tagId} emoji"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
+                  class="w-4 object-contain sm:w-6"
+                  src={parseEmoji(tagData[tag.tagId].emoji)}
+                  alt="{tag.tagId} emoji"
+                  loading="lazy"
+                  decoding="async"
+                  height="16"
+                  width="16"
+                />
               {/if}
             {/if}
           {/each}
@@ -260,13 +234,33 @@
               placement: "left",
             }}
             loading="lazy"
-            class="h-4 sm:h-6"
+            class="w-4 sm:w-6"
             src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
             alt="premium level {baseData.Premium?.level} emoji"
             decoding="async"
+            height="16"
+            width="16"
           />
         {/if}
       </div>
     {/if}
   </div>
-</div>
+
+  <div class="mt-2 flex w-full flex-row justify-evenly gap-0.5 rounded-lg">
+    {#await userData then userData}
+      {#if userData.Economy}
+        {#each ["crystal_heart", "white_gem", "pink_gem", "purple_gem", "blue_gem", "green_gem"] as gem}
+          {#if userData.Economy.Inventory.find((i) => i.item === gem)}
+            <img
+              loading="lazy"
+              class="h-5 lg:h-7"
+              src={items.find((i) => i.id === gem)?.emoji}
+              alt="{gem} emoji"
+              decoding="async"
+            />
+          {/if}
+        {/each}
+      {/if}
+    {/await}
+  </div>
+</main>

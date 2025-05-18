@@ -43,7 +43,7 @@ export async function load({ url, locals }) {
 }
 
 export const actions = {
-  default: async ({ request, fetch, url }) => {
+  default: async ({ request, fetch, url, getClientAddress }) => {
     const formData = await request.formData();
 
     const captchaId = url.searchParams.get("id");
@@ -65,11 +65,18 @@ export const actions = {
     }).then((r) => r.json());
 
     if (res.success) {
+      let ip: string;
+
+      try {
+        ip = getClientAddress();
+      } catch {}
+
       await prisma.captcha.update({
         where: { id: captchaId },
         data: {
           solved: true,
           solvedAt: new Date(),
+          solvedIp: ip,
         },
       });
 

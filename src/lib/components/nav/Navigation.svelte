@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { auth } from "$lib/state.svelte";
-  import { Menu } from "lucide-svelte";
+  import { Menu } from "@lucide/svelte";
   import MobileScreen from "./MobileScreen.svelte";
 
   let sidebarVisible = $state(false);
@@ -10,7 +10,7 @@
 <MobileScreen bind:visible={sidebarVisible} />
 
 <div class="flex w-full justify-center px-3 lg:px-0">
-  <div class="navbar mt-3 rounded-xl bg-base-200 lg:max-w-6xl">
+  <nav class="navbar bg-base-200 mt-3 rounded-xl lg:max-w-6xl">
     <div class="navbar-start">
       <button
         aria-label="show mobile navigation"
@@ -37,18 +37,24 @@
           </picture>
         </a>
 
-        <a href="/leaderboard" class="btn btn-ghost font-semibold">leaderboards</a>
-        <a href="/item" class="btn btn-ghost font-semibold">items</a>
-        <a href="/status" class="btn btn-ghost font-semibold">status</a>
-        <a href="/docs" class="btn btn-ghost font-semibold">docs</a>
-        <a href="/discord" class="btn btn-ghost font-semibold" target="_blank">discord</a>
-        <a href="https://ko-fi.com/tekoh/tiers" target="_blank" class="btn btn-ghost py-0">
-          <span
-            class="bg-gradient-to-br from-violet-500 to-purple-500 bg-clip-text py-1 font-bold text-transparent"
-          >
-            premium
-          </span>
-        </a>
+        <ul class="menu menu-md menu-horizontal">
+          <li><a href="/leaderboard" class=" font-semibold">leaderboards</a></li>
+          <li><a href="/item" class=" font-semibold">items</a></li>
+          <li><a href="/status" class=" font-semibold">status</a></li>
+          <li><a href="/docs" class=" font-semibold">docs</a></li>
+          <li>
+            <a href="/discord" class=" font-semibold" target="_blank">discord</a>
+          </li>
+          <li>
+            <a href="https://ko-fi.com/tekoh/tiers" target="_blank">
+              <span
+                class="bg-linear-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"
+              >
+                premium
+              </span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -73,5 +79,5 @@
         </a>
       {/if}
     </div>
-  </div>
+  </nav>
 </div>

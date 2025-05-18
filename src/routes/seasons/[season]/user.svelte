@@ -33,7 +33,7 @@
   <a
     class="{pos === 1
       ? 'font-semibold text-primary'
-      : 'text-slate-300'} min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+      : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
     href="/user/{user?.id || user.username}"
   >
     {user.username}
@@ -43,7 +43,7 @@
     href="/user/{user.username}"
     class="{pos === 1
       ? 'font-semibold text-primary'
-      : 'text-slate-300'} min-w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+      : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
   >
     {user.username}
   </a>

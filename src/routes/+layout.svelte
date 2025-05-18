@@ -29,10 +29,11 @@
       if (!auth.value || !auth.value.authenticated) return;
       setTimeout(async () => {
         if (!auth.value || !auth.value.authenticated) return;
-        toast.success(`logged in as ${auth.value.user.username}`, {
+        toast(`logged in as ${auth.value.user.username}`, {
           position: "bottom-center",
+          icon: "✅",
           style:
-            "--tw-bg-opacity: 1; background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))); color: oklch(0.841536 0.007965 265.755);",
+            "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
           duration: 5000,
         });
       }, 250);

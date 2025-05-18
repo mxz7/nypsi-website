@@ -1,7 +1,7 @@
 <script>
   import { page } from "$app/state";
   import { auth } from "$lib/state.svelte";
-  import { ArrowLeft } from "lucide-svelte";
+  import { ArrowLeft } from "@lucide/svelte";
   import { onMount } from "svelte";
 
   let { children, data } = $props();
@@ -17,7 +17,7 @@
 </script>
 
 <div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
-  <ul class="menu hidden h-fit w-72 rounded-box bg-base-200 p-4 lg:block">
+  <ul class="menu rounded-box bg-base-200 hidden h-fit w-72 p-4 lg:block">
     <li><h2 class="menu-title">server management</h2></li>
 
     <li class="m-0">
@@ -31,7 +31,7 @@
       <li class={(parseInt(guild.permissions) & 0x20) == 0x20 ? "" : "disabled"}>
         <a
           class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
-            ? 'font-medium text-primary'
+            ? 'text-primary font-medium'
             : ''} {(parseInt(guild.permissions) & 0x20) == 0x20 ? '' : 'cursor-not-allowed'}"
           href="/me/guilds/{guild.id}"
         >

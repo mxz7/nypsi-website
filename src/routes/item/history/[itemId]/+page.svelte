@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import Chart from "$lib/components/Chart.svelte";
   import { auth } from "$lib/state.svelte.js";
@@ -7,7 +6,7 @@
   import { onMount } from "svelte";
 
   let { data } = $props();
-  let days = $state(page.url.searchParams.get("days") || "30");
+  const days = $derived(page.url.searchParams.get("days") || "60");
 
   const chartOptions: ChartOptions = {
     plugins: {
@@ -83,17 +82,46 @@
   <title>{data.item?.name} history | nypsi</title>
 </svelte:head>
 
-{#if data.premium}
-  <header class="mb-10 mt-5 text-center sm:mb-3 sm:w-full">
+{#if !data.auth}
+  <div class="flex w-full justify-center">
+    <main class="mt-14 px-3 text-center">
+      <h1 class="mb-4 text-2xl font-bold text-white">you must be logged in to view this page</h1>
+      <p>
+        to view item history you need a <a
+          href="https://ko-fi.com/tekoh"
+          target="_blank"
+          class="link link-primary">premium membership</a
+        >
+      </p>
+
+      <a href="/login?next={encodeURIComponent(page.url.pathname)}" class="btn mt-4">log in</a>
+    </main>
+  </div>
+{:else if data.premium}
+  <header class="mt-5 mb-10 text-center sm:mb-3 sm:w-full">
     <h1 class="text-4xl font-bold text-white sm:text-5xl">
       {data.item?.name} history
     </h1>
-    <div class="m-auto mt-3 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
+    <div class="bg-primary m-auto mt-3 h-1 w-3/4 rounded-full sm:w-1/2"></div>
   </header>
 
   {#key data.graphData}
-    <div class="my-10 flex w-full justify-center">
-      <select
+    <ol
+      class="menu menu-horizontal rounded-box bg-base-200 mx-auto my-10 flex justify-center gap-2"
+    >
+      {#each [14, 30, 45, 60, 90, 69420] as option}
+        {@const focused = days === option.toString()}
+        <li>
+          <a href="?days={option}" class={focused ? "menu-active" : ""}
+            >{#if option === 69420}
+              all time
+            {:else}
+              {option} days
+            {/if}</a
+          >
+        </li>
+      {/each}
+      <!-- <select
         name="days"
         id="days"
         class="bg-gray-950 text-gray-100"
@@ -108,15 +136,16 @@
         <option value="60">60 days</option>
         <option value="90">90 days</option>
         <option value="69420">all time</option>
-      </select>
-    </div>
+      </select> -->
+    </ol>
+
     <div>
       {#if data.graphData === "invalid item"}
-        <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
+        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
           <h1>invalid item</h1>
         </div>
       {:else if data.graphData === "not enough data"}
-        <div class="mb-48 flex justify-center text-2xl font-semibold text-error">
+        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
           <h1>not enough data</h1>
         </div>
       {:else if typeof data.graphData !== "string"}
@@ -131,9 +160,13 @@
 {:else}
   <div class="flex w-full justify-center">
     <div class="mt-14 text-center">
-      <h1 class="text-3xl font-bold text-primary">you must have premium for item graphs</h1>
+      <h1 class="text-3xl font-bold text-white">you must have premium for item graphs</h1>
       <p>
-        you can buy premium <a href="https://ko-fi.com/tekoh" target="_blank" class="link">here</a>
+        you can buy premium <a
+          href="https://ko-fi.com/tekoh"
+          target="_blank"
+          class="link link-primary">here</a
+        >
       </p>
     </div>
   </div>

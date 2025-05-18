@@ -39,7 +39,7 @@ ranged values (ex: 1-17%) have an equal chance for all options
   <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm mb-2 mt-4">
     {#each tabs as tab}
       <li>
-        <button class={selected === tab ? "focus" : ""} onclick={() => selected = tab}>{tab}</button>
+        <button class={selected === tab ? "menu-active" : ""} onclick={() => selected = tab}>{tab}</button>
       </li>
     {/each}
   </ul>
@@ -49,6 +49,8 @@ ranged values (ex: 1-17%) have an equal chance for all options
 <DocsHeader header='h3' text="effects" />
 
 \+20% max storage for all workers
+
+\+20% max storage for all plants
 
 <DocsHeader header='h3' text="obtaining" />
 
@@ -120,6 +122,8 @@ max shards given from shattering: 3
 
 0.2% chance to roll one more time on hunt/fish/mine
 
+\+20% storage for all plants **when combined with a** pink gem
+
 <DocsHeader header='h3' text="obtaining" />
 
 crafting: 15 gem shards
@@ -161,6 +165,10 @@ max shards given from shattering: 10
 \+0.92% gamble multiplier <blue>(20% chance to reduce multi by 3%)</blue>
 
 \+4% sell multiplier <blue>(20% chance to reduce multi by 3%)</blue>
+
+\+20% storage for all plants **when combined with a** purple gem
+
+80% chance to increase farm production by 25% (20% chance to reduce production by 20%)
 
 <DocsHeader header='h3' text="obtaining" />
 
@@ -261,6 +269,8 @@ cannot shatter
 {/if}
 
 <style>
+  @reference "../../../../../app.css";
+
   blue {
     color: #6097d2;
   }

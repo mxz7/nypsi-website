@@ -7,9 +7,15 @@
 
 <DocsHeader header='h2' text="obtaining" />
 
-you can obtain a fishing rod, pickaxe or gun through [crates](/docs/economy/items/crates). the easiest way to get crates is by voting daily with `/vote`. you can
-earn more vote crates each day by working hard and reaching high levels of prestige. p.s don't forget to turn vote reminders
-on!! (`/settings me notifications`)
+<DocsHeader header='h3' text="crates" />
+
+[crates](/docs/economy/items/crates) is the main way that most people get their items, tools included. the best way to get crates as a beginner is to `/vote` twice daily. a higher vote streak allows you to get more crates at a time.
+
+make sure you don't lose your vote streak by enabling vote reminders! `/settings me notifications`
+
+<DocsHeader header='h3' text="shop" />
+
+you can buy the lowest tier of tools in the shop (`$shop` & `/buy`). these are pretty basic but still allow you to grind and start to earn money.
 
 <DocsHeader header='h2' text="different levels of item" />
 

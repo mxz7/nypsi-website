@@ -40,20 +40,20 @@
     <div class="absolute bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
       <p class="text-slate-400">
         used by
-        <span class="font-semibold text-primary">{serverCount.toLocaleString()}</span> servers
+        <span class="text-primary font-semibold">{serverCount.toLocaleString()}</span> servers
       </p>
     </div>
   </div>
 {/if}
 
-<div class="absolute bottom-7 right-5 h-10 w-10">
+<div class="absolute right-5 bottom-7 h-10 w-10">
   <a
-    class="block animate-pulse rounded-full bg-base-300 p-2 shadow-lg duration-500 sm:hover:scale-125"
+    class="bg-base-300 block animate-pulse rounded-full p-2 shadow-lg duration-500 sm:hover:scale-125"
     href="#features"
     aria-label="scroll to features"
   >
     <svg
-      class="h-6 w-6 text-primary text-opacity-75"
+      class="text-primary/75 h-6 w-6"
       fill="none"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -66,14 +66,14 @@
   </a>
 </div>
 
-<div class="hero min-h-screen">
+<main class="hero min-h-screen">
   <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
     <div class="fly-up">
       <picture>
         <source srcset="https://cdn.nypsi.xyz/static/hero.avif" type="image/avif" />
         <img
           src="https://cdn.nypsi.xyz/static/hero.webp"
-          alt="hero"
+          alt="nypsi logo hero"
           class="hidden max-w-sm lg:block"
           decoding="async"
           height="1000"
@@ -88,7 +88,7 @@
       <div class="px-4 lg:px-0">
         <a
           href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
-          class="animation-3 btn btn-primary flex gap-3 bg-gradient-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
+          class="animation-3 btn btn-primary btn-lg flex gap-3 bg-linear-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
           target="_blank"
           data-umami-event="add-to-discord"
           data-umami-event-user={auth.value?.authenticated ? auth.value.user.id : undefined}
@@ -99,7 +99,7 @@
       </div>
     </div>
   </div>
-</div>
+</main>
 
 <Features />
 

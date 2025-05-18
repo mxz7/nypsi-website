@@ -77,18 +77,18 @@
           <a
             href="/game/{game.id.toString(36)}"
             target="_blank"
-            class="flex flex-col justify-center rounded-lg border border-primary border-opacity-5 bg-base-200 p-4 text-center duration-300 hover:border-opacity-20 {game.win ===
+            class="border-primary/55 bg-base-200 hover:border-primary/20 flex flex-col justify-center rounded-lg border p-4 text-center duration-300 {game.win ===
             1
               ? 'text-success'
               : game.win === 2
                 ? 'text-warning'
                 : 'text-error'}"
-            in:fly|global={{ y: 50, duration: 500, delay: (i % 48) * 50 }}
+            in:fly|global={{ y: 50, duration: 350, delay: (i % 48) * 25 }}
           >
             <h1 class="text-xl font-semibold">{game.game.replaceAll("_", " ")}</h1>
 
             {#if !game.game.includes("scratch")}
-              <p class=" mb-2 mt-1 text-sm font-semibold lg:text-base">
+              <p class=" mt-1 mb-2 text-sm font-semibold lg:text-base">
                 {game.win == 1
                   ? `+$${game.earned.toLocaleString()}`
                   : game.win == 0

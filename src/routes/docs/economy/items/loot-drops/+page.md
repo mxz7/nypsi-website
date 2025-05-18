@@ -1,6 +1,7 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='loot drops' />
@@ -16,3 +17,11 @@ you may find that the commands channel in the [official nypsi server](https://di
 <DocsHeader header='h2' text="rewards" />
 
 the reward for loot drops is randomly generated from a list of allowed items, in a similar way that scratch card rewards are decided
+
+<DocsHeader header='h2' text='loot rains' />
+
+<ItemModal item="rain">loot rains</ItemModal> are special, incredibly rare items that spawn a wave of loot drops for 1-2 minutes.
+
+a loot rain will be 2 minutes **only** if it is in the [official nypsi server](https://nypsi.xyz/discord).
+
+loot rains can also be bought from the online store

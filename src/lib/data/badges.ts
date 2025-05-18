@@ -24,8 +24,7 @@ const badges = new Map([
       icon: "https://cdn.discordapp.com/role-icons/959541364540993606/0f59884798437a54c4384f7dc941fffe.png",
       text: "contributor",
       name: "contributor",
-      description:
-        "these people are active contributors (changing/writing/fixing code) to either this website or the nypsi bot itself.",
+      description: "these people have contributed code to nypsi.",
     },
   ],
   [
