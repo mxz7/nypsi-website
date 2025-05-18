@@ -18,4 +18,4 @@ this means that the bank currently doesn't have enough funds to be robbed
 
 <DocsHeader header='h2' text="how does the bank get its money" />
 
-the nypsi bank gets its money from tax when users sell items, use offers, auctions or paying each other
+the nypsi bank gets its money from tax when users sell items, use offers, [the market](/docs/economy/market) or paying each other

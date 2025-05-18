@@ -13,6 +13,6 @@ voting will give you varying rewards depending on your prestige, but generally, 
 
 <DocsHeader header='h2' text="item information" />
 
-to find information about items, you can do `/item <item>`. this command will give you more user friendly information, such as how much the item is worth, the average amount that the item normally sells for on auction and how many of the item are in the world (hint: the little percentage next to this number indicates your contribution to the global amount). you can also see this information in the [items page](/item).
+to find information about items, you can do `/item <item>`. this command will give you more user friendly information, such as how much the item is worth, the average amount that the item normally sells for on [the market](/docs/economy/market) and how many of the item are in the world (hint: the little percentage next to this number indicates your contribution to the global amount). you can also see this information in the [items page](/item).
 
 you could also use `$help <item>` to view information about an item. however, this information is less user friendly and more technical, but it may help you understand better what each item does.
