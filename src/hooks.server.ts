@@ -37,3 +37,13 @@ export async function handle({ event, resolve }) {
 
   return res;
 }
+
+export async function init() {
+  process.on("unhandledRejection", (e) => {
+    console.error(e);
+  });
+
+  process.on("uncaughtException", (e) => {
+    console.error(e);
+  });
+}
