@@ -74,9 +74,10 @@
       height="256"
       width="256"
       src={baseData.avatar}
-      alt="{baseData.lastKnownUsername}'s avatar"
+      alt=""
       onerror={handleFallbackImage}
       loading="eager"
+      decoding="sync"
     />
 
     <div class="ml-2 grow lg:text-lg">
