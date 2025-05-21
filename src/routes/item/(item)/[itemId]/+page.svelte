@@ -50,8 +50,8 @@
       <img
         class="h-full w-full object-contain"
         src={data.item.emoji}
-        alt={data.item.id}
-        decoding="async"
+        alt=""
+        decoding="sync"
         loading="eager"
       />
     </div>
@@ -124,7 +124,7 @@
             {@const item = data.items.find((i) => i.id === foundEntry[0])}
             <div class="flex items-center gap-1">
               {#if item}
-                <img src={item.emoji} alt={item.id} decoding="async" loading="lazy" class="w-5" />
+                <img src={item.emoji} alt="" decoding="async" loading="lazy" class="w-5" />
                 {#if item.role === "scratch-card"}
                   <a href="/docs/economy/items/scratch-cards" class="link">{item.name}</a>
                 {:else}
@@ -162,7 +162,7 @@
                                 : "karma_tag"),
                         )
                     ).emoji}
-                    alt={itemId}
+                    alt=""
                     decoding="async"
                     loading="lazy"
                     class="h-full w-full object-contain"
@@ -192,7 +192,7 @@
               <div class="h-5 w-5">
                 <img
                   src={item.emoji}
-                  alt={itemId}
+                  alt=""
                   decoding="async"
                   loading="lazy"
                   class="h-full w-full object-contain"
@@ -217,7 +217,7 @@
             <div class="h-5 w-5">
               <img
                 src={item.emoji}
-                alt={item.id}
+                alt=""
                 decoding="async"
                 loading="lazy"
                 class="h-full w-full object-contain"

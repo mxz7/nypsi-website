@@ -44,7 +44,7 @@
           bind:this={avatars[index]}
           class="h-10 w-10 rounded-full"
           src={member.economy.user.avatar}
-          alt="{member.economy.user.lastKnownUsername}'s avatar"
+          alt=""
           onerror={handleFallbackImage}
           decoding="async"
           loading="lazy"
@@ -75,7 +75,7 @@
         alt=""
         class="h-full w-full rounded-full"
         loading="eager"
-        decoding="async"
+        decoding="sync"
         width="256"
         height="256"
       />

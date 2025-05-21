@@ -63,7 +63,7 @@
               <div class="bg-base-300 h-16 p-3">
                 <img
                   src={item.emoji}
-                  alt={item.id}
+                  alt=""
                   decoding="async"
                   loading="lazy"
                   class="h-full w-full object-contain"
