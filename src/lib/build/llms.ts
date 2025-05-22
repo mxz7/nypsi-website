@@ -12,8 +12,9 @@ async function main() {
     const content = await readFile(file).then((r) => r.toString());
 
     const strippedJs = content.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+    const strippedStyle = strippedJs.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "");
 
-    const lines = strippedJs.split("\n");
+    const lines = strippedStyle.split("\n");
 
     for (const line of lines) {
       if (line.match(/<DocsTemplate\b[^>]*\btitle=(['"])[^'"]*\1[^>]*\/>/)) {
