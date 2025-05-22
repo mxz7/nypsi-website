@@ -2,8 +2,6 @@
 
 FROM node:22-slim as base
 
-LABEL fly_launch_runtime="SvelteKit/Prisma"
-
 # SvelteKit/Prisma app lives here
 WORKDIR /app
 
@@ -27,6 +25,9 @@ RUN npx prisma generate
 
 # Copy application code
 COPY --link . .
+
+# build llms.txt
+RUN npx tsx src/lib/build/llms.ts
 
 # Build application
 RUN pnpm run build
