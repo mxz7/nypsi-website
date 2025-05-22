@@ -35,7 +35,7 @@ async function main() {
       }
     }
 
-    const newContent = lines.join("\n").trim();
+    const newContent = lines.join("\n\n").trim();
 
     output.push(newContent);
   }
