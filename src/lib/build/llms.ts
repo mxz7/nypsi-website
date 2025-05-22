@@ -5,7 +5,10 @@ async function main() {
   const files = await fg("src/routes/docs/**/**.md");
 
   let output: string[] = [
-    "The following is the documentation for the nypsi Discord bot. The docs are written with mdsvex, a markdown preprecessor for svelte. As such there may be fragments of svelte components and svelte syntax, do your best to interpret the meaning.",
+    "# nypsi Documentation\n" +
+      "The following is the documentation for the nypsi Discord bot." +
+      "The docs are written with mdsvex, a markdown preprecessor for svelte." +
+      "As such there may be fragments of svelte components and svelte syntax, do your best to interpret the meaning.",
   ];
 
   for (const file of files) {
