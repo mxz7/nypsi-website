@@ -32,7 +32,7 @@ export default async function getGuildData(guild: string, type: "balance" | "xp"
       datasets: [
         {
           yAxisID: "y1",
-          label: "auctions",
+          label: type,
           data: [],
           fill: true,
           borderColor: "#8b5cf6",
