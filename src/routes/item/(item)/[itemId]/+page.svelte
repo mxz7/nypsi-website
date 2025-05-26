@@ -44,7 +44,7 @@
   <meta property="og:image:height" content="128" />
 </svelte:head>
 
-<main class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
+<div class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
   <div class="flex w-full gap-3">
     <div class="rounded-box bg-base-300 h-24 w-24 p-4">
       <img
@@ -230,4 +230,4 @@
       </div>
     </div>
   {/if}
-</main>
+</div>
