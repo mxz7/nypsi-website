@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='premium ranks' />
+<DocsTemplate title='premium ranks' description="discover nypsi discord bot premium ranks — learn how to purchase, access benefits, manage credits, get premium crates, and buy items via ko-fi." />
 
 i love you
 

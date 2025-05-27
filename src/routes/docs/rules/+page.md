@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='rules' />
+<DocsTemplate title='rules' description="nypsi discord bot and server rules explained, covering automation, exploits, trading, market use, and respectful behavior. follow these guidelines to avoid bans and ensure a positive experience." />
 
 if you're a respectable person and use common sense, you should be fine
 

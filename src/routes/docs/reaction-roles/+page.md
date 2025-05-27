@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='reaction roles' />
+<DocsTemplate title='reaction roles' description="learn how to set up reaction roles in nypsi discord bot, including creating, adding, removing, changing modes, updating messages, and managing whitelists for role assignment" />
 
 reaction roles allow you to set up buttons where members can click to receive designated roles
 

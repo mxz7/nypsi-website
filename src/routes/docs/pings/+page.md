@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='pings' />
+<DocsTemplate title='pings' description="pings and mentions in nypsi are tracked more reliably than discord's native system, with saved notifications, secure encrypted message previews, and support details for servers of different sizes." />
 
 pings / mentions works by saving messages in servers that are qualified to the database. nypsi can then retreive these to show you your notifications. this is wayyy more reliable than how discord does it, where your notifications are often out of order or even just straight up missing.
 

@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='privacy policy' />
+<DocsTemplate title='privacy policy' description="nypsi discord bot privacy policy detailing what user and guild data is stored, usage, logging, how to view or delete your data, and contact information for data-related requests." />
 
 <DocsHeader header='h2' text="Storing of Data" />
 
