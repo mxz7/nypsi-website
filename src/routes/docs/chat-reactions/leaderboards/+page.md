@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='chat reactions leaderboards' />
+<DocsTemplate title='chat reactions leaderboards' description="chat reactions leaderboards: learn how to track, view, and reset server and global chat reaction stats using nypsi commands for your discord server." />
 
 <DocsHeader header='h2' text="types of chat reaction leaderboards" />
 

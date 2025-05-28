@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='lottery' />
+<DocsTemplate title='lottery' description="join the nypsi lottery to win daily prizes. buy tickets with commands, earn them from voting or crates. easy entry, auto participation." />
 
 <DocsHeader header='h2' text="how it works" />
 

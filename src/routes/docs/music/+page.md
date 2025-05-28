@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='last.fm integration' />
+<DocsTemplate title='last.fm integration' description="connect nypsi to your last.fm account to show now playing, top tracks, artists, and recent songs. easy spotify integration and setup instructions." />
 
 <DocsHeader header='h2' text="getting started" />
 

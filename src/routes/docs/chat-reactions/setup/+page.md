@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='chat reactions setup' />
+<DocsTemplate title='chat reactions setup' description="setup, customize, and manage chat reactions with commands: enable auto reactions, adjust cooldowns, set channels, and track stats for your server." />
 
 <DocsHeader header='h2' text="enabling automatic start" />
 

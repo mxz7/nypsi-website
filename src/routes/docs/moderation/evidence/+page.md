@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='evidence' />
+<DocsTemplate title='evidence' description="securely upload, store, and manage evidence for nypsi moderation cases with long-term access, direct case attachment, and easy storage upgrades." />
 
 evidence is a system that allows moderators to upload evidence to a nypsi moderation case
 

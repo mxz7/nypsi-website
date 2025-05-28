@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='automatic alt punishments' />
+<DocsTemplate title='automatic alt punishments' description="automatic alt punishments link user accounts so all are penalized if one is punished, helping prevent ban evasion. easy setup and alt tracking included." />
 
 with this server setting enabled, all of a user's accounts will be punished when one account is punished. this helps prevent mute/ban evasion and the hassle of punishing multiple accounts.
 

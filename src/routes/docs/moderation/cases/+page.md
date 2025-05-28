@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='moderation cases' />
+<DocsTemplate title='moderation cases' description="manage discord moderation cases: view case data, top staff stats, delete all cases, mark cases as deleted, and see user punishment history with simple commands" />
 
 <DocsHeader header='h2' text="case data" />
 

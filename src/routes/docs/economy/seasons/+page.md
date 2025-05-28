@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='seasons' />
+<DocsTemplate title='seasons' description="learn about nypsi seasons: periodic economy resets, prestige and rewards, top player prizes including premium membership and real money via safe methods." />
 
 a nypsi season will typically last 6 months. at the end of the season, an _economy reset_ takes place, where
 everything **except prestige, achievements, tags and karma** is reset for every user. any banned users will also be unbanned, but

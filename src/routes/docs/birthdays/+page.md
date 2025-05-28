@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='birthdays' />
+<DocsTemplate title='birthdays' description="learn how to set, change, or manage your birthday, privacy, and birthday announcement channels in nypsi using easy slash commands." />
 
 <DocsHeader header='h2' text='setting your birthday' />
 

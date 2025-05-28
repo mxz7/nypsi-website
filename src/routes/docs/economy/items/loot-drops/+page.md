@@ -4,7 +4,7 @@
   import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
-<DocsTemplate title='loot drops' />
+<DocsTemplate title='loot drops' description="discover how loot drops and rare loot rains spawn in active discord channels, their random rewards, and how to get more on the official nypsi server." />
 
 loot drops are little minigames that spawn with activity in a channel, the first to complete the game receives a random reward
 

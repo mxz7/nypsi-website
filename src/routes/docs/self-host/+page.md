@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='self host' />
+<DocsTemplate title='self host' description="learn how to self host the nypsi discord bot with this step-by-step guide, including prerequisites, setup instructions, and tips for contributing your own changes." />
 
 since nypsi is _almost_ entirely public, you can self host and make your own version!
 

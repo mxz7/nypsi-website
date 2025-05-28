@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='the market' />
+<DocsTemplate title='the market' description="buy and sell items with other players on the nypsi market. create and fill orders, get alerts, use trade requests, and manage offers easily with commands." />
 
 <DocsHeader header='h2' text="how it works" />
 

@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='inventory system' />
+<DocsTemplate title='inventory system' description="learn how to get items in the inventory system by voting for crates, earning rewards like karma and lottery tickets, and viewing detailed item info." />
 
 <DocsHeader header='h2' text="how to get items" />
 

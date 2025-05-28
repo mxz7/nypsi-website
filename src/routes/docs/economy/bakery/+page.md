@@ -4,7 +4,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='bakery' />
+<DocsTemplate title='bakery' description="learn how the bakery lets you produce cookies and cakes, boost baking with grandpas, furnaces, and upgrades like cursors and grandmas for more rewards" />
 
 the bakery is a way to produce <ItemModal item="cookie">cookies</ItemModal> and <ItemModal item="cake">cakes</ItemModal>
 

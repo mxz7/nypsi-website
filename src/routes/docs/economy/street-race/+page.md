@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='street races' />
+<DocsTemplate title='street races' description="join street races in your channel, compete with custom or crate cars, earn rewards, and upgrade vehicles for faster wins. get started with a free bike!" />
 
 street races work by starting an event in the current channel, then allowing members in that channel
 to join the street race. to join they will need to have the available funds, and a car. if they

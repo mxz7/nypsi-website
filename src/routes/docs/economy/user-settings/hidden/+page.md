@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='hidden' />
+<DocsTemplate title='hidden' description="learn how to make your nypsi account hidden, remove your username from public leaderboards, and control privacy settings easily" />
 
 \[hidden] means that the user has disabled their user from being shown publicly on nypsi. this means that their username will not show on public leaderboards and their profile will not be accessible on the [nypsi](https://nypsi.xyz) website
 

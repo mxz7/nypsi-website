@@ -4,7 +4,7 @@
   import ItemModal from "$lib/components/docs/ItemModal.svelte"
 </script>
 
-<DocsTemplate title='item worth / value' />
+<DocsTemplate title='item worth / value' description="learn how item worth and value are determined in nypsi, including unvalued items, market manipulation, price history, and the best way to sell items." />
 
 items are often associated with a 'worth'. this comes from an average of what users pay for the item in [the market](/docs/economy/market) or offers.
 
