@@ -4,7 +4,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='bank' description="learn how the bank works in nypsi: boost bank size with stolen credit cards, keep money safe, level up faster, and master bankrob strategies. />
+<DocsTemplate title='bank' description="learn how the bank works in nypsi: boost bank size with stolen credit cards, keep money safe, level up faster, and master bankrob strategies." />
 
 your bank is the little '💳' icon in `$balance` and `$profile`. it is used for levelling up.
 
