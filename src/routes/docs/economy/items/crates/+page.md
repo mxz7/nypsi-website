@@ -27,7 +27,7 @@
 
 </script>
 
-<DocsTemplate title='crates' />
+<DocsTemplate title='crates' description="learn how to get and open nypsi crates, discover all possible crate items, and see detailed odds for basic, boosters, mineshaft, gem, omega crates." />
 
 <DocsHeader header='h2' text="obtaining" />
 

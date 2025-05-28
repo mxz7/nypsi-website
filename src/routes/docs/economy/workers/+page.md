@@ -5,7 +5,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='workers' />
+<DocsTemplate title='workers' description="earn passive income by buying and upgrading workers, claim earnings easily, and discover rare upgrades and special items to boost your profits in the game." />
 
 workers passively earn money for you, meaning that you will be making money by doing nothing, however you still need to claim money from them periodically. you can do this with `/workers claim`, or by having worker notifications enabled. you will receive a dm with a button to claim money from your workers
 

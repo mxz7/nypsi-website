@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='crash' />
+<DocsTemplate title='crash' description="play crash, an exciting gambling game where your bet multiplies as the number rises—cash out before it crashes for a chance to win big on nypsi discord." />
 
 crash is a gambling game where a number exponentially rises, with a chance to crash. getting more
 likely the higher it gets.

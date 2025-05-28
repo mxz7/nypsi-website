@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='passive mode' />
+<DocsTemplate title='passive mode' description="enable passive mode to avoid being robbed or attacked by players, with reduced xp and cookie gain; 20-minute cooldown applies for changes." />
 
 <DocsHeader header='h2' text="what is passive mode" />
 

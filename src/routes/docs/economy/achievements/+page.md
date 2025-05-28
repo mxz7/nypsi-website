@@ -4,7 +4,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='achievements' />
+<DocsTemplate title='achievements' description="discover all nypsi achievements, track your progress, view rewards, and learn how to use the /achievements command to unlock exclusive tags and prizes." />
 
 achievements are goals that when completed, give you some rewards.
 

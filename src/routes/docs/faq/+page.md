@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='FAQ' />
+<DocsTemplate title='FAQ' description="learn about karma shop openings, tracking mentions, vote reminders, and customizing or disabling discord commands for your server." />
 
 <DocsHeader header='h2' text="when will the karma shop be open?" />
 

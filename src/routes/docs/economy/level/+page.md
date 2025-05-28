@@ -4,7 +4,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='levelling' />
+<DocsTemplate title='levelling' description="learn how levelling, rewards, bank size, and prestiging work in our system. discover xp boosters, upgrades, stolen credit cards, and more." />
 
 levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if you don't explicitly prestige
 

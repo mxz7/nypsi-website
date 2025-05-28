@@ -4,7 +4,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='portals' />
+<DocsTemplate title='portals' description="discover how to obtain and use nether and end portals to mine, hunt, and get rare items in other dimensions. learn crafting, buying, and effects." />
 
 portals allow you to [mine or hunt](/docs/economy/fish-hunt-mine) in other dimensions to get more valuable items.
 there are two kinds of portals: <ItemModal item="nether_portal">nether portal</ItemModal> and <ItemModal item="end_portal">end portal.</ItemModal>

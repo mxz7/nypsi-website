@@ -4,7 +4,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='karma' />
+<DocsTemplate title='karma' description="learn how to earn and use karma in nypsi to buy exclusive rewards like xp, crates, and premium ranks in the limited-time karma shop." />
 
 <DocsHeader header='h2' text="how to get karma" />
 

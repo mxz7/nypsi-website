@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='guilds' />
+<DocsTemplate title='guilds' description="join or create guilds, invite friends, earn guild tokens, unlock upgrades and rewards, and compete for top spots and real money prizes on this hypixel-inspired server." />
 
 guilds work similarly to how they do on hypixel. you create your own guild, invite friends, and work together to level it up.
 

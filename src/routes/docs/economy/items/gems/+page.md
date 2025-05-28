@@ -8,7 +8,7 @@
 
 </script>
 
-<DocsTemplate title='gems' />
+<DocsTemplate title='gems' description="discover how to obtain and use gems for passive buffs, storage, and boosts in your game. learn gem effects, risks of shattering, and crafting a crystal heart." />
 
 gems are basically just passive boosters. they are always active and give buffs to whoever wields them. the downside of this, however, is that they can shatter. when a gem uses its passive ability (for example, boosting how much money your workers gain) it has a very small chance to shatter. while this chance is small, it adds up over time.
 

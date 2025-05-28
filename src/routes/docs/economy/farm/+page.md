@@ -4,7 +4,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='farms' />
+<DocsTemplate title='farms' description="learn how to start a farm, obtain and care for seeds, and upgrade with items like silos and hoes in this farming guide for item collectors." />
 
 <DocsHeader header='h2' text="starting a farm" />
 
