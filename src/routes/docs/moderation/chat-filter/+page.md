@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='chat filter' />
+<DocsTemplate title='chat filter' description="manage your nypsi chat filter with commands to add, remove, and test filtered words. customize percentage matching for precise moderation control." />
 
 <DocsHeader header='h2' text="adding/removing from the chat filter" anchor="adding-removing-from-the-chat-filter" />
 

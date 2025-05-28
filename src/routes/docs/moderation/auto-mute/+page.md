@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='auto mute'/>
+<DocsTemplate title='auto mute' description="configure auto mute in nypsi to automatically mute members for chat violations. learn how to set durations, use $automute, and manage violation levels." />
 
 auto mute will be configured by default to mute members for an increasing amount of time when they
 violate the chat filter
