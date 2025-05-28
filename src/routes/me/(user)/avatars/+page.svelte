@@ -24,7 +24,7 @@
       <img
         src={avatar.value}
         alt=""
-        class="w-full rounded-box"
+        class="rounded-box w-full"
         loading="lazy"
         decoding="async"
         height="256"

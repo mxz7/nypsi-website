@@ -129,7 +129,7 @@
   {#if data.guild.success}
     <Guild guildData={data.guild} />
   {:else}
-    <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 transform">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
       <p class="text-xl font-bold text-slate-300">unknown guild</p>
     </div>
   {/if}
@@ -143,7 +143,7 @@
           <div class="flex w-full flex-col gap-4 px-4">
             <div>
               <h1 class="text-center text-lg font-semibold text-white">balance</h1>
-              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
+              <div class="bg-primary m-auto mt-1 h-1 w-3/4 rounded-full sm:w-1/2"></div>
             </div>
 
             <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -158,7 +158,7 @@
           <div class="flex w-full flex-col gap-4 px-4">
             <div>
               <h1 class="text-center text-lg font-semibold text-white">xp</h1>
-              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
+              <div class="bg-primary m-auto mt-1 h-1 w-3/4 rounded-full sm:w-1/2"></div>
             </div>
 
             <div class="h-[30vh] w-full sm:h-[45vh]">
@@ -173,7 +173,7 @@
           <div class="flex w-full flex-col gap-4 px-4">
             <div>
               <h1 class="text-center text-lg font-semibold text-white">level</h1>
-              <div class="m-auto mt-1 h-1 w-3/4 rounded-full bg-primary sm:w-1/2"></div>
+              <div class="bg-primary m-auto mt-1 h-1 w-3/4 rounded-full sm:w-1/2"></div>
             </div>
 
             <div class="h-[30vh] w-full sm:h-[45vh]">

@@ -43,7 +43,7 @@
 {#if visible}
   <div
     out:fade={{ duration: 500 }}
-    class="fixed top-0 h-[2px] rounded-lg bg-primary"
+    class="bg-primary fixed top-0 h-[2px] rounded-lg"
     style="width: {width.current}%"
   ></div>
 {/if}

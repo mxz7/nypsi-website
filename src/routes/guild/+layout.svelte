@@ -9,7 +9,7 @@
   guildSearchTerm.value = page.url.searchParams.get("search") || page.params.name || "";
 </script>
 
-<div class="mb-2 mt-5 flex justify-center">
+<div class="mt-5 mb-2 flex justify-center">
   <form
     onsubmit={(e) => {
       e.preventDefault();

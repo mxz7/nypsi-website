@@ -57,5 +57,5 @@
     <Table tableData={modLogsData} />
   {/if}
 {:else}
-  <p class="mt-4 text-error">you do not have the 'manage server' permission in {data.guild.name}</p>
+  <p class="text-error mt-4">you do not have the 'manage server' permission in {data.guild.name}</p>
 {/if}

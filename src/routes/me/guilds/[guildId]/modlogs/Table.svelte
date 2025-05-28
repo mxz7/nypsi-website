@@ -34,7 +34,7 @@
 </script>
 
 <div class="overflow-x-auto">
-  <table class="table table-zebra">
+  <table class="table-zebra table">
     <!-- head -->
     <thead>
       <tr>

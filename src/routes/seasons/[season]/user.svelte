@@ -32,7 +32,7 @@
   {/if}
   <a
     class="{pos === 1
-      ? 'font-semibold text-primary'
+      ? 'text-primary font-semibold'
       : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
     href="/user/{user?.id || user.username}"
   >
@@ -42,7 +42,7 @@
   <a
     href="/user/{user.username}"
     class="{pos === 1
-      ? 'font-semibold text-primary'
+      ? 'text-primary font-semibold'
       : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
   >
     {user.username}

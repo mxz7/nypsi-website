@@ -1,7 +1,5 @@
 import { dev } from "$app/environment";
-import {
-  env
-} from "$env/dynamic/private";
+import { env } from "$env/dynamic/private";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { Discord } from "arctic";
 import { Lucia } from "lucia";

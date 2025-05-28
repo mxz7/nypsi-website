@@ -18,7 +18,7 @@
   {/if}
 
   <p class="mb-1 grow pr-1 text-right text-sm text-slate-300 sm:text-lg">
-    total spent <span class="font-semibold text-primary">
+    total spent <span class="text-primary font-semibold">
       {Intl.NumberFormat(data.locale || "en-UK", { style: "currency", currency: "GBP" }).format(
         data.totalSpend,
       )}
