@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='chat reactions word lists' />
+<DocsTemplate title='chat reactions word lists' description="customize nypsi chat reactions with monkeytype english word lists or your own. learn commands to add, remove, reset, and manage your chat word lists." />
 
 <DocsHeader header='h2' text="default" />
 
