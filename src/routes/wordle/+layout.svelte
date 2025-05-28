@@ -12,7 +12,7 @@
   let searched: string = $state(page.params.id);
 </script>
 
-<div class="mb-3 mt-5 flex w-full justify-center">
+<div class="mt-5 mb-3 flex w-full justify-center">
   <form
     onsubmit={preventDefault(() => {
       goto(`/wordle/${searched}`);

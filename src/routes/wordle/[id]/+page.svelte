@@ -92,18 +92,18 @@
         {#each board as row}
           {#each row as letter}
             {#if letter === "x"}
-              <div class="rounded-lg bg-base-200 p-2 text-4xl font-medium">&#8203;</div>
+              <div class="bg-base-200 rounded-lg p-2 text-4xl font-medium">&#8203;</div>
             {:else if letter.startsWith("green:")}
-              <div class="rounded-lg bg-base-300 p-2 text-center text-4xl font-medium text-success">
+              <div class="bg-base-300 text-success rounded-lg p-2 text-center text-4xl font-medium">
                 {letter.substring(6)}
               </div>
             {:else if letter.startsWith("yellow:")}
-              <div class="rounded-lg bg-base-300 p-2 text-center text-4xl font-medium text-warning">
+              <div class="bg-base-300 text-warning rounded-lg p-2 text-center text-4xl font-medium">
                 {letter.substring(7)}
               </div>
             {:else if letter.startsWith("grey:")}
               <div
-                class="rounded-lg bg-base-300 p-2 text-center text-4xl font-medium text-slate-500"
+                class="bg-base-300 rounded-lg p-2 text-center text-4xl font-medium text-slate-500"
               >
                 {letter.substring(5)}
               </div>

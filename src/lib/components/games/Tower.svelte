@@ -59,12 +59,12 @@
     style="grid-template-columns: repeat({difficulty === 'easy'
       ? '4'
       : difficulty === 'medium'
-      ? '3'
-      : difficulty === 'hard'
-      ? '2'
-      : difficulty === 'expert'
-      ? '4'
-      : '3'}, minmax(0, 1fr))"
+        ? '3'
+        : difficulty === 'hard'
+          ? '2'
+          : difficulty === 'expert'
+            ? '4'
+            : '3'}, minmax(0, 1fr))"
     class="grid w-fit gap-1 sm:gap-2"
   >
     {#each rows as row}

@@ -3,8 +3,11 @@
 
   interface Props {
     outcome: {
-    components: { emoji: { name: string; id?: string; animated: boolean }; style: 1 | 2 | 3 | 4 }[];
-  }[];
+      components: {
+        emoji: { name: string; id?: string; animated: boolean };
+        style: 1 | 2 | 3 | 4;
+      }[];
+    }[];
   }
 
   let { outcome }: Props = $props();

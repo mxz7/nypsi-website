@@ -20,7 +20,7 @@
   {#each data.guilds as guild}
     <a
       href="/me/guilds/{guild.id}"
-      class="flex items-center gap-4 rounded-lg bg-base-200 p-2 {(parseInt(guild.permissions) &
+      class="bg-base-200 flex items-center gap-4 rounded-lg p-2 {(parseInt(guild.permissions) &
         0x20) ==
       0x20
         ? ''

@@ -36,7 +36,7 @@
           <span class="font-semibold">{item.name}</span>
         </div>
 
-        <div class="ml-8 mt-1 flex items-center gap-2">
+        <div class="mt-1 ml-8 flex items-center gap-2">
           <img src={parseEmoji("📦")} class="w-5" alt={item.id} loading="lazy" decoding="async" />
           <span
             >stock of {item.items_left}{item.items_left > 1
