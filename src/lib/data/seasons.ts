@@ -169,6 +169,62 @@ export default {
   },
   "9": {
     started: new Date("2025-01-01"),
+    ended: new Date("2025-05-31"),
+    winners: [
+      {
+        id: "572037176997445641",
+        username: "will0220",
+        value: "$288,218,845,921",
+      },
+      {
+        id: "934253152423800863",
+        username: "bloodygh0st.",
+        value: "$195,140,036,606",
+      },
+      {
+        id: "282930932074414081",
+        username: "bharati2",
+        value: "$193,345,608,874",
+      },
+      {
+        id: "1219357517159731260",
+        username: "snowchildisnothim",
+        value: "$119,189,037,885",
+      },
+      {
+        id: "756529737610035291",
+        username: "drainprincess",
+        value: "$103,230,043,943",
+      },
+      {
+        id: "872819391585198100",
+        username: "1nxght",
+        value: "$14,586,117,761",
+      },
+      {
+        id: "811251131006451742",
+        username: "daywalkeer",
+        value: "$11,986,217,904",
+      },
+      {
+        id: "926919113165668433",
+        username: "waddahexxy",
+        value: "$7,752,703,972",
+      },
+      {
+        id: "1199086736383410224",
+        username: "love_the_cats_and_dogs",
+        value: "$3,409,619,202",
+      },
+      {
+        id: "672793821850894347",
+        username: "m.axz",
+        value: "$3,024,419,317",
+      },
+    ],
+  },
+  "10": {
+    started: new Date("2025-06-01"),
   },
 } as {
   [key: string]: {
