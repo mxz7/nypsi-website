@@ -35,18 +35,23 @@
             href="/user/{supporter.id}"
           >
             {#if supporter.tagId}
-              <span>[</span>
-              <img
-                class="h-4"
-                src={parseEmoji(data.tags[supporter.tagId]?.emoji)}
-                alt=""
+              <span
+                class="user-tag"
                 use:tooltip={{
                   placement: "top",
                   content: data.tags[supporter.tagId]?.name,
                   followCursor: true,
                 }}
-              />
-              <span class="mr-1">]</span>
+              >
+                <img
+                  class="h-4 w-4 object-contain"
+                  height="32"
+                  width="32"
+                  src={parseEmoji(data.tags[supporter.tagId]?.emoji)}
+                  alt=""
+                  decoding="async"
+                />
+              </span>
             {/if}
             <span class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
               >{supporter.username}</span
@@ -70,18 +75,23 @@
             href="/user/{supporter.id}"
           >
             {#if supporter.Tags[0]?.tagId}
-              <span>[</span>
-              <img
-                class="h-4"
-                src={parseEmoji(data.tags[supporter.Tags[0].tagId]?.emoji)}
-                alt=""
+              <span
+                class="user-tag"
                 use:tooltip={{
                   placement: "top",
                   content: data.tags[supporter.Tags[0].tagId]?.name,
                   followCursor: true,
                 }}
-              />
-              <span class="mr-1">]</span>
+              >
+                <img
+                  class="h-4 w-4 object-contain"
+                  height="32"
+                  width="32"
+                  src={parseEmoji(data.tags[supporter.Tags[0].tagId]?.emoji)}
+                  alt=""
+                  decoding="async"
+                />
+              </span>
             {/if}
             <span class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
               >{supporter.lastKnownUsername}</span
@@ -92,3 +102,19 @@
     </ol>
   </main>
 </div>
+
+<style>
+  @reference "../../app.css";
+
+  .user-tag {
+    @apply mr-1 flex items-center;
+  }
+
+  .user-tag::before {
+    content: "[";
+  }
+
+  .user-tag::after {
+    content: "]";
+  }
+</style>

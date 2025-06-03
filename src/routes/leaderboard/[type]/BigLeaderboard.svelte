@@ -70,9 +70,8 @@
               >
                 {#if user.id}
                   {#if user.tag}
-                    <p>[</p>
-                    <div
-                      class="h-5 w-5 sm:h-6 sm:w-6"
+                    <span
+                      class="user-tag"
                       use:tooltip={{
                         placement: "top",
                         content: tags[user.tag]?.name,
@@ -80,16 +79,14 @@
                       }}
                     >
                       <img
-                        class="h-full w-full object-contain"
-                        src={parseEmoji(tags[user.tag]?.emoji)}
-                        alt="{user.username}'s tag"
-                        decoding="async"
-                        loading={i < 10 ? "eager" : "lazy"}
+                        class="h-5 w-5 object-contain sm:h-6 sm:w-6"
                         height="32"
                         width="32"
+                        src={parseEmoji(tags[user.tag]?.emoji)}
+                        alt=""
+                        decoding="async"
                       />
-                    </div>
-                    <p class="mr-1">]</p>
+                    </span>
                   {/if}
                   <a
                     href="{userRoute}/{user.id.replaceAll(' ', '-')}"
@@ -118,3 +115,19 @@
     </div>
   {/if}
 </div>
+
+<style>
+  @reference "../../../app.css";
+
+  .user-tag {
+    @apply mr-1 flex items-center;
+  }
+
+  .user-tag::before {
+    content: "[";
+  }
+
+  .user-tag::after {
+    content: "]";
+  }
+</style>
