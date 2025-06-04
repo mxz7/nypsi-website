@@ -6,34 +6,29 @@
 
   const width = new Tween(0, { easing: cubicOut });
   let visible = $state(false);
-  let timeout: number;
+  let timeout: ReturnType<typeof setTimeout>;
 
   beforeNavigate(() => {
     width.set(0, { duration: 0 });
     visible = false;
-    // console.log("before navigate");
 
     timeout = setTimeout(() => {
-      // console.log("timeout ran");
       visible = true;
       width.set(75, { duration: 7500 });
-    }, 1000);
+    }, 500);
   });
 
   onNavigate(() => {
-    // console.log("navigating");
-
     return () => {
-      // console.log("timeout cancelled");
       clearInterval(timeout);
 
       if (width.current > 0 && visible) {
-        width.set(100, { duration: 1000 });
+        width.set(100, { duration: 750 });
         setTimeout(() => {
           visible = false;
           setTimeout(() => {
             width.set(0, { duration: 0 });
-          }, 1000);
+          }, 900);
         }, 1200);
       }
     };
