@@ -24,17 +24,19 @@
   });
 </script>
 
-<article class="bg-base-200 flex rounded-lg p-2">
+<article class="bg-base-200 flex gap-1 rounded-lg p-4">
   {#if icon}
-    <img src={icon} alt="" class="h-10 w-10" />
+    <img src={icon} alt="" class="h-20 w-20 rounded-lg" />
   {/if}
 
   <div class="ml-2 flex flex-col">
-    <h3 class="text-lg font-bold">{name}</h3>
+    <h3 class="text-lg font-bold text-white">{name}</h3>
     <span
       >expires on <span class="font-medium">{expires.toLocaleDateString()}</span> at
       <span class="font-medium">{expires.toLocaleTimeString()}</span></span
     >
-    <span class="text-sm">(in <span class="font-medium">{MStoTime(expiresIn)}</span>)</span>
+    <span class="text-base-content/75 text-sm"
+      >in <span class="font-medium">{MStoTime(expiresIn)}</span></span
+    >
   </div>
 </article>
