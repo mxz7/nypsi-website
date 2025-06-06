@@ -21,7 +21,7 @@
     "@tailwindcss/vite": "^4.1.8",
     "@twemoji/parser": "^16.0.0",
     "@types/ms": "2.1.0",
-    "@types/node": "^22.15.21",
+    "@types/node": "^22.15.30",
     "@types/twemoji-parser": "13.1.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
@@ -42,7 +42,7 @@
     "tsx": "^4.19.4",
     "typescript": "5.8.3",
     "vite": "^5.4.11",
-    "zod": "^3.25.51"
+    "zod": "^3.25.55"
   },
   "type": "module",
   "dependencies": {
