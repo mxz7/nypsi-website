@@ -5,6 +5,7 @@
     BadgePoundSterling,
     ChartArea,
     Coins,
+    Gavel,
     Image,
     LogOut,
     Server,
@@ -74,6 +75,18 @@
         >
           <Image />
           <span>avatars</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          class="flex items-center {page.url.pathname.startsWith('/me/punishments')
+            ? 'text-primary'
+            : ''}"
+          href="/me/punishments"
+        >
+          <Gavel />
+          <span>punishments</span>
         </a>
       </li>
 
