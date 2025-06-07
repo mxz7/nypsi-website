@@ -1,5 +1,5 @@
 <script lang="ts">
-  let { guild: guild, pos }: { guild: { id: string; }; pos: number } = $props();
+  let { guild: guild, pos }: { guild: { id: string }; pos: number } = $props();
 </script>
 
 <p

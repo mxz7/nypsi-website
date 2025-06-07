@@ -5,8 +5,8 @@ export type LeaderboardData = {
     tag?: string;
   };
   guild?: {
-    id: string
-  }
+    id: string;
+  };
   value: string;
   position: number;
 }[];

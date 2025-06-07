@@ -263,7 +263,7 @@ export default {
         id: "cscratchies",
         value: "18",
       },
-    ]
+    ],
   },
   "10": {
     started: new Date("2025-06-01"),
@@ -273,6 +273,6 @@ export default {
     started: Date;
     ended?: Date;
     winners?: { username: string; value: string; id?: string }[];
-    topGuilds?: { id: string; value: string; }[];
+    topGuilds?: { id: string; value: string }[];
   };
 };

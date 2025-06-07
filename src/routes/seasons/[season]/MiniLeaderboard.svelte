@@ -19,7 +19,7 @@
   {#if data}
     <div class="mt-4 px-4 sm:px-0 md:text-lg">
       <div class="flex flex-col gap-2">
-          {#each data.slice(0, 10) as { position, user, guild, value }, i}
+        {#each data.slice(0, 10) as { position, user, guild, value }, i}
           <div
             class="bg-base-200 hover:border-primary/20 flex w-full items-center gap-2 rounded-lg border px-2 py-2 duration-200
               ease-in hover:scale-105 {i === 0
@@ -34,13 +34,12 @@
               </div>
             {/if}
 
-            
             {#if type === "guild" && guild}
               <div class="flex w-full items-center overflow-hidden text-white">
                 <Guild {guild} pos={position} />
               </div>
             {/if}
-            
+
             <div
               class="{i === 0
                 ? 'text-primary font-semibold'

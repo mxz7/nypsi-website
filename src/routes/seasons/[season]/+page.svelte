@@ -24,7 +24,7 @@
         </h2>
 
         {#if season.winners || season.topGuilds}
-          <div class="mt-6 flex w-full justify-center gap-24 flex-wrap">
+          <div class="mt-6 flex w-full flex-wrap justify-center gap-24">
             {#if season.winners}
               <MiniLeaderboard
                 data={season.winners.map((i) => {
