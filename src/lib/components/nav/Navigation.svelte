@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import logo from "$lib/assets/logo.svg";
   import { auth } from "$lib/state.svelte";
   import { Menu } from "@lucide/svelte";
   import MobileScreen from "./MobileScreen.svelte";
@@ -22,7 +23,7 @@
 
       <div class="hidden items-center text-sm lg:flex">
         <a class="btn btn-ghost" href="/" aria-label="home">
-          <picture>
+          <!-- <picture>
             <source
               srcset="https://cdn.nypsi.xyz/static/nypsi-transparent.avif"
               type="image/avif"
@@ -34,7 +35,8 @@
               class="h-10 w-10"
               loading="lazy"
             />
-          </picture>
+          </picture> -->
+          <img src={logo} class="h-10" alt="" />
         </a>
 
         <ul class="menu menu-md menu-horizontal">

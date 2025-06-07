@@ -47,7 +47,7 @@
       <input type="text" class="grow" placeholder="search" bind:value={search} />
     </label>
 
-    <div class="flex h-fit flex-col-reverse gap-4 md:flex-row-reverse">
+    <div class="flex h-fit flex-col gap-4 md:flex-row-reverse">
       <main class="md:w-1/3">
         {@render children()}
       </main>

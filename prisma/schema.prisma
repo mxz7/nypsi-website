@@ -144,6 +144,7 @@ model Preferences {
   leaderboards   Boolean @default(true)
   tips           Boolean @default(true)
   marketConfirm  BigInt  @default(25000000)
+  marketDelay    Int     @default(300) // seconds
   mentionsGlobal Boolean @default(false)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -256,7 +257,7 @@ model FarmUpgrades {
 }
 
 model CustomCar {
-  id String @id @default(uuid())
+  id Int @id @default(autoincrement())
 
   createdAt DateTime @default(now())
   name      String
@@ -265,6 +266,8 @@ model CustomCar {
   userId   String
   economy  Economy      @relation(fields: [userId], references: [userId], onDelete: Cascade)
   upgrades CarUpgrade[]
+
+  @@index([userId])
 }
 
 model CarUpgrade {
@@ -272,7 +275,7 @@ model CarUpgrade {
   type      CarUpgradeType
   amount    Int            @default(1)
 
-  carId String
+  carId Int
   car   CustomCar @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@id([carId, type])
@@ -342,6 +345,8 @@ model Crafting {
   finished DateTime
 
   economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Inventory {
@@ -445,6 +450,8 @@ model PremiumCommand {
   uses    Int    @default(0)
 
   premium Premium @relation(fields: [owner], references: [userId], onDelete: Cascade)
+
+  @@index([trigger])
 }
 
 model Username {
@@ -455,6 +462,8 @@ model Username {
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+
+  @@index([userId])
 }
 
 model WordleGame {
@@ -519,6 +528,8 @@ model TradeRequest {
   completed Boolean  @default(false)
 
   owner Economy @relation(fields: [ownerId], references: [userId], onDelete: Cascade)
+
+  @@index([ownerId])
 }
 
 model Offer {
@@ -614,6 +625,8 @@ model ReactionRole {
 
   guild Guild               @relation(fields: [guildId], references: [id], onDelete: Cascade)
   roles ReactionRoleRoles[]
+
+  @@index([messageId])
 }
 
 enum ReactionRoleMode {
@@ -862,7 +875,7 @@ model SupportRequest {
 }
 
 model SupportRequestMessage {
-  id               String @id @default(uuid())
+  id               Int    @id @default(autoincrement())
   supportRequestId String
   userId           String
   content          String
@@ -916,7 +929,7 @@ model Session {
 }
 
 model Captcha {
-  id     String @id @default(uuid())
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId String
 
   solved   Boolean    @default(false)

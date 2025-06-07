@@ -74,7 +74,7 @@
   }
 
   :global(.docs-content p) {
-    @apply mt-1 mb-2;
+    @apply mt-1 mb-2 leading-relaxed;
   }
 
   :global(.docs-content pre) {
