@@ -222,6 +222,48 @@ export default {
         value: "$3,024,419,317",
       },
     ],
+    topGuilds: [
+      {
+        id: "Hub",
+        value: "248",
+      },
+      {
+        id: "heaven",
+        value: "218",
+      },
+      {
+        id: "ALNS",
+        value: "165",
+      },
+      {
+        id: "balls",
+        value: "88",
+      },
+      {
+        id: "egirls",
+        value: "69",
+      },
+      {
+        id: "idk",
+        value: "33",
+      },
+      {
+        id: "big pp v2",
+        value: "30",
+      },
+      {
+        id: "booty",
+        value: "28",
+      },
+      {
+        id: "minkey",
+        value: "19",
+      },
+      {
+        id: "cscratchies",
+        value: "18",
+      },
+    ]
   },
   "10": {
     started: new Date("2025-06-01"),
@@ -231,5 +273,6 @@ export default {
     started: Date;
     ended?: Date;
     winners?: { username: string; value: string; id?: string }[];
+    topGuilds?: { id: string; value: string; }[];
   };
 };
