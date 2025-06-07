@@ -23,18 +23,35 @@
           {season.started.toLocaleDateString()} - {season.ended.toLocaleDateString()}
         </h2>
 
-        {#if season.winners}
-          <div class="mt-6 flex w-full justify-center">
-            <MiniLeaderboard
-              data={season.winners.map((i) => {
-                return {
-                  user: { username: i.username, id: i.id },
-                  value: i.value,
-                  position: season.winners ? season.winners?.indexOf(i) + 1 : 0,
-                };
-              })}
-              title="winners"
-            />
+        {#if season.winners || season.topGuilds}
+          <div class="mt-6 flex w-full flex-wrap justify-center gap-24">
+            {#if season.winners}
+              <MiniLeaderboard
+                data={season.winners.map((i) => {
+                  return {
+                    user: { username: i.username, id: i.id },
+                    value: i.value,
+                    position: season.winners ? season.winners?.indexOf(i) + 1 : 0,
+                  };
+                })}
+                title="top balance"
+                type="user"
+              />
+            {/if}
+
+            {#if season.topGuilds}
+              <MiniLeaderboard
+                data={season.topGuilds.map((i) => {
+                  return {
+                    guild: { id: i.id, value: i.value },
+                    value: i.value,
+                    position: season.topGuilds ? season.topGuilds?.indexOf(i) + 1 : 0,
+                  };
+                })}
+                title="top guilds"
+                type="guild"
+              />
+            {/if}
           </div>
         {/if}
       {:else}
