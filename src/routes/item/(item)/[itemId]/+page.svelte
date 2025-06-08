@@ -42,6 +42,8 @@
   <meta name="og:image" content={data.item.emoji} />
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
+
+  <link rel="canonical" href="https://nypsi.xyz/item/{data.item.id}" />
 </svelte:head>
 
 <div class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
