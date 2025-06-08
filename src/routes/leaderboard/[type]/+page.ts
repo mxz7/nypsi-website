@@ -38,23 +38,9 @@ export async function load({ params, fetch, parent, setHeaders }) {
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "streak") {
-    title = "top streak";
+    title = "top daily streak";
 
     leaderboardData = fetch("/api/leaderboard/streak").then(
-      (r) => r.json() as Promise<LeaderboardData>,
-    );
-  } else if (type === "vote") {
-    title = "top monthly votes";
-    descriptor = "votes";
-
-    leaderboardData = fetch("/api/leaderboard/vote").then(
-      (r) => r.json() as Promise<LeaderboardData>,
-    );
-  } else if (type === "wordle") {
-    title = "top wordle wins";
-    descriptor = "wins";
-
-    leaderboardData = fetch("/api/leaderboard/wordle").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "lottery") {

@@ -4,6 +4,7 @@
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import { items, tags } from "$lib/state.svelte";
   import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
 
   let { children, data } = $props();
 
@@ -34,7 +35,8 @@
       showItems: false,
     },
     {
-      name: "streak",
+      name: "daily streak",
+      data: "streak",
       leaderboardName: "top daily streak",
       selected: false,
       showItems: false,
@@ -126,5 +128,9 @@
 {/if}
 
 {#if showChild}
-  {@render children()}
+  {#key page.url.pathname}
+    <div in:fade={{ duration: 100 }} out:fade={{ duration: 100 }}>
+      {@render children()}
+    </div>
+  {/key}
 {/if}

@@ -14,8 +14,8 @@
 
     timeout = setTimeout(() => {
       visible = true;
-      width.set(75, { duration: 7500 });
-    }, 500);
+      width.set(75, { duration: 4000 });
+    }, 250);
   });
 
   onNavigate(() => {
