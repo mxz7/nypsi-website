@@ -112,7 +112,8 @@
               {/if}
               level {userData.Economy.level}
             {:else}
-              season {Array.from(Object.keys(seasons)[Object.keys(seasons).length - 1])}
+              {@const season = Object.keys(seasons)[Object.keys(seasons).length - 1]}
+              season {season}
             {/if}
           </p>
           <p
