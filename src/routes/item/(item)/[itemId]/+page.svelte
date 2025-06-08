@@ -102,10 +102,10 @@
   </div>
 
   <div class="mt-2 flex w-full gap-3">
-    <a href="/leaderboard/{data.item.id}" class="btn text-primary grow">
+    <a href="/leaderboard/{data.item.id}" class="btn text-primary grow" title="leaderboard">
       <Crown />
     </a>
-    <a href="/item/history/{data.item.id}" class="btn text-primary grow">
+    <a href="/item/history/{data.item.id}" class="btn text-primary grow" title="history">
       <ChartArea />
     </a>
   </div>
