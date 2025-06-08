@@ -74,12 +74,12 @@
 
   :global(.docs-content pre) {
     @apply bg-base-300 overflow-x-auto rounded-lg p-2;
-    font-family: monospace;
+    font-family: ui-monospace, "SF Mono", monospace;
   }
 
   :global(.docs-content code) {
     @apply bg-base-300 rounded-lg p-1;
-    font-family: monospace;
+    font-family: ui-monospace, "SF Mono", monospace;
   }
 
   :global(.docs-content p a) {
