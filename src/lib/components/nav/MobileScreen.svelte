@@ -202,6 +202,18 @@
                 </a>
               </li>
 
+              <li>
+                <a
+                  class="flex items-center {page.url.pathname.startsWith('/me/punishments')
+                    ? 'text-primary'
+                    : ''}"
+                  href="/me/punishments"
+                >
+                  <Image size={16} />
+                  <span>punishments</span>
+                </a>
+              </li>
+
               <li class="mt-2">
                 <a
                   href="/user/{auth.value?.authenticated ? auth.value.user.id : null}"
