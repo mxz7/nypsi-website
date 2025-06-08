@@ -9,13 +9,6 @@
 
 <svelte:head>
   <link rel="canonical" href="https://nypsi.xyz{page.url.pathname}" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap"
-    rel="stylesheet"
-  />
 </svelte:head>
 
 {#snippet renderPath(path: { name: string; path: string; children?: PathsData })}
@@ -81,12 +74,12 @@
 
   :global(.docs-content pre) {
     @apply bg-base-300 overflow-x-auto rounded-lg p-2;
-    font-family: "Fira Mono", monospace;
+    font-family: monospace;
   }
 
   :global(.docs-content code) {
     @apply bg-base-300 rounded-lg p-1;
-    font-family: "Fira Mono", monospace;
+    font-family: monospace;
   }
 
   :global(.docs-content p a) {
