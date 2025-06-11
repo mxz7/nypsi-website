@@ -72,7 +72,9 @@ mines: 20% chance to spawn, <green>0.5% chance to drop when clicked</green>
 
 <DocsHeader header='h3' text="shattering" />
 
-cannot shatter
+0.01% chance when claiming farm items
+
+max shards given from shattering: 5
 
 {/if}
 
@@ -148,9 +150,11 @@ crafting: 15 gem shards
 
 0.05% chance every hour
 
-0.014% chance when hunting/fishing/mining
+0.006% chance when hunting/fishing/mining
 
 0.005% chance when claiming workers
+
+0.005% chance when claiming farm items
 
 0.003885% chance when deteriorating karma
 
@@ -162,9 +166,9 @@ max shards given from shattering: 10
 
 <DocsHeader header='h3' text="effects" />
 
-\+0.92% gamble multiplier <blue>(20% chance to reduce multi by 3%)</blue>
+\+0.92% gamble multiplier <blue>(20% chance to reduce multi by 3%)</blue> **if you do not have a white gem**
 
-\+4% sell multiplier <blue>(20% chance to reduce multi by 3%)</blue>
+\+4% sell multiplier <blue>(20% chance to reduce multi by 3%)</blue> **if you do not have a white gem**
 
 \+20% storage for all plants **when combined with a** purple gem
 
@@ -188,9 +192,11 @@ crafting: 20 gem shards
 
 <DocsHeader header='h3' text="shattering" />
 
-0.056% chance every time you gamble
+0.032% chance every time you gamble **if you do not have a white gem**
 
-0.056% chance every time you $sell something
+0.032% chance every time you $sell something
+
+0.01% chance when claiming farm items (0.015% if you also have a purple gem)
 
 max shards given from shattering: 15
 
@@ -230,9 +236,11 @@ crafting: 2 blue gems, 2 green gems, 1 pink gem, 1 purple gem
 
 0.03% chance every hour
 
-0.0056% chance every time you gamble
+0.0072% chance every time you gamble
 
-0.014% chance when hunting/fishing/mining
+0.0072% chance every time you $sell something
+
+0.006% chance when hunting/fishing/mining
 
 0.003% chance when claiming workers
 
