@@ -1,3 +1,5 @@
+Sitemap: https://nypsi.xyz/sitemap.xml
+
 User-agent: *
 Disallow: /me
 Disallow: /login
@@ -26,5 +28,3 @@ User-agent: Wget
 User-agent: YandexBot
 User-agent: Zeus
 Disallow: /
-
-Sitemap: https://nypsi.xyz/sitemap.xml
