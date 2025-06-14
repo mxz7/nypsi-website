@@ -2,17 +2,18 @@ import { pathsRaw } from "$lib/data/docs";
 import getItems from "$lib/functions/items";
 
 const site = "https://nypsi.xyz"; // change this to reflect your domain
-const pages: string[] = ["leaderboard", "status"]; // populate this with all the slugs you wish to include
-
-pages.push(
-  ...pathsRaw
-    .map((i) => `docs/${i}`)
-    .map((i) => i.replaceAll("/+page.md", ""))
-    .map((i) => i.replaceAll("/+page.svelte", "")),
-);
 
 export async function GET({ fetch }) {
   const items = await getItems(fetch);
+
+  const pages: string[] = ["leaderboard", "status"]; // populate this with all the slugs you wish to include
+
+  pages.push(
+    ...pathsRaw
+      .map((i) => `docs/${i}`)
+      .map((i) => i.replaceAll("/+page.md", ""))
+      .map((i) => i.replaceAll("/+page.svelte", "")),
+  );
 
   pages.push(...items.map((i) => `item/${i.id}`));
 
