@@ -11,8 +11,6 @@ pages.push(
     .map((i) => i.replaceAll("/+page.svelte", "")),
 );
 
-export const prerender = true;
-
 export async function GET({ fetch }) {
   const items = await getItems(fetch);
 
@@ -21,6 +19,7 @@ export async function GET({ fetch }) {
   const body = sitemap(pages);
   const response = new Response(body);
   response.headers.set("Content-Type", "application/xml");
+  response.headers.set("Cache-Control", "max-age=86400");
   return response;
 }
 
