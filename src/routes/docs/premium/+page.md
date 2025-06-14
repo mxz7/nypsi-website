@@ -87,7 +87,7 @@ higher tiers get all benefits from the lower tiers, each tier gets its own respe
 - no tax
 - higher limit for personal message deletions ($dp)
 
-<DocsHeader heaader='h3' text='server booster' />
+<DocsHeader header='h3' text='server booster' />
 
 benefits for boosting the server are separate and in addition to premium benefits
 
