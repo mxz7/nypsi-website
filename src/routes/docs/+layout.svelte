@@ -89,4 +89,12 @@
   :global(.docs-content table) {
     @apply table;
   }
+
+  :global(.docs-content ul) {
+    @apply list-inside list-disc;
+  }
+
+  :global(.docs-content ol) {
+    @apply list-inside list-decimal;
+  }
 </style>
