@@ -39,3 +39,60 @@ premium crates are automatic on friday nights / saturday mornings (00:10 GMT/UTC
 <DocsHeader header='h2' text="buying items" />
 
 you can buy crates from the online store too in a very similar fashion. just make sure to set your email with `/settings me email` on the bot once you've bought stuff.
+
+<DocsHeader header='h2' text='benefits' />
+
+higher tiers get all benefits from the lower tiers, each tier gets its own respective role in the [official server](https://nypsi.xyz/discord)
+
+<DocsHeader header='h3' text='bronze' />
+
+- 2% sell multiplier
+- 20% shorter cooldowns
+- custom embed and [official server](https://nypsi.xyz/discord) role colour
+- create custom aliases
+- increased xp earn
+- reduced passive mode debuff
+- increased amount of autosell items
+- increased amount of custom countdowns
+- increased amount of trade requests
+- increased amount of outgoing offers
+- increased amount of maximum used streak tokens in one command
+- increased amount of active market orders
+- increased amount of reactionroles
+- increased amount of maximum used crates in one command
+- increased cookie production
+- increased crafting slots
+- increased `$freemoney`
+
+<DocsHeader header='h3' text='silver' />
+
+- 'play again' button on interactive gambling games
+- 1% gamble multiplier
+- 5% sell multiplier
+- 2 basic crates every week
+
+<DocsHeader header='h3' text='gold' />
+
+- 10% sell multiplier
+- 2% gamble multiplier
+- 4 basic crates every week
+- increased chance for more 'desirable' results in the measurement commands 😏
+
+<DocsHeader header='h3' text='platinum' />
+
+- 5% gamble multiplier
+- 15% sell multiplier
+- 5 basic crates, 3 69420 crates, 1 nypsi crate, 1 lucky scratch card every week
+- 50% shorter cooldowns
+- no tax
+- higher limit for personal message deletions ($dp)
+
+<DocsHeader heaader='h3' text='server booster' />
+
+benefits for boosting the server are separate and in addition to premium benefits
+
+- 2% gamble multiplier
+- 3% sell multiplier
+- increased xp earn
+- 1 basic crate, 1 lucky scratch card every week
+- +250k max bet
