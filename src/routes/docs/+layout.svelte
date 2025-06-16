@@ -68,6 +68,14 @@
     @apply mt-3 mb-1 text-xl font-bold text-white;
   }
 
+  :global(.docs-content h4) {
+    @apply mt-2 mb-1 text-lg font-semibold text-white;
+  }
+
+  :global(.docs-content h5) {
+    @apply mt-2 mb-1 text-base font-semibold text-white;
+  }
+
   :global(.docs-content p) {
     @apply mt-1 mb-2 leading-relaxed;
   }

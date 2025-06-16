@@ -33,6 +33,22 @@ Your data may be viewed by bot staff members for debugging and moderation.
 - Mention Data
 - Username History
 - Commands usage
+- IP Address
+- Email
+
+<DocsHeader header='h4' text="Private Information Concerns" />
+
+<DocsHeader header='h5' text='Email' />
+
+Your email is only stored when the user supplies it with `/settings me email`, or when buying something from the online store. If you do not do this command or buy anything from the store, your email will never be stored in the database.
+
+Emails are needed to send purchased items to the correct account, when buying something on Ko-fi, you are asked for your email which is sent to us, which we then use to pair that purchase to an account.
+
+<DocsHeader header='h5' text='IP Address' />
+
+Storing an IP Address may sound concerning, but is already stored by most websites. It's used internally to match accounts together to prevent punishment evasions. If not for these users, it wouldn't be necessary.
+
+Only the highest level and most trusted staff members can view IP addresses for debugging purposes.
 
 <DocsHeader header='h3' text="Updating Data" />
 
@@ -75,4 +91,4 @@ Not everything can be transferred.
 
 <DocsHeader header='h2' text="Contact" />
 
-Discord: @m.axz
+Discord: @m.axz. Alternatively, DM nypsi to create a support ticket to talk to staff members.

@@ -5,7 +5,7 @@
     text,
     anchor,
     header,
-  }: { text: string; anchor?: string; header: "h1" | "h2" | "h3" | "h4" } = $props();
+  }: { text: string; anchor?: string; header: "h1" | "h2" | "h3" | "h4" | "h5" } = $props();
 
   if (!anchor) anchor = text.replaceAll(" ", "-").replaceAll("'", "").replaceAll("?", "");
 </script>
@@ -22,4 +22,6 @@
   <h3 id={anchor}>{@render content()}</h3>
 {:else if header === "h4"}
   <h4 id={anchor}>{@render content()}</h4>
+{:else if header === "h5"}
+  <h5 id={anchor}>{@render content()}</h5>
 {/if}
