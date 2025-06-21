@@ -89,7 +89,7 @@ export const actions = {
     await fetch(`${env.BOT_SERVER_URL}/redis`, {
       method: "delete",
       body: `cache:guild:chatfilter:${params.guildId}`,
-      headers: { authorization: env.BOT_API_AUTH },
+      headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
     });
 
     return message(form, "success");
@@ -127,7 +127,7 @@ export const actions = {
     await fetch(`${env.BOT_SERVER_URL}/redis`, {
       method: "delete",
       body: `cache:guild:chatfilter:${params.guildId}`,
-      headers: { authorization: env.BOT_API_AUTH },
+      headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
     });
   },
   edit: async ({ request, params, locals }) => {
@@ -179,7 +179,7 @@ export const actions = {
     await fetch(`${env.BOT_SERVER_URL}/redis`, {
       method: "delete",
       body: `cache:guild:chatfilter:${params.guildId}`,
-      headers: { authorization: env.BOT_API_AUTH },
+      headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
     });
   },
 };

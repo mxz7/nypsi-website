@@ -27,7 +27,11 @@ async function getStatus(): Promise<BotStatus> {
     return { ...JSON.parse(cache), age: 30 - ((await redis.ttl("cache:status")) || 0) };
   }
 
-  const status = (await fetch(`${env.BOT_SERVER_URL}/status`).then((r) => r.json())) as BotStatus;
+  const status = (await fetch(`${env.BOT_SERVER_URL}/status`, {
+    headers: {
+      Authorization: `Bearer ${env.BOT_API_AUTH}`,
+    },
+  }).then((r) => r.json())) as BotStatus;
 
   status.time = Date.now();
 
