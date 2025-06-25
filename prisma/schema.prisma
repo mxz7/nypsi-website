@@ -44,6 +44,7 @@ model User {
   ModerationEvidence       ModerationEvidence[]
   ChatReactionLeaderboards ChatReactionLeaderboards[]
   z                        z?
+  Marriage                 Marriage?
   Purchases                Purchases[]
   WordleGame               WordleGame[]
   FlagGame                 FlagGame[]
@@ -501,7 +502,7 @@ model Market {
   id         Int       @id @default(autoincrement())
   ownerId    String
   itemId     String
-  itemAmount BigInt    @default(1)
+  itemAmount Int    @default(1)
   price      BigInt
   orderType  OrderType
   messageId  String?   @unique
@@ -558,6 +559,16 @@ model Aura {
 
   @@index([recipientId])
   @@index([senderId])
+}
+
+model Marriage {
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String @unique
+  partnerId String @unique
+
+  marriageStart DateTime @default(now())
+
+  @@id([userId, partnerId])
 }
 
 // guild specific tables
@@ -867,9 +878,10 @@ model Mention {
 }
 
 model SupportRequest {
-  userId    String   @id
-  channelId String   @unique
-  notify    String[]
+  userId         String   @id
+  channelId      String   @unique
+  latestActivity DateTime @default(now())
+  notify         String[]
 
   SupportRequestMessage SupportRequestMessage[]
 }
@@ -991,4 +1003,20 @@ model zKicks {
   zTarget z @relation("target", fields: [targetId], references: [userId], onDelete: Cascade)
 
   @@id([userId, targetId])
+}
+
+enum RatingType {
+  tv
+  movie
+}
+
+model tmdbRatings {
+  userId    String
+
+  type      RatingType
+  id        Int
+  name      String
+  rating    Decimal @db.Decimal(2, 1)
+  
+  @@id([userId, type, id])
 }

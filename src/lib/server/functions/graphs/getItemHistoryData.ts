@@ -31,15 +31,15 @@ export default async function getItemHistoryData(
     })
     .then((r) => {
       const filtered = filterOutliers(
-        r.map((i) => ({ amount: Number(i.itemAmount), money: Number(i.price), date: i.createdAt })),
+        r.map((i) => ({ amount: i.itemAmount, money: Number(i.price), date: i.createdAt })),
       );
       if (!filtered) {
         console.warn(`failed to filter outliers on ${item}`);
       }
 
       return filtered.map((i) => ({
-        itemAmount: BigInt(i.amount),
-        price: BigInt(i.money),
+        itemAmount: i.amount,
+        price: i.money,
         date: i.date,
       }));
     });
