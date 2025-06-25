@@ -31,7 +31,7 @@
     "eslint-plugin-svelte": "3.9.3",
     "fast-glob": "^3.3.3",
     "mdsvex": "^0.12.6",
-    "prettier": "3.5.3",
+    "prettier": "3.6.1",
     "prettier-plugin-svelte": "3.4.0",
     "prettier-plugin-tailwindcss": "0.6.13",
     "svelte": "^5.33.14",
