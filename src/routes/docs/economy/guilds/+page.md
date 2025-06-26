@@ -35,6 +35,12 @@ you can't get your money back after it has been deposited into the guild. that m
 
 <DocsHeader header='h2' text="guild shop upgrades" />
 
+<DocsHeader header='h3' text='member slot' />
+
+the member slot upgrade comes with a _slight_ side effect. for every member slot purchased, the requirements to upgrade the guild level will be increased. this helps to keep guilds smaller, fairer and adds more competition to nypsi.
+
+<DocsHeader header='h3' text='upgrades' />
+
 use `/guild buy <id>` to buy an upgrade
 
 | id (used to purchase) | name              | effect per level                      |
