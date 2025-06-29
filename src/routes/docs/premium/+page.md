@@ -20,7 +20,7 @@ but really, premium is what funds nypsi. without premium members, nypsi wouldn't
 <DocsHeader header='h2' text="how do i get premium?" />
 
 the easiest way to get premium membership is by subscribing on
-[ko-fi](https://ko-fi.com/tekoh/tiers). you can also use your discord nitro subscription to boost
+[ko-fi](https://ko-fi.com/nypsi/tiers). you can also use your discord nitro subscription to boost
 the [official nypsi server](/discord), which will gain you certain benefits.
 
 there are other payment methods, such as direct payment via crypto. if you're interested, contact

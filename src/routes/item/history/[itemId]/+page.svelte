@@ -88,7 +88,7 @@
       <h1 class="mb-4 text-2xl font-bold text-white">you must be logged in to view this page</h1>
       <p>
         to view item history you need a <a
-          href="https://ko-fi.com/tekoh"
+          href="https://ko-fi.com/nypsi"
           target="_blank"
           class="link link-primary">premium membership</a
         >
@@ -163,7 +163,7 @@
       <h1 class="text-3xl font-bold text-white">you must have premium for item graphs</h1>
       <p>
         you can buy premium <a
-          href="https://ko-fi.com/tekoh"
+          href="https://ko-fi.com/nypsi"
           target="_blank"
           class="link link-primary">here</a
         >

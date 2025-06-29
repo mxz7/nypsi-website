@@ -141,7 +141,7 @@
         <li><a href="/discord" target="_blank">discord</a></li>
 
         <li>
-          <a href="https://ko-fi.com/tekoh/tiers" target="_blank">
+          <a href="https://ko-fi.com/nypsi/tiers" target="_blank">
             <span
               class="bg-linear-to-br from-violet-500 to-purple-500 bg-clip-text font-bold text-transparent"
               >premium</span
