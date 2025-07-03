@@ -28,7 +28,7 @@
     "daisyui": "^5.0.38",
     "eslint": "8.57.1",
     "eslint-config-prettier": "10.1.5",
-    "eslint-plugin-svelte": "3.9.3",
+    "eslint-plugin-svelte": "3.10.1",
     "fast-glob": "^3.3.3",
     "mdsvex": "^0.12.6",
     "prettier": "3.6.2",
