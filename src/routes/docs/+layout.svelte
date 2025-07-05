@@ -91,7 +91,7 @@
   }
 
   :global(.docs-content p a, .docs-content li a) {
-    @apply link link-primary;
+    @apply link link-primary underline-offset-3;
   }
 
   :global(.docs-content table) {
