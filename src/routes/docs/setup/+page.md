@@ -3,7 +3,7 @@
   import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title='setting up nypsi for your server' />
+<DocsTemplate title='setting up nypsi for your server' description="set up nypsi discord bot for your server with easy guides on commands, moderation, chat filters, and customization. start managing your community today!" />
 
 congratulations on using nypsi!!! the best discord bot. of course. this page is to help you get set up and configure nypsi for your server the way you want.
 
