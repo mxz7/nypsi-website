@@ -83,7 +83,7 @@ this should be a lot of the essential information, but nypsi can do more for you
 
 - [birthdays](/docs/birthdays)
 - [chat reactions](/docs/chat-reactions/setup)
-- [reactin roles](/docs/reaction-roles)
+- [reaction roles](/docs/reaction-roles)
 - custom countdowns ($countdown)
 - christmas countdown ($christmas)
 - channel counters ($counter)
