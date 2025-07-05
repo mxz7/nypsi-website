@@ -90,7 +90,7 @@
     font-family: ui-monospace, "SF Mono", monospace;
   }
 
-  :global(.docs-content p a) {
+  :global(.docs-content p a, .docs-content li a) {
     @apply link link-primary;
   }
 
