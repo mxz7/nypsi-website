@@ -15,9 +15,9 @@
 {:else}
   {#if data.mutes.length > 0}
     <section class="mt-4">
-      <h2 class="text-xl2 font-semibold text-white">mutes</h2>
+      <h2 class="text-xl font-semibold text-white">mutes</h2>
 
-      <div class="mt-2 grid grid-cols-2 gap-4">
+      <div class="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
         {#each data.mutes as mute}
           <Punishment
             name={mute.guild.name ?? mute.guildId}
@@ -31,9 +31,9 @@
 
   {#if data.bans.length > 0}
     <section class="mt-4">
-      <h2 class="text-xl2 font-semibold text-white">bans</h2>
+      <h2 class="text-xl font-semibold text-white">bans</h2>
 
-      <div class="mt-4 grid grid-cols-2 gap-4">
+      <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         {#each data.bans as ban}
           <Punishment
             name={ban.guild.name ?? ban.guildId}
