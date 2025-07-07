@@ -99,7 +99,7 @@
               : 'text-error'}"
             href="/me/admin"
           >
-            <ShieldAlert class="text-error" />
+            <ShieldAlert />
             <span>admin</span>
           </a>
         </li>
