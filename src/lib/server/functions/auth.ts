@@ -18,6 +18,7 @@ export const lucia = new Lucia(adapter, {
       // attributes has the type of DatabaseUserAttributes
       username: attributes.lastKnownUsername,
       avatar: attributes.avatar,
+      adminLevel: attributes.adminLevel,
     };
   },
 });
@@ -38,4 +39,5 @@ declare module "lucia" {
 interface DatabaseUserAttributes {
   lastKnownUsername: string;
   avatar: string;
+  adminLevel: number;
 }

@@ -10,6 +10,7 @@
     Image,
     LogOut,
     Server,
+    ShieldAlert,
     UserRound,
     X,
   } from "@lucide/svelte";
@@ -213,6 +214,20 @@
                   <span>punishments</span>
                 </a>
               </li>
+
+              {#if auth.value.authenticated && auth.value.user.adminLevel > 0}
+                <li>
+                  <a
+                    class="flex items-center {page.url.pathname.startsWith('/me/admin')
+                      ? 'text-primary'
+                      : 'text-error'}"
+                    href="/me/admin"
+                  >
+                    <ShieldAlert size={16} />
+                    <span>admin</span>
+                  </a>
+                </li>
+              {/if}
 
               <li class="mt-2">
                 <a

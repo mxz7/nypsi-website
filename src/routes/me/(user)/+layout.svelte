@@ -9,6 +9,7 @@
     Image,
     LogOut,
     Server,
+    ShieldAlert,
     UserRound,
   } from "@lucide/svelte";
   import { onMount } from "svelte";
@@ -89,6 +90,20 @@
           <span>punishments</span>
         </a>
       </li>
+
+      {#if data.user.adminLevel > 0}
+        <li>
+          <a
+            class="flex items-center {page.url.pathname.startsWith('/me/admin')
+              ? 'text-primary'
+              : 'text-error'}"
+            href="/me/admin"
+          >
+            <ShieldAlert class="text-error" />
+            <span>admin</span>
+          </a>
+        </li>
+      {/if}
 
       <div class="divider my-0"></div>
 
