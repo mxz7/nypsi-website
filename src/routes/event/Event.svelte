@@ -5,6 +5,7 @@
   import sleep from "$lib/functions/sleep";
   import { daysUntil } from "$lib/functions/time";
   import type { CurrentEvent } from "$lib/server/functions/event";
+  import { auth } from "$lib/state.svelte";
   import ms from "ms";
   import { onMount } from "svelte";
   import { cubicOut } from "svelte/easing";
@@ -125,7 +126,11 @@
             class="{i === 0 ? 'h-9 w-9' : 'h-6 w-6'} h-6 w-6 rounded-full"
             alt=""
           />
-          <span>{user.user.lastKnownUsername}</span>
+          <span
+            class={user.user.id === (auth.value.authenticated && auth.value.user.id)
+              ? "text-primary"
+              : ""}>{user.user.lastKnownUsername}</span
+          >
         </a>
 
         <span class="grow text-right">
