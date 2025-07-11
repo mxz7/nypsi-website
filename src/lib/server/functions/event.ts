@@ -2,7 +2,7 @@ import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
 import type { Event, Prisma } from "@prisma/client";
 
-export async function getCurrentEvent(id?: number) {
+export async function getCurrentEvent(id?: number, contributorCount = 10) {
   let where: Prisma.EventWhereInput;
 
   if (id) {
@@ -21,7 +21,7 @@ export async function getCurrentEvent(id?: number) {
     include: {
       contributions: {
         orderBy: { contribution: "desc" },
-        take: 10,
+        take: contributorCount,
         select: {
           contribution: true,
           user: {
