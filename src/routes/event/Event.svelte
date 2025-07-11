@@ -2,7 +2,6 @@
   import { invalidate } from "$app/navigation";
   import Card from "$lib/components/Card.svelte";
   import type { getEventData } from "$lib/functions/items";
-  import sleep from "$lib/functions/sleep";
   import { daysUntil } from "$lib/functions/time";
   import type { CurrentEvent } from "$lib/server/functions/event";
   import { auth } from "$lib/state.svelte";
@@ -19,8 +18,8 @@
 
   let { event, userPosition, eventsData }: Props = $props();
 
-  let progress = new Tween(0, { easing: cubicOut, duration: 1000 });
-  let progressBar = $state<Tween<number> | undefined>(new Tween(0));
+  const progress = new Tween(0, { easing: cubicOut, duration: 1000 });
+  const progressBar = new Tween(0, { easing: cubicOut, duration: 1000 });
 
   let timeout: ReturnType<typeof setTimeout>;
 
@@ -30,18 +29,16 @@
       .reduce((a, b) => a + b, 0n);
 
     progress.set(Number(contributions));
-    progressBar = new Tween(0, { easing: cubicOut, duration: 1000 });
     progressBar.set(Number(contributions) / Number(event.target));
   }
 
   async function update() {
     console.log("updating data");
-    progressBar = undefined;
-    await Promise.all([sleep(3000), invalidate("event")]);
+    await invalidate("event");
     setValues();
     timeout = setTimeout(() => {
       update();
-    }, 30000);
+    }, 10000);
   }
 
   onMount(() => {
@@ -49,7 +46,7 @@
 
     timeout = setTimeout(() => {
       update();
-    }, 30000);
+    }, 10000);
   });
 
   onDestroy(() => {
