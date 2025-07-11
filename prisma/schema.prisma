@@ -48,6 +48,8 @@ model User {
   Purchases                Purchases[]
   WordleGame               WordleGame[]
   FlagGame                 FlagGame[]
+  Event                    Event[]
+  EventContribution        EventContribution[]
 }
 
 model ProfileView {
@@ -228,6 +230,8 @@ model Economy {
   CustomCar          CustomCar[]
   Farm               Farm[]
   FarmUpgrades       FarmUpgrades[]
+  transactionsSource Transaction[]       @relation(name: "source")
+  transactionsTarget Transaction[]       @relation(name: "target")
 }
 
 model Farm {
@@ -1020,4 +1024,56 @@ model tmdbRatings {
   rating Decimal    @db.Decimal(2, 1)
 
   @@id([userId, type, id])
+}
+
+enum TransactionType {
+  money
+  item
+}
+
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  sourceId String
+  targetId String
+
+  type   TransactionType
+  itemId String?
+  amount BigInt
+
+  notes String?
+
+  source Economy @relation(fields: [sourceId], references: [userId], onDelete: Cascade, name: "source")
+  target Economy @relation(fields: [targetId], references: [userId], onDelete: Cascade, name: "target")
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  ownerId String
+
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+
+  type      String
+  target    BigInt
+  expiresAt DateTime
+
+  owner         User                @relation(fields: [ownerId], references: [id])
+  contributions EventContribution[]
+}
+
+model EventContribution {
+  userId  String
+  eventId Int
+
+  contribution BigInt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@id([userId, eventId])
+  @@index([eventId])
 }
