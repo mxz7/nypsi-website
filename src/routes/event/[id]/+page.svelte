@@ -5,8 +5,8 @@
 </script>
 
 <svelte:head>
-  <title>events | nypsi</title>
-  <meta name="og:title" content="events" />
+  <title>event {data.event.id} {data.eventsData[data.event.type].name} | nypsi</title>
+  <meta name="og:title" content="event {data.event.id} {data.eventsData[data.event.type].name} " />
 </svelte:head>
 
 <div class="mx-auto mt-7 flex w-full flex-col gap-4 px-3 lg:max-w-2xl lg:px-0">
