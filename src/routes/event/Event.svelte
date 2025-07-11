@@ -109,7 +109,7 @@
 </Card>
 
 <Card mode="section" class="flex flex-col gap-3">
-  <h2 class="w-full text-center text-xl font-bold text-white">leaderboards</h2>
+  <h2 class="w-full text-center text-xl font-bold text-white">leaderboard</h2>
 
   {#if userPosition && userPosition > 0}
     <p class="text-center text-sm">
