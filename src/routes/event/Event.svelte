@@ -7,7 +7,7 @@
   import type { CurrentEvent } from "$lib/server/functions/event";
   import { auth } from "$lib/state.svelte";
   import ms from "ms";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { cubicOut } from "svelte/easing";
   import { Tween } from "svelte/motion";
 
@@ -21,6 +21,8 @@
 
   let progress = new Tween(0, { easing: cubicOut, duration: 1000 });
   let progressBar = $state<Tween<number> | undefined>(new Tween(0));
+
+  let timeout: ReturnType<typeof setTimeout>;
 
   function setValues() {
     const contributions = event.contributions
@@ -37,7 +39,7 @@
     progressBar = undefined;
     await Promise.all([sleep(3000), invalidate("event")]);
     setValues();
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       update();
     }, 30000);
   }
@@ -45,9 +47,13 @@
   onMount(() => {
     setValues();
 
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       update();
     }, 30000);
+  });
+
+  onDestroy(() => {
+    clearTimeout(timeout);
   });
 </script>
 
