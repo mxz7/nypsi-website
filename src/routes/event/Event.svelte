@@ -101,7 +101,7 @@
 <Card mode="section" class="flex flex-col gap-3">
   <h2 class="w-full text-center text-xl font-bold text-white">leaderboards</h2>
 
-  {#if userPosition}
+  {#if userPosition && userPosition > 0}
     <p class="text-center text-sm">
       you are <span class="text-primary">#{userPosition}</span>
     </p>
