@@ -56,7 +56,7 @@
 
 <Card class="flex flex-col text-center" mode="main">
   <header class="text-3xl font-bold">
-    <span class="text-slate-400">#{event.id}</span>
+    <span class="opacity-75">#{event.id}</span>
     <h1 class="inline text-white">
       {eventsData[event.type].name}
     </h1>
