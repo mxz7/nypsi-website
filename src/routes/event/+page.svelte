@@ -49,12 +49,12 @@
 <div class="mx-auto mt-7 flex w-full flex-col gap-4 px-3 lg:max-w-2xl lg:px-0">
   {#if data.event}
     <Card class="flex flex-col text-center" mode="main">
-      <div class="text-3xl font-bold">
+      <header class="text-3xl font-bold">
         <span class="text-slate-400">#{data.event.id}</span>
         <h1 class="inline text-white">
           {data.eventsData[data.event.type].name}
         </h1>
-      </div>
+      </header>
 
       <p class="flex justify-center gap-1">
         hosted by <a
@@ -86,7 +86,7 @@
         {/if}
       </div>
 
-      <div class="text-sm opacity-75">
+      <footer class="text-sm opacity-75">
         {#if data.event.completed}
           <p>this event was completed at {data.event.completedAt.toLocaleTimeString()}</p>
         {:else}
@@ -98,7 +98,7 @@
             {/if}
           </p>
         {/if}
-      </div>
+      </footer>
     </Card>
 
     <Card mode="section" class="flex flex-col gap-3">
@@ -143,6 +143,29 @@
     {#if pastEvents.length > 0}
       <section class="mt-3">
         <h2 class="text-2xl font-bold text-white">past events</h2>
+
+        <ol class="mt-2 grid grid-cols-2 gap-3">
+          {#each pastEvents as event}
+            <Card mode="anchor" href="/event/{event.id}">
+              <header class="text-lg font-semibold">
+                <span class="text-slate-400">#{data.event.id}</span>
+                <h3 class="inline text-white">
+                  {data.eventsData[data.event.type].name}
+                </h3>
+              </header>
+
+              {#if event.completed}
+                <p class="text-sm opacity-75">
+                  completed at {new Date(event.completedAt).toLocaleDateString()}
+                </p>
+              {:else}
+                <p class="text-sm opacity-75">
+                  ended at {new Date(event.expiresAt).toLocaleDateString()}
+                </p>
+              {/if}
+            </Card>
+          {/each}
+        </ol>
       </section>
     {/if}
   {/await}

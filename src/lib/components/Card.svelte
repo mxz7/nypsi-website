@@ -2,10 +2,11 @@
   interface Props {
     children: import("svelte").Snippet;
     class?: string;
-    mode?: "main" | "section" | "div" | "article";
+    mode?: "main" | "section" | "div" | "article" | "anchor";
+    href?: string;
   }
 
-  let { children, class: classes, mode = "div" }: Props = $props();
+  let { children, class: classes, mode = "div", href }: Props = $props();
 
   const activeClasses = $derived.by(() => {
     const output = [
@@ -45,6 +46,10 @@
   <article class={activeClasses}>
     {@render children?.()}
   </article>
+{:else if mode === "anchor"}
+  <a {href} class={activeClasses}>
+    {@render children?.()}
+  </a>
 {:else}
   <div class={activeClasses}>
     {@render children?.()}
