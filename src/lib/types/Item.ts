@@ -66,3 +66,9 @@ export type LootPoolItemEntry =
         | number;
     }
   | number; // item: weight, count assumed to be 1
+
+export interface Event {
+  id: string;
+  name: string;
+  description: string; // with {target} to be replaced with actual target
+}
