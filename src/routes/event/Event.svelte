@@ -130,7 +130,7 @@
             alt=""
           />
           <span
-            class={user.user.id === (auth.value.authenticated && auth.value.user.id)
+            class={user.user.id === (auth.value?.authenticated && auth.value?.user.id)
               ? "text-primary"
               : ""}>{user.user.lastKnownUsername}</span
           >
