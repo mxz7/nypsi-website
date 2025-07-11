@@ -6,7 +6,7 @@ const site = "https://nypsi.xyz"; // change this to reflect your domain
 export async function GET({ fetch }) {
   const items = await getItems(fetch);
 
-  const pages: string[] = ["leaderboard", "status"]; // populate this with all the slugs you wish to include
+  const pages: string[] = ["leaderboard", "status", "event"]; // populate this with all the slugs you wish to include
 
   pages.push(
     ...pathsRaw

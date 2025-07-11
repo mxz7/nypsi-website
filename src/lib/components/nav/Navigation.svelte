@@ -39,9 +39,10 @@
           <img src={logo} class="h-10" alt="" />
         </a>
 
-        <ul class="menu menu-md menu-horizontal">
+        <ul class="menu menu-md menu-horizontal flex-nowrap">
           <li><a href="/leaderboard" class=" font-semibold">leaderboards</a></li>
           <li><a href="/item" class=" font-semibold">items</a></li>
+          <li><a href="/event" class="font-semibold">events</a></li>
           <li><a href="/status" class=" font-semibold">status</a></li>
           <li><a href="/docs" class=" font-semibold">docs</a></li>
           <li>
