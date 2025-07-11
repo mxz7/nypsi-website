@@ -1,6 +1,6 @@
 <script lang="ts">
   import { dev } from "$app/environment";
-  import { onNavigate } from "$app/navigation";
+  import { onNavigate, replaceState } from "$app/navigation";
   import { page } from "$app/state";
   import Footer from "$lib/components/Footer.svelte";
   import LoadBar from "$lib/components/LoadBar.svelte";
@@ -25,19 +25,36 @@
       auth.value = authData;
     }
 
-    if (page.url.searchParams.get("loggedin")) {
-      if (!auth.value || !auth.value.authenticated) return;
-      setTimeout(async () => {
+    setTimeout(() => {
+      const params = new URLSearchParams(page.url.searchParams.toString());
+
+      if (page.url.searchParams.get("loggedin")) {
         if (!auth.value || !auth.value.authenticated) return;
-        toast(`logged in as ${auth.value.user.username}`, {
-          position: "bottom-center",
-          icon: "✅",
-          style:
-            "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-          duration: 5000,
-        });
-      }, 250);
-    }
+        params.delete("loggedin");
+        setTimeout(async () => {
+          if (!auth.value || !auth.value.authenticated) return;
+          toast(`logged in as ${auth.value.user.username}`, {
+            position: "bottom-center",
+            icon: "✅",
+            style:
+              "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
+            duration: 5000,
+          });
+        }, 250);
+      }
+
+      if (page.url.searchParams.has("ref")) {
+        params.delete("ref");
+      }
+
+      if (params.toString() !== page.url.searchParams.toString()) {
+        if (params.size === 0) {
+          replaceState(page.url.pathname, {});
+        } else {
+          replaceState(`?${params.toString()}`, {});
+        }
+      }
+    }, 2000);
   });
 
   onNavigate(() => {
