@@ -54,3 +54,10 @@ export function daysAgo(date: Date | number): number {
 
   return Math.floor(ms / (24 * 60 * 60 * 1000));
 }
+
+export function daysUntil(date: Date | number): number {
+  date = new Date(date);
+  const ms = Math.floor(date.getTime() - Date.now());
+
+  return Math.floor(ms / (24 * 60 * 60 * 1000));
+}

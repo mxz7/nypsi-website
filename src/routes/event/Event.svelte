@@ -3,6 +3,7 @@
   import Card from "$lib/components/Card.svelte";
   import type { getEventData } from "$lib/functions/items";
   import sleep from "$lib/functions/sleep";
+  import { daysUntil } from "$lib/functions/time";
   import type { CurrentEvent } from "$lib/server/functions/event";
   import ms from "ms";
   import { onMount } from "svelte";
@@ -86,10 +87,12 @@
   <footer class="text-sm opacity-75">
     {#if event.completed}
       <p>this event was completed at {event.completedAt.toLocaleTimeString()}</p>
+    {:else if event.expiresAt.getTime() - Date.now() < 0}
+      <p>this event expired at {event.completedAt.toLocaleTimeString()}</p>
     {:else}
       <p>
         ends {#if event.expiresAt.getTime() - Date.now() > ms("1 day")}
-          on {event.expiresAt.toLocaleDateString()}
+          in {daysUntil(event.expiresAt)} days
         {:else}
           at {event.expiresAt.toLocaleTimeString()}
         {/if}
