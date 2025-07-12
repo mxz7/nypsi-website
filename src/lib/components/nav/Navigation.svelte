@@ -40,7 +40,7 @@
         </a>
 
         <ul class="menu menu-md menu-horizontal flex-nowrap">
-          <li><a href="/leaderboard" class=" font-semibold">leaderboards</a></li>
+          <li><a href="/leaderboards" class=" font-semibold">leaderboards</a></li>
           <li><a href="/items" class=" font-semibold">items</a></li>
           <li><a href="/events" class="font-semibold">events</a></li>
           <li><a href="/status" class=" font-semibold">status</a></li>

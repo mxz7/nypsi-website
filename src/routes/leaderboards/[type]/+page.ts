@@ -16,45 +16,45 @@ export async function load({ params, fetch, parent, setHeaders }) {
   if (type === "balance") {
     title = "top balance";
 
-    leaderboardData = fetch("/api/leaderboard/balance").then(
+    leaderboardData = fetch("/api/leaderboards/balance").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "net-worth") {
     title = "top net worth";
 
-    leaderboardData = fetch("/api/leaderboard/networth").then(
+    leaderboardData = fetch("/api/leaderboards/networth").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "level") {
     title = "top level";
 
-    leaderboardData = fetch("/api/leaderboard/prestige").then(
+    leaderboardData = fetch("/api/leaderboards/prestige").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "guilds") {
     title = "top guilds";
 
-    leaderboardData = fetch("/api/leaderboard/guild").then(
+    leaderboardData = fetch("/api/leaderboards/guild").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "streak") {
     title = "top daily streak";
 
-    leaderboardData = fetch("/api/leaderboard/streak").then(
+    leaderboardData = fetch("/api/leaderboards/streak").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "lottery") {
     title = "top lottery wins";
     descriptor = "wins";
 
-    leaderboardData = fetch("/api/leaderboard/lottery").then(
+    leaderboardData = fetch("/api/leaderboards/lottery").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else if (type === "commands") {
     title = " top command uses";
     descriptor = "uses";
 
-    leaderboardData = fetch("/api/leaderboard/commands").then(
+    leaderboardData = fetch("/api/leaderboards/commands").then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   } else {
@@ -67,7 +67,7 @@ export async function load({ params, fetch, parent, setHeaders }) {
     title = `top ${item.name}`;
     descriptor = item.plural || item.name + "s";
 
-    leaderboardData = fetch(`/api/leaderboard/item/${item.id}`).then(
+    leaderboardData = fetch(`/api/leaderboards/item/${item.id}`).then(
       (r) => r.json() as Promise<LeaderboardData>,
     );
   }

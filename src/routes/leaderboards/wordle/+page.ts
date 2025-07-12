@@ -3,10 +3,10 @@ import sleep from "$lib/functions/sleep.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
 export async function load({ fetch, setHeaders }) {
-  const winsData = fetch("/api/leaderboard/wordle/wins").then(
+  const winsData = fetch("/api/leaderboards/wordle/wins").then(
     (r) => r.json() as Promise<LeaderboardData>,
   );
-  const speedData = fetch("/api/leaderboard/wordle/time").then(
+  const speedData = fetch("/api/leaderboards/wordle/time").then(
     (r) => r.json() as Promise<LeaderboardData>,
   );
 

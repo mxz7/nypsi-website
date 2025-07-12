@@ -70,7 +70,7 @@
 
   let showChild = $state(true);
 
-  if (!page.url.pathname.endsWith("leaderboard")) {
+  if (!page.url.pathname.endsWith("leaderboards")) {
     const selected = options.find((i) => page.url.pathname.endsWith(i.data || i.name));
 
     if (selected) selected.selected = true;
@@ -92,7 +92,7 @@
         <a
           data-sveltekit-preload-code="viewport"
           class={option.selected ? "menu-active" : ""}
-          href="/leaderboard{option.showItems ? '' : `/${option.data || option.name}`}"
+          href="/leaderboards{option.showItems ? '' : `/${option.data || option.name}`}"
           onclick={() => {
             options.forEach((i) => {
               if (i.name === option.name) i.selected = true;
@@ -120,7 +120,7 @@
         items={data.items}
         onClick={async (itemId) => {
           showChild = true;
-          return goto(`/leaderboard/${itemId}`);
+          return goto(`/leaderboards/${itemId}`);
         }}
       />
     </div>

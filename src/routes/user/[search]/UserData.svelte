@@ -256,7 +256,7 @@
               >
                 {#each inPlaceSort(userData.Leaderboards).asc((i) => i.position) as lb}
                   <a
-                    href="/leaderboard/{lb.leaderboard.replace('item-', '')}"
+                    href="/leaderboards/{lb.leaderboard.replace('item-', '')}"
                     class="border-primary/5 bg-base-200 hover:border-primary/20 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
                   >
                     {#if lb.leaderboard.startsWith("item-")}

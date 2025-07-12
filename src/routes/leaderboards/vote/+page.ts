@@ -3,10 +3,10 @@ import sleep from "$lib/functions/sleep.js";
 import type { LeaderboardData } from "$lib/types/LeaderboardData.js";
 
 export async function load({ fetch, setHeaders }) {
-  const monthly = fetch("/api/leaderboard/vote/month").then(
+  const monthly = fetch("/api/leaderboards/vote/month").then(
     (r) => r.json() as Promise<LeaderboardData>,
   );
-  const streak = fetch("/api/leaderboard/vote/streak").then(
+  const streak = fetch("/api/leaderboards/vote/streak").then(
     (r) => r.json() as Promise<LeaderboardData>,
   );
 

@@ -123,8 +123,8 @@
         <li><a href="/" class={page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
         <li>
           <a
-            href="/leaderboard"
-            class={page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
+            href="/leaderboards"
+            class={page.url.pathname.startsWith("/leaderboards") ? "text-primary" : ""}
             >leaderboards</a
           >
         </li>
