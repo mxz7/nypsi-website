@@ -16,6 +16,6 @@
 <div class="mt-8 flex w-full justify-center">
   <div class="grid w-full grid-cols-1 flex-wrap justify-center gap-16 lg:max-w-4xl lg:grid-cols-2">
     <MiniLeaderboard title="top balance" data={data.balance} tags={data.tags} />
-    <MiniLeaderboard title="top guilds" data={data.guilds} tags={data.tags} href="/guild/" />
+    <MiniLeaderboard title="top guilds" data={data.guilds} tags={data.tags} href="/guilds/" />
   </div>
 </div>

@@ -142,7 +142,7 @@
             >
               <h2 class="text-center">
                 <a
-                  href="/guild/{userData.Economy.EconomyGuildMember.guild.guildName.replaceAll(
+                  href="/guilds/{userData.Economy.EconomyGuildMember.guild.guildName.replaceAll(
                     ' ',
                     '-',
                   )}"
