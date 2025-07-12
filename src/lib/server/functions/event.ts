@@ -85,20 +85,19 @@ export async function getUserPosition(eventId: number, userId: string) {
     },
   });
 
-  await redis.set(
-    `cache:events:position:${eventId}:${userId}`,
-    query ? Number(query.contribution) : -1,
-    "EX",
-    7,
-  );
+  if (!query) {
+    await redis.set(`cache:events:position:${eventId}:${userId}`, -1, "EX", 7);
 
-  if (!query) return -1;
+    return -1;
+  }
 
   const position = await prisma.eventContribution.count({
     where: {
       AND: [{ eventId }, { contribution: { gt: query.contribution } }],
     },
   });
+
+  await redis.set(`cache:events:position:${eventId}:${userId}`, position + 1, "EX", 7);
 
   return position + 1;
 }
