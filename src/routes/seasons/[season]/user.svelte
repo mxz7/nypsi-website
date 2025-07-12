@@ -10,7 +10,7 @@
 
   onMount(async () => {
     if (!user.id) return;
-    const res = await fetch(`/api/user/${user.id}/base`);
+    const res = await fetch(`/api/users/${user.id}/base`);
 
     if (res.ok) {
       const data: BaseUserData = await res.json();
@@ -34,13 +34,13 @@
     class="{pos === 1
       ? 'text-primary font-semibold'
       : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
-    href="/user/{user?.id || user.username}"
+    href="/users/{user?.id || user.username}"
   >
     {user.username}
   </a>
 {:else}
   <a
-    href="/user/{user.username}"
+    href="/users/{user.username}"
     class="{pos === 1
       ? 'text-primary font-semibold'
       : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"

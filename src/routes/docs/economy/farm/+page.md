@@ -16,7 +16,7 @@ seeds can be obtained like any other 'rare' item, from crates and scratch cards.
 
 you can see the odds for crates on the [crates page](/docs/economy/items/crates)
 
-the current seeds can be found on the [items page](/item)
+the current seeds can be found on the [items page](/items)
 
 <DocsHeader header='h2' text="caring for your farm" />
 

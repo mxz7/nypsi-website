@@ -4,9 +4,9 @@ User-agent: *
 Disallow: /me
 Disallow: /login
 Disallow: /logout
-Disallow: /game/*
+Disallow: /games/*
 Disallow: /api
-Disallow: /item/history/*
+Disallow: /items/history/*
 Disallow: /captcha
 
 User-agent: AhrefsBot

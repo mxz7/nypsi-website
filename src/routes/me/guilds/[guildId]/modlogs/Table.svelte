@@ -20,14 +20,14 @@
       if (!usernames.find((i) => i.id === data.user)) {
         usernames.push({
           id: data.user,
-          promise: fetch(`/api/user/username/${data.user}`).then((res) => res.json()),
+          promise: fetch(`/api/users/username/${data.user}`).then((res) => res.json()),
         });
       }
 
       if (!usernames.find((i) => i.id === data.moderator))
         usernames.push({
           id: data.moderator,
-          promise: fetch(`/api/user/username/${data.moderator}`).then((res) => res.json()),
+          promise: fetch(`/api/users/username/${data.moderator}`).then((res) => res.json()),
         });
     });
   });
@@ -52,7 +52,7 @@
         <tr>
           <td>{data.caseId}</td>
           <td>
-            <a href="/user/{data.moderator}" class="link-hover" target="_blank">
+            <a href="/users/{data.moderator}" class="link-hover" target="_blank">
               {#if moderatorUsername}
                 {#await moderatorUsername.promise}
                   {data.moderator}
@@ -70,7 +70,7 @@
           </td>
           <td>{data.type}</td>
           <td>
-            <a href="/user/{data.user}" class="link-hover" target="_blank">
+            <a href="/users/{data.user}" class="link-hover" target="_blank">
               {#if targetUsername}
                 {#await targetUsername.promise}
                   {data.moderator}

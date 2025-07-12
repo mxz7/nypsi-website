@@ -20,7 +20,7 @@ you may think that it's easy to manipulate the worth of items since it's based o
 
 <DocsHeader header='h2' text="history" />
 
-[premium members](https://nypsi.xyz/docs/premium) have access to view the item worth history graphs. these graphs are visible from the [items page](https://nypsi.xyz/item), or from a button on the `/item` command. this shows the past of item worth, market value, offers value and the amount of items in the world.
+[premium members](https://nypsi.xyz/docs/premium) have access to view the item worth history graphs. these graphs are visible from the [items page](https://nypsi.xyz/items), or from a button on the `/item` command. this shows the past of item worth, market value, offers value and the amount of items in the world.
 
 <DocsHeader header='h2' text="sell price" />
 

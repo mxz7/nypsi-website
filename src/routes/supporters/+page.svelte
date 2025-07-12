@@ -32,7 +32,7 @@
         <li>
           <a
             class="link-hover flex min-w-0 items-center overflow-hidden text-ellipsis whitespace-nowrap"
-            href="/user/{supporter.id}"
+            href="/users/{supporter.id}"
           >
             {#if supporter.tagId}
               <span
@@ -72,7 +72,7 @@
         <li>
           <a
             class="link-hover flex items-center overflow-hidden text-ellipsis whitespace-nowrap"
-            href="/user/{supporter.id}"
+            href="/users/{supporter.id}"
           >
             {#if supporter.Tags[0]?.tagId}
               <span

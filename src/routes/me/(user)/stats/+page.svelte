@@ -43,7 +43,7 @@
     <div class="mt-4 grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
       {#each gambleStats as stat}
         <a
-          href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
+          href="/games?user={data.user ? data.user.id : ''}&game={stat.game}"
           class="border-primary/5 bg-base-200 hover:border-primary/20 block rounded-lg border p-4 duration-300"
         >
           <h3 class="text-center text-xl font-bold">{stat.game}</h3>
@@ -89,7 +89,7 @@
       {#await data.scratchStats then scratchStats}
         {#each scratchStats as stat}
           <a
-            href="/game?user={data.user ? data.user.id : ''}&game={stat.game}"
+            href="/games?user={data.user ? data.user.id : ''}&game={stat.game}"
             class="border-primary/5 bg-base-200 hover:border-primary/20 block h-fit break-inside-avoid-column rounded-lg border p-4 duration-300"
           >
             <h1 class="text-center text-xl font-bold">{stat.game.replaceAll("_", " ")}</h1>

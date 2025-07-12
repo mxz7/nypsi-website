@@ -4,7 +4,7 @@
   import type { Snippet } from "svelte";
   import { cubicOut } from "svelte/easing";
   import { fade, fly } from "svelte/transition";
-  import ItemPage from "../../../routes/item/(item)/[itemId]/+page.svelte";
+  import ItemPage from "../../../routes/items/(item)/[itemId]/+page.svelte";
 
   type Props = { children: Snippet; item: string };
 
@@ -12,7 +12,7 @@
 </script>
 
 <a
-  href="/item/{item}"
+  href="/items/{item}"
   class="link link-primary"
   onclick={async (e) => {
     if (
@@ -25,7 +25,7 @@
 
     e.preventDefault();
 
-    const href = `/item/${item}`;
+    const href = `/items/${item}`;
 
     const result = await preloadData(href);
 

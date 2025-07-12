@@ -123,18 +123,18 @@
         <li><a href="/" class={page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
         <li>
           <a
-            href="/leaderboard"
-            class={page.url.pathname.startsWith("/leaderboard") ? "text-primary" : ""}
+            href="/leaderboards"
+            class={page.url.pathname.startsWith("/leaderboards") ? "text-primary" : ""}
             >leaderboards</a
           >
         </li>
         <li>
-          <a href="/item" class={page.url.pathname.startsWith("/item") ? "text-primary" : ""}
+          <a href="/items" class={page.url.pathname.startsWith("/items") ? "text-primary" : ""}
             >items</a
           >
         </li>
         <li>
-          <a href="/event" class={page.url.pathname.startsWith("/event") ? "text-primary" : ""}
+          <a href="/events" class={page.url.pathname.startsWith("/events") ? "text-primary" : ""}
             >events</a
           >
         </li>
@@ -236,7 +236,7 @@
 
               <li class="mt-2">
                 <a
-                  href="/user/{auth.value?.authenticated ? auth.value.user.id : null}"
+                  href="/users/{auth.value?.authenticated ? auth.value.user.id : null}"
                   class="flex items-center"
                 >
                   <UserRound size={16} />

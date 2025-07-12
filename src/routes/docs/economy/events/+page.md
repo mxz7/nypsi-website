@@ -10,7 +10,7 @@
 
 an event is similar to a task, except it is for **everyone** who plays nypsi.
 
-you may see the 🔱 (trident) emoji in some command outputs sometimes, this is showing the current event progress. you can also view event progress [here](/event).
+you may see the 🔱 (trident) emoji in some command outputs sometimes, this is showing the current event progress. you can also view event progress [here](/events).
 
 <DocsHeader header='h2' text="event rewards" />
 
