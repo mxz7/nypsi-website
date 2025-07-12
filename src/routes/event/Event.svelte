@@ -3,7 +3,7 @@
   import Card from "$lib/components/Card.svelte";
   import type { getEventData } from "$lib/functions/items";
   import { daysUntil } from "$lib/functions/time";
-  import type { CurrentEvent } from "$lib/server/functions/event";
+  import type { NypsiEvent } from "$lib/server/functions/event";
   import { auth } from "$lib/state.svelte";
   import ms from "ms";
   import { onDestroy, onMount } from "svelte";
@@ -11,7 +11,7 @@
   import { Tween } from "svelte/motion";
 
   interface Props {
-    event: CurrentEvent;
+    event: NypsiEvent;
     userPosition?: number;
     totalUsers?: Promise<number>;
     eventsData: Awaited<ReturnType<typeof getEventData>>;
@@ -27,7 +27,7 @@
   function setValues() {
     const contributions = event.contributions
       .map((i) => i.contribution)
-      .reduce((a, b) => a + b, 0n);
+      .reduce((a, b) => Number(a) + Number(b), 0);
 
     progress.set(Number(contributions));
     progressBar.set(Number(contributions) / Number(event.target));
@@ -92,11 +92,11 @@
   <footer class="text-sm opacity-75">
     {#if event.completed}
       <p>this event was completed at {event.completedAt.toLocaleTimeString()}</p>
-    {:else if event.expiresAt.getTime() - Date.now() < 0}
+    {:else if new Date(event.expiresAt).getTime() - Date.now() < 0}
       <p>this event expired at {event.completedAt.toLocaleTimeString()}</p>
     {:else}
       <p>
-        ends {#if event.expiresAt.getTime() - Date.now() > ms("1 day")}
+        ends {#if new Date(event.expiresAt).getTime() - Date.now() > ms("1 day")}
           in {daysUntil(event.expiresAt)} days
         {:else}
           at {event.expiresAt.toLocaleTimeString()}

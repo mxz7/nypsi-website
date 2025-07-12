@@ -1,6 +1,6 @@
 import { getEventData } from "$lib/functions/items.js";
 import {
-  getCurrentEvent,
+  getEvent,
   getPastEvents,
   getTotalUsers,
   getUserPosition,
@@ -10,7 +10,7 @@ export async function load({ locals, fetch, depends }) {
   depends("event");
   const auth = await locals.validate();
 
-  const [event, eventsData] = await Promise.all([getCurrentEvent(), getEventData(fetch)]);
+  const [event, eventsData] = await Promise.all([getEvent(), getEventData(fetch)]);
 
   if (!event) {
     return {

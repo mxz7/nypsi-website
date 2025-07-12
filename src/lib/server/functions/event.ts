@@ -2,7 +2,9 @@ import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
 import type { Event, Prisma } from "@prisma/client";
 
-export async function getCurrentEvent(id?: number, contributorCount = 10) {
+export type NypsiEvent = Awaited<ReturnType<typeof getEventNoCache>>;
+
+async function getEventNoCache(id?: number, contributorCount = 10) {
   let where: Prisma.EventWhereInput;
 
   if (id) {
@@ -46,9 +48,32 @@ export async function getCurrentEvent(id?: number, contributorCount = 10) {
   return query;
 }
 
-export type CurrentEvent = Awaited<ReturnType<typeof getCurrentEvent>>;
+export async function getEvent(id?: number, contributorCount = 10): Promise<NypsiEvent> {
+  const cache = await redis.get(`cache:events:${id}`);
+
+  if (cache) {
+    return JSON.parse(cache) as NypsiEvent;
+  }
+
+  const event = await getEventNoCache(id, contributorCount);
+
+  await redis.set(
+    `cache:events:${id}`,
+    JSON.stringify(event, (_key, value) => (typeof value === "bigint" ? Number(value) : value)),
+    "EX",
+    contributorCount > 10 ? 3600 : 7,
+  );
+
+  return event;
+}
 
 export async function getUserPosition(eventId: number, userId: string) {
+  const cache = await redis.get(`cache:events:position:${eventId}:${userId}`);
+
+  if (cache) {
+    return parseInt(cache);
+  }
+
   const query = await prisma.eventContribution.findUnique({
     where: {
       userId_eventId: {
@@ -60,6 +85,13 @@ export async function getUserPosition(eventId: number, userId: string) {
       contribution: true,
     },
   });
+
+  await redis.set(
+    `cache:events:position:${eventId}:${userId}`,
+    query ? Number(query.contribution) : -1,
+    "EX",
+    7,
+  );
 
   if (!query) return -1;
 
@@ -73,11 +105,19 @@ export async function getUserPosition(eventId: number, userId: string) {
 }
 
 export async function getTotalUsers(eventId: number): Promise<number> {
+  const cache = await redis.get(`cache:events:totalusers:${eventId}`);
+
+  if (cache) {
+    return parseInt(cache);
+  }
+
   const query = await prisma.eventContribution.count({
     where: {
       eventId,
     },
   });
+
+  await redis.set(`cache:events:totalusers:${eventId}`, query.toString(), "EX", 30);
 
   return query;
 }

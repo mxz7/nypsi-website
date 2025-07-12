@@ -1,5 +1,5 @@
 import { getEventData } from "$lib/functions/items.js";
-import { getCurrentEvent, getTotalUsers, getUserPosition } from "$lib/server/functions/event.js";
+import { getEvent, getTotalUsers, getUserPosition } from "$lib/server/functions/event.js";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ locals, fetch, params }) {
@@ -9,7 +9,7 @@ export async function load({ locals, fetch, params }) {
 
   const auth = await locals.validate();
 
-  const [event, eventsData] = await Promise.all([getCurrentEvent(id, 50), getEventData(fetch)]);
+  const [event, eventsData] = await Promise.all([getEvent(id, 50), getEventData(fetch)]);
 
   if (!event) {
     return error(404, "event not found");
