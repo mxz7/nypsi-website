@@ -35,7 +35,7 @@ export async function GET({ url, setHeaders }) {
       },
     },
     orderBy: {
-      date: "desc",
+      id: "desc",
     },
   };
 

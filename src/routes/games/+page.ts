@@ -32,7 +32,7 @@ export async function load({ fetch, url }) {
     loadedDate,
     resultText,
 
-    recentGames: await fetch(`/api/game?${url.searchParams.toString()}`).then(
+    recentGames: await fetch(`/api/games?${url.searchParams.toString()}`).then(
       (r) => r.json() as Promise<{ ok: boolean; games: Game[] }>,
     ),
   };

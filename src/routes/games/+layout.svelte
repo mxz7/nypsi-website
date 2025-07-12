@@ -15,7 +15,7 @@
 <div class="mt-5 mb-3 flex w-full justify-center">
   <form
     onsubmit={preventDefault(() => {
-      goto(`/game/${searched}`);
+      goto(`/games/${searched}`);
     })}
   >
     <input

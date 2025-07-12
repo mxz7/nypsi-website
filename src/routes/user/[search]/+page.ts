@@ -48,7 +48,7 @@ export async function load({ params, fetch, setHeaders, parent }) {
     tagData: tags,
     items,
     allUserData: fetch(`/api/user/${userId}`).then((r) => r.json() as Promise<UserApiResponsexd>),
-    games: fetch(`/api/game?user=${userId}&before=${before}&take=20`).then((r) =>
+    games: fetch(`/api/games?user=${userId}&before=${before}&take=20`).then((r) =>
       r.json(),
     ) as Promise<{
       ok: boolean;

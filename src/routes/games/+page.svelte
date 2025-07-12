@@ -27,7 +27,7 @@
 
     if (!params.get("before")) params.set("before", data.loadedDate.toString());
 
-    const response = await fetch(`/api/game?${params.toString()}`);
+    const response = await fetch(`/api/games?${params.toString()}`);
     const json = await response.json();
 
     console.log(json);
@@ -75,7 +75,7 @@
       >
         {#each games as game, i}
           <a
-            href="/game/{game.id.toString(36)}"
+            href="/games/{game.id.toString(36)}"
             target="_blank"
             class="border-primary/55 bg-base-200 hover:border-primary/20 flex flex-col justify-center rounded-lg border p-4 text-center duration-300 {game.win ===
             1

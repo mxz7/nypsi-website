@@ -50,7 +50,7 @@
     console.log("fetching more");
 
     const response = await fetch(
-      `/api/game?before=${gamesBefore}&take=100&skip=${games.length}&user=${id}`,
+      `/api/games?before=${gamesBefore}&take=100&skip=${games.length}&user=${id}`,
     );
     const json = await response.json();
 
@@ -303,7 +303,7 @@
                 >
                   {#each games as game}
                     <a
-                      href="/game/{game.id.toString(36)}"
+                      href="/games/{game.id.toString(36)}"
                       class=" border-primary/10 bg-base-300 hover:border-primary/25 w-full justify-center rounded-lg border p-2 px-4 align-middle shadow duration-300 lg:mt-0
                     {game.win === 0
                         ? 'text-error'
