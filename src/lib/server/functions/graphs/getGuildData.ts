@@ -13,7 +13,7 @@ export default async function getGuildData(guild: string, type: "balance" | "xp"
       date: true,
     },
     orderBy: {
-      date: "desc",
+      id: "desc",
     },
   });
 
