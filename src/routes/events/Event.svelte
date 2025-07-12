@@ -12,12 +12,13 @@
 
   interface Props {
     event: NypsiEvent;
+    totalContribution: number;
     userPosition?: number;
     totalUsers?: Promise<number>;
     eventsData: Awaited<ReturnType<typeof getEventData>>;
   }
 
-  let { event, userPosition, eventsData, totalUsers }: Props = $props();
+  let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
   const progress = new Tween(0, { easing: cubicOut, duration: 1000 });
   const progressBar = new Tween(0, { easing: cubicOut, duration: 1000 });
@@ -25,12 +26,8 @@
   let timeout: ReturnType<typeof setTimeout>;
 
   function setValues() {
-    const contributions = event.contributions
-      .map((i) => i.contribution)
-      .reduce((a, b) => Number(a) + Number(b), 0);
-
-    progress.set(Number(contributions));
-    progressBar.set(Number(contributions) / Number(event.target));
+    progress.set(totalContribution);
+    progressBar.set(totalContribution / Number(event.target));
   }
 
   async function update() {

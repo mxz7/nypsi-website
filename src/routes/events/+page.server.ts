@@ -19,6 +19,12 @@ export async function load({ locals, fetch, depends }) {
     };
   }
 
+  const totalContribution = event.contributions
+    .map((user) => user.contribution)
+    .reduce((a, b) => Number(a) + Number(b), 0);
+
+  event.contributions = event.contributions.slice(0, 10);
+
   let userPosition: Promise<number> | undefined;
   let totalUsers: Promise<number> | undefined;
 
@@ -30,6 +36,7 @@ export async function load({ locals, fetch, depends }) {
   return {
     eventsData,
     event,
+    totalContribution,
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     pastEvents: getPastEvents(),

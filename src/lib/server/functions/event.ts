@@ -56,8 +56,6 @@ export async function getEvent(id?: number, longCache = false): Promise<NypsiEve
 
   const event = await getEventNoCache(id);
 
-  console.log(event.contributions.map((i) => i.contribution).reduce((a, b) => a + b, 0n));
-
   await redis.set(
     `cache:events:${id}`,
     JSON.stringify(event, (_key, value) => (typeof value === "bigint" ? Number(value) : value)),

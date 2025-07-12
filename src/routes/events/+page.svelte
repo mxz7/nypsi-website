@@ -17,6 +17,7 @@
       userPosition={data.userPosition}
       eventsData={data.eventsData}
       totalUsers={data.totalUsers}
+      totalContribution={data.totalContribution}
     />
   {:else}
     <h1 class="text-center text-3xl font-bold text-white">no active event</h1>
