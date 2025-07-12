@@ -39,5 +39,6 @@ export async function load({ locals, fetch, params }) {
     totalContribution,
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
+    auth,
   };
 }

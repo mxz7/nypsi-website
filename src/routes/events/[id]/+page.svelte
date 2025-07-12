@@ -1,7 +1,18 @@
 <script lang="ts">
+  import { auth } from "$lib/state.svelte";
+  import { onMount } from "svelte";
   import Event from "../Event.svelte";
 
   let { data } = $props();
+
+  onMount(() => {
+    if (data.auth) {
+      auth.value = {
+        ...data.auth,
+        authenticated: true,
+      };
+    }
+  });
 </script>
 
 <svelte:head>

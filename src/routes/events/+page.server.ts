@@ -40,5 +40,6 @@ export async function load({ locals, fetch, depends }) {
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     pastEvents: getPastEvents(),
+    auth,
   };
 }
