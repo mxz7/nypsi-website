@@ -8,6 +8,7 @@ Disallow: /games/*
 Disallow: /api
 Disallow: /items/history/*
 Disallow: /captcha
+Disallow: /users/*
 
 User-agent: AhrefsBot
 User-agent: Baiduspider
