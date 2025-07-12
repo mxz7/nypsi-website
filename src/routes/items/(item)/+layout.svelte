@@ -62,7 +62,7 @@
                 : ''}"
             >
               <a
-                href="/item/{item.id}"
+                href="/items/{item.id}"
                 data-sveltekit-noscroll={browser ? (innerWidth > 640 ? true : false) : false}
               >
                 <div class="bg-base-300 h-16 p-3">

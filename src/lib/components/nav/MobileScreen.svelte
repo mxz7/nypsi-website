@@ -129,7 +129,7 @@
           >
         </li>
         <li>
-          <a href="/item" class={page.url.pathname.startsWith("/item") ? "text-primary" : ""}
+          <a href="/items" class={page.url.pathname.startsWith("/items") ? "text-primary" : ""}
             >items</a
           >
         </li>

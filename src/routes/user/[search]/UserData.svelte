@@ -194,7 +194,7 @@
                   {@const itemData = items.find((i) => i.id === item.item)}
                   {#if itemData}
                     <a
-                      href="/item/{item.item}"
+                      href="/items/{item.item}"
                       class="border-primary/5 bg-base-200 hover:border-primary/20 mx-2 flex flex-col items-center justify-center rounded-lg border py-2 align-middle text-xs shadow-sm duration-300 lg:text-sm"
                     >
                       <div

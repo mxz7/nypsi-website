@@ -43,7 +43,7 @@
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
 
-  <link rel="canonical" href="https://nypsi.xyz/item/{data.item.id}" />
+  <link rel="canonical" href="https://nypsi.xyz/items/{data.item.id}" />
 </svelte:head>
 
 <div class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
@@ -107,7 +107,7 @@
     <a href="/leaderboard/{data.item.id}" class="btn text-primary grow" title="leaderboard">
       <Crown />
     </a>
-    <a href="/item/history/{data.item.id}" class="btn text-primary grow" title="history">
+    <a href="/items/history/{data.item.id}" class="btn text-primary grow" title="history">
       <ChartArea />
     </a>
   </div>
@@ -130,7 +130,7 @@
                 {#if item.role === "scratch-card"}
                   <a href="/docs/economy/items/scratch-cards" class="link">{item.name}</a>
                 {:else}
-                  <a href="/item/{item.id}" class="link-hover">{item.name}</a>
+                  <a href="/items/{item.id}" class="link-hover">{item.name}</a>
                 {/if}
               {:else}
                 <span>{foundEntry[0]}</span>
@@ -170,7 +170,7 @@
                     class="h-full w-full object-contain"
                   />
                 </div>
-                <a href="/item/{itemId}" class="link-hover"
+                <a href="/items/{itemId}" class="link-hover"
                   >{item ? item.name : formatName(itemId)}</a
                 >
                 <span class="grow text-right">{chance}</span>
@@ -200,7 +200,8 @@
                   class="h-full w-full object-contain"
                 />
               </div>
-              <a class="link-hover" href="/item/{itemId}">{item ? item.name : formatName(itemId)}</a
+              <a class="link-hover" href="/items/{itemId}"
+                >{item ? item.name : formatName(itemId)}</a
               >
               <span class="grow text-right">x{amount}</span>
             </div>
@@ -225,7 +226,8 @@
                 class="h-full w-full object-contain"
               />
             </div>
-            <a class="link-hover" href="/item/{item.id}">{item ? item.name : formatName(item.id)}</a
+            <a class="link-hover" href="/items/{item.id}"
+              >{item ? item.name : formatName(item.id)}</a
             >
           </div>
         {/each}

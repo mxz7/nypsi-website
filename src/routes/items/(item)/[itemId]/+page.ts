@@ -153,12 +153,12 @@ export async function load({ params, parent, fetch, setHeaders }) {
     return odds;
   };
 
-  const inWorld = fetch(`/api/item/inworld/${selected.id}`).then((r) => {
+  const inWorld = fetch(`/api/items/inworld/${selected.id}`).then((r) => {
     if (r.status !== 200) return 0;
     return r.json().then((r) => r.count);
   });
 
-  const value = fetch(`/api/item/value/${selected.id}`).then((r) => {
+  const value = fetch(`/api/items/value/${selected.id}`).then((r) => {
     if (r.status !== 200) return 0;
     return r.json().then((r) => r.value);
   });

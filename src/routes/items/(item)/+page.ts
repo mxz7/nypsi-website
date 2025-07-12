@@ -5,5 +5,5 @@ export async function load({ parent }) {
 
   const random = items[Math.floor(Math.random() * items.length)];
 
-  return redirect(302, `/item/${random.id}`);
+  return redirect(302, `/items/${random.id}`);
 }

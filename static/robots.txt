@@ -6,7 +6,7 @@ Disallow: /login
 Disallow: /logout
 Disallow: /games/*
 Disallow: /api
-Disallow: /item/history/*
+Disallow: /items/history/*
 Disallow: /captcha
 
 User-agent: AhrefsBot
