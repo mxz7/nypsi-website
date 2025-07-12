@@ -16,7 +16,7 @@ export async function load({ locals, fetch, params }) {
   }
 
   if (!event.completed && event.expiresAt.getTime() < Date.now()) {
-    return redirect(302, "/event");
+    return redirect(302, "/events");
   }
 
   let userPosition: Promise<number> | undefined;

@@ -134,7 +134,7 @@
           >
         </li>
         <li>
-          <a href="/event" class={page.url.pathname.startsWith("/event") ? "text-primary" : ""}
+          <a href="/events" class={page.url.pathname.startsWith("/events") ? "text-primary" : ""}
             >events</a
           >
         </li>

@@ -29,7 +29,7 @@
 
         <ol class="mt-2 grid grid-cols-2 gap-3">
           {#each pastEvents as event}
-            <Card mode="anchor" href="/event/{event.id}">
+            <Card mode="anchor" href="/events/{event.id}">
               <header class="text-lg font-semibold">
                 <span class="text-slate-400">#{data.event.id}</span>
                 <h3 class="inline text-white">
