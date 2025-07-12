@@ -9,7 +9,7 @@ export async function load({ locals, fetch, params }) {
 
   const auth = await locals.validate();
 
-  const [event, eventsData] = await Promise.all([getEvent(id, 50), getEventData(fetch)]);
+  const [event, eventsData] = await Promise.all([getEvent(id, true), getEventData(fetch)]);
 
   if (!event) {
     return error(404, "event not found");

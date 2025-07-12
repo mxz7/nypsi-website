@@ -4,7 +4,7 @@ import type { Event, Prisma } from "@prisma/client";
 
 export type NypsiEvent = Awaited<ReturnType<typeof getEventNoCache>>;
 
-async function getEventNoCache(id?: number, contributorCount = 10) {
+async function getEventNoCache(id?: number) {
   let where: Prisma.EventWhereInput;
 
   if (id) {
@@ -23,7 +23,6 @@ async function getEventNoCache(id?: number, contributorCount = 10) {
     include: {
       contributions: {
         orderBy: { contribution: "desc" },
-        take: contributorCount,
         select: {
           contribution: true,
           user: {
@@ -48,20 +47,22 @@ async function getEventNoCache(id?: number, contributorCount = 10) {
   return query;
 }
 
-export async function getEvent(id?: number, contributorCount = 10): Promise<NypsiEvent> {
+export async function getEvent(id?: number, longCache = false): Promise<NypsiEvent> {
   const cache = await redis.get(`cache:events:${id}`);
 
   if (cache) {
     return JSON.parse(cache) as NypsiEvent;
   }
 
-  const event = await getEventNoCache(id, contributorCount);
+  const event = await getEventNoCache(id);
+
+  console.log(event.contributions.map((i) => i.contribution).reduce((a, b) => a + b, 0n));
 
   await redis.set(
     `cache:events:${id}`,
     JSON.stringify(event, (_key, value) => (typeof value === "bigint" ? Number(value) : value)),
     "EX",
-    contributorCount > 20 ? 3600 : 7,
+    longCache ? 7200 : 7,
   );
 
   return event;
