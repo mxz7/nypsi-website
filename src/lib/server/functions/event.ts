@@ -61,7 +61,7 @@ export async function getEvent(id?: number, contributorCount = 10): Promise<Nyps
     `cache:events:${id}`,
     JSON.stringify(event, (_key, value) => (typeof value === "bigint" ? Number(value) : value)),
     "EX",
-    contributorCount > 10 ? 3600 : 7,
+    contributorCount > 20 ? 3600 : 7,
   );
 
   return event;
