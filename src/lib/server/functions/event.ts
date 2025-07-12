@@ -72,6 +72,16 @@ export async function getUserPosition(eventId: number, userId: string) {
   return position + 1;
 }
 
+export async function getTotalUsers(eventId: number): Promise<number> {
+  const query = await prisma.eventContribution.count({
+    where: {
+      eventId,
+    },
+  });
+
+  return query;
+}
+
 export async function getPastEvents(): Promise<Event[]> {
   const cache = await redis.get("cache:events:pasts");
 

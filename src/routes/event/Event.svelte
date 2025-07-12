@@ -13,10 +13,11 @@
   interface Props {
     event: CurrentEvent;
     userPosition?: number;
+    totalUsers?: Promise<number>;
     eventsData: Awaited<ReturnType<typeof getEventData>>;
   }
 
-  let { event, userPosition, eventsData }: Props = $props();
+  let { event, userPosition, eventsData, totalUsers }: Props = $props();
 
   const progress = new Tween(0, { easing: cubicOut, duration: 1000 });
   const progressBar = new Tween(0, { easing: cubicOut, duration: 1000 });
@@ -108,9 +109,15 @@
 <Card mode="section" class="flex flex-col gap-3">
   <h2 class="w-full text-center text-xl font-bold text-white">leaderboard</h2>
 
-  {#if userPosition && userPosition > 0}
+  {#if userPosition && userPosition > 0 && totalUsers}
     <p class="text-center text-sm">
-      you are <span class="text-primary">#{userPosition}</span>
+      {#await totalUsers}
+        you are <span class="text-primary">#{userPosition.toLocaleString()}</span>
+      {:then totalUsers}
+        you are <span class="text-primary">#{userPosition.toLocaleString()}</span><span
+          class="opacity-60">/{totalUsers.toLocaleString()}</span
+        >
+      {/await}
     </p>
   {/if}
 
