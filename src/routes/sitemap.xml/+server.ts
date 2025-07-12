@@ -15,7 +15,7 @@ export async function GET({ fetch }) {
       .map((i) => i.replaceAll("/+page.svelte", "")),
   );
 
-  pages.push(...items.map((i) => `item/${i.id}`));
+  pages.push(...items.map((i) => `items/${i.id}`));
 
   const body = sitemap(pages);
   const response = new Response(body);
