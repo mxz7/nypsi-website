@@ -21,7 +21,7 @@
     tags={data.tags}
     data={data.leaderboardData}
     title={data.title}
-    userRoute={page.url.pathname.endsWith("guilds") ? "/guilds" : "/user"}
+    userRoute={page.url.pathname.endsWith("guilds") ? "/guilds" : "/users"}
     descriptor={data.descriptor}
   />
 </div>

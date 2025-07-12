@@ -19,7 +19,7 @@ export async function GET({ params, setHeaders, fetch }) {
 
   if (!game) return error(404);
 
-  const privacy = await fetch(`/api/user/check/${game.userId}`).then((r) => r.json());
+  const privacy = await fetch(`/api/users/check/${game.userId}`).then((r) => r.json());
 
   if (privacy.private) {
     game.userId = "hidden";

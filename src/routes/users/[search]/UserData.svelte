@@ -172,7 +172,8 @@
                 {#each userData.Economy.EconomyGuildMember.guild.members as member}
                   <a
                     class="border-primary/5 bg-base-200 hover:border-primary/20 hover:text-primary rounded-lg border p-2 text-xs shadow-sm duration-300 lg:text-sm"
-                    href="/user/{member.economy.user.id}">{member.economy.user.lastKnownUsername}</a
+                    href="/users/{member.economy.user.id}"
+                    >{member.economy.user.lastKnownUsername}</a
                   >
                 {/each}
               </div>

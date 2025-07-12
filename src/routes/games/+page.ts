@@ -15,12 +15,12 @@ export async function load({ fetch, url }) {
   let resultText = "";
 
   if (url.searchParams.get("user")) {
-    const username = await fetch(`/api/user/username/${url.searchParams.get("user")}`).then((r) =>
+    const username = await fetch(`/api/users/username/${url.searchParams.get("user")}`).then((r) =>
       r.json(),
     );
 
     if (username.username)
-      resultText = `<a href="/user/${username.username}" class='text-primary'>${username.username}'s</a> `;
+      resultText = `<a href="/users/${username.username}" class='text-primary'>${username.username}'s</a> `;
 
     if (url.searchParams.has("game")) resultText += `${url.searchParams.get("game")} `;
     resultText += "games ";

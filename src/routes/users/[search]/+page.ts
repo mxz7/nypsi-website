@@ -12,7 +12,7 @@ export async function load({ params, fetch, setHeaders, parent }) {
   if (search.match(/^\d{17,19}$/)) {
     userId = search;
   } else {
-    const res = await fetch(`/api/user/getid/${search}`).then((r) => r.json());
+    const res = await fetch(`/api/users/getid/${search}`).then((r) => r.json());
 
     if (res.id) {
       userId = res.id;
@@ -24,7 +24,7 @@ export async function load({ params, fetch, setHeaders, parent }) {
   }
 
   const [baseUserDataResponse, { items, tags }] = await Promise.all([
-    fetch(`/api/user/${userId}/base`),
+    fetch(`/api/users/${userId}/base`),
     parent(),
   ]);
 
@@ -47,7 +47,7 @@ export async function load({ params, fetch, setHeaders, parent }) {
     baseUserData: (await baseUserDataResponse.json()) as BaseUserData,
     tagData: tags,
     items,
-    allUserData: fetch(`/api/user/${userId}`).then((r) => r.json() as Promise<UserApiResponsexd>),
+    allUserData: fetch(`/api/users/${userId}`).then((r) => r.json() as Promise<UserApiResponsexd>),
     games: fetch(`/api/games?user=${userId}&before=${before}&take=20`).then((r) =>
       r.json(),
     ) as Promise<{
@@ -55,6 +55,6 @@ export async function load({ params, fetch, setHeaders, parent }) {
       games: Game[];
     }>,
     gamesBefore: before,
-    _view: fetch(`/api/user/${userId}/view`, { method: "post" }),
+    _view: fetch(`/api/users/${userId}/view`, { method: "post" }),
   };
 }

@@ -82,7 +82,7 @@
         class="link-primary"
         href={data.game.userId === "hidden"
           ? "/docs/economy/user-settings/hidden"
-          : "/user/" + data.game.userId}>{data.game.user.lastKnownUsername}</a
+          : "/users/" + data.game.userId}>{data.game.user.lastKnownUsername}</a
       >
       in {formatTime(data.game.time)}
     </p>

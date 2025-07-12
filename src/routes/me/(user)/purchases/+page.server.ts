@@ -16,7 +16,7 @@ export async function load({ setHeaders, parent, fetch, request }) {
 
   return {
     locale: acceptLanguage?.split(",")[0],
-    premium: await fetch(`/api/user/ispremium/${parentData.user.id}`).then((r) => r.json()),
+    premium: await fetch(`/api/users/ispremium/${parentData.user.id}`).then((r) => r.json()),
     totalSpend: await prisma.purchases
       .aggregate({
         _sum: {

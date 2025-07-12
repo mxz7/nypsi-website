@@ -12,7 +12,7 @@
     limit?: number;
   }
 
-  let { title, data, tags, limit = 10, href = "/user/" }: Props = $props();
+  let { title, data, tags, limit = 10, href = "/users/" }: Props = $props();
 </script>
 
 <div class="">
@@ -88,7 +88,7 @@
                   <a
                     href={user.username === "[hidden]"
                       ? "/docs/economy/user-settings/hidden"
-                      : `/user/${user.id}`}
+                      : `/users/${user.id}`}
                     class="{i === 0
                       ? 'text-primary font-semibold'
                       : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"

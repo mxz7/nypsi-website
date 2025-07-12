@@ -51,7 +51,7 @@
         />
         <a
           class="link-hover line-clamp-1 w-fit text-lg font-medium break-all"
-          href="/user/{member.economy.user.lastKnownUsername}"
+          href="/users/{member.economy.user.lastKnownUsername}"
           >{member.economy.user.lastKnownUsername}</a
         >
         <p class="min-w-fit grow text-right text-sm md:text-base">
@@ -86,7 +86,7 @@
       </h1>
       <p class="text-sm text-slate-200 sm:text-base">
         owned by <a
-          href="/user/{guildData.guild.owner.user.lastKnownUsername}"
+          href="/users/{guildData.guild.owner.user.lastKnownUsername}"
           class="link-hover link-primary font-medium"
           >{guildData.guild.owner.user.lastKnownUsername}</a
         >

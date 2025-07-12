@@ -236,7 +236,7 @@
 
               <li class="mt-2">
                 <a
-                  href="/user/{auth.value?.authenticated ? auth.value.user.id : null}"
+                  href="/users/{auth.value?.authenticated ? auth.value.user.id : null}"
                   class="flex items-center"
                 >
                   <UserRound size={16} />

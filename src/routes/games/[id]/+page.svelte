@@ -73,7 +73,7 @@
             played by
             {#if data.game.userId}
               <a
-                href="/user/{data.game.userId}"
+                href="/users/{data.game.userId}"
                 class="text-primary font-bold underline-offset-4 hover:underline"
                 >{data.game.username}</a
               >

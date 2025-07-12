@@ -66,7 +66,7 @@
   <p class="flex justify-center gap-1">
     hosted by <a
       class="link link-primary flex items-center gap-1 underline-offset-2"
-      href="/user/{event.owner.id}"
+      href="/users/{event.owner.id}"
     >
       <img src={event.owner.avatar} class="h-4 rounded-full" alt="" />
       <span>{event.owner.lastKnownUsername}</span>
@@ -126,7 +126,7 @@
       <li class="bg-base-300 flex w-full items-center gap-3 rounded-lg p-3">
         <span class="w-8 text-right text-slate-400">#{i + 1}</span>
         <a
-          href="/user/{user.user.id}"
+          href="/users/{user.user.id}"
           class="link-hover flex items-center gap-2 {i === 0
             ? 'text-primary text-lg font-semibold'
             : ''}"

@@ -27,7 +27,7 @@
   <meta property="og:image:height" content="128" />
 
   <meta name="robots" content="noindex" />
-  <link rel="canonical" href="https://nypsi.xyz/user/{data.baseUserData.id}" />
+  <link rel="canonical" href="https://nypsi.xyz/users/{data.baseUserData.id}" />
 </svelte:head>
 
 <div in:fade={{ delay: 0, duration: 200 }}>

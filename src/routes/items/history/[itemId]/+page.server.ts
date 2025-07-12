@@ -9,7 +9,7 @@ export async function load({ locals, params, url, fetch, setHeaders }) {
     return { auth: false };
   }
 
-  const premium = await fetch(`/api/user/ispremium/${auth.user.id}`).then((r) => r.json());
+  const premium = await fetch(`/api/users/ispremium/${auth.user.id}`).then((r) => r.json());
 
   if (!premium.premium) {
     return { premium: false, auth: true };
