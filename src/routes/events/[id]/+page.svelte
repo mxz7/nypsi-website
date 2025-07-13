@@ -18,6 +18,7 @@
 <svelte:head>
   <title>event {data.event.id} {data.eventsData[data.event.type].name} | nypsi</title>
   <meta name="og:title" content="event {data.event.id} {data.eventsData[data.event.type].name} " />
+  <link rel="canonical" href="https://nypsi.xyz/events/{data.event.id}" />
 </svelte:head>
 
 <div class="mx-auto mt-7 flex w-full flex-col gap-4 px-3 lg:max-w-2xl lg:px-0">

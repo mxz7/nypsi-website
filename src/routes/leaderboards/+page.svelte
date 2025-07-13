@@ -11,6 +11,8 @@
     name="description"
     content="view nypsi's leaderboards for balance, guilds, networth, streaks, items and more"
   />
+
+  <link rel="canonical" href="https://nypsi.xyz/leaderboards" />
 </svelte:head>
 
 <div class="mt-8 flex w-full justify-center">

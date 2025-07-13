@@ -14,6 +14,7 @@
 <svelte:head>
   <title>{data.title} | nypsi</title>
   <meta name="og:title" content="{data.title} | nypsi" />
+  <link rel="canonical" href="https://nypsi.xyz/leaderboards/{page.params.type}" />
 </svelte:head>
 
 <div class="mt-10 flex w-full justify-center">
