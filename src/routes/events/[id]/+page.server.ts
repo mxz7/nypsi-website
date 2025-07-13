@@ -1,5 +1,10 @@
 import { getEventData } from "$lib/functions/items.js";
-import { getEvent, getTotalUsers, getUserPosition } from "$lib/server/functions/event.js";
+import {
+  getEvent,
+  getEventProgress,
+  getTotalUsers,
+  getUserPosition,
+} from "$lib/server/functions/event.js";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ locals, fetch, params }) {
@@ -15,15 +20,9 @@ export async function load({ locals, fetch, params }) {
     return error(404, "event not found");
   }
 
-  if (!event.completed && event.expiresAt.getTime() < Date.now()) {
+  if (!event.completed && new Date(event.expiresAt).getTime() > Date.now()) {
     return redirect(302, "/events");
   }
-
-  const totalContribution = event.contributions
-    .map((user) => user.contribution)
-    .reduce((a, b) => Number(a) + Number(b), 0);
-
-  event.contributions = event.contributions.slice(0, 50);
 
   let userPosition: Promise<number> | undefined;
   let totalUsers: Promise<number> | undefined;
@@ -36,7 +35,7 @@ export async function load({ locals, fetch, params }) {
   return {
     eventsData,
     event,
-    totalContribution,
+    totalContribution: await getEventProgress(event.id, true),
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     auth,

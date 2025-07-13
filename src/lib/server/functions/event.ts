@@ -4,7 +4,7 @@ import type { Event, Prisma } from "@prisma/client";
 
 export type NypsiEvent = Awaited<ReturnType<typeof getEventNoCache>>;
 
-async function getEventNoCache(id?: number) {
+async function getEventNoCache(id?: number, take = 10) {
   let where: Prisma.EventWhereInput;
 
   if (id) {
@@ -22,6 +22,7 @@ async function getEventNoCache(id?: number) {
     },
     include: {
       contributions: {
+        take,
         orderBy: { contribution: "desc" },
         select: {
           contribution: true,
@@ -30,6 +31,11 @@ async function getEventNoCache(id?: number) {
               lastKnownUsername: true,
               avatar: true,
               id: true,
+              Preferences: {
+                select: {
+                  leaderboards: true,
+                },
+              },
             },
           },
         },
@@ -44,7 +50,29 @@ async function getEventNoCache(id?: number) {
     },
   });
 
-  return query;
+  const transformedContributions = query.contributions.map((contributor) => {
+    const shouldHideUser = !contributor.user?.Preferences?.leaderboards;
+
+    return {
+      contribution: contributor.contribution,
+      user: shouldHideUser
+        ? {
+            id: "0",
+            lastKnownUsername: "[hidden]",
+            avatar: "",
+          }
+        : {
+            id: contributor.user.id,
+            lastKnownUsername: contributor.user.lastKnownUsername,
+            avatar: contributor.user.avatar,
+          },
+    };
+  });
+
+  return {
+    ...query,
+    contributions: transformedContributions,
+  };
 }
 
 export async function getEvent(id?: number, longCache = false): Promise<NypsiEvent> {
@@ -64,6 +92,33 @@ export async function getEvent(id?: number, longCache = false): Promise<NypsiEve
   );
 
   return event;
+}
+
+async function getEventProgressNoCache(id: number) {
+  const query = await prisma.eventContribution.aggregate({
+    where: {
+      eventId: id,
+    },
+    _sum: {
+      contribution: true,
+    },
+  });
+
+  return query._sum.contribution;
+}
+
+export async function getEventProgress(id: number, longCache = false) {
+  const cache = await redis.get(`cache:events:progress:${id}`);
+
+  if (cache) {
+    return parseInt(cache);
+  }
+
+  const progress = await getEventProgressNoCache(id);
+
+  await redis.set(`cache:events:progress:${id}`, Number(progress), "EX", longCache ? 7200 : 7);
+
+  return Number(progress);
 }
 
 export async function getUserPosition(eventId: number, userId: string) {

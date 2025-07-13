@@ -52,6 +52,44 @@
   });
 </script>
 
+{#snippet userStats(position: number, user: NypsiEvent["contributions"][number])}
+  <li class="bg-base-300 flex w-full items-center gap-3 rounded-lg p-3">
+    <span class="w-8 text-right text-slate-400">#{position}</span>
+    {#if user.user.id !== "0"}
+      <a
+        href="/users/{user.user.id}"
+        class="link-hover flex items-center gap-2 {position === 1
+          ? 'text-primary text-lg font-semibold'
+          : ''}"
+      >
+        <img
+          src={user.user.avatar}
+          class="{position === 1 ? 'h-9 w-9' : 'h-6 w-6'} h-6 w-6 rounded-full"
+          alt=""
+        />
+        <span
+          class={user.user.id === (auth.value?.authenticated && auth.value?.user.id)
+            ? "text-primary"
+            : ""}>{user.user.lastKnownUsername}</span
+        >
+      </a>
+    {:else}
+      <a
+        href="/docs/economy/user-settings/hidden"
+        class="link-hover flex items-center gap-2 {position === 1
+          ? 'text-primary text-lg font-semibold'
+          : ''}"
+      >
+        [hidden]
+      </a>
+    {/if}
+
+    <span class="grow text-right">
+      {user.contribution.toLocaleString()}
+    </span>
+  </li>
+{/snippet}
+
 <Card class="flex flex-col text-center" mode="main">
   <header class="text-3xl font-bold">
     <span class="opacity-75">#{event.id}</span>
@@ -122,30 +160,7 @@
 
   <ol class="flex flex-col gap-2">
     {#each event.contributions as user, i}
-      <li class="bg-base-300 flex w-full items-center gap-3 rounded-lg p-3">
-        <span class="w-8 text-right text-slate-400">#{i + 1}</span>
-        <a
-          href="/users/{user.user.id}"
-          class="link-hover flex items-center gap-2 {i === 0
-            ? 'text-primary text-lg font-semibold'
-            : ''}"
-        >
-          <img
-            src={user.user.avatar}
-            class="{i === 0 ? 'h-9 w-9' : 'h-6 w-6'} h-6 w-6 rounded-full"
-            alt=""
-          />
-          <span
-            class={user.user.id === (auth.value?.authenticated && auth.value?.user.id)
-              ? "text-primary"
-              : ""}>{user.user.lastKnownUsername}</span
-          >
-        </a>
-
-        <span class="grow text-right">
-          {user.contribution.toLocaleString()}
-        </span>
-      </li>
+      {@render userStats(i + 1, user)}
     {/each}
   </ol>
 </Card>
