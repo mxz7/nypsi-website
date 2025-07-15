@@ -126,15 +126,15 @@
 
   <footer class="text-sm opacity-75">
     {#if event.completed}
-      <p>this event was completed at {event.completedAt.toLocaleTimeString()}</p>
+      <p>this event was completed at {new Date(event.completedAt).toLocaleTimeString()}</p>
     {:else if new Date(event.expiresAt).getTime() - Date.now() < 0}
-      <p>this event expired at {event.completedAt.toLocaleTimeString()}</p>
+      <p>this event expired at {new Date(event.completedAt).toLocaleTimeString()}</p>
     {:else}
       <p>
         ends {#if new Date(event.expiresAt).getTime() - Date.now() > ms("1 day")}
           in {daysUntil(event.expiresAt)} days
         {:else}
-          at {event.expiresAt.toLocaleTimeString()}
+          at {new Date(event.expiresAt).toLocaleTimeString()}
         {/if}
       </p>
     {/if}
