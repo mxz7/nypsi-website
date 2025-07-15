@@ -31,7 +31,7 @@ export async function load({ locals, fetch, depends }) {
   return {
     eventsData,
     event,
-    totalContribution: await getEventProgress(event.id, false),
+    totalContribution: Math.min(await getEventProgress(event.id, false), Number(event.target)),
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     pastEvents: getPastEvents(),
