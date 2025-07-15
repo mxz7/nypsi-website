@@ -14,7 +14,7 @@ you may see the 🔱 (trident) emoji in some command outputs sometimes, this is 
 
 <DocsHeader header='h2' text="event rewards" />
 
-if the even target **is not reached** before the timer runs out, there will be no rewards given.
+if the event target **is not reached** before the timer runs out, there will be no rewards given.
 
 <ItemModal item="pandora_box">pandora's boxes</ItemModal> are distributed to the group.
 
