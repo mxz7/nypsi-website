@@ -43,9 +43,9 @@
           {#each pastEvents as event}
             <Card mode="anchor" href="/events/{event.id}">
               <header class="text-lg font-semibold">
-                <span class="text-slate-400">#{data.event.id}</span>
+                <span class="text-slate-400">#{event.id}</span>
                 <h3 class="inline text-white">
-                  {data.eventsData[data.event.type].name}
+                  {data.eventsData[event.type].name}
                 </h3>
               </header>
 

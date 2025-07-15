@@ -50,6 +50,8 @@ async function getEventNoCache(id?: number, take = 10) {
     },
   });
 
+  if (!query) return null;
+
   const transformedContributions = query.contributions.map((contributor) => {
     const shouldHideUser = !contributor.user?.Preferences?.leaderboards;
 
@@ -79,10 +81,19 @@ export async function getEvent(id?: number, longCache = false): Promise<NypsiEve
   const cache = await redis.get(`cache:events:${id}`);
 
   if (cache) {
+    if (cache === "null") {
+      return null;
+    }
+
     return JSON.parse(cache) as NypsiEvent;
   }
 
   const event = await getEventNoCache(id);
+
+  if (!event) {
+    await redis.set(`cache:events:${id}`, "null", "EX", longCache ? 7200 : 7);
+    return null;
+  }
 
   await redis.set(
     `cache:events:${id}`,
