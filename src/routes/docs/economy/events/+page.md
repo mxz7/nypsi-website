@@ -20,6 +20,6 @@ if the even target **is not reached** before the timer runs out, there will be n
 
 | group   | reward                                                     |
 | ------- | ---------------------------------------------------------- |
-| top 5%  | event achievement progress                                 |
-| top 10% | 4x <ItemModal item="pandora_box">pandora's box</ItemModal> |
-| top 50% | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> |
+| top 1%  | event achievement progress                                 |
+| top 5%  | 4x <ItemModal item="pandora_box">pandora's box</ItemModal> |
+| top 10% | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> |
