@@ -31,11 +31,6 @@ async function getEventNoCache(id?: number, take = 10) {
               lastKnownUsername: true,
               avatar: true,
               id: true,
-              Preferences: {
-                select: {
-                  leaderboards: true,
-                },
-              },
             },
           },
         },
@@ -52,28 +47,9 @@ async function getEventNoCache(id?: number, take = 10) {
 
   if (!query) return null;
 
-  const transformedContributions = query.contributions.map((contributor) => {
-    const shouldHideUser = !contributor.user?.Preferences?.leaderboards;
-
-    return {
-      contribution: contributor.contribution,
-      user: shouldHideUser
-        ? {
-            id: "0",
-            lastKnownUsername: "[hidden]",
-            avatar: "",
-          }
-        : {
-            id: contributor.user.id,
-            lastKnownUsername: contributor.user.lastKnownUsername,
-            avatar: contributor.user.avatar,
-          },
-    };
-  });
-
   return {
     ...query,
-    contributions: transformedContributions,
+    contributions: query.contributions,
   };
 }
 
