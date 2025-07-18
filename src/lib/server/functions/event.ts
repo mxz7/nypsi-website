@@ -64,7 +64,7 @@ export async function getEvent(id?: number, longCache = false): Promise<NypsiEve
     return JSON.parse(cache) as NypsiEvent;
   }
 
-  const event = await getEventNoCache(id);
+  const event = await getEventNoCache(id, longCache ? 50 : undefined);
 
   if (!event) {
     await redis.set(`cache:events:${id}`, "null", "EX", longCache ? 7200 : 7);
