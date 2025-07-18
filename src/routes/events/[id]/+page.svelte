@@ -16,8 +16,11 @@
 </script>
 
 <svelte:head>
-  <title>event {data.event.id} {data.eventsData[data.event.type].name} | nypsi</title>
-  <meta name="og:title" content="event {data.event.id} {data.eventsData[data.event.type].name} " />
+  <title>{data.eventsData[data.event.type].name} event (#{data.event.id}) | nypsi</title>
+  <meta
+    name="og:title"
+    content="{data.eventsData[data.event.type].name} event (#{data.event.id}) "
+  />
   <link rel="canonical" href="https://nypsi.xyz/events/{data.event.id}" />
 </svelte:head>
 
