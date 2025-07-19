@@ -9,13 +9,12 @@ import {
 
 export async function load({ locals, fetch, depends }) {
   depends("event");
-  const auth = await locals.validate();
-
-  const [event, eventsData] = await Promise.all([getEvent(), getEventData(fetch)]);
+  const event = await getEvent();
+  const eventsData = getEventData(fetch);
 
   if (!event) {
     return {
-      eventsData,
+      eventsData: await eventsData,
       pastEvents: getPastEvents(),
     };
   }
@@ -23,15 +22,21 @@ export async function load({ locals, fetch, depends }) {
   let userPosition: Promise<number> | undefined;
   let totalUsers: Promise<number> | undefined;
 
+  const auth = await locals.validate();
+
   if (auth?.user) {
     userPosition = getUserPosition(event.id, auth.user.id);
     totalUsers = getTotalUsers(event.id);
   }
 
+  const totalContribution = getEventProgress(event.id, false).then((value) =>
+    Math.min(value, Number(event.target)),
+  );
+
   return {
-    eventsData,
+    eventsData: await eventsData,
     event,
-    totalContribution: Math.min(await getEventProgress(event.id, false), Number(event.target)),
+    totalContribution: await totalContribution,
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     pastEvents: getPastEvents(),

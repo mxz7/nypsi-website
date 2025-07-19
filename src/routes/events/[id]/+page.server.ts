@@ -12,9 +12,8 @@ export async function load({ locals, fetch, params }) {
 
   if (!id || isNaN(id) || id < 0) return error(404, "event not found");
 
-  const auth = await locals.validate();
-
-  const [event, eventsData] = await Promise.all([getEvent(id, true), getEventData(fetch)]);
+  const event = await getEvent();
+  const eventsData = getEventData(fetch);
 
   if (!event) {
     return error(404, "event not found");
@@ -27,17 +26,21 @@ export async function load({ locals, fetch, params }) {
   let userPosition: Promise<number> | undefined;
   let totalUsers: Promise<number> | undefined;
 
+  const auth = await locals.validate();
+
   if (auth?.user) {
     userPosition = getUserPosition(event.id, auth.user.id);
     totalUsers = getTotalUsers(event.id);
   }
 
+  const totalContribution = event.completed
+    ? Number(event.target)
+    : getEventProgress(event.id, true);
+
   return {
-    eventsData,
+    eventsData: await eventsData,
     event,
-    totalContribution: event.completed
-      ? Number(event.target)
-      : await getEventProgress(event.id, true),
+    totalContribution: await totalContribution,
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     auth,
