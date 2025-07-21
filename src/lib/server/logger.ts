@@ -1,5 +1,4 @@
 import { building, dev } from "$app/environment";
-import { env } from "$env/dynamic/private";
 import type { RequestEvent } from "@sveltejs/kit";
 import pino from "pino";
 
@@ -10,8 +9,7 @@ const logger = pino(
   dev || building
     ? undefined
     : pino.transport({
-        target: "@axiomhq/pino",
-        options: { dataset: "nypsi-website", token: env.AXIOM_TOKEN },
+        target: "/var/log/nypsi-website/nypsi-website.log",
       }),
 );
 
