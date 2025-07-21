@@ -9,7 +9,8 @@ const logger = pino(
   dev || building
     ? undefined
     : pino.transport({
-        target: "/var/log/nypsi-website/nypsi-website.log",
+        target: "pino/file",
+        options: { destination: "/var/log/nypsi-website/nypsi-website.log" },
       }),
 );
 
