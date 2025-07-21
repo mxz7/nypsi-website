@@ -5,6 +5,11 @@ import pino from "pino";
 const logger = pino(
   {
     base: null,
+    formatters: {
+      level: (label) => {
+        return { level: label };
+      },
+    },
   },
   dev || building
     ? undefined
