@@ -49,7 +49,7 @@ export function log(
     address = event.getClientAddress();
   } catch {}
 
-  const logData = {
+  const logData: Record<string, any> = {
     method: event.request.method,
     status: statusCode,
     path: event.url.pathname,
@@ -62,12 +62,21 @@ export function log(
         ? { ...Object.fromEntries(event.url.searchParams.entries()) }
         : undefined,
     error,
-    errorId,
-    errorStackTrace,
+    error_id: error,
+    error_stack_trace: errorStackTrace,
   };
+
+  if (event.locals.auth) {
+    logData.user_id = event.locals.auth.user.id;
+  }
 
   if (dev) return;
 
-  if (statusCode >= 400) logger.error(logData);
-  else logger.info(logData);
+  if (statusCode >= 500) {
+    logger.error(logData);
+  } else if (statusCode >= 400) {
+    logger.warn(logData);
+  } else {
+    logger.info(logData);
+  }
 }

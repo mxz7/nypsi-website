@@ -21,6 +21,10 @@ declare global {
       errorId: string;
       errorStackTrace: string;
       message: unknown;
+      auth?: {
+        user: import("lucia").User;
+        session: import("lucia").Session;
+      };
     }
   }
 }

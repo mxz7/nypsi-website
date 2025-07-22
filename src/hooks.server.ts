@@ -17,12 +17,15 @@ export async function handle({ event, resolve }) {
   event.locals.startTimer = performance.now();
 
   event.locals.validate = async () => {
+    if (event.locals.auth) return event.locals.auth;
     if (event.cookies.getAll().length === 0) return null;
     if (event.request.headers.get("user-agent")?.toLowerCase().includes("bot")) return null;
     const res = await event.fetch("/api/auth").then((r) => r.json());
     const { user, session } = res;
 
     if (!user || !session) return null;
+
+    event.locals.auth = { user, session };
 
     return { user, session };
   };
