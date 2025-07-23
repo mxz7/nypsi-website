@@ -7,8 +7,17 @@ import { zod } from "sveltekit-superforms/adapters";
 import z from "zod/v3";
 
 const newFilterSchema = z.object({
-  content: z.string().toLowerCase().min(1).max(100).trim(),
-  match: z.number().min(1).max(100).default(100),
+  content: z
+    .string()
+    .toLowerCase()
+    .min(1, "filter content too short")
+    .max(100, "filter content too long")
+    .trim(),
+  match: z
+    .number()
+    .min(1, "must be at least 1% match")
+    .max(100, "a percentage can't be more than 100...")
+    .default(100),
 });
 
 export async function load({ parent, params }) {
