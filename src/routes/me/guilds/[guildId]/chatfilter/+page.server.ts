@@ -4,11 +4,11 @@ import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
 import { error, redirect } from "@sveltejs/kit";
 import { fail, message, setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { number, object, string } from "zod";
+import z from "zod/v3";
 
-const newFilterSchema = object({
-  content: string().toLowerCase().min(1).max(100).trim(),
-  match: number().min(1).max(100).default(100),
+const newFilterSchema = z.object({
+  content: z.string().toLowerCase().min(1).max(100).trim(),
+  match: z.number().min(1).max(100).default(100),
 });
 
 export async function load({ parent, params }) {
