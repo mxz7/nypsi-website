@@ -12,7 +12,7 @@ export async function load({ locals, fetch, params }) {
 
   if (!id || isNaN(id) || id < 0) return error(404, "event not found");
 
-  const event = await getEvent();
+  const event = await getEvent(id);
   const eventsData = getEventData(fetch);
 
   if (!event) {
