@@ -2,6 +2,7 @@
   import { invalidate } from "$app/navigation";
   import Card from "$lib/components/Card.svelte";
   import type { getEventData } from "$lib/functions/items";
+  import { pluralize } from "$lib/functions/string";
   import { daysUntil } from "$lib/functions/time";
   import type { NypsiEvent } from "$lib/server/functions/event";
   import { auth } from "$lib/state.svelte";
@@ -132,7 +133,7 @@
     {:else}
       <p>
         ends {#if new Date(event.expiresAt).getTime() - Date.now() > ms("1 day")}
-          in {daysUntil(event.expiresAt)} days
+          in {daysUntil(event.expiresAt)} {pluralize("day", daysUntil(event.expiresAt))}
         {:else}
           at {new Date(event.expiresAt).toLocaleTimeString()}
         {/if}
