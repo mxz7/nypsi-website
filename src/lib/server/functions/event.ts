@@ -173,6 +173,9 @@ export async function getPastEvents(): Promise<Event[]> {
     where: {
       OR: [{ completed: true }, { expiresAt: { lt: new Date() } }],
     },
+    orderBy: {
+      id: "desc",
+    },
   });
 
   await redis.set(
