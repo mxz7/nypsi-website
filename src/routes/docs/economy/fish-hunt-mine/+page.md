@@ -1,7 +1,7 @@
 <script>
   import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
   import ItemModal from "$lib/components/docs/ItemModal.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsHeader from '$lib/components/docs/DocsHeader.svelte";
 </script>
 
 <DocsTemplate title='fish hunt mine' description="learn how to obtain, upgrade and optimally use fishing rods, pickaxes, and guns in fish hunt mine using crates, shop, boosters, and manage item durability efficiently." />
@@ -10,7 +10,7 @@
 
 <DocsHeader header='h3' text="crates" />
 
-[crates](/docs/economy/items/crates) is the main way that most people get their items, tools included. the best way to get crates as a beginner is to `/vote` twice daily. a higher vote streak allows you to get more crates at a time.
+[crates](/docs/economy/items/crates) are the main way that most people get their items, tools included. the best way to get crates as a beginner is to `/vote` twice daily. a higher vote streak allows you to get more crates at a time.
 
 make sure you don't lose your vote streak by enabling vote reminders! `/settings me notifications`
 
@@ -36,10 +36,20 @@ there are two additional [portals](/docs/economy/items/portals) you can use to i
 
 <ItemModal item="unbreaking" trailing=",">unbreakings</ItemModal> in combination with a slew of other boosters, are one of the most effective ways to make money in nypsi while utilizing fish, hunt, and mine.
 
-to maximize profits with unbreakings, it's recommended to use (1) <ItemModal item="extended_mag">extended magazine</ItemModal> (1) <ItemModal item="worm" trailing=",">worm</ItemModal> (3) <ItemModal item="fortune" trailing=",">fortune</ItemModal> (3) <ItemModal item="efficiency" trailing=",">efficiency</ItemModal> (3) <ItemModal item="apple_juice" trailing=",">apple juice</ItemModal> (2) <ItemModal item="redbull" trailing=",">redbull</ItemModal> (1) unbreaking, as well as the top tier of fishing rods, guns and pickaxes. you can additionally use (2) <ItemModal item="looting">looting</ItemModal> and (1) <ItemModal item="double_xp">double xp</ItemModal> to further maximize xp and money gain. additionally, any tier of [premium](/docs/premium) reduces your command cooldown, with platinum being the best.
+| Item                                                                 | Time (minutes) | Quantity |
+|----------------------------------------------------------------------|----------------|----------|
+| <ItemModal item="extended_mag">extended magazine</ItemModal>         | 60             | 1        |
+| <ItemModal item="worm">worm</ItemModal>                              | 60             | 1        |
+| <ItemModal item="fortune">fortune</ItemModal>                        | 30             | 3        |
+| <ItemModal item="efficiency">efficiency</ItemModal>                  | 30             | 3        |
+| <ItemModal item="apple_juice">apple juice</ItemModal>                | 10             | 3        |
+| <ItemModal item="redbull">redbull</ItemModal>                        | 15             | 2        |
+| <ItemModal item="unbreaking">unbreaking</ItemModal>                  | 30             | 1        |
+| <ItemModal item="looting">looting</ItemModal>                        | 30             | 2        |
+| <ItemModal item="double_xp">double xp</ItemModal>                    | 240            | 1        |
 
-these boosters each last for 30 minutes, except the worm and extended magazine which last for 1 hour.
+additionally, any tier of [premium](/docs/premium) reduces your command cooldown, with platinum being the best. with all of these boosters activated, you constantly repeat fish, hunt, and mine for a 30 minute time period.
 
 <DocsHeader header='h2' text="sell all" />
 
-to sell the items gained from fish, hunt, and mine, use the command `/sell all` to view all the items and their worth. you can boost your sell multiplier, which increases the sell value of the items in `/sell all` via <ItemModal item="lucky_cheese" trailing=",">lucky cheese</ItemModal> [premium](/docs/premium), [guild shop](/docs/economy/guilds) and [levelling/prestiging](docs/economy/level)
+to sell the items gained from fish, hunt, and mine, use the command `/sell all` to view all the items and their worth. you can boost your sell multiplier, which increases the sell value of the items in `/sell all` via <ItemModal item="lucky_cheese" trailing=",">lucky cheese</ItemModal> [premium](/docs/premium), [guild shop](/docs/economy/guilds) and [levelling/prestiging](/docs/economy/level)
