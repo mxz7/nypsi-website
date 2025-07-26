@@ -23,7 +23,7 @@ the [nypsi server](https://discord.gg/hJTDNST) uses an expiry of 30 days
 
 <DocsHeader header='h2' text="how violation levels work" />
 
-each hour, a member's violation level will be reset. everytime they violate the chat filter they vl
+each hour, a member's violation level will be reset. every time they violate the chat filter they vl
 (violations) will go up by one.
 
 if their vl has a hit against the auto mute configuration, they will be muted for that amount of

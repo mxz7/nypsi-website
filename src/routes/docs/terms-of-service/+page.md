@@ -12,7 +12,7 @@ to the below mentioned Terms and
 
 You acknowledge that you have the privilege to use the bot freely on any server you share with
 it, that you can invite it to any Server that you have "Manage Server" rights for and that this
-priviledge might get revoked for you, if you're subject of breaking the terms and/or policy of
+privilege might get revoked for you, if you're subject of breaking the terms and/or policy of
 this bot, or the Terms of Service, Privacy Policy and/or Community Guidelines of Discord Inc.
 
 Through inviting the bot may it collect specific data as described in its Policy. The intended
