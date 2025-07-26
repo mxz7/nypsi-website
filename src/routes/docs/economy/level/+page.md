@@ -26,13 +26,12 @@ when you prestige, your level will be decreased by 100 and given a prestige leve
 
 <DocsHeader header='h2' text="prestige perks" />
 
-| perk name | description | max |
-| --------- | ----------- | --- |
-| cursor booster | +0.1 cookies per cursor | 20 |
-| grandma booster | +0.1 cookies per grandma | 20 |
-| guild xp booster | +3% xp sent to guild | 5 |
-| gamble multiplier | +1% gamble multiplier | 5 |
-| xp booster | +5% more xp | 5 |
-| sell multiplier | +3% sell multiplier | 15 |
-| farm output booster | +2% farm output | 10 |
-
+| perk name           | description              | max |
+| ------------------- | ------------------------ | --- |
+| cursor booster      | +0.1 cookies per cursor  | 20  |
+| grandma booster     | +0.1 cookies per grandma | 20  |
+| guild xp booster    | +3% xp sent to guild     | 5   |
+| gamble multiplier   | +1% gamble multiplier    | 5   |
+| xp booster          | +5% more xp              | 5   |
+| sell multiplier     | +3% sell multiplier      | 15  |
+| farm output booster | +2% farm output          | 10  |
