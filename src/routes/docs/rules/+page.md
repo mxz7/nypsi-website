@@ -63,6 +63,6 @@ childish behaviour.
 
 <DocsHeader header='h2' text="don't be a prick" />
 
-again, this gives staff the leniancy to punish users when it is deserved but may not
+again, this gives staff the leniency to punish users when it is deserved but may not
 necessarily be one of the above rules. but as always, be a normal respectable person and you
 will have no problem. the server is relatively unmoderated and relaxed.

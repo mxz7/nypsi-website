@@ -7,9 +7,9 @@
 
 <DocsHeader header='h2' text="Storing of Data" />
 
-Data can be stored in the database, this is called **persistant data**. Data can also be stored in temporary memory via Redis database or process memory.
+Data can be stored in the database, this is called **persistent data**. Data can also be stored in temporary memory via Redis database or process memory.
 
-The information below refers to **persistant data** only.
+The information below refers to **persistent data** only.
 
 <DocsHeader header='h2' text="Usage of Data" />
 

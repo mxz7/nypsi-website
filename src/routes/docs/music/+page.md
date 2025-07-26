@@ -27,6 +27,6 @@ by default, nypsi will show the last week of data. you can change this to view a
 
 `/toptracks length:year`
 
-<DocsHeader header='h2' text="recnt songs" />
+<DocsHeader header='h2' text="recent songs" />
 
 to view your recently played songs, use `$recentsongs`
