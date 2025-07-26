@@ -6,48 +6,53 @@
   import { fade, fly } from "svelte/transition";
   import ItemPage from "../../../routes/items/(item)/[itemId]/+page.svelte";
 
-  type Props = { children: Snippet; item: string };
+  type Props = { children: Snippet; item: string; trailing: "" };
 
-  let { children, item }: Props = $props();
+  let { children, item, trailing }: Props = $props();
 </script>
 
-<a
-  href="/items/{item}"
-  class="link link-primary"
-  onclick={async (e) => {
-    if (
-      innerWidth < 640 || // bail if the screen is too small
-      e.shiftKey || // or the link is opened in a new window
-      e.metaKey ||
-      e.ctrlKey // or a new tab (mac: metaKey, win/linux: ctrlKey)
-    )
-      return;
+<span style="display: inline-flex; align-items: baseline;">
+  <a
+    href="/items/{item}"
+    class="link link-primary"
+    onclick={async (e) => {
+      if (
+        innerWidth < 640 || // bail if the screen is too small
+        e.shiftKey || // or the link is opened in a new window
+        e.metaKey ||
+        e.ctrlKey // or a new tab (mac: metaKey, win/linux: ctrlKey)
+      )
+        return;
 
-    e.preventDefault();
+      e.preventDefault();
 
-    const href = `/items/${item}`;
+      const href = `/items/${item}`;
 
-    const result = await preloadData(href);
+      const result = await preloadData(href);
 
-    if (result.type === "loaded" && result.status === 200) {
-      const data = {
-        items: $state.snapshot(await result.data.items),
-        item: $state.snapshot(await result.data.item),
-        odds: await result.data.odds,
-        inWorld: await result.data.inWorld,
-        value: await result.data.value,
-      };
+      if (result.type === "loaded" && result.status === 200) {
+        const data = {
+          items: $state.snapshot(await result.data.items),
+          item: $state.snapshot(await result.data.item),
+          odds: await result.data.odds,
+          inWorld: await result.data.inWorld,
+          value: await result.data.value,
+        };
 
-      const docsItemModal = {};
+        const docsItemModal = {};
 
-      docsItemModal[item] = data;
+        docsItemModal[item] = data;
 
-      pushState(href, { docsItemModal });
-    } else {
-      goto(href);
-    }
-  }}>{@render children()}</a
->
+        pushState(href, { docsItemModal });
+      } else {
+        goto(href);
+      }
+    }}>{@render children()}</a
+  >
+  {#if trailing}
+    <span style="all: unset;">{trailing}</span>
+  {/if}
+</span>
 
 {#if $page.state.docsItemModal && $page.state.docsItemModal[item]}
   <div
