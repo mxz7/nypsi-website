@@ -23,3 +23,16 @@ the main way of increasing your bank size is with <ItemModal item="stolen_credit
 <DocsHeader header='h2' text="prestiging" />
 
 when you prestige, your level will be decreased by 100 and given a prestige level. you will receive a random permanent upgrade seen in the upgrades button in `/profile`. if you don't like the upgrade that you received, you can always use a `reroll token` to reroll a specific upgrade, which can be found in [scratch cards](/docs/economy/items/scratch-cards) and [omega crates](/docs/economy/items/crates?crate=omega). **you do not lose anything when you prestige**
+
+<DocsHeader header='h2' text="prestige perks" />
+
+| perk name | description | max |
+| --------- | ----------- | --- |
+| cursor booster | +0.1 cookies per cursor | 20 |
+| grandma booster | +0.1 cookies per grandma | 20 |
+| guild xp booster | +3% xp sent to guild | 5 |
+| gamble multiplier | +1% gamble multiplier | 5 |
+| xp booster | +5% more xp | 5 |
+| sell multiplier | +3% sell multiplier | 15 |
+| farm output booster | +2% farm output | 10 |
+
