@@ -36,17 +36,17 @@ there are two additional [portals](/docs/economy/items/portals) you can use to i
 
 <ItemModal item="unbreaking" trailing=",">unbreakings</ItemModal> in combination with a slew of other boosters, are one of the most effective ways to make money in nypsi while utilizing fish, hunt, and mine.
 
-| Item                                                                 | Time (minutes) | Quantity |
-|----------------------------------------------------------------------|----------------|----------|
-| <ItemModal item="extended_mag">extended magazine</ItemModal>         | 60             | 1        |
-| <ItemModal item="worm">worm</ItemModal>                              | 60             | 1        |
-| <ItemModal item="fortune">fortune</ItemModal>                        | 30             | 3        |
-| <ItemModal item="efficiency">efficiency</ItemModal>                  | 30             | 3        |
-| <ItemModal item="apple_juice">apple juice</ItemModal>                | 10             | 3        |
-| <ItemModal item="redbull">redbull</ItemModal>                        | 15             | 2        |
-| <ItemModal item="unbreaking">unbreaking</ItemModal>                  | 30             | 1        |
-| <ItemModal item="looting">looting</ItemModal>                        | 30             | 2        |
-| <ItemModal item="double_xp">double xp</ItemModal>                    | 240            | 1        |
+| item                                                         | time (minutes) | quantity |
+| ------------------------------------------------------------ | -------------- | -------- |
+| <ItemModal item="extended_mag">extended magazine</ItemModal> | 60             | 1        |
+| <ItemModal item="worm">worm</ItemModal>                      | 60             | 1        |
+| <ItemModal item="fortune">fortune</ItemModal>                | 30             | 3        |
+| <ItemModal item="efficiency">efficiency</ItemModal>          | 30             | 3        |
+| <ItemModal item="apple_juice">apple juice</ItemModal>        | 10             | 3        |
+| <ItemModal item="redbull">redbull</ItemModal>                | 15             | 2        |
+| <ItemModal item="unbreaking">unbreaking</ItemModal>          | 30             | 1        |
+| <ItemModal item="looting">looting</ItemModal>                | 30             | 2        |
+| <ItemModal item="double_xp">double xp</ItemModal>            | 240            | 1        |
 
 additionally, any tier of [premium](/docs/premium) reduces your command cooldown, with platinum being the best. with all of these boosters activated, you constantly repeat fish, hunt, and mine for a 30 minute time period.
 
