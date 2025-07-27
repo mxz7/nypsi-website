@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto, preloadData, pushState } from "$app/navigation";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import type { Snippet } from "svelte";
   import { cubicOut } from "svelte/easing";
   import { fade, fly } from "svelte/transition";
@@ -9,6 +9,8 @@
   type Props = { children: Snippet; item: string; trailing: "" };
 
   let { children, item, trailing }: Props = $props();
+
+  let showThis = $state(false);
 </script>
 
 <span style="display: inline-flex; align-items: baseline;">
@@ -25,6 +27,8 @@
         return;
 
       e.preventDefault();
+
+      showThis = true;
 
       const href = `/items/${item}`;
 
@@ -54,16 +58,16 @@
   {/if}
 </span>
 
-{#if $page.state.docsItemModal && $page.state.docsItemModal[item]}
+{#if page.state.docsItemModal && page.state.docsItemModal[item] && showThis}
   <div
     in:fly={{ duration: 250, y: 20, easing: cubicOut }}
     out:fly={{ duration: 250, y: 20, easing: cubicOut }}
     class="fixed top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform"
   >
     <div
-      class="rounded-box border-primary/25 bg-base-200 hover:border-primary/40 border p-2 shadow-lg duration-100"
+      class="rounded-box border-primary/25 bg-base-200 hover:border-primary/40 border p-0 shadow-lg duration-100"
     >
-      <ItemPage data={$page.state.docsItemModal[item] as unknown as any} />
+      <ItemPage data={page.state.docsItemModal[item] as unknown as any} />
     </div>
   </div>
 
@@ -74,6 +78,7 @@
     aria-label="close modal"
     onclick={() => {
       history.back();
+      showThis = false;
     }}
   ></button>
 {/if}
