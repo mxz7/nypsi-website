@@ -21,8 +21,11 @@
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
-  const progress = new Tween(0, { easing: cubicOut, duration: 1000 });
-  const progressBar = new Tween(0, { easing: cubicOut, duration: 1000 });
+  const progress = new Tween(totalContribution, { easing: cubicOut, duration: 1000 });
+  const progressBar = new Tween(totalContribution / Number(event.target), {
+    easing: cubicOut,
+    duration: 1000,
+  });
 
   let timeout: ReturnType<typeof setTimeout>;
 
@@ -35,14 +38,13 @@
     console.log("updating data");
     await invalidate("event");
     setValues();
+
     timeout = setTimeout(() => {
       update();
     }, 10000);
   }
 
   onMount(() => {
-    setValues();
-
     timeout = setTimeout(() => {
       update();
     }, 10000);
