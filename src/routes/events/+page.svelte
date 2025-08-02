@@ -51,11 +51,11 @@
 
               {#if event.completed}
                 <p class="text-sm opacity-75">
-                  completed at {new Date(event.completedAt).toLocaleDateString()}
+                  completed {new Date(event.completedAt).toLocaleDateString()}
                 </p>
               {:else}
                 <p class="text-sm opacity-75">
-                  ended at {new Date(event.expiresAt).toLocaleDateString()}
+                  ended {new Date(event.expiresAt).toLocaleDateString()}
                 </p>
               {/if}
             </Card>
