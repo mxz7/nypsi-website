@@ -20,6 +20,7 @@ export const actions = {
     if (auth.user.adminLevel < 4) return fail(401);
 
     const res = await fetch(`${env.BOT_SERVER_URL}/reboot`, {
+      method: "post",
       headers: {
         authorization: `Bearer ${env.BOT_API_AUTH}`,
       },
