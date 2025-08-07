@@ -3,8 +3,8 @@ import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
 import { error, redirect } from "@sveltejs/kit";
 import { fail, message, setError, superValidate } from "sveltekit-superforms";
-import { zod } from "sveltekit-superforms/adapters";
-import z from "zod/v3";
+import { zod4 as zod } from "sveltekit-superforms/adapters";
+import z from "zod";
 
 const newFilterSchema = z.object({
   content: z
