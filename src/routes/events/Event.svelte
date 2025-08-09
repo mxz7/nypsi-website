@@ -21,10 +21,10 @@
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
-  const progress = new Tween(totalContribution, { easing: cubicOut, duration: 3000 });
+  const progress = new Tween(totalContribution, { easing: cubicOut, duration: 1500 });
   const progressBar = new Tween(totalContribution / Number(event.target), {
     easing: cubicOut,
-    duration: 3000,
+    duration: 1500,
   });
 
   let timeout: ReturnType<typeof setTimeout>;

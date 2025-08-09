@@ -11,10 +11,10 @@
 
   let { position, user }: Props = $props();
 
-  const value = new Tween(user.contribution, { easing: cubicOut, duration: 3000 });
+  const value = new Tween(Number(user.contribution), { easing: cubicOut, duration: 1500 });
 
   $effect(() => {
-    value.set(user.contribution);
+    value.set(Number(user.contribution));
   });
 </script>
 
@@ -46,6 +46,6 @@
   </div>
 
   <span class="shrink-0 text-right">
-    {value.current.toLocaleString()}
+    {Math.round(value.current).toLocaleString()}
   </span>
 </li>
