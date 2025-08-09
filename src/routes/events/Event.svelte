@@ -5,11 +5,11 @@
   import { pluralize } from "$lib/functions/string";
   import { daysUntil } from "$lib/functions/time";
   import type { NypsiEvent } from "$lib/server/functions/event";
-  import { auth } from "$lib/state.svelte";
   import ms from "ms";
   import { onDestroy, onMount } from "svelte";
   import { cubicOut } from "svelte/easing";
   import { Tween } from "svelte/motion";
+  import EventUser from "./EventUser.svelte";
 
   interface Props {
     event: NypsiEvent;
@@ -21,10 +21,10 @@
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
-  const progress = new Tween(totalContribution, { easing: cubicOut, duration: 1000 });
+  const progress = new Tween(totalContribution, { easing: cubicOut, duration: 3000 });
   const progressBar = new Tween(totalContribution / Number(event.target), {
     easing: cubicOut,
-    duration: 1000,
+    duration: 3000,
   });
 
   let timeout: ReturnType<typeof setTimeout>;
@@ -54,40 +54,6 @@
     clearTimeout(timeout);
   });
 </script>
-
-{#snippet userStats(position: number, user: NypsiEvent["contributions"][number])}
-  <li class="bg-base-300 flex w-full items-center gap-3 rounded-lg p-3">
-    <span class="w-8 shrink-0 text-right text-slate-400">#{position}</span>
-
-    <!-- Make user info flex-grow, truncate inside span -->
-    <div class="flex min-w-0 flex-1 items-center gap-2">
-      <img
-        src={user.user.avatar}
-        class="{position === 1 ? 'h-9 w-9' : 'h-6 w-6'} h-6 w-6 shrink-0 rounded-full"
-        alt=""
-      />
-      <a
-        href="/users/{user.user.id}"
-        class="link-hover truncate overflow-hidden text-ellipsis whitespace-nowrap {position === 1
-          ? 'text-primary text-lg font-semibold'
-          : ''}"
-      >
-        <span
-          class="block min-w-0 truncate overflow-hidden text-ellipsis whitespace-nowrap {user.user
-            .id === (auth.value?.authenticated && auth.value?.user.id)
-            ? 'text-primary'
-            : ''}"
-        >
-          {user.user.lastKnownUsername}
-        </span>
-      </a>
-    </div>
-
-    <span class="shrink-0 text-right">
-      {user.contribution.toLocaleString()}
-    </span>
-  </li>
-{/snippet}
 
 <Card class="flex flex-col text-center" mode="main">
   <header class="text-3xl font-bold">
@@ -159,7 +125,7 @@
 
   <ol class="flex flex-col gap-2">
     {#each event.contributions as user, i}
-      {@render userStats(i + 1, user)}
+      <EventUser position={i + 1} {user} />
     {/each}
   </ol>
 </Card>
