@@ -230,8 +230,6 @@ model Economy {
   CustomCar          CustomCar[]
   Farm               Farm[]
   FarmUpgrades       FarmUpgrades[]
-  transactionsSource Transaction[]       @relation(name: "source")
-  transactionsTarget Transaction[]       @relation(name: "target")
 }
 
 model Farm {
@@ -842,14 +840,24 @@ model EconomyGuild {
   upgrades EconomyGuildUpgrades[]
 }
 
+enum EconomyGuildRole {
+  member
+  admin
+  owner
+}
+
 model EconomyGuildMember {
-  userId                    String   @unique
-  guildName                 String
-  joinedAt                  DateTime
-  contributedMoney          BigInt   @default(0)
-  contributedXp             Int      @default(0)
-  contributedMoneyThisLevel BigInt   @default(0)
-  contributedXpThisLevel    Int      @default(0)
+  userId    String           @unique
+  guildName String
+  joinedAt  DateTime
+  role      EconomyGuildRole @default(member)
+
+  contributedMoney          BigInt @default(0)
+  contributedXp             Int    @default(0)
+  contributedMoneyThisLevel BigInt @default(0)
+  contributedXpThisLevel    Int    @default(0)
+  contributedMoneyToday     BigInt @default(0)
+  contributedXpToday        Int    @default(0)
 
   economy Economy      @relation(fields: [userId], references: [userId], onDelete: Cascade)
   guild   EconomyGuild @relation(fields: [guildName], references: [guildName], onDelete: Cascade)
@@ -1043,9 +1051,6 @@ model Transaction {
   amount BigInt
 
   notes String?
-
-  source Economy @relation(fields: [sourceId], references: [userId], onDelete: Cascade, name: "source")
-  target Economy @relation(fields: [targetId], references: [userId], onDelete: Cascade, name: "target")
 }
 
 model Event {
