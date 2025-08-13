@@ -26,6 +26,8 @@
     <img
       src={user.user.avatar}
       class="{position === 1 ? 'h-9 w-9' : 'h-6 w-6'} h-6 w-6 shrink-0 rounded-full"
+      onerror={(e) =>
+        ((e.target as HTMLImageElement).src = "https://cdn.discordapp.com/embed/avatars/0.png")}
       alt=""
     />
     <a
