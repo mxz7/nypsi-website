@@ -29,4 +29,21 @@ export const actions = {
     if (res.status === 200) return { success: true };
     return fail(500);
   },
+  pauseStreaks: async ({ locals }) => {
+    const auth = await locals.validate();
+
+    if (!auth.user) return fail(401);
+
+    if (auth.user.adminLevel < 4) return fail(401);
+
+    const res = await fetch(`${env.BOT_SERVER_URL}/pausestreak`, {
+      method: "post",
+      headers: {
+        authorization: `Bearer ${env.BOT_API_AUTH}`,
+      },
+    }).catch(() => ({ status: 500 }));
+
+    if (res.status === 200) return { success: true };
+    return fail(500);
+  },
 };

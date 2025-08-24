@@ -7,30 +7,58 @@
 
 <h1 class="text-center text-3xl font-bold text-white">admin controls</h1>
 
-{#if data.adminLevel >= 4}
-  <form
-    action="?/reboot"
-    method="post"
-    use:enhance={() => {
-      return (event) => {
-        if (event.result.status === 200) {
-          toast("bot will reboot soon, do NOT press the button again", {
-            position: "top-center",
-            icon: "✅",
-            style:
-              "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-          });
-        } else {
-          toast("failed to send reboot command", {
-            position: "top-center",
-            icon: "❌",
-            style:
-              "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-          });
-        }
-      };
-    }}
-  >
-    <button type="submit" class="btn btn-error"> reboot </button>
-  </form>
-{/if}
+<div class="grid grid-cols-4 gap-4">
+  {#if data.adminLevel >= 4}
+    <form
+      action="?/reboot"
+      method="post"
+      use:enhance={() => {
+        return (event) => {
+          if (event.result.status === 200) {
+            toast("bot will reboot soon, do NOT press the button again", {
+              position: "top-center",
+              icon: "✅",
+              style:
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
+            });
+          } else {
+            toast("failed to send reboot command", {
+              position: "top-center",
+              icon: "❌",
+              style:
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
+            });
+          }
+        };
+      }}
+    >
+      <button type="submit" class="btn btn-error"> reboot </button>
+    </form>
+
+    <form
+      action="?/pauseStreaks"
+      method="post"
+      use:enhance={() => {
+        return (event) => {
+          if (event.result.status === 200) {
+            toast("streaks are paused for the next 24 hours", {
+              position: "top-center",
+              icon: "✅",
+              style:
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
+            });
+          } else {
+            toast("failed to send command", {
+              position: "top-center",
+              icon: "❌",
+              style:
+                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
+            });
+          }
+        };
+      }}
+    >
+      <button type="submit" class="btn"> pause streaks </button>
+    </form>
+  {/if}
+</div>
