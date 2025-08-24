@@ -12,7 +12,7 @@ export async function GET({ setHeaders }) {
         guildName: true,
         level: true,
       },
-      orderBy: [{ level: "desc" }, { xp: "desc" }, { balance: "desc" }, { guildName: "asc" }],
+      orderBy: [{ level: "desc" }, { balance: "desc" }, { xp: "desc" }, { guildName: "asc" }],
       take: 100,
     })
     .then((r) => {
