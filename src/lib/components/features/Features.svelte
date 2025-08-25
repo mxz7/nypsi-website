@@ -9,6 +9,7 @@
     Hammer,
     Keyboard,
     Leaf,
+    Popcorn,
   } from "@lucide/svelte";
   import FeaturesSection from "./FeaturesSection.svelte";
 </script>
@@ -53,6 +54,19 @@
   />
 
   <FeaturesSection
+    title="movies & tv shows"
+    list={[
+      "show information for any movie or tv show",
+      "rate your favourites",
+      "find places to watch",
+      "powered by <a href='https://themoviedb.org' target='_blank' class='link'>the movie db</a>",
+    ]}
+    image="tmdb"
+    Icon={Popcorn}
+    flipped={true}
+  />
+
+  <FeaturesSection
     title="chat reactions"
     list={[
       "fun typing game for all server members",
@@ -63,7 +77,7 @@
     ]}
     image="chatreaction"
     Icon={Keyboard}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -75,7 +89,7 @@
     ]}
     image="guesstheflag"
     Icon={Flag}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -88,7 +102,7 @@
     ]}
     image="gambling"
     Icon={Coins}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -102,7 +116,7 @@
     ]}
     image="moderation"
     Icon={Hammer}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -115,7 +129,7 @@
     ]}
     image="reactionroles"
     Icon={Book}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -127,6 +141,6 @@
     ]}
     image="mentions"
     Icon={Bell}
-    flipped={false}
+    flipped={true}
   />
 </section>
