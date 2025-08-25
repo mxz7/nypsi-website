@@ -13,7 +13,8 @@ datasource db {
 
 model User {
   id                String   @id
-  lastKnownUsername String   @map("lastKnownTag")
+  lastKnownUsername String
+  usernameUpdatedAt DateTime @default("1970-01-01T14:21:00+02:00")
   avatar            String   @default("https://cdn.discordapp.com/embed/avatars/0.png")
   karma             Int      @default(1)
   lastCommand       DateTime
@@ -614,6 +615,18 @@ model Guild {
   ModerationEvidence  ModerationEvidence[]
   GuildEvidenceCredit GuildEvidenceCredit[]
   ChatFilter          ChatFilter[]
+  members             GuildMember[]
+}
+
+model GuildMember {
+  createdAt DateTime @default(now())
+
+  guildId String
+  userId  String
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@id([guildId, userId])
 }
 
 model ChatFilter {
