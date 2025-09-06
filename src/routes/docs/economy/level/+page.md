@@ -6,7 +6,7 @@
 
 <DocsTemplate title='levelling' description="learn how levelling, rewards, bank size, and prestiging work in our system. discover xp boosters, upgrades, stolen credit cards, and more." />
 
-levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if you don't explicitly prestige
+levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if you don't explicitly prestige. although, there is no reason to _not_ prestige, you will be missing out on an [upgrade](#prestige-upgrades)
 
 <DocsHeader header='h2' text="levelling up" />
 
