@@ -57,23 +57,23 @@
   @reference "../../app.css";
 
   :global(.docs-content h1) {
-    @apply mb-6 text-3xl font-bold text-white lg:text-4xl;
+    @apply mb-6 text-3xl font-bold text-white underline-offset-3 lg:text-4xl;
   }
 
   :global(.docs-content h2) {
-    @apply mt-8 mb-3 text-2xl font-bold text-white;
+    @apply mt-8 mb-3 text-2xl font-bold text-white underline-offset-3;
   }
 
   :global(.docs-content h3) {
-    @apply mt-3 mb-1 text-xl font-bold text-white;
+    @apply mt-3 mb-1 text-xl font-bold text-white underline-offset-3;
   }
 
   :global(.docs-content h4) {
-    @apply mt-2 mb-1 text-lg font-semibold text-white;
+    @apply mt-2 mb-1 text-lg font-semibold text-white underline-offset-3;
   }
 
   :global(.docs-content h5) {
-    @apply mt-2 mb-1 text-base font-semibold text-white;
+    @apply mt-2 mb-1 text-base font-semibold text-white underline-offset-3;
   }
 
   :global(.docs-content p) {
