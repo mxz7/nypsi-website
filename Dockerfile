@@ -20,6 +20,8 @@ COPY --link .npmrc package.json pnpm-lock.yaml ./
 COPY --link prisma ./prisma
 COPY --link . .
 
+RUN pnpm install --frozen-lockfile --prod=false
+
 # Builds sveltekit tsconfig which prisma needs
 RUN npx svelte-kit sync
 
@@ -28,8 +30,6 @@ RUN ls
 RUN ls src
 RUN ls prisma
 
-# Dependencies
-RUN pnpm install --frozen-lockfile --prod=false
 RUN npx prisma generate
 
 # Debug
