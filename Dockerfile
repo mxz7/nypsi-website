@@ -20,6 +20,9 @@ COPY --link .npmrc package.json pnpm-lock.yaml ./
 COPY --link prisma ./prisma
 COPY --link . .
 
+# Builds sveltekit tsconfig which prisma needs
+RUN npx svelte-kit sync
+
 RUN pwd
 RUN ls
 RUN ls src
