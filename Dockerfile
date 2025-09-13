@@ -25,6 +25,8 @@ RUN pnpm install --frozen-lockfile --prod=false
 RUN npx prisma generate
 
 # Debug
+RUN pwd
+RUN ls
 RUN ls src
 
 # Build llms.txt
