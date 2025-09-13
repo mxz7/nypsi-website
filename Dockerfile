@@ -20,6 +20,11 @@ COPY --link .npmrc package.json pnpm-lock.yaml ./
 COPY --link prisma ./prisma
 COPY --link . .
 
+RUN pwd
+RUN ls
+RUN ls src
+RUN ls prisma
+
 # Dependencies
 RUN pnpm install --frozen-lockfile --prod=false
 RUN npx prisma generate
