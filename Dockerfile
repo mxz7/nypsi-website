@@ -25,18 +25,7 @@ RUN pnpm install --frozen-lockfile --prod=false
 # Builds sveltekit tsconfig which prisma needs
 RUN npx svelte-kit sync
 
-RUN pwd
-RUN ls
-RUN ls src
-RUN ls prisma
-
 RUN npx prisma generate
-
-# Debug
-RUN pwd
-RUN ls
-RUN ls src
-RUN ls prisma
 
 # Build llms.txt
 RUN npx tsx src/lib/build/llms.ts
