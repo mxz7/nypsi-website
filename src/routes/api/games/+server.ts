@@ -1,5 +1,5 @@
 import prisma from "$lib/server/database.js";
-import type { Prisma } from "@prisma/client";
+import type { Prisma } from "@generated/prisma";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET({ url, setHeaders }) {
