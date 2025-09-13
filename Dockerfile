@@ -15,26 +15,23 @@ FROM base as build
 RUN apt update -qq && \
     apt install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
 
-# Install node modules
+# Copy needed things over
 COPY --link .npmrc package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod=false
-
-# Generate Prisma Client
-COPY --link prisma .
-RUN npx prisma generate
-
-# Copy application code
+COPY --link prisma ./prisma
 COPY --link . .
 
-# build llms.txt
+RUN pnpm install --frozen-lockfile --prod=false
+
+# Builds sveltekit tsconfig which prisma needs
+RUN npx svelte-kit sync
+
+RUN npx prisma generate
+
+# Build llms.txt
 RUN npx tsx src/lib/build/llms.ts
 
-# Build application
 RUN pnpm run build
-
-# Remove development dependencies
 RUN pnpm prune --prod
-
 
 # Final stage for app image
 FROM base

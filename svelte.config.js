@@ -18,6 +18,9 @@ const config = {
     prerender: {
       handleHttpError: "warn",
     },
+    alias: {
+      "@generated/prisma": "./src/generated/prisma/client",
+    },
   },
 };
 
