@@ -28,6 +28,7 @@ RUN npx prisma generate
 RUN pwd
 RUN ls
 RUN ls src
+RUN ls prisma
 
 # Build llms.txt
 RUN npx tsx src/lib/build/llms.ts
