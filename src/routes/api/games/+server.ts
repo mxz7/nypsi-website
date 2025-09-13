@@ -1,6 +1,6 @@
 import prisma from "$lib/server/database.js";
-import type { Prisma } from "@generated/prisma";
 import { error, json } from "@sveltejs/kit";
+import type { Prisma } from "../../../generated/prisma/client";
 
 export async function GET({ url, setHeaders }) {
   setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
