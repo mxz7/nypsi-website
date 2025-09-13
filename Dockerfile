@@ -17,7 +17,7 @@ RUN apt update -qq && \
 
 # Copy needed things over
 COPY --link .npmrc package.json pnpm-lock.yaml ./
-COPY --link prisma .
+COPY --link prisma ./prisma
 COPY --link . .
 
 # Dependencies
