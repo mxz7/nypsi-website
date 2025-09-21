@@ -11,8 +11,7 @@ will be completely reset. meaning prestige 0.
 
 <DocsHeader header='h2' text="why?" />
 
-its a good way to keep economy fresh and under control 🙂. and at the end of every season, the top 5 balances globally get
-rewards, such as nypsi premium & real money
+its a good way to keep economy fresh and under control 🙂. and at the end of every season, the people at the top of the global balance leaderboard get rewards, such as nypsi premium & real money
 
 <DocsHeader header='h2' text="rewards" />
 
