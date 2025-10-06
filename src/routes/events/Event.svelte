@@ -21,6 +21,8 @@
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
+  const eventEndTime = $derived(new Date(event.completed ? event.completedAt : event.expiresAt));
+
   const progress = new Tween(totalContribution, { easing: cubicOut, duration: 1500 });
   const progressBar = new Tween(totalContribution / Number(event.target), {
     easing: cubicOut,
@@ -91,15 +93,25 @@
 
   <footer class="text-sm opacity-75">
     {#if event.completed}
-      <p>this event was completed at {new Date(event.completedAt).toLocaleTimeString()}</p>
-    {:else if new Date(event.expiresAt).getTime() - Date.now() < 0}
-      <p>this event expired at {new Date(event.completedAt).toLocaleTimeString()}</p>
+      <p>
+        completed <time datetime={eventEndTime.toUTCString()}
+          >{eventEndTime.toLocaleTimeString()}
+          {eventEndTime.toLocaleDateString()}</time
+        >
+      </p>
+    {:else if eventEndTime.getTime() - Date.now() < 0}
+      <p>
+        expired <time datetime={eventEndTime.toUTCString()}
+          >{eventEndTime.toLocaleTimeString()}
+          {eventEndTime.toLocaleDateString()}</time
+        >
+      </p>
     {:else}
       <p>
-        ends {#if new Date(event.expiresAt).getTime() - Date.now() > ms("1 day")}
+        ends {#if eventEndTime.getTime() - Date.now() > ms("1 day")}
           in {daysUntil(event.expiresAt)} {pluralize("day", daysUntil(event.expiresAt))}
         {:else}
-          at {new Date(event.expiresAt).toLocaleTimeString()}
+          at {eventEndTime.toLocaleTimeString()}
         {/if}
       </p>
     {/if}
