@@ -57,7 +57,7 @@
   });
 </script>
 
-<Card class="flex flex-col text-center" mode="main">
+<Card class="relative flex flex-col text-center" mode="main">
   <header class="text-3xl font-bold">
     <span class="opacity-75">#{event.id}</span>
     <h1 class="inline text-white">
@@ -116,6 +116,15 @@
       </p>
     {/if}
   </footer>
+
+  <div
+    class="tooltip tooltip-left tooltip-success absolute right-4 inline-grid *:[grid-area:1/1]"
+    aria-label="live updates"
+    data-tip="live updates"
+  >
+    <span class="status status-success animate-ping" aria-hidden={true}></span>
+    <span class="status status-success" aria-hidden={true}></span>
+  </div>
 </Card>
 
 <Card mode="section" class="flex flex-col gap-3">
