@@ -55,8 +55,8 @@ importers:
         version: 6.3.7
     devDependencies:
       '@hcaptcha/types':
-        specifier: ^1.0.4
-        version: 1.0.4
+        specifier: ^1.1.0
+        version: 1.1.0
       '@lucide/svelte':
         specifier: ^0.544.0
         version: 0.544.0(svelte@5.39.9)
@@ -493,8 +493,8 @@ packages:
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
 
-  '@hcaptcha/types@1.0.4':
-    resolution: {integrity: sha512-4CBrdr9DFC7sYZPRvLol82UVZVne8B2skBGfMDUqPC6q9vzHMwv/cNxXW44EIa6DaFDr+EWNSnKJpHxWr7Q42Q==}
+  '@hcaptcha/types@1.1.0':
+    resolution: {integrity: sha512-bR8W/2kgdCt2IaQU7AeRA4TAZbFuEyiDqUbTlLqCbZqp3GyzrAKthACDJ6WQ2K9IWBQCuA2fPj9ikfp98+bvSA==}
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -2683,7 +2683,7 @@ snapshots:
       '@hapi/hoek': 9.3.0
     optional: true
 
-  '@hcaptcha/types@1.0.4': {}
+  '@hcaptcha/types@1.1.0': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
