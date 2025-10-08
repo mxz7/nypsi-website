@@ -23,7 +23,7 @@ async function getEventNoCache(id?: number, take = 10) {
     include: {
       contributions: {
         take,
-        orderBy: { contribution: "desc" },
+        orderBy: [{ contribution: "desc" }, { user: { lastKnownUsername: "asc" } }],
         select: {
           contribution: true,
           user: {
