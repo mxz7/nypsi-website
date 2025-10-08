@@ -21,7 +21,7 @@
     "@tailwindcss/vite": "^4.1.14",
     "@twemoji/parser": "^16.0.0",
     "@types/ms": "2.1.0",
-    "@types/node": "^24.3.1",
+    "@types/node": "^24.7.0",
     "@types/twemoji-parser": "13.1.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
