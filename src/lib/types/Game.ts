@@ -1,4 +1,4 @@
-type Game = {
+export type Game = {
   ok: boolean;
   bet: number;
   date: number;
@@ -11,5 +11,3 @@ type Game = {
   username: string;
   userId: string | undefined;
 };
-
-export default Game;

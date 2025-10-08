@@ -19,10 +19,7 @@ const logger = pino(
       }),
 );
 
-export function log(
-  statusCode: number,
-  event: RequestEvent<Partial<Record<string, string>>, string>,
-) {
+export function log(statusCode: number, event: RequestEvent<Partial<Record<string, string>>>) {
   if (building) return;
 
   const error = event.locals?.error || undefined;

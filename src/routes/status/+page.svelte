@@ -10,26 +10,12 @@
 
   let { data } = $props();
 
-  let interval: number;
+  let interval: ReturnType<typeof setInterval>;
 
   let descriptionText = $state("offline");
   let descriptionColour = $state("text-error");
 
   let guildIdSearch = $state("");
-  // let guild: {
-  //   id: string;
-  //   cluster: {
-  //     id: number;
-  //     online: boolean;
-  //     responsive: boolean;
-  //   };
-  //   shard: {
-  //     id: number;
-  //     status: "idle" | "connecting" | "resuming" | "ready";
-  //     ping: number;
-  //     lastPing: number;
-  //   };
-  // } = $state();
   let age: number = $state(data.status.age);
 
   let reloading = $state(false);
@@ -102,25 +88,6 @@
       id: guildIdSearch,
       shard,
     };
-  });
-
-  $effect(() => {
-    // guild = null;
-    // if (!guildIdSearch) return;
-    // const cluster = data.status.clusters.find((i) => i.guilds.find((i) => i.id === guildIdSearch));
-    // if (!guildIdSearch || !cluster) return;
-    // const shard = cluster.shards.find(
-    //   (i) => i.id === cluster.guilds.find((i) => i.id === guildIdSearch).shard,
-    // );
-    // guild = {
-    //   cluster: {
-    //     id: cluster.id,
-    //     online: cluster.online,
-    //     responsive: cluster.responsive,
-    //   },
-    //   id: guildIdSearch,
-    //   shard,
-    // };
   });
 
   $effect(() => {

@@ -1,4 +1,4 @@
-import type Game from "$lib/types/Game.js";
+import type { Game } from "$lib/types/Game";
 
 export const load = async ({ fetch, params }) => {
   return {

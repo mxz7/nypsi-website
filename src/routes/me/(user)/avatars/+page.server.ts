@@ -77,7 +77,7 @@ async function getTracking(userId: string) {
   });
 
   if (query.tracking) {
-    await redis.set(`cache:tracking:${userId}`, true, "EX", 600);
+    await redis.set(`cache:tracking:${userId}`, "true", "EX", 600);
     return true;
   }
 

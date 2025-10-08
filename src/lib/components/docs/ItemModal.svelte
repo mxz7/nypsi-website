@@ -6,7 +6,7 @@
   import { fade, fly } from "svelte/transition";
   import ItemPage from "../../../routes/items/(item)/[itemId]/+page.svelte";
 
-  type Props = { children: Snippet; item: string; trailing: "" };
+  type Props = { children: Snippet; item: string; trailing?: "" };
 
   let { children, item, trailing }: Props = $props();
 
