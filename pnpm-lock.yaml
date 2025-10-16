@@ -21,8 +21,8 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0
       chart.js:
-        specifier: ^4.5.0
-        version: 4.5.0
+        specifier: ^4.5.1
+        version: 4.5.1
       dayjs:
         specifier: 1.11.18
         version: 1.11.18
@@ -124,8 +124,8 @@ importers:
         specifier: 4.3.3
         version: 4.3.3(picomatch@4.0.3)(svelte@5.39.11)(typescript@5.9.3)
       sveltekit-superforms:
-        specifier: ^2.27.2
-        version: 2.27.2(@sveltejs/kit@2.43.7(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(@types/json-schema@7.0.15)(esbuild@0.25.10)(svelte@5.39.11)(typescript@5.9.3)
+        specifier: ^2.27.4
+        version: 2.27.4(@sveltejs/kit@2.43.7(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(@types/json-schema@7.0.15)(esbuild@0.25.10)(svelte@5.39.11)(typescript@5.9.3)
       tailwindcss:
         specifier: 4.1.14
         version: 4.1.14
@@ -147,11 +147,14 @@ importers:
 
 packages:
 
-  '@ark/schema@0.49.0':
-    resolution: {integrity: sha512-GphZBLpW72iS0v4YkeUtV3YIno35Gimd7+ezbPO9GwEi9kzdUrPVjvf6aXSBAfHikaFc/9pqZOpv3pOXnC71tw==}
+  '@ark/regex@0.0.0':
+    resolution: {integrity: sha512-p4vsWnd/LRGOdGQglbwOguIVhPmCAf5UzquvnDoxqhhPWTP84wWgi1INea8MgJ4SnI2gp37f13oA4Waz9vwNYg==}
 
-  '@ark/util@0.49.0':
-    resolution: {integrity: sha512-/BtnX7oCjNkxi2vi6y1399b+9xd1jnCrDYhZ61f0a+3X8x8DxlK52VgEEzyuC2UQMPACIfYrmHkhD3lGt2GaMA==}
+  '@ark/schema@0.50.0':
+    resolution: {integrity: sha512-hfmP82GltBZDadIOeR3argKNlYYyB2wyzHp0eeAqAOFBQguglMV/S7Ip2q007bRtKxIMLDqFY6tfPie1dtssaQ==}
+
+  '@ark/util@0.50.0':
+    resolution: {integrity: sha512-tIkgIMVRpkfXRQIEf0G2CJryZVtHVrqcWHMDa5QKo0OEEBu0tHkRSIMm4Ln8cd8Bn9TPZtvc/kE2Gma8RESPSg==}
 
   '@babel/runtime@7.28.4':
     resolution: {integrity: sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ==}
@@ -1156,8 +1159,8 @@ packages:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
 
-  arktype@2.1.22:
-    resolution: {integrity: sha512-xdzl6WcAhrdahvRRnXaNwsipCgHuNoLobRqhiP8RjnfL9Gp947abGlo68GAIyLtxbD+MLzNyH2YR4kEqioMmYQ==}
+  arktype@2.1.23:
+    resolution: {integrity: sha512-tyxNWX6xJVMb2EPJJ3OjgQS1G/vIeQRrZuY4DeBNQmh8n7geS+czgbauQWB6Pr+RXiOO8ChEey44XdmxsqGmfQ==}
 
   array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
@@ -1204,8 +1207,8 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  chart.js@4.5.0:
-    resolution: {integrity: sha512-aYeC/jDgSEx8SHWZvANYMioYMZ2KX02W6f6uVfyteuCGcadDLcYVHdfdygsTQkQ4TKn5lghoojAsPj5pu0SnvQ==}
+  chart.js@4.5.1:
+    resolution: {integrity: sha512-GIjfiT9dbmHRiYi6Nl2yFCq7kkwdkp1W/lp2J99rX0yo9tgJGn3lKQATztIjb5tVtevcBtIdICNWqlq5+E8/Pw==}
     engines: {pnpm: '>=8'}
 
   chokidar@4.0.3:
@@ -1324,6 +1327,9 @@ packages:
   devalue@5.3.2:
     resolution: {integrity: sha512-UDsjUbpQn9kvm68slnrs+mfxwFkIflOhkanmyabZ8zOYk8SMEIbJ3TK+88g70hSIeytu4y18f0z/hYHMTrXIWw==}
 
+  devalue@5.4.1:
+    resolution: {integrity: sha512-YtoaOfsqjbZQKGIMRYDWKjUmSB4VJ/RElB+bXZawQAQYAo4xu08GKTMVlsZDTF6R2MbAgjcAQRPI5eIyRAT2OQ==}
+
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
@@ -1342,8 +1348,8 @@ packages:
   effect@3.16.12:
     resolution: {integrity: sha512-N39iBk0K71F9nb442TLbTkjl24FLUzuvx2i1I2RsEAQsdAdUTuUoW0vlfUXgkMTUOnYqKnWcFfqw4hK4Pw27hg==}
 
-  effect@3.18.3:
-    resolution: {integrity: sha512-CmsQdMJdcBk+HigAtiNYb0Fp2xHtZmHjuCgYXDF74IGCCk+4EvQwQG4oHwG4XLFSqQ9eTIOIJ/+4FOYP05aBHg==}
+  effect@3.18.4:
+    resolution: {integrity: sha512-b1LXQJLe9D11wfnOKAk3PKxuqYshQ0Heez+y5pnkd3jLj1yx9QhM72zZ9uUrOQyNvrs2GZZd/3maL0ZV18YuDA==}
 
   empathic@2.0.0:
     resolution: {integrity: sha512-i6UzDscO/XfAcNYD75CfICkmfLedpyPDdozrLMmQc5ORaQcdMoc21OnlEylMIqI7U8eniKrPMxxtj8k0vhmJhA==}
@@ -1655,8 +1661,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  libphonenumber-js@1.12.23:
-    resolution: {integrity: sha512-RN3q3gImZ91BvRDYjWp7ICz3gRn81mW5L4SW+2afzNCC0I/nkXstBgZThQGTE3S/9q5J90FH4dP+TXx8NhdZKg==}
+  libphonenumber-js@1.12.24:
+    resolution: {integrity: sha512-l5IlyL9AONj4voSd7q9xkuQOL4u8Ty44puTic7J88CmdXkxfGsRfoVLXHCxppwehgpb/Chdb80FFehHqjN3ItQ==}
 
   lightningcss-darwin-arm64@1.30.1:
     resolution: {integrity: sha512-c8JK7hyE65X1MHMN+Viq9n11RRC7hgin3HhYKhrMyaXflk5GVplZ60IxyoVtzILeKr+xAJwg6zK6sjTBJ0FKYQ==}
@@ -2261,8 +2267,8 @@ packages:
     resolution: {integrity: sha512-8MxWVm2+3YwrFbPaxOlT1bbMi6OTenrAgks6soZfiaS8Fptk4EVyRIFhJc3RpO264EeSNwgjWAdki0ufg4zkGw==}
     engines: {node: '>=18'}
 
-  sveltekit-superforms@2.27.2:
-    resolution: {integrity: sha512-RwVJiII0StFW0RZ3k5sLAiSavngTxl0gJR2P5m6Bck0Zw1FYM8qW4NQGUQEF1YieO4fwWOZgg6iyByDC5pO8fA==}
+  sveltekit-superforms@2.27.4:
+    resolution: {integrity: sha512-8iw2nSKUVaBimOw0XGGdI39AihY1r/Plh9LTmxQGYopQaom5PPbDJyU79dUy3bd4K7vlqTdjvMz5FO8IFFzoPQ==}
     peerDependencies:
       '@sveltejs/kit': 1.x || 2.x
       svelte: 3.x || 4.x || >=5.0.0-next.51
@@ -2470,12 +2476,17 @@ packages:
 
 snapshots:
 
-  '@ark/schema@0.49.0':
+  '@ark/regex@0.0.0':
     dependencies:
-      '@ark/util': 0.49.0
+      '@ark/util': 0.50.0
     optional: true
 
-  '@ark/util@0.49.0':
+  '@ark/schema@0.50.0':
+    dependencies:
+      '@ark/util': 0.50.0
+    optional: true
+
+  '@ark/util@0.50.0':
     optional: true
 
   '@babel/runtime@7.28.4':
@@ -3289,10 +3300,11 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  arktype@2.1.22:
+  arktype@2.1.23:
     dependencies:
-      '@ark/schema': 0.49.0
-      '@ark/util': 0.49.0
+      '@ark/regex': 0.0.0
+      '@ark/schema': 0.50.0
+      '@ark/util': 0.50.0
     optional: true
 
   array-union@2.1.0: {}
@@ -3340,7 +3352,7 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  chart.js@4.5.0:
+  chart.js@4.5.1:
     dependencies:
       '@kurkle/color': 0.3.4
 
@@ -3357,7 +3369,7 @@ snapshots:
   class-validator@0.14.2:
     dependencies:
       '@types/validator': 13.15.3
-      libphonenumber-js: 1.12.23
+      libphonenumber-js: 1.12.24
       validator: 13.15.15
     optional: true
 
@@ -3421,6 +3433,8 @@ snapshots:
 
   devalue@5.3.2: {}
 
+  devalue@5.4.1: {}
+
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
@@ -3439,7 +3453,7 @@ snapshots:
       '@standard-schema/spec': 1.0.0
       fast-check: 3.23.2
 
-  effect@3.18.3:
+  effect@3.18.4:
     dependencies:
       '@standard-schema/spec': 1.0.0
       fast-check: 3.23.2
@@ -3843,7 +3857,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  libphonenumber-js@1.12.23:
+  libphonenumber-js@1.12.24:
     optional: true
 
   lightningcss-darwin-arm64@1.30.1:
@@ -4371,10 +4385,10 @@ snapshots:
       magic-string: 0.30.19
       zimmerframe: 1.1.4
 
-  sveltekit-superforms@2.27.2(@sveltejs/kit@2.43.7(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(@types/json-schema@7.0.15)(esbuild@0.25.10)(svelte@5.39.11)(typescript@5.9.3):
+  sveltekit-superforms@2.27.4(@sveltejs/kit@2.43.7(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(@types/json-schema@7.0.15)(esbuild@0.25.10)(svelte@5.39.11)(typescript@5.9.3):
     dependencies:
       '@sveltejs/kit': 2.43.7(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1)))(svelte@5.39.11)(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.1))
-      devalue: 5.3.2
+      devalue: 5.4.1
       memoize-weak: 1.0.2
       svelte: 5.39.11
       ts-deepmerge: 7.0.3
@@ -4385,9 +4399,9 @@ snapshots:
       '@sinclair/typebox': 0.34.41
       '@typeschema/class-validator': 0.3.0(@types/json-schema@7.0.15)(class-validator@0.14.2)
       '@vinejs/vine': 3.0.1
-      arktype: 2.1.22
+      arktype: 2.1.23
       class-validator: 0.14.2
-      effect: 3.18.3
+      effect: 3.18.4
       joi: 17.13.3
       json-schema-to-ts: 3.1.1
       superstruct: 2.0.2
