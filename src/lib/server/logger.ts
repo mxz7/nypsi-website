@@ -59,7 +59,7 @@ export function log(statusCode: number, event: RequestEvent<Partial<Record<strin
         ? { ...Object.fromEntries(event.url.searchParams.entries()) }
         : undefined,
     error,
-    error_id: error,
+    error_id: errorId,
     error_stack_trace: errorStackTrace,
   };
 
