@@ -51,7 +51,7 @@
     "@prisma/client": "6.18.0",
     "arctic": "^3.7.0",
     "chart.js": "^4.5.1",
-    "dayjs": "1.11.18",
+    "dayjs": "1.11.19",
     "fast-sort": "3.4.1",
     "ioredis": "^5.8.2",
     "lucia": "^3.2.2",
