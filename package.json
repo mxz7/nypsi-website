@@ -19,7 +19,7 @@
     "@sveltejs/kit": "^2.47.3",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
     "@tailwindcss/vite": "^4.1.16",
-    "@twemoji/parser": "^16.0.0",
+    "@twemoji/parser": "^17.0.1",
     "@types/ms": "2.1.0",
     "@types/node": "^24.7.1",
     "@types/twemoji-parser": "13.1.4",
