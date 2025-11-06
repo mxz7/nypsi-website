@@ -73,8 +73,8 @@ importers:
         specifier: ^4.1.16
         version: 4.1.16(vite@5.4.19(@types/node@24.7.1)(lightningcss@1.30.2))
       '@twemoji/parser':
-        specifier: ^16.0.0
-        version: 16.0.0
+        specifier: ^17.0.1
+        version: 17.0.1
       '@types/ms':
         specifier: 2.1.0
         version: 2.1.0
@@ -997,8 +997,8 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7
 
-  '@twemoji/parser@16.0.0':
-    resolution: {integrity: sha512-jmuIjkp3OIaEemwMy3sArBwZSuZkRqmueGwRe2Zk4cFzbUJISFBJSZLDUUBNIgq3c+nY49ideYN2OiII6JUqwA==}
+  '@twemoji/parser@17.0.1':
+    resolution: {integrity: sha512-Uiq5sq1Wx91Y6C0DczMlu4Gj4nC/0z8UIhT7S53hi/JATaS1oLM5jXygjot7STtyVoIagfnpsBCWaNy3ayfyFw==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -3095,7 +3095,7 @@ snapshots:
       tailwindcss: 4.1.16
       vite: 5.4.19(@types/node@24.7.1)(lightningcss@1.30.2)
 
-  '@twemoji/parser@16.0.0': {}
+  '@twemoji/parser@17.0.1': {}
 
   '@types/cookie@0.6.0': {}
 
