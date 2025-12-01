@@ -1,17 +1,11 @@
 import filterOutliers from "$lib/functions/filterOutliers";
 import prisma from "$lib/server/database.js";
 import type { Item } from "$lib/types/Item";
-import type { GraphMetrics } from "@generated/prisma";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
-export default async function getItemHistoryData(
-  items: Item[],
-  item: string,
-  user?: string,
-  days = 30,
-) {
+export default async function getItemHistoryData(items: Item[], item: string, days = 30) {
   if (!items.find((i) => i.id === item)) return "invalid item";
 
   const orders = await prisma.market
@@ -96,20 +90,6 @@ export default async function getItemHistoryData(
     },
   });
 
-  let userItemCount: GraphMetrics[] = [];
-
-  if (user && user.match(/^\d{17,19}$/)) {
-    userItemCount = await prisma.graphMetrics.findMany({
-      where: {
-        AND: [
-          { userId: user },
-          { date: { gte: dayjs().subtract(days, "days").toDate() } },
-          { category: `user-item-${item}` },
-        ],
-      },
-    });
-  }
-
   if (orders.length < 2 && offers.length < 2 && itemCount.length < 2 && value.length < 2)
     return "not enough data";
 
@@ -151,12 +131,6 @@ export default async function getItemHistoryData(
     itemValues.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
   }
 
-  const userItemCounts = new Map<string, number>();
-
-  for (const item of userItemCount) {
-    userItemCounts.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
-  }
-
   const graphData: ChartConfiguration = {
     type: "line",
     data: {
@@ -167,16 +141,16 @@ export default async function getItemHistoryData(
           label: "market",
           data: [],
           fill: false,
-          borderColor: "#0ea5e944",
-          backgroundColor: "#0ea5e922",
+          borderColor: "#0ea5e933",
+          backgroundColor: "#0ea5e911",
         },
         {
           yAxisID: "y1",
           label: "offers",
           data: [],
           fill: false,
-          borderColor: "#f43f5e44",
-          backgroundColor: "#f43f5e22",
+          borderColor: "#f43f5e33",
+          backgroundColor: "#f43f5e11",
         },
         {
           yAxisID: "y1",
@@ -198,21 +172,6 @@ export default async function getItemHistoryData(
     },
   };
 
-  if (userItemCounts.size > 2)
-    graphData.data.datasets.push({
-      yAxisID: "y2",
-      label: await prisma.user
-        .findUnique({
-          where: { id: user },
-          select: { lastKnownUsername: true },
-        })
-        .then((q) => q?.lastKnownUsername || ""),
-      data: [],
-      fill: true,
-      borderColor: "#14b8a6",
-      backgroundColor: "#14b8a644",
-    });
-
   for (const key of auctionAverages.keys()) {
     if (!graphData.data.labels.includes(dayjs(key).format("YYYY-MM-DD")))
       graphData.data.labels.push(dayjs(key).format("YYYY-MM-DD"));
@@ -232,12 +191,6 @@ export default async function getItemHistoryData(
     if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
       graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
   }
-
-  if (userItemCounts.size > 2)
-    for (const i of userItemCount) {
-      if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
-        graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
-    }
 
   inPlaceSort(graphData.data.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
 
@@ -295,12 +248,6 @@ export default async function getItemHistoryData(
       graphData.data.datasets[2].data.push(graphData.data.datasets[2].data[index - 1]);
     } else {
       graphData.data.datasets[2].data.push(0);
-    }
-
-    if (userItemCounts.has(dateString) && userItemCounts.size > 2) {
-      graphData.data.datasets[4].data.push(userItemCounts.get(dateString));
-    } else if (userItemCounts.size > 2) {
-      graphData.data.datasets[4].data.push(0);
     }
   }
 

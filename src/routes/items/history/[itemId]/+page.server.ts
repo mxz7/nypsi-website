@@ -1,22 +1,9 @@
 import getItems from "$lib/functions/items.js";
 import getItemHistoryData from "$lib/server/functions/graphs/getItemHistoryData.js";
+import redis from "$lib/server/redis.js";
 import { error } from "@sveltejs/kit";
 
 export async function load({ locals, params, url, fetch, setHeaders }) {
-  const auth = await locals.validate();
-
-  if (!auth) {
-    return { auth: false };
-  }
-
-  const premium = await fetch(`/api/users/ispremium/${auth.user.id}`).then((r) => r.json());
-
-  if (!premium.premium) {
-    return { premium: false, auth: true };
-  }
-
-  setHeaders({ "cache-control": "private, max-age=300, must-revalidate" });
-
   const items = await getItems(fetch);
 
   const item = items.find((i) => i.id === params.itemId);
@@ -25,7 +12,15 @@ export async function load({ locals, params, url, fetch, setHeaders }) {
 
   const days = parseInt(url.searchParams.get("days") || "60");
 
-  const graphData = getItemHistoryData(items, item.id, auth.user.id, days);
+  const cache = await redis.get(`cache:item:history:${item.id}:${days}`);
 
-  return { auth: true, premium: true, graphData: await graphData, item, user: auth.user };
+  if (cache) {
+    return { auth: true, premium: true, graphData: JSON.parse(cache), item };
+  }
+
+  const graphData = await getItemHistoryData(items, item.id, days);
+
+  redis.set(`cache:item:history:${item.id}:${days}`, JSON.stringify(graphData), "EX", 60 * 60 * 12);
+
+  return { auth: true, premium: true, graphData: graphData, item };
 }
