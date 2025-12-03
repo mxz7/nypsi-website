@@ -16,7 +16,7 @@ you can use the `/achievements` command to view your unlocked achievements and y
 /achievements view < name of achievement >
 ```
 
-this will show the details of the achievement as well as the rewards you get for completing them. there are currently 34 unique achievements in nypsi with each having 5 levels amounting to a total of 170 achievements. you can get a list of all achievements using `/achievements all`.
+this will show the details of the achievement as well as the rewards you get for completing them. you can get a list of all achievements using `/achievements all`.
 
 <DocsHeader header='h2' text="rewards" />
 
