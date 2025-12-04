@@ -11,7 +11,7 @@ export async function GET({ setHeaders }) {
   // prisma group by was very limiting and intellisense wasnt working so i built it myself 😀
 
   const query =
-    await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownTag", "Economy"."banned", "Tags"."tagId", "Preferences"."leaderboards" from "User"
+    await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Economy"."banned", "Tags"."tagId", "Preferences"."leaderboards" from "User"
     right join "CommandUse" on "CommandUse"."userId" = "User"."id" 
     left join "Economy" on "Economy"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
@@ -23,7 +23,7 @@ export async function GET({ setHeaders }) {
         i: {
           value: bigint;
           userId: string;
-          lastKnownTag: string;
+          lastKnownUsername: string;
           banned: Date;
           tagId: string;
           leaderboards: boolean;
@@ -35,7 +35,7 @@ export async function GET({ setHeaders }) {
             value: i.value.toLocaleString(),
             position: index + 1,
             user: {
-              username: i.leaderboards ? i.lastKnownTag : "[hidden]",
+              username: i.leaderboards ? i.lastKnownUsername : "[hidden]",
               id: i.leaderboards ? i.userId : undefined,
               tag: i.leaderboards ? i.tagId : undefined,
             },

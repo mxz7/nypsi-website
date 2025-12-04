@@ -4,7 +4,7 @@ import prisma from "$lib/server/database";
 export async function load({ fetch }) {
   const supporters = prisma.$queryRaw<
     { id: string; username: string; tagId?: string }[]
-  >`select "User".id, "User"."lastKnownTag" as username, "Tags"."tagId" from "User"
+  >`select "User".id, "User"."lastKnownUsername" as username, "Tags"."tagId" from "User"
     inner join "Purchases" on "Purchases"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"

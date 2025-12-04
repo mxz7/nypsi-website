@@ -18,7 +18,7 @@ export async function GET({ setHeaders }) {
   }
 
   const query =
-    await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownTag", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User" 
+    await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User" 
     right join "WordleGame" on "WordleGame"."userId" = "User"."id" 
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"
@@ -29,7 +29,7 @@ export async function GET({ setHeaders }) {
         i: {
           value: bigint;
           userId: string;
-          lastKnownTag: string;
+          lastKnownUsername: string;
           banned: Date;
           tagId: string;
           privacy: boolean;
@@ -39,7 +39,7 @@ export async function GET({ setHeaders }) {
           value: formatTime(Number(i.value)),
           position: index + 1,
           user: {
-            username: i.privacy ? i.lastKnownTag : "[hidden]",
+            username: i.privacy ? i.lastKnownUsername : "[hidden]",
             id: i.privacy ? i.userId : undefined,
             tag: i.privacy ? i.tagId : undefined,
           },
