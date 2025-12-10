@@ -37,6 +37,7 @@ export interface Item {
   tagId?: string;
   plantId: string; // for seeds
   unique: boolean; // only allow one in world at a time
+  hidden: boolean;
 }
 
 export type LootPool = {

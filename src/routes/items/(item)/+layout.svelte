@@ -20,9 +20,10 @@
       : sort(
           data.items.filter(
             (i) =>
-              i.name.includes(search.toLowerCase()) ||
-              i.id.startsWith(search.toLowerCase()) ||
-              i.role.includes(search.toLowerCase()),
+              !i.hidden && // don't show hidden items
+              (i.name.includes(search.toLowerCase()) ||
+                i.id.startsWith(search.toLowerCase()) ||
+                i.role.includes(search.toLowerCase())),
           ),
         ).desc((i) => {
           let score = 0;
