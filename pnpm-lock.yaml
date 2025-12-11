@@ -88,8 +88,8 @@ importers:
         specifier: 5.62.0
         version: 5.62.0(eslint@8.57.1)(typescript@5.9.3)
       daisyui:
-        specifier: ^5.3.8
-        version: 5.3.8
+        specifier: ^5.5.11
+        version: 5.5.11
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
@@ -1334,8 +1334,8 @@ packages:
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
-  daisyui@5.3.8:
-    resolution: {integrity: sha512-ihDXb07IzM/2ugkwBWdy2LFCaepdn1oGsKIsR3gNG/VuTAmS60+HUG9rskjR5BzyJOVVUDDpWoiX3PBDIT3DYQ==}
+  daisyui@5.5.11:
+    resolution: {integrity: sha512-xQ1JIgYbhKe9DKhFtOWAKf91F1mK3HECa5xoINmSHMqW9KjEP+yOWttTN1K7zOwuDmk68CbovCDbMKLVtDmPBQ==}
 
   dayjs@1.11.19:
     resolution: {integrity: sha512-t5EcLVS6QPBNqM2z8fakk/NKel+Xzshgt8FFKAn+qwlD1pzZWxh0nVCrvFK7ZDb6XucZeF9z8C7CBWTRIVApAw==}
@@ -3652,7 +3652,7 @@ snapshots:
 
   csstype@3.2.3: {}
 
-  daisyui@5.3.8: {}
+  daisyui@5.5.11: {}
 
   dayjs@1.11.19: {}
 
