@@ -47,7 +47,7 @@
     </ul>
   </nav>
   {#key page.url.pathname}
-    <main in:fly={{ duration: 400, y: 25 }} class="docs-content w-full p-4 lg:p-0">
+    <main in:fly={{ duration: 400, y: 25 }} class="docs-content">
       {@render children()}
     </main>
   {/key}
@@ -56,53 +56,70 @@
 <style>
   @reference "../../app.css";
 
-  :global(.docs-content h1) {
-    @apply mb-6 text-3xl font-bold text-white underline-offset-3 lg:text-4xl;
-  }
+  :global {
+    .docs-content {
+      @apply w-full p-4 lg:p-0;
 
-  :global(.docs-content h2) {
-    @apply mt-8 mb-3 text-2xl font-bold text-white underline-offset-3;
-  }
+      h1 {
+        @apply mb-6 text-3xl font-bold text-white underline-offset-3 lg:text-4xl;
+      }
 
-  :global(.docs-content h3) {
-    @apply mt-3 mb-1 text-xl font-bold text-white underline-offset-3;
-  }
+      h2 {
+        @apply mb-3 text-2xl font-bold text-white underline-offset-3;
+      }
 
-  :global(.docs-content h4) {
-    @apply mt-2 mb-1 text-lg font-semibold text-white underline-offset-3;
-  }
+      h3 {
+        @apply mb-2 text-xl font-bold text-white underline-offset-3;
+      }
 
-  :global(.docs-content h5) {
-    @apply mt-2 mb-1 text-base font-semibold text-white underline-offset-3;
-  }
+      h4 {
+        @apply mb-2 text-lg font-semibold text-white underline-offset-3;
+      }
 
-  :global(.docs-content p) {
-    @apply mt-1 mb-2 leading-relaxed;
-  }
+      h5 {
+        @apply mb-2 text-base font-semibold text-white underline-offset-3;
+      }
 
-  :global(.docs-content pre) {
-    @apply bg-base-300 overflow-x-auto rounded-lg p-2;
-    font-family: ui-monospace, "SF Mono", monospace;
-  }
+      p {
+        @apply mt-1 mb-2 leading-relaxed;
+      }
 
-  :global(.docs-content code) {
-    @apply bg-base-300 rounded-lg p-1;
-    font-family: ui-monospace, "SF Mono", monospace;
-  }
+      pre {
+        @apply bg-base-300 overflow-x-auto rounded-lg p-2;
+        font-family: ui-monospace, "SF Mono", monospace;
+      }
 
-  :global(.docs-content p a, .docs-content li a) {
-    @apply link link-primary underline-offset-3;
-  }
+      code {
+        @apply bg-base-300 rounded-lg p-1;
+        font-family: ui-monospace, "SF Mono", monospace;
+      }
 
-  :global(.docs-content table) {
-    @apply table;
-  }
+      p a,
+      li a {
+        @apply link link-primary underline-offset-3;
+        text-decoration: underline;
+        color: var(--color-primary) /* var(--color-primary) */;
+        &:hover {
+          color: color-mix(in oklab, var(--color-primary) /* var(--color-primary) */ 80%, #000);
+        }
+      }
 
-  :global(.docs-content ul) {
-    @apply list-inside list-disc;
-  }
+      table {
+        @apply table;
+      }
 
-  :global(.docs-content ol) {
-    @apply list-inside list-decimal;
+      ul,
+      ol {
+        @apply list-inside;
+      }
+
+      ul {
+        @apply list-disc;
+      }
+
+      ol {
+        @apply list-decimal;
+      }
+    }
   }
 </style>
