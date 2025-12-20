@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM node:22-slim as base
+FROM node:24-slim as base
 
 # SvelteKit/Prisma app lives here
 WORKDIR /app
