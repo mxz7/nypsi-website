@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import { getItemChartData } from "$lib/api/items-history.remote";
   import Chart from "$lib/components/Chart.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import Main from "$lib/components/ui/Main.svelte";
@@ -8,22 +9,15 @@
     worldItemCountChartOptions,
   } from "$lib/functions/chart/chart-options.js";
 
-  let { data } = $props();
-  const days = $derived(page.url.searchParams.get("days") || "60");
+  const days = $derived(parseInt(page.url.searchParams.get("days") || "60"));
 
-  const priceChartData = $derived.by(() => {
-    if (typeof data.chartData === "string") return null;
-    return data.chartData.priceData;
-  });
-
-  const itemCountChartData = $derived.by(() => {
-    if (typeof data.chartData === "string") return null;
-    return data.chartData.itemCountData;
-  });
+  const { chartData, item } = $derived(
+    await getItemChartData({ itemId: page.params.itemId, days }),
+  );
 </script>
 
 <svelte:head>
-  <title>{data.item?.name} history | nypsi</title>
+  <title>{item.name} history | nypsi</title>
 </svelte:head>
 
 <Main class="mt-4 space-y-4">
@@ -31,20 +25,20 @@
     <div class="rounded-box bg-base-300 h-14 w-14 p-2">
       <img
         class="h-full w-full object-contain"
-        src={data.item.emoji}
+        src={item.emoji}
         alt=""
         decoding="sync"
         loading="eager"
       />
     </div>
 
-    <h1 class="my-auto text-3xl font-bold text-white">{data.item.name} history</h1>
+    <h1 class="my-auto text-3xl font-bold text-white">{item.name} history</h1>
   </header>
 
-  {#key data.chartData}
+  {#key days}
     <menu class="menu menu-horizontal rounded-box bg-base-200 mx-auto flex justify-center gap-2">
       {#each [14, 30, 60, 90, 69420] as option}
-        {@const focused = days === option.toString()}
+        {@const focused = days === option}
         <li>
           <a href="?days={option}" class={focused ? "menu-active" : ""}
             >{#if option === 69420}
@@ -57,26 +51,22 @@
       {/each}
     </menu>
 
-    {#if data.chartData === "invalid item"}
+    {#if typeof chartData === "string"}
       <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-        <p>invalid item</p>
+        <p>{chartData}</p>
       </div>
-    {:else if data.chartData === "not enough data"}
-      <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-        <p>not enough data</p>
-      </div>
-    {:else if typeof data.chartData !== "string"}
+    {:else}
       <Card class="mx-auto max-w-6xl" mode="section">
         <h2>price history</h2>
         <div class="h-80 w-full">
-          <Chart chartData={priceChartData} chartOptions={itemPriceChartOptions} />
+          <Chart chartData={chartData.priceData} chartOptions={itemPriceChartOptions} />
         </div>
       </Card>
 
       <Card class="max-w-6xl" mode="section">
         <h2>items in world</h2>
         <div class="h-80 w-full">
-          <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
+          <Chart chartData={chartData.itemCountData} chartOptions={worldItemCountChartOptions} />
         </div>
       </Card>
     {/if}
