@@ -4,6 +4,10 @@ import { getSessionCookie, validateSession } from "$lib/server/auth/sessions";
 export const getAuthedUser = query(async () => {
   const { cookies, locals } = getRequestEvent();
 
+  if (locals.auth) {
+    return locals.auth.user;
+  }
+
   const sessionId = getSessionCookie(cookies);
 
   if (!sessionId) {
