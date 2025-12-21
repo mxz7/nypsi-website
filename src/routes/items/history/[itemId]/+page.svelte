@@ -73,21 +73,12 @@
         </div>
       </Card>
 
-      <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
-        <Card class="max-w-6xl" mode="section">
-          <h2>items in world</h2>
-          <div class="h-80 w-full">
-            <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
-          </div>
-        </Card>
-
-        <Card class="max-w-6xl" mode="section">
-          <h2>items in world</h2>
-          <div class="h-80 w-full">
-            <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
-          </div>
-        </Card>
-      </div>
+      <Card class="max-w-6xl" mode="section">
+        <h2>items in world</h2>
+        <div class="h-80 w-full">
+          <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
+        </div>
+      </Card>
     {/if}
   {/key}
 </Main>
