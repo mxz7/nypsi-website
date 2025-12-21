@@ -49,6 +49,8 @@
   "type": "module",
   "dependencies": {
     "@lucia-auth/adapter-prisma": "^4.0.1",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "7.1.0",
     "arctic": "^3.7.0",
