@@ -246,8 +246,8 @@ function buildCharts(data: ProcessedGraphData): {
   const datasetStyles = [
     { fill: false, borderColor: "#0ea5e933", backgroundColor: "#0ea5e911" }, // market
     { fill: false, borderColor: "#f43f5e33", backgroundColor: "#f43f5e11" }, // offers
-    { fill: false, borderColor: "#d946ef", backgroundColor: "#d946ef44" }, // worth
-    { fill: true, borderColor: "#8b5cf666", backgroundColor: "#8b5cf633" }, // items in world
+    { fill: false, borderColor: "#8b5cf6", backgroundColor: "#8b5cf633" }, // worth
+    { fill: true, borderColor: "#8b5cf6", backgroundColor: "#8b5cf633" }, // items in world
   ];
 
   const priceChart: ChartConfiguration = {
