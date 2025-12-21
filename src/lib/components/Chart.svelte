@@ -21,6 +21,4 @@
   });
 </script>
 
-<div class="h-full w-full">
-  <canvas style="width: 100%;" bind:this={chartCanvas}></canvas>
-</div>
+<canvas class="h-full w-full" style="width: 100%;" bind:this={chartCanvas}></canvas>

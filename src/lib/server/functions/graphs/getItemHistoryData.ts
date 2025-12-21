@@ -1,21 +1,17 @@
 import filterOutliers from "$lib/functions/filterOutliers";
 import prisma from "$lib/server/database.js";
+import redis from "$lib/server/redis";
 import type { Item } from "$lib/types/Item";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
+import ms from "ms";
 
-export default async function getItemHistoryData(items: Item[], item: string, days = 30) {
-  if (!items.find((i) => i.id === item)) return "invalid item";
-
+async function getRawData(items: Item[], item: string) {
   const orders = await prisma.market
     .findMany({
       where: {
-        AND: [
-          { itemId: item },
-          { completed: true },
-          { createdAt: { gte: dayjs().subtract(days, "days").toDate() } },
-        ],
+        AND: [{ itemId: item }, { completed: true }],
       },
       select: {
         itemAmount: true,
@@ -41,11 +37,7 @@ export default async function getItemHistoryData(items: Item[], item: string, da
   const offers = await prisma.offer
     .findMany({
       where: {
-        AND: [
-          { itemId: item },
-          { sold: true },
-          { soldAt: { gte: dayjs().subtract(days, "days").toDate() } },
-        ],
+        AND: [{ itemId: item }, { sold: true }],
       },
       select: {
         money: true,
@@ -72,21 +64,13 @@ export default async function getItemHistoryData(items: Item[], item: string, da
 
   const itemCount = await prisma.graphMetrics.findMany({
     where: {
-      AND: [
-        { category: "item-count-" + item },
-        { userId: "global" },
-        { date: { gte: dayjs().subtract(days, "days").toDate() } },
-      ],
+      AND: [{ category: "item-count-" + item }, { userId: "global" }],
     },
   });
 
   const value = await prisma.graphMetrics.findMany({
     where: {
-      AND: [
-        { category: "item-value-" + item },
-        { userId: "global" },
-        { date: { gte: dayjs().subtract(days, "days").toDate() } },
-      ],
+      AND: [{ category: "item-value-" + item }, { userId: "global" }],
     },
   });
 
@@ -173,23 +157,34 @@ export default async function getItemHistoryData(items: Item[], item: string, da
   };
 
   for (const key of auctionAverages.keys()) {
-    if (!graphData.data.labels.includes(dayjs(key).format("YYYY-MM-DD")))
-      graphData.data.labels.push(dayjs(key).format("YYYY-MM-DD"));
+    const keyDate = dayjs(key);
+
+    if (!graphData.data.labels.includes(keyDate.format("YYYY-MM-DD"))) {
+      graphData.data.labels.push(keyDate.format("YYYY-MM-DD"));
+    }
   }
 
   for (const key of offerAverages.keys()) {
-    if (!graphData.data.labels.includes(dayjs(key).format("YYYY-MM-DD")))
-      graphData.data.labels.push(dayjs(key).format("YYYY-MM-DD"));
+    const keyDate = dayjs(key);
+
+    if (!graphData.data.labels.includes(keyDate.format("YYYY-MM-DD")))
+      graphData.data.labels.push(keyDate.format("YYYY-MM-DD"));
   }
 
   for (const i of itemCount) {
-    if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
-      graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
+    const date = dayjs(i.date);
+
+    if (!graphData.data.labels.includes(date.format("YYYY-MM-DD"))) {
+      graphData.data.labels.push(date.format("YYYY-MM-DD"));
+    }
   }
 
   for (const i of value) {
-    if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
-      graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
+    const date = dayjs(i.date);
+
+    if (!graphData.data.labels.includes(date.format("YYYY-MM-DD"))) {
+      graphData.data.labels.push(date.format("YYYY-MM-DD"));
+    }
   }
 
   inPlaceSort(graphData.data.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
@@ -249,6 +244,39 @@ export default async function getItemHistoryData(items: Item[], item: string, da
     } else {
       graphData.data.datasets[2].data.push(0);
     }
+  }
+
+  return graphData;
+}
+
+export default async function getItemHistoryData(items: Item[], item: string, days = 30) {
+  if (!items.find((i) => i.id === item)) return "invalid item";
+
+  const cache = await redis.get(`cache:item:history:${item}`);
+
+  let graphData: Awaited<ReturnType<typeof getRawData>>;
+
+  if (cache) {
+    graphData = JSON.parse(cache);
+  } else {
+    graphData = await getRawData(items, item);
+
+    await redis.set(`cache:item:history:${item}`, JSON.stringify(graphData), "EX", ms("6h") / 1000);
+  }
+
+  if (typeof graphData === "string") {
+    return graphData;
+  }
+
+  // +1 needed otherwise some data will start at 0 for some reason
+  const targetStartDate = dayjs().subtract(days + 1, "days");
+
+  while (dayjs(graphData.data.labels[0] as string).isBefore(targetStartDate)) {
+    graphData.data.labels.shift();
+    graphData.data.datasets[0].data.shift();
+    graphData.data.datasets[1].data.shift();
+    graphData.data.datasets[2].data.shift();
+    graphData.data.datasets[3].data.shift();
   }
 
   return graphData;

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { twMerge } from "tailwind-merge";
+
   interface Props {
     children: import("svelte").Snippet;
     class?: string;
@@ -27,7 +29,7 @@
     }
 
     if (classes) {
-      output.push(...classes.split(" "));
+      return twMerge(output.join(" "), classes);
     }
 
     return output.join(" ");

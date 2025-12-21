@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import Card from "$lib/components/Card.svelte";
+  import Card from "$lib/components/ui/Card.svelte";
   import type { getEventData } from "$lib/functions/items";
   import { pluralize } from "$lib/functions/string";
   import { daysUntil } from "$lib/functions/time";
