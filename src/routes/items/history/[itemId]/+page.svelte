@@ -92,10 +92,6 @@
     <h1 class="my-auto text-3xl font-bold text-white">{data.item.name} history</h1>
   </header>
 
-  <!-- <h1 class="text-center text-4xl font-bold text-white sm:text-5xl">
-      {data.item.name}
-    </h1> -->
-
   {#key data.graphData}
     <menu class="menu menu-horizontal rounded-box bg-base-200 mx-auto flex justify-center gap-2">
       {#each [14, 30, 45, 60, 90, 69420] as option}
@@ -115,11 +111,11 @@
     <div>
       {#if data.graphData === "invalid item"}
         <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-          <h1>invalid item</h1>
+          <p>invalid item</p>
         </div>
       {:else if data.graphData === "not enough data"}
         <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-          <h1>not enough data</h1>
+          <p>not enough data</p>
         </div>
       {:else if typeof data.graphData !== "string"}
         <Card class="mx-auto h-80 max-w-6xl sm:h-auto" mode="section">
