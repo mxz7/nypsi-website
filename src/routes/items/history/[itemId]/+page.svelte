@@ -94,7 +94,7 @@
 
   {#key data.graphData}
     <menu class="menu menu-horizontal rounded-box bg-base-200 mx-auto flex justify-center gap-2">
-      {#each [14, 30, 45, 60, 90, 69420] as option}
+      {#each [14, 30, 60, 90, 69420] as option}
         {@const focused = days === option.toString()}
         <li>
           <a href="?days={option}" class={focused ? "menu-active" : ""}
