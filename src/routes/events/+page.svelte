@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Card from "$lib/components/Card.svelte";
+  import Card from "$lib/components/ui/Card.svelte";
   import { auth } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import Event from "./Event.svelte";

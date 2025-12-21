@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import Card from "$lib/components/Card.svelte";
   import Chart from "$lib/components/Chart.svelte";
+  import Card from "$lib/components/ui/Card.svelte";
   import type { ChartOptions } from "chart.js";
 
   let { data } = $props();
