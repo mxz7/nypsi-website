@@ -249,6 +249,35 @@ async function getRawData(items: Item[], item: string) {
   return graphData;
 }
 
+function buildPriceChart(fullGraphData: ChartConfiguration): ChartConfiguration {
+  const datasets = [0, 1, 2].map((idx) => {
+    const dataset = { ...fullGraphData.data.datasets[idx] };
+    delete dataset.yAxisID;
+    return dataset;
+  });
+
+  return {
+    type: "line",
+    data: {
+      labels: fullGraphData.data.labels,
+      datasets,
+    },
+  };
+}
+
+function buildItemCountChart(fullGraphData: ChartConfiguration): ChartConfiguration {
+  const dataset = { ...fullGraphData.data.datasets[3] };
+  delete dataset.yAxisID;
+
+  return {
+    type: "line",
+    data: {
+      labels: fullGraphData.data.labels,
+      datasets: [dataset],
+    },
+  };
+}
+
 export default async function getItemHistoryData(items: Item[], item: string, days = 30) {
   if (!items.find((i) => i.id === item)) return "invalid item";
 
@@ -279,5 +308,8 @@ export default async function getItemHistoryData(items: Item[], item: string, da
     graphData.data.datasets[3].data.shift();
   }
 
-  return graphData;
+  return {
+    priceData: buildPriceChart(graphData),
+    itemCountData: buildItemCountChart(graphData),
+  };
 }

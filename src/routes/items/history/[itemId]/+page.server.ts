@@ -11,7 +11,7 @@ export async function load({ params, url, fetch }) {
 
   const days = parseInt(url.searchParams.get("days") || "60");
 
-  const graphData = await getItemHistoryData(items, item.id, days);
+  const chartData = await getItemHistoryData(items, item.id, days);
 
-  return { auth: true, premium: true, graphData: graphData, item };
+  return { auth: true, premium: true, ...chartData, item };
 }

@@ -9,23 +9,19 @@
   let { data } = $props();
   const days = $derived(page.url.searchParams.get("days") || "60");
 
-  const chartOptions: ChartOptions = {
+  const priceChartOptions: ChartOptions = {
     plugins: {
       tooltip: {
         intersect: false,
         mode: "index",
         callbacks: {
           label(tooltipItem) {
-            if (tooltipItem.dataset.label.includes("items in world")) {
-              return `in world: ${tooltipItem.formattedValue}`;
-            }
-
             return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
           },
         },
       },
     },
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     responsive: true,
     elements: {
       line: {
@@ -45,24 +41,11 @@
           maxTicksLimit: 7,
         },
       },
-      y2: {
+      y: {
         grid: {
           display: false,
         },
         min: 0,
-        position: "right",
-        ticks: {
-          callback(tickValue) {
-            return formatNumberPretty(Number(tickValue));
-          },
-        },
-      },
-      y1: {
-        grid: {
-          display: false,
-        },
-        min: 0,
-        position: "left",
         ticks: {
           callback(tickValue) {
             return `$${formatNumberPretty(Number(tickValue))}`;
@@ -71,6 +54,62 @@
       },
     },
   };
+
+  const itemCountChartOptions: ChartOptions = {
+    plugins: {
+      tooltip: {
+        intersect: false,
+        mode: "index",
+        callbacks: {
+          label(tooltipItem) {
+            return `items in world: ${tooltipItem.formattedValue}`;
+          },
+        },
+      },
+    },
+    maintainAspectRatio: true,
+    responsive: true,
+    elements: {
+      line: {
+        tension: 0.15,
+      },
+      point: {
+        radius: 0,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 7,
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+        },
+        min: 0,
+        ticks: {
+          callback(tickValue) {
+            return formatNumberPretty(Number(tickValue));
+          },
+        },
+      },
+    },
+  };
+
+  const priceChartData = $derived.by(() => {
+    if (typeof data.priceData === "string") return null;
+    return data.priceData;
+  });
+
+  const itemCountChartData = $derived.by(() => {
+    if (typeof data.itemCountData === "string") return null;
+    return data.itemCountData;
+  });
 </script>
 
 <svelte:head>
@@ -92,7 +131,7 @@
     <h1 class="my-auto text-3xl font-bold text-white">{data.item.name} history</h1>
   </header>
 
-  {#key data.graphData}
+  {#key data.priceData}
     <menu class="menu menu-horizontal rounded-box bg-base-200 mx-auto flex justify-center gap-2">
       {#each [14, 30, 60, 90, 69420] as option}
         {@const focused = days === option.toString()}
@@ -108,20 +147,24 @@
       {/each}
     </menu>
 
-    <div>
-      {#if data.graphData === "invalid item"}
-        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-          <p>invalid item</p>
-        </div>
-      {:else if data.graphData === "not enough data"}
-        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-          <p>not enough data</p>
-        </div>
-      {:else if typeof data.graphData !== "string"}
-        <Card class="mx-auto h-80 max-w-6xl sm:h-auto" mode="section">
-          <Chart chartData={data.graphData} {chartOptions} />
-        </Card>
-      {/if}
-    </div>
+    {#if data.priceData === "invalid item"}
+      <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
+        <p>invalid item</p>
+      </div>
+    {:else if data.priceData === "not enough data"}
+      <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
+        <p>not enough data</p>
+      </div>
+    {:else if typeof data.priceData !== "string"}
+      <Card class="mx-auto max-w-6xl" mode="section">
+        <h2 class="mb-4 text-lg font-semibold">Price History</h2>
+        <Chart chartData={priceChartData} chartOptions={priceChartOptions} />
+      </Card>
+
+      <Card class="mx-auto max-w-6xl" mode="section">
+        <h2 class="mb-4 text-lg font-semibold">Items in World</h2>
+        <Chart chartData={itemCountChartData} chartOptions={itemCountChartOptions} />
+      </Card>
+    {/if}
   {/key}
 </Main>
