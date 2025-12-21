@@ -13,7 +13,7 @@ export const itemPriceChartOptions: ChartOptions = {
       },
     },
   },
-  maintainAspectRatio: true,
+  maintainAspectRatio: false,
   responsive: true,
   elements: {
     line: {
@@ -59,7 +59,7 @@ export const worldItemCountChartOptions: ChartOptions = {
       },
     },
   },
-  maintainAspectRatio: true,
+  maintainAspectRatio: false,
   responsive: true,
   elements: {
     line: {

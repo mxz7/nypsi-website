@@ -68,13 +68,26 @@
     {:else if typeof data.chartData !== "string"}
       <Card class="mx-auto max-w-6xl" mode="section">
         <h2>price history</h2>
-        <Chart chartData={priceChartData} chartOptions={itemPriceChartOptions} />
+        <div class="h-80 w-full">
+          <Chart chartData={priceChartData} chartOptions={itemPriceChartOptions} />
+        </div>
       </Card>
 
-      <Card class="mx-auto max-w-6xl" mode="section">
-        <h2>items in world</h2>
-        <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
-      </Card>
+      <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
+        <Card class="max-w-6xl" mode="section">
+          <h2>items in world</h2>
+          <div class="h-80 w-full">
+            <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
+          </div>
+        </Card>
+
+        <Card class="max-w-6xl" mode="section">
+          <h2>items in world</h2>
+          <div class="h-80 w-full">
+            <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
+          </div>
+        </Card>
+      </div>
     {/if}
   {/key}
 </Main>
