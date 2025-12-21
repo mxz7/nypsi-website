@@ -2,6 +2,7 @@
   import { page } from "$app/state";
   import Chart from "$lib/components/Chart.svelte";
   import Card from "$lib/components/ui/Card.svelte";
+  import Main from "$lib/components/ui/Main.svelte";
   import type { ChartOptions } from "chart.js";
 
   let { data } = $props();
@@ -71,7 +72,7 @@
   <title>{data.item?.name} history | nypsi</title>
 </svelte:head>
 
-<main class="mx-auto mt-4 w-full max-w-6xl space-y-4">
+<Main class="mt-4 space-y-4">
   <header class="flex justify-center gap-3">
     <div class="rounded-box bg-base-300 h-14 w-14 p-2">
       <img
@@ -122,4 +123,4 @@
       {/if}
     </div>
   {/key}
-</main>
+</Main>
