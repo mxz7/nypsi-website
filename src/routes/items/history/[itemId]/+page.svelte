@@ -67,14 +67,22 @@
       </div>
     {:else if typeof data.chartData !== "string"}
       <Card class="mx-auto max-w-6xl" mode="section">
-        <h2 class="mb-4 text-lg font-semibold">Price History</h2>
+        <h2>price history</h2>
         <Chart chartData={priceChartData} chartOptions={itemPriceChartOptions} />
       </Card>
 
       <Card class="mx-auto max-w-6xl" mode="section">
-        <h2 class="mb-4 text-lg font-semibold">Items in World</h2>
+        <h2>items in world</h2>
         <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
       </Card>
     {/if}
   {/key}
 </Main>
+
+<style>
+  @reference "../../../../app.css";
+
+  h2 {
+    @apply mb-4 text-xl font-bold;
+  }
+</style>
