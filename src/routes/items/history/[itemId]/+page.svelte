@@ -102,13 +102,13 @@
   };
 
   const priceChartData = $derived.by(() => {
-    if (typeof data.priceData === "string") return null;
-    return data.priceData;
+    if (typeof data.chartData === "string") return null;
+    return data.chartData.priceData;
   });
 
   const itemCountChartData = $derived.by(() => {
-    if (typeof data.itemCountData === "string") return null;
-    return data.itemCountData;
+    if (typeof data.chartData === "string") return null;
+    return data.chartData.itemCountData;
   });
 </script>
 
@@ -131,7 +131,7 @@
     <h1 class="my-auto text-3xl font-bold text-white">{data.item.name} history</h1>
   </header>
 
-  {#key data.priceData}
+  {#key data.chartData}
     <menu class="menu menu-horizontal rounded-box bg-base-200 mx-auto flex justify-center gap-2">
       {#each [14, 30, 60, 90, 69420] as option}
         {@const focused = days === option.toString()}
@@ -147,15 +147,15 @@
       {/each}
     </menu>
 
-    {#if data.priceData === "invalid item"}
+    {#if data.chartData === "invalid item"}
       <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
         <p>invalid item</p>
       </div>
-    {:else if data.priceData === "not enough data"}
+    {:else if data.chartData === "not enough data"}
       <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
         <p>not enough data</p>
       </div>
-    {:else if typeof data.priceData !== "string"}
+    {:else if typeof data.chartData !== "string"}
       <Card class="mx-auto max-w-6xl" mode="section">
         <h2 class="mb-4 text-lg font-semibold">Price History</h2>
         <Chart chartData={priceChartData} chartOptions={priceChartOptions} />

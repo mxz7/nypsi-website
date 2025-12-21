@@ -13,5 +13,5 @@ export async function load({ params, url, fetch }) {
 
   const chartData = await getItemHistoryData(items, item.id, days);
 
-  return { auth: true, premium: true, ...chartData, item };
+  return { auth: true, premium: true, chartData, item };
 }
