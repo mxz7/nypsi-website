@@ -3,6 +3,7 @@
   import Chart from "$lib/components/Chart.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import Main from "$lib/components/ui/Main.svelte";
+  import { formatNumberPretty } from "$lib/functions/string.js";
   import type { ChartOptions } from "chart.js";
 
   let { data } = $props();
@@ -39,6 +40,10 @@
         grid: {
           display: false,
         },
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 7,
+        },
       },
       y2: {
         grid: {
@@ -48,7 +53,7 @@
         position: "right",
         ticks: {
           callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
+            return formatNumberPretty(Number(tickValue));
           },
         },
       },
@@ -60,7 +65,7 @@
         position: "left",
         ticks: {
           callback(tickValue) {
-            return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
+            return `$${formatNumberPretty(Number(tickValue))}`;
           },
         },
       },
@@ -117,7 +122,7 @@
           <h1>not enough data</h1>
         </div>
       {:else if typeof data.graphData !== "string"}
-        <Card class="mx-auto max-w-6xl">
+        <Card class="mx-auto h-80 max-w-6xl sm:h-auto" mode="section">
           <Chart chartData={data.graphData} {chartOptions} />
         </Card>
       {/if}
