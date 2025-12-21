@@ -1,4 +1,4 @@
-import filterOutliers from "$lib/functions/filterOutliers";
+import filterOutliers from "$lib/functions/chart/filter";
 import prisma from "$lib/server/database.js";
 import redis from "$lib/server/redis";
 import type { Item } from "$lib/types/Item";
