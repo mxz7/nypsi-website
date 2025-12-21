@@ -3,103 +3,13 @@
   import Chart from "$lib/components/Chart.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import Main from "$lib/components/ui/Main.svelte";
-  import { formatNumberPretty } from "$lib/functions/string.js";
-  import type { ChartOptions } from "chart.js";
+  import {
+    itemPriceChartOptions,
+    worldItemCountChartOptions,
+  } from "$lib/functions/chart/chart-options.js";
 
   let { data } = $props();
   const days = $derived(page.url.searchParams.get("days") || "60");
-
-  const priceChartOptions: ChartOptions = {
-    plugins: {
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: true,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 7,
-        },
-      },
-      y: {
-        grid: {
-          display: false,
-        },
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return `$${formatNumberPretty(Number(tickValue))}`;
-          },
-        },
-      },
-    },
-  };
-
-  const itemCountChartOptions: ChartOptions = {
-    plugins: {
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return `items in world: ${tooltipItem.formattedValue}`;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: true,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 7,
-        },
-      },
-      y: {
-        grid: {
-          display: false,
-        },
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return formatNumberPretty(Number(tickValue));
-          },
-        },
-      },
-    },
-  };
 
   const priceChartData = $derived.by(() => {
     if (typeof data.chartData === "string") return null;
@@ -158,12 +68,12 @@
     {:else if typeof data.chartData !== "string"}
       <Card class="mx-auto max-w-6xl" mode="section">
         <h2 class="mb-4 text-lg font-semibold">Price History</h2>
-        <Chart chartData={priceChartData} chartOptions={priceChartOptions} />
+        <Chart chartData={priceChartData} chartOptions={itemPriceChartOptions} />
       </Card>
 
       <Card class="mx-auto max-w-6xl" mode="section">
         <h2 class="mb-4 text-lg font-semibold">Items in World</h2>
-        <Chart chartData={itemCountChartData} chartOptions={itemCountChartOptions} />
+        <Chart chartData={itemCountChartData} chartOptions={worldItemCountChartOptions} />
       </Card>
     {/if}
   {/key}
