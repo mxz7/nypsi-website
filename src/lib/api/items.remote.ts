@@ -4,6 +4,7 @@ import redis from "$lib/server/redis.js";
 import type { Item } from "$lib/types/Item";
 import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
+import z from "zod";
 
 export const getItemsRemote = query(async () => {
   const cache = await redis.get("cache:items");
@@ -31,4 +32,15 @@ export const getItemsRemote = query(async () => {
   await redis.set("cache:items", JSON.stringify(itemsData), "EX", 3600);
 
   return itemsData;
+});
+
+export const getItem = query(z.string(), async (itemId) => {
+  const items = await getItemsRemote();
+  const item = items.find((i) => i.id === itemId);
+
+  if (!item) {
+    error(404, { message: "item not found" });
+  }
+
+  return item;
 });

@@ -1,19 +1,12 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { getItemChartData } from "$lib/api/items-history.remote";
-  import Chart from "$lib/components/Chart.svelte";
-  import Card from "$lib/components/ui/Card.svelte";
+  import { getItem } from "$lib/api/items.remote";
   import Main from "$lib/components/ui/Main.svelte";
-  import {
-    itemPriceChartOptions,
-    worldItemCountChartOptions,
-  } from "$lib/functions/chart/chart-options.js";
+  import Charts from "./charts.svelte";
 
   const days = $derived(parseInt(page.url.searchParams.get("days") || "60"));
 
-  const { chartData, item } = $derived(
-    await getItemChartData({ itemId: page.params.itemId, days }),
-  );
+  const item = $derived(await getItem(page.params.itemId));
 </script>
 
 <svelte:head>
@@ -51,25 +44,7 @@
       {/each}
     </menu>
 
-    {#if typeof chartData === "string"}
-      <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-        <p>{chartData}</p>
-      </div>
-    {:else}
-      <Card class="mx-auto max-w-6xl" mode="section">
-        <h2>price history</h2>
-        <div class="h-80 w-full">
-          <Chart chartData={chartData.priceData} chartOptions={itemPriceChartOptions} />
-        </div>
-      </Card>
-
-      <Card class="max-w-6xl" mode="section">
-        <h2>items in world</h2>
-        <div class="h-80 w-full">
-          <Chart chartData={chartData.itemCountData} chartOptions={worldItemCountChartOptions} />
-        </div>
-      </Card>
-    {/if}
+    <Charts {days} itemId={page.params.itemId} />
   {/key}
 </Main>
 
