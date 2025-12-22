@@ -3,6 +3,7 @@
   import { getItem } from "$lib/api/items.remote";
   import Main from "$lib/components/ui/Main.svelte";
   import Charts from "./charts.svelte";
+  import Market from "./market.svelte";
 
   const days = $derived(parseInt(page.url.searchParams.get("days") || "60"));
 
@@ -46,12 +47,6 @@
 
     <Charts {days} itemId={page.params.itemId} />
   {/key}
+
+  <Market itemId={page.params.itemId} />
 </Main>
-
-<style>
-  @reference "../../../../app.css";
-
-  h2 {
-    @apply mb-4 text-xl font-bold;
-  }
-</style>
