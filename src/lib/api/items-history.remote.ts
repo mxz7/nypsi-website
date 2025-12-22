@@ -17,7 +17,6 @@ export const getItemChartData = query(
       error(404, "item not found");
     }
 
-    const chartData = await getItemHistoryData(items, itemId, days);
-    return { chartData, item };
+    return await getItemHistoryData(items, itemId, days);
   },
 );

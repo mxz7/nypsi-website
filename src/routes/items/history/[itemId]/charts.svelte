@@ -14,7 +14,7 @@
 
   let { days, itemId }: Props = $props();
 
-  const { chartData, item } = $derived(await getItemChartData({ itemId, days }));
+  const chartData = $derived(await getItemChartData({ itemId, days }));
 </script>
 
 {#if typeof chartData === "string"}
