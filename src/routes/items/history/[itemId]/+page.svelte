@@ -1,9 +1,10 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { getItem } from "$lib/api/items.remote";
+  import Market from "$lib/components/items/Market.svelte";
+  import Card from "$lib/components/ui/Card.svelte";
   import Main from "$lib/components/ui/Main.svelte";
   import Charts from "./charts.svelte";
-  import Market from "./market.svelte";
 
   const days = $derived(parseInt(page.url.searchParams.get("days") || "60"));
 
@@ -48,5 +49,17 @@
     <Charts {days} itemId={page.params.itemId} />
   {/key}
 
-  <Market itemId={page.params.itemId} />
+  <Card mode="section" class="overflow-x-auto">
+    <h2>market</h2>
+
+    <Market itemId={page.params.itemId} />
+  </Card>
 </Main>
+
+<style>
+  @reference "../../../../app.css";
+
+  h2 {
+    @apply mb-4 text-xl font-bold;
+  }
+</style>

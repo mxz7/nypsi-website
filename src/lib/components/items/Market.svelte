@@ -1,6 +1,5 @@
 <script lang="ts">
   import { getOrders } from "$lib/api/market.remote";
-  import Card from "$lib/components/ui/Card.svelte";
   import { formatNumberPretty } from "$lib/functions/string";
 
   interface Props {
@@ -65,67 +64,55 @@
   {/if}
 {/snippet}
 
-<Card mode="section" class="overflow-x-auto">
-  <h2>market</h2>
-
-  {#if orders.length === 0}
-    <p class="text-center">no sell orders found</p>
-  {:else}
-    <table class="table w-full">
-      <thead>
+{#if orders.length === 0}
+  <p class="text-center">no sell orders found</p>
+{:else}
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th>date</th>
+        <th>status</th>
+        <th>type</th>
+        <th>amount</th>
+        <th>price</th>
+        <th>action</th>
+        <th>owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each orders as order}
         <tr>
-          <th>date</th>
-          <th>status</th>
-          <th>type</th>
-          <th>amount</th>
-          <th>price</th>
-          <th>action</th>
-          <th>owner</th>
+          <td class="text-base-content/75 text-xs">
+            <time datetime={order.createdAt.toUTCString()}
+              >{order.createdAt.toLocaleDateString()}</time
+            >
+          </td>
+
+          <td>{@render status(order)}</td>
+
+          <td>{order.orderType}ing</td>
+
+          <td>{order.itemAmount.toLocaleString()}x</td>
+
+          <td>${formatNumberPretty(Number(order.price))}{order.itemAmount > 1 ? " ea." : ""}</td>
+
+          <td>{@render action(order)}</td>
+
+          <td class="truncate">{@render owner(order)}</td>
         </tr>
-      </thead>
-      <tbody>
-        {#each orders as order}
-          <tr>
-            <td class="text-base-content/75 text-xs">
-              <time datetime={order.createdAt.toUTCString()}
-                >{order.createdAt.toLocaleDateString()}</time
-              >
-            </td>
+      {/each}
+    </tbody>
+  </table>
 
-            <td>{@render status(order)}</td>
-
-            <td>{order.orderType}ing</td>
-
-            <td>{order.itemAmount.toLocaleString()}x</td>
-
-            <td>${formatNumberPretty(Number(order.price))}{order.itemAmount > 1 ? " ea." : ""}</td>
-
-            <td>{@render action(order)}</td>
-
-            <td class="truncate">{@render owner(order)}</td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-
-    <button
-      class="btn btn-soft w-full {isLoading ? 'btn-disabled' : ''}"
-      disabled={isLoading}
-      onclick={getMore}
-    >
-      {#if isLoading}
-        <span class="loading loading-spinner loading-sm"></span>
-      {:else}
-        load more
-      {/if}
-    </button>
-  {/if}
-</Card>
-
-<style>
-  @reference "../../../../app.css";
-
-  h2 {
-    @apply mb-4 text-xl font-bold;
-  }
-</style>
+  <button
+    class="btn btn-soft mt-2 w-full {isLoading ? 'btn-disabled' : ''}"
+    disabled={isLoading}
+    onclick={getMore}
+  >
+    {#if isLoading}
+      <span class="loading loading-spinner loading-sm"></span>
+    {:else}
+      load more
+    {/if}
+  </button>
+{/if}
