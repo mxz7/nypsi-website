@@ -10,8 +10,19 @@
   let { itemId }: Props = $props();
 
   let page = $state(1);
+  let isLoading = $state(false);
 
-  const orders = $derived(await getOrders({ itemId, page }));
+  let orders = $derived(await getOrders({ itemId, page: 1 }));
+
+  async function getMore() {
+    if (isLoading) return;
+    isLoading = true;
+    page += 1;
+    const newOrders = await getOrders({ itemId, page });
+    orders = [...orders, ...newOrders];
+
+    isLoading = false;
+  }
 </script>
 
 {#snippet owner(order: Awaited<ReturnType<typeof getOrders>>[number])}
@@ -96,6 +107,18 @@
         {/each}
       </tbody>
     </table>
+
+    <button
+      class="btn btn-soft w-full {isLoading ? 'btn-disabled' : ''}"
+      disabled={isLoading}
+      onclick={getMore}
+    >
+      {#if isLoading}
+        <span class="loading loading-spinner loading-sm"></span>
+      {:else}
+        load more
+      {/if}
+    </button>
   {/if}
 </Card>
 
