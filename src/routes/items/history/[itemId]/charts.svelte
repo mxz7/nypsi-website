@@ -3,9 +3,10 @@
   import Chart from "$lib/components/Chart.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import {
-    itemPriceChartOptions,
-    worldItemCountChartOptions,
+      itemPriceChartOptions,
+      worldItemCountChartOptions,
   } from "$lib/functions/chart/chart-options";
+  import { DollarSign, Earth } from "@lucide/svelte";
 
   interface Props {
     days: number;
@@ -23,24 +24,26 @@
   </div>
 {:else}
   <Card class="mx-auto max-w-6xl" mode="section">
-    <h2>price history</h2>
+    <h2>
+      <span class="icon">
+        <DollarSign class='text-primary' />
+      </span>
+      <span>price history</span>
+    </h2>
     <div class="h-80 w-full">
       <Chart chartData={chartData.priceData} chartOptions={itemPriceChartOptions} />
     </div>
   </Card>
 
   <Card class="max-w-6xl" mode="section">
-    <h2>items in world</h2>
+    <h2>
+      <span class="icon">
+        <Earth class="text-primary" />
+      </span>
+      <span>items in world</span>
+    </h2>
     <div class="h-80 w-full">
       <Chart chartData={chartData.itemCountData} chartOptions={worldItemCountChartOptions} />
     </div>
   </Card>
 {/if}
-
-<style>
-  @reference "../../../../app.css";
-
-  h2 {
-    @apply mb-4 text-xl font-bold;
-  }
-</style>

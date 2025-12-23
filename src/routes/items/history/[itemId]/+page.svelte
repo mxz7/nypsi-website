@@ -4,6 +4,7 @@
   import Market from "$lib/components/items/Market.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import Main from "$lib/components/ui/Main.svelte";
+  import { Store } from "@lucide/svelte";
   import Charts from "./charts.svelte";
 
   const days = $derived(parseInt(page.url.searchParams.get("days") || "60"));
@@ -15,7 +16,7 @@
   <title>{item.name} history | nypsi</title>
 </svelte:head>
 
-<Main class="mt-4 space-y-4">
+<Main class="item-history-page mt-4 space-y-4">
   <header class="flex justify-center gap-3">
     <div class="rounded-box bg-base-300 h-14 w-14 p-2">
       <img
@@ -50,7 +51,12 @@
   {/key}
 
   <Card mode="section" class="overflow-x-auto">
-    <h2>market</h2>
+    <h2>
+      <span class="icon">
+        <Store class="text-primary" />
+      </span>
+      <span>market</span>
+    </h2>
 
     <Market itemId={page.params.itemId} />
   </Card>
@@ -59,7 +65,15 @@
 <style>
   @reference "../../../../app.css";
 
-  h2 {
-    @apply mb-4 text-xl font-bold;
+  :global {
+    .item-history-page {
+      h2 {
+        @apply mb-4 flex items-center gap-2 text-xl font-bold;
+
+        .icon {
+          @apply rounded-box bg-base-300 p-2;
+        }
+      }
+    }
   }
 </style>
