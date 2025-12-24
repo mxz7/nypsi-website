@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { initialLoad } from "$lib/state.svelte";
+  import Card from "$lib/components/ui/Card.svelte";
   import type { GuildSuccess } from "$lib/types/Guild";
   import { inPlaceSort } from "fast-sort";
-  import { cubicOut } from "svelte/easing";
-  import { fly } from "svelte/transition";
 
   interface Props {
     guildData: GuildSuccess;
@@ -18,28 +16,28 @@
 </script>
 
 {#snippet guildStats()}
-  <div class="flex flex-col justify-center gap-4 sm:flex-row">
+  <dl class="flex flex-col justify-center gap-4 sm:flex-row">
     <div class="grow text-center">
-      <h2 class="text-lg text-white">xp</h2>
-      <p class="text-primary font-semibold">{guildData.guild.xp.toLocaleString()}</p>
+      <dt class="text-lg text-white">xp</dt>
+      <dd class="text-primary font-semibold">{guildData.guild.xp.toLocaleString()}</dd>
     </div>
     <div class="grow text-center">
-      <h2 class="text-lg text-white">money</h2>
-      <p class="text-primary font-semibold">${guildData.guild.balance.toLocaleString()}</p>
+      <dt class="text-lg text-white">money</dt>
+      <dd class="text-primary font-semibold">${guildData.guild.balance.toLocaleString()}</dd>
     </div>
     <div class="grow text-center">
-      <h2 class="text-lg text-white">tokens</h2>
-      <p class="text-primary font-semibold">{guildData.guild.tokens.toLocaleString()}</p>
+      <dt class="text-lg text-white">tokens</dt>
+      <dd class="text-primary font-semibold">{guildData.guild.tokens.toLocaleString()}</dd>
     </div>
-  </div>
+  </dl>
 {/snippet}
 
 {#snippet userStats()}
-  <div
+  <ol
     class="[&>*:nth-child(1)]:text-primary flex flex-col justify-center gap-2 [&>*:nth-child(1)]:font-semibold"
   >
     {#each inPlaceSort(guildData.guild.members).desc( [(i) => i.contributedXp, (i) => i.contributedMoney], ) as member, index}
-      <div class="bg-base-300 flex items-center gap-3 rounded-lg p-3">
+      <li class="bg-base-300 flex items-center gap-3 rounded-lg p-3">
         <img
           bind:this={avatars[index]}
           class="h-10 w-10 rounded-full"
@@ -58,15 +56,13 @@
           {member.contributedXp.toLocaleString()}xp
           <br class="md:hidden" />${member.contributedMoney.toLocaleString()}
         </p>
-      </div>
+      </li>
     {/each}
-  </div>
+  </ol>
 {/snippet}
 
 <div class="mx-3 mt-7 mb-10 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
-  <div
-    class="border-primary/15 bg-base-200 hover:border-primary/30 flex w-full gap-2 rounded-lg border p-4 duration-300"
-  >
+  <Card class="flex w-full gap-2 " focused mode="section">
     <div class="h-24 w-24 sm:h-36 sm:w-36">
       <img
         src={guildData.guild.avatarId
@@ -94,22 +90,16 @@
       <p class="text-xs text-slate-400 sm:text-sm">level {guildData.guild.level}</p>
       <p class="mt-3 text-sm md:text-base">{guildData.guild.motd}</p>
     </div>
-  </div>
+  </Card>
 
   {#key guildData}
-    <div
-      class="border-primary/5 bg-base-200 hover:border-primary/20 w-full rounded-lg border p-4 duration-300"
-      in:fly|global={{ duration: initialLoad.value ? 0 : 300, y: 25, easing: cubicOut }}
-    >
+    <Card mode="section">
       {@render guildStats()}
-    </div>
+    </Card>
 
-    <div
-      class="border-primary/5 bg-base-200 hover:border-primary/20 w-full rounded-lg border p-4 duration-300"
-      in:fly|global={{ duration: initialLoad.value ? 0 : 300, delay: 100, y: 25, easing: cubicOut }}
-    >
+    <Card mode="section">
       {@render userStats()}
-    </div>
+    </Card>
   {/key}
 </div>
 

@@ -4,7 +4,7 @@
 
   interface Props {
     children: Snippet;
-    class: string;
+    class?: string;
   }
 
   let { children, class: userClasses }: Props = $props();
