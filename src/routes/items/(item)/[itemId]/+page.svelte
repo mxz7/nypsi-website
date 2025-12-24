@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Card from "$lib/components/ui/Card.svelte";
   import tooltip from "$lib/Tooltips.js";
   import { ChartArea, Crown } from "@lucide/svelte";
   import { sort } from "fast-sort";
@@ -46,7 +47,7 @@
   <link rel="canonical" href="https://nypsi.xyz/items/{data.item.id}" />
 </svelte:head>
 
-<div class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
+<Card class="rounded-box bg-base-200 w-full p-3 sm:sticky sm:top-4">
   <div class="flex w-full gap-3">
     <div class="rounded-box bg-base-300 h-24 w-24 p-4">
       <img
@@ -71,37 +72,37 @@
     <div class="rounded-box bg-base-300 mt-2 w-full p-3">{data.item.longDesc}</div>
   {/if}
 
-  <div class="rounded-box bg-base-300 mt-2 grid w-full grid-cols-3 gap-3 p-3">
+  <dl class="rounded-box bg-base-300 mt-2 grid w-full grid-cols-3 gap-3 p-3">
     <div class="w-full text-center">
-      <h2 class="text-lg font-semibold text-white">in world</h2>
+      <dt class="text-lg font-semibold text-white">in world</dt>
       {#await data.inWorld}
-        <span class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}
-        ></span>
+        <dd class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}></dd>
       {:then inWorld}
-        <span class="text-sm">{(inWorld || 0).toLocaleString()}</span>
+        <dd class="text-sm">{(inWorld || 0).toLocaleString()}</dd>
       {/await}
     </div>
 
     <div class="w-full text-center">
-      <h2 class="text-lg font-semibold text-white">worth</h2>
+      <dt class="text-lg font-semibold text-white">worth</dt>
       {#await data.value}
-        <span class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}
-        ></span>
+        <dd class="loading loading-spinner loading-xs" in:fade={{ delay: 100, duration: 100 }}></dd>
       {:then value}
         {#if value}
-          <span class="text-sm">${value.toLocaleString()}</span>
+          <dd class="text-sm">${value.toLocaleString()}</dd>
         {:else}
-          <a href="/docs/economy/items/worth#unvalued" class="link">unvalued</a>
+          <dd>
+            <a href="/docs/economy/items/worth#unvalued" class="link">unvalued</a>
+          </dd>
         {/if}
       {/await}
     </div>
 
     <div class="w-full text-center">
-      <h2 class="text-lg font-semibold text-white">rarity</h2>
+      <dt class="text-lg font-semibold text-white">rarity</dt>
 
-      <span class="text-sm">{rarityMap.get(data.item.rarity)}</span>
+      <dd class="text-sm">{rarityMap.get(data.item.rarity)}</dd>
     </div>
-  </div>
+  </dl>
 
   <div class="mt-2 flex w-full gap-3">
     <a href="/leaderboards/{data.item.id}" class="btn text-primary grow" title="leaderboard">
@@ -114,17 +115,17 @@
 
   {#await data.odds then odds}
     {#if Object.values(odds.found).length > 0}
-      <div class="rounded-box bg-base-300 mt-2 w-full p-3">
+      <section class="rounded-box bg-base-300 mt-2 w-full p-3">
         <h3
           class="link text-center font-medium text-white"
           use:tooltip={{ content: "(crates and scratch cards)" }}
         >
           obtaining
         </h3>
-        <div class="max-h-48 overflow-auto">
+        <ol class="max-h-48 overflow-auto">
           {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)), ) as foundEntry}
             {@const item = data.items.find((i) => i.id === foundEntry[0])}
-            <div class="flex items-center gap-1">
+            <li class="flex items-center gap-1">
               {#if item}
                 <img src={item.emoji} alt="" decoding="async" loading="lazy" class="w-5" />
                 {#if item.role === "scratch-card"}
@@ -136,20 +137,20 @@
                 <span>{foundEntry[0]}</span>
               {/if}
               <span class="grow text-right">{foundEntry[1]}</span>
-            </div>
+            </li>
           {/each}
-        </div>
-      </div>
+        </ol>
+      </section>
     {/if}
 
     {#if odds.crate_open}
-      <div class="rounded-box bg-base-300 mt-2 p-3">
+      <section class="rounded-box bg-base-300 mt-2 p-3">
         <h3 class="text-center font-medium text-white">items</h3>
         <div class="max-h-48 overflow-auto">
-          <div>
+          <ol>
             {#each odds.crate_open as { itemId, chance }}
               {@const item = data.items.find((i) => i.id === itemId)}
-              <div class="flex items-center gap-1">
+              <li class="flex items-center gap-1">
                 <div class="h-5 w-5">
                   <img
                     src={(item
@@ -174,23 +175,23 @@
                   >{item ? item.name : formatName(itemId)}</a
                 >
                 <span class="grow text-right">{chance}</span>
-              </div>
+              </li>
             {/each}
-          </div>
+          </ol>
         </div>
-      </div>
+      </section>
     {/if}
   {/await}
 
   {#if data.item.craft}
-    <div class="rounded-box bg-base-300 mt-2 p-3">
+    <section class="rounded-box bg-base-300 mt-2 p-3">
       <h3 class="text-center font-medium text-white">recipe</h3>
       <div class="max-h-48 overflow-auto">
-        <div>
+        <ul>
           {#each data.item.craft.ingredients as ingredient}
             {@const [itemId, amount] = ingredient.split(":")}
             {@const item = data.items.find((i) => i.id === itemId)}
-            <div class="flex items-center gap-1">
+            <li class="flex items-center gap-1">
               <div class="h-5 w-5">
                 <img
                   src={item.emoji}
@@ -204,19 +205,19 @@
                 >{item ? item.name : formatName(itemId)}</a
               >
               <span class="grow text-right">x{amount}</span>
-            </div>
+            </li>
           {/each}
-        </div>
+        </ul>
       </div>
-    </div>
+    </section>
   {/if}
 
   {#if data.items.find((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), ))}
-    <div class="rounded-box bg-base-300 mt-2 p-3">
+    <section class="rounded-box bg-base-300 mt-2 p-3">
       <h3 class="text-center font-medium text-white">used in recipe</h3>
-      <div class="grid max-h-48 grid-cols-2 overflow-auto">
+      <ul class="grid max-h-48 grid-cols-2 overflow-auto">
         {#each data.items.filter((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), )) as item}
-          <div class="flex items-center gap-1">
+          <li class="flex items-center gap-1">
             <div class="h-5 w-5">
               <img
                 src={item.emoji}
@@ -229,9 +230,9 @@
             <a class="link-hover" href="/items/{item.id}"
               >{item ? item.name : formatName(item.id)}</a
             >
-          </div>
+          </li>
         {/each}
-      </div>
-    </div>
+      </ul>
+    </section>
   {/if}
-</div>
+</Card>

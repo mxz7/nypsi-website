@@ -1,6 +1,6 @@
 <script>
-  import SeasonButton from "$lib/components/SeasonButton.svelte";
   import seasons from "$lib/data/seasons";
+  import SeasonButton from "./SeasonButton.svelte";
 </script>
 
 <svelte:head>

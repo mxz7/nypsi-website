@@ -1,4 +1,6 @@
 <script>
+  import Card from "$lib/components/ui/Card.svelte";
+  import Main from "$lib/components/ui/Main.svelte";
   import parseEmoji from "$lib/functions/parseEmoji";
   import { tags } from "$lib/state.svelte";
   import tooltip from "$lib/Tooltips";
@@ -19,13 +21,17 @@
   <meta name="description" content={data.supporters.map((i) => i.username).join(", ")} />
 </svelte:head>
 
-<div class="mt-8 flex w-full justify-center">
-  <main class="w-full px-4 lg:max-w-5xl lg:px-0">
+<Main class="max-w-6xl">
+  <Card mode="section">
     <h1 class="flex items-center gap-4 text-4xl font-semibold text-white">
-      <BadgeDollarSign size={32} />
+      <span class="bg-base-300 rounded-box p-2">
+        <BadgeDollarSign size={32} class="text-primary" />
+      </span>
+
       <span>supporters</span>
     </h1>
-    <p class="text-sm opacity-50">these members have donated real money to nypsi</p>
+
+    <p class="text-base-content/75 text-sm">these members have donated real money to nypsi</p>
 
     <ol class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.supporters as supporter}
@@ -60,12 +66,19 @@
         </li>
       {/each}
     </ol>
+  </Card>
 
-    <h2 class="mt-14 flex items-center gap-4 text-4xl font-semibold text-white">
-      <Code size={32} />
+  <Card mode="section" class="mt-16">
+    <h2 class="flex items-center gap-4 text-4xl font-semibold text-white">
+      <span class="bg-base-300 rounded-box p-2">
+        <Code size={32} class="text-primary" />
+      </span>
       <span>contributors</span>
     </h2>
-    <p class="text-sm opacity-50">these members have added features to the bot or website</p>
+
+    <p class="text-base-content/75 text-sm">
+      these members have added features to the bot or website
+    </p>
 
     <ol class="mt-4 grid grid-cols-3 gap-3 text-sm sm:grid-cols-4 lg:grid-cols-5">
       {#each data.contributors as supporter}
@@ -100,8 +113,8 @@
         </li>
       {/each}
     </ol>
-  </main>
-</div>
+  </Card>
+</Main>
 
 <style>
   @reference "../../app.css";

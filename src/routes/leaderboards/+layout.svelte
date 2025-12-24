@@ -2,6 +2,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
+  import Main from "$lib/components/ui/Main.svelte";
   import { items, tags } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
@@ -85,52 +86,54 @@
   });
 </script>
 
-<div class="mt-8 flex w-full justify-center px-4">
-  <ul class="menu menu-md menu-horizontal rounded-box bg-base-200 justify-center gap-2">
-    {#each options as option}
-      <li>
-        <a
-          data-sveltekit-preload-code="viewport"
-          class={option.selected ? "menu-active" : ""}
-          href="/leaderboards{option.showItems ? '' : `/${option.data || option.name}`}"
-          onclick={() => {
-            options.forEach((i) => {
-              if (i.name === option.name) i.selected = true;
-              else i.selected = false;
-            });
+<Main>
+  <div class="mx-auto w-fit">
+    <nav class="menu menu-md menu-horizontal rounded-box bg-base-200 justify-center gap-2">
+      {#each options as option}
+        <li>
+          <a
+            data-sveltekit-preload-code="viewport"
+            class={option.selected ? "menu-active" : ""}
+            href="/leaderboards{option.showItems ? '' : `/${option.data || option.name}`}"
+            onclick={() => {
+              options.forEach((i) => {
+                if (i.name === option.name) i.selected = true;
+                else i.selected = false;
+              });
 
-            if (option.showItems) {
-              showChild = false;
-            } else {
-              setTimeout(() => {
-                showChild = true;
-              }, 50);
-            }
-          }}>{option.name}</a
-        >
-      </li>
-    {/each}
-  </ul>
-</div>
-
-{#if selected?.showItems}
-  <div class="mt-14 flex w-full justify-center">
-    <div class=" w-full px-4 lg:max-w-xs lg:px-0">
-      <ItemSearch
-        items={data.items}
-        onClick={async (itemId) => {
-          showChild = true;
-          return goto(`/leaderboards/${itemId}`);
-        }}
-      />
-    </div>
+              if (option.showItems) {
+                showChild = false;
+              } else {
+                setTimeout(() => {
+                  showChild = true;
+                }, 50);
+              }
+            }}>{option.name}</a
+          >
+        </li>
+      {/each}
+    </nav>
   </div>
-{/if}
 
-{#if showChild}
-  {#key page.url.pathname}
-    <div in:fade={{ duration: 100 }} out:fade={{ duration: 100 }}>
-      {@render children()}
+  {#if selected?.showItems}
+    <div class="mt-14 flex w-full justify-center">
+      <div class=" w-full px-4 lg:max-w-xs lg:px-0">
+        <ItemSearch
+          items={data.items}
+          onClick={async (itemId) => {
+            showChild = true;
+            return goto(`/leaderboards/${itemId}`);
+          }}
+        />
+      </div>
     </div>
-  {/key}
-{/if}
+  {/if}
+
+  {#if showChild}
+    {#key page.url.pathname}
+      <div in:fade={{ duration: 100 }} out:fade={{ duration: 100 }}>
+        {@render children()}
+      </div>
+    {/key}
+  {/if}
+</Main>

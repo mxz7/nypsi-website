@@ -57,7 +57,7 @@
   });
 </script>
 
-<Card class="relative flex flex-col text-center" mode="main">
+<Card class="relative flex flex-col text-center" focused mode="section">
   <header class="text-3xl font-bold">
     <span class="opacity-75">#{event.id}</span>
     <h1 class="inline text-white">

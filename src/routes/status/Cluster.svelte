@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Card from "$lib/components/ui/Card.svelte";
   import { MStoTime } from "$lib/functions/time";
   import { sort } from "fast-sort";
 
@@ -41,16 +42,31 @@
   }
 </script>
 
-<div class="card bg-base-200 {selected ? 'border-primary/50 border' : ''}">
-  <div class="card-body">
-    <h4 class="card-title {colour}">cluster {clusterData.id}</h4>
-    <p class="text-sm">{description}</p>
-    {#if description === "working as expected"}
-      <div class="text-sm opacity-90">
-        <p>guilds: {clusterData.guilds.length.toLocaleString()}</p>
-        <p>shards: {sort(shards).asc().join(" ")}</p>
-        <p>uptime: {MStoTime(clusterData.uptime)}</p>
+<Card class={selected ? "border-primary/50 border" : ""}>
+  <h4 class="card-title {colour}">cluster {clusterData.id}</h4>
+  <p class="text-sm">{description}</p>
+  {#if description === "working as expected"}
+    <dl class="mt-2 space-y-1 text-sm opacity-90">
+      <div class="flex gap-1">
+        <dt>guilds</dt>
+        <dd>{clusterData.guilds.length.toLocaleString()}</dd>
       </div>
-    {/if}
-  </div>
-</div>
+
+      <div class="flex gap-1">
+        <dt>shards</dt>
+        <dd>{sort(shards).asc().join(", ")}</dd>
+      </div>
+
+      <div class="flex gap-1">
+        <dt>uptime</dt>
+        <dd>{MStoTime(clusterData.uptime)}</dd>
+      </div>
+    </dl>
+  {/if}
+</Card>
+
+<style>
+  dt::after {
+    content: ":";
+  }
+</style>
