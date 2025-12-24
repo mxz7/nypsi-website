@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { getItem } from "$lib/api/items.remote";
-  import Market from "$lib/components/items/Market.svelte";
+  import ItemMarket from "$lib/components/items/ItemMarket.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import Main from "$lib/components/ui/Main.svelte";
   import { Store } from "@lucide/svelte";
@@ -58,7 +58,7 @@
       <span>market</span>
     </h2>
 
-    <Market itemId={page.params.itemId} />
+    <ItemMarket itemId={page.params.itemId} />
   </Card>
 </Main>
 
