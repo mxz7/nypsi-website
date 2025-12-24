@@ -88,7 +88,7 @@
 
 <Main>
   <div class="mx-auto w-fit">
-    <nav class="menu menu-md menu-horizontal rounded-box bg-base-200 mt-8 justify-center gap-2">
+    <nav class="menu menu-md menu-horizontal rounded-box bg-base-200 justify-center gap-2">
       {#each options as option}
         <li>
           <a

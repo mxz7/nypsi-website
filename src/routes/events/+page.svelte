@@ -22,7 +22,7 @@
   <meta name="og:title" content="events" />
 </svelte:head>
 
-<Main class="mx-auto mt-7 flex w-full flex-col gap-4 px-3 lg:max-w-2xl lg:px-0">
+<Main class="mx-auto flex w-full flex-col gap-4 px-3 lg:max-w-2xl lg:px-0">
   {#if data.event}
     <Event
       event={data.event}

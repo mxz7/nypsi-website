@@ -61,7 +61,7 @@
   </ol>
 {/snippet}
 
-<div class="mx-3 mt-7 mb-10 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
+<div class="mx-3 mb-10 flex flex-col gap-4 sm:mx-auto md:w-full md:max-w-3xl">
   <Card class="flex w-full gap-2 " focused mode="section">
     <div class="h-24 w-24 sm:h-36 sm:w-36">
       <img

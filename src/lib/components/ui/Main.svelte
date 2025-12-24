@@ -9,7 +9,9 @@
 
   let { children, class: userClasses }: Props = $props();
 
-  const activeClasses = $derived(twMerge("max-w-6xl w-full mx-auto px-3 sm:px-0", userClasses));
+  const activeClasses = $derived(
+    twMerge("max-w-6xl w-full mx-auto px-3 sm:px-0 mt-8", userClasses),
+  );
 </script>
 
 <main class={activeClasses}>
