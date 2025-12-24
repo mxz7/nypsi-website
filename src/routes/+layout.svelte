@@ -3,8 +3,8 @@
   import { onNavigate, replaceState } from "$app/navigation";
   import { page } from "$app/state";
   import Footer from "$lib/components/layout/Footer.svelte";
+  import Navbar from "$lib/components/layout/nav/NavBar.svelte";
   import LoadBar from "$lib/components/LoadBar.svelte";
-  import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth, initialLoad } from "$lib/state.svelte";
   import { onMount, tick } from "svelte";
@@ -108,7 +108,7 @@
 
   <Toaster />
 
-  <Navigation />
+  <Navbar />
 
   {@render children?.()}
 </div>

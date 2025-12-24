@@ -3,15 +3,15 @@
   import logo from "$lib/assets/logo.svg";
   import { auth } from "$lib/state.svelte";
   import { Menu } from "@lucide/svelte";
-  import MobileScreen from "./MobileScreen.svelte";
+  import MobileScreen from "./MobileNav.svelte";
 
   let sidebarVisible = $state(false);
 </script>
 
 <MobileScreen bind:visible={sidebarVisible} />
 
-<div class="flex w-full justify-center px-3 lg:px-0">
-  <nav class="navbar bg-base-200 mt-3 rounded-xl lg:max-w-6xl">
+<div class="w-full px-3 lg:px-0">
+  <nav class="navbar bg-base-200 mx-auto mt-3 rounded-xl lg:max-w-6xl">
     <div class="navbar-start">
       <button
         aria-label="show mobile navigation"
@@ -23,30 +23,17 @@
 
       <div class="hidden items-center text-sm lg:flex">
         <a class="btn btn-ghost" href="/" aria-label="home">
-          <!-- <picture>
-            <source
-              srcset="https://cdn.nypsi.xyz/static/nypsi-transparent.avif"
-              type="image/avif"
-            />
-            <img
-              src="https://cdn.nypsi.xyz/static/nypsi-transparent.webp"
-              alt="nypsi logo"
-              decoding="async"
-              class="h-10 w-10"
-              loading="lazy"
-            />
-          </picture> -->
           <img src={logo} class="h-10" alt="" />
         </a>
 
         <ul class="menu menu-md menu-horizontal flex-nowrap">
-          <li><a href="/leaderboards" class=" font-semibold">leaderboards</a></li>
-          <li><a href="/items" class=" font-semibold">items</a></li>
+          <li><a href="/leaderboards" class="font-semibold">leaderboards</a></li>
+          <li><a href="/items" class="font-semibold">items</a></li>
           <li><a href="/events" class="font-semibold">events</a></li>
-          <li><a href="/status" class=" font-semibold">status</a></li>
-          <li><a href="/docs" class=" font-semibold">docs</a></li>
+          <li><a href="/status" class="font-semibold">status</a></li>
+          <li><a href="/docs" class="font-semibold">docs</a></li>
           <li>
-            <a href="/discord" class=" font-semibold" target="_blank">discord</a>
+            <a href="/discord" class="font-semibold" target="_blank">discord</a>
           </li>
           <li>
             <a href="https://ko-fi.com/nypsi/tiers" target="_blank">
