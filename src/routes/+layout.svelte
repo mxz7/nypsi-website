@@ -2,7 +2,7 @@
   import { dev } from "$app/environment";
   import { onNavigate, replaceState } from "$app/navigation";
   import { page } from "$app/state";
-  import Footer from "$lib/components/Footer.svelte";
+  import Footer from "$lib/components/layout/Footer.svelte";
   import LoadBar from "$lib/components/LoadBar.svelte";
   import Navigation from "$lib/components/nav/Navigation.svelte";
   import { getClientAuth } from "$lib/functions/auth";
