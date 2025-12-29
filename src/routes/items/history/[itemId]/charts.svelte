@@ -3,8 +3,8 @@
   import Chart from "$lib/components/Chart.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import {
-      itemPriceChartOptions,
-      worldItemCountChartOptions,
+    itemPriceChartOptions,
+    worldItemCountChartOptions,
   } from "$lib/functions/chart/chart-options";
   import { DollarSign, Earth } from "@lucide/svelte";
 
@@ -26,7 +26,7 @@
   <Card class="mx-auto max-w-6xl" mode="section">
     <h2>
       <span class="icon">
-        <DollarSign class='text-primary' />
+        <DollarSign class="text-primary" />
       </span>
       <span>price history</span>
     </h2>
