@@ -16,7 +16,7 @@
   <title>{item.name} history | nypsi</title>
 </svelte:head>
 
-<Main class="item-history-page mt-4 space-y-4">
+<Main class="item-history-page space-y-4">
   <header class="flex justify-center gap-3">
     <div class="rounded-box bg-base-300 h-14 w-14 p-2">
       <img

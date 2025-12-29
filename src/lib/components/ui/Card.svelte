@@ -4,11 +4,12 @@
   interface Props {
     children: import("svelte").Snippet;
     class?: string;
-    mode?: "main" | "section" | "div" | "article" | "anchor";
+    mode?: "section" | "div" | "article" | "anchor";
     href?: string;
+    focused?: boolean;
   }
 
-  let { children, class: classes, mode = "div", href }: Props = $props();
+  let { children, class: classes, mode = "div", href, focused = false }: Props = $props();
 
   const activeClasses = $derived.by(() => {
     const output = [
@@ -22,7 +23,7 @@
       "duration-300",
     ];
 
-    if (mode === "main") {
+    if (focused) {
       output.push("border-primary/15 ");
     } else {
       output.push("border-primary/5");
@@ -36,11 +37,7 @@
   });
 </script>
 
-{#if mode === "main"}
-  <main class={activeClasses}>
-    {@render children?.()}
-  </main>
-{:else if mode === "section"}
+{#if mode === "section"}
   <section class={activeClasses}>
     {@render children?.()}
   </section>

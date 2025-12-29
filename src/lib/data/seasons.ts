@@ -267,6 +267,50 @@ export default {
   },
   "10": {
     started: new Date("2025-06-01"),
+    ended: new Date("2025-12-27"),
+    winners: [
+      {
+        id: "1219357517159731260",
+        username: "snowchildisnothim",
+        value: "$400,000,000,000",
+      },
+      {
+        id: "572037176997445641",
+        username: "will0220",
+        value: "$340,428,557,844",
+      },
+      {
+        id: "224701588407582730",
+        username: "bunnyz",
+        value: "$302,002,612,484",
+      },
+      {
+        id: "846019969753415711",
+        username: "blackalice1st",
+        value: "$99,631,306,965",
+      },
+      { id: "772494822611222558", username: "chasingthemonkey", value: "$97,930,739,028" },
+      { id: "1249263830522134603", username: "argjenti._.", value: "$97,827,077,505" },
+      { id: "756529737610035291", username: "drainprincess", value: "$64,040,785,214" },
+      { id: "1236302647997366296", username: "nati.0202", value: "$34,822,267,999" },
+      { id: "223953495982735363", username: "fedpol1", value: "$20,987,632,959" },
+      { id: "872819391585198100", username: "1nxght", value: "$18,363,098,749" },
+    ],
+    topGuilds: [
+      { id: "sos", value: "427" },
+      { id: "Wilted Rose", value: "425" },
+      { id: "alns", value: "128" },
+      { id: "heaven", value: "93" },
+      { id: "bruh", value: "45" },
+      { id: "fornite", value: "26" },
+      { id: "HEHEHEHA", value: "24" },
+      { id: "haomings hydrated hangout", value: "23" },
+      { id: "cscratch mafia", value: "22" },
+      { id: "W ALBANIA", value: "19" },
+    ],
+  },
+  "11": {
+    started: new Date("2025-12-27"),
   },
 } as {
   [key: string]: {

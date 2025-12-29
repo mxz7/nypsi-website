@@ -1,6 +1,7 @@
 <script lang="ts">
   import Features from "$lib/components/features/Features.svelte";
   import Discord from "$lib/components/icons/Discord.svelte";
+  import Main from "$lib/components/ui/Main.svelte";
   import { auth } from "$lib/state.svelte";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
@@ -66,7 +67,7 @@
   </a>
 </div>
 
-<main class="hero min-h-screen">
+<Main class="hero mt-0 min-h-screen">
   <div class="hero-content flex-col lg:-mt-64 lg:flex-row-reverse lg:gap-32">
     <div class="fly-up">
       <picture>
@@ -99,7 +100,7 @@
       </div>
     </div>
   </div>
-</main>
+</Main>
 
 <Features />
 
