@@ -36,7 +36,7 @@
     "prettier-plugin-svelte": "3.4.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "prisma": "7.1.0",
-    "svelte": "^5.45.8",
+    "svelte": "^5.46.0",
     "svelte-check": "4.3.5",
     "sveltekit-superforms": "^2.27.2",
     "tailwindcss": "4.1.18",
