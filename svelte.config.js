@@ -21,6 +21,16 @@ const config = {
     alias: {
       "@generated/prisma": "./src/generated/prisma/client",
     },
+
+    experimental: {
+      remoteFunctions: true,
+    },
+  },
+
+  compilerOptions: {
+    experimental: {
+      async: true,
+    },
   },
 };
 
