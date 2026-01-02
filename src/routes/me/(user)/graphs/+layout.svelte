@@ -53,8 +53,8 @@
   </div>
 {:else}
   <p class="text-error text-lg font-medium">
-    you must have <a href="https://ko-fi.com/nypsi" target="_blank" class="link">premium</a> to view
-    your graphs
+    you must have <a href="https://ko-fi.com/nypsi" target="_blank" class="link">premium</a> to view your
+    graphs
   </p>
 {/if}
 
