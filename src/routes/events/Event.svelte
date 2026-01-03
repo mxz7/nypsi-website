@@ -35,6 +35,11 @@
   }
 
   async function update() {
+    if (event.endedAt) {
+      // don't update an ended event idiot
+      return;
+    }
+
     console.log("updating data");
     await invalidate("event");
     setValues();
@@ -115,14 +120,16 @@
     {/if}
   </footer>
 
-  <div
-    class="tooltip tooltip-left tooltip-success absolute right-4 inline-grid *:[grid-area:1/1]"
-    aria-label="live updates"
-    data-tip="live updates"
-  >
-    <span class="status status-success animate-ping" aria-hidden={true}></span>
-    <span class="status status-success" aria-hidden={true}></span>
-  </div>
+  {#if !event.endedAt}
+    <div
+      class="tooltip tooltip-left tooltip-success absolute right-4 inline-grid *:[grid-area:1/1]"
+      aria-label="live updates"
+      data-tip="live updates"
+    >
+      <span class="status status-success animate-ping" aria-hidden={true}></span>
+      <span class="status status-success" aria-hidden={true}></span>
+    </div>
+  {/if}
 </Card>
 
 <Card mode="section" class="flex flex-col gap-3">
