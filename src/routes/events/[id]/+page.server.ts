@@ -19,7 +19,7 @@ export async function load({ locals, fetch, params }) {
     return error(404, "event not found");
   }
 
-  if (!event.completed && new Date(event.expiresAt).getTime() > Date.now()) {
+  if (!event.endedAt && new Date(event.expiresAt).getTime() > Date.now()) {
     return redirect(302, "/events");
   }
 
@@ -33,14 +33,16 @@ export async function load({ locals, fetch, params }) {
     totalUsers = getTotalUsers(event.id);
   }
 
-  const totalContribution = event.completed
-    ? Number(event.target)
-    : getEventProgress(event.id, true);
+  let totalContribution = await getEventProgress(event.id, true);
+
+  if (event.target && totalContribution > Number(event.target)) {
+    totalContribution = Number(event.target);
+  }
 
   return {
     eventsData: await eventsData,
     event,
-    totalContribution: await totalContribution,
+    totalContribution: totalContribution,
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     auth,

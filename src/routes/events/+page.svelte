@@ -50,15 +50,9 @@
                 </h3>
               </header>
 
-              {#if event.completed}
-                <p class="text-sm opacity-75">
-                  completed {new Date(event.completedAt).toLocaleDateString()}
-                </p>
-              {:else}
-                <p class="text-sm opacity-75">
-                  ended {new Date(event.expiresAt).toLocaleDateString()}
-                </p>
-              {/if}
+              <p class="text-sm opacity-75">
+                completed {new Date(event.endedAt).toLocaleDateString()}
+              </p>
             </Card>
           {/each}
         </ol>

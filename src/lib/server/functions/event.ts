@@ -10,9 +10,7 @@ async function getEventNoCache(id?: number, take = 10) {
   if (id) {
     where = { id };
   } else {
-    where = {
-      AND: [{ completed: false, expiresAt: { gt: new Date() } }],
-    };
+    where = { endedAt: null };
   }
 
   const query = await prisma.event.findFirst({
@@ -171,7 +169,7 @@ export async function getPastEvents(): Promise<Event[]> {
 
   const query = await prisma.event.findMany({
     where: {
-      OR: [{ completed: true }, { expiresAt: { lt: new Date() } }],
+      endedAt: { not: null },
     },
     orderBy: {
       id: "desc",
