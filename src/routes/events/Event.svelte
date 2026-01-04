@@ -102,7 +102,7 @@
 
   <footer class="text-sm opacity-75">
     {#if event.endedAt}
-      {@const date = event.endedAt || event.expiresAt}
+      {@const date = new Date(event.endedAt || event.expiresAt)}
       <p>
         completed <time datetime={date.toUTCString()}
           >{date.toLocaleTimeString()}
