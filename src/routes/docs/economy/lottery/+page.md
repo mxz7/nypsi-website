@@ -16,3 +16,7 @@ you can buy tickets with `$buy lotto <amount>`. you also get tickets from voting
 <DocsHeader header='h2' text="how to use tickets" />
 
 tickets will be used automatically at 12:00am utc/gmt, you do not need to do anything except have them in your inventory
+
+<DocsHeader header='h2' text='discounted lottery tickets' />
+
+you can use `/lottery autobuy` to get a **5%** discount on lottery tickets, these tickets will be automatically bought for you after a lottery happens
