@@ -62,10 +62,10 @@ importers:
         version: 0.562.0(svelte@5.46.1)
       '@sveltejs/adapter-node':
         specifier: ^5.4.0
-        version: 5.4.0(@sveltejs/kit@2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))
+        version: 5.4.0(@sveltejs/kit@2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))
       '@sveltejs/kit':
-        specifier: ^2.49.2
-        version: 2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
+        specifier: ^2.49.3
+        version: 2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.4
         version: 4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
@@ -131,7 +131,7 @@ importers:
         version: 4.3.5(picomatch@4.0.3)(svelte@5.46.1)(typescript@5.9.3)
       sveltekit-superforms:
         specifier: ^2.27.2
-        version: 2.27.2(@sveltejs/kit@2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(@types/json-schema@7.0.15)(esbuild@0.27.1)(svelte@5.46.1)(typescript@5.9.3)
+        version: 2.27.2(@sveltejs/kit@2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(@types/json-schema@7.0.15)(esbuild@0.27.1)(svelte@5.46.1)(typescript@5.9.3)
       tailwindcss:
         specifier: 4.1.18
         version: 4.1.18
@@ -934,9 +934,6 @@ packages:
   '@sinclair/typebox@0.34.41':
     resolution: {integrity: sha512-6gS8pZzSXdyRHTIqoqSVknxolr1kzfy4/CeDnrzsVz8TTIWUbOBr6gnzOmTYJ3eXQNh4IYHIGi5aIL7sOZ2G/g==}
 
-  '@standard-schema/spec@1.0.0':
-    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
-
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
@@ -950,17 +947,20 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^2.4.0
 
-  '@sveltejs/kit@2.49.2':
-    resolution: {integrity: sha512-Vp3zX/qlwerQmHMP6x0Ry1oY7eKKRcOWGc2P59srOp4zcqyn+etJyQpELgOi4+ZSUgteX8Y387NuwruLgGXLUQ==}
+  '@sveltejs/kit@2.49.3':
+    resolution: {integrity: sha512-luTmE2Isk9GRJnitqanLoByKBiyLdfLpV2qV9a25JMxjbQt919TVqG8pibJDkxTvX9+w2k/9IL7o+/RtG++3QA==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.0.0
       '@sveltejs/vite-plugin-svelte': ^3.0.0 || ^4.0.0-next.1 || ^5.0.0 || ^6.0.0-next.0
       svelte: ^4.0.0 || ^5.0.0-next.0
+      typescript: ^5.3.3
       vite: ^5.0.3 || ^6.0.0 || ^7.0.0-beta.0
     peerDependenciesMeta:
       '@opentelemetry/api':
+        optional: true
+      typescript:
         optional: true
 
   '@sveltejs/vite-plugin-svelte-inspector@3.0.1':
@@ -1403,9 +1403,6 @@ packages:
 
   devalue@5.3.2:
     resolution: {integrity: sha512-UDsjUbpQn9kvm68slnrs+mfxwFkIflOhkanmyabZ8zOYk8SMEIbJ3TK+88g70hSIeytu4y18f0z/hYHMTrXIWw==}
-
-  devalue@5.6.0:
-    resolution: {integrity: sha512-BaD1s81TFFqbD6Uknni42TrolvEWA1Ih5L+OiHWmi4OYMJVwAYPGtha61I9KxTf52OvVHozHyjPu8zljqdF3uA==}
 
   devalue@5.6.1:
     resolution: {integrity: sha512-jDwizj+IlEZBunHcOuuFVBnIMPAEHvTsJj0BcIp94xYguLRVBcXO853px/MyIJvbVzWdsGvrRweIUWJw8hBP7A==}
@@ -3247,31 +3244,29 @@ snapshots:
   '@sinclair/typebox@0.34.41':
     optional: true
 
-  '@standard-schema/spec@1.0.0': {}
-
   '@standard-schema/spec@1.1.0': {}
 
   '@sveltejs/acorn-typescript@1.0.8(acorn@8.15.0)':
     dependencies:
       acorn: 8.15.0
 
-  '@sveltejs/adapter-node@5.4.0(@sveltejs/kit@2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))':
+  '@sveltejs/adapter-node@5.4.0(@sveltejs/kit@2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))':
     dependencies:
       '@rollup/plugin-commonjs': 28.0.9(rollup@4.53.3)
       '@rollup/plugin-json': 6.1.0(rollup@4.53.3)
       '@rollup/plugin-node-resolve': 16.0.3(rollup@4.53.3)
-      '@sveltejs/kit': 2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
+      '@sveltejs/kit': 2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
       rollup: 4.53.3
 
-  '@sveltejs/kit@2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))':
+  '@sveltejs/kit@2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))':
     dependencies:
-      '@standard-schema/spec': 1.0.0
+      '@standard-schema/spec': 1.1.0
       '@sveltejs/acorn-typescript': 1.0.8(acorn@8.15.0)
       '@sveltejs/vite-plugin-svelte': 4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
       '@types/cookie': 0.6.0
       acorn: 8.15.0
       cookie: 0.6.0
-      devalue: 5.6.0
+      devalue: 5.6.1
       esm-env: 1.2.2
       kleur: 4.1.5
       magic-string: 0.30.21
@@ -3281,6 +3276,8 @@ snapshots:
       sirv: 3.0.2
       svelte: 5.46.1
       vite: 5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)
+    optionalDependencies:
+      typescript: 5.9.3
 
   '@sveltejs/vite-plugin-svelte-inspector@3.0.1(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))':
     dependencies:
@@ -3700,8 +3697,6 @@ snapshots:
 
   devalue@5.3.2: {}
 
-  devalue@5.6.0: {}
-
   devalue@5.6.1: {}
 
   dir-glob@3.0.1:
@@ -3721,7 +3716,7 @@ snapshots:
 
   effect@3.18.3:
     dependencies:
-      '@standard-schema/spec': 1.0.0
+      '@standard-schema/spec': 1.1.0
       fast-check: 3.23.2
     optional: true
 
@@ -4742,9 +4737,9 @@ snapshots:
       magic-string: 0.30.21
       zimmerframe: 1.1.4
 
-  sveltekit-superforms@2.27.2(@sveltejs/kit@2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(@types/json-schema@7.0.15)(esbuild@0.27.1)(svelte@5.46.1)(typescript@5.9.3):
+  sveltekit-superforms@2.27.2(@sveltejs/kit@2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(@types/json-schema@7.0.15)(esbuild@0.27.1)(svelte@5.46.1)(typescript@5.9.3):
     dependencies:
-      '@sveltejs/kit': 2.49.2(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
+      '@sveltejs/kit': 2.49.3(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.1)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2)))(svelte@5.46.1)(typescript@5.9.3)(vite@5.4.19(@types/node@25.0.3)(lightningcss@1.30.2))
       devalue: 5.3.2
       memoize-weak: 1.0.2
       svelte: 5.46.1
