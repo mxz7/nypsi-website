@@ -6,6 +6,8 @@
     itemId: string;
   }
 
+  type Order = Awaited<ReturnType<typeof getOrders>>[number];
+
   let { itemId }: Props = $props();
 
   let page = $state(1);
@@ -24,7 +26,7 @@
   }
 </script>
 
-{#snippet owner(order: Awaited<ReturnType<typeof getOrders>>[number])}
+{#snippet owner(order: Order)}
   {#if order.owner.id !== "0"}
     <a href="/users/{order.owner.id}" class="link link-hover flex items-center gap-2">
       <img
@@ -41,7 +43,7 @@
   {/if}
 {/snippet}
 
-{#snippet status(order: Awaited<ReturnType<typeof getOrders>>[number])}
+{#snippet status(order: Order)}
   {#if order.completed}
     <span class="badge badge-soft badge-success">completed</span>
   {:else}
@@ -49,7 +51,7 @@
   {/if}
 {/snippet}
 
-{#snippet action(order: Awaited<ReturnType<typeof getOrders>>[number])}
+{#snippet action(order: Order)}
   {#if !order.messageId}
     <span
       class="text-error tooltip tooltip-error"
