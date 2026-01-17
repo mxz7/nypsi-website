@@ -43,7 +43,7 @@
 
 {#snippet status(order: Awaited<ReturnType<typeof getOrders>>[number])}
   {#if order.completed}
-    <span class="badge badge-soft badge-success">sold</span>
+    <span class="badge badge-soft badge-success">completed</span>
   {:else}
     <span class="badge badge-soft badge-info">available</span>
   {/if}
