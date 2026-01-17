@@ -21,10 +21,8 @@
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
-  const eventEndTime = $derived(new Date(event.completed ? event.completedAt : event.expiresAt));
-
   const progress = new Tween(totalContribution, { easing: cubicOut, duration: 1500 });
-  const progressBar = new Tween(totalContribution / Number(event.target), {
+  const progressBar = new Tween(totalContribution / Number(event.target || 0), {
     easing: cubicOut,
     duration: 1500,
   });
@@ -37,6 +35,11 @@
   }
 
   async function update() {
+    if (event.endedAt) {
+      // don't update an ended event idiot
+      return;
+    }
+
     console.log("updating data");
     await invalidate("event");
     setValues();
@@ -76,63 +79,65 @@
   </p>
 
   <p>
-    {eventsData[event.type].description.replace("{target}", event.target.toLocaleString())}
+    {eventsData[event.type].description.replace("{target}", event.target?.toLocaleString() ?? "")}
   </p>
 
   <div class=" my-4 flex flex-col gap-1">
-    <span class="text-xs">
-      {Math.round(progress.current).toLocaleString()} / {event.target.toLocaleString()}
-    </span>
+    {#if event.target}
+      <span class="text-xs">
+        {Math.round(progress.current).toLocaleString()} / {event.target.toLocaleString()}
+      </span>
 
-    {#if progressBar?.current}
-      <progress class="progress progress-primary w-full" value={progressBar?.current}></progress>
+      {#if progressBar?.current}
+        <progress class="progress progress-primary w-full" value={progressBar?.current}></progress>
+      {:else}
+        <progress class="progress progress-primary w-full"></progress>
+      {/if}
     {:else}
-      <progress class="progress progress-primary w-full"></progress>
+      <span>
+        {Math.round(progress.current).toLocaleString()}
+      </span>
     {/if}
   </div>
 
   <footer class="text-sm opacity-75">
-    {#if event.completed}
+    {#if event.endedAt}
+      {@const date = new Date(event.endedAt || event.expiresAt)}
       <p>
-        completed <time datetime={eventEndTime.toUTCString()}
-          >{eventEndTime.toLocaleTimeString()}
-          {eventEndTime.toLocaleDateString()}</time
+        completed <time datetime={date.toUTCString()}
+          >{date.toLocaleTimeString()}
+          {date.toLocaleDateString()}</time
         >
       </p>
-    {:else if eventEndTime.getTime() - Date.now() < 0}
+    {:else if event.expiresAt}
       <p>
-        expired <time datetime={eventEndTime.toUTCString()}
-          >{eventEndTime.toLocaleTimeString()}
-          {eventEndTime.toLocaleDateString()}</time
-        >
-      </p>
-    {:else}
-      <p>
-        ends {#if eventEndTime.getTime() - Date.now() > ms("1 day")}
+        ends {#if event.expiresAt.getTime() - Date.now() > ms("1 day")}
           in {daysUntil(event.expiresAt)} {pluralize("day", daysUntil(event.expiresAt))}
         {:else}
-          at {eventEndTime.toLocaleTimeString()}
+          at {event.expiresAt.toLocaleTimeString()}
         {/if}
       </p>
     {/if}
   </footer>
 
-  <div
-    class="tooltip tooltip-left tooltip-success absolute right-4 inline-grid *:[grid-area:1/1]"
-    aria-label="live updates"
-    data-tip="live updates"
-  >
-    <span class="status status-success animate-ping" aria-hidden={true}></span>
-    <span class="status status-success" aria-hidden={true}></span>
-  </div>
+  {#if !event.endedAt}
+    <div
+      class="tooltip tooltip-left tooltip-success absolute right-4 inline-grid *:[grid-area:1/1]"
+      aria-label="live updates"
+      data-tip="live updates"
+    >
+      <span class="status status-success animate-ping" aria-hidden={true}></span>
+      <span class="status status-success" aria-hidden={true}></span>
+    </div>
+  {/if}
 </Card>
 
 <Card mode="section" class="flex flex-col gap-3">
   <h2 class="w-full text-center text-xl font-bold text-white">leaderboard</h2>
 
   {#if userPosition && userPosition > 0 && totalUsers}
-    {@const word =
-      event.completed || new Date(event.expiresAt).getTime() < Date.now() ? "were" : "are"}
+    {@const word = event.endedAt ? "were" : "are"}
+
     <p class="text-center text-sm">
       {#await totalUsers}
         you {word} <span class="text-primary">#{userPosition.toLocaleString()}</span>

@@ -12,9 +12,9 @@ an event is similar to a task, except it is for **everyone** who plays nypsi.
 
 you may see the 🔱 (trident) emoji in some command outputs sometimes, this is showing the current event progress. you can also view event progress [here](/events).
 
-<DocsHeader header='h2' text="event rewards" />
+events will end when the target is hit, or when the time runs out, depending on which type of event it is. an event will either have a target or an end date
 
-if the event target **is not reached** before the timer runs out, there will be no rewards given.
+<DocsHeader header='h2' text="event rewards" />
 
 | group    | reward                                                                             |
 | -------- | ---------------------------------------------------------------------------------- |
