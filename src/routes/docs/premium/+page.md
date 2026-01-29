@@ -40,6 +40,12 @@ premium crates are automatic on friday nights / saturday mornings (00:10 GMT/UTC
 
 you can buy crates from the online store too in a very similar fashion. just make sure to set your email with `/settings me email` on the bot once you've bought stuff.
 
+<DocsHeader header='h2' text='color' />
+
+your premium color (`/premium color`) depicts what color will be used for embeds related to you. in the [official discord server](https://nypsi.xyz/discord), this will also give you a custom role with that color.
+
+if you have a custom color set, you can also get your active tag to show as your role icon in the [official server](https://nypsi.xyz/discord)
+
 <DocsHeader header='h2' text='benefits' />
 
 higher tiers get all benefits from the lower tiers, each tier gets its own respective role in the [official server](https://nypsi.xyz/discord)
