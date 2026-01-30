@@ -46,6 +46,16 @@ your premium color (`/premium color`) depicts what color will be used for embeds
 
 if you have a custom color set, you can also get your active tag to show as your role icon in the [official server](https://nypsi.xyz/discord)
 
+<DocsHeader header='h2' text='dabloons (premium currency)' />
+
+dabloons are nypsi's premium currency, think of it like gems for clash of clans/royale, v-bucks, robux etc.
+
+you can get dabloons by playing nypsi too, you don't have to pay for them. when you pay for them, you get more bonus dabloons the higher tier you pay for.
+
+<DocsHeader header='h3' text='spending dabloons' />
+
+to spend dabloons, open the dabloons shop with `/dabloons`. every day there will be a random shop item with a 5%-50% discount.
+
 <DocsHeader header='h2' text='benefits' />
 
 higher tiers get all benefits from the lower tiers, each tier gets its own respective role in the [official server](https://nypsi.xyz/discord)
