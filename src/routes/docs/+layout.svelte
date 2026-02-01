@@ -94,8 +94,7 @@
         font-family: ui-monospace, "SF Mono", monospace;
       }
 
-      p a,
-      li a {
+      a:not(:is(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a)) {
         @apply link link-primary underline-offset-3;
         text-decoration: underline;
         color: var(--color-primary) /* var(--color-primary) */;
