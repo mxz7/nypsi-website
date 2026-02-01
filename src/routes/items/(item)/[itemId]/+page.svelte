@@ -129,14 +129,27 @@
               {#if item}
                 <img src={item.emoji} alt="" decoding="async" loading="lazy" class="w-5" />
                 {#if item.role === "scratch-card"}
-                  <a href="/docs/economy/items/scratch-cards" class="link">{item.name}</a>
+                  <a href="/docs/economy/items/scratch-cards" class="link my-0.5 text-sm"
+                    >{item.name}</a
+                  >
                 {:else}
-                  <a href="/items/{item.id}" class="link-hover">{item.name}</a>
+                  <a href="/items/{item.id}" class="link-hover my-0.5 text-sm">{item.name}</a>
                 {/if}
               {:else}
-                <span>{foundEntry[0]}</span>
+                {@const isStore = foundEntry[0].includes("nypsi store")}
+                {#if isStore}
+                  <a
+                    class="text-primary hover:text-primary/75 font-medium underline-offset-2"
+                    href="https://ko-fi.com/nypsi/shop"
+                    target="_blank">{foundEntry[0]}!!</a
+                  >
+                {:else}
+                  <span class="my-0.5 text-sm">{foundEntry[0]}</span>
+                {/if}
               {/if}
-              <span class="grow text-right">{foundEntry[1]}</span>
+              {#if foundEntry[1]}
+                <span class="grow text-right font-mono text-sm">{foundEntry[1]}</span>
+              {/if}
             </li>
           {/each}
         </ol>
@@ -171,10 +184,10 @@
                     class="h-full w-full object-contain"
                   />
                 </div>
-                <a href="/items/{itemId}" class="link-hover"
+                <a href="/items/{itemId}" class="link-hover my-0.5 text-sm"
                   >{item ? item.name : formatName(itemId)}</a
                 >
-                <span class="grow text-right">{chance}</span>
+                <span class="grow text-right font-mono text-sm">{chance}</span>
               </li>
             {/each}
           </ol>
@@ -201,10 +214,10 @@
                   class="h-full w-full object-contain"
                 />
               </div>
-              <a class="link-hover" href="/items/{itemId}"
+              <a class="link-hover my-0.5 text-sm" href="/items/{itemId}"
                 >{item ? item.name : formatName(itemId)}</a
               >
-              <span class="grow text-right">x{amount}</span>
+              <span class="grow text-right font-mono text-sm">x{amount}</span>
             </li>
           {/each}
         </ul>
@@ -227,7 +240,7 @@
                 class="h-full w-full object-contain"
               />
             </div>
-            <a class="link-hover" href="/items/{item.id}"
+            <a class="link-hover my-0.5 text-sm" href="/items/{item.id}"
               >{item ? item.name : formatName(item.id)}</a
             >
           </li>

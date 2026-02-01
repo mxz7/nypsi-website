@@ -1,3 +1,4 @@
+import { dev } from "$app/environment";
 import { env } from "$env/dynamic/private";
 import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
@@ -35,6 +36,8 @@ export async function GET({ params, setHeaders }) {
 
   const data: ApiData = await response.json();
 
+  console.log(data);
+
   const { pools, obtaining } = data;
 
   const oddsData: {
@@ -47,8 +50,10 @@ export async function GET({ params, setHeaders }) {
     };
   } = { found: {} };
 
-  for (const source of data.sources) {
+  for (let source of data.sources) {
     if (!oddsData.found[source]) {
+      source = source.replaceAll("<:iron_pickaxe:1354809169198186607>", "⛏️");
+
       if (
         source.includes("karma shop") ||
         source.includes("streak") ||
@@ -57,9 +62,19 @@ export async function GET({ params, setHeaders }) {
         source.includes("mining") ||
         source.includes("streak") ||
         source.includes("scrapyard") ||
-        source.includes("quarry")
+        source.includes("quarry") ||
+        source.includes("baking") ||
+        source.includes("shop")
       ) {
         oddsData.found[source] = "";
+      } else if (source.includes("divorce")) {
+        oddsData.found["💍 divorce"] = "";
+      } else if (source.includes("crafting")) {
+        oddsData.found["crafting"] = "";
+      } else if (source.includes("mysterious activities")) {
+        continue;
+      } else if (source.includes("nypsi store")) {
+        oddsData.found["💰 nypsi store"] = "";
       } else {
         if (source.includes(":")) {
           const split = source.split(":");
@@ -103,7 +118,9 @@ export async function GET({ params, setHeaders }) {
     }
   }
 
-  await redis.set(`cache:item:obtaining:${itemId}`, JSON.stringify(oddsData), "EX", 3600);
+  if (!dev) {
+    await redis.set(`cache:item:obtaining:${itemId}`, JSON.stringify(oddsData), "EX", 3600);
+  }
 
   setHeaders({
     "cache-control": "public, max-age=3600, must-revalidate",
