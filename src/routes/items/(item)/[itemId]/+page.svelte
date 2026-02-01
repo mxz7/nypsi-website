@@ -108,7 +108,7 @@
     <a href="/leaderboards/{data.item.id}" class="btn text-primary grow" title="leaderboard">
       <Crown />
     </a>
-    <a href="/items/history/{data.item.id}" class="btn text-primary grow" title="history">
+    <a href="/items/{data.item.id}/history" class="btn text-primary grow" title="history">
       <ChartArea />
     </a>
   </div>
