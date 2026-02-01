@@ -30,7 +30,11 @@ export async function handle({ event, resolve }) {
     return { user, session };
   };
 
-  const res = await resolve(event);
+  const res = await resolve(event, {
+    preload: ({ type }) => {
+      return type === "js" || type === "css" || type === "font";
+    },
+  });
 
   if (!res.headers.get("cache-control")) {
     res.headers.set("cache-control", "no-cache");

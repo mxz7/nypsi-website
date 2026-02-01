@@ -7,6 +7,7 @@
   import Navbar from "$lib/components/layout/nav/NavBar.svelte";
   import { getClientAuth } from "$lib/functions/auth";
   import { auth, initialLoad } from "$lib/state.svelte";
+  import "@fontsource-variable/inter";
   import { onMount, tick } from "svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import "../app.css";
