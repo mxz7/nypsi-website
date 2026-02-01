@@ -1,4 +1,5 @@
 import { env } from "$env/dynamic/private";
+import redis from "$lib/server/redis.js";
 import { json } from "@sveltejs/kit";
 
 type ApiData = {
@@ -13,8 +14,14 @@ type ApiData = {
   }>;
 };
 
-export async function GET({ params }) {
+export async function GET({ params, setHeaders }) {
   const { itemId } = params;
+
+  const cache = await redis.get(`cache:obtaining:${itemId}`);
+
+  if (cache) {
+    return json(JSON.parse(cache));
+  }
 
   const response = await fetch(`${env.BOT_SERVER_URL}/items/${itemId}/obtaining`, {
     headers: {
@@ -95,6 +102,12 @@ export async function GET({ params }) {
       oddsData.crate_open.push({ itemId: item.itemId, chance: `${item.chance.toFixed(4)}%` });
     }
   }
+
+  await redis.set(`cache:item:obtaining:${itemId}`, JSON.stringify(oddsData), "EX", 3600);
+
+  setHeaders({
+    "cache-control": "public, max-age=3600, must-revalidate",
+  });
 
   return json(oddsData);
 }
