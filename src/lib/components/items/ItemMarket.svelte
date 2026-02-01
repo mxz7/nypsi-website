@@ -15,12 +15,18 @@
 
   let orders = $derived(await getOrders({ itemId, page: 1 }));
 
+  let isMore = $derived(orders.length >= 25);
+
   async function getMore() {
     if (isLoading) return;
     isLoading = true;
     page += 1;
     const newOrders = await getOrders({ itemId, page });
     orders = [...orders, ...newOrders];
+
+    if (newOrders.length < 25) {
+      isMore = false;
+    }
 
     isLoading = false;
   }
@@ -108,11 +114,13 @@
 
   <button
     class="btn btn-soft mt-2 w-full {isLoading ? 'btn-disabled' : ''}"
-    disabled={isLoading}
+    disabled={isLoading || !isMore}
     onclick={getMore}
   >
     {#if isLoading}
       <span class="loading loading-spinner loading-sm"></span>
+    {:else if !isMore}
+      that's everything!
     {:else}
       load more
     {/if}
