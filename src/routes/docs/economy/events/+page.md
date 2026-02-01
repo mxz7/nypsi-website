@@ -16,14 +16,15 @@ events will end when the target is hit, or when the time runs out, depending on 
 
 <DocsHeader header='h2' text="event rewards" />
 
-| group    | reward                                                                             |
-| -------- | ---------------------------------------------------------------------------------- |
-| #1       | 1x <ItemModal item="pandora_box">pandora's box</ItemModal> guaranteed              |
-| #1 - #5  | 2x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
-| top 2.5% | event achievement progress                                                         |
-| top 5%   | 5x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
-| top 10%  | 4x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
-| top 50%  | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| group      | reward                                                                             |
+| ---------- | ---------------------------------------------------------------------------------- |
+| #1         | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> guaranteed              |
+| #1 - #5    | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| top 2.5%   | event achievement progress                                                         |
+| top 5%     | 5x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| top 10%    | 7x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| top 50%    | 5x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| bottom 50% | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
 
 **randomly given to group** means that x amount of pandora boxes will be given to x random users in that group.
 
