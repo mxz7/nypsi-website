@@ -36,8 +36,6 @@ export async function GET({ params, setHeaders }) {
 
   const data: ApiData = await response.json();
 
-  console.log(data);
-
   const { pools, obtaining } = data;
 
   const oddsData: {
