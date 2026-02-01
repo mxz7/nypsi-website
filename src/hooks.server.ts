@@ -1,6 +1,9 @@
 import { dev } from "$app/environment";
 import { log } from "$lib/server/logger";
 
+// selectively preload fonts
+const fonts = ["inter-latin-wght-normal"];
+
 export function handleError({ event, error, message, status }) {
   if (dev) return console.error(error);
   const errorId = crypto.randomUUID();
@@ -31,8 +34,12 @@ export async function handle({ event, resolve }) {
   };
 
   const res = await resolve(event, {
-    preload: ({ type }) => {
-      return type === "js" || type === "css" || type === "font";
+    preload: ({ type, path }) => {
+      if (type === "font") {
+        return fonts.some((font) => path.includes(font));
+      }
+
+      return type === "js" || type === "css";
     },
   });
 
