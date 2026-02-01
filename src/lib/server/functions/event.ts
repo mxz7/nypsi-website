@@ -64,6 +64,10 @@ export async function getEvent(id?: number, longCache = false): Promise<NypsiEve
 
   const event = await getEventNoCache(id, longCache ? 50 : undefined);
 
+  if (!event.endedAt && new Date(event.expiresAt).getTime() > Date.now()) {
+    longCache = false;
+  }
+
   if (!event) {
     await redis.set(`cache:events:${id}`, "null", "EX", longCache ? 7200 : 7);
     return null;

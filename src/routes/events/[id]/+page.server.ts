@@ -19,7 +19,7 @@ export async function load({ locals, fetch, params }) {
     return error(404, "event not found");
   }
 
-  if (!event.endedAt && new Date(event.expiresAt).getTime() > Date.now()) {
+  if (!event.endedAt && (!event.expiresAt || new Date(event.expiresAt).getTime() > Date.now())) {
     return redirect(302, "/events");
   }
 

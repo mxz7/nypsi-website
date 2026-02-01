@@ -1,6 +1,9 @@
 import { dev } from "$app/environment";
 import { log } from "$lib/server/logger";
 
+// selectively preload fonts
+const fonts = ["inter-latin-wght-normal"];
+
 export function handleError({ event, error, message, status }) {
   if (dev) return console.error(error);
   const errorId = crypto.randomUUID();
@@ -30,7 +33,15 @@ export async function handle({ event, resolve }) {
     return { user, session };
   };
 
-  const res = await resolve(event);
+  const res = await resolve(event, {
+    preload: ({ type, path }) => {
+      if (type === "font") {
+        return fonts.some((font) => path.includes(font));
+      }
+
+      return type === "js" || type === "css";
+    },
+  });
 
   if (!res.headers.get("cache-control")) {
     res.headers.set("cache-control", "no-cache");

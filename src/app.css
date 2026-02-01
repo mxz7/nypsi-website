@@ -41,6 +41,16 @@
   scroll-behavior: smooth;
 }
 
+body {
+  font-family:
+    "Inter Variable",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
 .tippy-box {
   @apply border-primary/30 bg-base-300 rounded-lg border px-2 py-1 text-sm shadow-sm shadow-black;
 }
