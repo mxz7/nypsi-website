@@ -5,8 +5,8 @@ Disallow: /me
 Disallow: /login
 Disallow: /logout
 Disallow: /games/*
+Disallow: /wordle/*
 Disallow: /api
-Disallow: /items/history/*
 Disallow: /captcha
 Disallow: /users/*
 
