@@ -56,7 +56,7 @@ export async function GET({ params }) {
       } else {
         if (source.includes(":")) {
           const split = source.split(":");
-          oddsData.found[split[0].trim()] = split[1].trim();
+          oddsData.found[split[0].trim()] = split[1].trim().replaceAll("`", "");
         } else {
           oddsData.found[source] = source;
         }
