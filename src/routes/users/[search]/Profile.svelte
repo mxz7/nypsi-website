@@ -98,7 +98,7 @@
                 "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
             });
           }}
-          class="link-hover max-w-48 overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-96"
+          class="link-hover max-w-48 overflow-hidden leading-normal text-ellipsis whitespace-nowrap sm:max-w-96"
         >
           {baseData.lastKnownUsername}
         </button>
