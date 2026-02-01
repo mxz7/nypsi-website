@@ -77,12 +77,7 @@ export async function GET({ params }) {
 
   for (const farm of data.farm) {
     if (!oddsData.found[farm]) {
-      if (farm.includes(":")) {
-        const split = farm.split(":");
-        oddsData.found[split[0].trim()] = split[1].trim();
-      } else {
-        oddsData.found[farm] = farm;
-      }
+      oddsData[farm] = "";
     }
   }
 
