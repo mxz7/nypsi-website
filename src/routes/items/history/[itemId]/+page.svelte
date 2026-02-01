@@ -1,101 +1,40 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import Chart from "$lib/components/Chart.svelte";
+  import { getItem } from "$lib/api/items.remote";
+  import ItemMarket from "$lib/components/items/ItemMarket.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import Main from "$lib/components/ui/Main.svelte";
-  import { formatNumberPretty } from "$lib/functions/string.js";
-  import type { ChartOptions } from "chart.js";
+  import { Store } from "@lucide/svelte";
+  import Charts from "./charts.svelte";
 
-  let { data } = $props();
-  const days = $derived(page.url.searchParams.get("days") || "60");
+  const days = $derived(parseInt(page.url.searchParams.get("days") || "60"));
 
-  const chartOptions: ChartOptions = {
-    plugins: {
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            if (tooltipItem.dataset.label.includes("items in world")) {
-              return `in world: ${tooltipItem.formattedValue}`;
-            }
-
-            return `${tooltipItem.dataset.label} average: $${tooltipItem.formattedValue}`;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 7,
-        },
-      },
-      y2: {
-        grid: {
-          display: false,
-        },
-        min: 0,
-        position: "right",
-        ticks: {
-          callback(tickValue) {
-            return formatNumberPretty(Number(tickValue));
-          },
-        },
-      },
-      y1: {
-        grid: {
-          display: false,
-        },
-        min: 0,
-        position: "left",
-        ticks: {
-          callback(tickValue) {
-            return `$${formatNumberPretty(Number(tickValue))}`;
-          },
-        },
-      },
-    },
-  };
+  const item = $derived(await getItem(page.params.itemId));
 </script>
 
 <svelte:head>
-  <title>{data.item?.name} history | nypsi</title>
+  <title>{item.name} history | nypsi</title>
 </svelte:head>
 
-<Main class="space-y-4">
+<Main class="item-history-page space-y-4">
   <header class="flex justify-center gap-3">
     <div class="rounded-box bg-base-300 h-14 w-14 p-2">
       <img
         class="h-full w-full object-contain"
-        src={data.item.emoji}
+        src={item.emoji}
         alt=""
         decoding="sync"
         loading="eager"
       />
     </div>
 
-    <h1 class="my-auto text-3xl font-bold text-white">{data.item.name} history</h1>
+    <h1 class="my-auto text-3xl font-bold text-white">{item.name} history</h1>
   </header>
 
-  {#key data.graphData}
+  {#key days}
     <menu class="menu menu-horizontal rounded-box bg-base-200 mx-auto flex justify-center gap-2">
       {#each [14, 30, 60, 90, 69420] as option}
-        {@const focused = days === option.toString()}
+        {@const focused = days === option}
         <li>
           <a href="?days={option}" class={focused ? "menu-active" : ""}
             >{#if option === 69420}
@@ -108,20 +47,33 @@
       {/each}
     </menu>
 
-    <div>
-      {#if data.graphData === "invalid item"}
-        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-          <p>invalid item</p>
-        </div>
-      {:else if data.graphData === "not enough data"}
-        <div class="text-error mb-48 flex justify-center text-2xl font-semibold">
-          <p>not enough data</p>
-        </div>
-      {:else if typeof data.graphData !== "string"}
-        <Card class="mx-auto h-80 max-w-6xl sm:h-auto" mode="section">
-          <Chart chartData={data.graphData} {chartOptions} />
-        </Card>
-      {/if}
-    </div>
+    <Charts {days} itemId={page.params.itemId} />
   {/key}
+
+  <Card mode="section" class="overflow-x-auto">
+    <h2>
+      <span class="icon">
+        <Store class="text-primary" />
+      </span>
+      <span>market</span>
+    </h2>
+
+    <ItemMarket itemId={page.params.itemId} />
+  </Card>
 </Main>
+
+<style>
+  @reference "../../../../app.css";
+
+  :global {
+    .item-history-page {
+      h2 {
+        @apply mb-4 flex items-center gap-2 text-xl font-bold;
+
+        .icon {
+          @apply rounded-box bg-base-300 p-2;
+        }
+      }
+    }
+  }
+</style>
