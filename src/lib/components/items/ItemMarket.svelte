@@ -67,7 +67,7 @@
 {/snippet}
 
 {#if orders.length === 0}
-  <p class="text-center">no sell orders found</p>
+  <p class="text-center">no orders found</p>
 {:else}
   <table class="table w-full">
     <thead>
