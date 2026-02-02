@@ -75,7 +75,7 @@
 {#if orders.length === 0}
   <p class="text-center">no orders found</p>
 {:else}
-  <table class="table w-full overflow-x-auto">
+  <table class="table w-full">
     <thead>
       <tr>
         <th>date</th>
@@ -91,10 +91,8 @@
       {#each orders as order}
         <tr>
           <td class="text-base-content/75 text-xs">
-            <time
-              class="tooltip"
-              data-tip={order.createdAt.toISOString()}
-              datetime={order.createdAt.toISOString()}>{order.createdAt.toLocaleDateString()}</time
+            <time datetime={order.createdAt.toISOString()}
+              >{order.createdAt.toLocaleDateString()}</time
             >
           </td>
 
