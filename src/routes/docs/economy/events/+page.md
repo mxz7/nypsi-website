@@ -20,6 +20,7 @@ events will end when the target is hit, or when the time runs out, depending on 
 | ---------- | ---------------------------------------------------------------------------------- |
 | #1         | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> guaranteed              |
 | #1 - #5    | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| #1 - #10   | 300x <ItemModal item="dabloon">dabloons</ItemModal> randomly given to group        |
 | top 2.5%   | event achievement progress                                                         |
 | top 5%     | 5x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
 | top 10%    | 7x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
