@@ -198,9 +198,8 @@ async function getRawData(item: string) {
     // Item counts
     if (itemCounts.has(dateString)) {
       datasets[3].data.push(itemCounts.get(dateString)!);
-    } else if (i > 0) {
-      datasets[3].data.push(datasets[3].data[i - 1]);
     } else {
+      // For item counts, missing dates should be treated as 0 (do not carry last value)
       datasets[3].data.push(0);
     }
 
