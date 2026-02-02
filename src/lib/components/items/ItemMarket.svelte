@@ -75,7 +75,7 @@
 {#if orders.length === 0}
   <p class="text-center">no orders found</p>
 {:else}
-  <table class="table w-full">
+  <table class="table w-full overflow-x-auto">
     <thead>
       <tr>
         <th>date</th>
