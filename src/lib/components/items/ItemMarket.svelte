@@ -33,7 +33,7 @@
 </script>
 
 {#snippet owner(order: Order)}
-  {#if order.owner.id !== "0"}
+  {#if order.owner}
     <a href="/users/{order.owner.id}" class="link link-hover flex items-center gap-2">
       <img
         class="h-6 w-6 rounded-full"
@@ -83,7 +83,7 @@
         <th>type</th>
         <th>amount</th>
         <th>price</th>
-        <th>action</th>
+        <th>jump</th>
         <th>owner</th>
       </tr>
     </thead>
@@ -91,8 +91,10 @@
       {#each orders as order}
         <tr>
           <td class="text-base-content/75 text-xs">
-            <time datetime={order.createdAt.toUTCString()}
-              >{order.createdAt.toLocaleDateString()}</time
+            <time
+              class="tooltip"
+              data-tip={order.createdAt.toISOString()}
+              datetime={order.createdAt.toISOString()}>{order.createdAt.toLocaleDateString()}</time
             >
           </td>
 

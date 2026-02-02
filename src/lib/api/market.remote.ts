@@ -2,19 +2,20 @@ import { query } from "$app/server";
 import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
 import type { OrderType } from "@generated/prisma";
+import { sort } from "fast-sort";
 import ms from "ms";
 import z from "zod";
 
 type MarketOrder = {
-  owner: {
+  owner?: {
     id: string;
     username: string;
     avatar: string;
   };
-  itemAmount: number;
-  price: bigint;
+  itemAmount: number | bigint;
+  price: bigint | number;
   orderType: OrderType;
-  messageId: string;
+  messageId?: string;
   createdAt: Date;
   completed: boolean;
 };
@@ -32,7 +33,7 @@ export const getOrders = query(
       }) as MarketOrder[];
     }
 
-    const orders = await prisma.market.findMany({
+    const marketOrders = await prisma.market.findMany({
       where: {
         itemId,
       },
@@ -67,13 +68,43 @@ export const getOrders = query(
       },
     });
 
-    const transformed = orders.map((order) => {
+    const offers = await prisma.offer.findMany({
+      where: {
+        AND: [{ itemId }, { sold: true }],
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 25,
+      skip: 25 * (page - 1),
+      select: {
+        soldAt: true,
+        itemAmount: true,
+        money: true,
+        owner: {
+          select: {
+            user: {
+              select: {
+                id: true,
+                lastKnownUsername: true,
+                avatar: true,
+                Preferences: {
+                  select: {
+                    leaderboards: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const transformedOrders: MarketOrder[] = marketOrders.map((order) => {
       const shouldAnonymize = !order.owner.user.Preferences?.leaderboards;
 
       const owner = shouldAnonymize
-        ? {
-            id: 0,
-          }
+        ? null
         : {
             id: order.owner.user.id,
             username: order.owner.user.lastKnownUsername,
@@ -84,17 +115,38 @@ export const getOrders = query(
         ...order,
         owner,
       };
-    }) as MarketOrder[];
+    });
+
+    const transformedOffers: MarketOrder[] = offers.map((offer) => {
+      const shouldAnonymize = !offer.owner.user.Preferences?.leaderboards;
+
+      const owner = shouldAnonymize
+        ? null
+        : {
+            id: offer.owner.user.id,
+            username: offer.owner.user.lastKnownUsername,
+            avatar: offer.owner.user.avatar,
+          };
+
+      return {
+        orderType: "buy",
+        itemAmount: offer.itemAmount,
+        price: Math.round(Number(offer.money) / Number(offer.itemAmount)),
+        completed: true,
+        createdAt: offer.soldAt,
+        owner,
+      };
+    });
+
+    const orders = sort([...transformedOrders, ...transformedOffers]).desc((i) => i.createdAt);
 
     await redis.set(
       `cache:market:orders:${itemId}:p${page}`,
-      JSON.stringify(transformed, (key, value) =>
-        typeof value === "bigint" ? Number(value) : value,
-      ),
+      JSON.stringify(orders, (key, value) => (typeof value === "bigint" ? Number(value) : value)),
       "EX",
       ms("12 hours") / 1000,
     );
 
-    return transformed;
+    return orders;
   },
 );

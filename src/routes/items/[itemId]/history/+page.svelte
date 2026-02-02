@@ -50,7 +50,7 @@
     <Charts {days} itemId={page.params.itemId} />
   {/key}
 
-  <Card mode="section" class="overflow-x-auto">
+  <Card mode="section">
     <h2>
       <span class="icon">
         <Store class="text-primary" />
