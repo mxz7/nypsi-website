@@ -1,4 +1,5 @@
 import prisma from "$lib/server/database";
+import redis from "$lib/server/redis.js";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { sort } from "fast-sort";
@@ -6,11 +7,22 @@ import { sort } from "fast-sort";
 export async function load({ url }) {
   const days = parseInt(url.searchParams.get("days") || "30") || 30;
 
-  return {
+  const cache = await redis.get(`cache:bot_metrics:${days}`);
+
+  if (cache) {
+    return JSON.parse(cache);
+  }
+
+  const data = {
     queryGraph: await getDatabaseQueries(days),
     usersCommandsGraph: await getActiveUsersAndCommands(days),
     preprocessGraph: await getPreprocess(days),
+    gamesGraph: await getGamesByType(days),
   };
+
+  await redis.set(`cache:bot_metrics:${days}`, JSON.stringify(data), "EX", 3600);
+
+  return data;
 }
 
 async function getData(key: string, days: number) {
@@ -346,4 +358,81 @@ async function getPreprocess(days: number) {
   );
 
   return queryGraph;
+}
+
+async function getGamesByType(days: number) {
+  const graph: ChartConfiguration = {
+    type: "line",
+    data: {
+      labels: [],
+      datasets: [],
+    },
+  };
+
+  const fromDate = dayjs().subtract(days, "days").startOf("day").toDate();
+
+  // Use a DB-side aggregation for performance: count per game per day
+  const rows: { game: string; day: Date; cnt: number }[] = await prisma.$queryRaw`
+    SELECT "game", date_trunc('day', "date") AS day, COUNT(*) AS cnt
+    FROM "Game"
+    WHERE "date" > ${fromDate}
+    GROUP BY "game", day
+    ORDER BY day ASC, "game" ASC
+  `;
+
+  if (!rows || rows.length === 0) return graph;
+
+  // collect labels (days as numeric timestamps) and types
+  const labelSet = new Set<number>();
+  const typesSet = new Set<string>();
+
+  for (const r of rows) {
+    const labelNum = dayjs(r.day).startOf("day").valueOf();
+    labelSet.add(labelNum);
+    typesSet.add(r.game);
+  }
+
+  const labels = Array.from(labelSet).sort((a, b) => a - b);
+  const types = Array.from(typesSet).slice(0, 25);
+
+  graph.data.labels = labels as any;
+
+  const colors = [
+    "#ef4444",
+    "#f97316",
+    "#f59e0b",
+    "#84cc16",
+    "#10b981",
+    "#06b6d4",
+    "#3b82f6",
+    "#6366f1",
+    "#8b5cf6",
+    "#ec4899",
+    "#64748b",
+  ];
+
+  // map counts by type+label (label as numeric timestamp)
+  const counts: Record<string, Record<number, number>> = {};
+  for (const r of rows) {
+    const labelNum = dayjs(r.day).startOf("day").valueOf();
+    counts[r.game] = counts[r.game] || {};
+    counts[r.game][labelNum] = Number(r.cnt || 0);
+  }
+
+  for (let i = 0; i < types.length; i++) {
+    const t = types[i];
+
+    const dataset = {
+      yAxisID: "1",
+      label: t,
+      data: (labels as number[]).map((l) => ({ x: l, y: counts[t]?.[l] || 0 })),
+      fill: false,
+      borderColor: colors[i % colors.length],
+      backgroundColor: colors[i % colors.length],
+    };
+
+    graph.data.datasets.push(dataset as any);
+  }
+
+  return graph;
 }

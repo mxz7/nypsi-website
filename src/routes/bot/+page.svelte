@@ -152,6 +152,65 @@
       },
     },
   };
+
+  const gamesChartOptions: ChartOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        intersect: false,
+        mode: "index",
+        itemSort(a, b) {
+          const va =
+            a.parsed && typeof a.parsed === "object"
+              ? // @ts-expect-error it works
+                (a.parsed.y ?? a.parsed)
+              : (a.parsed ?? a.raw ?? 0);
+          const vb =
+            b.parsed && typeof b.parsed === "object"
+              ? // @ts-expect-error it works
+                (b.parsed.y ?? b.parsed)
+              : (b.parsed ?? b.raw ?? 0);
+
+          return (vb as number) - (va as number);
+        },
+        callbacks: {
+          title(items) {
+            const v = items[0]?.parsed?.x ?? items[0]?.label;
+            return dayjs(v).format("YYYY-MM-DD");
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    responsive: true,
+    elements: {
+      line: {
+        tension: 0.2,
+      },
+      point: {
+        radius: 1,
+      },
+    },
+    scales: {
+      x: {
+        type: "linear",
+        min: data.gamesGraph.data.labels[0] as number,
+        max: data.gamesGraph.data.labels[data.gamesGraph.data.labels.length - 1] as number,
+        ticks: {
+          maxTicksLimit: 7,
+          callback(tickValue, index, ticks) {
+            return dayjs(tickValue).format("YYYY-MM-DD");
+          },
+        },
+      },
+      1: {
+        position: "left",
+        beginAtZero: true,
+      },
+    },
+  };
 </script>
 
 <div class="flex w-full justify-center">
@@ -169,6 +228,11 @@
     <h2 class="mt-16 text-center text-3xl font-bold">command preprocessing</h2>
     <div class="mt-6 w-full">
       <Chart chartData={data.preprocessGraph} chartOptions={cmdChartOptions} />
+    </div>
+
+    <h2 class="mt-16 text-center text-3xl font-bold">games by type (daily)</h2>
+    <div class="mt-6 w-full">
+      <Chart chartData={data.gamesGraph} chartOptions={gamesChartOptions} />
     </div>
   </div>
 </div>
