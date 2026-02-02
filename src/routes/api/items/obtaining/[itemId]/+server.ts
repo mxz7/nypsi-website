@@ -73,6 +73,8 @@ export async function GET({ params, setHeaders }) {
         continue;
       } else if (source.includes("nypsi store")) {
         oddsData.found["💰 nypsi store"] = "";
+      } else if (source.includes("events")) {
+        oddsData.found["🔱 events"];
       } else {
         if (source.includes(":")) {
           const split = source.split(":");
