@@ -12,6 +12,10 @@
     width.set(0, { duration: 0 });
     visible = false;
 
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
     timeout = setTimeout(() => {
       visible = true;
       width.set(75, { duration: 4000 });
@@ -20,7 +24,7 @@
 
   onNavigate(() => {
     return () => {
-      clearInterval(timeout);
+      clearTimeout(timeout);
 
       if (width.current > 0 && visible) {
         width.set(100, { duration: 750 });
