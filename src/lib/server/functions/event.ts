@@ -64,7 +64,7 @@ export async function getEvent(id?: number, longCache = false): Promise<NypsiEve
 
   const event = await getEventNoCache(id, longCache ? 50 : undefined);
 
-  if (!event.endedAt && new Date(event.expiresAt).getTime() > Date.now()) {
+  if (event && !event.endedAt && new Date(event.expiresAt).getTime() > Date.now()) {
     longCache = false;
   }
 
