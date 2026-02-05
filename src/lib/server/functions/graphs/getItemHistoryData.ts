@@ -1,4 +1,3 @@
-import filterOutliers from "$lib/functions/chart/filter";
 import prisma from "$lib/server/database.js";
 import redis from "$lib/server/redis";
 import type { Item } from "$lib/types/Item";
@@ -33,19 +32,15 @@ async function getRawData(item: string) {
         price: true,
       },
     })
-    .then((r) => {
-      const filtered = filterOutliers(
-        r.map((i) => ({ amount: i.itemAmount, money: Number(i.price), date: i.createdAt })),
-      );
-      if (!filtered) {
-        console.warn(`failed to filter outliers on ${item}`);
-      }
+    .then((q) => {
+      // const filtered = filterOutliers(
+      //   r.map((i) => ({ amount: i.itemAmount, money: Number(i.price), date: i.createdAt })),
+      // );
+      // if (!filtered) {
+      //   console.warn(`failed to filter outliers on ${item}`);
+      // }
 
-      return filtered.map((i) => ({
-        itemAmount: i.amount,
-        price: i.money,
-        date: i.date,
-      }));
+      return q;
     });
 
   const offers = await prisma.offer
@@ -60,20 +55,16 @@ async function getRawData(item: string) {
       },
     })
     .then((q) => {
-      const filtered = filterOutliers(
-        q.map((i) => {
-          return { amount: Number(i.itemAmount), money: Number(i.money), date: i.soldAt };
-        }),
-      );
-      if (!filtered) {
-        console.warn(`failed to filter outliers on ${item}`);
-      }
+      // const filtered = filterOutliers(
+      //   q.map((i) => {
+      //     return { amount: Number(i.itemAmount), money: Number(i.money), date: i.soldAt };
+      //   }),
+      // );
+      // if (!filtered) {
+      //   console.warn(`failed to filter outliers on ${item}`);
+      // }
 
-      return (
-        filtered.map((i) => {
-          return { itemAmount: BigInt(i.amount), money: BigInt(i.money), soldAt: i.date };
-        }) || q
-      );
+      return q;
     });
 
   const itemCount = await prisma.graphMetrics.findMany({
@@ -94,29 +85,27 @@ async function getRawData(item: string) {
     return result;
   }
 
-  const auctionAverages = new Map<string, number[]>();
+  const auctionValues = new Map<string, number[]>();
 
   for (const item of orders) {
-    const date = dayjs(item.date).format("YYYY-MM-DD");
+    const date = dayjs(item.createdAt).format("YYYY-MM-DD");
 
-    if (auctionAverages.has(date)) {
-      auctionAverages
-        .get(date)
-        ?.push(...new Array(Number(item.itemAmount)).fill(Number(item.price)));
+    if (auctionValues.has(date)) {
+      auctionValues.get(date)?.push(...new Array(Number(item.itemAmount)).fill(Number(item.price)));
     } else {
-      auctionAverages.set(date, new Array(Number(item.itemAmount)).fill(Number(item.price)));
+      auctionValues.set(date, new Array(Number(item.itemAmount)).fill(Number(item.price)));
     }
   }
 
-  const offerAverages = new Map<string, number[]>();
+  const offerValues = new Map<string, number[]>();
 
   for (const item of offers) {
     const date = dayjs(item.soldAt).format("YYYY-MM-DD");
 
-    if (offerAverages.has(date)) {
-      offerAverages.get(date)?.push(Number(item.money / item.itemAmount));
+    if (offerValues.has(date)) {
+      offerValues.get(date)?.push(Number(item.money / item.itemAmount));
     } else {
-      offerAverages.set(date, [Number(item.money / item.itemAmount)]);
+      offerValues.set(date, [Number(item.money / item.itemAmount)]);
     }
   }
 
@@ -141,11 +130,11 @@ async function getRawData(item: string) {
   ];
 
   // Collect all unique dates
-  for (const key of auctionAverages.keys()) {
+  for (const key of auctionValues.keys()) {
     const dateStr = dayjs(key).format("YYYY-MM-DD");
     if (!labels.includes(dateStr)) labels.push(dateStr);
   }
-  for (const key of offerAverages.keys()) {
+  for (const key of offerValues.keys()) {
     const dateStr = dayjs(key).format("YYYY-MM-DD");
     if (!labels.includes(dateStr)) labels.push(dateStr);
   }
@@ -176,8 +165,8 @@ async function getRawData(item: string) {
     const dateString = labels[i];
 
     // Market
-    if (auctionAverages.has(dateString)) {
-      const values = auctionAverages.get(dateString)!;
+    if (auctionValues.has(dateString)) {
+      const values = auctionValues.get(dateString)!;
       datasets[0].data.push(Math.floor(values.reduce((a, b) => a + b) / values.length));
     } else if (i > 0) {
       datasets[0].data.push(datasets[0].data[i - 1]);
@@ -186,8 +175,8 @@ async function getRawData(item: string) {
     }
 
     // Offers
-    if (offerAverages.has(dateString)) {
-      const values = offerAverages.get(dateString)!;
+    if (offerValues.has(dateString)) {
+      const values = offerValues.get(dateString)!;
       datasets[1].data.push(Math.floor(values.reduce((a, b) => a + b) / values.length));
     } else if (i > 0) {
       datasets[1].data.push(datasets[1].data[i - 1]);
