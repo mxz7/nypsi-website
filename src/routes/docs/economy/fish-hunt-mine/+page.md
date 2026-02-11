@@ -8,6 +8,10 @@
 
 <DocsHeader header='h2' text="obtaining" />
 
+<DocsHeader header='h3' text='/free' />
+
+you can use the `/free` command to get some free, basic tools to help with your grinding.
+
 <DocsHeader header='h3' text="crates" />
 
 [crates](/docs/economy/items/crates) are the main way that most people get their items, tools included. the best way to get crates as a beginner is to `/vote` twice daily. a higher vote streak allows you to get more crates at a time.
