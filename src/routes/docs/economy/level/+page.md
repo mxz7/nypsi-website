@@ -12,13 +12,17 @@ levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if 
 
 level ups are handled automatically whenever you meet the xp and bank requirements (`/profile`)
 
-<DocsHeader header='h2' text="level up rewards" />
+<DocsHeader header='h3' text="how to deposit money into my bank?" />
 
-level up rewards are spread out between levels, for example, every 50 levels you will receive an xp booster
+use the `/deposit` command to deposit money into your bank. once you get to higher levels you will need to increase your bank size with <ItemModal item="stolen_credit_card" trailing=".">stolen credit cards</ItemModal>
 
 <DocsHeader header='h2' text="increasing bank size" />
 
 the main way of increasing your bank size is with <ItemModal item="stolen_credit_card" trailing=".">stolen credit cards</ItemModal> you can buy these from other users or find them yourself in [crates](/docs/economy/items/crates), [scratch cards](/docs/economy/items/scratch-cards), etc. another way to increase your bank is to level up, however, sometimes you will need to use a credit card to have enough bank storage to be able to level up
+
+<DocsHeader header='h2' text="level up rewards" />
+
+level up rewards are spread out between levels, for example, every 50 levels you will receive an xp booster
 
 <DocsHeader header='h2' text="prestiging" />
 
