@@ -8,7 +8,7 @@
 
 <DocsHeader header='h2' text="how to get married" />
 
-there are two ways to get married, you can either use a <ItemModal item="ring">ring</ItemModal>, or you can attempt to get 100% love with the `/love` command.
+there are two ways to get married, you can either use a <ItemModal item="ring" trailing=",">ring</ItemModal> or you can attempt to get 100% love with the `/love` command.
 
 to get married with a ring, do `/marry <@user>`, they will have to accept the marriage. if they deny the marriage, you will lose your ring and receive a broken ring.
 
