@@ -26,7 +26,7 @@
     return () => {
       clearTimeout(timeout);
 
-      if (width.current > 0 && visible) {
+      if (width.current > 0 || visible) {
         width.set(100, { duration: 750 });
         setTimeout(() => {
           visible = false;
