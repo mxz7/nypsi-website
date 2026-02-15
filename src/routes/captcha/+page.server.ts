@@ -24,7 +24,7 @@ export async function load({ url, locals }) {
   if (!query) return redirect(302, "/");
 
   if (query.userId !== auth.user.id)
-    return error(401, "Not Authorised - are you logged into the correct account?");
+    return error(403, "This isn't for you - are you logged into the correct account?");
 
   if (!query.solved)
     await prisma.captcha.update({
