@@ -22,6 +22,8 @@ the current seeds can be found on the [items page](/items)
 
 to keep your farm plants happy and healthy, you need to care for them! generally you can just check `$farm` every few days, if they're unhealthy, water **then** fertilise if needed.
 
+if you have farm health notifications enabled (`/settings me notifications`), nypsi will dm you when your farm needs watering/fertilising.
+
 <DocsHeader header='h3' text="watering" />
 
 plants need to be watered every 1-2 days, if they haven't been watered they get unhealthy and eventually die. to water you just use `$farm water`.
