@@ -33,7 +33,7 @@
     "fast-glob": "^3.3.3",
     "mdsvex": "^0.12.6",
     "prettier": "3.8.1",
-    "prettier-plugin-svelte": "3.4.1",
+    "prettier-plugin-svelte": "3.5.0",
     "prettier-plugin-tailwindcss": "0.7.2",
     "prisma": "7.4.1",
     "svelte": "^5.53.0",
