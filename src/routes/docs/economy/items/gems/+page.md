@@ -266,7 +266,7 @@ removes almost all negative effects possible from other gems
 
 <DocsHeader header='h3' text="obtaining" />
 
-every time you do an action that would cause a gem to break (and have 5 unique gems), there's a 50% chance to trigger the crafting sequence of a crystal heart. otherwise, your gem shatters and you only get shards ):
+every time you do an action that would cause a gem to break (and have 5 unique gems), there's a 25% chance to trigger the crafting sequence of a crystal heart. otherwise, your gem shatters and you only get shards ):
 
 <GemChance type="crystal_heart"/>
 
