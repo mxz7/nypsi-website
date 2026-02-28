@@ -13,7 +13,7 @@
     "start": "node build"
   },
   "devDependencies": {
-    "@hcaptcha/types": "^1.1.0",
+    "@hcaptcha/types": "^1.2.0",
     "@lucide/svelte": "^0.575.0",
     "@sveltejs/adapter-node": "^5.5.4",
     "@sveltejs/kit": "^2.50.2",
