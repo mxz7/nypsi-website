@@ -70,7 +70,7 @@
     title="chat reactions"
     list={[
       "fun typing game for all server members",
-      "uses word lists from <a href='https://monkeytype.com' target='_blank' class='link'>monkeytype</a> - or <a href='/docs/chat-reactions/word-lists' target='_blank' class='link'>create your own</a>",
+      "uses word lists from <a href='https://monkeytype.com' target='_blank' class='link'>monkeytype</a> - or <a href='/wiki/chat-reactions/word-lists' target='_blank' class='link'>create your own</a>",
       "customisable timings",
       "duel specific players with $cr duel",
       "view leaderboards with $cr lb",

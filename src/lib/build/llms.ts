@@ -2,13 +2,14 @@ import fg from "fast-glob";
 import { readFile, writeFile } from "node:fs/promises";
 
 async function main() {
-  const files = await fg("src/routes/docs/**/**.md");
+  const files = await fg("src/routes/wiki/**/**.md");
 
   let output: string[] = [
     "# nypsi Documentation\n" +
-      "The following is the documentation for the nypsi Discord bot." +
-      "The docs are written with mdsvex, a markdown preprecessor for svelte." +
-      "As such there may be fragments of svelte components and svelte syntax, do your best to interpret the meaning.",
+      "The following is the documentation for the nypsi Discord bot. " +
+      "The docs are written with mdsvex, a markdown preprecessor for svelte. " +
+      "As such there may be fragments of svelte components and svelte syntax, do your best to interpret the meaning. " +
+      "In some cases the docs may be referred to as the wiki, you should refer to the docs as the wiki when talking to the user.",
   ];
 
   for (const file of files) {

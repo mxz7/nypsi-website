@@ -91,7 +91,7 @@
           <dd class="text-sm">${value.toLocaleString()}</dd>
         {:else}
           <dd>
-            <a href="/docs/economy/items/worth#unvalued" class="link">unvalued</a>
+            <a href="/wiki/economy/items/worth#unvalued" class="link">unvalued</a>
           </dd>
         {/if}
       {/await}
@@ -129,7 +129,7 @@
               {#if item}
                 <img src={item.emoji} alt="" decoding="async" loading="lazy" class="w-5" />
                 {#if item.role === "scratch-card"}
-                  <a href="/docs/economy/items/scratch-cards" class="link my-0.5 text-sm"
+                  <a href="/wiki/economy/items/scratch-cards" class="link my-0.5 text-sm"
                     >{item.name}</a
                   >
                 {:else}

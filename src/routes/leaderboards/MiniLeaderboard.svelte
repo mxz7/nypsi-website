@@ -87,7 +87,7 @@
                 {:else}
                   <a
                     href={user.username === "[hidden]"
-                      ? "/docs/economy/user-settings/hidden"
+                      ? "/wiki/economy/user-settings/hidden"
                       : `/users/${user.id}`}
                     class="{i === 0
                       ? 'text-primary font-semibold'

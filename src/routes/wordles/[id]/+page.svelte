@@ -81,7 +81,7 @@
       completed by <a
         class="link-primary"
         href={data.game.userId === "hidden"
-          ? "/docs/economy/user-settings/hidden"
+          ? "/wiki/economy/user-settings/hidden"
           : "/users/" + data.game.userId}>{data.game.user.lastKnownUsername}</a
       >
       in {formatTime(data.game.time)}
