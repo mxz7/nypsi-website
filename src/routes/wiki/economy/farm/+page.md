@@ -30,7 +30,9 @@ plants need to be watered every 1-2 days, if they haven't been watered they get 
 
 <DocsHeader header='h3' text="fertilising" />
 
-fertilising is the exact same story. except they only need to be fertilised around every week. if they aren't fertilised for a long time, they will die. fertilising can be done with `$farm fertilise` or `$use fertiliser`
+fertilising is the exact same story. except they only need to be fertilised around every week. if they aren't fertilised for a long time, they will die. fertilising can be done with `$farm fertilise` or `$use fertiliser`.
+
+to stay efficient, don't fertilise until your plants are unhealthy, you could be wasting fertiliser!
 
 <DocsHeader header='h2' text="farm upgrades" />
 
@@ -39,3 +41,7 @@ there are certain items that you can use to upgrade farms. these upgrades apply 
 you can use a <ItemModal item="farm_silo">silo</ItemModal> to upgrade the plant storage by 10%, up to a max of 50%.
 
 in order to upgrade the speed of farms, you can use hoes. hoes have an upgradable item path, meaning that you have to start with the lowest level hoe and work your way up to the highest. each hoe gives you a 5% boost to output, making the boost go from 5% with a <ItemModal item="stone_hoe">stone hoe</ItemModal> up to 25% with a <ItemModal item="netherite_hoe">netherite hoe</ItemModal>
+
+<DocsHeader header='h2' text="farm notifications" />
+
+if you have **farm health** notifications enabled (`/settings me notification`), you will receive notifications when you have unhealthy plants. it is recommended to keep these turned on to make sure that your plants stay alive and well!
