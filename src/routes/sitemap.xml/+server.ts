@@ -10,7 +10,7 @@ export async function GET({ fetch }) {
 
   pages.push(
     ...pathsRaw
-      .map((i) => `docs/${i}`)
+      .map((i) => `wiki/${i}`)
       .map((i) => i.replaceAll("/+page.md", ""))
       .map((i) => i.replaceAll("/+page.svelte", "")),
   );
