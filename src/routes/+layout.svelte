@@ -34,7 +34,7 @@
         params.delete("loggedin");
         setTimeout(async () => {
           if (!auth.value || !auth.value.authenticated) return;
-          toast(`logged in as ${auth.value.user.username}`, {
+          toast(`logged in as ${auth.value.user.lastKnownUsername}`, {
             position: "bottom-center",
             icon: "✅",
             style:

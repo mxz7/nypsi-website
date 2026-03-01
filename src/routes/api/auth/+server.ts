@@ -24,5 +24,5 @@ export async function GET({ cookies, setHeaders, locals }) {
 
   locals.auth = validated;
 
-  return json({ authenticated: true, user: validated.user });
+  return json({ authenticated: true, ...locals.auth });
 }
