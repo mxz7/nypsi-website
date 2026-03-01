@@ -8,14 +8,14 @@ export type NotAuthed = {
 };
 
 export type User = {
-  id: string
+  id: string;
   lastCommand: Date;
   avatar: string | null;
   lastKnownUsername: string;
-  adminLevel: number
-}
+  adminLevel: number;
+};
 export type Session = {
-  id: string
-  expiresAt: Date
-  userId: string
-}
+  id: string;
+  expiresAt: Date;
+  userId: string;
+};

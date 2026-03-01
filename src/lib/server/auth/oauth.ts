@@ -6,4 +6,3 @@ export const discord = new Discord(
   env.DISCORD_OAUTH_SECRET,
   env.DISCORD_OAUTH_REDIRECT,
 );
-
