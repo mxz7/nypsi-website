@@ -1,5 +1,4 @@
 <script lang="ts">
-  import tooltip from "$lib/Tooltips";
   import badges from "$lib/data/badges";
   import seasons from "$lib/data/seasons";
   import parseEmoji from "$lib/functions/parseEmoji";
@@ -191,13 +190,12 @@
         {#if baseData.Tags?.length > 0}
           {#each baseData.Tags as tag, i}
             {#if badges.has(tag.tagId)}
-              <a href="/badges#{badges.get(tag.tagId)?.name}" class="block">
+              <a
+                href="/badges#{badges.get(tag.tagId)?.name}"
+                class="tooltip tooltip-left block"
+                data-tip={badges.get(tag.tagId)?.name}
+              >
                 <img
-                  use:tooltip={{
-                    content: badges.get(tag.tagId).name,
-                    theme: "tooltip",
-                    placement: "left",
-                  }}
                   class="w-4 object-contain sm:w-6"
                   src={badges.get(tag.tagId)?.icon}
                   alt="{tag.tagId} emoji"
@@ -209,40 +207,37 @@
               </a>
             {:else if tagData}
               {#if tagData[tag.tagId] && tag.selected}
-                <img
-                  use:tooltip={{
-                    content: tagData[tag.tagId].name,
-                    theme: "tooltip",
-                    placement: "left",
-                  }}
-                  class="w-4 object-contain sm:w-6"
-                  src={parseEmoji(tagData[tag.tagId].emoji)}
-                  alt="{tag.tagId} emoji"
-                  loading="lazy"
-                  decoding="async"
-                  height="16"
-                  width="16"
-                />
+                <span class="tooltip tooltip-left" data-tip={tagData[tag.tagId]?.name}>
+                  <img
+                    class="w-4 object-contain sm:w-6"
+                    src={parseEmoji(tagData[tag.tagId].emoji)}
+                    alt="{tag.tagId} emoji"
+                    loading="lazy"
+                    decoding="async"
+                    height="16"
+                    width="16"
+                  />
+                </span>
               {/if}
             {/if}
           {/each}
         {/if}
 
         {#if premiumMap.get(baseData.Premium?.level || 0)}
-          <img
-            use:tooltip={{
-              content: `${premiumMap.get(baseData.Premium?.level || 0)?.text} membership`,
-              theme: "tooltip",
-              placement: "left",
-            }}
-            loading="lazy"
-            class="w-4 sm:w-6"
-            src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
-            alt="premium level {baseData.Premium?.level} emoji"
-            decoding="async"
-            height="16"
-            width="16"
-          />
+          <span
+            class="tooltip tooltip-left"
+            data-tip={`${premiumMap.get(baseData.Premium?.level || 0)?.text} membership`}
+          >
+            <img
+              loading="lazy"
+              class="w-4 sm:w-6"
+              src={premiumMap.get(baseData.Premium?.level || 0)?.emoji}
+              alt="premium level {baseData.Premium?.level} emoji"
+              decoding="async"
+              height="16"
+              width="16"
+            />
+          </span>
         {/if}
       </div>
     {/if}

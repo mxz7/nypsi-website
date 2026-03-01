@@ -1,6 +1,5 @@
 <script lang="ts">
   import Card from "$lib/components/ui/Card.svelte";
-  import tooltip from "$lib/Tooltips.js";
   import { ChartArea, Crown } from "@lucide/svelte";
   import { sort } from "fast-sort";
   import { fade } from "svelte/transition";
@@ -116,12 +115,7 @@
   {#await data.odds then odds}
     {#if Object.values(odds.found).length > 0}
       <section class="rounded-box bg-base-300 mt-2 w-full p-3">
-        <h3
-          class="link text-center font-medium text-white"
-          use:tooltip={{ content: "(crates and scratch cards)" }}
-        >
-          obtaining
-        </h3>
+        <h3 class="text-center font-medium text-white">obtaining</h3>
         <ol class="max-h-48 overflow-auto">
           {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)), ) as foundEntry}
             {@const item = data.items.find((i) => i.id === foundEntry[0])}

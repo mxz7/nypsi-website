@@ -3,7 +3,6 @@
   import Main from "$lib/components/ui/Main.svelte";
   import parseEmoji from "$lib/functions/parseEmoji";
   import { tags } from "$lib/state.svelte";
-  import tooltip from "$lib/Tooltips";
   import { BadgeDollarSign, Code } from "@lucide/svelte";
   import { onMount } from "svelte";
 
@@ -37,18 +36,15 @@
       {#each data.supporters as supporter}
         <li>
           <a
-            class="link-hover flex min-w-0 items-center overflow-hidden text-ellipsis whitespace-nowrap"
+            class="link-hover flex min-w-0 items-center text-ellipsis whitespace-nowrap"
             href="/users/{supporter.id}"
           >
             {#if supporter.tagId}
               <span
-                class="user-tag"
-                use:tooltip={{
-                  placement: "top",
-                  content: data.tags[supporter.tagId]?.name,
-                  followCursor: true,
-                }}
+                class="tooltip mr-1 flex items-center"
+                data-tip={data.tags[supporter.tagId]?.name}
               >
+                [
                 <img
                   class="h-4 w-4 object-contain"
                   height="32"
@@ -57,6 +53,7 @@
                   alt=""
                   decoding="async"
                 />
+                ]
               </span>
             {/if}
             <span class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
@@ -84,18 +81,15 @@
       {#each data.contributors as supporter}
         <li>
           <a
-            class="link-hover flex items-center overflow-hidden text-ellipsis whitespace-nowrap"
+            class="link-hover flex items-center text-ellipsis whitespace-nowrap"
             href="/users/{supporter.id}"
           >
             {#if supporter.Tags[0]?.tagId}
               <span
-                class="user-tag"
-                use:tooltip={{
-                  placement: "top",
-                  content: data.tags[supporter.Tags[0].tagId]?.name,
-                  followCursor: true,
-                }}
+                class="tooltip mr-1 flex items-center"
+                data-tip={data.tags[supporter.Tags[0].tagId]?.name}
               >
+                [
                 <img
                   class="h-4 w-4 object-contain"
                   height="32"
@@ -104,6 +98,7 @@
                   alt=""
                   decoding="async"
                 />
+                ]
               </span>
             {/if}
             <span class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
@@ -115,19 +110,3 @@
     </ol>
   </Card>
 </Main>
-
-<style>
-  @reference "../../app.css";
-
-  .user-tag {
-    @apply mr-1 flex items-center;
-  }
-
-  .user-tag::before {
-    content: "[";
-  }
-
-  .user-tag::after {
-    content: "]";
-  }
-</style>

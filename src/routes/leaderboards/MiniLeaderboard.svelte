@@ -1,5 +1,4 @@
 <script lang="ts">
-  import tooltip from "$lib/Tooltips";
   import parseEmoji from "$lib/functions/parseEmoji";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { fade } from "svelte/transition";
@@ -55,17 +54,14 @@
             >
               <div class="text-slate-400 {i === 0 ? 'font-semibold' : ''}">#{position}</div>
 
-              <div class="flex w-full items-center overflow-hidden">
+              <div class="flex w-full min-w-0 items-center overflow-visible">
                 {#if user.id}
                   {#if user.tag}
                     <span
-                      class="user-tag"
-                      use:tooltip={{
-                        placement: "top",
-                        content: tags[user.tag]?.name,
-                        followCursor: true,
-                      }}
+                      class="user-tag tooltip tooltip-top mr-1 flex flex-none items-center"
+                      data-tip={tags[user.tag]?.name}
                     >
+                      [
                       <img
                         class="h-5 w-5 object-contain sm:h-6 sm:w-6"
                         height="32"
@@ -74,24 +70,23 @@
                         alt=""
                         decoding="async"
                       />
+                      ]
                     </span>
                   {/if}
                   <a
                     class="{i === 0
                       ? 'text-primary font-semibold'
-                      : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
+                      : 'text-slate-300'} link-hover min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap underline-offset-2"
                     href="{href}{user.id}"
                   >
                     {user.username}
                   </a>
                 {:else}
                   <a
-                    href={user.username === "[hidden]"
-                      ? "/wiki/economy/user-settings/hidden"
-                      : `/users/${user.id}`}
+                    href="/wiki/economy/user-settings/hidden"
                     class="{i === 0
                       ? 'text-primary font-semibold'
-                      : 'text-slate-300'} min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
+                      : 'text-slate-300'} link-hover min-w-0 overflow-hidden text-ellipsis whitespace-nowrap underline-offset-2"
                   >
                     {user.username}
                   </a>
@@ -112,19 +107,3 @@
     </div>
   {/if}
 </div>
-
-<style>
-  @reference "../../app.css";
-
-  .user-tag {
-    @apply mr-1 flex items-center;
-  }
-
-  .user-tag::before {
-    content: "[";
-  }
-
-  .user-tag::after {
-    content: "]";
-  }
-</style>
