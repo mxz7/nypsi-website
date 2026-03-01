@@ -1,5 +1,3 @@
-import type { User } from "lucia";
-
 export type Authed = {
   authenticated: true;
   user: User;
@@ -7,4 +5,17 @@ export type Authed = {
 
 export type NotAuthed = {
   authenticated: false;
+};
+
+export type User = {
+  id: string;
+  lastCommand: Date;
+  avatar: string | null;
+  lastKnownUsername: string;
+  adminLevel: number;
+};
+export type Session = {
+  id: string;
+  expiresAt: Date;
+  userId: string;
 };

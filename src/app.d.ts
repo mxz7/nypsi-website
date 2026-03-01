@@ -1,5 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
 
+import type { Session, User } from "$lib/types/Auth";
+
 // for information about these interfaces
 declare global {
   namespace App {
@@ -13,8 +15,8 @@ declare global {
     }
     interface Locals {
       validate: () => Promise<{
-        user: import("lucia").User;
-        session: import("lucia").Session;
+        user: User;
+        session: Session;
       } | null>;
       startTimer: number;
       error: string;
@@ -22,8 +24,8 @@ declare global {
       errorStackTrace: string;
       message: unknown;
       auth?: {
-        user: import("lucia").User;
-        session: import("lucia").Session;
+        user: User;
+        session: Session;
       };
     }
   }

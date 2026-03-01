@@ -49,7 +49,8 @@
   "type": "module",
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
-    "@lucia-auth/adapter-prisma": "^4.0.1",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "@prisma/adapter-pg": "^7.4.1",
     "@prisma/client": "7.4.1",
     "arctic": "^3.7.0",
@@ -57,7 +58,6 @@
     "dayjs": "1.11.19",
     "fast-sort": "3.4.1",
     "ioredis": "^5.9.3",
-    "lucia": "^3.2.2",
     "ms": "2.1.3",
     "pino": "^10.3.1",
     "svelte-french-toast": "^1.2.0",

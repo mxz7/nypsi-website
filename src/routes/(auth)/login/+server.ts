@@ -1,4 +1,4 @@
-import { discord } from "$lib/server/functions/auth.js";
+import { discord } from "$lib/server/auth/oauth.js";
 import { redirect } from "@sveltejs/kit";
 import { generateState } from "arctic";
 

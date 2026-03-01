@@ -22,7 +22,6 @@ export const getAuthedUser = query(async () => {
     return null;
   }
 
-  // @ts-expect-error shhh temporary until i change everything to remote functions
   locals.auth = validated;
 
   return validated.user;

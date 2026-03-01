@@ -1,10 +1,10 @@
 import { dev } from "$app/environment";
 import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
+import type { User } from "$lib/types/Auth";
 import type { DiscordGuild } from "$lib/types/Discord";
 import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
-import type { User } from "lucia";
 
 export async function getGuilds(user: User, locals?: any): Promise<null | number | DiscordGuild[]> {
   const accessToken = await redis.get(`discord:accesstoken:${user.id}`);
