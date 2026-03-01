@@ -3,9 +3,9 @@
   import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
-<DocsTemplate title="nypsi documentation" description="nypsi documentation provides setup guides, general info, and tips for the nypsi discord bot. contribute updates via github or get help in the discord server. learn how to improve or update the docs easily." />
+<DocsTemplate title="nypsi wiki" description="nypsi wiki provides setup guides, general info, and tips for the nypsi discord bot. contribute updates via github or get help in the discord server. learn how to improve or update the wiki easily." />
 
-welcome to the nypsi documentation, or some may call it the _wiki_. here you can find information to help you get nypsi set up, or to just read up on general information.
+welcome to the nypsi wiki, formerly _the docs_. here you can find information to help you get nypsi set up, or to just read up on general information.
 
 considering that you've found yourself here, you're smarter than most nypsi users, good job!
 
