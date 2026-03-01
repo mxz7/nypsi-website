@@ -1,5 +1,5 @@
 import { dev } from "$app/environment";
-import type { Session, User } from "@generated/prisma";
+import type { Session, User } from "$lib/types/Auth";
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
 import type { Cookies } from "@sveltejs/kit";
@@ -11,7 +11,9 @@ const SESSION_TTL = 1000 * 60 * 60 * 24 * 30;
 
 const COOKIE_NAME = "auth_session";
 
-export async function createSession(token: string, userId: string) {
+export async function createSession(userId: string) {
+  const token = generateSessionToken();
+
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
   const expiresAt = new Date(Date.now() + SESSION_TTL);
 
@@ -23,10 +25,10 @@ export async function createSession(token: string, userId: string) {
     },
   });
 
-  return { sessionId, expiresAt };
+  return { sessionId, expiresAt, token };
 }
 
-export function generateSessionToken() {
+function generateSessionToken() {
   const tokenBytes = new Uint8Array(20);
   crypto.getRandomValues(tokenBytes);
 
@@ -48,7 +50,15 @@ export async function validateSession(token: string): Promise<{
       id: sessionId,
     },
     include: {
-      user: true,
+      user: {
+        select: {
+          id: true,
+          lastCommand: true,
+          avatar: true,
+          lastKnownUsername: true,
+          adminLevel: true,
+        },
+      },
     },
   });
 
@@ -78,8 +88,8 @@ export async function validateSession(token: string): Promise<{
   return { session, user };
 }
 
-export function setSessionCookie(cookies: Cookies, sessionId: string, expiresAt: Date) {
-  cookies.set(COOKIE_NAME, sessionId, {
+export function setSessionCookie(cookies: Cookies, token: string, expiresAt: Date) {
+  cookies.set(COOKIE_NAME, token, {
     httpOnly: true,
     path: "/",
     secure: !dev,

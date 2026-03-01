@@ -1,6 +1,7 @@
 import { env } from "$env/dynamic/public";
+import { discord } from "$lib/server/auth/oauth.js";
+import { createSession, setSessionCookie } from "$lib/server/auth/sessions";
 import prisma from "$lib/server/database.js";
-import { discord, lucia } from "$lib/server/functions/auth.js";
 import redis from "$lib/server/redis.js";
 import { OAuth2RequestError } from "arctic";
 
@@ -32,13 +33,9 @@ export async function GET({ cookies, url }) {
     });
 
     if (existingUser) {
-      const session = await lucia.createSession(existingUser.id, {});
+      const { expiresAt, token } = await createSession(existingUser.id);
 
-      const sessionCookie = lucia.createSessionCookie(session.id);
-      cookies.set(sessionCookie.name, sessionCookie.value, {
-        path: ".",
-        ...sessionCookie.attributes,
-      });
+      setSessionCookie(cookies, token, expiresAt);
     } else {
       return new Response(null, { status: 302, headers: { Location: "/" } });
     }
