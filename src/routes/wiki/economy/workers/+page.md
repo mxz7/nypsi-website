@@ -1,8 +1,8 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
   import Calculator from "./calculator.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='workers' description="earn passive income by buying and upgrading workers, claim earnings easily, and discover rare upgrades and special items to boost your profits in the game." />
@@ -15,7 +15,7 @@ you can buy, upgrade and claim money from your workers using `/workers`
 
 <DocsHeader header='h2' text="rare upgrades" />
 
-some upgrades for workers you cannot buy in the upgrade menu (launchpad, warehouse permit, nasa computers, etc). these can be found in [crates](/docs/economy/items/crates?crate=workers) or bought from other players through [the market](/docs/economy/market) or trading.
+some upgrades for workers you cannot buy in the upgrade menu (launchpad, warehouse permit, nasa computers, etc). these can be found in [crates](/wiki/economy/items/crates?crate=workers) or bought from other players through [the market](/wiki/economy/market) or trading.
 
 <DocsHeader header='h2' text="special items" />
 

@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='seasons' description="learn about nypsi seasons: periodic economy resets, prestige and rewards, top player prizes including premium membership and real money via safe methods." />
@@ -25,7 +25,7 @@ its a good way to keep economy fresh and under control 🙂. and at the end of e
 
 <DocsHeader header='h2' text="rewards" />
 
-typically, the top 10 will receive rewards, all of which including a form of [premium membership](/docs/premium).
+typically, the top 10 will receive rewards, all of which including a form of [premium membership](/wiki/premium).
 
 the top 5 will receive **real money**. this can be withdrawn in a number of ways:
 

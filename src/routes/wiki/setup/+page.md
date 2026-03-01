@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='setting up nypsi for your server' description="set up nypsi discord bot for your server with easy guides on commands, moderation, chat filters, and customization. start managing your community today!" />
@@ -47,7 +47,7 @@ first of all, a good idea would be to get moderation logs (modlogs) set up and w
 
 the mute role can also be another common thing to customise. allowing you to designate a different or customised role to mute users with.
 
-[click here for specific mute role information](/docs/moderation/muterole)
+[click here for specific mute role information](/wiki/moderation/muterole)
 
 <DocsHeader header='h3' text="chat filter" />
 
@@ -55,13 +55,13 @@ nypsi's chat filter, is as i would describe it, "medium powerful". it's pretty g
 
 you're able to use string similarity to prevent people from trying to get around the filter by using different spelling variations. people will of course still get around it no matter what. you can never stop that. but it will help a lot.
 
-[click here for specific chat filter information](/docs/moderation/chat-filter)
+[click here for specific chat filter information](/wiki/moderation/chat-filter)
 
 <DocsHeader header='h3' text="auto mute" />
 
 auto mutes work with the chat filter. nypsi will mute people in accordance to the automute settings. it's quite powerful in the way that you're able to use a _violations type system_, where you can give users an increasingly longer mute, and customise how long it takes for the violation level to expire.
 
-[click here for specific auto mute information](/docs/moderation/auto-mute)
+[click here for specific auto mute information](/wiki/moderation/auto-mute)
 
 <DocsHeader header='h3' text="alt punishments" />
 
@@ -69,21 +69,21 @@ now, a pretty cool feature of nypsi is to be able to group accounts together. it
 
 if you're aware of a user's alts, you can group them together with the `$alts` command.
 
-[click here for specific alt punishments information](/docs/moderation/alt-punish)
+[click here for specific alt punishments information](/wiki/moderation/alt-punish)
 
 <DocsHeader header='h3' text="evidence" />
 
 nypsi allows you to attach evidence to moderation case. 'evidence' being an image of some sort, probably a screenshot. this can be useful when managing a medium-large server and need to keep track of evidence of punishments.
 
-[click here for specific evidence information](/docs/moderation/evidence)
+[click here for specific evidence information](/wiki/moderation/evidence)
 
 <DocsHeader header='h2' text="further reading" />
 
 this should be a lot of the essential information, but nypsi can do more for your server:
 
-- [birthdays](/docs/birthdays)
-- [chat reactions](/docs/chat-reactions/setup)
-- [reaction roles](/docs/reaction-roles)
+- [birthdays](/wiki/birthdays)
+- [chat reactions](/wiki/chat-reactions/setup)
+- [reaction roles](/wiki/reaction-roles)
 - custom countdowns ($countdown)
 - christmas countdown ($christmas)
 - channel counters ($counter)

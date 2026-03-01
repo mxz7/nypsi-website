@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='last.fm integration' description="connect nypsi to your last.fm account to show now playing, top tracks, artists, and recent songs. easy spotify integration and setup instructions." />

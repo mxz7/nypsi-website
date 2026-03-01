@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ItemModal from "$lib/components/docs/ItemModal.svelte";
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte";
   import getItems from "$lib/functions/items";
   import type { Item } from "$lib/types/Item";
   import { onMount } from "svelte";

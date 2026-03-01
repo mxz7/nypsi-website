@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='rules' description="nypsi discord bot and server rules explained, covering automation, exploits, trading, market use, and respectful behavior. follow these guidelines to avoid bans and ensure a positive experience." />
@@ -29,7 +29,7 @@ scamming is **not allowed**. if you have been scammed, dm nypsi with the followi
 
 <DocsHeader header='h3' text="market" />
 
-[the market](/docs/economy/market) is for selling items to players, not for transferring items between your accounts.
+[the market](/wiki/economy/market) is for selling items to players, not for transferring items between your accounts.
 there's a command for that you imbecile.
 
 creating orders/offers with a ridiculous value with the intent to disrupt the value of a

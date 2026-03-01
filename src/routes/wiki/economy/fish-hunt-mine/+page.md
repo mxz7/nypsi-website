@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
-  import DocsHeader from "$lib/components/docs/DocsHeader.svelte";
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
+  import DocsHeader from "$lib/components/wiki/DocsHeader.svelte";
 </script>
 
 <DocsTemplate title='fish hunt mine' description="learn how to obtain, upgrade and optimally use fishing rods, pickaxes, and guns in fish hunt mine using crates, shop, boosters, and manage item durability efficiently." />
@@ -14,7 +14,7 @@ you can use the `/free` command to get some free, basic tools to help with your 
 
 <DocsHeader header='h3' text="crates" />
 
-[crates](/docs/economy/items/crates) are the main way that most people get their items, tools included. the best way to get crates as a beginner is to `/vote` twice daily. a higher vote streak allows you to get more crates at a time.
+[crates](/wiki/economy/items/crates) are the main way that most people get their items, tools included. the best way to get crates as a beginner is to `/vote` twice daily. a higher vote streak allows you to get more crates at a time.
 
 make sure you don't lose your vote streak by enabling vote reminders! `/settings me notifications`
 
@@ -34,7 +34,7 @@ in your inventory, there's a number next to every item to indicate how many of t
 
 <DocsHeader header='h2' text="portals" />
 
-there are two additional [portals](/docs/economy/items/portals) you can use to increase the number of unique items that can be mined while using pickaxes or hunted using guns.
+there are two additional [portals](/wiki/economy/items/portals) you can use to increase the number of unique items that can be mined while using pickaxes or hunted using guns.
 
 <DocsHeader header='h2' text="boosters" />
 
@@ -52,8 +52,8 @@ there are two additional [portals](/docs/economy/items/portals) you can use to i
 | <ItemModal item="looting">looting</ItemModal>                | 30             | 2        |
 | <ItemModal item="double_xp">double xp</ItemModal>            | 240            | 1        |
 
-additionally, any tier of [premium](/docs/premium) reduces your command cooldown, with platinum being the best. with all of these boosters activated, you constantly repeat fish, hunt, and mine for a 30 minute time period.
+additionally, any tier of [premium](/wiki/premium) reduces your command cooldown, with platinum being the best. with all of these boosters activated, you constantly repeat fish, hunt, and mine for a 30 minute time period.
 
 <DocsHeader header='h2' text="sell all" />
 
-to sell the items gained from fish, hunt, and mine, use the command `/sell all` to view all the items and their worth. you can boost your sell multiplier, which increases the sell value of the items in `/sell all` via <ItemModal item="lucky_cheese" trailing=",">lucky cheese</ItemModal> [premium](/docs/premium), [guild shop](/docs/economy/guilds) and [levelling/prestiging](/docs/economy/level)
+to sell the items gained from fish, hunt, and mine, use the command `/sell all` to view all the items and their worth. you can boost your sell multiplier, which increases the sell value of the items in `/sell all` via <ItemModal item="lucky_cheese" trailing=",">lucky cheese</ItemModal> [premium](/wiki/premium), [guild shop](/wiki/economy/guilds) and [levelling/prestiging](/wiki/economy/level)

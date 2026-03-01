@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='bank' description="learn how the bank works in nypsi: boost bank size with stolen credit cards, keep money safe, level up faster, and master bankrob strategies." />
@@ -32,4 +32,4 @@ this means that the bank currently doesn't have enough funds to be robbed
 
 <DocsHeader header='h3' text="how does the bank get its money" />
 
-the nypsi bank gets its money from tax when users sell items, use offers, [the market](/docs/economy/market) or paying each other
+the nypsi bank gets its money from tax when users sell items, use offers, [the market](/wiki/economy/market) or paying each other

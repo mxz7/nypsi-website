@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='bakery' description="learn how the bakery lets you produce cookies and cakes, boost baking with grandpas, furnaces, and upgrades like cursors and grandmas for more rewards" />
@@ -32,8 +32,8 @@ you can increase your cookie production with cursors, super cursors, and grandma
 
 with ovens, cookies will build up from grandmas up to the max afk time. this means that with 12 ovens you can store 6 cookies per grandma, maxing out after 12 hours.
 
-cookie production also has chance to be doubled either from [guild upgrades](/docs/economy/guilds) or certain [gems](/docs/economy/items/gems)
+cookie production also has chance to be doubled either from [guild upgrades](/wiki/economy/guilds) or certain [gems](/wiki/economy/items/gems)
 
 <DocsHeader header='h3' text="obtaining" />
 
-upgrades can be obtained from [crates](/docs/economy/items/crates) and [scratch cards](/docs/economy/items/scratch-cards)
+upgrades can be obtained from [crates](/wiki/economy/items/crates) and [scratch cards](/wiki/economy/items/scratch-cards)

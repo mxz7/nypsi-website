@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='street races' description="join street races in your channel, compete with custom or crate cars, earn rewards, and upgrade vehicles for faster wins. get started with a free bike!" />

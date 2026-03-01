@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='marriage' description="marry a loving husband or wife, get rewards together!" />
@@ -20,4 +20,4 @@ sadly.. sometimes marriages don't always work out. if you get a divorce, both lo
 
 when married, you get doubled daily streak rewards when you both do `/daily`, on valentine's day there is also a bonus for married players.
 
-there is an [achievement](/docs/economy/achievements) for getting married.
+there is an [achievement](/wiki/economy/achievements) for getting married.

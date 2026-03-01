@@ -1,11 +1,11 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
   import CrateOdds from "./crate-odds.svelte"
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { page } from '$app/stores';
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
   
   let selected = $state("basic");
 
@@ -31,7 +31,7 @@
 
 <DocsHeader header='h2' text="obtaining" />
 
-you can easily obtain <ItemModal item="vote_crate">vote crates</ItemModal> by voting for nypsi with `$vote`. you can also get crates from tasks, daily rewards, fishing, loot drops, [premium](/docs/premium) rewards every friday night / saturday morning or the [online shop](https://ko-fi.com/nypsi/shop).
+you can easily obtain <ItemModal item="vote_crate">vote crates</ItemModal> by voting for nypsi with `$vote`. you can also get crates from tasks, daily rewards, fishing, loot drops, [premium](/wiki/premium) rewards every friday night / saturday morning or the [online shop](https://ko-fi.com/nypsi/shop).
 
 <DocsHeader header='h2' text="items you can get from crates" />
 

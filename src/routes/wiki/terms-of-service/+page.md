@@ -1,5 +1,5 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
 </script>
 
 <DocsTemplate title='terms of service' description="terms of service for the nypsi discord bot, including usage agreement, liability, termination of access, and details about changes to terms and data collection policies" />

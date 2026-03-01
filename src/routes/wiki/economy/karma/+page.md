@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
   import ShopItems from "./shop-items.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='karma' description="learn how to earn and use karma in nypsi to buy exclusive rewards like xp, crates, and premium ranks in the limited-time karma shop." />

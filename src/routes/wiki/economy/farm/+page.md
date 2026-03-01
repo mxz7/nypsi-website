@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='farms' description="learn how to start a farm, obtain and care for seeds, and upgrade with items like silos and hoes in this farming guide for item collectors." />
@@ -14,7 +14,7 @@ to get a farm you need seeds. once you have seeds, you can plant them with `$use
 
 seeds can be obtained like any other 'rare' item, from crates and scratch cards. different crates / scratch cards will have different odds for giving seeds.
 
-you can see the odds for crates on the [crates page](/docs/economy/items/crates)
+you can see the odds for crates on the [crates page](/wiki/economy/items/crates)
 
 the current seeds can be found on the [items page](/items)
 

@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='scratch cards' description="learn how to use and obtain scratch cards, daily scratch cards, and shop scratchies. discover how prize pools and winning chances work in this guide." />
@@ -19,11 +19,11 @@ scratch cards work just as you would expect them to do `/use <scratch card>` to 
 </p>
 
 <p>
-<ItemModal item="karma_scratch_card">karma scratch cards</ItemModal> can be purchased from the <a href="/docs/economy/karma">karma shop</a>
+<ItemModal item="karma_scratch_card">karma scratch cards</ItemModal> can be purchased from the <a href="/wiki/economy/karma">karma shop</a>
 </p>
 
 <p>
-<ItemModal item="lucky_scratch_card">lucky scratch cards</ItemModal> and <ItemModal item="legendary_scratch_card">legendary scratch cards</ItemModal> can be obtained from achievements or <a href="/docs/economy/items/crates">crates</a>
+<ItemModal item="lucky_scratch_card">lucky scratch cards</ItemModal> and <ItemModal item="legendary_scratch_card">legendary scratch cards</ItemModal> can be obtained from achievements or <a href="/wiki/economy/items/crates">crates</a>
 </p>
 
 <DocsHeader header='h2' text="how the prize pool works" />

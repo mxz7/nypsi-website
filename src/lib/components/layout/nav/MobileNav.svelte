@@ -60,7 +60,7 @@
 
     <br />
 
-    {#if page.url.pathname.startsWith("/docs")}
+    {#if page.url.pathname.startsWith("/wiki")}
       <ul class="menu font-medium">
         <li>
           <a class="opacity-70" href="/">
@@ -73,7 +73,7 @@
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <ul class="menu font-medium">
-        <h2 class="menu-title">nypsi docs</h2>
+        <h2 class="menu-title">nypsi wiki</h2>
 
         {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
           {@render renderDocsPath(path)}
@@ -143,7 +143,7 @@
             >status</a
           >
         </li>
-        <li><a href="/docs">docs</a></li>
+        <li><a href="/wiki">wiki</a></li>
         <li><a href="/discord" target="_blank">discord</a></li>
 
         <li>

@@ -31,7 +31,7 @@
           <li><a href="/items" class="font-semibold">items</a></li>
           <li><a href="/events" class="font-semibold">events</a></li>
           <li><a href="/status" class="font-semibold">status</a></li>
-          <li><a href="/docs" class="font-semibold">docs</a></li>
+          <li><a href="/wiki" class="font-semibold">wiki</a></li>
           <li>
             <a href="/discord" class="font-semibold" target="_blank">discord</a>
           </li>

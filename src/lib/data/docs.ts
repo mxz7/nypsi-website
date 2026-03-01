@@ -1,7 +1,7 @@
 import { sort } from "fast-sort";
 
-export const pathsRaw = Object.keys(import.meta.glob("../../routes/docs/**/*.{md,svx}")).map((i) =>
-  i.replace("../../routes/docs/", ""),
+export const pathsRaw = Object.keys(import.meta.glob("../../routes/wiki/**/*.{md,svx}")).map((i) =>
+  i.replace("../../routes/wiki/", ""),
 );
 
 export interface PathsData {
@@ -26,7 +26,7 @@ for (const path of pathsRaw) {
 
     node[name] = {
       name,
-      path: `/docs/${parent ? `${parent}/${name}` : name}`,
+      path: `/wiki/${parent ? `${parent}/${name}` : name}`,
       children: hasChildren ? {} : undefined,
     };
 

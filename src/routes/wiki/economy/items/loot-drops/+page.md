@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='loot drops' description="discover how loot drops and rare loot rains spawn in active discord channels, their random rewards, and how to get more on the official nypsi server." />

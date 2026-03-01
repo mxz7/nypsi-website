@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/docs/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/docs/ItemModal.svelte"
-  import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
+  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
 </script>
 
 <DocsTemplate title='levelling' description="learn how levelling, rewards, bank size, and prestiging work in our system. discover xp boosters, upgrades, stolen credit cards, and more." />
@@ -18,7 +18,7 @@ use the `/deposit` command to deposit money into your bank. once you get to high
 
 <DocsHeader header='h2' text="increasing bank size" />
 
-the main way of increasing your bank size is with <ItemModal item="stolen_credit_card" trailing=".">stolen credit cards</ItemModal> you can buy these from other users or find them yourself in [crates](/docs/economy/items/crates), [scratch cards](/docs/economy/items/scratch-cards), etc. another way to increase your bank is to level up, however, sometimes you will need to use a credit card to have enough bank storage to be able to level up
+the main way of increasing your bank size is with <ItemModal item="stolen_credit_card" trailing=".">stolen credit cards</ItemModal> you can buy these from other users or find them yourself in [crates](/wiki/economy/items/crates), [scratch cards](/wiki/economy/items/scratch-cards), etc. another way to increase your bank is to level up, however, sometimes you will need to use a credit card to have enough bank storage to be able to level up
 
 <DocsHeader header='h2' text="level up rewards" />
 
