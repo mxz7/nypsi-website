@@ -4,6 +4,7 @@ import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
 import type { Cookies } from "@sveltejs/kit";
 import prisma from "../database";
+import redis from "../redis";
 
 const SESSION_EXPIRY_UPDATE_WINDOW = 1000 * 60 * 60 * 24 * 15;
 const SESSION_EXPIRY_EXTENSION = 1000 * 60 * 60 * 24 * 30;
@@ -37,6 +38,7 @@ function generateSessionToken() {
 
 export async function invalidateSession(sessionId: string) {
   await prisma.session.delete({ where: { id: sessionId } });
+  await redis.del(`cache:session:${sessionId}`);
 }
 
 export async function validateSession(token: string): Promise<{
@@ -44,6 +46,17 @@ export async function validateSession(token: string): Promise<{
   user: User;
 } | null> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+
+  const cache = await redis.get(`cache:session:${sessionId}`);
+
+  if (cache) {
+    const data = JSON.parse(cache);
+
+    data.user.lastCommand = new Date(data.user.lastCommand);
+    data.session.expiresAt = new Date(data.session.expiresAt);
+
+    return data;
+  }
 
   const sessionWithUser = await prisma.session.findFirst({
     where: {
@@ -84,6 +97,8 @@ export async function validateSession(token: string): Promise<{
 
     session.expiresAt = newExpiresAt.expiresAt;
   }
+
+  await redis.set(`cache:session:${sessionId}`, JSON.stringify({ session, user }), "EX", 86400);
 
   return { session, user };
 }
