@@ -10,8 +10,8 @@
 </script>
 
 <svelte:head>
-  <title>{title} | nypsi docs</title>
-  <meta name="og:title" content="{title} | nypsi docs" />
+  <title>{title} | nypsi wiki</title>
+  <meta name="og:title" content="{title} | nypsi wiki" />
   <meta name="description" content={description} />
 </svelte:head>
 
