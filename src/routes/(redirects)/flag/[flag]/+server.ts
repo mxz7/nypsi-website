@@ -8,7 +8,7 @@ import { redirect } from "@sveltejs/kit";
 
 export async function GET({ params }) {
   const countryCode = Buffer.from(params.flag, "hex").toString();
-  const url = `https://flagcdn.com/w320/${countryCode}.png`;
+  const url = `https://flagcdn.com/w320/${countryCode.toLowerCase()}.png`;
 
   const response = await fetch(url);
 
