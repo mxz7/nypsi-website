@@ -49,8 +49,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: root
+          username: dokku
           port: 22
           key: ${{ secrets.PRIV_KEY }}
-          script: |
-            dokku git:from-image nypsi-website ${{ env.IMAGE_PREFIX }}:${{ github.sha }}
+          script: git:from-image nypsi-website ${{ env.IMAGE_PREFIX }}:${{ github.sha }}
