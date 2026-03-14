@@ -44,7 +44,10 @@ RUN apt update -qq && \
 # Copy built application
 COPY --from=build /app/build /app/build
 COPY --from=build /app/node_modules /app/node_modules
-COPY --from=build /app/package.json /app
+COPY --from=build /app/package.json /app/package.json
+
+# Copy health checks config
+COPY --link app.json /app/app.json
 
 # Set production environment
 ENV NODE_ENV="production"
