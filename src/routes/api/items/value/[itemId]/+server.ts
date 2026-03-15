@@ -4,7 +4,7 @@ import { json } from "@sveltejs/kit";
 export async function GET({ setHeaders, params, fetch }) {
   setHeaders({ "cache-control": "public, max-age=3600, must-revalidate" });
 
-  const value = await fetch(`${env.BOT_SERVER_URL}/item/value/${params.itemId}`, {
+  const value = await fetch(`${env.BOT_SERVER_URL}/items/${params.itemId}/value`, {
     headers: {
       Authorization: `Bearer ${env.BOT_API_AUTH}`,
     },
