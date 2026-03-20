@@ -18,6 +18,14 @@ to view another user's museum, use `/museum lookup`, this will allow you to see 
 
 _donating_ is how you add items to your museum. each item has a specific threshold to be marked as 'completed', completed items do not get removed on new seasons, and you can keep donating infinitely.
 
+**you can NOT get items back out of the museum**
+
 <DocsHeader header='h2' text="leaderboards" />
 
 there are museum leaderboards for each item, being the total amount donated, as well as how quickly it was completed.
+
+<DocsHeader header='h2' text="item limits" />
+
+some museum items have a limit that you cannot go over. for example: most boosters have a limit of 1, this is to keep a lot of these items in the economy, as it would be nice to not have them all disappear.
+
+most items do not have a limit, you can donate as many as you want to the museum to get to the top of the leaderboard
