@@ -65,11 +65,11 @@
       }
 
       h2 {
-        @apply mb-3 text-2xl font-bold text-white underline-offset-3;
+        @apply mt-8 mb-2 text-2xl font-bold text-white underline-offset-3;
       }
 
       h3 {
-        @apply mb-2 text-xl font-bold text-white underline-offset-3;
+        @apply mt-2 mb-2 text-xl font-bold text-white underline-offset-3;
       }
 
       h4 {
@@ -77,7 +77,7 @@
       }
 
       h5 {
-        @apply mb-2 text-base font-semibold text-white underline-offset-3;
+        @apply mb-1 text-base font-semibold text-white underline-offset-3;
       }
 
       p {
