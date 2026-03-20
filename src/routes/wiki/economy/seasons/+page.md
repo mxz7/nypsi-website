@@ -18,6 +18,7 @@ will be completely reset. meaning prestige 0.
 - marriage
 - dabloons
 - gold stars
+- completed museum items
 
 <DocsHeader header='h2' text="why?" />
 
