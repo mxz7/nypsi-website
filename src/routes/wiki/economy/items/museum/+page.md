@@ -29,3 +29,5 @@ there are museum leaderboards for each item, being the total amount donated, as 
 some museum items have a limit that you cannot go over. for example: most boosters have a limit of 1, this is to keep a lot of these items in the economy, as it would be nice to not have them all disappear.
 
 most items do not have a limit, you can donate as many as you want to the museum to get to the top of the leaderboard
+
+if you do not reach the completion requirement for an item by the end of a season, **it will be removed from your museum**
