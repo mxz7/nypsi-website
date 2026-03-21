@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Tag } from "$lib/functions/tags";
   import { daysAgo } from "$lib/functions/time";
+  import type { Game } from "$lib/types/Game";
   import type { Item } from "$lib/types/Item";
   import type { UserApiResponsexd } from "$lib/types/User";
   import dayjs from "dayjs";
@@ -8,10 +9,9 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import Loading from "../../../lib/components/Loading.svelte";
-  import Profile from "./Profile.svelte";
+  import Profile from "./oldProfile.svelte";
   import Punishment from "./Punishment.svelte";
   import SmallInfo from "./SmallInfo.svelte";
-  import type { Game } from "$lib/types/Game";
 
   interface Props {
     baseData: {

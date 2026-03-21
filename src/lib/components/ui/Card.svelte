@@ -17,16 +17,16 @@
       "hover:border-primary/30",
       "w-full",
       "gap-2",
-      "rounded-lg",
+      "rounded-xl",
       "border",
       "p-4",
       "duration-300",
     ];
 
     if (focused) {
-      output.push("border-primary/15 ");
+      output.push("border-primary/20 ");
     } else {
-      output.push("border-primary/5");
+      output.push("border-primary/10");
     }
 
     if (classes) {
