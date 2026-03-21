@@ -1,14 +1,20 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { getAchievementsRemote } from "$lib/api/achievements.remote";
+  import { getAchievements, getBaseData, getCommandUses } from "$lib/api/users.remote";
   import Main from "$lib/components/ui/Main.svelte";
   import { daysAgo } from "$lib/functions/time";
   import dayjs from "dayjs";
-  import { data } from "./page.remote";
   import Profile from "./profile.svelte";
   import StatsGrid from "./stats-grid.svelte";
 
-  const { baseData, achievements, commandsData } = $derived(await data(page.params.search));
+  const [baseData, achievements, commandsData] = $derived(
+    await Promise.all([
+      getBaseData(page.params.search),
+      getAchievements(page.params.search),
+      getCommandUses(page.params.search),
+    ]),
+  );
 
   const achievementsData = await getAchievementsRemote();
 

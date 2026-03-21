@@ -1,5 +1,5 @@
 import { query } from "$app/server";
-import { RedisKey } from "$lib/data/constants";
+import { Constants, RedisKey } from "$lib/data/constants";
 import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
 import { error } from "@sveltejs/kit";
@@ -46,7 +46,24 @@ export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: st
   },
 );
 
+async function getUserIdHelper(userId: string) {
+  if (!userId.match(Constants.SNOWFLAKE_REGEX)) {
+    const result = await getUserId(userId);
+
+    if (!result.ok) {
+      const { status, message } = result as ApiErrorResult;
+      error(status, message);
+    }
+
+    userId = result.id;
+  }
+
+  return userId;
+}
+
 export const getBaseData = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+
   const query = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -104,6 +121,8 @@ export const getBaseData = query(z.string(), async (userId) => {
 });
 
 export const getCommandUses = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+
   const query = await prisma.commandUse.groupBy({
     by: ["command"],
     _sum: {
@@ -123,6 +142,8 @@ export const getCommandUses = query(z.string(), async (userId) => {
 });
 
 export const getAchievements = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+
   const query = await prisma.achievements.findMany({
     where: { userId },
     select: {
