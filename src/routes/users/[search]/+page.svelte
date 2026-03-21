@@ -1,12 +1,18 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import { getAchievementsRemote } from "$lib/api/achievements.remote";
   import Main from "$lib/components/ui/Main.svelte";
   import { daysAgo } from "$lib/functions/time";
   import dayjs from "dayjs";
-  import { getBaseData } from "./page.remote";
+  import { getAchievements, getBaseData, getCommandUses } from "./page.remote";
   import Profile from "./profile.svelte";
+  import StatsGrid from "./stats-grid.svelte";
 
   const baseData = $derived(await getBaseData(page.params.search));
+  const commandsData = $derived(await getCommandUses(page.params.search));
+  const achievements = $derived(await getAchievements(page.params.search));
+
+  const achievementsData = await getAchievementsRemote();
 
   const title = $derived(`${baseData.lastKnownUsername}'s profile | nypsi`);
   const lastSeen = $derived.by(() => {
@@ -30,6 +36,11 @@
 
     return result;
   });
+  const commandUses = $derived(commandsData.reduce((a, b) => a + b._sum.uses, 0));
+  const achievementCompletion = $derived(
+    (achievements.filter((a) => a.completedAt).length / Object.values(achievementsData).length) *
+      100,
+  );
 </script>
 
 <svelte:head>
@@ -47,6 +58,10 @@
   <link rel="canonical" href="https://nypsi.xyz/users/{baseData.id}" />
 </svelte:head>
 
-<Main class="mx-auto mt-8 w-full max-w-3xl px-2 md:px-0">
+<Main class="mx-auto mt-8 w-full max-w-3xl space-y-4 px-2 md:px-0">
   <Profile {baseData} {lastSeen} />
+
+  {#if baseData.Economy}
+    <StatsGrid {baseData} {lastSeen} {commandUses} {achievementCompletion} />
+  {/if}
 </Main>

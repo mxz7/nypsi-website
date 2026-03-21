@@ -102,7 +102,7 @@
   }
 </script>
 
-<Card mode="section" focused class="flex gap-4">
+<Card mode="section" class="flex gap-4 shadow">
   <img
     class="size-20 rounded-full lg:size-32"
     src={baseData.avatar}
@@ -122,9 +122,14 @@
       {@const eco = baseData.Economy}
       <span class="text-base-content/75 font-mono text-sm">
         {#if eco.prestige}
-          prestige {eco.prestige} ·
+          prestige {eco.prestige}
+          {#if eco.level}
+            ·
+          {/if}
         {/if}
-        level {eco.level.toLocaleString()}
+        {#if eco.level}
+          level {eco.level.toLocaleString()}
+        {/if}
       </span>
     {:else}
       <span class="text-base-content/75 text-sm">last seen {lastSeen}</span>

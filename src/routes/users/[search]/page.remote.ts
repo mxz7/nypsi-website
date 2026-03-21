@@ -1,14 +1,14 @@
 import { query } from "$app/server";
 import { getAuthedUser } from "$lib/api/auth.remote";
-import { getUserId } from "$lib/api/users.remote";
+import { getUserId as getUserIdRemote } from "$lib/api/users.remote";
 import { Constants } from "$lib/data/constants";
 import prisma from "$lib/server/database";
 import { error } from "@sveltejs/kit";
 import z from "zod";
 
-export const getBaseData = query(z.string(), async (userId) => {
+async function getUserId(userId: string) {
   if (!userId.match(Constants.SNOWFLAKE_REGEX)) {
-    const result = await getUserId(userId);
+    const result = await getUserIdRemote(userId);
 
     if (!result.ok) {
       const { status, message } = result as ApiErrorResult;
@@ -17,6 +17,12 @@ export const getBaseData = query(z.string(), async (userId) => {
 
     userId = result.id;
   }
+
+  return userId;
+}
+
+export const getBaseData = query(z.string(), async (userId) => {
+  userId = await getUserId(userId);
 
   const query = await prisma.user.findUnique({
     where: {
@@ -51,6 +57,9 @@ export const getBaseData = query(z.string(), async (userId) => {
           level: true,
           money: true,
           netWorth: true,
+          bank: true,
+          dailyStreak: true,
+          voteStreak: true,
         },
       },
     },
@@ -67,6 +76,42 @@ export const getBaseData = query(z.string(), async (userId) => {
       return error(403, "private profile");
     }
   }
+
+  return query;
+});
+
+export const getCommandUses = query(z.string(), async (userId) => {
+  userId = await getUserId(userId);
+
+  const query = await prisma.commandUse.groupBy({
+    by: ["command"],
+    _sum: {
+      uses: true,
+    },
+    orderBy: {
+      _sum: {
+        uses: "desc",
+      },
+    },
+    where: {
+      userId,
+    },
+  });
+
+  return query;
+});
+
+export const getAchievements = query(z.string(), async (userId) => {
+  userId = await getUserId(userId);
+
+  const query = await prisma.achievements.findMany({
+    where: { userId },
+    select: {
+      achievementId: true,
+      completedAt: true,
+      progress: true,
+    },
+  });
 
   return query;
 });
