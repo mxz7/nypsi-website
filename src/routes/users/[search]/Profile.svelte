@@ -127,7 +127,7 @@
             ·
           {/if}
         {/if}
-        {#if eco.level}
+        {#if eco.level || (!eco.level && !eco.prestige)}
           level {eco.level.toLocaleString()}
         {/if}
       </span>
