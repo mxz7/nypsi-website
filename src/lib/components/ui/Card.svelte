@@ -17,7 +17,7 @@
       "hover:border-primary/30",
       "w-full",
       "gap-2",
-      "rounded-lg",
+      "rounded-xl",
       "border",
       "p-4",
       "duration-300",
