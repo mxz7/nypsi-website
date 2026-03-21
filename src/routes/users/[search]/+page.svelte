@@ -21,7 +21,7 @@
         result = "just now";
       } else {
         const h = Math.floor(hours);
-        result = `${h} hour${h > 1 ? "s" : ""} ago`;
+        result = `${h === 1 ? "an" : h} hour${h > 1 ? "s" : ""} ago`;
       }
     } else {
       const days = daysAgo(baseData.lastCommand);
