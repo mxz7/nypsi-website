@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { getBaseData } from "$lib/api/users.remote";
   import Card from "$lib/components/ui/Card.svelte";
   import { formatNumberPretty } from "$lib/functions/string";
   import {
@@ -13,7 +14,6 @@
     type IconProps,
   } from "@lucide/svelte";
   import type { Component } from "svelte";
-  import type { getBaseData } from "./page.remote";
 
   type Props = {
     baseData: Awaited<ReturnType<typeof getBaseData>>;

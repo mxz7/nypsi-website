@@ -1,9 +1,9 @@
 <script lang="ts">
   import { getTagsRemote } from "$lib/api/tags.remote";
+  import type { getBaseData } from "$lib/api/users.remote";
   import Card from "$lib/components/ui/Card.svelte";
   import badges from "$lib/data/badges";
   import toast from "svelte-french-toast";
-  import type { getBaseData } from "./page.remote";
 
   type Props = {
     baseData: Awaited<ReturnType<typeof getBaseData>>;

@@ -4,13 +4,11 @@
   import Main from "$lib/components/ui/Main.svelte";
   import { daysAgo } from "$lib/functions/time";
   import dayjs from "dayjs";
-  import { getAchievements, getBaseData, getCommandUses } from "./page.remote";
+  import { data } from "./page.remote";
   import Profile from "./profile.svelte";
   import StatsGrid from "./stats-grid.svelte";
 
-  const baseData = $derived(await getBaseData(page.params.search));
-  const commandsData = $derived(await getCommandUses(page.params.search));
-  const achievements = $derived(await getAchievements(page.params.search));
+  const { baseData, achievements, commandsData } = $derived(await data(page.params.search));
 
   const achievementsData = await getAchievementsRemote();
 
