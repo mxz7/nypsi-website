@@ -24,9 +24,9 @@
     ];
 
     if (focused) {
-      output.push("border-primary/15 ");
+      output.push("border-primary/20 ");
     } else {
-      output.push("border-primary/5");
+      output.push("border-primary/10");
     }
 
     if (classes) {
