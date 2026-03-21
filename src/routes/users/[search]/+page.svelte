@@ -1,44 +1,52 @@
 <script lang="ts">
-  import { userSearchTerm } from "$lib/state.svelte";
-  import { fade } from "svelte/transition";
-  import UserData from "./UserData.svelte";
+  import { page } from "$app/state";
+  import Main from "$lib/components/ui/Main.svelte";
+  import { daysAgo } from "$lib/functions/time";
+  import dayjs from "dayjs";
+  import { getBaseData } from "./page.remote";
+  import Profile from "./profile.svelte";
 
-  let { data } = $props();
+  const baseData = $derived(await getBaseData(page.params.search));
 
-  const title = $derived(`${data.baseUserData.lastKnownUsername}'s profile | nypsi`);
+  const title = $derived(`${baseData.lastKnownUsername}'s profile | nypsi`);
+  const lastSeen = $derived.by(() => {
+    const d = dayjs(baseData.lastCommand);
+    let result: string;
 
-  $effect(() => {
-    userSearchTerm.value = data.baseUserData.lastKnownUsername;
+    if (d.isBefore(dayjs().subtract(3, "months"))) {
+      result = new Date(baseData.lastCommand).toLocaleDateString();
+    } else if (daysAgo(baseData.lastCommand) < 1) {
+      const hours = (dayjs().unix() - d.unix()) / 3600;
+      if (hours < 1) {
+        result = "just now";
+      } else {
+        const h = Math.floor(hours);
+        result = `${h} hour${h > 1 ? "s" : ""} ago`;
+      }
+    } else {
+      const days = daysAgo(baseData.lastCommand);
+      result = `${days.toLocaleString()} day${days > 1 ? "s" : ""} ago`;
+    }
+
+    return result;
   });
 </script>
 
 <svelte:head>
-  <title>{title || `${data.baseUserData.lastKnownUsername}'s profile | nypsi`}</title>
-  <meta name="og:title" content="{data.baseUserData.lastKnownUsername}'s nypsi profile" />
+  <title>{title || `${baseData.lastKnownUsername}'s profile | nypsi`}</title>
+  <meta name="og:title" content="{baseData.lastKnownUsername}'s nypsi profile" />
 
-  <meta name="description" content="view {data.baseUserData.lastKnownUsername}'s nypsi profile" />
-  <meta
-    name="og:description"
-    content="view {data.baseUserData.lastKnownUsername}'s nypsi profile"
-  />
+  <meta name="description" content="view {baseData.lastKnownUsername}'s nypsi profile" />
+  <meta name="og:description" content="view {baseData.lastKnownUsername}'s nypsi profile" />
 
-  <meta name="og:image" content={data.baseUserData.avatar} />
+  <meta name="og:image" content={baseData.avatar} />
   <meta property="og:image:width" content="128" />
   <meta property="og:image:height" content="128" />
 
   <meta name="robots" content="noindex" />
-  <link rel="canonical" href="https://nypsi.xyz/users/{data.baseUserData.id}" />
+  <link rel="canonical" href="https://nypsi.xyz/users/{baseData.id}" />
 </svelte:head>
 
-<div in:fade={{ delay: 0, duration: 200 }}>
-  {#key data}
-    <UserData
-      baseData={data.baseUserData}
-      userData={data.allUserData}
-      items={data.items}
-      gamesPromise={data.games}
-      gamesBefore={data.gamesBefore}
-      tagData={data.tagData}
-    />
-  {/key}
-</div>
+<Main class="mx-auto mt-8 w-full max-w-3xl px-2 md:px-0">
+  <Profile {baseData} {lastSeen} />
+</Main>

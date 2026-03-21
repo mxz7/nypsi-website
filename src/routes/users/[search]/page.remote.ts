@@ -6,7 +6,7 @@ import prisma from "$lib/server/database";
 import { error } from "@sveltejs/kit";
 import z from "zod";
 
-export const baseData = query(z.string(), async (userId) => {
+export const getBaseData = query(z.string(), async (userId) => {
   if (!userId.match(Constants.SNOWFLAKE_REGEX)) {
     const result = await getUserId(userId);
 
@@ -43,6 +43,14 @@ export const baseData = query(z.string(), async (userId) => {
       Preferences: {
         select: {
           leaderboards: true,
+        },
+      },
+      Economy: {
+        select: {
+          prestige: true,
+          level: true,
+          money: true,
+          netWorth: true,
         },
       },
     },
