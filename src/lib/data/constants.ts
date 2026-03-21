@@ -6,4 +6,7 @@ export const RedisKey = {
   users: {
     USERNAME_TO_ID: "cache:usernametoid",
   },
+  data: {
+    ACHIEVEMENTS: "cache:achievements",
+  },
 };
