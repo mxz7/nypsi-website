@@ -4,7 +4,7 @@
   interface Props {
     children: import("svelte").Snippet;
     class?: string;
-    mode?: "section" | "div" | "article" | "anchor";
+    mode?: "section" | "div" | "article" | "anchor" | "li";
     href?: string;
     focused?: boolean;
   }
@@ -49,6 +49,10 @@
   <a {href} class={activeClasses}>
     {@render children?.()}
   </a>
+{:else if mode === "li"}
+  <li class={activeClasses}>
+    {@render children()}
+  </li>
 {:else}
   <div class={activeClasses}>
     {@render children?.()}

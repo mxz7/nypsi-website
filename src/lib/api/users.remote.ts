@@ -175,3 +175,15 @@ export const getMarriagePartner = query(z.string(), async (userId) => {
 
   return null;
 });
+
+export const getInventory = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+
+  const query = await prisma.inventory.findMany({
+    where: { userId },
+    select: { item: true, amount: true },
+    orderBy: { item: "asc" },
+  });
+
+  return query;
+});

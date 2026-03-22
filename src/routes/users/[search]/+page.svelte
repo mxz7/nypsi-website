@@ -12,6 +12,7 @@
   import dayjs from "dayjs";
   import Profile from "./profile.svelte";
   import StatsGrid from "./stats-grid.svelte";
+  import TabHandler from "./tab-handler.svelte";
 
   const [achievementsData, baseData, achievements, commandsData, marriagePartner] = $derived(
     await Promise.all([
@@ -72,5 +73,7 @@
 
   {#if baseData.Economy}
     <StatsGrid {baseData} {lastSeen} {commandUses} {achievementCompletion} />
+
+    <TabHandler />
   {/if}
 </Main>
