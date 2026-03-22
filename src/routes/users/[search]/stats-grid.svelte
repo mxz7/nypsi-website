@@ -89,7 +89,7 @@
   </li>
 {/snippet}
 
-<dl class="grid list-none grid-cols-4 gap-2">
+<dl class="grid list-none grid-cols-2 gap-2 md:grid-cols-4">
   {#each cards as card}
     {@render item(card)}
   {/each}
