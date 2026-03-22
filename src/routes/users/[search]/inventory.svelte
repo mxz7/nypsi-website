@@ -15,9 +15,15 @@
     {@const { name, emoji, id } = itemsData.find((i) => i.id === item)}
     <Card
       mode="li"
-      class="relative flex flex-col items-center justify-center gap-1.5 overflow-hidden text-center text-sm"
+      class="relative flex flex-col items-center justify-center gap-1.5 overflow-hidden p-1 text-center text-sm md:p-2"
     >
-      <img src={emoji} alt="" decoding="async" loading="lazy" class="w-8 object-contain pb-1" />
+      <img
+        src={emoji}
+        alt=""
+        decoding="async"
+        loading="lazy"
+        class="w-8 object-contain pt-1.5 pb-0.5"
+      />
 
       <h3 class="text-base-content/75 text-xs">{name}</h3>
 
