@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { getItemsRemote } from "$lib/api/items.remote";
   import { getTagsRemote } from "$lib/api/tags.remote";
-  import type { getBaseData } from "$lib/api/users.remote";
+  import type { getBaseData, getMarriagePartner } from "$lib/api/users.remote";
   import Card from "$lib/components/ui/Card.svelte";
   import badges from "$lib/data/badges";
   import toast from "svelte-french-toast";
@@ -8,9 +9,10 @@
   type Props = {
     baseData: Awaited<ReturnType<typeof getBaseData>>;
     lastSeen: string;
+    marriagePartner: Awaited<ReturnType<typeof getMarriagePartner>>;
   };
 
-  let { baseData, lastSeen }: Props = $props();
+  let { baseData, lastSeen, marriagePartner }: Props = $props();
 
   const tagData = await getTagsRemote();
 
@@ -62,6 +64,26 @@
     }; !important`,
   );
 
+  const levelText = $derived.by(() => {
+    const eco = baseData.Economy;
+
+    if (!eco) return "";
+
+    let out = "";
+
+    if (eco.prestige) {
+      out = `prestige ${eco.prestige}`;
+
+      if (eco.level) {
+        out += ` · level ${eco.level}`;
+      }
+    } else {
+      out = `level ${eco.level}`;
+    }
+
+    return out;
+  });
+
   const tags = $derived.by(() => {
     const activeTag = baseData.Tags.find((i) => i.selected);
     const userBadges = baseData.Tags.filter((i) => badges.has(i.tagId));
@@ -102,50 +124,74 @@
   }
 </script>
 
-<Card mode="section" class="flex gap-4 shadow">
-  <img
-    class="size-20 rounded-full lg:size-32"
-    src={baseData.avatar}
-    alt=""
-    loading="eager"
-    onerror={handleFallbackImage}
-  />
+{#snippet tagsSection()}
+  {#if tags.length > 0}
+    <ol class="mt-auto flex flex-wrap gap-2 pt-2">
+      {#each tags as tag}
+        <li
+          class="bg-base-300 border-primary/15 text-base-content/75 hover:border-primary/25 flex items-center gap-1 rounded-lg border px-2 py-1.5 text-sm shadow duration-200"
+        >
+          <img src={tag.src} alt="" class="size-5" />
+          {tag.label}
+        </li>
+      {/each}
+    </ol>
+  {/if}
+{/snippet}
 
-  <div class="flex min-w-0 grow flex-col py-2">
-    <h1 style="color: {usernameColor}" class="text-2xl font-extrabold text-white lg:text-4xl">
-      <button onclick={copyUsername} class="link-hover block max-w-full truncate text-left">
-        {baseData.lastKnownUsername}
-      </button>
-    </h1>
+<Card mode="section" class="flex flex-col gap-1 shadow">
+  <div class="flex gap-3">
+    <!-- will show old avatar for too long -->
+    {#key baseData.avatar}
+      <img
+        class="size-20 rounded-full lg:size-32"
+        src={baseData.avatar}
+        alt=""
+        loading="eager"
+        onerror={handleFallbackImage}
+      />
+    {/key}
 
-    {#if baseData.Economy}
-      {@const eco = baseData.Economy}
-      <span class="text-base-content/75 font-mono text-sm">
-        {#if eco.prestige}
-          prestige {eco.prestige}
-          {#if eco.level}
-            ·
-          {/if}
+    <div class="flex min-w-0 grow flex-col py-2">
+      <h1 style="color: {usernameColor}" class="text-2xl font-extrabold text-white lg:text-4xl">
+        <button onclick={copyUsername} class="link-hover block max-w-full truncate text-left">
+          {baseData.lastKnownUsername}
+        </button>
+      </h1>
+
+      {#if baseData.Economy}
+        {#if levelText}
+          <span class="text-base-content/75 font-mono text-sm">
+            {levelText}
+          </span>
         {/if}
-        {#if eco.level || (!eco.level && !eco.prestige)}
-          level {eco.level.toLocaleString()}
-        {/if}
-      </span>
-    {:else}
-      <span class="text-base-content/75 text-sm">last seen {lastSeen}</span>
-    {/if}
 
-    {#if tags.length > 0}
-      <ol class="mt-auto flex flex-wrap gap-2 pt-2">
-        {#each tags as tag}
-          <li
-            class="bg-base-300 border-primary/15 text-base-content/75 hover:border-primary/25 flex items-center gap-1 rounded-lg border px-2 py-1.5 text-sm shadow duration-200"
-          >
-            <img src={tag.src} alt="" class="size-5" />
-            {tag.label}
-          </li>
-        {/each}
-      </ol>
-    {/if}
+        {#if marriagePartner}
+          <div class="text-base-content/75 mt-2 flex items-center gap-0.5 text-sm">
+            <img
+              src={(await getItemsRemote()).find((i) => i.id === "ring").emoji}
+              alt=""
+              class="size-4"
+            />
+            <span>
+              married to
+              <a class="link-primary link underline-offset-2" href="/users/{marriagePartner.id}"
+                >{marriagePartner.lastKnownUsername}</a
+              >
+            </span>
+          </div>
+        {/if}
+      {:else}
+        <span class="text-base-content/75 text-sm">last seen {lastSeen}</span>
+      {/if}
+
+      {#if !(marriagePartner && levelText)}
+        {@render tagsSection()}
+      {/if}
+    </div>
   </div>
+
+  {#if marriagePartner && levelText}
+    {@render tagsSection()}
+  {/if}
 </Card>

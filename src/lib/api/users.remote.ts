@@ -155,3 +155,23 @@ export const getAchievements = query(z.string(), async (userId) => {
 
   return query;
 });
+
+export const getMarriagePartner = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+
+  const marriage = await prisma.marriage.findUnique({
+    where: { userId },
+    select: { partnerId: true },
+  });
+
+  if (marriage) {
+    const user = await prisma.user.findUnique({
+      where: { id: marriage.partnerId },
+      select: { id: true, lastKnownUsername: true },
+    });
+
+    return user || null;
+  }
+
+  return null;
+});

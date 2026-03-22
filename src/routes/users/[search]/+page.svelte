@@ -1,18 +1,24 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { getAchievementsRemote } from "$lib/api/achievements.remote";
-  import { getAchievements, getBaseData, getCommandUses } from "$lib/api/users.remote";
+  import {
+    getAchievements,
+    getBaseData,
+    getCommandUses,
+    getMarriagePartner,
+  } from "$lib/api/users.remote";
   import Main from "$lib/components/ui/Main.svelte";
   import { daysAgo } from "$lib/functions/time";
   import dayjs from "dayjs";
   import Profile from "./profile.svelte";
   import StatsGrid from "./stats-grid.svelte";
 
-  const [baseData, achievements, commandsData] = $derived(
+  const [baseData, achievements, commandsData, marriagePartner] = $derived(
     await Promise.all([
       getBaseData(page.params.search),
       getAchievements(page.params.search),
       getCommandUses(page.params.search),
+      getMarriagePartner(page.params.search),
     ]),
   );
 
@@ -63,7 +69,7 @@
 </svelte:head>
 
 <Main class="mx-auto mt-8 w-full max-w-3xl space-y-4 px-2 md:px-0">
-  <Profile {baseData} {lastSeen} />
+  <Profile {baseData} {lastSeen} {marriagePartner} />
 
   {#if baseData.Economy}
     <StatsGrid {baseData} {lastSeen} {commandUses} {achievementCompletion} />
