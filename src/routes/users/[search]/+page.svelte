@@ -13,16 +13,15 @@
   import Profile from "./profile.svelte";
   import StatsGrid from "./stats-grid.svelte";
 
-  const [baseData, achievements, commandsData, marriagePartner] = $derived(
+  const [achievementsData, baseData, achievements, commandsData, marriagePartner] = $derived(
     await Promise.all([
+      getAchievementsRemote(),
       getBaseData(page.params.search),
       getAchievements(page.params.search),
       getCommandUses(page.params.search),
       getMarriagePartner(page.params.search),
     ]),
   );
-
-  const achievementsData = await getAchievementsRemote();
 
   const title = $derived(`${baseData.lastKnownUsername}'s profile | nypsi`);
   const lastSeen = $derived.by(() => {
