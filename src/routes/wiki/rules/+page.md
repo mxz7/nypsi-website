@@ -61,6 +61,10 @@ other, but best to not at all.
 continuous harassment and annoyance of other users is not allowed, this is annoying and
 childish behaviour.
 
+<DocsHeader header='h3' text="language" />
+
+nypsi is an english discord bot intended for an english audience, we're of course happy to have non-english speaking people playing, but please keep it to english in the official server. this helps everyone feel welcome and can understand all conversations without being left out
+
 <DocsHeader header='h2' text="don't be a prick" />
 
 again, this gives staff the leniency to punish users when it is deserved but may not
