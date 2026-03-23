@@ -3,6 +3,9 @@ export const Constants = {
 } as const;
 
 export const RedisKey = {
+  guilds: {
+    GUILD_BY_NAME: "cache:guild:byname",
+  },
   users: {
     USERNAME_TO_ID: "cache:usernametoid",
     BASE_DATA: "cache:user:basedata",
