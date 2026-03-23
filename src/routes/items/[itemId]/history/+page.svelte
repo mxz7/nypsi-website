@@ -14,7 +14,7 @@
 
 <svelte:head>
   <title>{item.name} history | nypsi</title>
-  <meta name="og:title" content="{item.name} | nypsi" />
+  <meta name="og:title" content="{item.name} history | nypsi" />
 </svelte:head>
 
 <Main class="item-history-page space-y-4">
