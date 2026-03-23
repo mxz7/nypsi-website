@@ -7,9 +7,17 @@
     mode?: "section" | "div" | "article" | "anchor" | "li";
     href?: string;
     focused?: boolean;
+    style?: string;
   }
 
-  let { children, class: classes, mode = "div", href, focused = false }: Props = $props();
+  let {
+    children,
+    class: classes,
+    mode = "div",
+    href,
+    focused = false,
+    style = "",
+  }: Props = $props();
 
   const activeClasses = $derived.by(() => {
     const output = [
@@ -38,23 +46,23 @@
 </script>
 
 {#if mode === "section"}
-  <section class={activeClasses}>
+  <section class={activeClasses} {style}>
     {@render children?.()}
   </section>
 {:else if mode === "article"}
-  <article class={activeClasses}>
+  <article class={activeClasses} {style}>
     {@render children?.()}
   </article>
 {:else if mode === "anchor"}
-  <a {href} class={activeClasses}>
+  <a {href} class={activeClasses} {style}>
     {@render children?.()}
   </a>
 {:else if mode === "li"}
-  <li class={activeClasses}>
+  <li class={activeClasses} {style}>
     {@render children()}
   </li>
 {:else}
-  <div class={activeClasses}>
+  <div class={activeClasses} {style}>
     {@render children?.()}
   </div>
 {/if}
