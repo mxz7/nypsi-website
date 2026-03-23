@@ -10,11 +10,13 @@
     baseData: Awaited<ReturnType<typeof getBaseData>>;
     lastSeen: string;
     marriagePartner: Awaited<ReturnType<typeof getMarriagePartner>>;
+    gems: string[];
   };
 
-  let { baseData, lastSeen, marriagePartner }: Props = $props();
+  let { baseData, lastSeen, marriagePartner, gems }: Props = $props();
 
   const tagData = await getTagsRemote();
+  const itemsData = await getItemsRemote();
 
   const premiumMap = new Map([
     [
@@ -112,6 +114,14 @@
     return tags;
   });
 
+  const gemItems = $derived.by(() =>
+    gems
+      .map((gemId) => itemsData.find((item) => item.id === gemId))
+      .filter((item) => item !== undefined),
+  );
+
+  const ringEmoji = $derived(itemsData.find((item) => item.id === "ring")?.emoji);
+
   function copyUsername() {
     navigator.clipboard.writeText(baseData.id);
 
@@ -139,59 +149,71 @@
   {/if}
 {/snippet}
 
-<Card mode="section" class="flex flex-col gap-1 shadow">
-  <div class="flex gap-3">
-    <!-- will show old avatar for too long -->
-    {#key baseData.avatar}
-      <img
-        class="size-20 rounded-full lg:size-32"
-        src={baseData.avatar}
-        alt=""
-        loading="eager"
-        onerror={handleFallbackImage}
-      />
-    {/key}
+{#snippet gemsSection()}
+  {#if gemItems.length > 0}
+    <ol class="flex flex-col items-end justify-between self-stretch py-1">
+      {#each gemItems as gem}
+        <li class="tooltip tooltip-left shrink-0" data-tip={gem.name}>
+          <img src={gem.emoji} alt="" class="aspect-square size-5 shrink-0 object-contain" />
+        </li>
+      {/each}
+    </ol>
+  {/if}
+{/snippet}
 
-    <div class="flex min-w-0 grow flex-col py-2">
-      <h1 style="color: {usernameColor}" class="text-2xl font-extrabold text-white lg:text-4xl">
-        <button onclick={copyUsername} class="link-hover block max-w-full truncate text-left">
-          {baseData.lastKnownUsername}
-        </button>
-      </h1>
+<Card mode="section" class="flex items-stretch gap-1 shadow">
+  <div class="flex grow flex-col gap-1">
+    <div class="flex min-w-0 grow gap-3">
+      <!-- will show old avatar for too long -->
+      {#key baseData.avatar}
+        <img
+          class="size-20 rounded-full lg:size-32"
+          src={baseData.avatar}
+          alt=""
+          loading="eager"
+          onerror={handleFallbackImage}
+        />
+      {/key}
 
-      {#if baseData.Economy}
-        {#if levelText}
-          <span class="text-base-content/75 font-mono text-sm">
-            {levelText}
-          </span>
-        {/if}
+      <div class="flex min-w-0 grow flex-col py-2">
+        <h1 style="color: {usernameColor}" class="text-2xl font-extrabold text-white lg:text-4xl">
+          <button onclick={copyUsername} class="link-hover block max-w-full truncate text-left">
+            {baseData.lastKnownUsername}
+          </button>
+        </h1>
 
-        {#if marriagePartner}
-          <div class="text-base-content/75 mt-2 flex items-center gap-0.5 text-sm">
-            <img
-              src={(await getItemsRemote()).find((i) => i.id === "ring").emoji}
-              alt=""
-              class="size-4"
-            />
-            <span>
-              married to
-              <a class="link-primary link underline-offset-2" href="/users/{marriagePartner.id}"
-                >{marriagePartner.lastKnownUsername}</a
-              >
+        {#if baseData.Economy}
+          {#if levelText}
+            <span class="text-base-content/75 font-mono text-sm">
+              {levelText}
             </span>
-          </div>
-        {/if}
-      {:else}
-        <span class="text-base-content/75 text-sm">last seen {lastSeen}</span>
-      {/if}
+          {/if}
 
-      {#if !(marriagePartner && levelText)}
-        {@render tagsSection()}
-      {/if}
+          {#if marriagePartner}
+            <div class="text-base-content/75 mt-2 flex items-center gap-0.5 text-sm">
+              <img src={ringEmoji} alt="" class="size-4" />
+              <span>
+                married to
+                <a class="link-primary link underline-offset-2" href="/users/{marriagePartner.id}"
+                  >{marriagePartner.lastKnownUsername}</a
+                >
+              </span>
+            </div>
+          {/if}
+        {:else}
+          <span class="text-base-content/75 text-sm">last seen {lastSeen}</span>
+        {/if}
+
+        {#if !(marriagePartner && levelText)}
+          {@render tagsSection()}
+        {/if}
+      </div>
     </div>
+
+    {#if marriagePartner && levelText}
+      {@render tagsSection()}
+    {/if}
   </div>
 
-  {#if marriagePartner && levelText}
-    {@render tagsSection()}
-  {/if}
+  {@render gemsSection()}
 </Card>

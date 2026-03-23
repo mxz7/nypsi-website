@@ -5,6 +5,7 @@
     getAchievements,
     getBaseData,
     getCommandUses,
+    getInventory,
     getMarriagePartner,
   } from "$lib/api/users.remote";
   import Main from "$lib/components/ui/Main.svelte";
@@ -14,15 +15,17 @@
   import StatsGrid from "./stats-grid.svelte";
   import TabHandler from "./tab-handler.svelte";
 
-  const [achievementsData, baseData, achievements, commandsData, marriagePartner] = $derived(
-    await Promise.all([
-      getAchievementsRemote(),
-      getBaseData(page.params.search),
-      getAchievements(page.params.search),
-      getCommandUses(page.params.search),
-      getMarriagePartner(page.params.search),
-    ]),
-  );
+  const [achievementsData, baseData, achievements, commandsData, marriagePartner, inventory] =
+    $derived(
+      await Promise.all([
+        getAchievementsRemote(),
+        getBaseData(page.params.search),
+        getAchievements(page.params.search),
+        getCommandUses(page.params.search),
+        getMarriagePartner(page.params.search),
+        getInventory(page.params.search),
+      ]),
+    );
 
   const title = $derived(`${baseData.lastKnownUsername}'s profile | nypsi`);
   const lastSeen = $derived.by(() => {
@@ -51,6 +54,24 @@
     (achievements.filter((a) => a.completedAt).length / Object.values(achievementsData).length) *
       100,
   );
+  const gems = $derived.by(() => {
+    const gemOrder = [
+      "crystal_heart",
+      "white_gem",
+      "pink_gem",
+      "purple_gem",
+      "blue_gem",
+      "green_gem",
+    ];
+
+    const ownedGems = new Set(
+      inventory
+        .filter((i) => i.item.includes("gem") || i.item === "crystal_heart")
+        .map((i) => i.item),
+    );
+
+    return gemOrder.filter((gemId) => ownedGems.has(gemId));
+  });
 </script>
 
 <svelte:head>
@@ -69,7 +90,7 @@
 </svelte:head>
 
 <Main class="mx-auto mt-8 w-full max-w-4xl space-y-4 px-2 md:px-0">
-  <Profile {baseData} {lastSeen} {marriagePartner} />
+  <Profile {baseData} {lastSeen} {marriagePartner} {gems} />
 
   {#if baseData.Economy}
     <StatsGrid {baseData} {lastSeen} {commandUses} {achievementCompletion} />
