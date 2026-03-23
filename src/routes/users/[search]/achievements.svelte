@@ -31,12 +31,23 @@
   const completionCount = $derived.by(
     () => userAchievements.filter((achievement) => achievement.completedAt).length,
   );
+
+  const totalAchievements = $derived.by(() => Object.values(achievementsData).length);
+
+  const completionPercentage = $derived.by(() => {
+    if (totalAchievements === 0) {
+      return 0;
+    }
+
+    return (completionCount / totalAchievements) * 100;
+  });
 </script>
 
 <section class="space-y-2">
   <p class="text-base-content/60 text-sm">
-    {completionCount.toLocaleString()} / {Object.values(achievementsData).length.toLocaleString()}
-    completed
+    {completionCount.toLocaleString()} / {totalAchievements.toLocaleString()} completed ({completionPercentage.toPrecision(
+      3,
+    )}%)
   </p>
 
   <ol class="grid w-full grid-cols-1 gap-2 md:grid-cols-3">

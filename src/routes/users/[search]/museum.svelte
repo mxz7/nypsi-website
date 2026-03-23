@@ -42,6 +42,16 @@
   const getFeaturedColumnStart = (count: number, index: number) =>
     featuredGridStarts.get(count)?.[index] ?? index + 1;
 
+  const completionCount = $derived.by(() => items.filter((item) => item.completedAt).length);
+  const totalMuseumItems = $derived.by(() => items.length);
+  const completionPercentage = $derived.by(() => {
+    if (totalMuseumItems === 0) {
+      return 0;
+    }
+
+    return (completionCount / totalMuseumItems) * 100;
+  });
+
   const formatDate = (date: Date | string | null) => {
     if (!date) {
       return "not completed";
@@ -53,35 +63,8 @@
 
 <section class="space-y-8">
   {#if featuredItems.length > 0}
-    <section>
-      <h2 class="sr-only">featured</h2>
-
-      <ol class="mx-auto grid max-w-5xl grid-cols-10 gap-2">
-        {#each featuredItems as { item, amount, completedAt }, index}
-          {@const overlay = completedAt ? formatDate(completedAt) : null}
-          {@const displayAmount = item.museum.no_overflow
-            ? `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`
-            : completedAt
-              ? `${amount.toLocaleString()}`
-              : `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
-
-          <Item
-            {item}
-            amount={displayAmount}
-            class={!completedAt ? "grayscale" : ""}
-            {overlay}
-            style={`grid-column: ${getFeaturedColumnStart(featuredItems.length, index)} / span 2;`}
-          />
-        {/each}
-      </ol>
-    </section>
-  {/if}
-
-  <section class="mt-4">
-    <h2 class="sr-only">all items</h2>
-
-    <ol class="grid grid-cols-3 gap-2 md:grid-cols-6">
-      {#each items as { item, amount, completedAt }}
+    <ol class="mx-auto grid max-w-5xl grid-cols-10 gap-2">
+      {#each featuredItems as { item, amount, completedAt }, index}
         {@const overlay = completedAt ? formatDate(completedAt) : null}
         {@const displayAmount = item.museum.no_overflow
           ? `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`
@@ -89,8 +72,32 @@
             ? `${amount.toLocaleString()}`
             : `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
 
-        <Item {item} amount={displayAmount} class={!completedAt ? "grayscale" : ""} {overlay} />
+        <Item
+          {item}
+          amount={displayAmount}
+          class={!completedAt ? "grayscale" : ""}
+          {overlay}
+          style={`grid-column: ${getFeaturedColumnStart(featuredItems.length, index)} / span 2;`}
+        />
       {/each}
     </ol>
-  </section>
+  {/if}
+
+  <p class="text-base-content/60 -mb-0.5 pb-1 text-sm">
+    {completionCount.toLocaleString()} / {totalMuseumItems.toLocaleString()} completed ({completionPercentage.toPrecision(
+      3,
+    )}%)
+  </p>
+  <ol class="grid grid-cols-3 gap-2 md:grid-cols-6">
+    {#each items as { item, amount, completedAt }}
+      {@const overlay = completedAt ? formatDate(completedAt) : null}
+      {@const displayAmount = item.museum.no_overflow
+        ? `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`
+        : completedAt
+          ? `${amount.toLocaleString()}`
+          : `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
+
+      <Item {item} amount={displayAmount} class={!completedAt ? "grayscale" : ""} {overlay} />
+    {/each}
+  </ol>
 </section>
