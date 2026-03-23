@@ -192,3 +192,20 @@ export const getInventory = query(z.string(), async (userId) => {
 
   return query;
 });
+
+export const getMuseum = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+
+  const query = await prisma.museum.findMany({
+    where: { userId },
+    select: {
+      itemId: true,
+      amount: true,
+      completedAt: true,
+      favorited: true,
+    },
+    orderBy: { itemId: "asc" },
+  });
+
+  return query;
+});

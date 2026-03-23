@@ -2,6 +2,7 @@
   import { page } from "$app/state";
   import Guild from "./guild.svelte";
   import Inventory from "./inventory.svelte";
+  import Museum from "./museum.svelte";
 
   type Item = { label: string; paramValue: string };
 
@@ -49,4 +50,6 @@
   {/if}
 {:else if activeTab.label === "inventory"}
   <Inventory />
+{:else if activeTab.label === "museum"}
+  <Museum />
 {/if}

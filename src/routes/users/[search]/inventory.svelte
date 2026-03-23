@@ -3,14 +3,13 @@
   import { getItemsRemote } from "$lib/api/items.remote";
   import { getInventory } from "$lib/api/users.remote";
   import Card from "$lib/components/ui/Card.svelte";
-  import { fade } from "svelte/transition";
 
   const [inventory, itemsData] = $derived(
     await Promise.all([getInventory(page.params.search), getItemsRemote()]),
   );
 </script>
 
-<ol class="grid grid-cols-2 gap-2 md:grid-cols-4" transition:fade={{ duration: 100 }}>
+<ol class="grid grid-cols-2 gap-2 md:grid-cols-4">
   {#each inventory as { item, amount }}
     {@const { name, emoji, id } = itemsData.find((i) => i.id === item)}
     <Card
