@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import Achievements from "./achievements.svelte";
   import Guild from "./guild.svelte";
   import Inventory from "./inventory.svelte";
   import Museum from "./museum.svelte";
@@ -52,4 +53,6 @@
   <Inventory />
 {:else if activeTab.label === "museum"}
   <Museum />
+{:else if activeTab.label === "achievements"}
+  <Achievements />
 {/if}
