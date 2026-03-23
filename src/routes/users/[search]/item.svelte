@@ -4,7 +4,7 @@
 
   type Props = {
     item: Item;
-    amount: bigint | number;
+    amount?: string;
     style?: string;
     class?: string;
     overlay?: string;
@@ -28,7 +28,7 @@
 
   <h3 class="text-base-content/75 text-xs">{item.name}</h3>
 
-  {#if amount > 0}
+  {#if amount}
     <span class="block font-mono text-xs md:text-sm">{amount.toLocaleString()}</span>
   {/if}
 

@@ -68,7 +68,7 @@
   <link rel="canonical" href="https://nypsi.xyz/users/{baseData.id}" />
 </svelte:head>
 
-<Main class="mx-auto mt-8 w-full max-w-3xl space-y-4 px-2 md:px-0">
+<Main class="mx-auto mt-8 w-full max-w-4xl space-y-4 px-2 md:px-0">
   <Profile {baseData} {lastSeen} {marriagePartner} />
 
   {#if baseData.Economy}

@@ -58,13 +58,16 @@
 
       <ol class="mx-auto grid max-w-5xl grid-cols-10 gap-2">
         {#each featuredItems as { item, amount, completedAt }, index}
-          {@const overlay = completedAt
-            ? formatDate(completedAt)
-            : `donated ${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
+          {@const overlay = completedAt ? formatDate(completedAt) : null}
+          {@const displayAmount = item.museum.no_overflow
+            ? `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`
+            : completedAt
+              ? `${amount.toLocaleString()}`
+              : `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
 
           <Item
             {item}
-            {amount}
+            amount={displayAmount}
             class={!completedAt ? "grayscale" : ""}
             {overlay}
             style={`grid-column: ${getFeaturedColumnStart(featuredItems.length, index)} / span 2;`}
@@ -77,13 +80,16 @@
   <section class="mt-4">
     <h2 class="sr-only">all items</h2>
 
-    <ol class="grid grid-cols-3 gap-2 md:grid-cols-5">
+    <ol class="grid grid-cols-3 gap-2 md:grid-cols-6">
       {#each items as { item, amount, completedAt }}
-        {@const overlay = completedAt
-          ? formatDate(completedAt)
-          : `donated ${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
+        {@const overlay = completedAt ? formatDate(completedAt) : null}
+        {@const displayAmount = item.museum.no_overflow
+          ? `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`
+          : completedAt
+            ? `${amount.toLocaleString()}`
+            : `${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
 
-        <Item {item} {amount} class={!completedAt ? "grayscale" : ""} {overlay} />
+        <Item {item} amount={displayAmount} class={!completedAt ? "grayscale" : ""} {overlay} />
       {/each}
     </ol>
   </section>
