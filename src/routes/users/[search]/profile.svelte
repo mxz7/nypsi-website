@@ -136,7 +136,7 @@
 
 {#snippet tagsSection()}
   {#if tags.length > 0}
-    <ol class="mt-auto flex flex-wrap gap-0.5 pt-2 md:gap-2">
+    <ol class="mt-auto flex flex-wrap gap-1 pt-1 md:pt-2">
       {#each tags as tag}
         <li
           class="bg-base-300 border-primary/15 text-base-content/75 hover:border-primary/25 flex items-center gap-1 rounded-lg border px-1.5 py-1 text-xs shadow duration-200 md:px-2 md:py-1.5 md:text-sm"
@@ -163,7 +163,7 @@
 
 <Card mode="section" class="flex items-stretch gap-1 shadow">
   <div class="flex grow flex-col gap-1">
-    <div class="flex min-w-0 grow gap-3">
+    <div class="flex min-w-0 grow gap-2 md:gap-3">
       <!-- will show old avatar for too long -->
       {#key baseData.avatar}
         <img
@@ -184,13 +184,13 @@
 
         {#if baseData.Economy}
           {#if levelText}
-            <span class="text-base-content/75 font-mono text-sm">
+            <span class="text-base-content/75 text-sm">
               {levelText}
             </span>
           {/if}
 
           {#if marriagePartner}
-            <div class="text-base-content/75 mt-2 flex items-center gap-0.5 text-sm">
+            <div class="text-base-content/75 mt-2 flex items-center gap-0.5 text-xs md:text-sm">
               <img src={ringEmoji} alt="" class="size-4" />
               <span>
                 married to
