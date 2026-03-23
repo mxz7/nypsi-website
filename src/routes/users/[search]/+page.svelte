@@ -74,6 +74,9 @@
   {#if baseData.Economy}
     <StatsGrid {baseData} {lastSeen} {commandUses} {achievementCompletion} />
 
-    <TabHandler />
+    <TabHandler
+      username={baseData.lastKnownUsername}
+      guildName={baseData.Economy.EconomyGuildMember?.guildName}
+    />
   {/if}
 </Main>

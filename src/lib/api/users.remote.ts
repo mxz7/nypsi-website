@@ -100,6 +100,11 @@ export const getBaseData = query(z.string(), async (userId) => {
           bank: true,
           dailyStreak: true,
           voteStreak: true,
+          EconomyGuildMember: {
+            select: {
+              guildName: true,
+            },
+          },
         },
       },
     },
