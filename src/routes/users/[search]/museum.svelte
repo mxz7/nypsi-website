@@ -8,19 +8,22 @@
     await Promise.all([getMuseum(page.params.search), getItemsRemote()]),
   );
 
-  const items = $derived.by(() =>
-    museum
-      .map((entry) => {
-        const item = itemsData.find((i) => i.id === entry.itemId);
+  const items = $derived.by(() => {
+    const museumMap = new Map(museum.map((entry) => [entry.itemId, entry]));
 
-        if (!item) {
-          return null;
-        }
+    return itemsData
+      .filter((item) => item.museum)
+      .map((item) => {
+        const donated = museumMap.get(item.id);
 
-        return { ...entry, item };
-      })
-      .filter((entry) => entry !== null),
-  );
+        return {
+          item,
+          amount: donated?.amount ?? 0,
+          completedAt: donated?.completedAt ?? null,
+          favorited: donated?.favorited ?? null,
+        };
+      });
+  });
 
   const featuredItems = $derived.by(() =>
     [...items.filter((item) => item.favorited !== null)]
@@ -55,11 +58,15 @@
 
       <ol class="mx-auto grid max-w-5xl grid-cols-10 gap-2">
         {#each featuredItems as { item, amount, completedAt }, index}
+          {@const overlay = completedAt
+            ? formatDate(completedAt)
+            : `donated ${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
+
           <Item
             {item}
             {amount}
             class={!completedAt ? "grayscale" : ""}
-            overlay={`items donated: ${amount.toLocaleString()}\n${formatDate(completedAt)}`}
+            {overlay}
             style={`grid-column: ${getFeaturedColumnStart(featuredItems.length, index)} / span 2;`}
           />
         {/each}
@@ -72,12 +79,11 @@
 
     <ol class="grid grid-cols-3 gap-2 md:grid-cols-5">
       {#each items as { item, amount, completedAt }}
-        <Item
-          {item}
-          {amount}
-          class={!completedAt ? "grayscale" : ""}
-          overlay={`items donated: ${amount.toLocaleString()}\n${formatDate(completedAt)}`}
-        />
+        {@const overlay = completedAt
+          ? formatDate(completedAt)
+          : `donated ${amount.toLocaleString()}/${item.museum.threshold.toLocaleString()}`}
+
+        <Item {item} {amount} class={!completedAt ? "grayscale" : ""} {overlay} />
       {/each}
     </ol>
   </section>

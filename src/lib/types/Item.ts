@@ -38,6 +38,11 @@ export interface Item {
   plantId: string; // for seeds
   unique: boolean; // only allow one in world at a time
   hidden: boolean;
+  museum?: {
+    category: string;
+    threshold: number;
+    no_overflow?: boolean;
+  };
 }
 
 export type LootPool = {

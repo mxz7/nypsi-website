@@ -28,7 +28,9 @@
 
   <h3 class="text-base-content/75 text-xs">{item.name}</h3>
 
-  <span class="block font-mono text-xs md:text-sm">{amount.toLocaleString()}</span>
+  {#if amount > 0}
+    <span class="block font-mono text-xs md:text-sm">{amount.toLocaleString()}</span>
+  {/if}
 
   {#if overlay}
     <div
