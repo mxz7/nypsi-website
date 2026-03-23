@@ -7,7 +7,7 @@ export async function GET({ setHeaders }) {
     "cache-control": "public, max-age=3600, must-revalidate",
   });
 
-  const cache = await redis.get("cache:tags");
+  const cache = await redis.get("cache:tags-old");
 
   if (cache) {
     return json(JSON.parse(cache));
@@ -19,7 +19,7 @@ export async function GET({ setHeaders }) {
 
   const tagData: { [key: string]: Tag } = await res.json();
 
-  await redis.set("cache:tags", JSON.stringify(tagData), "EX", 3600);
+  await redis.set("cache:tags-old", JSON.stringify(tagData), "EX", 3600);
 
   return json(tagData);
 }
