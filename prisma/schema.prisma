@@ -209,6 +209,12 @@ model Economy {
 
   dailyLottery Int?
 
+  preferredPickaxe        ToolPreferenceSelection @default(highest)
+  preferredRod            ToolPreferenceSelection @default(highest)
+  preferredGun            ToolPreferenceSelection @default(highest)
+  useBestToolOnUnbreaking Boolean                 @default(true)
+  useLowerToolOnEmpty     Boolean                 @default(true)
+
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @id
 
@@ -216,6 +222,7 @@ model Economy {
   Boosters           Booster[]
   EconomyWorker      EconomyWorker[]
   Inventory          Inventory[]
+  Museum             Museum[]
   Crafting           Crafting[]
   Game               Game[]
   Stats              Stats[]
@@ -231,6 +238,13 @@ model Economy {
   CustomCar          CustomCar[]
   Farm               Farm[]
   FarmUpgrades       FarmUpgrades[]
+}
+
+enum ToolPreferenceSelection {
+  terrible
+  normal
+  incredible
+  highest
 }
 
 model Farm {
@@ -362,6 +376,33 @@ model Inventory {
   economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@id([userId, item])
+}
+
+model Museum {
+  userId String
+
+  itemId      String
+  amount      BigInt
+  completedAt DateTime?
+  favorited   Int?      @db.SmallInt
+
+  breakdown MuseumDonation[]
+
+  economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@id([userId, itemId])
+}
+
+model MuseumDonation {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  itemId    String
+  amount    BigInt
+  createdAt DateTime @default(now())
+
+  museum Museum @relation(fields: [userId, itemId], references: [userId, itemId], onDelete: Cascade)
+
+  @@index([userId, itemId])
 }
 
 model EconomyWorker {
@@ -1014,7 +1055,6 @@ model z {
   createdAt DateTime @default(now())
   hasInvite Boolean  @default(false)
   removed   Boolean  @default(false)
-  rating    Int      @default(0) @db.SmallInt
 
   voteKickId  Int[]   @default([])
   invitedById String?
