@@ -19,7 +19,6 @@
     { label: "inventory", paramValue: "inventory" },
     { label: "museum", paramValue: "museum" },
     { label: "achievements", paramValue: "achievements" },
-    { label: "leaderboards", paramValue: "leaderboards" },
   ];
 
   const activeTab = $derived(
