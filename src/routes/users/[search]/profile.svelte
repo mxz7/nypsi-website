@@ -4,6 +4,7 @@
   import type { getBaseData, getMarriagePartner } from "$lib/api/users.remote";
   import Card from "$lib/components/ui/Card.svelte";
   import badges from "$lib/data/badges";
+  import { handleFallbackImage } from "$lib/functions/image";
   import toast from "svelte-french-toast";
 
   type Props = {
@@ -164,16 +165,13 @@
 <Card mode="section" class="flex items-stretch gap-1 shadow">
   <div class="flex grow flex-col gap-1">
     <div class="flex min-w-0 grow gap-2 md:gap-3">
-      <!-- will show old avatar for too long -->
-      {#key baseData.avatar}
-        <img
-          class="size-20 rounded-full lg:size-32"
-          src={baseData.avatar}
-          alt=""
-          loading="eager"
-          onerror={handleFallbackImage}
-        />
-      {/key}
+      <img
+        class="size-20 rounded-full lg:size-32"
+        src={baseData.avatar}
+        alt=""
+        loading="eager"
+        onerror={handleFallbackImage}
+      />
 
       <div class="flex min-w-0 grow flex-col py-2">
         <h1 style="color: {usernameColor}" class="text-2xl font-extrabold text-white lg:text-4xl">
