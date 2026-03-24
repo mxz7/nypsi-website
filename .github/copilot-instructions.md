@@ -17,6 +17,7 @@ Purpose: give an AI code agent the minimal, actionable knowledge to be productiv
   - Cache / transient store: Redis is used via `ioredis` (see `src/lib/server/redis.ts`).
   - Auth: uses `lucia` + Prisma adapters; server auth endpoints live under `src/routes/api/auth`.
   - Logging: `pino` with a file transport in production; logging helpers live in `src/lib/server/logger.ts`.
+  - Reusable Remote Functions live in `src/lib/api`.
 
 - Important server-side conventions (do these, not other patterns)
   - Reuse singletons: use `src/lib/server/database.ts` and `src/lib/server/redis.ts` — do NOT create new PrismaClient or Redis instances in other files. Example import: `import prisma from '$lib/server/database'`.
