@@ -6,7 +6,7 @@ import type { DiscordGuild } from "$lib/types/Discord";
 import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
 
-export async function getGuilds(user: User, locals?: any): Promise<null | number | DiscordGuild[]> {
+export async function getGuilds(user: User, locals?: any): Promise<null | DiscordGuild[]> {
   const accessToken = await redis.get(`discord:accesstoken:${user.id}`);
 
   if (!accessToken) return null;

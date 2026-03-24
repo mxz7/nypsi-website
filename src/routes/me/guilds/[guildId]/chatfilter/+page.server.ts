@@ -1,24 +1,8 @@
 import { env } from "$env/dynamic/private";
 import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
-import { error, redirect } from "@sveltejs/kit";
-import { fail, message, setError, superValidate } from "sveltekit-superforms";
-import { zod4 as zod } from "sveltekit-superforms/adapters";
-import z from "zod";
-
-const newFilterSchema = z.object({
-  content: z
-    .string()
-    .toLowerCase()
-    .min(1, "filter content too short")
-    .max(100, "filter content too long")
-    .trim(),
-  match: z
-    .number()
-    .min(1, "must be at least 1% match")
-    .max(100, "a percentage can't be more than 100...")
-    .default(100),
-});
+import { canModifyGuild } from "$lib/server/functions/discordapi/permissions";
+import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ parent, params }) {
   const parentData = await parent();
@@ -45,64 +29,10 @@ export async function load({ parent, params }) {
   return {
     guild,
     filter: await query,
-    newFilterForm: await superValidate(zod(newFilterSchema)),
   };
 }
 
 export const actions = {
-  create: async ({ request, params, locals, fetch }) => {
-    const auth = await locals.validate();
-
-    if (!auth.user) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
-
-    const guilds = await getGuilds(auth.user, locals);
-
-    if (!guilds) return error(400, "unknown guilds error");
-
-    if (typeof guilds === "number") return error(guilds, "discord api error");
-
-    const guild = guilds.find((g) => g.id === params.guildId);
-
-    if (!guild) return redirect(302, "/me/guilds");
-
-    const form = await superValidate(request, zod(newFilterSchema));
-
-    if (!form.valid) return fail(400, { form });
-
-    if (form.data.content.normalize("NFD").trim().length === 0) {
-      setError(form, "content", "no content");
-      return fail(400, { form });
-    }
-
-    const count = await prisma.chatFilter.count({ where: { guildId: params.guildId } });
-
-    if (count >= 250) {
-      setError(form, "content", "you have reached the limit (250)");
-      return fail(400, { form });
-    }
-
-    await prisma.chatFilter
-      .create({
-        data: {
-          guildId: params.guildId,
-          content: form.data.content.normalize("NFD").trim(),
-          percentMatch: form.data.match,
-        },
-      })
-      .catch(() => {
-        setError(form, "content", "already exists");
-      });
-
-    if (!form.valid) return fail(400, { form });
-
-    await fetch(`${env.BOT_SERVER_URL}/redis`, {
-      method: "delete",
-      body: `cache:guild:chatfilter:${params.guildId}`,
-      headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
-    });
-
-    return message(form, "success");
-  },
   delete: async ({ request, params, locals }) => {
     const auth = await locals.validate();
 
@@ -117,6 +47,8 @@ export const actions = {
     const guild = guilds.find((g) => g.id === params.guildId);
 
     if (!guild) return redirect(302, "/me/guilds");
+
+    if (!canModifyGuild(guild)) error(403, "you don't have permission to modify this guild");
 
     const formData = await request.formData();
 
@@ -154,6 +86,8 @@ export const actions = {
 
     if (!guild) return redirect(302, "/me/guilds");
 
+    if (!canModifyGuild(guild)) error(403, "you don't have permission to modify this guild");
+
     const formData = await request.formData();
 
     const content = formData.get("content")?.toString();
@@ -161,8 +95,6 @@ export const actions = {
     if (!content) return fail(400, { message: "no content" });
 
     const percentage = formData.get("percent")?.toString();
-
-    console.log(percentage);
 
     if (!percentage) return fail(400, { message: "invalid percent" });
 
