@@ -206,49 +206,6 @@ export const getAchievements = query(z.string(), async (userId) => {
   return query;
 });
 
-function getMarriagePartnerFromDatabase(userId: string) {
-  return prisma.marriage.findUnique({
-    where: { userId },
-    select: { partnerId: true },
-  });
-}
-
-export const getMarriagePartner = query(z.string(), async (userId) => {
-  userId = await getUserIdHelper(userId);
-  await checkPrivacyHelper(userId);
-
-  const cache = await redis.get(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`);
-
-  if (cache) {
-    const cacheData = redisDeserialize<Awaited<
-      ReturnType<typeof getMarriagePartnerFromDatabase>
-    > | null>(cache);
-    return cacheData;
-  }
-
-  const marriage = await getMarriagePartnerFromDatabase(userId);
-
-  if (marriage) {
-    const user = await prisma.user.findUnique({
-      where: { id: marriage.partnerId },
-      select: { id: true, lastKnownUsername: true },
-    });
-
-    await redis.set(
-      `${RedisKey.users.MARRIAGE_PARTNER}:${userId}`,
-      redisSerialize(user || null),
-      "EX",
-      600,
-    );
-
-    return user || null;
-  }
-
-  await redis.set(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`, redisSerialize(null), "EX", 600);
-
-  return null;
-});
-
 function getInventoryFromDatabase(userId: string) {
   return prisma.inventory.findMany({
     where: { userId },
@@ -302,4 +259,40 @@ export const getMuseum = query(z.string(), async (userId) => {
   await redis.set(`${RedisKey.users.MUSEUM}:${userId}`, redisSerialize(query), "EX", 600);
 
   return query;
+});
+
+export const getMarriagePartner = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+
+  const cache = await redis.get(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`);
+
+  if (cache) {
+    const cacheData = redisDeserialize<{ id: string; lastKnownUsername: string } | null>(cache);
+    return cacheData;
+  }
+
+  const marriage = await prisma.marriage.findUnique({
+    where: { userId },
+    select: { partnerId: true },
+  });
+
+  if (marriage) {
+    const user = await prisma.user.findUnique({
+      where: { id: marriage.partnerId },
+      select: { id: true, lastKnownUsername: true },
+    });
+
+    await redis.set(
+      `${RedisKey.users.MARRIAGE_PARTNER}:${userId}`,
+      redisSerialize(user || null),
+      "EX",
+      600,
+    );
+
+    return user || null;
+  }
+
+  await redis.set(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`, redisSerialize(null), "EX", 600);
+
+  return null;
 });
