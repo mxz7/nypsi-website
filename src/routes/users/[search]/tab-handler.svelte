@@ -31,7 +31,11 @@
   <ol class="menu menu-sm md:menu-md menu-horizontal bg-base-200 rounded-xl">
     {#each items as { paramValue, label }}
       <li>
-        <a class={activeTab.paramValue === paramValue && "menu-active"} href="?tab={paramValue}">
+        <a
+          class={activeTab.paramValue === paramValue && "menu-active"}
+          href="?tab={paramValue}"
+          data-sveltekit-noscroll
+        >
           {label}
         </a>
       </li>
