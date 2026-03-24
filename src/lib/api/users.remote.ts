@@ -110,67 +110,6 @@ function getBaseDataFromDatabase(userId: string) {
   });
 }
 
-type BaseData = Awaited<ReturnType<typeof getBaseDataFromDatabase>>;
-
-function getCommandUsesFromDatabase(userId: string) {
-  return prisma.commandUse.groupBy({
-    by: ["command"],
-    _sum: {
-      uses: true,
-    },
-    orderBy: {
-      _sum: {
-        uses: "desc",
-      },
-    },
-    where: {
-      userId,
-    },
-  });
-}
-
-type CommandUsesData = Awaited<ReturnType<typeof getCommandUsesFromDatabase>>;
-
-function getAchievementsFromDatabase(userId: string) {
-  return prisma.achievements.findMany({
-    where: { userId },
-    select: {
-      achievementId: true,
-      completedAt: true,
-      progress: true,
-    },
-  });
-}
-
-type AchievementsData = Awaited<ReturnType<typeof getAchievementsFromDatabase>>;
-
-type MarriagePartnerData = { id: string; lastKnownUsername: string } | null;
-
-function getInventoryFromDatabase(userId: string) {
-  return prisma.inventory.findMany({
-    where: { userId },
-    select: { item: true, amount: true },
-    orderBy: { item: "asc" },
-  });
-}
-
-type InventoryData = Awaited<ReturnType<typeof getInventoryFromDatabase>>;
-
-function getMuseumFromDatabase(userId: string) {
-  return prisma.museum.findMany({
-    where: { userId },
-    select: {
-      itemId: true,
-      amount: true,
-      completedAt: true,
-      favorited: true,
-    },
-    orderBy: { itemId: "asc" },
-  });
-}
-
-type MuseumData = Awaited<ReturnType<typeof getMuseumFromDatabase>>;
-
 export const getBaseData = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
@@ -178,7 +117,9 @@ export const getBaseData = query(z.string(), async (userId) => {
   const cache = await redis.get(`${RedisKey.users.BASE_DATA}:${userId}`);
 
   if (cache) {
-    const cacheData = redisDeserialize<BaseData | null>(cache);
+    const cacheData = redisDeserialize<Awaited<ReturnType<typeof getBaseDataFromDatabase>> | null>(
+      cache,
+    );
 
     if (!cacheData) {
       error(404, "unknown user");
@@ -203,6 +144,23 @@ export const getBaseData = query(z.string(), async (userId) => {
   return query;
 });
 
+function getCommandUsesFromDatabase(userId: string) {
+  return prisma.commandUse.groupBy({
+    by: ["command"],
+    _sum: {
+      uses: true,
+    },
+    orderBy: {
+      _sum: {
+        uses: "desc",
+      },
+    },
+    where: {
+      userId,
+    },
+  });
+}
+
 export const getCommandUses = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
@@ -210,7 +168,7 @@ export const getCommandUses = query(z.string(), async (userId) => {
   const cache = await redis.get(`${RedisKey.users.COMMAND_USES}:${userId}`);
 
   if (cache) {
-    return redisDeserialize<CommandUsesData>(cache);
+    return redisDeserialize<Awaited<ReturnType<typeof getCommandUsesFromDatabase>>>(cache);
   }
 
   const query = await getCommandUsesFromDatabase(userId);
@@ -220,6 +178,17 @@ export const getCommandUses = query(z.string(), async (userId) => {
   return query;
 });
 
+function getAchievementsFromDatabase(userId: string) {
+  return prisma.achievements.findMany({
+    where: { userId },
+    select: {
+      achievementId: true,
+      completedAt: true,
+      progress: true,
+    },
+  });
+}
+
 export const getAchievements = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
@@ -227,7 +196,7 @@ export const getAchievements = query(z.string(), async (userId) => {
   const cache = await redis.get(`${RedisKey.users.ACHIEVEMENTS}:${userId}`);
 
   if (cache) {
-    return redisDeserialize<AchievementsData>(cache);
+    return redisDeserialize<Awaited<ReturnType<typeof getAchievementsFromDatabase>>>(cache);
   }
 
   const query = await getAchievementsFromDatabase(userId);
@@ -237,6 +206,13 @@ export const getAchievements = query(z.string(), async (userId) => {
   return query;
 });
 
+function getMarriagePartnerFromDatabase(userId: string) {
+  return prisma.marriage.findUnique({
+    where: { userId },
+    select: { partnerId: true },
+  });
+}
+
 export const getMarriagePartner = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
@@ -244,14 +220,13 @@ export const getMarriagePartner = query(z.string(), async (userId) => {
   const cache = await redis.get(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`);
 
   if (cache) {
-    const cacheData = redisDeserialize<MarriagePartnerData>(cache);
+    const cacheData = redisDeserialize<Awaited<
+      ReturnType<typeof getMarriagePartnerFromDatabase>
+    > | null>(cache);
     return cacheData;
   }
 
-  const marriage = await prisma.marriage.findUnique({
-    where: { userId },
-    select: { partnerId: true },
-  });
+  const marriage = await getMarriagePartnerFromDatabase(userId);
 
   if (marriage) {
     const user = await prisma.user.findUnique({
@@ -274,6 +249,14 @@ export const getMarriagePartner = query(z.string(), async (userId) => {
   return null;
 });
 
+function getInventoryFromDatabase(userId: string) {
+  return prisma.inventory.findMany({
+    where: { userId },
+    select: { item: true, amount: true },
+    orderBy: { item: "asc" },
+  });
+}
+
 export const getInventory = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
@@ -281,7 +264,7 @@ export const getInventory = query(z.string(), async (userId) => {
   const cache = await redis.get(`${RedisKey.users.INVENTORY}:${userId}`);
 
   if (cache) {
-    return redisDeserialize<InventoryData>(cache);
+    return redisDeserialize<Awaited<ReturnType<typeof getInventoryFromDatabase>>>(cache);
   }
 
   const query = await getInventoryFromDatabase(userId);
@@ -291,6 +274,19 @@ export const getInventory = query(z.string(), async (userId) => {
   return query;
 });
 
+function getMuseumFromDatabase(userId: string) {
+  return prisma.museum.findMany({
+    where: { userId },
+    select: {
+      itemId: true,
+      amount: true,
+      completedAt: true,
+      favorited: true,
+    },
+    orderBy: { itemId: "asc" },
+  });
+}
+
 export const getMuseum = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
@@ -298,7 +294,7 @@ export const getMuseum = query(z.string(), async (userId) => {
   const cache = await redis.get(`${RedisKey.users.MUSEUM}:${userId}`);
 
   if (cache) {
-    return redisDeserialize<MuseumData>(cache);
+    return redisDeserialize<Awaited<ReturnType<typeof getMuseumFromDatabase>>>(cache);
   }
 
   const query = await getMuseumFromDatabase(userId);

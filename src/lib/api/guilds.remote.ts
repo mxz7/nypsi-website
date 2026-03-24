@@ -45,13 +45,13 @@ async function getGuildByNameFromDatabase(guildName: string) {
   });
 }
 
-type GuildByNameData = Awaited<ReturnType<typeof getGuildByNameFromDatabase>>;
-
 export const getGuildByName = query(z.string(), async (guildName) => {
   const cache = await redis.get(`${RedisKey.guilds.GUILD_BY_NAME}:${guildName}`);
 
   if (cache) {
-    const cacheData = redisDeserialize<GuildByNameData | null>(cache);
+    const cacheData = redisDeserialize<Awaited<
+      ReturnType<typeof getGuildByNameFromDatabase>
+    > | null>(cache);
 
     if (!cacheData) {
       error(404, "unknown guild");
