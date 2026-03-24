@@ -5,7 +5,7 @@
 
   let { data } = $props();
 
-  const queryChartOptions: ChartOptions = {
+  const queryChartOptions: ChartOptions = $derived({
     plugins: {
       legend: {
         display: false,
@@ -58,9 +58,9 @@
         beginAtZero: true,
       },
     },
-  };
+  });
 
-  const userChartOptions: ChartOptions = {
+  const userChartOptions: ChartOptions = $derived({
     plugins: {
       legend: {
         display: false,
@@ -98,7 +98,7 @@
         beginAtZero: true,
       },
     },
-  };
+  });
 
   const cmdChartOptions: ChartOptions = {
     plugins: {
@@ -153,7 +153,7 @@
     },
   };
 
-  const gamesChartOptions: ChartOptions = {
+  const gamesChartOptions: ChartOptions = $derived({
     plugins: {
       legend: {
         display: false,
@@ -210,7 +210,7 @@
         beginAtZero: true,
       },
     },
-  };
+  });
 </script>
 
 <div class="flex w-full justify-center">

@@ -7,38 +7,40 @@
 
   let { outcome }: Props = $props();
 
-  const difficulty = outcome.split("difficulty: ")[1].split("\n")[0].trim();
+  const difficulty = $derived(outcome.split("difficulty: ")[1].split("\n")[0].trim());
 
-  const rows: { style: 1 | 2 | 3 | 4; emoji?: { id?: string; name: string } }[][] = outcome
-    .split("bad click")[1]
-    .trim()
-    .split("\n")
-    .map((row) => {
-      if (row.length === 5) {
-        row.replace("gc", "m");
-      }
-      return row;
-    })
-    .map((row) =>
-      row.split("").map((item) => {
-        switch (item.toLowerCase()) {
-          case "a":
-            return { style: 2 };
-          case "b":
-            return { style: 2, emoji: { name: "🥚" } };
-          case "g":
-            return { style: 2, emoji: { name: "blue_gem", id: "1046866209326514206" } };
-          case "c":
-            return { style: 3, emoji: { name: "🥚" } };
-          case "m":
-            return { style: 3, emoji: { name: "blue_gem", id: "1046866209326514206" } };
-          case "x":
-            return { style: 4 };
-          default:
-            return { style: 2 };
+  const rows: { style: 1 | 2 | 3 | 4; emoji?: { id?: string; name: string } }[][] = $derived(
+    outcome
+      .split("bad click")[1]
+      .trim()
+      .split("\n")
+      .map((row) => {
+        if (row.length === 5) {
+          row.replace("gc", "m");
         }
-      }),
-    );
+        return row;
+      })
+      .map((row) =>
+        row.split("").map((item) => {
+          switch (item.toLowerCase()) {
+            case "a":
+              return { style: 2 };
+            case "b":
+              return { style: 2, emoji: { name: "🥚" } };
+            case "g":
+              return { style: 2, emoji: { name: "blue_gem", id: "1046866209326514206" } };
+            case "c":
+              return { style: 3, emoji: { name: "🥚" } };
+            case "m":
+              return { style: 3, emoji: { name: "blue_gem", id: "1046866209326514206" } };
+            case "x":
+              return { style: 4 };
+            default:
+              return { style: 2 };
+          }
+        }),
+      ),
+  );
 
   /**
    * nothing = a

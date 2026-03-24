@@ -126,8 +126,10 @@
 </div>
 
 {#key data}
-  <div class="h-[500px]">
-    {#if data.options === "money"}
+  <div class="h-125">
+    {#if typeof data.chartData === "string"}
+      <p class="text-error text-center text-lg">{data.chartData}</p>
+    {:else if data.options === "money"}
       <Chart chartData={data.chartData} chartOptions={moneyChartOptions} />
     {:else if data.options === "karma"}
       <Chart chartData={data.chartData} chartOptions={karmaChartOptions} />

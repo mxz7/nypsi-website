@@ -11,6 +11,7 @@
 
   let { position, user }: Props = $props();
 
+  // svelte-ignore state_referenced_locally - doing this on purpose, don't want it to make a new tweened every time the thing updates
   const value = new Tween(Number(user.contribution), { easing: cubicOut, duration: 1500 });
 
   $effect(() => {

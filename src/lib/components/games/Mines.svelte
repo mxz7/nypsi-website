@@ -11,15 +11,17 @@
   }
 
   let { outcome }: Props = $props();
-
-  outcome[4].components.pop();
 </script>
 
 <div class="flex items-center justify-center">
   <div class="grid w-fit grid-cols-5 gap-1 sm:gap-2">
-    {#each outcome as row}
-      {#each row.components as button}
-        <DiscordButton data={button} />
+    {#each outcome as row, y}
+      {#each row.components as button, x}
+        {#if y === 4 && x === 4}
+          <!-- do nothing -->
+        {:else}
+          <DiscordButton data={button} />
+        {/if}
       {/each}
     {/each}
   </div>

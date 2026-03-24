@@ -102,11 +102,3 @@
     </Card>
   {/key}
 </div>
-
-<style>
-  @reference "../../../app.css";
-
-  h2 {
-    @apply font-semibold;
-  }
-</style>

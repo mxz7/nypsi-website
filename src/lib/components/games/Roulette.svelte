@@ -7,13 +7,15 @@
 
   let { outcome }: Props = $props();
 
-  const oneStr = outcome.split("**choice**")[1].split("**")[0].trim();
-  const twoStr = outcome.split("**landed**")[1].trim();
+  const oneStr = $derived(outcome.split("**choice**")[1].split("**")[0].trim());
+  const twoStr = $derived(outcome.split("**landed**")[1].trim());
 
-  const one = parse(oneStr || "", {
-    assetType: "png",
-  })[0].url;
-  const two = parse(twoStr || "", { assetType: "png" })[0].url;
+  const one = $derived(
+    parse(oneStr || "", {
+      assetType: "png",
+    })[0].url,
+  );
+  const two = $derived(parse(twoStr || "", { assetType: "png" })[0].url);
 </script>
 
 <div class="flex w-full items-center justify-center text-center text-slate-200 opacity-50">

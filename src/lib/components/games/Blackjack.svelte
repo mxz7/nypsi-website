@@ -5,28 +5,38 @@
 
   let { outcome }: Props = $props();
 
-  const outcomeData = JSON.parse(outcome) as {
-    player: { cards: string[]; total: number };
-    dealer: { cards: string[]; total: number };
-  };
+  const normalizeCard = (card: string) =>
+    card.trim().replace("♠️", "S").replace("♣️", "C").replace("♦️", "D").replace("♥️", "H");
 
-  const playerCards = outcomeData.player.cards
-    .map((i) => i.trim())
-    .map((i) => i.replace("♠️", "S").replace("♣️", "C").replace("♦️", "D").replace("♥️", "H"));
-  const playerTotal = outcomeData.player.total;
+  const displayData = $derived.by(() => {
+    const outcomeData = JSON.parse(outcome) as {
+      player: { cards: string[]; total: number };
+      dealer: { cards: string[]; total: number };
+    };
 
-  const dealerCards = outcomeData.dealer.cards
-    .map((i) => i.trim())
-    .map((i) => i.replace("♠️", "S").replace("♣️", "C").replace("♦️", "D").replace("♥️", "H"));
-  const dealerTotal = outcomeData.dealer.total;
+    const playerCards = outcomeData.player.cards.map(normalizeCard);
+    const dealerCards = outcomeData.dealer.cards.map(normalizeCard);
 
-  while (dealerCards.length > playerCards.length) {
-    playerCards.unshift("invisible");
-  }
+    while (dealerCards.length > playerCards.length) {
+      playerCards.unshift("invisible");
+    }
 
-  while (playerCards.length > dealerCards.length) {
-    dealerCards.push("invisible");
-  }
+    while (playerCards.length > dealerCards.length) {
+      dealerCards.push("invisible");
+    }
+
+    return {
+      playerCards,
+      dealerCards,
+      playerTotal: outcomeData.player.total,
+      dealerTotal: outcomeData.dealer.total,
+    };
+  });
+
+  const playerCards = $derived(displayData.playerCards);
+  const dealerCards = $derived(displayData.dealerCards);
+  const playerTotal = $derived(displayData.playerTotal);
+  const dealerTotal = $derived(displayData.dealerTotal);
 </script>
 
 <div class="flex w-full items-center justify-center text-center text-slate-200 opacity-50">

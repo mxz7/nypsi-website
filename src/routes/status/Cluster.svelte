@@ -17,39 +17,49 @@
 
   let { clusterData, selected = false }: Props = $props();
 
-  let colour = $state("text-error");
-  let description = $state("cluster is unavailable");
+  const { clusterId, colour, description, guildCount, shards, uptime } = $derived.by(() => {
+    let colour = "text-error";
+    let description = "cluster is unavailable";
+    const shards: number[] = [];
 
-  const shards: number[] = [];
+    if (clusterData.online) {
+      if (clusterData.responsive) {
+        colour = "text-success";
+        description = "working as expected";
 
-  if (clusterData.online) {
-    if (clusterData.responsive) {
-      colour = "text-success";
-      description = "working as expected";
+        if (clusterData.restarting) {
+          colour = "text-warning";
+          description = "cluster is restarting";
+        }
 
-      if (clusterData.restarting) {
+        for (const guild of clusterData.guilds) {
+          if (!shards.includes(guild.shard)) shards.push(guild.shard);
+        }
+      } else {
         colour = "text-warning";
-        description = "cluster is restarting";
+        description = "online, but not responding to events";
       }
-
-      for (const guild of clusterData.guilds) {
-        if (!shards.includes(guild.shard)) shards.push(guild.shard);
-      }
-    } else {
-      colour = "text-warning";
-      description = "online, but not responding to events";
     }
-  }
+
+    return {
+      colour,
+      description,
+      shards,
+      clusterId: clusterData.id,
+      guildCount: clusterData.guilds.length,
+      uptime: clusterData.uptime,
+    };
+  });
 </script>
 
 <Card class={selected ? "border-primary/50 border" : ""}>
-  <h4 class="card-title {colour}">cluster {clusterData.id}</h4>
+  <h4 class="card-title {colour}">cluster {clusterId}</h4>
   <p class="text-sm">{description}</p>
   {#if description === "working as expected"}
     <dl class="mt-2 space-y-1 text-sm opacity-90">
       <div class="flex gap-1">
         <dt>guilds</dt>
-        <dd>{clusterData.guilds.length.toLocaleString()}</dd>
+        <dd>{guildCount.toLocaleString()}</dd>
       </div>
 
       <div class="flex gap-1">
@@ -59,7 +69,7 @@
 
       <div class="flex gap-1">
         <dt>uptime</dt>
-        <dd>{MStoTime(clusterData.uptime)}</dd>
+        <dd>{MStoTime(uptime)}</dd>
       </div>
     </dl>
   {/if}

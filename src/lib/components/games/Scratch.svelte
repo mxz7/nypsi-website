@@ -9,9 +9,14 @@
 
   let { game }: Props = $props();
 
-  const outcome = JSON.parse(game.outcome) as {
-    components: { emoji: { name: string; id?: string; animated: boolean }; style: 1 | 2 | 3 | 4 }[];
-  }[];
+  const outcome = $derived(
+    JSON.parse(game.outcome) as {
+      components: {
+        emoji: { name: string; id?: string; animated: boolean };
+        style: 1 | 2 | 3 | 4;
+      }[];
+    }[],
+  );
 </script>
 
 <h2 class="text -mt-3 mb-3 text-center font-bold text-slate-300">

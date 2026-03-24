@@ -15,18 +15,19 @@
 
   let { data, guildCount, selected = false }: Props = $props();
 
-  let colour = $state("text-error");
+  const colour = $derived.by(() => {
+    switch (data.status) {
+      case "idle":
+        return "text-success";
 
-  switch (data.status) {
-    case "idle":
-      colour = "text-success";
-      break;
+      case "ready":
+      case "resuming":
+        return "text-warning";
 
-    case "ready":
-    case "resuming":
-      colour = "text-warning";
-      break;
-  }
+      default:
+        return "text-error";
+    }
+  });
 </script>
 
 <Card class={selected ? "border-primary/50 border" : ""}>

@@ -18,7 +18,7 @@
   let descriptionColour = $state("text-error");
 
   let guildIdSearch = $state("");
-  let age: number = $state(data.status.age);
+  let age: number = $derived(data.status.age);
 
   let reloading = $state(false);
 

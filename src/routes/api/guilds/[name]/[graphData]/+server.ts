@@ -13,5 +13,5 @@ export async function GET({ params, setHeaders }) {
 }
 
 export type APIGuildGraphData = {
-  data: ReturnType<typeof getGuildData>;
+  data: Awaited<ReturnType<typeof getGuildData>>;
 };

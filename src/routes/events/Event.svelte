@@ -21,7 +21,9 @@
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
+  // svelte-ignore state_referenced_locally - doing this on purpose, don't want it to make a new tweened every time the thing updates
   const progress = new Tween(totalContribution, { easing: cubicOut, duration: 1500 });
+  // svelte-ignore state_referenced_locally - doing this on purpose, don't want it to make a new tweened every time the thing updates
   const progressBar = new Tween(totalContribution / Number(event.target || 0), {
     easing: cubicOut,
     duration: 1500,

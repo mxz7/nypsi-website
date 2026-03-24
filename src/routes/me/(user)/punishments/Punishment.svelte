@@ -10,7 +10,7 @@
 
   let { name, icon, expires }: Props = $props();
 
-  let expiresIn = $state(expires.getTime() - new Date().getTime());
+  let expiresIn = $derived(expires.getTime() - new Date().getTime());
   let timeout: ReturnType<typeof setTimeout>;
 
   onMount(() => {
