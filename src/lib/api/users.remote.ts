@@ -1,11 +1,11 @@
 import { query } from "$app/server";
-import { Constants, RedisKey } from "$lib/data/constants";
+import { RedisKey } from "$lib/data/constants";
 import prisma from "$lib/server/database";
 import { redisDeserialize, redisSerialize } from "$lib/server/functions/redis-json";
 import redis from "$lib/server/redis";
 import { error } from "@sveltejs/kit";
 import z from "zod";
-import { getAuthedUser } from "./auth.remote";
+import { checkPrivacyHelper, getUserIdHelper } from "./helpers";
 
 export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: string }>>(
   z.string().toLowerCase(),
@@ -47,20 +47,25 @@ export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: st
   },
 );
 
-async function getUserIdHelper(userId: string) {
-  if (!userId.match(Constants.SNOWFLAKE_REGEX)) {
-    const result = await getUserId(userId);
+export const getPrivacy = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
 
-    if (!result.ok) {
-      const { status, message } = result as ApiErrorResult;
-      error(status, message);
-    }
+  const cache = await redis.get(`${RedisKey.users.PRIVACY}:${userId}`);
 
-    userId = result.id;
+  if (cache) {
+    const data = redisDeserialize<boolean>(cache);
+
+    return data;
   }
 
-  return userId;
-}
+  const query = await prisma.preferences
+    .findUnique({ where: { userId }, select: { leaderboards: true } })
+    .then((res) => res?.leaderboards || false);
+
+  await redis.set(`${RedisKey.users.PRIVACY}:${userId}`, redisSerialize(query), "EX", 600);
+
+  return query;
+});
 
 function getBaseDataFromDatabase(userId: string) {
   return prisma.user.findUnique({
@@ -83,11 +88,6 @@ function getBaseDataFromDatabase(userId: string) {
         select: {
           level: true,
           embedColor: true,
-        },
-      },
-      Preferences: {
-        select: {
-          leaderboards: true,
         },
       },
       Economy: {
@@ -173,6 +173,7 @@ type MuseumData = Awaited<ReturnType<typeof getMuseumFromDatabase>>;
 
 export const getBaseData = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
+  await checkPrivacyHelper(userId);
 
   const cache = await redis.get(`${RedisKey.users.BASE_DATA}:${userId}`);
 
@@ -181,14 +182,6 @@ export const getBaseData = query(z.string(), async (userId) => {
 
     if (!cacheData) {
       error(404, "unknown user");
-    }
-
-    if (cacheData.Preferences && !cacheData.Preferences.leaderboards) {
-      const authedUser = await getAuthedUser();
-
-      if (authedUser?.adminLevel < 1) {
-        return error(403, "private profile");
-      }
     }
 
     return cacheData;
@@ -207,19 +200,12 @@ export const getBaseData = query(z.string(), async (userId) => {
     600,
   );
 
-  if (query.Preferences && !query.Preferences.leaderboards) {
-    const authedUser = await getAuthedUser();
-
-    if (authedUser?.adminLevel < 1) {
-      return error(403, "private profile");
-    }
-  }
-
   return query;
 });
 
 export const getCommandUses = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
+  await checkPrivacyHelper(userId);
 
   const cache = await redis.get(`${RedisKey.users.COMMAND_USES}:${userId}`);
 
@@ -236,6 +222,7 @@ export const getCommandUses = query(z.string(), async (userId) => {
 
 export const getAchievements = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
+  await checkPrivacyHelper(userId);
 
   const cache = await redis.get(`${RedisKey.users.ACHIEVEMENTS}:${userId}`);
 
@@ -252,6 +239,7 @@ export const getAchievements = query(z.string(), async (userId) => {
 
 export const getMarriagePartner = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
+  await checkPrivacyHelper(userId);
 
   const cache = await redis.get(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`);
 
@@ -288,6 +276,7 @@ export const getMarriagePartner = query(z.string(), async (userId) => {
 
 export const getInventory = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
+  await checkPrivacyHelper(userId);
 
   const cache = await redis.get(`${RedisKey.users.INVENTORY}:${userId}`);
 
@@ -304,6 +293,7 @@ export const getInventory = query(z.string(), async (userId) => {
 
 export const getMuseum = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
+  await checkPrivacyHelper(userId);
 
   const cache = await redis.get(`${RedisKey.users.MUSEUM}:${userId}`);
 
