@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from "$app/paths";
   import { page } from "$app/state";
   import { getAchievementsRemote } from "$lib/api/achievements.remote";
   import {
@@ -71,6 +72,10 @@
     );
 
     return gemOrder.filter((gemId) => ownedGems.has(gemId));
+  });
+
+  $effect(() => {
+    fetch(resolve(`/api/users/${baseData.id}/view`), { method: "POST" });
   });
 </script>
 
