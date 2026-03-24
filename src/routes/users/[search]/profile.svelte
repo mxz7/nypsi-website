@@ -152,7 +152,7 @@
 
 {#snippet gemsSection()}
   {#if gemItems.length > 0}
-    <ol class="flex flex-col items-end justify-between self-stretch py-1">
+    <ol class="flex flex-col items-end justify-evenly self-stretch py-1">
       {#each gemItems as gem}
         <li class="tooltip tooltip-left shrink-0" data-tip={gem.name}>
           <img src={gem.emoji} alt="" class="aspect-square size-5 shrink-0 object-contain" />
