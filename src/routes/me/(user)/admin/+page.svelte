@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import toast from "svelte-french-toast";
+  import { toast } from "svelte-sonner";
 
   let { data } = $props();
 </script>
@@ -17,17 +17,9 @@
           if (event.result.status === 200) {
             toast("bot will reboot soon, do NOT press the button again", {
               position: "top-center",
-              icon: "✅",
-              style:
-                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
             });
           } else {
-            toast("failed to send reboot command", {
-              position: "top-center",
-              icon: "❌",
-              style:
-                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-            });
+            toast.error("failed to send reboot command", { position: "top-center" });
           }
         };
       }}
@@ -41,19 +33,9 @@
       use:enhance={() => {
         return (event) => {
           if (event.result.status === 200) {
-            toast("streaks are paused for the next 24 hours", {
-              position: "top-center",
-              icon: "✅",
-              style:
-                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-            });
+            toast("streaks are paused for the next 24 hours", { position: "top-center" });
           } else {
-            toast("failed to send command", {
-              position: "top-center",
-              icon: "❌",
-              style:
-                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-            });
+            toast.error("failed to send command", { position: "top-center" });
           }
         };
       }}

@@ -5,7 +5,7 @@
   import Card from "$lib/components/ui/Card.svelte";
   import badges from "$lib/data/badges";
   import { handleFallbackImage } from "$lib/functions/image";
-  import toast from "svelte-french-toast";
+  import { toast } from "svelte-sonner";
 
   type Props = {
     baseData: Awaited<ReturnType<typeof getBaseData>>;
@@ -126,11 +126,8 @@
   function copyUsername() {
     navigator.clipboard.writeText(baseData.id);
 
-    toast("user id copied", {
+    toast(`copied user id (${baseData.id})`, {
       position: "top-center",
-      icon: "✅",
-      style:
-        "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
     });
   }
 </script>

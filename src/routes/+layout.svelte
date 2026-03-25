@@ -9,7 +9,7 @@
   import { auth, initialLoad } from "$lib/state.svelte";
   import "@fontsource-variable/inter";
   import { onMount, tick } from "svelte";
-  import toast, { Toaster } from "svelte-french-toast";
+  import { toast, Toaster } from "svelte-sonner";
   import "../app.css";
 
   interface Props {
@@ -34,13 +34,7 @@
         params.delete("loggedin");
         setTimeout(async () => {
           if (!auth.value || !auth.value.authenticated) return;
-          toast(`logged in as ${auth.value.user.lastKnownUsername}`, {
-            position: "bottom-center",
-            icon: "✅",
-            style:
-              "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-            duration: 5000,
-          });
+          toast(`logged in as ${auth.value.user.lastKnownUsername}`);
         }, 250);
       }
 
@@ -102,12 +96,21 @@
   {/if}
 </svelte:head>
 
-<div class="min-h-[100vh]">
+<div class="min-h-screen">
   <LoadBar />
 
-  <!-- <ProgressBar class="text-primary" /> -->
-
-  <Toaster />
+  <Toaster
+    toastOptions={{
+      unstyled: true,
+      classes: {
+        toast:
+          "bg-base-300 flex items-center gap-2 p-4 rounded-xl shadow-lg border border-primary/15",
+        title: "text-sm font-bold",
+        error: "bg-error",
+        success: "bg-success text-black",
+      },
+    }}
+  />
 
   <Navbar />
 

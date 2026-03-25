@@ -2,7 +2,7 @@
   import { enhance } from "$app/forms";
   import { Pencil, Trash } from "@lucide/svelte";
   import { sort } from "fast-sort";
-  import toast from "svelte-french-toast";
+  import { toast } from "svelte-sonner";
 
   interface Props {
     filter: { content: string; percentMatch?: number }[];
@@ -50,13 +50,7 @@
               loading = true;
               return async ({ update, result }) => {
                 if (result.type === "success") {
-                  toast(`deleted ${filterItem.content}`, {
-                    position: "bottom-center",
-                    icon: "✅",
-                    style:
-                      "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-                    duration: 5000,
-                  });
+                  toast(`deleted ${filterItem.content}`);
                 }
 
                 await update();
@@ -88,21 +82,9 @@
         return async ({ update, result }) => {
           modal.close();
           if (result.type === "success") {
-            toast(`updated ${editContent}`, {
-              position: "bottom-center",
-              icon: "✅",
-              style:
-                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-              duration: 5000,
-            });
+            toast(`updated ${editContent}`);
           } else if (result.type === "failure") {
-            toast(`error: ${result.data.message}`, {
-              position: "bottom-center",
-              icon: "❌",
-              style:
-                "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-              duration: 5000,
-            });
+            toast.error(`error: ${result.data.message}`);
           }
 
           await update();

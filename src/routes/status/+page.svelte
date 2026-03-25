@@ -6,7 +6,7 @@
   import { RefreshCw } from "@lucide/svelte";
   import dayjs from "dayjs";
   import { onDestroy, onMount } from "svelte";
-  import toast from "svelte-french-toast";
+  import { toast } from "svelte-sonner";
   import Cluster from "./Cluster.svelte";
   import Shard from "./Shard.svelte";
 
@@ -135,12 +135,7 @@
           await invalidate("status");
           reloading = false;
 
-          toast("status updated", {
-            position: "top-center",
-            icon: "✅",
-            style:
-              "background-color: oklch(0.15 0.0299 262.929993); color: oklch(0.8936 0.0076 260.730011);",
-          });
+          toast("status updated");
         }}
         disabled={age < 30 || reloading}
         class="btn text-sm"
