@@ -7,7 +7,7 @@
 
 if you're a respectable person and use common sense, you should be fine
 
-<DocsHeader header='h2' text="bot roles" />
+<DocsHeader header='h2' text="bot rules" />
 
 these rules apply to usage of the discord bot
 
