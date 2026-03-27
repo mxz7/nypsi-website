@@ -61,37 +61,43 @@
       @apply w-full p-4 lg:p-0;
 
       h1 {
-        @apply mb-6 text-3xl font-bold text-white underline-offset-3 lg:text-4xl;
+        @apply mb-2 text-3xl leading-tight font-bold text-white underline-offset-3 lg:text-5xl;
       }
 
       h2 {
-        @apply mt-8 mb-2 text-2xl font-bold text-white underline-offset-3;
+        @apply mt-8 text-3xl leading-tight font-bold text-white underline-offset-3;
       }
 
       h3 {
-        @apply mt-2 mb-2 text-xl font-bold text-white underline-offset-3;
+        @apply mt-5 text-lg leading-snug font-semibold text-white/90 underline-offset-3;
       }
 
       h4 {
-        @apply mb-2 text-lg font-semibold text-white underline-offset-3;
+        @apply text-lg font-medium text-white underline-offset-3;
       }
 
       h5 {
-        @apply mb-1 text-base font-semibold text-white underline-offset-3;
+        @apply mt-1 text-base font-medium text-white underline-offset-3;
       }
 
       p {
-        @apply mt-1 mb-2 leading-relaxed;
+        @apply my-3 max-w-[70ch] text-base leading-7 text-pretty;
+      }
+
+      li {
+        @apply leading-7;
       }
 
       pre {
-        @apply bg-base-300 overflow-x-auto rounded-lg p-2;
-        font-family: ui-monospace, "SF Mono", monospace;
+        @apply bg-base-300 my-4 overflow-x-auto rounded-xl p-3 font-mono leading-7;
       }
 
       code {
-        @apply bg-base-300 rounded-lg p-1;
-        font-family: ui-monospace, "SF Mono", monospace;
+        @apply bg-base-300 rounded-md px-1.5 py-0.5 font-mono text-[0.95em];
+      }
+
+      pre code {
+        @apply bg-transparent p-0 text-inherit;
       }
 
       a:not(:is(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a)) {
@@ -104,20 +110,20 @@
       }
 
       table {
-        @apply table;
+        @apply my-4 block table w-full overflow-x-auto;
       }
 
       ul,
       ol {
-        @apply list-inside;
+        @apply my-3 pl-6;
       }
 
       ul {
-        @apply list-disc;
+        @apply list-outside list-disc;
       }
 
       ol {
-        @apply list-decimal;
+        @apply list-outside list-decimal;
       }
     }
   }
