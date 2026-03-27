@@ -4,6 +4,7 @@
     Bell,
     Book,
     Cat,
+    ChessKnight,
     Coins,
     Flag,
     Hammer,
@@ -42,6 +43,18 @@
   />
 
   <FeaturesSection
+    title="chess puzzles"
+    list={[
+      "practice your skills with millions of puzzles",
+      "raise to the top of the leaderboards",
+      "powered by lichess",
+    ]}
+    image="chess"
+    Icon={ChessKnight}
+    flipped={false}
+  />
+
+  <FeaturesSection
     title="farms"
     list={[
       "grow plants and make money from your yield",
@@ -50,7 +63,7 @@
     ]}
     image="farm"
     Icon={Leaf}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -63,7 +76,7 @@
     ]}
     image="tmdb"
     Icon={Popcorn}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -77,7 +90,7 @@
     ]}
     image="chatreaction"
     Icon={Keyboard}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -89,7 +102,7 @@
     ]}
     image="guesstheflag"
     Icon={Flag}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -102,7 +115,7 @@
     ]}
     image="gambling"
     Icon={Coins}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -116,7 +129,7 @@
     ]}
     image="moderation"
     Icon={Hammer}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -129,7 +142,7 @@
     ]}
     image="reactionroles"
     Icon={Book}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -141,6 +154,6 @@
     ]}
     image="mentions"
     Icon={Bell}
-    flipped={true}
+    flipped={false}
   />
 </section>
