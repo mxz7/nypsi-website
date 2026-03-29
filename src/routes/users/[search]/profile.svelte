@@ -172,7 +172,10 @@
 
       <div class="flex min-w-0 grow flex-col py-2">
         <h1 style="color: {usernameColor}" class="text-2xl font-extrabold text-white lg:text-4xl">
-          <button onclick={copyUsername} class="link-hover block max-w-full truncate text-left">
+          <button
+            onclick={copyUsername}
+            class="link-hover block max-w-full cursor-pointer truncate text-left"
+          >
             {baseData.lastKnownUsername}
           </button>
         </h1>
