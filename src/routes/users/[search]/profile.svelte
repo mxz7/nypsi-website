@@ -5,6 +5,7 @@
   import Card from "$lib/components/ui/Card.svelte";
   import badges from "$lib/data/badges";
   import { handleFallbackImage } from "$lib/functions/image";
+  import dayjs from "dayjs";
   import { toast } from "svelte-sonner";
 
   type Props = {
@@ -66,6 +67,10 @@
         : baseData?.Premium?.embedColor
     }; !important`,
   );
+  const birthday = $derived(
+    baseData.birthday ? dayjs(baseData.birthday).set("year", dayjs().year()) : null,
+  );
+  const isBirthday = $derived(baseData.birthdayAnnounce && dayjs(birthday).isSame(dayjs(), "day"));
 
   const levelText = $derived.by(() => {
     const eco = baseData.Economy;
@@ -120,8 +125,6 @@
       .map((gemId) => itemsData.find((item) => item.id === gemId))
       .filter((item) => item !== undefined),
   );
-
-  const ringEmoji = $derived(itemsData.find((item) => item.id === "ring")?.emoji);
 
   function copyUsername() {
     navigator.clipboard.writeText(baseData.id);
@@ -187,9 +190,16 @@
             </span>
           {/if}
 
+          {#if isBirthday}
+            <div class="text-base-content/75 mt-2 flex items-center gap-0.5 text-xs md:text-sm">
+              <img src={itemsData.find((i) => i.id === "cake").emoji} alt="" class="size-4" />
+              <span> happy birthday!! </span>
+            </div>
+          {/if}
+
           {#if marriagePartner}
             <div class="text-base-content/75 mt-2 flex items-center gap-0.5 text-xs md:text-sm">
-              <img src={ringEmoji} alt="" class="size-4" />
+              <img src={itemsData.find((i) => i.id === "ring").emoji} alt="" class="size-4" />
               <span>
                 married to
                 <a class="link-primary link underline-offset-2" href="/users/{marriagePartner.id}"
@@ -202,13 +212,13 @@
           <span class="text-base-content/75 text-sm">last seen {lastSeen}</span>
         {/if}
 
-        {#if !(marriagePartner && levelText)}
+        {#if !(marriagePartner && isBirthday && levelText)}
           {@render tagsSection()}
         {/if}
       </div>
     </div>
 
-    {#if marriagePartner && levelText}
+    {#if marriagePartner && isBirthday && levelText}
       {@render tagsSection()}
     {/if}
   </div>

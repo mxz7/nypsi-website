@@ -78,6 +78,8 @@ function getBaseDataFromDatabase(userId: string) {
       lastCommand: true,
       id: true,
       lastKnownUsername: true,
+      birthday: true,
+      birthdayAnnounce: true,
       Tags: {
         select: {
           selected: true,
