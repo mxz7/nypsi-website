@@ -13,6 +13,8 @@ first, you must create a reaction role. to do this, you should use the **command
 start a process asking you questions to generate the initial message, such as the title, description
 and channel. the title is not required, but the description and channel are.
 
+this will act as a _group_ that you can can add roles too, see [adding roles](#adding-roles)
+
 ```
 /reactionroles create
 ```
@@ -34,15 +36,22 @@ removing a role is very similar to adding a role.
 /reactionroles removerole <message id> <role>
 ```
 
-<DocsHeader header='h2' text="changing roles" />
+<DocsHeader header='h2' text="changing modes" />
 
-to change the mode of a reaction role, use the command below. possible modes: **many** **unique**.
+possible modes: **many** **unique**.
+
 unique will ensure that the member only has one of the available roles, while many will allow them
 to have as many as they want
 
 ```
 /reactionroles update <message id> mode <many|unique>
 ```
+
+with the `update` command you can also update other details:
+
+- title
+- description
+- embed colour
 
 <DocsHeader header='h2' text="updating the message" />
 
@@ -68,7 +77,6 @@ use the command below to add a role to the whitelist for a specific reaction rol
 ```
 
 <DocsHeader header='h3' text="removing a role from the whitelist" />
-### removing a role from the whitelist
 
 use the command below to add a role to the whitelist for a specific reaction role
 
