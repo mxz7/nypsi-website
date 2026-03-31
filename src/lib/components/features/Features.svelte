@@ -43,11 +43,12 @@
   />
 
   <FeaturesSection
-    title="chess puzzles"
+    title="chess"
     list={[
+      "play chess against your friends in discord",
       "practice your skills with millions of puzzles",
       "raise to the top of the leaderboards",
-      "powered by lichess",
+      "puzzles powered by lichess",
     ]}
     image="chess"
     Icon={ChessKnight}
