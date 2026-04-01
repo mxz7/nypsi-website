@@ -212,13 +212,13 @@
           <span class="text-base-content/75 text-sm">last seen {lastSeen}</span>
         {/if}
 
-        {#if !(marriagePartner && isBirthday && levelText)}
+        {#if !(marriagePartner && isBirthday)}
           {@render tagsSection()}
         {/if}
       </div>
     </div>
 
-    {#if marriagePartner && isBirthday && levelText}
+    {#if marriagePartner || isBirthday}
       {@render tagsSection()}
     {/if}
   </div>
