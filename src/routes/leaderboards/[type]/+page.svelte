@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from "$app/environment";
   import { page } from "$app/state";
   import {
     getItemLeaderboard,
@@ -6,17 +7,25 @@
     getLeaderboardMetadata,
     type LeaderboardType,
   } from "$lib/api/leaderboards.remote";
-  import { getTagsRemote } from "$lib/api/tags.remote";
+  import type { LeaderboardData } from "$lib/types/LeaderboardData";
+  import type { RemoteQuery } from "@sveltejs/kit";
   import BigLeaderboard from "./BigLeaderboard.svelte";
 
-  const type = $derived(page.params.type);
-  const meta = $derived(await getLeaderboardMetadata(type));
-  const tags = $derived(await getTagsRemote());
-  const leaderboardData = $derived.by(() => {
+  const meta = $derived(await getLeaderboardMetadata(page.params.type));
+
+  const leaderboardData = $derived.by(async () => {
+    let promise: RemoteQuery<LeaderboardData>;
     if (meta.typeKind === "known") {
-      return getLeaderboard(type as LeaderboardType);
+      promise = getLeaderboard(page.params.type as LeaderboardType);
+    } else {
+      promise = getItemLeaderboard(page.params.type);
     }
-    return getItemLeaderboard(meta.itemId);
+
+    if (browser) {
+      return promise;
+    }
+
+    return await promise;
   });
 </script>
 
@@ -27,9 +36,8 @@
 </svelte:head>
 
 <BigLeaderboard
-  {tags}
   data={leaderboardData}
   title={meta.title}
-  userRoute={meta.typeKind === "known" && type === "guilds" ? "/guilds" : "/users"}
+  userRoute={meta.typeKind === "known" && page.params.type === "guilds" ? "/guilds" : "/users"}
   descriptor={meta.descriptor}
 />
