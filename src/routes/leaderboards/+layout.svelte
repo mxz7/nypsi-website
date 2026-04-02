@@ -5,7 +5,6 @@
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import Main from "$lib/components/ui/Main.svelte";
   import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
-  import { fly } from "svelte/transition";
 
   let { children } = $props();
 
@@ -77,10 +76,8 @@
       </ul>
     </nav>
 
-    {#key page.url.pathname}
-      <div in:fly={{ duration: 400, y: 25 }} class="w-full">
-        {@render children()}
-      </div>
-    {/key}
+    <div class="w-full">
+      {@render children()}
+    </div>
   </div>
 </Main>

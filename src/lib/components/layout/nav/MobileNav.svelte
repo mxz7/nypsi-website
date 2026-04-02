@@ -21,8 +21,6 @@
 
   let { visible = $bindable(false) } = $props();
 
-  const items = $derived(await getItemsRemote());
-
   $effect(() => {
     if (navigating.to) visible = false;
   });
@@ -146,7 +144,7 @@
             <ul>
               <li class="py-1">
                 <ItemSearch
-                  {items}
+                  items={await getItemsRemote()}
                   onClick={async (itemId) => {
                     visible = false;
                   }}
