@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
-  import { fade } from "svelte/transition";
+  import { Crown } from "@lucide/svelte";
 
   interface Props {
     title: string;
@@ -11,107 +11,103 @@
   }
 
   let { title, data, tags, userRoute, descriptor = "" }: Props = $props();
+
+  function placeLabel(position: number): string {
+    return `${position}`;
+  }
 </script>
 
 <div class="w-full">
   <h2 class="text-center text-xl font-bold text-white md:text-3xl">{title}</h2>
   <div class="bg-primary m-auto mt-1 h-1 w-1/4 rounded-full"></div>
   {#if data}
-    <div class="mt-4 px-4 sm:px-0 md:text-xl">
-      {#await data}
-        <div
-          out:fade={{ duration: 100 }}
-          in:fade|global={{ delay: 100, duration: 100 }}
-          class="flex flex-col gap-2"
-        >
-          {#each new Array(20) as _, i}
-            <div
-              class="bg-base-200 hover:border-primary/20 flex w-full items-center gap-2 rounded-lg border border-slate-400/5 px-2 py-2 duration-200 ease-in hover:scale-105
-              {i === 0
-                ? 'border-primary/40 hover:border-primary/60 md:hover:scale-110 lg:scale-105'
-                : 'border-slate-400/5  hover:border-slate-400/20'}"
-            >
-              <div class="my-1 h-4 w-8 animate-pulse rounded-xl bg-slate-600"></div>
-              <div
-                style="width: {Math.floor(Math.random() * 13) + 4}rem"
-                class="my-1 h-4 animate-pulse rounded-xl md:h-5 {i === 0
-                  ? 'bg-primary'
-                  : 'bg-slate-400'}"
-              ></div>
-              <div class="grow"></div>
-              <div
-                style="width: {Math.floor(Math.random() * 4) + 4}rem"
-                class="h-4 animate-pulse rounded-xl {i === 0 ? 'bg-primary' : 'bg-slate-500'}"
-              ></div>
-            </div>
-          {/each}
-        </div>
-      {:then data}
-        <div
-          in:fade={{ delay: 100, duration: 100 }}
-          out:fade|global={{ duration: 100 }}
-          class="flex flex-col gap-2"
-        >
-          {#each data as { position, user, value }, i}
-            <div
-              class="bg-base-200 hover:border-primary flex w-full items-center gap-2 rounded-lg border px-2 py-2 duration-200
-              ease-in hover:scale-105 {i === 0
-                ? 'border-primary/40 hover:border-primary/60 md:hover:scale-110 lg:scale-105'
-                : 'border-slate-400/5 hover:border-slate-400/20'}"
-            >
-              <div class="text-slate-400 {i === 0 ? 'font-semibold' : ''}">#{position}</div>
+    <div class="mt-4 px-0">
+      {#await data then data}
+        <div>
+          <table
+            class="table-sm md:table-md [&_tbody_tr:nth-child(odd)]:bg-base-200/80 table w-full [&_tbody_td]:border-b-0 [&_tbody_td]:align-middle [&_tbody_td:first-child]:w-px [&_tbody_tr]:border-b-0 [&_tbody_tr:nth-child(even)]:bg-transparent [&_thead_th:first-child]:w-px"
+          >
+            <thead class="sr-only">
+              <tr class="text-sm uppercase">
+                <th>rank</th>
+                <th>user</th>
+                <th class="text-right">value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each data as { position, user, value }, i}
+                <tr>
+                  <td
+                    class="rounded-l-lg py-3 pr-0 pl-1 text-center text-sm whitespace-nowrap md:py-5 md:pl-3 md:text-base {i ===
+                    0
+                      ? 'text-primary font-semibold'
+                      : ''}"
+                  >
+                    {#if position === 1}
+                      <Crown size={24} class="inline" />
+                    {:else}
+                      {placeLabel(position)}
+                    {/if}
+                  </td>
 
-              <div class="text-slate-300'} flex w-full min-w-0 items-center overflow-visible">
-                {#if user.id}
-                  {#if user.tag}
-                    <span
-                      class="tooltip tooltip-top mr-1 flex flex-none items-center"
-                      data-tip={tags[user.tag]?.name}
-                    >
-                      [
-                      <img
-                        class="h-5 w-5 object-contain sm:h-6 sm:w-6"
-                        height="32"
-                        width="32"
-                        src={tags[user.tag]?.emoji}
-                        alt=""
-                        decoding="async"
-                      />
-                      ]
+                  <td class="min-w-0 py-3 md:py-5">
+                    <span class="flex w-full min-w-0 items-center gap-2 md:gap-3">
+                      {#if user.id}
+                        <span class="flex min-w-0 items-center gap-1">
+                          {#if user.tag}
+                            <span
+                              class="tooltip tooltip-top flex flex-none items-center"
+                              data-tip={tags[user.tag]?.name}
+                            >
+                              [
+                              <img
+                                class="h-5 w-5 object-contain"
+                                height="32"
+                                width="32"
+                                src={tags[user.tag]?.emoji}
+                                alt=""
+                                decoding="async"
+                              />
+                              ]
+                            </span>
+                          {/if}
+                          <a
+                            href={`${userRoute}/${user.id.replaceAll(" ", "-")}`}
+                            class="{i === 0
+                              ? 'text-primary font-semibold'
+                              : ''} link-hover min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap underline-offset-2 md:text-base"
+                          >
+                            {user.username}
+                          </a>
+                        </span>
+                      {:else}
+                        <a
+                          href="/wiki/economy/user-settings/hidden"
+                          class="{i === 0
+                            ? 'text-primary font-semibold'
+                            : ''} link-hover min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap underline-offset-2 md:text-base"
+                        >
+                          {user.username}
+                        </a>
+                      {/if}
                     </span>
-                  {/if}
-                  <a
-                    href={`${userRoute}/${user.id.replaceAll(" ", "-")}`}
-                    class="{i === 0
-                      ? 'text-primary font-semibold'
-                      : 'text-slate-300'} link-hover min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap underline-offset-2"
-                  >
-                    {user.username}
-                  </a>
-                {:else}
-                  <a
-                    href="/wiki/economy/user-settings/hidden"
-                    class="{i === 0
-                      ? 'text-primary font-semibold'
-                      : 'text-slate-300'} link-hover min-w-0 overflow-hidden text-ellipsis whitespace-nowrap underline-offset-2"
-                  >
-                    {user.username}
-                  </a>
-                {/if}
-              </div>
+                  </td>
 
-              <div
-                class="{i === 0
-                  ? 'text-primary font-semibold'
-                  : 'text-slate-300'} w-fit pl-4 text-right whitespace-nowrap"
-              >
-                {value}
-                {#if descriptor}
-                  <span class="hidden lg:inline"> {descriptor}</span>
-                {/if}
-              </div>
-            </div>
-          {/each}
+                  <td
+                    class="rounded-r-lg py-3 pr-1 text-right text-sm md:py-5 md:pr-3 md:text-base {i ===
+                    0
+                      ? 'text-primary font-semibold'
+                      : ''}"
+                  >
+                    <span class="whitespace-nowrap">{value}</span>
+                    {#if descriptor}
+                      <span class="hidden lg:inline"> {descriptor}</span>
+                    {/if}
+                  </td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
         </div>
       {/await}
     </div>
