@@ -33,14 +33,9 @@ function formatTime(ms: number): string {
   return `${minutes > 0 ? `${minutes}m` : ""}${seconds}s`;
 }
 
-export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
-  const cached = await cache.get(type);
-  if (cached) return cached;
-
-  let result: LeaderboardData;
-
-  if (type === "balance") {
-    result = await prisma.economy
+const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>> = {
+  balance: async () => {
+    return await prisma.economy
       .findMany({
         where: { AND: [{ money: { gt: 0 } }, { user: { blacklisted: false } }] },
         select: {
@@ -77,8 +72,10 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "net-worth") {
-    result = await prisma.economy
+  },
+
+  "net-worth": async () => {
+    return await prisma.economy
       .findMany({
         where: { AND: [{ netWorth: { gt: 0 } }, { user: { blacklisted: false } }] },
         select: {
@@ -115,8 +112,10 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "level") {
-    result = await prisma.economy
+  },
+
+  level: async () => {
+    return await prisma.economy
       .findMany({
         where: {
           AND: [
@@ -159,8 +158,10 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "guilds") {
-    result = await prisma.economyGuild
+  },
+
+  guilds: async () => {
+    return await prisma.economyGuild
       .findMany({
         select: { guildName: true, level: true },
         orderBy: [{ level: "desc" }, { xp: "desc" }, { balance: "desc" }, { guildName: "asc" }],
@@ -177,8 +178,10 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "streak") {
-    result = await prisma.economy
+  },
+
+  streak: async () => {
+    return await prisma.economy
       .findMany({
         where: { AND: [{ dailyStreak: { gt: 0 } }, { user: { blacklisted: false } }] },
         select: {
@@ -215,8 +218,10 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "lottery") {
-    result = await prisma.achievements
+  },
+
+  lottery: async () => {
+    return await prisma.achievements
       .findMany({
         where: {
           OR: [
@@ -263,9 +268,10 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "commands") {
-    result =
-      await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Economy"."banned", "Tags"."tagId", "Preferences"."leaderboards" from "User"
+  },
+
+  commands: async () => {
+    return await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Economy"."banned", "Tags"."tagId", "Preferences"."leaderboards" from "User"
     right join "CommandUse" on "CommandUse"."userId" = "User"."id"
     left join "Economy" on "Economy"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
@@ -273,31 +279,33 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
     where "User"."blacklisted" = false
     group by "CommandUse"."userId", "User"."id", "Economy"."userId", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" desc limit 100`.then(
-        (
-          i: {
-            value: bigint;
-            userId: string;
-            lastKnownUsername: string;
-            banned: Date;
-            tagId: string;
-            leaderboards: boolean;
-          }[],
-        ) => {
-          return i
-            .filter((i) => (i.banned ? Date.now() > i.banned.getTime() : true))
-            .map((i, index) => ({
-              value: i.value.toLocaleString(),
-              position: index + 1,
-              user: {
-                username: i.leaderboards ? i.lastKnownUsername : "[hidden]",
-                id: i.leaderboards ? i.userId : undefined,
-                tag: i.leaderboards ? i.tagId : undefined,
-              },
-            }));
-        },
-      );
-  } else if (type === "vote-month") {
-    result = await prisma.economy
+      (
+        i: {
+          value: bigint;
+          userId: string;
+          lastKnownUsername: string;
+          banned: Date;
+          tagId: string;
+          leaderboards: boolean;
+        }[],
+      ) => {
+        return i
+          .filter((i) => (i.banned ? Date.now() > i.banned.getTime() : true))
+          .map((i, index) => ({
+            value: i.value.toLocaleString(),
+            position: index + 1,
+            user: {
+              username: i.leaderboards ? i.lastKnownUsername : "[hidden]",
+              id: i.leaderboards ? i.userId : undefined,
+              tag: i.leaderboards ? i.tagId : undefined,
+            },
+          }));
+      },
+    );
+  },
+
+  "vote-month": async () => {
+    return await prisma.economy
       .findMany({
         where: {
           AND: [
@@ -339,8 +347,10 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "vote-streak") {
-    result = await prisma.economy
+  },
+
+  "vote-streak": async () => {
+    return await prisma.economy
       .findMany({
         where: { AND: [{ voteStreak: { gt: 0 } }, { user: { blacklisted: false } }] },
         select: {
@@ -377,66 +387,74 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
           };
         });
       });
-  } else if (type === "wordle-wins") {
-    result =
-      await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+  },
+
+  "wordle-wins": async () => {
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"
     where "WordleGame"."won" = true and "User"."blacklisted" = false
     group by "WordleGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" desc limit 100`.then(
-        (
-          i: {
-            value: bigint;
-            userId: string;
-            lastKnownUsername: string;
-            tagId: string;
-            privacy: boolean;
-          }[],
-        ) => {
-          return i.map((i, index) => ({
-            value: i.value.toLocaleString(),
-            position: index + 1,
-            user: {
-              username: i.privacy ? i.lastKnownUsername : "[hidden]",
-              id: i.privacy ? i.userId : undefined,
-              tag: i.privacy ? i.tagId : undefined,
-            },
-          }));
-        },
-      );
-  } else {
-    // wordle-time
-    result =
-      await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+      (
+        i: {
+          value: bigint;
+          userId: string;
+          lastKnownUsername: string;
+          tagId: string;
+          privacy: boolean;
+        }[],
+      ) => {
+        return i.map((i, index) => ({
+          value: i.value.toLocaleString(),
+          position: index + 1,
+          user: {
+            username: i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: i.privacy ? i.userId : undefined,
+            tag: i.privacy ? i.tagId : undefined,
+          },
+        }));
+      },
+    );
+  },
+
+  "wordle-time": async () => {
+    return await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"
     where "WordleGame"."won" = true and "User"."blacklisted" = false and "WordleGame"."time" > 0
     group by "WordleGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" asc limit 100`.then(
-        (
-          i: {
-            value: bigint;
-            userId: string;
-            lastKnownUsername: string;
-            tagId: string;
-            privacy: boolean;
-          }[],
-        ) => {
-          return i.map((i, index) => ({
-            value: formatTime(Number(i.value)),
-            position: index + 1,
-            user: {
-              username: i.privacy ? i.lastKnownUsername : "[hidden]",
-              id: i.privacy ? i.userId : undefined,
-              tag: i.privacy ? i.tagId : undefined,
-            },
-          }));
-        },
-      );
-  }
+      (
+        i: {
+          value: bigint;
+          userId: string;
+          lastKnownUsername: string;
+          tagId: string;
+          privacy: boolean;
+        }[],
+      ) => {
+        return i.map((i, index) => ({
+          value: formatTime(Number(i.value)),
+          position: index + 1,
+          user: {
+            username: i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: i.privacy ? i.userId : undefined,
+            tag: i.privacy ? i.tagId : undefined,
+          },
+        }));
+      },
+    );
+  },
+};
+
+export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
+  const cached = await cache.get(type);
+  if (cached) return cached;
+
+  const result = await leaderboardQueries[type]();
 
   await cache.set(type, result);
   return result;
