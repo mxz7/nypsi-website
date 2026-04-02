@@ -1,139 +1,156 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
+  import { getItemsRemote } from "$lib/api/items.remote";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import Main from "$lib/components/ui/Main.svelte";
-  import { items, tags } from "$lib/state.svelte";
-  import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
+  import { fly } from "svelte/transition";
 
-  let { children, data } = $props();
+  let { children } = $props();
 
-  const options = $state([
-    {
-      name: "balance",
-      leaderboardName: "top balance",
-      selected: false,
-      showItems: false,
-    },
-    {
-      name: "net worth",
-      leaderboardName: "top net worth",
-      selected: false,
-      showItems: false,
-      data: "net-worth",
-    },
-    {
-      name: "level",
-      leaderboardName: "top level",
-      selected: false,
-      showItems: false,
-    },
-    {
-      name: "guilds",
-      leaderboardName: "top guilds",
-      selected: false,
-      showItems: false,
-    },
-    {
-      name: "daily streak",
-      data: "streak",
-      leaderboardName: "top daily streak",
-      selected: false,
-      showItems: false,
-    },
-    {
-      name: "vote",
-      leaderboardName: "top monthly votes",
-      selected: false,
-      showItems: false,
-    },
-    {
-      name: "wordle",
-      leaderboardName: "top wordle wins",
-      selected: false,
-      showItems: false,
-    },
-    {
-      name: "lottery",
-      leaderboardName: "top lottery wins",
-      selected: false,
-      showItems: false,
-    },
-    {
-      name: "commands",
-      leaderboardName: "top command uses",
-      selected: false,
-      showItems: false,
-    },
-    { name: "items", leaderboardName: "", selected: false, showItems: true, path: "" },
-  ]);
+  const knownTypes = [
+    "/leaderboards/balance",
+    "/leaderboards/net-worth",
+    "/leaderboards/level",
+    "/leaderboards/guilds",
+    "/leaderboards/streak",
+    "/leaderboards/lottery",
+    "/leaderboards/commands",
+  ];
 
-  let showChild = $state(true);
+  const isItemPage = $derived(
+    !knownTypes.includes(page.url.pathname) &&
+      !page.url.pathname.startsWith("/leaderboards/vote") &&
+      !page.url.pathname.startsWith("/leaderboards/wordle") &&
+      page.url.pathname !== "/leaderboards",
+  );
 
-  if (!page.url.pathname.endsWith("leaderboards")) {
-    const selected = options.find((i) => page.url.pathname.endsWith(i.data || i.name));
-
-    if (selected) selected.selected = true;
-    else options[options.length - 1].selected = true;
-  }
-
-  const selected = $derived(options.find((i) => i.selected));
-
-  onMount(() => {
-    items.value = data.items;
-    tags.value = data.tags;
-  });
+  const items = $derived(await getItemsRemote());
 </script>
 
 <Main>
-  <div class="mx-auto w-fit">
-    <nav class="menu menu-md menu-horizontal rounded-box bg-base-200 justify-center gap-2">
-      {#each options as option}
+  <div class="flex gap-8">
+    <nav class="hidden lg:block">
+      <ul class="menu rounded-box bg-base-200 h-fit w-56 p-4">
+        <li><h2 class="menu-title">leaderboards</h2></li>
         <li>
           <a
             data-sveltekit-preload-code="viewport"
-            class={option.selected ? "menu-active" : ""}
-            href="/leaderboards{option.showItems ? '' : `/${option.data || option.name}`}"
-            onclick={() => {
-              options.forEach((i) => {
-                if (i.name === option.name) i.selected = true;
-                else i.selected = false;
-              });
-
-              if (option.showItems) {
-                showChild = false;
-              } else {
-                setTimeout(() => {
-                  showChild = true;
-                }, 50);
-              }
-            }}>{option.name}</a
+            class={page.url.pathname === "/leaderboards/balance" ? "text-primary" : ""}
+            href="/leaderboards/balance">balance</a
           >
         </li>
-      {/each}
+        <li>
+          <a
+            data-sveltekit-preload-code="viewport"
+            class={page.url.pathname === "/leaderboards/net-worth" ? "text-primary" : ""}
+            href="/leaderboards/net-worth">net worth</a
+          >
+        </li>
+        <li>
+          <a
+            data-sveltekit-preload-code="viewport"
+            class={page.url.pathname === "/leaderboards/level" ? "text-primary" : ""}
+            href="/leaderboards/level">level</a
+          >
+        </li>
+        <li>
+          <a
+            data-sveltekit-preload-code="viewport"
+            class={page.url.pathname === "/leaderboards/guilds" ? "text-primary" : ""}
+            href="/leaderboards/guilds">guilds</a
+          >
+        </li>
+        <li>
+          <a
+            data-sveltekit-preload-code="viewport"
+            class={page.url.pathname === "/leaderboards/streak" ? "text-primary" : ""}
+            href="/leaderboards/streak">daily streak</a
+          >
+        </li>
+        <li>
+          <a
+            data-sveltekit-preload-code="viewport"
+            class={page.url.pathname === "/leaderboards/lottery" ? "text-primary" : ""}
+            href="/leaderboards/lottery">lottery</a
+          >
+        </li>
+        <li>
+          <a
+            data-sveltekit-preload-code="viewport"
+            class={page.url.pathname === "/leaderboards/commands" ? "text-primary" : ""}
+            href="/leaderboards/commands">commands</a
+          >
+        </li>
+        <li>
+          <details open={page.url.pathname.startsWith("/leaderboards/vote")}>
+            <summary
+              class={page.url.pathname.startsWith("/leaderboards/vote") ? "text-primary" : ""}
+              >vote</summary
+            >
+            <ul>
+              <li>
+                <a
+                  data-sveltekit-preload-code="viewport"
+                  class={page.url.pathname === "/leaderboards/vote/month" ? "text-primary" : ""}
+                  href="/leaderboards/vote/month">votes this month</a
+                >
+              </li>
+              <li>
+                <a
+                  data-sveltekit-preload-code="viewport"
+                  class={page.url.pathname === "/leaderboards/vote/streak" ? "text-primary" : ""}
+                  href="/leaderboards/vote/streak">vote streak</a
+                >
+              </li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details open={page.url.pathname.startsWith("/leaderboards/wordle")}>
+            <summary
+              class={page.url.pathname.startsWith("/leaderboards/wordle") ? "text-primary" : ""}
+              >wordle</summary
+            >
+            <ul>
+              <li>
+                <a
+                  data-sveltekit-preload-code="viewport"
+                  class={page.url.pathname === "/leaderboards/wordle/wins" ? "text-primary" : ""}
+                  href="/leaderboards/wordle/wins">wins</a
+                >
+              </li>
+              <li>
+                <a
+                  data-sveltekit-preload-code="viewport"
+                  class={page.url.pathname === "/leaderboards/wordle/time" ? "text-primary" : ""}
+                  href="/leaderboards/wordle/time">fastest wins</a
+                >
+              </li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details open={isItemPage}>
+            <summary class={isItemPage ? "text-primary" : ""}>items</summary>
+            <ul>
+              <li class="py-1">
+                <ItemSearch
+                  {items}
+                  onClick={async (itemId) => {
+                    return goto(`/leaderboards/${itemId}`);
+                  }}
+                />
+              </li>
+            </ul>
+          </details>
+        </li>
+      </ul>
     </nav>
-  </div>
-
-  {#if selected?.showItems}
-    <div class="mt-14 flex w-full justify-center">
-      <div class=" w-full px-4 lg:max-w-xs lg:px-0">
-        <ItemSearch
-          items={data.items}
-          onClick={async (itemId) => {
-            showChild = true;
-            return goto(`/leaderboards/${itemId}`);
-          }}
-        />
-      </div>
-    </div>
-  {/if}
-
-  {#if showChild}
     {#key page.url.pathname}
-      <div in:fade={{ duration: 100 }} out:fade={{ duration: 100 }}>
+      <div in:fly={{ duration: 400, y: 25 }} class="w-full min-w-0">
         {@render children()}
       </div>
     {/key}
-  {/if}
+  </div>
 </Main>

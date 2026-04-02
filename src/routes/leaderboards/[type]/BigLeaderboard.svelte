@@ -1,5 +1,4 @@
 <script lang="ts">
-  import parseEmoji from "$lib/functions/parseEmoji";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { fade } from "svelte/transition";
 
@@ -14,7 +13,7 @@
   let { title, data, tags, userRoute, descriptor = "" }: Props = $props();
 </script>
 
-<div class="w-full md:max-w-3xl">
+<div class="w-full">
   <h2 class="text-center text-xl font-bold text-white md:text-3xl">{title}</h2>
   <div class="bg-primary m-auto mt-1 h-1 w-1/4 rounded-full"></div>
   {#if data}
@@ -74,7 +73,7 @@
                         class="h-5 w-5 object-contain sm:h-6 sm:w-6"
                         height="32"
                         width="32"
-                        src={parseEmoji(tags[user.tag]?.emoji)}
+                        src={tags[user.tag]?.emoji}
                         alt=""
                         decoding="async"
                       />

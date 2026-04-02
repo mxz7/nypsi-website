@@ -1,28 +1,35 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { items } from "$lib/state.svelte";
-  import { onMount } from "svelte";
+  import {
+    getItemLeaderboard,
+    getLeaderboard,
+    getLeaderboardMetadata,
+    type LeaderboardType,
+  } from "$lib/api/leaderboards.remote";
+  import { getTagsRemote } from "$lib/api/tags.remote";
   import BigLeaderboard from "./BigLeaderboard.svelte";
 
-  let { data } = $props();
-
-  onMount(() => {
-    if (data.items && !items.value) items.value = data.items;
+  const type = $derived(page.params.type);
+  const meta = $derived(await getLeaderboardMetadata(type));
+  const tags = $derived(await getTagsRemote());
+  const leaderboardData = $derived.by(() => {
+    if (meta.typeKind === "known") {
+      return getLeaderboard(type as LeaderboardType);
+    }
+    return getItemLeaderboard(meta.itemId);
   });
 </script>
 
 <svelte:head>
-  <title>{data.title} | nypsi</title>
-  <meta name="og:title" content="{data.title} | nypsi" />
+  <title>{meta.title} | nypsi</title>
+  <meta name="og:title" content="{meta.title} | nypsi" />
   <link rel="canonical" href="https://nypsi.xyz/leaderboards/{page.params.type}" />
 </svelte:head>
 
-<div class="mt-10 flex w-full justify-center">
-  <BigLeaderboard
-    tags={data.tags}
-    data={data.leaderboardData}
-    title={data.title}
-    userRoute={page.url.pathname.endsWith("guilds") ? "/guilds" : "/users"}
-    descriptor={data.descriptor}
-  />
-</div>
+<BigLeaderboard
+  {tags}
+  data={leaderboardData}
+  title={meta.title}
+  userRoute={meta.typeKind === "known" && type === "guilds" ? "/guilds" : "/users"}
+  descriptor={meta.descriptor}
+/>
