@@ -1,6 +1,9 @@
 <script lang="ts">
   import { navigating, page } from "$app/state";
+  import { getItemsRemote } from "$lib/api/items.remote";
+  import ItemSearch from "$lib/components/items/ItemSearch.svelte";
   import { paths, type PathsData } from "$lib/data/docs";
+  import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
   import { auth, guildsData } from "$lib/state.svelte";
   import {
     ArrowLeft,
@@ -17,6 +20,8 @@
   import { fade, fly } from "svelte/transition";
 
   let { visible = $bindable(false) } = $props();
+
+  const items = $derived(await getItemsRemote());
 
   $effect(() => {
     if (navigating.to) visible = false;
@@ -43,6 +48,35 @@
         href={path.path}
       >
         {path.name.replaceAll("-", " ")}
+      </a>
+    {/if}
+  </li>
+{/snippet}
+
+{#snippet renderLeaderboard(leaderboard: {
+  name: string;
+  path: string;
+  children?: LeaderboardsData;
+})}
+  <li>
+    {#if leaderboard.children}
+      <details open={page.url.pathname.startsWith(leaderboard.path)}>
+        <summary class={page.url.pathname.startsWith(leaderboard.path) ? "text-primary" : ""}
+          >{leaderboard.name.replaceAll("-", " ")}</summary
+        >
+        <ul>
+          {#each Object.values(leaderboard.children) as child}
+            {@render renderLeaderboard(child)}
+          {/each}
+        </ul>
+      </details>
+    {:else}
+      <a
+        data-sveltekit-preload-code="viewport"
+        class={leaderboard.path === page.url.pathname ? "text-primary" : ""}
+        href={leaderboard.path}
+      >
+        {leaderboard.name.replaceAll("-", " ")}
       </a>
     {/if}
   </li>
@@ -78,6 +112,49 @@
         {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
           {@render renderDocsPath(path)}
         {/each}
+      </ul>
+    {:else if page.url.pathname.startsWith("/leaderboards")}
+      <ul class="menu font-medium">
+        <li>
+          <a class="opacity-70" href="/">
+            <ArrowLeft size={16} />
+            <span>back home</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+      <ul class="menu font-medium">
+        <h2 class="menu-title">leaderboards</h2>
+
+        {#each Object.values(leaderboards) as leaderboard}
+          {@render renderLeaderboard(leaderboard)}
+        {/each}
+        <li>
+          <details
+            open={!Object.values(leaderboards).some((l) => page.url.pathname.startsWith(l.path)) &&
+              page.url.pathname !== "/leaderboards"}
+          >
+            <summary
+              class={!Object.values(leaderboards).some((l) =>
+                page.url.pathname.startsWith(l.path),
+              ) && page.url.pathname !== "/leaderboards"
+                ? "text-primary"
+                : ""}>items</summary
+            >
+            <ul>
+              <li class="py-1">
+                <ItemSearch
+                  {items}
+                  onClick={async (itemId) => {
+                    visible = false;
+                  }}
+                />
+              </li>
+            </ul>
+          </details>
+        </li>
       </ul>
     {:else if page.url.pathname.startsWith("/me/guilds") && guildsData.value}
       <ul class="menu font-medium">
