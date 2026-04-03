@@ -1,22 +1,40 @@
 import { query } from "$app/server";
 import { RedisKey } from "$lib/data/constants";
+import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
-import { redisDeserialize, redisSerialize } from "$lib/server/functions/redis-json";
-import redis from "$lib/server/redis";
 import { error } from "@sveltejs/kit";
 import z from "zod";
 import { checkPrivacyHelper, getUserIdHelper } from "./helpers";
 
+type UsernameLookupCacheData = { value: { id: string; lastKnownUsername: string } | null };
+type PrivacyCacheData = boolean;
+type BaseDataCacheData = { value: Awaited<ReturnType<typeof getBaseDataFromDatabase>> | null };
+type CommandUsesCacheData = Awaited<ReturnType<typeof getCommandUsesFromDatabase>>;
+type AchievementsCacheData = Awaited<ReturnType<typeof getAchievementsFromDatabase>>;
+type InventoryCacheData = Awaited<ReturnType<typeof getInventoryFromDatabase>>;
+type MuseumCacheData = Awaited<ReturnType<typeof getMuseumFromDatabase>>;
+type MarriagePartnerCacheData = { value: { id: string; lastKnownUsername: string } | null };
+
+const usernameToIdCache = new RedisCache<UsernameLookupCacheData>(RedisKey.users.USERNAME_TO_ID, 3600);
+const privacyCache = new RedisCache<PrivacyCacheData>(RedisKey.users.PRIVACY, 600);
+const baseDataCache = new RedisCache<BaseDataCacheData>(RedisKey.users.BASE_DATA, 600);
+const commandUsesCache = new RedisCache<CommandUsesCacheData>(RedisKey.users.COMMAND_USES, 600);
+const achievementsCache = new RedisCache<AchievementsCacheData>(RedisKey.users.ACHIEVEMENTS, 600);
+const inventoryCache = new RedisCache<InventoryCacheData>(RedisKey.users.INVENTORY, 600);
+const museumCache = new RedisCache<MuseumCacheData>(RedisKey.users.MUSEUM, 600);
+const marriagePartnerCache = new RedisCache<MarriagePartnerCacheData>(
+  RedisKey.users.MARRIAGE_PARTNER,
+  600,
+);
+
 export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: string }>>(
   z.string().toLowerCase(),
   async (username) => {
-    const cache = await redis.get(`${RedisKey.users.USERNAME_TO_ID}:${username}`);
+    const cacheData = await usernameToIdCache.get(username);
 
-    if (cache) {
-      const cacheData = JSON.parse(cache);
-
-      if (cacheData.id) {
-        return { ok: true, id: cacheData.id, username: cacheData.lastKnownUsername };
+    if (cacheData !== null) {
+      if (cacheData.value) {
+        return { ok: true, id: cacheData.value.id, username: cacheData.value.lastKnownUsername };
       }
 
       return { ok: false, status: 404, message: "unknown username" };
@@ -32,12 +50,7 @@ export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: st
       },
     });
 
-    await redis.set(
-      `${RedisKey.users.USERNAME_TO_ID}:${username}`,
-      redisSerialize(query || {}),
-      "EX",
-      3600,
-    );
+    await usernameToIdCache.set(username, { value: query || null });
 
     if (!query) {
       return { ok: false, status: 404, message: "unknown username" };
@@ -50,12 +63,10 @@ export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: st
 export const getPrivacy = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
 
-  const cache = await redis.get(`${RedisKey.users.PRIVACY}:${userId}`);
+  const cache = await privacyCache.get(userId);
 
-  if (cache) {
-    const data = redisDeserialize<boolean>(cache);
-
-    return data;
+  if (cache !== null) {
+    return cache;
   }
 
   const query = await prisma.preferences.findUnique({
@@ -69,7 +80,7 @@ export const getPrivacy = query(z.string(), async (userId) => {
     isPrivate = true;
   }
 
-  await redis.set(`${RedisKey.users.PRIVACY}:${userId}`, redisSerialize(isPrivate), "EX", 600);
+  await privacyCache.set(userId, isPrivate);
 
   return isPrivate;
 });
@@ -123,18 +134,14 @@ export const getBaseData = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
 
-  const cache = await redis.get(`${RedisKey.users.BASE_DATA}:${userId}`);
+  const cacheData = await baseDataCache.get(userId);
 
-  if (cache) {
-    const cacheData = redisDeserialize<Awaited<ReturnType<typeof getBaseDataFromDatabase>> | null>(
-      cache,
-    );
-
-    if (!cacheData) {
+  if (cacheData !== null) {
+    if (!cacheData.value) {
       error(404, "unknown user");
     }
 
-    return cacheData;
+    return cacheData.value;
   }
 
   const query = await getBaseDataFromDatabase(userId);
@@ -143,12 +150,7 @@ export const getBaseData = query(z.string(), async (userId) => {
     error(404, "unknown user");
   }
 
-  await redis.set(
-    `${RedisKey.users.BASE_DATA}:${userId}`,
-    redisSerialize(query || null),
-    "EX",
-    600,
-  );
+  await baseDataCache.set(userId, { value: query || null });
 
   return query;
 });
@@ -174,15 +176,15 @@ export const getCommandUses = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
 
-  const cache = await redis.get(`${RedisKey.users.COMMAND_USES}:${userId}`);
+  const cacheData = await commandUsesCache.get(userId);
 
-  if (cache) {
-    return redisDeserialize<Awaited<ReturnType<typeof getCommandUsesFromDatabase>>>(cache);
+  if (cacheData !== null) {
+    return cacheData;
   }
 
   const query = await getCommandUsesFromDatabase(userId);
 
-  await redis.set(`${RedisKey.users.COMMAND_USES}:${userId}`, redisSerialize(query), "EX", 600);
+  await commandUsesCache.set(userId, query);
 
   return query;
 });
@@ -202,15 +204,15 @@ export const getAchievements = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
 
-  const cache = await redis.get(`${RedisKey.users.ACHIEVEMENTS}:${userId}`);
+  const cacheData = await achievementsCache.get(userId);
 
-  if (cache) {
-    return redisDeserialize<Awaited<ReturnType<typeof getAchievementsFromDatabase>>>(cache);
+  if (cacheData !== null) {
+    return cacheData;
   }
 
   const query = await getAchievementsFromDatabase(userId);
 
-  await redis.set(`${RedisKey.users.ACHIEVEMENTS}:${userId}`, redisSerialize(query), "EX", 600);
+  await achievementsCache.set(userId, query);
 
   return query;
 });
@@ -227,15 +229,15 @@ export const getInventory = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
 
-  const cache = await redis.get(`${RedisKey.users.INVENTORY}:${userId}`);
+  const cacheData = await inventoryCache.get(userId);
 
-  if (cache) {
-    return redisDeserialize<Awaited<ReturnType<typeof getInventoryFromDatabase>>>(cache);
+  if (cacheData !== null) {
+    return cacheData;
   }
 
   const query = await getInventoryFromDatabase(userId);
 
-  await redis.set(`${RedisKey.users.INVENTORY}:${userId}`, redisSerialize(query), "EX", 600);
+  await inventoryCache.set(userId, query);
 
   return query;
 });
@@ -257,15 +259,15 @@ export const getMuseum = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
   await checkPrivacyHelper(userId);
 
-  const cache = await redis.get(`${RedisKey.users.MUSEUM}:${userId}`);
+  const cacheData = await museumCache.get(userId);
 
-  if (cache) {
-    return redisDeserialize<Awaited<ReturnType<typeof getMuseumFromDatabase>>>(cache);
+  if (cacheData !== null) {
+    return cacheData;
   }
 
   const query = await getMuseumFromDatabase(userId);
 
-  await redis.set(`${RedisKey.users.MUSEUM}:${userId}`, redisSerialize(query), "EX", 600);
+  await museumCache.set(userId, query);
 
   return query;
 });
@@ -273,11 +275,10 @@ export const getMuseum = query(z.string(), async (userId) => {
 export const getMarriagePartner = query(z.string(), async (userId) => {
   userId = await getUserIdHelper(userId);
 
-  const cache = await redis.get(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`);
+  const cacheData = await marriagePartnerCache.get(userId);
 
-  if (cache) {
-    const cacheData = redisDeserialize<{ id: string; lastKnownUsername: string } | null>(cache);
-    return cacheData;
+  if (cacheData !== null) {
+    return cacheData.value;
   }
 
   const marriage = await prisma.marriage.findUnique({
@@ -291,17 +292,12 @@ export const getMarriagePartner = query(z.string(), async (userId) => {
       select: { id: true, lastKnownUsername: true },
     });
 
-    await redis.set(
-      `${RedisKey.users.MARRIAGE_PARTNER}:${userId}`,
-      redisSerialize(user || null),
-      "EX",
-      600,
-    );
+    await marriagePartnerCache.set(userId, { value: user || null });
 
     return user || null;
   }
 
-  await redis.set(`${RedisKey.users.MARRIAGE_PARTNER}:${userId}`, redisSerialize(null), "EX", 600);
+  await marriagePartnerCache.set(userId, { value: null });
 
   return null;
 });

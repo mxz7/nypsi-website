@@ -1,4 +1,5 @@
 import { getRequestEvent } from "$app/server";
+import { redisDeserialize, redisSerialize } from "$lib/server/functions/redis-json";
 import redis from "./redis";
 
 export class RedisCache<T> {
@@ -15,7 +16,7 @@ export class RedisCache<T> {
     if (!data) return null;
 
     try {
-      return JSON.parse(data) as T;
+      return redisDeserialize<T>(data);
     } catch (error) {
       try {
         const event = getRequestEvent();
@@ -29,7 +30,7 @@ export class RedisCache<T> {
   async set(arg: string, value: T, ttlSeconds?: number): Promise<void> {
     const ttl = ttlSeconds ?? this.ttl;
     try {
-      await redis.set(`${this.key}:${arg.toLowerCase()}`, JSON.stringify(value), "EX", ttl);
+      await redis.set(`${this.key}:${arg.toLowerCase()}`, redisSerialize(value), "EX", ttl);
     } catch (error) {
       try {
         const event = getRequestEvent();
