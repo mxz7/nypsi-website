@@ -89,8 +89,6 @@
       <X strokeWidth={2.5} />
     </button>
 
-    <br />
-
     {#if page.url.pathname.startsWith("/wiki")}
       <ul class="menu font-medium">
         <li>
@@ -103,7 +101,7 @@
 
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-      <ul class="menu font-medium">
+      <ul class="menu w-full font-medium">
         <h2 class="menu-title">nypsi wiki</h2>
 
         {#each paths.filter((p) => !p.path.includes("privacy") && !p.path.includes("terms")) as path}
@@ -122,12 +120,13 @@
 
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-      <ul class="menu font-medium">
+      <ul class="menu w-full font-medium">
         <h2 class="menu-title">leaderboards</h2>
 
         {#each Object.values(leaderboards) as leaderboard}
           {@render renderLeaderboard(leaderboard)}
         {/each}
+
         <li>
           <details
             open={!Object.values(leaderboards).some((l) => page.url.pathname.startsWith(l.path)) &&

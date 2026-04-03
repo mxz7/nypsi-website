@@ -14,7 +14,7 @@
   const filteredItems: Item[] = $derived(
     items
       .filter((i) => i.name.includes(search.toLowerCase()) || i.id.startsWith(search))
-      .slice(0, 10),
+      .slice(0, 15),
   );
 </script>
 
