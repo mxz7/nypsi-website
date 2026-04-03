@@ -2,7 +2,7 @@
   import { onNavigate } from "$app/navigation";
   import { page } from "$app/state";
   import { getLeaderboardMetadata } from "$lib/api/leaderboards.remote";
-  import BigLeaderboard from "./BigLeaderboard.svelte";
+  import Leaderboard from "./leaderboard.svelte";
   import { getData } from "./page.remote";
 
   let loading = $state(false);
@@ -49,7 +49,7 @@
   <link rel="canonical" href="https://nypsi.xyz{page.url.pathname}" />
 </svelte:head>
 
-<BigLeaderboard
+<Leaderboard
   title={meta.title}
   data={await getData(normalizedType)}
   userRoute={meta.typeKind === "known" && normalizedType.includes("guilds") ? "/guilds" : "/users"}
