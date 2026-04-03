@@ -107,7 +107,9 @@
       <span class="whitespace-nowrap">{value}</span>
       {#if descriptor}
         <span class="hidden lg:inline">
-          {pluralize(descriptor, Number(value) || 1, descriptorPlural)}</span
+          {["solved", "wins"].includes(descriptor)
+            ? descriptor
+            : pluralize(descriptor, Number(value) || 1, descriptorPlural)}</span
         >
       {/if}
     </td>
