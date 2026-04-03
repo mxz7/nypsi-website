@@ -10,6 +10,7 @@
 
   onNavigate((nav) => {
     if (nav.from.url.toString() === nav.to.url.toString()) return;
+    if (!nav.to.url.pathname.startsWith("/leaderboards")) return;
 
     const id = Math.random();
     currentNavigation = id;
