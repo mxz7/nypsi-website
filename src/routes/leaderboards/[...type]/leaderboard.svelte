@@ -95,7 +95,7 @@
     >
       <span class="whitespace-nowrap">{value}</span>
       {#if descriptor}
-        <span class="hidden lg:inline"> {descriptor}</span>
+        <span class="hidden lg:inline"> {pluralize(descriptor, Number(value) || 1)}</span>
       {/if}
     </td>
   </tr>
