@@ -26,7 +26,7 @@ export async function GET({ setHeaders, params }) {
     res.exists = false;
   } else {
     res.exists = true;
-    if (query.leaderboards) {
+    if (!query.leaderboards) {
       res.private = false;
     } else {
       res.private = true;

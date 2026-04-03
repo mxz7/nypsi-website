@@ -81,7 +81,7 @@ export const getPrivacy = query(z.string(), async (userId) => {
 
   let isPrivate = false;
 
-  if (query && !query.leaderboards) {
+  if (query && query.leaderboards) {
     isPrivate = true;
   }
 

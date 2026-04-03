@@ -37,8 +37,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `$${x.money.toLocaleString()}`,
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -73,8 +73,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `$${x.netWorth.toLocaleString()}`,
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -112,8 +112,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `P${x.prestige} L${x.level}`,
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -168,8 +168,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `${x.dailyStreak.toLocaleString()}`,
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -210,8 +210,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: x.progress.toLocaleString(),
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -240,9 +240,9 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           value: i.value.toLocaleString(),
           position: index + 1,
           user: {
-            username: i.leaderboards ? i.lastKnownUsername : "[hidden]",
-            id: i.leaderboards ? i.userId : undefined,
-            tag: i.leaderboards ? i.tagId : undefined,
+            username: !i.leaderboards ? i.lastKnownUsername : "[hidden]",
+            id: !i.leaderboards ? i.userId : undefined,
+            tag: !i.leaderboards ? i.tagId : undefined,
           },
         }));
       },
@@ -277,9 +277,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `${x.monthVote}`,
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag:
+                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                  ? x.user.Tags[0].tagId
+                  : null,
             },
             position: count,
           };
@@ -313,9 +316,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `${x.voteStreak}`,
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag:
+                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                  ? x.user.Tags[0].tagId
+                  : null,
             },
             position: count,
           };
@@ -344,9 +350,9 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           value: i.value.toLocaleString(),
           position: index + 1,
           user: {
-            username: i.privacy ? i.lastKnownUsername : "[hidden]",
-            id: i.privacy ? i.userId : undefined,
-            tag: i.privacy ? i.tagId : undefined,
+            username: !i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: !i.privacy ? i.userId : undefined,
+            tag: !i.privacy ? i.tagId : undefined,
           },
         }));
       },
@@ -374,9 +380,9 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           value: formatTime(Number(i.value)),
           position: index + 1,
           user: {
-            username: i.privacy ? i.lastKnownUsername : "[hidden]",
-            id: i.privacy ? i.userId : undefined,
-            tag: i.privacy ? i.tagId : undefined,
+            username: !i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: !i.privacy ? i.userId : undefined,
+            tag: !i.privacy ? i.tagId : undefined,
           },
         }));
       },
@@ -409,9 +415,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: x.solved.toLocaleString(),
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag:
+                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                  ? x.user.Tags[0].tagId
+                  : null,
             },
             position: count,
           };
@@ -445,9 +454,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: (x.averageWinningRating ?? 0).toFixed(0),
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag:
+                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                  ? x.user.Tags[0].tagId
+                  : null,
             },
             position: count,
           };
@@ -481,9 +493,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: formatTime(x.fastestSolve ?? 0),
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag:
+                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                  ? x.user.Tags[0].tagId
+                  : null,
             },
             position: count,
           };
@@ -517,9 +532,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: formatTime(x.time * 1000),
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag:
+                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                  ? x.user.Tags[0].tagId
+                  : null,
             },
             position: count,
           };
@@ -553,9 +571,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: formatTime(x.time * 1000),
             user: {
-              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag:
+                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                  ? x.user.Tags[0].tagId
+                  : null,
             },
             position: count,
           };
@@ -616,9 +637,12 @@ export const getItemLeaderboard = query(z.string(), async (itemId) => {
         return {
           value: `${x.amount.toLocaleString()}`,
           user: {
-            username: x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
-            id: x.economy.user.Preferences?.leaderboards ? x.userId : undefined,
-            tag: x.economy.user.Tags.length > 0 ? x.economy.user.Tags[0].tagId : null,
+            username: !x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
+            id: !x.economy.user.Preferences?.leaderboards ? x.userId : undefined,
+            tag:
+              !x.economy.user.Preferences?.leaderboards && x.economy.user.Tags.length > 0
+                ? x.economy.user.Tags[0].tagId
+                : null,
           },
           position: count,
         };

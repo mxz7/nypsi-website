@@ -43,7 +43,7 @@ export async function GET({ params, fetch, setHeaders }) {
   if (!query) return error(404, "unknown user");
 
   if (query.Preferences) {
-    if (!query.Preferences.leaderboards) {
+    if (query.Preferences.leaderboards) {
       return error(403, "private profile");
     }
   }

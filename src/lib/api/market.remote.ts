@@ -101,7 +101,7 @@ export const getOrders = query(
     });
 
     const transformedOrders: MarketOrder[] = marketOrders.map((order) => {
-      const shouldAnonymize = !order.owner.user.Preferences?.leaderboards;
+      const shouldAnonymize = order.owner.user.Preferences?.leaderboards;
 
       const owner = shouldAnonymize
         ? null
@@ -118,7 +118,7 @@ export const getOrders = query(
     });
 
     const transformedOffers: MarketOrder[] = offers.map((offer) => {
-      const shouldAnonymize = !offer.owner.user.Preferences?.leaderboards;
+      const shouldAnonymize = offer.owner.user.Preferences?.leaderboards;
 
       const owner = shouldAnonymize
         ? null
