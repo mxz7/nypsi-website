@@ -5,9 +5,10 @@
   import { fade } from "svelte/transition";
   import { twMerge } from "tailwind-merge";
 
-  interface Props {
+  interface LeaderboardProps {
     title: string;
     data: LeaderboardData;
+    userPosition?: unknown;
     userRoute: string;
     descriptor?: string;
     loading: boolean;
@@ -15,7 +16,7 @@
 
   const tags = await getTagsRemote();
 
-  let { title, data, userRoute, descriptor = "", loading }: Props = $props();
+  let { title, data, userRoute, descriptor = "", loading }: LeaderboardProps = $props();
 </script>
 
 <h1 class="text-2xl font-bold md:text-4xl">{title}</h1>

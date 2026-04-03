@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onNavigate } from "$app/navigation";
   import { page } from "$app/state";
-  import { getLeaderboardMetadata } from "$lib/api/leaderboards.remote";
+  import { getLeaderboardMetadata } from "$lib/api/leaderboards/leaderboards.remote";
   import Leaderboard from "./leaderboard.svelte";
   import { getData } from "./page.remote";
 
@@ -42,6 +42,7 @@
 
   const normalizedType = $derived(page.params.type.replaceAll("/", "-"));
   const meta = $derived(await getLeaderboardMetadata(normalizedType));
+  const leaderboardData = $derived(await getData(normalizedType));
 </script>
 
 <svelte:head>
@@ -50,9 +51,23 @@
   <link rel="canonical" href="https://nypsi.xyz{page.url.pathname}" />
 </svelte:head>
 
+{#if !loading && leaderboardData.userPosition}
+  <div class="bg-base-200 mt-4 mb-4 flex items-center justify-between rounded-lg px-4 py-3">
+    <span class="text-base-content/75 text-sm uppercase">your position</span>
+    <span class="font-mono text-sm md:text-base">
+      #{leaderboardData.userPosition.position} <span class="text-base-content/75">•</span>
+      {leaderboardData.userPosition.value}
+      {#if meta.descriptor}
+        <span class="text-base-content/75"> {meta.descriptor}</span>
+      {/if}
+    </span>
+  </div>
+{/if}
+
 <Leaderboard
   title={meta.title}
-  data={await getData(normalizedType)}
+  data={leaderboardData.data}
+  userPosition={leaderboardData.userPosition}
   userRoute={meta.typeKind === "known" && normalizedType.includes("guilds") ? "/guilds" : "/users"}
   descriptor={meta.descriptor}
   {loading}

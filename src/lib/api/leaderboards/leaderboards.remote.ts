@@ -4,49 +4,19 @@ import prisma from "$lib/server/database";
 import type { LeaderboardData } from "$lib/types/LeaderboardData";
 import { error } from "@sveltejs/kit";
 import { z } from "zod";
-
-const LeaderboardTypeSchema = z.enum([
-  "balance",
-  "net-worth",
-  "level",
-  "guilds",
-  "streak",
-  "lottery",
-  "commands",
-  "vote-month",
-  "vote-streak",
-  "wordle-wins",
-  "wordle-time",
-  "chess-solved",
-  "chess-rating",
-  "chess-fastest",
-  "chatreaction-daily",
-  "chatreaction-alltime",
-]);
-
-export type LeaderboardType = z.infer<typeof LeaderboardTypeSchema>;
+import { LeaderboardTypeSchema, formatTime, type LeaderboardType } from "./shared";
 
 const cache = new RedisCache<LeaderboardData>("cache:leaderboard", 600);
 const itemCache = new RedisCache<LeaderboardData>("cache:leaderboard:item", 600);
-
-function formatTime(ms: number): string {
-  const minutes = Math.floor(ms / 60000);
-  let seconds = ((ms % 60000) / 1000).toFixed(2);
-  if (minutes > 0) {
-    seconds = Math.round((ms % 60000) / 1000).toString();
-  }
-  return `${minutes > 0 ? `${minutes}m` : ""}${seconds}s`;
-}
 
 const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>> = {
   balance: async () => {
     return await prisma.economy
       .findMany({
-        where: { AND: [{ money: { gt: 0 } }, { user: { blacklisted: false } }] },
+        where: { money: { gt: 0 } },
         select: {
           userId: true,
           money: true,
-          banned: true,
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
@@ -60,9 +30,6 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       })
       .then((r) => {
         let count = 0;
-        r.forEach((user) => {
-          if (user.banned && user.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
-        });
         return r.map((x) => {
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
@@ -82,11 +49,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   "net-worth": async () => {
     return await prisma.economy
       .findMany({
-        where: { AND: [{ netWorth: { gt: 0 } }, { user: { blacklisted: false } }] },
+        where: { netWorth: { gt: 0 } },
         select: {
           userId: true,
           netWorth: true,
-          banned: true,
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
@@ -100,9 +66,6 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       })
       .then((r) => {
         let count = 0;
-        r.forEach((user) => {
-          if (user.banned && user.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
-        });
         return r.map((x) => {
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
@@ -123,16 +86,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
     return await prisma.economy
       .findMany({
         where: {
-          AND: [
-            { OR: [{ prestige: { gt: 0 } }, { level: { gt: 0 } }] },
-            { user: { blacklisted: false } },
-          ],
+          OR: [{ prestige: { gt: 0 } }, { level: { gt: 0 } }],
         },
         select: {
           userId: true,
           prestige: true,
           level: true,
-          banned: true,
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
@@ -146,9 +105,6 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       })
       .then((r) => {
         let count = 0;
-        r.forEach((user) => {
-          if (user.banned && user.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
-        });
         return r.map((x) => {
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
@@ -188,11 +144,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   streak: async () => {
     return await prisma.economy
       .findMany({
-        where: { AND: [{ dailyStreak: { gt: 0 } }, { user: { blacklisted: false } }] },
+        where: { dailyStreak: { gt: 0 } },
         select: {
           userId: true,
           dailyStreak: true,
-          banned: true,
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
@@ -206,9 +161,6 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       })
       .then((r) => {
         let count = 0;
-        r.forEach((user) => {
-          if (user.banned && user.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
-        });
         return r.map((x) => {
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
@@ -241,10 +193,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
             select: {
               id: true,
               lastKnownUsername: true,
-              blacklisted: true,
               Preferences: { select: { leaderboards: true } },
               Tags: { select: { tagId: true }, where: { selected: true } },
-              Economy: { select: { banned: true } },
             },
           },
         },
@@ -252,14 +202,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
         take: 100,
       })
       .then((r) => {
-        const filtered = r.filter((i) => {
-          if (!i.user.blacklisted && !i.user?.Economy?.banned) return true;
-          if (i.user.blacklisted) return false;
-          if (i.user.Economy.banned && i.user.Economy.banned.getTime() > Date.now()) return false;
-          return true;
-        });
         let count = 0;
-        return filtered.map((x) => {
+        return r.map((x) => {
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
           return {
@@ -276,35 +220,30 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   commands: async () => {
-    return await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Economy"."banned", "Tags"."tagId", "Preferences"."leaderboards" from "User"
+    return await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" from "User"
     right join "CommandUse" on "CommandUse"."userId" = "User"."id"
-    left join "Economy" on "Economy"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"
-    where "User"."blacklisted" = false
-    group by "CommandUse"."userId", "User"."id", "Economy"."userId", "Tags"."tagId", "Preferences"."leaderboards"
+    group by "CommandUse"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" desc limit 100`.then(
       (
         i: {
           value: bigint;
           userId: string;
           lastKnownUsername: string;
-          banned: Date;
           tagId: string;
           leaderboards: boolean;
         }[],
       ) => {
-        return i
-          .filter((i) => (i.banned ? Date.now() > i.banned.getTime() : true))
-          .map((i, index) => ({
-            value: i.value.toLocaleString(),
-            position: index + 1,
-            user: {
-              username: i.leaderboards ? i.lastKnownUsername : "[hidden]",
-              id: i.leaderboards ? i.userId : undefined,
-              tag: i.leaderboards ? i.tagId : undefined,
-            },
-          }));
+        return i.map((i, index) => ({
+          value: i.value.toLocaleString(),
+          position: index + 1,
+          user: {
+            username: i.leaderboards ? i.lastKnownUsername : "[hidden]",
+            id: i.leaderboards ? i.userId : undefined,
+            tag: i.leaderboards ? i.tagId : undefined,
+          },
+        }));
       },
     );
   },
@@ -313,15 +252,11 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
     return await prisma.economy
       .findMany({
         where: {
-          AND: [
-            { OR: [{ monthVote: { gt: 0 } }, { seasonVote: { gt: 0 } }] },
-            { user: { blacklisted: false } },
-          ],
+          OR: [{ monthVote: { gt: 0 } }, { seasonVote: { gt: 0 } }],
         },
         select: {
           userId: true,
           monthVote: true,
-          banned: true,
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
@@ -335,9 +270,6 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       })
       .then((r) => {
         let count = 0;
-        r.forEach((user) => {
-          if (user.banned && user.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
-        });
         return r.map((x) => {
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
@@ -357,11 +289,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   "vote-streak": async () => {
     return await prisma.economy
       .findMany({
-        where: { AND: [{ voteStreak: { gt: 0 } }, { user: { blacklisted: false } }] },
+        where: { voteStreak: { gt: 0 } },
         select: {
           userId: true,
           voteStreak: true,
-          banned: true,
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
@@ -375,9 +306,6 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       })
       .then((r) => {
         let count = 0;
-        r.forEach((user) => {
-          if (user.banned && user.banned.getTime() > Date.now()) r.splice(r.indexOf(user), 1);
-        });
         return r.map((x) => {
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
@@ -399,7 +327,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"
-    where "WordleGame"."won" = true and "User"."blacklisted" = false
+    where "WordleGame"."won" = true
     group by "WordleGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" desc limit 100`.then(
       (
@@ -429,7 +357,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"
-    where "WordleGame"."won" = true and "User"."blacklisted" = false and "WordleGame"."time" > 0
+    where "WordleGame"."won" = true and "WordleGame"."time" > 0
     group by "WordleGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
     order by "value" asc limit 100`.then(
       (
@@ -457,7 +385,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   "chess-solved": async () => {
     return await prisma.chessPuzzleStats
       .findMany({
-        where: { AND: [{ solved: { gt: 0 } }, { user: { blacklisted: false } }] },
+        where: { solved: { gt: 0 } },
         select: {
           userId: true,
           solved: true,
@@ -493,7 +421,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   "chess-rating": async () => {
     return await prisma.chessPuzzleStats
       .findMany({
-        where: { AND: [{ averageWinningRating: { not: null } }, { user: { blacklisted: false } }] },
+        where: { averageWinningRating: { not: null } },
         select: {
           userId: true,
           averageWinningRating: true,
@@ -529,7 +457,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   "chess-fastest": async () => {
     return await prisma.chessPuzzleStats
       .findMany({
-        where: { AND: [{ fastestSolve: { not: null } }, { user: { blacklisted: false } }] },
+        where: { fastestSolve: { not: null } },
         select: {
           userId: true,
           fastestSolve: true,
@@ -565,7 +493,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   "chatreaction-daily": async () => {
     return await prisma.chatReactionLeaderboards
       .findMany({
-        where: { AND: [{ daily: true }, { user: { blacklisted: false } }] },
+        where: { daily: true },
         select: {
           userId: true,
           time: true,
@@ -601,7 +529,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   "chatreaction-alltime": async () => {
     return await prisma.chatReactionLeaderboards
       .findMany({
-        where: { AND: [{ daily: false }, { user: { blacklisted: false } }] },
+        where: { daily: false },
         select: {
           userId: true,
           time: true,
@@ -658,11 +586,7 @@ export const getItemLeaderboard = query(z.string(), async (itemId) => {
   const result = await prisma.inventory
     .findMany({
       where: {
-        AND: [
-          { item: itemId },
-          { amount: { gt: 0 } },
-          { economy: { user: { blacklisted: false } } },
-        ],
+        AND: [{ item: itemId }, { amount: { gt: 0 } }],
       },
       select: {
         userId: true,
@@ -676,7 +600,6 @@ export const getItemLeaderboard = query(z.string(), async (itemId) => {
                 lastKnownUsername: true,
               },
             },
-            banned: true,
           },
         },
       },
@@ -685,10 +608,6 @@ export const getItemLeaderboard = query(z.string(), async (itemId) => {
     })
     .then((r) => {
       let count = 0;
-      r.forEach((user) => {
-        if (user.economy.banned && user.economy.banned.getTime() > Date.now())
-          r.splice(r.indexOf(user), 1);
-      });
       return r.map((x) => {
         count++;
         const user = x.economy.user.lastKnownUsername.split("#")[0];
@@ -737,7 +656,7 @@ export const getLeaderboardMetadata = query(z.string(), async (type) => {
   }
 
   // Check if item type
-  const { getItemsRemote } = await import("./items.remote");
+  const { getItemsRemote } = await import("../items.remote");
   const items = await getItemsRemote();
   const item = items.find((i) => i.id === type);
 
