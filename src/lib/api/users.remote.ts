@@ -58,13 +58,20 @@ export const getPrivacy = query(z.string(), async (userId) => {
     return data;
   }
 
-  const query = await prisma.preferences
-    .findUnique({ where: { userId }, select: { leaderboards: true } })
-    .then((res) => res?.leaderboards || false);
+  const query = await prisma.preferences.findUnique({
+    where: { userId },
+    select: { leaderboards: true },
+  });
 
-  await redis.set(`${RedisKey.users.PRIVACY}:${userId}`, redisSerialize(query), "EX", 600);
+  let isPrivate = false;
 
-  return query;
+  if (query && !query.leaderboards) {
+    isPrivate = true;
+  }
+
+  await redis.set(`${RedisKey.users.PRIVACY}:${userId}`, redisSerialize(isPrivate), "EX", 600);
+
+  return isPrivate;
 });
 
 function getBaseDataFromDatabase(userId: string) {
