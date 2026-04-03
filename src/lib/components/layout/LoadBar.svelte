@@ -9,6 +9,11 @@
 
   onNavigate(async (nav) => {
     if (nav.from.url.toString() === nav.to.url.toString()) return;
+    if (
+      nav.from.url.pathname.startsWith("/leaderboards") &&
+      nav.to.url.pathname.startsWith("/leaderboards")
+    )
+      return;
 
     const id = Math.random();
     currentNavigation = id;
