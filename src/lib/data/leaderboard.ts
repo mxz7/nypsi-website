@@ -35,4 +35,12 @@ export const leaderboards: LeaderboardsData = {
       time: { name: "fastest wins", path: "/leaderboards/wordle/time" },
     },
   },
+  chatreaction: {
+    name: "chat reactions",
+    path: "/leaderboards/chatreaction",
+    children: {
+      daily: { name: "daily fastest", path: "/leaderboards/chatreaction/daily" },
+      alltime: { name: "all time fastest", path: "/leaderboards/chatreaction/alltime" },
+    },
+  },
 };

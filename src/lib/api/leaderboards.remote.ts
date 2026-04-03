@@ -20,6 +20,8 @@ const LeaderboardTypeSchema = z.enum([
   "chess-solved",
   "chess-rating",
   "chess-fastest",
+  "chatreaction-daily",
+  "chatreaction-alltime",
 ]);
 
 export type LeaderboardType = z.infer<typeof LeaderboardTypeSchema>;
@@ -559,6 +561,78 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
         });
       });
   },
+
+  "chatreaction-daily": async () => {
+    return await prisma.chatReactionLeaderboards
+      .findMany({
+        where: { AND: [{ daily: true }, { user: { blacklisted: false } }] },
+        select: {
+          userId: true,
+          time: true,
+          user: {
+            select: {
+              Tags: { where: { selected: true }, select: { tagId: true } },
+              Preferences: { select: { leaderboards: true } },
+              lastKnownUsername: true,
+            },
+          },
+        },
+        orderBy: { time: "asc" },
+        take: 100,
+      })
+      .then((r) => {
+        let count = 0;
+        return r.map((x) => {
+          count++;
+          const user = x.user.lastKnownUsername.split("#")[0];
+          return {
+            value: formatTime(x.time * 1000),
+            user: {
+              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+            },
+            position: count,
+          };
+        });
+      });
+  },
+
+  "chatreaction-alltime": async () => {
+    return await prisma.chatReactionLeaderboards
+      .findMany({
+        where: { AND: [{ daily: false }, { user: { blacklisted: false } }] },
+        select: {
+          userId: true,
+          time: true,
+          user: {
+            select: {
+              Tags: { where: { selected: true }, select: { tagId: true } },
+              Preferences: { select: { leaderboards: true } },
+              lastKnownUsername: true,
+            },
+          },
+        },
+        orderBy: { time: "asc" },
+        take: 100,
+      })
+      .then((r) => {
+        let count = 0;
+        return r.map((x) => {
+          count++;
+          const user = x.user.lastKnownUsername.split("#")[0];
+          return {
+            value: formatTime(x.time * 1000),
+            user: {
+              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+            },
+            position: count,
+          };
+        });
+      });
+  },
 };
 
 export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
@@ -649,6 +723,8 @@ const knownTypes: Record<string, { title: string; descriptor?: string }> = {
   "chess-solved": { title: "chess puzzles solved", descriptor: "solved" },
   "chess-rating": { title: "chess average rating", descriptor: "rating" },
   "chess-fastest": { title: "chess fastest solve" },
+  "chatreaction-daily": { title: "chat reactions daily fastest" },
+  "chatreaction-alltime": { title: "chat reactions all time fastest" },
 };
 
 export const getLeaderboardMetadata = query(z.string(), async (type) => {
