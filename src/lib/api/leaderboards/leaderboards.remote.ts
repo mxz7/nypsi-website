@@ -4,6 +4,7 @@ import prisma from "$lib/server/database";
 import type { LeaderboardData } from "$lib/types/leaderboards";
 import { error } from "@sveltejs/kit";
 import { z } from "zod";
+import { getItemsRemote } from "../items.remote";
 import { LeaderboardTypeSchema, formatTime, type LeaderboardType } from "./shared";
 
 const cache = new RedisCache<LeaderboardData>("cache:leaderboard", 600);
@@ -656,7 +657,6 @@ export const getLeaderboardMetadata = query(z.string(), async (type) => {
   }
 
   // Check if item type
-  const { getItemsRemote } = await import("../items.remote");
   const items = await getItemsRemote();
   const item = items.find((i) => i.id === type);
 
