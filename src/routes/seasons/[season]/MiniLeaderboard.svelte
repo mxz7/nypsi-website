@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { LeaderboardData } from "$lib/types/LeaderboardData";
-  import User from "./user.svelte";
+  import type { LeaderboardData } from "$lib/types/leaderboards";
   import Guild from "./guild.svelte";
+  import User from "./user.svelte";
 
   interface Props {
     data: LeaderboardData;

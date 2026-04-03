@@ -1,14 +1,13 @@
 <script lang="ts">
   import { getTagsRemote } from "$lib/api/tags.remote";
-  import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { Crown, LoaderCircle } from "@lucide/svelte";
   import { fade } from "svelte/transition";
   import { twMerge } from "tailwind-merge";
+  import type { getData } from "./page.remote";
 
   interface LeaderboardProps {
     title: string;
-    data: LeaderboardData;
-    userPosition?: unknown;
+    data: Awaited<ReturnType<typeof getData>>;
     userRoute: string;
     descriptor?: string;
     loading: boolean;
@@ -46,7 +45,7 @@
         </thead>
 
         <tbody>
-          {#each data as { position, user, value }, i}
+          {#each data.data as { position, user, value }, i}
             <tr>
               <td
                 class="w-14 rounded-l-lg py-3 pr-1 pl-1 text-center font-mono text-sm whitespace-nowrap md:py-5 md:pl-3 {i ===

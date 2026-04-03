@@ -1,7 +1,7 @@
 import { query } from "$app/server";
 import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
-import type { LeaderboardData } from "$lib/types/LeaderboardData";
+import type { LeaderboardData } from "$lib/types/leaderboards";
 import { error } from "@sveltejs/kit";
 import { z } from "zod";
 import { LeaderboardTypeSchema, formatTime, type LeaderboardType } from "./shared";

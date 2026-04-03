@@ -10,3 +10,8 @@ export type LeaderboardData = {
   value: string;
   position: number;
 }[];
+
+export type LeaderboardPosition = {
+  position: number;
+  value: string;
+};

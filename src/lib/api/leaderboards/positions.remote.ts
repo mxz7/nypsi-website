@@ -1,31 +1,26 @@
 import { query } from "$app/server";
 import { getAuthedUser } from "$lib/api/auth.remote";
-import prisma from "$lib/server/database";
 import { RedisCache } from "$lib/server/cache";
+import prisma from "$lib/server/database";
+import type { LeaderboardPosition } from "$lib/types/leaderboards";
 import { z } from "zod";
 import { LeaderboardTypeSchema, formatTime, type LeaderboardType } from "./shared";
-
-type LeaderboardPosition = {
-  position: number;
-  value: string;
-};
 
 type CachedLeaderboardPosition = LeaderboardPosition;
 
 const NO_POSITION: CachedLeaderboardPosition = { position: -1, value: "" };
 
 const positionCache = new RedisCache<CachedLeaderboardPosition>("cache:leaderboard-position", 600);
-const itemPositionCache = new RedisCache<CachedLeaderboardPosition>(
-  "cache:leaderboard-position:item",
-  600,
-);
 
 function toNumber(value: number | bigint | null): number {
   if (typeof value === "bigint") return Number(value);
   return value ?? 0;
 }
 
-const knownPositionQueries: Record<LeaderboardType, (userId: string) => Promise<LeaderboardPosition | null>> = {
+const knownPositionQueries: Record<
+  LeaderboardType,
+  (userId: string) => Promise<LeaderboardPosition | null>
+> = {
   balance: async (userId) => {
     const rows = await prisma.$queryRaw<{ position: bigint; money: bigint }[]>`
       WITH ranked AS (
@@ -49,7 +44,7 @@ const knownPositionQueries: Record<LeaderboardType, (userId: string) => Promise<
   },
 
   "net-worth": async (userId) => {
-    const rows = await prisma.$queryRaw<{ position: bigint; "netWorth": bigint }[]>`
+    const rows = await prisma.$queryRaw<{ position: bigint; netWorth: bigint }[]>`
       WITH ranked AS (
         SELECT "userId", "netWorth", ROW_NUMBER() OVER (ORDER BY "netWorth" DESC) AS position
         FROM "Economy"
@@ -117,7 +112,7 @@ const knownPositionQueries: Record<LeaderboardType, (userId: string) => Promise<
   },
 
   streak: async (userId) => {
-    const rows = await prisma.$queryRaw<{ position: bigint; "dailyStreak": number }[]>`
+    const rows = await prisma.$queryRaw<{ position: bigint; dailyStreak: number }[]>`
       WITH ranked AS (
         SELECT "userId", "dailyStreak",
         ROW_NUMBER() OVER (ORDER BY "dailyStreak" DESC) AS position
@@ -194,7 +189,7 @@ const knownPositionQueries: Record<LeaderboardType, (userId: string) => Promise<
   },
 
   "vote-month": async (userId) => {
-    const rows = await prisma.$queryRaw<{ position: bigint; "monthVote": number }[]>`
+    const rows = await prisma.$queryRaw<{ position: bigint; monthVote: number }[]>`
       WITH ranked AS (
         SELECT "userId", "monthVote", "lastVote",
         ROW_NUMBER() OVER (ORDER BY "monthVote" DESC, "lastVote" ASC) AS position
@@ -217,7 +212,7 @@ const knownPositionQueries: Record<LeaderboardType, (userId: string) => Promise<
   },
 
   "vote-streak": async (userId) => {
-    const rows = await prisma.$queryRaw<{ position: bigint; "voteStreak": number }[]>`
+    const rows = await prisma.$queryRaw<{ position: bigint; voteStreak: number }[]>`
       WITH ranked AS (
         SELECT "userId", "voteStreak", "monthVote",
         ROW_NUMBER() OVER (ORDER BY "voteStreak" DESC, "monthVote" DESC) AS position
@@ -319,7 +314,7 @@ const knownPositionQueries: Record<LeaderboardType, (userId: string) => Promise<
   },
 
   "chess-rating": async (userId) => {
-    const rows = await prisma.$queryRaw<{ position: bigint; "averageWinningRating": number }[]>`
+    const rows = await prisma.$queryRaw<{ position: bigint; averageWinningRating: number }[]>`
       WITH ranked AS (
         SELECT "userId", "averageWinningRating",
         ROW_NUMBER() OVER (ORDER BY "averageWinningRating" DESC) AS position
@@ -342,7 +337,7 @@ const knownPositionQueries: Record<LeaderboardType, (userId: string) => Promise<
   },
 
   "chess-fastest": async (userId) => {
-    const rows = await prisma.$queryRaw<{ position: bigint; "fastestSolve": number }[]>`
+    const rows = await prisma.$queryRaw<{ position: bigint; fastestSolve: number }[]>`
       WITH ranked AS (
         SELECT "userId", "fastestSolve",
         ROW_NUMBER() OVER (ORDER BY "fastestSolve" ASC) AS position
@@ -428,7 +423,7 @@ async function getKnownUserPositionInternal(type: LeaderboardType, userId: strin
 
 async function getItemUserPositionInternal(itemId: string, userId: string) {
   const cacheKey = `${itemId}:${userId}`;
-  const cached = await itemPositionCache.get(cacheKey);
+  const cached = await positionCache.get(cacheKey);
 
   if (cached) {
     if (cached.position === NO_POSITION.position) return null;
@@ -436,7 +431,7 @@ async function getItemUserPositionInternal(itemId: string, userId: string) {
   }
 
   if (itemId === "lottery_ticket") {
-    await itemPositionCache.set(cacheKey, NO_POSITION);
+    await positionCache.set(cacheKey, NO_POSITION);
     return null;
   }
 
@@ -455,7 +450,7 @@ async function getItemUserPositionInternal(itemId: string, userId: string) {
 
   const row = rows[0];
   if (!row) {
-    await itemPositionCache.set(cacheKey, NO_POSITION);
+    await positionCache.set(cacheKey, NO_POSITION);
     return null;
   }
 
@@ -464,21 +459,18 @@ async function getItemUserPositionInternal(itemId: string, userId: string) {
     value: toNumber(row.amount).toLocaleString(),
   };
 
-  await itemPositionCache.set(cacheKey, result);
+  await positionCache.set(cacheKey, result);
   return result;
 }
 
-export const getKnownUserPosition = query(
-  LeaderboardTypeSchema,
-  async (type): Promise<LeaderboardPosition | null> => {
-    const authedUser = await getAuthedUser();
-    if (!authedUser) return null;
+export const getKnownUserPosition = query(LeaderboardTypeSchema, async (type) => {
+  const authedUser = await getAuthedUser();
+  if (!authedUser) return null;
 
-    return getKnownUserPositionInternal(type, authedUser.id);
-  },
-);
+  return getKnownUserPositionInternal(type, authedUser.id);
+});
 
-export const getItemUserPosition = query(z.string(), async (type): Promise<LeaderboardPosition | null> => {
+export const getItemUserPosition = query(z.string(), async (type) => {
   const authedUser = await getAuthedUser();
   if (!authedUser) return null;
 
