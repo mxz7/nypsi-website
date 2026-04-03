@@ -14,8 +14,12 @@ type AchievementsCacheData = Awaited<ReturnType<typeof getAchievementsFromDataba
 type InventoryCacheData = Awaited<ReturnType<typeof getInventoryFromDatabase>>;
 type MuseumCacheData = Awaited<ReturnType<typeof getMuseumFromDatabase>>;
 type MarriagePartnerCacheData = { value: { id: string; lastKnownUsername: string } | null };
+type ActiveTagCacheData = { value: string | null };
 
-const usernameToIdCache = new RedisCache<UsernameLookupCacheData>(RedisKey.users.USERNAME_TO_ID, 3600);
+const usernameToIdCache = new RedisCache<UsernameLookupCacheData>(
+  RedisKey.users.USERNAME_TO_ID,
+  3600,
+);
 const privacyCache = new RedisCache<PrivacyCacheData>(RedisKey.users.PRIVACY, 600);
 const baseDataCache = new RedisCache<BaseDataCacheData>(RedisKey.users.BASE_DATA, 600);
 const commandUsesCache = new RedisCache<CommandUsesCacheData>(RedisKey.users.COMMAND_USES, 600);
@@ -26,6 +30,7 @@ const marriagePartnerCache = new RedisCache<MarriagePartnerCacheData>(
   RedisKey.users.MARRIAGE_PARTNER,
   600,
 );
+const activeTagCache = new RedisCache<ActiveTagCacheData>(RedisKey.users.ACTIVE_TAG, 600);
 
 export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: string }>>(
   z.string().toLowerCase(),
@@ -300,4 +305,28 @@ export const getMarriagePartner = query(z.string(), async (userId) => {
   await marriagePartnerCache.set(userId, { value: null });
 
   return null;
+});
+
+export const getActiveTag = query(z.string(), async (userId) => {
+  userId = await getUserIdHelper(userId);
+  try {
+    await checkPrivacyHelper(userId);
+  } catch (_) {
+    return null;
+  }
+
+  const cache = await activeTagCache.get(userId);
+
+  if (cache !== null) {
+    return cache.value;
+  }
+
+  const activeTag = await prisma.tags.findFirst({
+    where: { AND: [{ userId }, { selected: true }] },
+    select: { tagId: true },
+  });
+
+  await activeTagCache.set(userId, { value: activeTag.tagId || null });
+
+  return activeTag.tagId || null;
 });

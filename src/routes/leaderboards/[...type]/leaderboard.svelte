@@ -137,11 +137,7 @@
             {@render head()}
 
             <tbody>
-              {@render row(pos.position, pos.value, {
-                id: data.userData.id,
-                username: data.userData.lastKnownUsername,
-                tag: data.userData.Tags.find((i) => i.selected)?.tagId,
-              })}
+              {@render row(pos.position, pos.value, data.userData)}
             </tbody>
           </table>
 

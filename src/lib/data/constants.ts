@@ -15,6 +15,7 @@ export const RedisKey = {
     INVENTORY: "cache:user:inventory",
     MUSEUM: "cache:user:museum",
     PRIVACY: "cache:user:privacy",
+    ACTIVE_TAG: "cache:user:activetag",
   },
   data: {
     ACHIEVEMENTS: "cache:achievements",
