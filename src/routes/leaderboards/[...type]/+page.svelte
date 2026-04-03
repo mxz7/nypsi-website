@@ -55,5 +55,6 @@
   data={await getData(normalizedType)}
   userRoute={meta.typeKind === "known" && normalizedType.includes("guilds") ? "/guilds" : "/users"}
   descriptor={meta.descriptor}
+  descriptorPlural={meta.descriptorPlural}
   {loading}
 />

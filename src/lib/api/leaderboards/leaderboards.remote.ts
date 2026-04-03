@@ -666,6 +666,7 @@ export const getLeaderboardMetadata = query(z.string(), async (type) => {
       itemId: item.id,
       title: `top ${item.name}`,
       descriptor: item.name,
+      descriptorPlural: item.plural || item.name + "s",
     };
   }
 

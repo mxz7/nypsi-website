@@ -11,12 +11,14 @@
     data: Awaited<ReturnType<typeof getData>>;
     userRoute: string;
     descriptor?: string;
+    descriptorPlural?: string;
     loading: boolean;
   }
 
   const tags = await getTagsRemote();
 
-  let { title, data, userRoute, descriptor = "", loading }: LeaderboardProps = $props();
+  let { title, data, userRoute, descriptor, descriptorPlural, loading }: LeaderboardProps =
+    $props();
 </script>
 
 {#snippet head()}
@@ -104,7 +106,9 @@
     >
       <span class="whitespace-nowrap">{value}</span>
       {#if descriptor}
-        <span class="hidden lg:inline"> {pluralize(descriptor, Number(value) || 1)}</span>
+        <span class="hidden lg:inline">
+          {pluralize(descriptor, Number(value) || 1, descriptorPlural)}</span
+        >
       {/if}
     </td>
   </tr>
