@@ -10,6 +10,15 @@ export const leaderboards: LeaderboardsData = {
   "daily-streak": { name: "daily-streak", path: "/leaderboards/streak" },
   lottery: { name: "lottery", path: "/leaderboards/lottery" },
   commands: { name: "commands", path: "/leaderboards/commands" },
+  chess: {
+    name: "chess",
+    path: "/leaderboards/chess",
+    children: {
+      solved: { name: "puzzles solved", path: "/leaderboards/chess/solved" },
+      rating: { name: "average rating", path: "/leaderboards/chess/rating" },
+      fastest: { name: "fastest solve", path: "/leaderboards/chess/fastest" },
+    },
+  },
   vote: {
     name: "vote",
     path: "/leaderboards/vote",

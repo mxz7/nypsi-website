@@ -17,6 +17,9 @@ const LeaderboardTypeSchema = z.enum([
   "vote-streak",
   "wordle-wins",
   "wordle-time",
+  "chess-solved",
+  "chess-rating",
+  "chess-fastest",
 ]);
 
 export type LeaderboardType = z.infer<typeof LeaderboardTypeSchema>;
@@ -448,6 +451,114 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       },
     );
   },
+
+  "chess-solved": async () => {
+    return await prisma.chessPuzzleStats
+      .findMany({
+        where: { AND: [{ solved: { gt: 0 } }, { user: { blacklisted: false } }] },
+        select: {
+          userId: true,
+          solved: true,
+          user: {
+            select: {
+              Tags: { where: { selected: true }, select: { tagId: true } },
+              Preferences: { select: { leaderboards: true } },
+              lastKnownUsername: true,
+            },
+          },
+        },
+        orderBy: { solved: "desc" },
+        take: 100,
+      })
+      .then((r) => {
+        let count = 0;
+        return r.map((x) => {
+          count++;
+          const user = x.user.lastKnownUsername.split("#")[0];
+          return {
+            value: x.solved.toLocaleString(),
+            user: {
+              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+            },
+            position: count,
+          };
+        });
+      });
+  },
+
+  "chess-rating": async () => {
+    return await prisma.chessPuzzleStats
+      .findMany({
+        where: { AND: [{ averageWinningRating: { not: null } }, { user: { blacklisted: false } }] },
+        select: {
+          userId: true,
+          averageWinningRating: true,
+          user: {
+            select: {
+              Tags: { where: { selected: true }, select: { tagId: true } },
+              Preferences: { select: { leaderboards: true } },
+              lastKnownUsername: true,
+            },
+          },
+        },
+        orderBy: { averageWinningRating: "desc" },
+        take: 100,
+      })
+      .then((r) => {
+        let count = 0;
+        return r.map((x) => {
+          count++;
+          const user = x.user.lastKnownUsername.split("#")[0];
+          return {
+            value: (x.averageWinningRating ?? 0).toFixed(0),
+            user: {
+              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+            },
+            position: count,
+          };
+        });
+      });
+  },
+
+  "chess-fastest": async () => {
+    return await prisma.chessPuzzleStats
+      .findMany({
+        where: { AND: [{ fastestSolve: { not: null } }, { user: { blacklisted: false } }] },
+        select: {
+          userId: true,
+          fastestSolve: true,
+          user: {
+            select: {
+              Tags: { where: { selected: true }, select: { tagId: true } },
+              Preferences: { select: { leaderboards: true } },
+              lastKnownUsername: true,
+            },
+          },
+        },
+        orderBy: { fastestSolve: "asc" },
+        take: 100,
+      })
+      .then((r) => {
+        let count = 0;
+        return r.map((x) => {
+          count++;
+          const user = x.user.lastKnownUsername.split("#")[0];
+          return {
+            value: formatTime((x.fastestSolve ?? 0) * 1000),
+            user: {
+              username: x.user.Preferences?.leaderboards ? user : "[hidden]",
+              id: x.user.Preferences?.leaderboards ? x.userId : undefined,
+              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+            },
+            position: count,
+          };
+        });
+      });
+  },
 };
 
 export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
@@ -535,6 +646,9 @@ const knownTypes: Record<string, { title: string; descriptor?: string }> = {
   "vote-streak": { title: "vote streak" },
   "wordle-wins": { title: "wordle wins", descriptor: "wins" },
   "wordle-time": { title: "wordle fastest wins" },
+  "chess-solved": { title: "chess puzzles solved", descriptor: "solved" },
+  "chess-rating": { title: "chess average rating", descriptor: "rating" },
+  "chess-fastest": { title: "chess fastest solve" },
 };
 
 export const getLeaderboardMetadata = query(z.string(), async (type) => {
