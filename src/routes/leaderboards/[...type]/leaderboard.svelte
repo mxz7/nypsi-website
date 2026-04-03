@@ -48,7 +48,7 @@
           {#each data as { position, user, value }, i}
             <tr>
               <td
-                class="rounded-l-lg py-3 pr-1 pl-1 text-center font-mono text-sm whitespace-nowrap md:py-5 md:pl-3 {i ===
+                class="w-14 rounded-l-lg py-3 pr-1 pl-1 text-center font-mono text-sm whitespace-nowrap md:py-5 md:pl-3 {i ===
                 0
                   ? 'text-primary font-semibold'
                   : 'text-base-content/75'}"
