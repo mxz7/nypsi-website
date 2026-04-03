@@ -1,4 +1,5 @@
 import { query } from "$app/server";
+import { RedisKey } from "$lib/data/constants";
 import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
 import type { LeaderboardData } from "$lib/types/leaderboards";
@@ -7,8 +8,7 @@ import { z } from "zod";
 import { getItemsRemote } from "../items.remote";
 import { LeaderboardTypeSchema, formatTime, type LeaderboardType } from "./shared";
 
-const cache = new RedisCache<LeaderboardData>("cache:leaderboard", 600);
-const itemCache = new RedisCache<LeaderboardData>("cache:leaderboard:item", 600);
+const cache = new RedisCache<LeaderboardData>(RedisKey.leaderboards.DATA, 600);
 
 const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>> = {
   balance: async () => {
@@ -575,12 +575,13 @@ export const getLeaderboard = query(LeaderboardTypeSchema, async (type) => {
 });
 
 export const getItemLeaderboard = query(z.string(), async (itemId) => {
-  const cached = await itemCache.get(itemId);
+  const key = `item:${itemId}`;
+  const cached = await cache.get(key);
   if (cached) return cached;
 
   if (itemId === "lottery_ticket") {
     const empty: LeaderboardData = [];
-    await itemCache.set(itemId, empty);
+    await cache.set(key, empty);
     return empty;
   }
 
@@ -624,7 +625,7 @@ export const getItemLeaderboard = query(z.string(), async (itemId) => {
       });
     });
 
-  await itemCache.set(itemId, result);
+  await cache.set(key, result);
   return result;
 });
 

@@ -19,4 +19,7 @@ export const RedisKey = {
   data: {
     ACHIEVEMENTS: "cache:achievements",
   },
+  leaderboards: {
+    DATA: "cache:leaderboard",
+  },
 };
