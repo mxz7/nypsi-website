@@ -531,6 +531,10 @@ const knownTypes: Record<string, { title: string; descriptor?: string }> = {
   streak: { title: "top daily streak" },
   lottery: { title: "top lottery wins", descriptor: "wins" },
   commands: { title: "top command uses", descriptor: "uses" },
+  "vote-month": { title: "votes this month" },
+  "vote-streak": { title: "vote streak" },
+  "wordle-wins": { title: "wordle wins", descriptor: "wins" },
+  "wordle-time": { title: "wordle fastest wins" },
 };
 
 export const getLeaderboardMetadata = query(z.string(), async (type) => {

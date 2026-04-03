@@ -39,19 +39,20 @@
     };
   });
 
-  const meta = $derived(await getLeaderboardMetadata(page.params.type));
+  const normalizedType = $derived(page.params.type.replaceAll("/", "-"));
+  const meta = $derived(await getLeaderboardMetadata(normalizedType));
 </script>
 
 <svelte:head>
   <title>{meta.title} | nypsi</title>
   <meta name="og:title" content="{meta.title} | nypsi" />
-  <link rel="canonical" href="https://nypsi.xyz/leaderboards/{page.params.type}" />
+  <link rel="canonical" href="https://nypsi.xyz{page.url.pathname}" />
 </svelte:head>
 
 <BigLeaderboard
   title={meta.title}
-  data={await getData(page.params.type)}
-  userRoute={meta.typeKind === "known" && page.params.type === "guilds" ? "/guilds" : "/users"}
+  data={await getData(normalizedType)}
+  userRoute={meta.typeKind === "known" && normalizedType.includes("guilds") ? "/guilds" : "/users"}
   descriptor={meta.descriptor}
   {loading}
 />
