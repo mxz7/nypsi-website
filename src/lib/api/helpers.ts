@@ -27,7 +27,7 @@ export async function getUserIdHelper(userId: string) {
 export async function checkPrivacyHelper(userId: string) {
   const privacy = await getPrivacy(userId);
 
-  if (!privacy) {
+  if (privacy) {
     const authedUser = await getAuthedUser();
 
     if (!authedUser || (authedUser.adminLevel < 1 && authedUser.id !== userId)) {
