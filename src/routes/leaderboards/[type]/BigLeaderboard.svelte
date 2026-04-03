@@ -2,29 +2,34 @@
   import { getTagsRemote } from "$lib/api/tags.remote";
   import type { LeaderboardData } from "$lib/types/LeaderboardData";
   import { Crown, LoaderCircle } from "@lucide/svelte";
+  import { fade } from "svelte/transition";
 
   interface Props {
     title: string;
-    data: LeaderboardData | Promise<LeaderboardData>;
+    data: LeaderboardData;
     userRoute: string;
     descriptor?: string;
+    loading: boolean;
   }
 
   const tags = await getTagsRemote();
 
-  let { title, data, userRoute, descriptor = "" }: Props = $props();
+  let { title, data, userRoute, descriptor = "", loading }: Props = $props();
 </script>
 
 <h1 class="text-2xl font-bold md:text-4xl">{title}</h1>
-{#if data}
+
+{#key data}
   <div class="mt-4 px-0">
-    {#await data}
-      <div class="flex justify-center py-12">
+    {#if loading}
+      <div class="flex justify-center py-12" transition:fade={{ duration: 100 }}>
         <LoaderCircle class="text-primary animate-spin" size={32} strokeWidth={2.5} />
       </div>
-    {:then data}
+    {:else}
       <table
         class="table-sm md:table-md [&_tbody_tr:nth-child(odd)]:bg-base-200/80 table w-full [&_tbody_td]:border-b-0 [&_tbody_td]:align-middle [&_tbody_td:first-child]:w-px [&_tbody_tr]:border-b-0 [&_tbody_tr:nth-child(even)]:bg-transparent [&_thead_th:first-child]:w-px"
+        in:fade={{ duration: 200, delay: 100 }}
+        out:fade={{ duration: 100 }}
       >
         <thead class="sr-only">
           <tr class="text-sm uppercase">
@@ -107,6 +112,6 @@
           {/each}
         </tbody>
       </table>
-    {/await}
+    {/if}
   </div>
-{/if}
+{/key}

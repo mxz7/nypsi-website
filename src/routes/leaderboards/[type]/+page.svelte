@@ -1,32 +1,45 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
+  import { onNavigate } from "$app/navigation";
   import { page } from "$app/state";
-  import {
-    getItemLeaderboard,
-    getLeaderboard,
-    getLeaderboardMetadata,
-    type LeaderboardType,
-  } from "$lib/api/leaderboards.remote";
-  import type { LeaderboardData } from "$lib/types/LeaderboardData";
-  import type { RemoteQuery } from "@sveltejs/kit";
+  import { getLeaderboardMetadata } from "$lib/api/leaderboards.remote";
   import BigLeaderboard from "./BigLeaderboard.svelte";
+  import { getData } from "./page.remote";
+
+  let loading = $state(false);
+  let currentNavigation: number | null = null;
+
+  onNavigate((nav) => {
+    if (nav.from.url.toString() === nav.to.url.toString()) return;
+
+    const id = Math.random();
+    currentNavigation = id;
+
+    let showTimeout: ReturnType<typeof setTimeout> | null = null;
+    let shown = false;
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    showTimeout = setTimeout(() => {
+      shown = true;
+      loading = true;
+    }, 100);
+
+    return () => {
+      if (currentNavigation !== id) return;
+
+      clearTimeout(showTimeout);
+
+      if (!shown) {
+        currentNavigation = null;
+        return;
+      }
+
+      loading = false;
+      currentNavigation = null;
+    };
+  });
 
   const meta = $derived(await getLeaderboardMetadata(page.params.type));
-
-  const leaderboardData = $derived.by(async () => {
-    let promise: RemoteQuery<LeaderboardData>;
-    if (meta.typeKind === "known") {
-      promise = getLeaderboard(page.params.type as LeaderboardType);
-    } else {
-      promise = getItemLeaderboard(page.params.type);
-    }
-
-    if (browser) {
-      return promise;
-    }
-
-    return await promise;
-  });
 </script>
 
 <svelte:head>
@@ -36,8 +49,9 @@
 </svelte:head>
 
 <BigLeaderboard
-  data={leaderboardData}
   title={meta.title}
+  data={await getData(page.params.type)}
   userRoute={meta.typeKind === "known" && page.params.type === "guilds" ? "/guilds" : "/users"}
   descriptor={meta.descriptor}
+  {loading}
 />
