@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getTagsRemote } from "$lib/api/tags.remote";
+  import { pluralize } from "$lib/functions/string";
   import { Crown, LoaderCircle } from "@lucide/svelte";
   import { fade } from "svelte/transition";
   import { twMerge } from "tailwind-merge";
@@ -28,6 +29,14 @@
   </thead>
 {/snippet}
 
+{#snippet columns()}
+  <colgroup>
+    <col class="w-14 md:w-16" />
+    <col />
+    <col class="w-36 md:w-44" />
+  </colgroup>
+{/snippet}
+
 {#snippet row(
   position: number,
   value: string,
@@ -47,8 +56,8 @@
       {/if}
     </td>
 
-    <td class="max-w-48 min-w-0 truncate py-3 pl-2 sm:max-w-full md:py-5">
-      <span class="flex items-center gap-1">
+    <td class="w-full min-w-0 py-3 pl-2 md:py-5">
+      <span class="flex min-w-0 items-center gap-1">
         {#if user?.id}
           {#if user.tag}
             <span
@@ -71,7 +80,7 @@
             href={`${userRoute}/${user.id.replaceAll(" ", "-")}`}
             class="{position === 1
               ? 'text-primary font-semibold'
-              : ''} link-hover text-sm underline-offset-2 md:text-base"
+              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap underline-offset-2 md:text-base"
           >
             {user.username}
           </a>
@@ -80,7 +89,7 @@
             href="/wiki/economy/user-settings/hidden"
             class="{position === 1
               ? 'text-primary font-semibold'
-              : ''} link-hover text-sm underline-offset-2 md:text-base"
+              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap underline-offset-2 md:text-base"
           >
             {"[hidden]"}
           </a>
@@ -110,7 +119,7 @@
         <LoaderCircle class="text-primary animate-spin" size={32} strokeWidth={2.5} />
       </div>
     {:else}
-      {@const tableClasses = "table table-sm md:table-md w-full"}
+      {@const tableClasses = "table table-fixed table-sm md:table-md w-full"}
       {@const tableModifiers =
         "[&_tbody_tr:nth-child(odd)]:bg-base-200 [&_tbody_td]:border-b-0 [&_tbody_tr:nth-child(even)]:bg-transparent"}
 
@@ -120,6 +129,7 @@
 
           <h2 class="text-base-content/50 font-semibold">your position</h2>
           <table class={twMerge(tableClasses, tableModifiers, "mt-1")}>
+            {@render columns()}
             {@render head()}
 
             <tbody>
@@ -135,6 +145,7 @@
         {/if}
 
         <table class={twMerge(tableClasses, tableModifiers)}>
+          {@render columns()}
           {@render head()}
 
           <tbody>
