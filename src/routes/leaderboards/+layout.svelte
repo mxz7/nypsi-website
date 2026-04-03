@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import { getItemsRemote } from "$lib/api/items.remote";
-  import ItemSearch from "$lib/components/items/ItemSearch.svelte";
+  import LeaderboardItemSearch from "$lib/components/items/leaderboard-item-search.svelte";
   import Main from "$lib/components/ui/Main.svelte";
   import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
 
@@ -49,6 +48,7 @@
         {#each Object.values(leaderboards) as leaderboard}
           {@render renderLeaderboard(leaderboard)}
         {/each}
+
         <li>
           <details
             open={!Object.values(leaderboards).some((l) => page.url.pathname.startsWith(l.path)) &&
@@ -62,14 +62,7 @@
                 : ""}>items</summary
             >
             <ul>
-              <li class="py-1">
-                <ItemSearch
-                  {items}
-                  onClick={async (itemId) => {
-                    return goto(`/leaderboards/${itemId}`);
-                  }}
-                />
-              </li>
+              <LeaderboardItemSearch url={"/leaderboards/{item}"} />
             </ul>
           </details>
         </li>

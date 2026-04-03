@@ -1,7 +1,6 @@
 <script lang="ts">
   import { navigating, page } from "$app/state";
-  import { getItemsRemote } from "$lib/api/items.remote";
-  import ItemSearch from "$lib/components/items/ItemSearch.svelte";
+  import LeaderboardItemSearch from "$lib/components/items/leaderboard-item-search.svelte";
   import { paths, type PathsData } from "$lib/data/docs";
   import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
   import { auth, guildsData } from "$lib/state.svelte";
@@ -142,14 +141,7 @@
                 : ""}>items</summary
             >
             <ul>
-              <li class="py-1">
-                <ItemSearch
-                  items={await getItemsRemote()}
-                  onClick={async (itemId) => {
-                    visible = false;
-                  }}
-                />
-              </li>
+              <LeaderboardItemSearch url={"/leaderboards/{item}"} />
             </ul>
           </details>
         </li>
