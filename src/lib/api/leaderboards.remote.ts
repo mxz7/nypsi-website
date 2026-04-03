@@ -550,7 +550,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           count++;
           const user = x.user.lastKnownUsername.split("#")[0];
           return {
-            value: formatTime((x.fastestSolve ?? 0) * 1000),
+            value: formatTime(x.fastestSolve ?? 0),
             user: {
               username: x.user.Preferences?.leaderboards ? user : "[hidden]",
               id: x.user.Preferences?.leaderboards ? x.userId : undefined,
