@@ -10,7 +10,7 @@ levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if 
 
 <DocsHeader header='h2' text="levelling up" />
 
-level ups are handled automatically whenever you meet the xp and bank requirements (`/profile`)
+level ups are handled automatically whenever you meet the xp and bank requirements (`/level`)
 
 <DocsHeader header='h3' text="how to deposit money into my bank?" />
 
