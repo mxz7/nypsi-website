@@ -53,9 +53,6 @@ COPY --link app.json /app/app.json
 ENV NODE_ENV="production"
 ENV ADDRESS_HEADER="cf-connecting-ip"
 
-HEALTHCHECK --retries=10 \
-    CMD curl -f http://localhost:3000/api/health || exit 1
-
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 
