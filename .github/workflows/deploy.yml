@@ -89,11 +89,10 @@ jobs:
       IMAGE_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
 
     steps:
-      - name: deploy to server
-        uses: appleboy/ssh-action@v1.2.5
+      - name: deploy
+        uses: benbristow/dokploy-deploy-action@0.2.2
         with:
-          host: ${{ secrets.HOST }}
-          username: dokku
-          port: 22
-          key: ${{ secrets.PRIV_KEY }}
-          script: git:from-image nypsi-website ${{ env.IMAGE_TAG }}
+          api_token: ${{ secrets.AUTH_TOKEN }}
+          application_id: ${{ secrets.APPLICATION_ID }}
+          dokploy_url: ${{ secrets.URL }}
+          service_type: application
