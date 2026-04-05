@@ -545,6 +545,66 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
       });
   },
 
+  "flag-wins": async () => {
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    right join "FlagGame" on "FlagGame"."userId" = "User"."id"
+    left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    where "FlagGame"."won" = true
+    group by "FlagGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    order by "value" desc limit 100`.then(
+      (
+        i: {
+          value: bigint;
+          userId: string;
+          lastKnownUsername: string;
+          tagId: string;
+          privacy: boolean;
+        }[],
+      ) => {
+        return i.map((i, index) => ({
+          value: i.value.toLocaleString(),
+          position: index + 1,
+          user: {
+            username: !i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: !i.privacy ? i.userId : undefined,
+            tag: !i.privacy ? i.tagId : undefined,
+          },
+        }));
+      },
+    );
+  },
+
+  "flag-time": async () => {
+    return await prisma.$queryRaw`select "User"."id" as "userId", min("FlagGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    right join "FlagGame" on "FlagGame"."userId" = "User"."id"
+    left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    where "FlagGame"."won" = true and "FlagGame"."time" > 0
+    group by "FlagGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    order by "value" asc limit 100`.then(
+      (
+        i: {
+          value: bigint;
+          userId: string;
+          lastKnownUsername: string;
+          tagId: string;
+          privacy: boolean;
+        }[],
+      ) => {
+        return i.map((i, index) => ({
+          value: formatTime(Number(i.value)),
+          position: index + 1,
+          user: {
+            username: !i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: !i.privacy ? i.userId : undefined,
+            tag: !i.privacy ? i.tagId : undefined,
+          },
+        }));
+      },
+    );
+  },
+
   "chatreaction-alltime": async () => {
     return await prisma.chatReactionLeaderboards
       .findMany({
@@ -670,6 +730,8 @@ const knownTypes: Record<string, { title: string; descriptor?: string }> = {
   "chess-fastest": { title: "chess fastest solve" },
   "chatreaction-daily": { title: "chat reactions daily fastest" },
   "chatreaction-alltime": { title: "chat reactions all time fastest" },
+  "flag-wins": { title: "guess the flag wins", descriptor: "wins" },
+  "flag-time": { title: "guess the flag fastest wins" },
 };
 
 export const getLeaderboardMetadata = query(z.string(), async (type) => {

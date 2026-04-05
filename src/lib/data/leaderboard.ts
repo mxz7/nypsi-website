@@ -43,4 +43,12 @@ export const leaderboards: LeaderboardsData = {
       alltime: { name: "all time fastest", path: "/leaderboards/chatreaction/alltime" },
     },
   },
+  flag: {
+    name: "guess the flag",
+    path: "/leaderboards/flag",
+    children: {
+      wins: { name: "wins", path: "/leaderboards/flag/wins" },
+      time: { name: "fastest wins", path: "/leaderboards/flag/time" },
+    },
+  },
 };
