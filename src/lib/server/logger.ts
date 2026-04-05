@@ -5,6 +5,10 @@ import pino from "pino";
 import type { LokiOptions } from "pino-loki";
 
 function buildTransport() {
+  if (dev || building) {
+    return undefined;
+  }
+
   if (!env.LOKI_USERNAME || !env.LOKI_PASSWORD || !env.LOKI_HOST) {
     console.log("missing loki credentials, skipping loki transport");
     return undefined;
@@ -26,7 +30,7 @@ function buildTransport() {
   });
 }
 
-const logger = pino(dev || building || !env.LOG_PATH ? undefined : buildTransport());
+const logger = pino(buildTransport());
 
 export function log(statusCode: number, event: RequestEvent<Partial<Record<string, string>>>) {
   if (building) return;
