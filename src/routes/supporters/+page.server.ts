@@ -8,7 +8,7 @@ export async function load({ fetch }) {
     inner join "Purchases" on "Purchases"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" on "Preferences"."userId" = "User"."id"
-    where "Preferences"."leaderboards" = true
+    where "Preferences"."leaderboards" = false
     group by "User"."id", "Tags"."tagId"
     order by sum("Purchases".cost) desc`;
 
