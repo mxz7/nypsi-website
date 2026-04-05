@@ -43,6 +43,8 @@ export const getData = query(z.string(), async (type) => {
   return {
     data,
     userPosition,
-    userData: { id: authedUser.id, username: authedUser.lastKnownUsername, tag: userTag },
+    userData: authedUser
+      ? { id: authedUser.id, username: authedUser.lastKnownUsername, tag: userTag }
+      : null,
   };
 });
