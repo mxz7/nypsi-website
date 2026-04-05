@@ -58,4 +58,6 @@ HEALTHCHECK --retries=10 \
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "node", "./build/index.js" ]
+
+ENTRYPOINT ["node"]
+CMD [ "build/index.js" ]
