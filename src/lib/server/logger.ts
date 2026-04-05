@@ -6,8 +6,11 @@ import type { LokiOptions } from "pino-loki";
 
 function buildTransport() {
   if (!env.LOKI_USERNAME || !env.LOKI_PASSWORD || !env.LOKI_HOST) {
+    console.log("missing loki credentials, skipping loki transport");
     return undefined;
   }
+
+  console.log("using loki transport");
 
   return pino.transport<LokiOptions>({
     target: "pino-loki",
@@ -17,7 +20,7 @@ function buildTransport() {
         username: env.LOKI_USERNAME,
         password: env.LOKI_PASSWORD,
       },
-      labels: { app: "nypsi-website" },
+      labels: { service_name: "nypsi-website" },
       headers: { "X-Scope-OrgID": "nypsi" },
     },
   });
