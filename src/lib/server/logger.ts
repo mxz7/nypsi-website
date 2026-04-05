@@ -2,23 +2,28 @@ import { building, dev } from "$app/environment";
 import { env } from "$env/dynamic/private";
 import type { RequestEvent } from "@sveltejs/kit";
 import pino from "pino";
+import type { LokiOptions } from "pino-loki";
 
-const logger = pino(
-  {
-    base: null,
-    formatters: {
-      level: (label) => {
-        return { level: label };
+function buildTransport() {
+  if (!env.LOKI_USERNAME || !env.LOKI_PASSWORD || !env.LOKI_HOST) {
+    return undefined;
+  }
+
+  return pino.transport<LokiOptions>({
+    target: "pino-loki",
+    options: {
+      host: env.LOKI_HOST,
+      basicAuth: {
+        username: env.LOKI_USERNAME,
+        password: env.LOKI_PASSWORD,
       },
+      labels: { app: "nypsi-website" },
+      headers: { "X-Scope-OrgID": "nypsi" },
     },
-  },
-  dev || building || !env.LOG_PATH
-    ? undefined
-    : pino.transport({
-        target: "pino/file",
-        options: { destination: env.LOG_PATH, mkdir: true },
-      }),
-);
+  });
+}
+
+const logger = pino(dev || building || !env.LOG_PATH ? undefined : buildTransport());
 
 export function log(statusCode: number, event: RequestEvent<Partial<Record<string, string>>>) {
   if (building) return;
