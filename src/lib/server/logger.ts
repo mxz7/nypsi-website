@@ -1,4 +1,5 @@
 import { building, dev } from "$app/environment";
+import { env } from "$env/dynamic/private";
 import type { RequestEvent } from "@sveltejs/kit";
 import pino from "pino";
 
@@ -11,11 +12,11 @@ const logger = pino(
       },
     },
   },
-  dev || building
+  dev || building || !env.LOG_PATH
     ? undefined
     : pino.transport({
         target: "pino/file",
-        options: { destination: "/var/log/nypsi-website/nypsi-website.log" },
+        options: { destination: env.LOG_PATH, mkdir: true },
       }),
 );
 
