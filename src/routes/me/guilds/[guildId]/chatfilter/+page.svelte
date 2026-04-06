@@ -44,7 +44,8 @@
   <input
     class="input input-bordered w-full"
     inputmode="numeric"
-    {...createFilter.fields.match.as("number", 100)}
+    defaultValue={100}
+    {...createFilter.fields.match.as("number")}
   />
 
   {#each createFilter.fields.match.issues() as issue}
