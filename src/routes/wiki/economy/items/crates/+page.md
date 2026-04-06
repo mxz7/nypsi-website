@@ -1,7 +1,6 @@
 <script>
   import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
   import ItemModal from "$lib/components/wiki/ItemModal.svelte"
-  import CrateOdds from "./crate-odds.svelte"
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { page } from '$app/stores';
@@ -40,34 +39,3 @@ you can get random items such as collectables and cars, but most notably being t
 <DocsHeader header='h2' text="opening your crates" />
 
 you can use the `$use <name of crate> <amount>` command to open specific number of a specific crate.
-
-<DocsHeader header='h2' text="crate odds" />
-
-<div class="mb-2" >
-  <ul class="menu menu-horizontal rounded-box bg-base-300 text-xs lg:text-sm">
-    {#each tabs as tab}
-      <li>
-        <button class={selected === tab.id ? "menu-active" : ""} onclick={() => {
-          selected = tab.id;
-          goto(`?crate=${tab.id}`);
-          }}>{tab.name}</button>
-      </li>
-    {/each}
-  </ul>
-</div>
-
-{#if selected === "basic"}
-<CrateOdds crate="basic_crate" />
-{:else if selected === "boosters"}
-<CrateOdds crate="boosters_crate" />
-{:else if selected === "workers"}
-<CrateOdds crate="workers_crate" />
-{:else if selected === "mineshaft"}
-<CrateOdds crate="mineshaft_chest" />
-{:else if selected === "nypsi"}
-<CrateOdds crate="nypsi_crate" />
-{:else if selected === "omega"}
-<CrateOdds crate="omega_crate" />
-{:else if selected === "gem"}
-<CrateOdds crate="gem_crate" />
-{/if}
