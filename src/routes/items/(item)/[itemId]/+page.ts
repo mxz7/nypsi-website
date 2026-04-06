@@ -3,7 +3,7 @@ import sleep from "$lib/functions/sleep";
 import { error } from "@sveltejs/kit";
 
 export async function load({ params, parent, fetch, setHeaders }) {
-  const { items } = await parent()
+  const { items } = await parent();
 
   const selected = items.find((i) => i.id === params.itemId);
 
