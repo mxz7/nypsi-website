@@ -29,11 +29,15 @@
     </li>
 
     {#each data.guilds as guild}
-      <li class={canModifyGuild(guild) ? "" : "disabled"}>
+      {@const hasPermission = canModifyGuild(guild)}
+      <li
+        class={hasPermission ? "" : "disabled tooltip"}
+        data-tip="you need the 'manage server' permission"
+      >
         <a
           class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
             ? 'text-primary font-medium'
-            : ''} {canModifyGuild(guild) ? '' : 'cursor-not-allowed'}"
+            : ''} {hasPermission ? '' : 'cursor-not-allowed opacity-70'}"
           href="/me/guilds/{guild.id}"
         >
           <img
@@ -43,7 +47,7 @@
             alt=""
             height="256"
             width="256"
-            class="h-8 w-8 rounded-xl"
+            class="h-8 w-8 rounded-xl {hasPermission ? '' : 'grayscale'}"
             loading="lazy"
             decoding="async"
           />

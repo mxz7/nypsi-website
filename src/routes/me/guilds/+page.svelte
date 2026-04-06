@@ -1,30 +1,32 @@
 <script lang="ts">
+  import Card from "$lib/components/ui/Card.svelte";
+  import { canModifyGuild } from "$lib/functions/discordapi/permissions.js";
   import { guildsData } from "$lib/state.svelte.js";
+  import type { DiscordGuild } from "$lib/types/Discord.js";
+  import { onMount } from "svelte";
 
   let { data } = $props();
 
-  $effect(() => {
+  onMount(() => {
     guildsData.value = data.guilds;
   });
+
+  const allowedGuilds = $derived(data.guilds.filter((g) => canModifyGuild(g)));
+  const notAllowedGuilds = $derived(data.guilds.filter((g) => !canModifyGuild(g)));
 </script>
 
 <svelte:head>
   <title>server management | nypsi</title>
 </svelte:head>
 
-<h1 class="text-3xl font-bold text-white">server management</h1>
-
-<p>choose a server to continue. you must have the 'manage server' permission</p>
-
-<div class="mt-4 grid w-full grid-cols-2 gap-4">
-  {#each data.guilds as guild}
-    <a
+{#snippet guild(guild: DiscordGuild, allowed: boolean)}
+  <li>
+    <Card
+      mode="anchor"
       href="/me/guilds/{guild.id}"
-      class="bg-base-200 flex items-center gap-4 rounded-lg p-2 {(parseInt(guild.permissions) &
-        0x20) ==
-      0x20
+      class="bg-base-200 flex items-center gap-4 rounded-lg p-2 {allowed
         ? ''
-        : 'cursor-not-allowed'}"
+        : 'cursor-not-allowed opacity-70'}"
     >
       <img
         src={guild.icon
@@ -36,6 +38,25 @@
         class="h-16 w-16 rounded-xl"
       />
       <h2 class="text-lg font-semibold">{guild.name}</h2>
-    </a>
+    </Card>
+  </li>
+{/snippet}
+
+<h1 class="text-3xl font-bold text-white">server management</h1>
+
+<ul class="mt-4 grid w-full grid-cols-2 gap-4">
+  {#each allowedGuilds as guildData}
+    {@render guild(guildData, true)}
   {/each}
-</div>
+</ul>
+
+<h2 class="mt-6 text-2xl font-bold">unavailable servers</h2>
+<p class="text-base-content/75 text-sm">
+  you don't have the 'manage server' permission in these servers
+</p>
+
+<ul class="mt-4 grid w-full grid-cols-2 gap-4">
+  {#each notAllowedGuilds as guildData}
+    {@render guild(guildData, false)}
+  {/each}
+</ul>
