@@ -1,5 +1,6 @@
 export const Constants = {
   SNOWFLAKE_REGEX: /^\d{17,19}$/,
+  MARKDOWN_LINK_REGEX: /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
 } as const;
 
 export const RedisKey = {

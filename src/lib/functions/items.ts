@@ -1,4 +1,5 @@
 import { browser } from "$app/environment";
+import { getItemsRemote } from "$lib/api/items.remote";
 import { eventsData, items } from "$lib/state.svelte";
 import type { Event, Item } from "$lib/types/Item";
 
@@ -6,14 +7,14 @@ export default async function getItems(
   fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
 ) {
   if (!browser) {
-    const itemsData: Item[] = Object.values(await fetch("/api/items").then((r) => r.json()));
+    const itemsData: Item[] = await getItemsRemote();
 
     return itemsData;
   }
 
   if (items.value) return items.value;
 
-  const itemsData: Item[] = Object.values(await fetch("/api/items").then((r) => r.json()));
+  const itemsData: Item[] = await getItemsRemote();
 
   items.value = itemsData;
 

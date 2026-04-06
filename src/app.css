@@ -50,3 +50,7 @@ body {
     "Segoe UI",
     sans-serif;
 }
+
+.md-link {
+  @apply link-primary link;
+}

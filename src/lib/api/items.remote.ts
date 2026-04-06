@@ -1,4 +1,5 @@
 import { query } from "$app/server";
+import { Constants } from "$lib/data/constants";
 import parseEmoji from "$lib/functions/parseEmoji";
 import redis from "$lib/server/redis.js";
 import type { Item } from "$lib/types/Item";
@@ -25,6 +26,11 @@ export const getItemsRemote = query(async () => {
     const thumbnail = parseEmoji(item.emoji);
 
     if (thumbnail) item.emoji = thumbnail;
+    if (item.longDesc)
+      item.descHtml = item.longDesc.replace(
+        Constants.MARKDOWN_LINK_REGEX,
+        '<a href="$2" target="_blank" class="md-link">$1</a>',
+      );
   }
 
   inPlaceSort(itemsData).asc((i) => i.name);

@@ -43,6 +43,7 @@ export interface Item {
     threshold: number;
     no_overflow?: boolean;
   };
+  descHtml?: string; // longDesc in html from markdown
 }
 
 export type LootPool = {

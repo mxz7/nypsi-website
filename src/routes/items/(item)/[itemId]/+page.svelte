@@ -67,7 +67,9 @@
     <div class="rounded-box bg-base-300 mt-2 w-full p-3 text-sm italic">{data.item.shortDesc}</div>
   {/if}
 
-  {#if data.item.longDesc}
+  {#if data.item.descHtml}
+    <div class="rounded-box bg-base-300 mt-2 w-full p-3">{@html data.item.descHtml}</div>
+  {:else if data.item.longDesc}
     <div class="rounded-box bg-base-300 mt-2 w-full p-3">{data.item.longDesc}</div>
   {/if}
 
