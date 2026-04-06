@@ -15,45 +15,26 @@ export async function load({ parent, setHeaders, params, url }) {
   if (!parentData.premium) return redirect(302, "/me/graphs");
 
   const days = parseInt(url.searchParams.get("days")) || 30;
+  const items = await getItemsRemote().run();
 
   if (params.type === "balance") {
     return {
-      chartData: await getItemCountDataForUser(
-        ["user-money"],
-        parentData.user.id,
-        await getItemsRemote(),
-        days,
-      ),
+      chartData: await getItemCountDataForUser(["user-money"], parentData.user.id, items, days),
       options: "money",
     };
   } else if (params.type === "net") {
     return {
-      chartData: await getItemCountDataForUser(
-        ["user-net"],
-        parentData.user.id,
-        await getItemsRemote(),
-        days,
-      ),
+      chartData: await getItemCountDataForUser(["user-net"], parentData.user.id, items, days),
       options: "money",
     };
   } else if (params.type === "level") {
     return {
-      chartData: await getItemCountDataForUser(
-        ["user-level"],
-        parentData.user.id,
-        await getItemsRemote(),
-        days,
-      ),
+      chartData: await getItemCountDataForUser(["user-level"], parentData.user.id, items, days),
       options: "karma",
     };
   } else if (params.type === "karma") {
     return {
-      chartData: await getItemCountDataForUser(
-        ["user-karma"],
-        parentData.user.id,
-        await getItemsRemote(),
-        days,
-      ),
+      chartData: await getItemCountDataForUser(["user-karma"], parentData.user.id, items, days),
       options: "karma",
     };
   } else {
