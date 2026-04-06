@@ -1,6 +1,6 @@
 import { browser } from "$app/environment";
-import { eventsData, items, itemsOdds } from "$lib/state.svelte";
-import type { Event, Item, LootPool } from "$lib/types/Item";
+import { eventsData, items } from "$lib/state.svelte";
+import type { Event, Item } from "$lib/types/Item";
 
 export default async function getItems(
   fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
@@ -18,27 +18,6 @@ export default async function getItems(
   items.value = itemsData;
 
   return itemsData;
-}
-
-export async function getCrateOdds(
-  fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
-) {
-  if (!browser) {
-    const oddsData = await fetch(
-      "https://raw.githubusercontent.com/mxz7/nypsi/refs/heads/main/data/loot_pools.json",
-    ).then((r) => r.json());
-
-    return oddsData as { [key: string]: LootPool };
-  }
-
-  if (itemsOdds.value) return itemsOdds.value;
-
-  const oddsData = await fetch(
-    "https://raw.githubusercontent.com/mxz7/nypsi/refs/heads/main/data/loot_pools.json",
-  ).then((r) => r.json());
-  itemsOdds.value = oddsData;
-
-  return oddsData as { [key: string]: LootPool };
 }
 
 export async function getEventData(
