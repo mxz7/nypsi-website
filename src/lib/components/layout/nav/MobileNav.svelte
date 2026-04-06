@@ -3,6 +3,7 @@
   import LeaderboardItemSearch from "$lib/components/items/leaderboard-item-search.svelte";
   import { paths, type PathsData } from "$lib/data/docs";
   import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
+  import { canModifyGuild } from "$lib/functions/discordapi/permissions";
   import { auth, guildsData } from "$lib/state.svelte";
   import {
     ArrowLeft,
@@ -159,11 +160,11 @@
         <h2 class="menu-title">server management</h2>
 
         {#each guildsData.value as guild}
-          <li class={(parseInt(guild.permissions) & 0x20) == 0x20 ? "" : "disabled"}>
+          <li class={canModifyGuild(guild) ? "" : "disabled"}>
             <a
               class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
                 ? 'text-primary font-medium'
-                : ''} {(parseInt(guild.permissions) & 0x20) == 0x20 ? '' : 'cursor-not-allowed'}"
+                : ''} {canModifyGuild(guild) ? '' : 'cursor-not-allowed'}"
               href="/me/guilds/{guild.id}"
             >
               <img

@@ -1,3 +1,4 @@
+import { canModifyGuild } from "$lib/functions/discordapi/permissions";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ parent, params }) {
@@ -8,7 +9,7 @@ export async function load({ parent, params }) {
 
   if (!guild) return redirect(302, "/me/guilds");
 
-  const hasPermission = (parseInt(guild.permissions) & 0x20) == 0x20;
+  const hasPermission = canModifyGuild(guild);
 
   return { guild, hasPermission };
 }

@@ -1,5 +1,6 @@
 <script>
   import { page } from "$app/state";
+  import { canModifyGuild } from "$lib/functions/discordapi/permissions.js";
   import { auth } from "$lib/state.svelte";
   import { ArrowLeft } from "@lucide/svelte";
   import { onMount } from "svelte";
@@ -28,11 +29,11 @@
     </li>
 
     {#each data.guilds as guild}
-      <li class={(parseInt(guild.permissions) & 0x20) == 0x20 ? "" : "disabled"}>
+      <li class={canModifyGuild(guild) ? "" : "disabled"}>
         <a
           class="flex items-center {page.url.pathname.startsWith(`/me/guilds/${guild.id}`)
             ? 'text-primary font-medium'
-            : ''} {(parseInt(guild.permissions) & 0x20) == 0x20 ? '' : 'cursor-not-allowed'}"
+            : ''} {canModifyGuild(guild) ? '' : 'cursor-not-allowed'}"
           href="/me/guilds/{guild.id}"
         >
           <img

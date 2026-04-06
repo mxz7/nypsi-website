@@ -1,7 +1,7 @@
 import { env } from "$env/dynamic/private";
+import { canModifyGuild } from "$lib/functions/discordapi/permissions";
 import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
-import { canModifyGuild } from "$lib/server/functions/discordapi/permissions";
 import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ parent, params }) {
@@ -12,7 +12,7 @@ export async function load({ parent, params }) {
 
   if (!guild) return redirect(302, "/me/guilds");
 
-  const hasPermission = (parseInt(guild.permissions) & 0x20) == 0x20;
+  const hasPermission = canModifyGuild(guild);
 
   if (!hasPermission) return redirect(302, "/me/guilds");
 

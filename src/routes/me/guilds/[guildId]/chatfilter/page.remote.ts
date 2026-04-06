@@ -2,9 +2,9 @@ import { form, getRequestEvent } from "$app/server";
 import { env } from "$env/dynamic/private";
 import { getAuthedUser } from "$lib/api/auth.remote";
 import { Constants } from "$lib/data/constants";
+import { canModifyGuild } from "$lib/functions/discordapi/permissions";
 import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
-import { canModifyGuild } from "$lib/server/functions/discordapi/permissions";
 import { error, invalid, redirect } from "@sveltejs/kit";
 import z from "zod";
 

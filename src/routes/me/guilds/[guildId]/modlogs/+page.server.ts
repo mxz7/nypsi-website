@@ -1,3 +1,4 @@
+import { canModifyGuild } from "$lib/functions/discordapi/permissions";
 import prisma from "$lib/server/database.js";
 import redis from "$lib/server/redis.js";
 import { redirect } from "@sveltejs/kit";
@@ -10,7 +11,7 @@ export async function load({ params, url, parent }) {
 
   if (!guild) return redirect(302, "/me/guilds");
 
-  const hasPermission = (parseInt(guild.permissions) & 0x20) == 0x20;
+  const hasPermission = canModifyGuild(guild);
 
   if (!hasPermission) return redirect(302, "/me/guilds");
 
