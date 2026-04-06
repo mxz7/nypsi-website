@@ -135,7 +135,7 @@
                 {@const isStore = foundEntry[0].includes("nypsi store")}
                 {#if isStore}
                   <a
-                    class="text-primary hover:text-primary/75 font-medium underline-offset-2"
+                    class="text-primary hover:text-primary/75 font-medium"
                     href="https://ko-fi.com/nypsi/shop"
                     target="_blank">{foundEntry[0]}!!</a
                   >

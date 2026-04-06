@@ -202,7 +202,7 @@
               <img src={itemsData.find((i) => i.id === "ring").emoji} alt="" class="size-4" />
               <span>
                 married to
-                <a class="link-primary link underline-offset-2" href="/users/{marriagePartner.id}"
+                <a class="link-primary link" href="/users/{marriagePartner.id}"
                   >{marriagePartner.lastKnownUsername}</a
                 >
               </span>

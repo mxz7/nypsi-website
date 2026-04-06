@@ -51,6 +51,10 @@ body {
     sans-serif;
 }
 
+a {
+  @apply underline-offset-2;
+}
+
 .md-link {
   @apply link-primary link;
 }

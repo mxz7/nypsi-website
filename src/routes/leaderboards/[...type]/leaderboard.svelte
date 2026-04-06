@@ -82,7 +82,7 @@
             href={`${userRoute}/${user.id.replaceAll(" ", "-")}`}
             class="{position === 1
               ? 'text-primary font-semibold'
-              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap underline-offset-2 md:text-base"
+              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap md:text-base"
           >
             {user.username}
           </a>
@@ -91,7 +91,7 @@
             href="/wiki/economy/user-settings/hidden"
             class="{position === 1
               ? 'text-primary font-semibold'
-              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap underline-offset-2 md:text-base"
+              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap md:text-base"
           >
             {"[hidden]"}
           </a>
