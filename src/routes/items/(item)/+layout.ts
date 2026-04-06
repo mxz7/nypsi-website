@@ -1,5 +1,5 @@
-import getItems from "$lib/functions/items";
+import { getItemsRemote } from "$lib/api/items.remote";
 
-export async function load({ fetch }) {
-  return { items: await getItems(fetch) };
+export async function load() {
+  return { items: await getItemsRemote() };
 }

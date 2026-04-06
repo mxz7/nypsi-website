@@ -1,12 +1,10 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
+  import { getItemsRemote } from "$lib/api/items.remote";
   import Chart from "$lib/components/Chart.svelte";
   import ItemSearch from "$lib/components/items/ItemSearch.svelte";
-  import getItems from "$lib/functions/items.js";
-  import type { Item } from "$lib/types/Item.js";
   import type { ChartOptions } from "chart.js";
-  import { onMount } from "svelte";
 
   const itemChartOptions: ChartOptions = {
     plugins: {
@@ -55,11 +53,7 @@
   let { data } = $props();
 
   let days = $state(page.url.searchParams.get("days") || "30");
-  let items: Item[] = $state();
-
-  onMount(async () => {
-    items = await getItems(fetch);
-  });
+  const items = await getItemsRemote();
 </script>
 
 <svelte:head>

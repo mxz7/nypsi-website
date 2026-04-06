@@ -1,8 +1,8 @@
-import getItems from "$lib/functions/items.js";
+import { getItemsRemote } from "$lib/api/items.remote";
 import getItemCountDataForUser from "$lib/server/functions/graphs/getItemCountDataForUser.js";
 import { redirect } from "@sveltejs/kit";
 
-export async function load({ parent, setHeaders, params, url, fetch }) {
+export async function load({ parent, setHeaders, params, url }) {
   try {
     setHeaders({
       "cache-control": "private, max-age=3600, must-revalidate",
@@ -21,7 +21,7 @@ export async function load({ parent, setHeaders, params, url, fetch }) {
       chartData: await getItemCountDataForUser(
         ["user-money"],
         parentData.user.id,
-        await getItems(fetch),
+        await getItemsRemote(),
         days,
       ),
       options: "money",
@@ -31,7 +31,7 @@ export async function load({ parent, setHeaders, params, url, fetch }) {
       chartData: await getItemCountDataForUser(
         ["user-net"],
         parentData.user.id,
-        await getItems(fetch),
+        await getItemsRemote(),
         days,
       ),
       options: "money",
@@ -41,7 +41,7 @@ export async function load({ parent, setHeaders, params, url, fetch }) {
       chartData: await getItemCountDataForUser(
         ["user-level"],
         parentData.user.id,
-        await getItems(fetch),
+        await getItemsRemote(),
         days,
       ),
       options: "karma",
@@ -51,7 +51,7 @@ export async function load({ parent, setHeaders, params, url, fetch }) {
       chartData: await getItemCountDataForUser(
         ["user-karma"],
         parentData.user.id,
-        await getItems(fetch),
+        await getItemsRemote(),
         days,
       ),
       options: "karma",

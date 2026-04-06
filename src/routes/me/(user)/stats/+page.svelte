@@ -1,6 +1,5 @@
 <script lang="ts">
-  import getItems from "$lib/functions/items.js";
-  import type { Item } from "$lib/types/Item.js";
+  import { getItemsRemote } from "$lib/api/items.remote";
   import { onMount } from "svelte";
   import { cubicInOut } from "svelte/easing";
   import { tweened } from "svelte/motion";
@@ -9,21 +8,18 @@
 
   const progress = tweened(0, { duration: 300, easing: cubicInOut });
 
-  let items: Item[] = $state();
+  const items = await getItemsRemote();
 
   onMount(async () => {
-    $progress = (1 / 6) * 100;
-    items = await getItems(fetch);
-    $progress = (2 / 6) * 100;
+    $progress = (1 / 5) * 100;
     await Promise.resolve(data.commandStats);
-    $progress = (3 / 6) * 100;
+    $progress = (2 / 5) * 100;
     await Promise.resolve(data.itemStats);
-    $progress = (4 / 6) * 100;
+    $progress = (3 / 5) * 100;
     await Promise.resolve(data.scratchStats);
-    $progress = (5 / 6) * 100;
+    $progress = (4 / 5) * 100;
     await Promise.resolve(data.gambleStats);
-
-    $progress = (6 / 6) * 100;
+    $progress = (5 / 5) * 100;
   });
 </script>
 
