@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { getItemsRemote } from "$lib/api/items.remote.js";
   import Card from "$lib/components/ui/Card.svelte";
   import { ChartArea, Crown } from "@lucide/svelte";
   import { sort } from "fast-sort";
   import { fade } from "svelte/transition";
 
   let { data } = $props();
+
+  const items = await getItemsRemote();
 
   const rarityMap = new Map<number, string>();
 
@@ -120,7 +123,7 @@
         <h3 class="text-center font-medium text-white">obtaining</h3>
         <ol class="max-h-48 overflow-auto">
           {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)), ) as foundEntry}
-            {@const item = data.items.find((i) => i.id === foundEntry[0])}
+            {@const item = items.find((i) => i.id === foundEntry[0])}
             <li class="flex items-center gap-1">
               {#if item}
                 <img src={item.emoji} alt="" decoding="async" loading="lazy" class="w-5" />
@@ -158,13 +161,13 @@
         <div class="max-h-48 overflow-auto">
           <ol>
             {#each odds.crate_open as { itemId, chance }}
-              {@const item = data.items.find((i) => i.id === itemId)}
+              {@const item = items.find((i) => i.id === itemId)}
               <li class="flex items-center gap-1">
                 <div class="h-5 w-5">
                   <img
                     src={(item
                       ? item
-                      : data.items.find(
+                      : items.find(
                           (i) =>
                             i.id ==
                             (itemId.startsWith("xp")
@@ -199,7 +202,7 @@
         <ul>
           {#each data.item.craft.ingredients as ingredient}
             {@const [itemId, amount] = ingredient.split(":")}
-            {@const item = data.items.find((i) => i.id === itemId)}
+            {@const item = items.find((i) => i.id === itemId)}
             <li class="flex items-center gap-1">
               <div class="h-5 w-5">
                 <img
@@ -221,11 +224,11 @@
     </section>
   {/if}
 
-  {#if data.items.find((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), ))}
+  {#if items.find((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), ))}
     <section class="rounded-box bg-base-300 mt-2 p-3">
       <h3 class="text-center font-medium text-white">used in recipe</h3>
       <ul class="grid max-h-48 grid-cols-2 overflow-auto">
-        {#each data.items.filter((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), )) as item}
+        {#each items.filter((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), )) as item}
           <li class="flex items-center gap-1">
             <div class="h-5 w-5">
               <img

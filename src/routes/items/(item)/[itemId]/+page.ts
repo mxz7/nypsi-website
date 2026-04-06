@@ -1,9 +1,10 @@
 import { browser } from "$app/environment";
+import { getItemsRemote } from "$lib/api/items.remote.js";
 import sleep from "$lib/functions/sleep";
 import { error } from "@sveltejs/kit";
 
 export async function load({ params, parent, fetch, setHeaders }) {
-  const { items } = await parent();
+  const items = await getItemsRemote().run();
 
   const selected = items.find((i) => i.id === params.itemId);
 

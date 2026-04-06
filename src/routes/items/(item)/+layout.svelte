@@ -1,24 +1,21 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { page } from "$app/state";
-  import { items } from "$lib/state.svelte";
+  import { getItemsRemote } from "$lib/api/items.remote";
   import { Search } from "@lucide/svelte";
   import { sort } from "fast-sort";
-  import { onMount } from "svelte";
 
-  let { children, data } = $props();
+  let { children } = $props();
 
-  onMount(() => {
-    if (!items?.value) items.value = data.items;
-  });
+  const items = await getItemsRemote();
 
   let search: string = $state();
 
   const filteredItems = $derived(
     (search || "").length === 0
-      ? data.items
+      ? items
       : sort(
-          data.items.filter(
+          items.filter(
             (i) =>
               !i.hidden && // don't show hidden items
               (i.name.includes(search.toLowerCase()) ||
