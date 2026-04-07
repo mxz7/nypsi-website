@@ -15,7 +15,7 @@ export async function load({ parent, setHeaders, params, url }) {
   if (!parentData.premium) return redirect(302, "/me/graphs");
 
   const days = parseInt(url.searchParams.get("days")) || 30;
-  const items = await getItemsRemote().run();
+  const items = await getItemsRemote();
 
   if (params.type === "balance") {
     return {

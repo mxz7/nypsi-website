@@ -4,7 +4,7 @@ import { pathsRaw } from "$lib/data/docs";
 const site = "https://nypsi.xyz"; // change this to reflect your domain
 
 export async function GET() {
-  const items = await getItemsRemote().run();
+  const items = await getItemsRemote();
 
   const pages: string[] = ["status", "events"]; // populate this with all the slugs you wish to include
 

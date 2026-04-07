@@ -17,7 +17,7 @@ export async function load({ parent, url, setHeaders }) {
   const itemId = url.searchParams.get("item");
 
   if (itemId) {
-    const items = await getItemsRemote().run();
+    const items = await getItemsRemote();
     const itemData = items.find((i) => i.id === itemId);
 
     if (itemData) {
