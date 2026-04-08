@@ -177,7 +177,7 @@
         <h1 style="color: {usernameColor}" class="text-2xl font-extrabold text-white lg:text-4xl">
           <button
             onclick={copyUsername}
-            class="link-hover block max-w-full cursor-pointer truncate text-left"
+            class="link-hover block max-w-full cursor-pointer truncate text-left leading-snug"
           >
             {baseData.lastKnownUsername}
           </button>
