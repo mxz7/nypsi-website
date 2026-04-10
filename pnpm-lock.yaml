@@ -70,8 +70,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       '@lucide/svelte':
-        specifier: ^1.7.0
-        version: 1.7.0(svelte@5.55.2)
+        specifier: ^1.8.0
+        version: 1.8.0(svelte@5.55.2)
       '@sveltejs/adapter-node':
         specifier: ^5.5.4
         version: 5.5.4(@sveltejs/kit@2.56.1(@sveltejs/vite-plugin-svelte@7.0.0(svelte@5.55.2)(vite@8.0.7(@types/node@25.5.2)(esbuild@0.27.1)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3)))(svelte@5.55.2)(typescript@5.9.3)(vite@8.0.7(@types/node@25.5.2)(esbuild@0.27.1)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3)))
@@ -418,8 +418,8 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lucide/svelte@1.7.0':
-    resolution: {integrity: sha512-YytBKOUBGox7yWcykZnYxOkn5WpR5G1qYXLYXV/j1B79SOTTEKzB+s5yF5Rq9l9OkweDStNH2b4yTqfvhEhV8g==}
+  '@lucide/svelte@1.8.0':
+    resolution: {integrity: sha512-+zYQUKqEOVP5lxbGmxL1OVgGMQtRK91eIJ0bR+3Cr1ts4oQEsQfxyzzd5X47psJlblAuGFrl2xm4YuATjR9oaA==}
     peerDependencies:
       svelte: ^5
 
@@ -2656,7 +2656,7 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lucide/svelte@1.7.0(svelte@5.55.2)':
+  '@lucide/svelte@1.8.0(svelte@5.55.2)':
     dependencies:
       svelte: 5.55.2
 
