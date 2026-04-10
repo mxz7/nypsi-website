@@ -724,14 +724,14 @@ const knownTypes: Record<string, { title: string; descriptor?: string }> = {
   "vote-month": { title: "votes this month" },
   "vote-streak": { title: "vote streak" },
   "wordle-wins": { title: "wordle wins", descriptor: "wins" },
-  "wordle-time": { title: "wordle fastest wins" },
+  "wordle-time": { title: "wordle fastest win" },
   "chess-solved": { title: "chess puzzles solved", descriptor: "solved" },
   "chess-rating": { title: "chess average rating", descriptor: "rating" },
   "chess-fastest": { title: "chess fastest solve" },
   "chatreaction-daily": { title: "chat reactions daily fastest" },
   "chatreaction-alltime": { title: "chat reactions all time fastest" },
   "flag-wins": { title: "guess the flag wins", descriptor: "wins" },
-  "flag-time": { title: "guess the flag fastest wins" },
+  "flag-time": { title: "guess the flag fastest win" },
 };
 
 export const getLeaderboardMetadata = query(z.string(), async (type) => {

@@ -32,7 +32,7 @@ export const leaderboards: LeaderboardsData = {
     path: "/leaderboards/wordle",
     children: {
       wins: { name: "wins", path: "/leaderboards/wordle/wins" },
-      time: { name: "fastest wins", path: "/leaderboards/wordle/time" },
+      time: { name: "fastest win", path: "/leaderboards/wordle/time" },
     },
   },
   chatreaction: {
@@ -48,7 +48,7 @@ export const leaderboards: LeaderboardsData = {
     path: "/leaderboards/flag",
     children: {
       wins: { name: "wins", path: "/leaderboards/flag/wins" },
-      time: { name: "fastest wins", path: "/leaderboards/flag/time" },
+      time: { name: "fastest win", path: "/leaderboards/flag/time" },
     },
   },
 };
