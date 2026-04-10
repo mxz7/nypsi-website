@@ -1,13 +1,10 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { getItemsRemote } from "$lib/api/items.remote";
   import LeaderboardItemSearch from "$lib/components/items/leaderboard-item-search.svelte";
   import Main from "$lib/components/ui/Main.svelte";
   import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
 
   let { children } = $props();
-
-  const items = $derived(await getItemsRemote());
 </script>
 
 {#snippet renderLeaderboard(leaderboard: {
