@@ -38,7 +38,7 @@ FROM base
 
 # # # Install packages needed for deployment
 RUN apt update -qq && \
-    apt install --no-install-recommends -y openssl && \
+    apt install --no-install-recommends -y openssl curl && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built application
