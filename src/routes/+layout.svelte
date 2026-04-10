@@ -2,10 +2,10 @@
   import { dev } from "$app/environment";
   import { onNavigate, replaceState } from "$app/navigation";
   import { page } from "$app/state";
+  import { getAuthedUser } from "$lib/api/auth.remote";
   import Footer from "$lib/components/layout/Footer.svelte";
   import LoadBar from "$lib/components/layout/LoadBar.svelte";
   import Navbar from "$lib/components/layout/nav/NavBar.svelte";
-  import { getClientAuth } from "$lib/functions/auth";
   import { auth, initialLoad } from "$lib/state.svelte";
   import "@fontsource-variable/inter";
   import { onMount, tick } from "svelte";
@@ -21,9 +21,13 @@
   onMount(async () => {
     await tick();
     if (!auth.value) {
-      const authData = await getClientAuth();
+      const authData = await getAuthedUser().run();
 
-      auth.value = authData;
+      if (!authData) {
+        auth.value = { authenticated: false };
+      } else {
+        auth.value = { authenticated: true, user: authData };
+      }
     }
 
     setTimeout(() => {
