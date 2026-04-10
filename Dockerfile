@@ -46,9 +46,6 @@ COPY --from=build /app/build /app/build
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app/package.json
 
-# Copy health checks config
-COPY --link app.json /app/app.json
-
 # Set production environment
 ENV NODE_ENV="production"
 ENV ADDRESS_HEADER="cf-connecting-ip"
