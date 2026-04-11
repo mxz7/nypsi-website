@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { Pencil, Trash } from "@lucide/svelte";
+  import { CircleQuestionMark, Pencil, Trash } from "@lucide/svelte";
   import { sort } from "fast-sort";
   import { toast } from "svelte-sonner";
 
@@ -21,7 +21,15 @@
   <thead>
     <tr>
       <th>content</th>
-      <th>percent</th>
+      <th class="flex items-center gap-1">
+        percent
+        <span
+          class="tooltip"
+          data-tip="the percentage of how similar a word in a message must be to be considered a match"
+        >
+          <CircleQuestionMark size={16} />
+        </span>
+      </th>
       <th>actions</th>
     </tr>
   </thead>
