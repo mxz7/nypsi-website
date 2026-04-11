@@ -14,18 +14,15 @@ _assuming you adhere to the don't be a dick license. don't claim it as your own 
 there is no official help provided for doing this. it is not difficult to do assuming you have some
 technical knowledge. you will be ignored if you ask the owner for help.
 
-<DocsHeader header='h2' text="prerequisites" />
+<DocsHeader header='h2' text="requirements" />
 
-- a computer
-- nodejs 22
+- nodejs LTS
 - postgres
 - redis
-- a discord server
-- git
 
 <DocsHeader header='h2' text="get started" />
 
-<DocsHeader header='h3' text="downloading the code" />
+<DocsHeader header='h3' text="cloning the repo" />
 
 open terminal and get yourself in the location where you want to download nypsi and the run the
 following command
@@ -49,7 +46,7 @@ npm i -g pnpm
 install nypsi dependencies with:
 
 ```
-pnpm install --frozen-lockfile
+pnpm install
 ```
 
 <DocsHeader header='h3' text="setup.sh" anchor="setup-sh" />
@@ -59,26 +56,16 @@ run `setup.sh`, this will create needed folders, install a placeholder anticheat
 
 <DocsHeader header='h3' text=".env" anchor="env" />
 
-you must fill in your .env with your values. the below keys are **NOT required** for nypsi to
-function, however there will be missing functionality.
-
-- `TOPGG_TOKEN`
-- `LASTFM_TOKEN`
-- `S3_*`
-- `KOFI_VERIFICATION`
+you must fill in your .env with your values. the majority of items aren't required but will probably break some functionality.
 
 <DocsHeader header='h3' text="database migration" />
 
-run `npx prisma migrate dev`. if this doesn't work there is something wrong with your database or
+run `npx prisma migrate deploy && npx prisma generate`. if this doesn't work there is something wrong with your database or
 your dependencies.
 
-<DocsHeader header='h3' text="compile" />
+<DocsHeader header='h3' text="running" />
 
-run `npx tsc` to compile nypsi's source code
-
-<DocsHeader header='h3' text="all done!" anchor="all-done" />
-
-you should be able to run nypsi with `node .`
+use `pnpm build` to buid nypsi, you can then use `node .` to run it. for development purposes you can also use `make dev`, this will continuously build the typescript files and run the bot at the same time. this makes it easier to reload commands, but if you change a non-command file, you will have to close and rerun the command.
 
 <DocsHeader header='h2' text="contributing" />
 
