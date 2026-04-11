@@ -50,7 +50,7 @@
               loading = true;
               return async ({ update, result }) => {
                 if (result.type === "success") {
-                  toast(`deleted ${filterItem.content}`);
+                  toast.success(`deleted ${filterItem.content}`);
                 }
 
                 await update();
@@ -82,7 +82,7 @@
         return async ({ update, result }) => {
           modal.close();
           if (result.type === "success") {
-            toast(`updated ${editContent}`);
+            toast.success(`updated ${editContent}`);
           } else if (result.type === "failure") {
             toast.error(`error: ${result.data.message}`);
           }

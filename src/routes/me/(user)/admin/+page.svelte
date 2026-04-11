@@ -15,7 +15,7 @@
       use:enhance={() => {
         return (event) => {
           if (event.result.status === 200) {
-            toast("bot will reboot soon, do NOT press the button again", {
+            toast.success("bot will reboot soon, do NOT press the button again", {
               position: "top-center",
             });
           } else {
@@ -33,7 +33,7 @@
       use:enhance={() => {
         return (event) => {
           if (event.result.status === 200) {
-            toast("streaks are paused for the next 24 hours", { position: "top-center" });
+            toast.success("streaks are paused for the next 24 hours", { position: "top-center" });
           } else {
             toast.error("failed to send command", { position: "top-center" });
           }

@@ -38,7 +38,7 @@
         params.delete("loggedin");
         setTimeout(async () => {
           if (!auth.value || !auth.value.authenticated) return;
-          toast(`logged in as ${auth.value.user.lastKnownUsername}`);
+          toast.success(`logged in as ${auth.value.user.lastKnownUsername}`);
         }, 250);
       }
 
@@ -104,14 +104,14 @@
   <LoadBar />
 
   <Toaster
+    expand
     toastOptions={{
       unstyled: true,
       classes: {
-        toast:
-          "bg-base-300 flex items-center gap-2 p-4 rounded-xl shadow-lg border border-primary/15",
+        toast: "alert alert-soft",
         title: "text-sm font-bold",
-        error: "bg-error",
-        success: "bg-success text-black",
+        error: "alert-error",
+        success: "alert-success",
       },
     }}
   />

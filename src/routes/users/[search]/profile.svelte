@@ -129,9 +129,7 @@
   function copyUsername() {
     navigator.clipboard.writeText(baseData.id);
 
-    toast(`copied user id (${baseData.id})`, {
-      position: "top-center",
-    });
+    toast.success(`copied user id (${baseData.id})`);
   }
 </script>
 
