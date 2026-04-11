@@ -19,9 +19,9 @@ RUN apt update -qq && \
     apt install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
 
 # dependencies
-COPY --link .npmrc package.json pnpm-lock.yaml ./
+COPY --link .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm fetch
-RUN pnpm install -r --offline --prod
+RUN pnpm install -r --offline
 
 COPY --link prisma ./prisma
 COPY --link . .
