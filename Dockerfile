@@ -2,11 +2,14 @@
 
 FROM node:24-slim as base
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
 # SvelteKit/Prisma app lives here
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
+# install pnpm
+RUN corepack enable pnpm && corepack install -g pnpm@latest
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
@@ -15,12 +18,13 @@ FROM base as build
 RUN apt update -qq && \
     apt install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
 
-# Copy needed things over
+# dependencies
 COPY --link .npmrc package.json pnpm-lock.yaml ./
+RUN pnpm fetch
+RUN pnpm install -r --offline --prod
+
 COPY --link prisma ./prisma
 COPY --link . .
-
-RUN pnpm install --frozen-lockfile --prod=false
 
 # Builds sveltekit tsconfig which prisma needs
 RUN npx svelte-kit sync
