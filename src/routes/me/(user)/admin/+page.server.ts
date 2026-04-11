@@ -1,4 +1,5 @@
 import { env } from "$env/dynamic/private";
+import { getAuthedUser } from "$lib/api/auth.remote";
 import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ locals, parent }) {
@@ -12,12 +13,12 @@ export async function load({ locals, parent }) {
 }
 
 export const actions = {
-  reboot: async ({ locals }) => {
-    const auth = await locals.validate();
+  reboot: async () => {
+    const authedUser = await getAuthedUser();
 
-    if (!auth.user) return fail(401);
+    if (!authedUser) return fail(401);
 
-    if (auth.user.adminLevel < 4) return fail(401);
+    if (authedUser.adminLevel < 4) return fail(401);
 
     const res = await fetch(`${env.BOT_SERVER_URL}/reboot`, {
       method: "post",
@@ -29,12 +30,12 @@ export const actions = {
     if (res.status === 200) return { success: true };
     return fail(500);
   },
-  pauseStreaks: async ({ locals }) => {
-    const auth = await locals.validate();
+  pauseStreaks: async () => {
+    const authedUser = await getAuthedUser();
 
-    if (!auth.user) return fail(401);
+    if (!authedUser) return fail(401);
 
-    if (auth.user.adminLevel < 4) return fail(401);
+    if (authedUser.adminLevel < 4) return fail(401);
 
     const res = await fetch(`${env.BOT_SERVER_URL}/pausestreak`, {
       method: "post",

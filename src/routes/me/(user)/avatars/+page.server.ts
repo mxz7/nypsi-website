@@ -1,3 +1,4 @@
+import { getAuthedUser } from "$lib/api/auth.remote";
 import prisma from "$lib/server/database.js";
 import redis from "$lib/server/redis.js";
 import { fail } from "@sveltejs/kit";
@@ -85,18 +86,18 @@ async function getTracking(userId: string) {
 }
 
 export const actions = {
-  delete: async ({ request, locals }) => {
+  delete: async ({ request }) => {
     const formData = await request.formData();
 
     if (!formData.get("id")) return fail(400);
 
-    const auth = await locals.validate();
+    const authedUser = await getAuthedUser();
 
-    if (!auth.user) return fail(401);
+    if (!authedUser) return fail(401);
 
     await prisma.username.deleteMany({
       where: {
-        AND: [{ userId: auth.user.id }, { id: parseInt(formData.get("id").toString()) }],
+        AND: [{ userId: authedUser.id }, { id: parseInt(formData.get("id").toString()) }],
       },
       limit: 1,
     });

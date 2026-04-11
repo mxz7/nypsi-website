@@ -14,10 +14,6 @@ declare global {
       docsItemModal?: Record<string, Record<string, any>>;
     }
     interface Locals {
-      validate: () => Promise<{
-        user: User;
-        session: Session;
-      } | null>;
       startTimer: number;
       error: string;
       errorId: string;

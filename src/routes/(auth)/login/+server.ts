@@ -1,9 +1,12 @@
+import { getAuthedUser } from "$lib/api/auth.remote";
 import { discord } from "$lib/server/auth/oauth.js";
 import { redirect } from "@sveltejs/kit";
 import { generateState } from "arctic";
 
 export async function GET({ cookies, locals, url }) {
-  if (await locals.validate()) return redirect(302, "/");
+  const authedUser = await getAuthedUser();
+
+  if (authedUser) return redirect(302, "/");
 
   const state = generateState();
   const oauthUrl = discord.createAuthorizationURL(state, null, ["identify", "guilds"]);

@@ -1,17 +1,18 @@
 import { dev } from "$app/environment";
+import { getAuthedUser } from "$lib/api/auth.remote";
 import prisma from "$lib/server/database.js";
 import dayjs from "dayjs";
 
-export async function POST({ params, request, locals, getClientAddress }) {
+export async function POST({ params, request, getClientAddress }) {
   if (dev) return new Response(null, { status: 200 });
   const userAgent = request.headers.get("user-agent");
   const userId = params.userId;
 
   if (userAgent && userAgent.includes("bot")) return new Response(null, { status: 200 });
 
-  const auth = await locals.validate();
+  const authedUser = await getAuthedUser();
 
-  if (auth && auth.user.id === userId) return new Response(null, { status: 200 });
+  if (authedUser && authedUser.id === userId) return new Response(null, { status: 200 });
 
   let ip: string;
 
@@ -26,7 +27,7 @@ export async function POST({ params, request, locals, getClientAddress }) {
       AND: [
         { createdAt: { gt: dayjs().subtract(1, "hour").toDate() } },
         { userId: userId },
-        { OR: [{ viewerId: auth?.user.id }, { viewerIp: ip }] },
+        { OR: [{ viewerId: authedUser?.id }, { viewerIp: ip }] },
       ],
     },
   });
@@ -37,7 +38,7 @@ export async function POST({ params, request, locals, getClientAddress }) {
     data: {
       source: "WEB",
       userId,
-      viewerId: auth?.user.id,
+      viewerId: authedUser?.id,
       viewerIp: ip,
     },
   });

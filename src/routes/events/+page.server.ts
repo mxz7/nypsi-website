@@ -1,4 +1,5 @@
 import { getEventData } from "$lib/functions/items.js";
+import { getAuthedUser } from "$lib/api/auth.remote";
 import {
   getEvent,
   getEventProgress,
@@ -22,10 +23,10 @@ export async function load({ locals, fetch, depends }) {
   let userPosition: Promise<number> | undefined;
   let totalUsers: Promise<number> | undefined;
 
-  const auth = await locals.validate();
+  const authedUser = await getAuthedUser();
 
-  if (auth?.user) {
-    userPosition = getUserPosition(event.id, auth.user.id);
+  if (authedUser) {
+    userPosition = getUserPosition(event.id, authedUser.id);
     totalUsers = getTotalUsers(event.id);
   }
 
@@ -40,6 +41,6 @@ export async function load({ locals, fetch, depends }) {
     userPosition: userPosition ? await userPosition : undefined,
     totalUsers,
     pastEvents: getPastEvents(),
-    auth,
+    auth: authedUser ? { user: authedUser } : null,
   };
 }

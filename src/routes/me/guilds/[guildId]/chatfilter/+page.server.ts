@@ -1,4 +1,5 @@
 import { env } from "$env/dynamic/private";
+import { getAuthedUser } from "$lib/api/auth.remote";
 import { canModifyGuild } from "$lib/functions/discordapi/permissions";
 import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
@@ -34,11 +35,11 @@ export async function load({ parent, params }) {
 
 export const actions = {
   delete: async ({ request, params, locals }) => {
-    const auth = await locals.validate();
+    const authedUser = await getAuthedUser();
 
-    if (!auth.user) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
+    if (!authedUser) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
 
-    const guilds = await getGuilds(auth.user, locals);
+    const guilds = await getGuilds(authedUser, locals);
 
     if (!guilds) return error(400, "unknown guilds error");
 
@@ -72,11 +73,11 @@ export const actions = {
     });
   },
   edit: async ({ request, params, locals }) => {
-    const auth = await locals.validate();
+    const authedUser = await getAuthedUser();
 
-    if (!auth.user) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
+    if (!authedUser) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
 
-    const guilds = await getGuilds(auth.user, locals);
+    const guilds = await getGuilds(authedUser, locals);
 
     if (!guilds) return error(400, "unknown guilds error");
 

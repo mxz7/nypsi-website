@@ -1,12 +1,13 @@
 import { env } from "$env/dynamic/private";
 import { env as publicEnv } from "$env/dynamic/public";
+import { getAuthedUser } from "$lib/api/auth.remote";
 import prisma from "$lib/server/database.js";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ url, locals }) {
-  const auth = await locals.validate();
+  const authedUser = await getAuthedUser();
 
-  if (!auth)
+  if (!authedUser)
     return redirect(
       302,
       `/login?next=${encodeURIComponent(url.pathname + "?" + url.searchParams.toString())}`,
@@ -23,7 +24,7 @@ export async function load({ url, locals }) {
 
   if (!query) return redirect(302, "/");
 
-  if (query.userId !== auth.user.id)
+  if (query.userId !== authedUser.id)
     return error(403, "This isn't for you - are you logged into the correct account?");
 
   if (!query.solved)
@@ -38,7 +39,7 @@ export async function load({ url, locals }) {
     id: query.id,
     solved: query.solved,
     rickroll: Math.floor(Math.random() * 100) <= 5,
-    authUser: auth.user,
+    authUser: authedUser,
   };
 }
 
