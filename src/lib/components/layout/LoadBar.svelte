@@ -53,6 +53,6 @@
 </script>
 
 <div
-  class="bg-primary pointer-events-none fixed top-0 h-0.5 rounded-lg"
+  class="bg-primary pointer-events-none fixed top-0 z-50 h-0.5 rounded-lg"
   style="width: {width.current}%; opacity: {opacity.current}"
 ></div>
