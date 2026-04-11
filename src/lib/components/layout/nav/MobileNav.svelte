@@ -1,5 +1,6 @@
 <script lang="ts">
   import { navigating, page } from "$app/state";
+  import { logOut } from "$lib/api/auth.remote";
   import LeaderboardItemSearch from "$lib/components/items/leaderboard-item-search.svelte";
   import { paths, type PathsData } from "$lib/data/docs";
   import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
@@ -17,6 +18,7 @@
     UserRound,
     X,
   } from "@lucide/svelte";
+  import { toast } from "svelte-sonner";
   import { fade, fly } from "svelte/transition";
 
   let { visible = $bindable(false) } = $props();
@@ -186,7 +188,7 @@
     {:else}
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-      <ul class="menu font-medium">
+      <ul class="menu w-full font-medium">
         <li><a href="/" class={page.url.pathname === "/" ? "text-primary" : ""}>home</a></li>
         <li>
           <a
@@ -320,10 +322,29 @@
             </ul>
           </li>
           <li>
-            <a href="/logout" class="text-error flex items-center text-xs">
-              <LogOut size={12} />
-              <span>log out</span></a
+            <form
+              class="block w-full"
+              {...logOut.enhance(async ({ submit }) => {
+                try {
+                  if (await submit()) {
+                    auth.value = { authenticated: false };
+                  }
+                } catch (e) {
+                  console.error(e);
+                  toast.error(
+                    e instanceof Error ? e.message : "An error occurred while logging out",
+                  );
+                }
+              })}
             >
+              <button
+                type="submit"
+                class="text-error flex w-full cursor-pointer items-center gap-2 text-xs"
+              >
+                <LogOut size={12} />
+                <span>log out</span>
+              </button>
+            </form>
           </li>
         {/if}
       </ul>

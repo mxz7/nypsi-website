@@ -1,5 +1,6 @@
 <script>
   import { page } from "$app/state";
+  import { logOut } from "$lib/api/auth.remote";
   import { auth } from "$lib/state.svelte";
   import {
     BadgePoundSterling,
@@ -13,6 +14,7 @@
     UserRound,
   } from "@lucide/svelte";
   import { onMount } from "svelte";
+  import { toast } from "svelte-sonner";
 
   let { children, data } = $props();
 
@@ -129,10 +131,27 @@
       <div class="divider my-0"></div>
 
       <li>
-        <a href="/logout" class="text-error flex items-center text-sm">
-          <LogOut size={16} />
-          <span>log out</span></a
+        <form
+          class="block w-full"
+          {...logOut.enhance(async ({ submit }) => {
+            try {
+              if (await submit()) {
+                auth.value = { authenticated: false };
+              }
+            } catch (e) {
+              console.error(e);
+              toast.error(e instanceof Error ? e.message : "An error occurred while logging out");
+            }
+          })}
         >
+          <button
+            type="submit"
+            class="text-error flex w-full cursor-pointer items-center gap-2 text-sm"
+          >
+            <LogOut size={16} />
+            <span>log out</span>
+          </button>
+        </form>
       </li>
     </div>
   </ul>
