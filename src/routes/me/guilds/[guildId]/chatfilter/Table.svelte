@@ -32,13 +32,14 @@
         <td>{filterItem.percentMatch || 100}%</td>
         <td class="flex">
           <button
-            class="btn btn-ghost btn-sm {loading ? 'btn-disabled' : ''}"
+            class="btn btn-ghost btn-sm {loading ? 'btn-disabled' : ''} tooltip tooltip-warning"
             disabled={loading}
             onclick={() => {
               editContent = filterItem.content;
               editMatchPercentage = filterItem.percentMatch || 100;
               modal.showModal();
             }}
+            data-tip="edit"
           >
             <Pencil class="text-warning" size={16} />
           </button>
@@ -59,7 +60,11 @@
             }}
           >
             <input type="text" name="content" value={filterItem.content} class="hidden" id="" />
-            <button class="btn btn-ghost btn-sm {loading ? 'btn-disabled' : ''}" disabled={loading}>
+            <button
+              class="btn btn-ghost btn-sm {loading ? 'btn-disabled' : ''} tooltip tooltip-error"
+              disabled={loading}
+              data-tip="delete"
+            >
               <Trash class="text-error" size={16} />
             </button>
           </form>
