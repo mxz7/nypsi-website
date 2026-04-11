@@ -224,7 +224,7 @@
     </section>
   {/if}
 
-  {#if items.find((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), ))}
+  {#if items.find((i) => i.craft && i.craft.ingredients.find((j) => j.startsWith(data.item.id)))}
     <section class="rounded-box bg-base-300 mt-2 p-3">
       <h3 class="text-center font-medium text-white">used in recipe</h3>
       <ul class="grid max-h-48 grid-cols-2 overflow-auto">
