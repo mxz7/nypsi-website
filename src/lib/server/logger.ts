@@ -30,7 +30,7 @@ function buildTransport() {
   });
 }
 
-const logger = pino(buildTransport());
+const logger = pino({ base: undefined }, buildTransport());
 
 export function log(statusCode: number, event: RequestEvent<Partial<Record<string, string>>>) {
   if (building) return;
