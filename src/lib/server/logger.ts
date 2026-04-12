@@ -63,10 +63,10 @@ export function log(statusCode: number, event: RequestEvent<Partial<Record<strin
     method: event.request.method,
     status: statusCode,
     path: event.url.pathname,
-    referer,
+    elapsed: performance.now() - event.locals.startTimer,
     ip_address: address,
     user_agent: event.request.headers.get("user-agent") || "",
-    elapsed: performance.now() - event.locals.startTimer,
+    referer,
     params:
       event.url.searchParams.size > 0
         ? { ...Object.fromEntries(event.url.searchParams.entries()) }
