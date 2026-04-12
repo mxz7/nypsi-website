@@ -17,7 +17,7 @@
   });
 </script>
 
-<div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
+<div class="mx-auto mt-8 flex w-full max-w-6xl gap-8">
   <ul class="menu rounded-box bg-base-200 hidden h-fit w-72 p-4 lg:block">
     <li><h2 class="menu-title">server management</h2></li>
 
