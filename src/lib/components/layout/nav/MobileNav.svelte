@@ -11,6 +11,7 @@
     BadgePoundSterling,
     ChartArea,
     Coins,
+    Gavel,
     Image,
     LogOut,
     Server,
@@ -284,7 +285,7 @@
                     : ''}"
                   href="/me/punishments"
                 >
-                  <Image size={16} />
+                  <Gavel size={16} />
                   <span>punishments</span>
                 </a>
               </li>
