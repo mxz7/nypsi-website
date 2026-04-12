@@ -36,7 +36,7 @@
   </li>
 {/snippet}
 
-<div class="mx-auto mt-4 flex w-full max-w-6xl gap-8">
+<div class="mx-auto mt-8 flex w-full max-w-6xl gap-8">
   <nav class="hidden lg:block">
     <ul class="menu rounded-box bg-base-200 h-fit w-72 p-4">
       <li><h2 class="menu-title">nypsi wiki</h2></li>
