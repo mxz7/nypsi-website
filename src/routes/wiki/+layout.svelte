@@ -81,7 +81,7 @@
       }
 
       p {
-        @apply my-3 max-w-[70ch] text-base leading-7 text-pretty;
+        @apply my-3 max-w-[75ch] leading-7 text-pretty;
       }
 
       li {
