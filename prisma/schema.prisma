@@ -401,7 +401,7 @@ model MuseumDonation {
   amount    BigInt
   createdAt DateTime @default(now())
 
-  museum Museum @relation(fields: [userId, itemId], references: [userId, itemId], onDelete: Cascade)
+  museum Museum @relation(fields: [userId, itemId], references: [userId, itemId], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([userId, itemId])
 }
@@ -662,6 +662,8 @@ model Guild {
   autoMuteExpire   Int      @default(86400)
 
   birthdayHook String?
+
+  lastCommand DateTime @default(now())
 
   GuildChristmas GuildChristmas?
   counters       GuildCounter[]
