@@ -9,6 +9,8 @@
 
 support tickets allow you to talk directly to nypsi staff to get assistance or report an issue. to make one, **send the nypsi bot a dm**, you will then receive a prompt to create a support ticket where you can explain your issue.
 
+if this is not working for whatever reason, you can contact the owner directly: `@m.axz`.
+
 <DocsHeader header='h2' text="when will the karma shop be open?" />
 
 the karma shop (`/karmashop view`) opens a few times a month. you can use the karma shop command to see when it is next scheduled to be opened. you can also join the [official nypsi server](https://discord.gg/hJTDNST), and give yourself the karma shop role, to be notified when it does open
