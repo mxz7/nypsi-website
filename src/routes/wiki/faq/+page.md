@@ -17,7 +17,7 @@ the karma shop (`/karmashop view`) opens a few times a month. you can use the ka
 
 <DocsHeader header='h2' text="my server does not qualify to track mentions" />
 
-this means that your server is either too large (> 150,000 members), or the server owner has not used nypsi in a while. if you have too many members and want to use this feature, please contact me (`@m.axz`), otherwise, ask the server owner to do some commands.
+this means that your server is either too large (> 15,000 members), or the server owner has not used nypsi in a while. if you have too many members and want to use this feature, please make a [support ticket](#how-do-i-make-a-support-ticket), otherwise, ask the server owner to do some commands.
 
 <DocsHeader header='h2' text="how do i get vote reminders?" />
 
