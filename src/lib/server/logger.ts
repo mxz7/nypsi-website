@@ -59,18 +59,16 @@ export function log(statusCode: number, event: RequestEvent<Partial<Record<strin
     address = event.getClientAddress();
   } catch {}
 
+  const path = event.url.pathname + event.url.search;
+
   const logData: Record<string, any> = {
     method: event.request.method,
     status: statusCode,
-    path: event.url.pathname,
+    path,
     elapsed: performance.now() - event.locals.startTimer,
     ip_address: address,
     user_agent: event.request.headers.get("user-agent") || "",
     referer,
-    params:
-      event.url.searchParams.size > 0
-        ? { ...Object.fromEntries(event.url.searchParams.entries()) }
-        : undefined,
     error,
     error_id: errorId,
     error_stack_trace: errorStackTrace,
