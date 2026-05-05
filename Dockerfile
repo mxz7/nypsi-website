@@ -9,7 +9,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 WORKDIR /app
 
 # install pnpm
-RUN corepack enable pnpm && corepack install -g pnpm@latest
+RUN corepack enable pnpm && corepack install -g pnpm@11
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
