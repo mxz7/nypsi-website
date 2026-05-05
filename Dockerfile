@@ -4,6 +4,7 @@ FROM node:24-slim as base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV CI="true"
 
 # SvelteKit/Prisma app lives here
 WORKDIR /app
