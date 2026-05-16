@@ -103,7 +103,7 @@
       tags.push({ label: tagData[activeTag.tagId].name, src: tagData[activeTag.tagId].emoji });
     }
 
-    if (premium && premium.level > 0) {
+    if (premium && premium.level > 0 && activeTag.tagId !== "owner") {
       tags.push({
         label: premiumMap.get(premium.level).text,
         src: premiumMap.get(premium.level).emoji,
