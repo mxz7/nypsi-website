@@ -8,12 +8,12 @@
   import Navbar from "$lib/components/layout/nav/NavBar.svelte";
   import { auth, initialLoad } from "$lib/state.svelte";
   import "@fontsource-variable/inter";
-  import { onMount, tick } from "svelte";
+  import { onMount, tick, type Snippet } from "svelte";
   import { toast, Toaster } from "svelte-sonner";
   import "../app.css";
 
   interface Props {
-    children?: import("svelte").Snippet;
+    children?: Snippet;
   }
 
   let { children }: Props = $props();
