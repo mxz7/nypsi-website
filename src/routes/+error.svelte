@@ -84,7 +84,7 @@
   {#if page.error?.message && page.error.message !== description}
     <p class="mt-6 text-sm text-slate-400">{page.error.message}</p>
   {/if}
-  {#if page.error?.errorId}
-    <p class="font-mono text-xs text-slate-500">ref: {page.error.errorId}</p>
+  {#if page.error?.requestId}
+    <p class="font-mono text-xs text-slate-500">ref: {page.error.requestId}</p>
   {/if}
 </Main>

@@ -1,23 +1,25 @@
 import { dev } from "$app/environment";
-import { log } from "$lib/server/logger";
+import { baseLogger, logRequest } from "$lib/server/logger";
 
 // selectively preload fonts
 const fonts = ["inter-latin-wght-normal"];
 
 export function handleError({ event, error, message, status }) {
   if (dev) return console.error(error);
-  const errorId = crypto.randomUUID();
   event.locals.error = error?.toString() || undefined;
   event.locals.errorStackTrace = (error as Error)?.stack || undefined;
-  event.locals.errorId = errorId;
 
-  log(status, event);
+  logRequest(status, event);
 
-  return { message: message || "an unexpected error occured", errorId: errorId };
+  return {
+    message: message || "an unexpected error occured",
+    requestId: event.locals.logger?.bindings().requestId,
+  };
 }
 
 export async function handle({ event, resolve }) {
   event.locals.startTimer = performance.now();
+  event.locals.logger = baseLogger.child({ requestId: crypto.randomUUID() });
 
   const res = await resolve(event, {
     preload: ({ type, path }) => {
@@ -33,7 +35,7 @@ export async function handle({ event, resolve }) {
     res.headers.set("cache-control", "no-cache");
   }
 
-  log(res.status, event);
+  logRequest(res.status, event);
 
   return res;
 }

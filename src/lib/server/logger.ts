@@ -30,13 +30,15 @@ function buildTransport() {
   });
 }
 
-const logger = pino({ base: undefined }, buildTransport());
+export const baseLogger = pino({ base: undefined }, buildTransport());
 
-export function log(statusCode: number, event: RequestEvent<Partial<Record<string, string>>>) {
+export function logRequest(
+  statusCode: number,
+  event: RequestEvent<Partial<Record<string, string>>>,
+) {
   if (building) return;
 
   const error = event.locals?.error || undefined;
-  const errorId = event.locals?.errorId || undefined;
   const errorStackTrace = event.locals?.errorStackTrace || undefined;
 
   let referer: string | undefined;
@@ -70,7 +72,6 @@ export function log(statusCode: number, event: RequestEvent<Partial<Record<strin
     user_agent: event.request.headers.get("user-agent") || "",
     referer,
     error,
-    error_id: errorId,
     error_stack_trace: errorStackTrace,
   };
 
@@ -79,6 +80,8 @@ export function log(statusCode: number, event: RequestEvent<Partial<Record<strin
   }
 
   if (dev) return;
+
+  const logger = event.locals.logger || baseLogger;
 
   if (statusCode >= 500) {
     logger.error(logData);
