@@ -5,17 +5,32 @@ import prisma from "$lib/server/database.js";
 import redis from "$lib/server/redis.js";
 import { OAuth2RequestError } from "arctic";
 
+function loginError(message: string): Response {
+  const url = new URL(`${env.PUBLIC_URL}/`);
+  url.searchParams.set("loginerror", message);
+  return new Response(null, { status: 302, headers: { Location: url.toString() } });
+}
+
 export async function GET({ cookies, url }) {
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const storedState = cookies.get("oauth_state") ?? null;
-  const next = cookies.get("login_next") ?? null;
+  const next = cookies.get("login_next") ?? "/";
 
   if (!code || !state || !storedState || state !== storedState) {
-    console.warn("invalid callback");
-    return new Response(null, {
-      status: 400,
-    });
+    let message: string;
+
+    if (!code) {
+      message = "Missing code";
+    } else if (!state) {
+      message = "Missing state";
+    } else if (!storedState) {
+      message = "Missing stored state";
+    } else {
+      message = "State mismatch";
+    }
+
+    return loginError(message);
   }
 
   try {
@@ -37,7 +52,8 @@ export async function GET({ cookies, url }) {
 
       setSessionCookie(cookies, token, expiresAt);
     } else {
-      return new Response(null, { status: 302, headers: { Location: "/" } });
+      // todo handle unknown user
+      return loginError("unknown user");
     }
 
     await redis.set(
@@ -57,13 +73,9 @@ export async function GET({ cookies, url }) {
     // the specific error message depends on the provider
     if (e instanceof OAuth2RequestError) {
       // invalid code
-      return new Response(null, {
-        status: 400,
-      });
+      return loginError("Invalid authorization code");
     }
-    return new Response(null, {
-      status: 500,
-    });
+    return loginError("An unexpected error occurred");
   }
 }
 

@@ -42,6 +42,12 @@
         }, 250);
       }
 
+      const loginError = page.url.searchParams.get("loginerror");
+      if (loginError) {
+        params.delete("loginerror");
+        toast.error(`log in failure: ${loginError}`, { duration: 10000 });
+      }
+
       if (page.url.searchParams.has("ref")) {
         params.delete("ref");
       }
@@ -53,7 +59,7 @@
           replaceState(`?${params.toString()}`, {});
         }
       }
-    }, 2000);
+    }, 500);
   });
 
   onNavigate(() => {
