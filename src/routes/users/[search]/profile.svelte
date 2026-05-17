@@ -138,7 +138,7 @@
     <ol class="mt-auto flex flex-wrap gap-1 pt-1 md:pt-2">
       {#each tags as tag}
         <li
-          class="bg-base-300 border-primary/15 text-base-content/75 hover:border-primary/25 flex items-center gap-1 rounded-lg border px-1.5 py-1 text-xs shadow duration-200 md:px-2 md:py-1.5 md:text-sm"
+          class="bg-base-300 border-primary/10 text-base-content/75 hover:border-primary/20 flex items-center gap-1 rounded-lg border px-1.5 py-1 text-xs shadow duration-200 hover:shadow-lg md:px-2 md:py-1.5 md:text-sm"
         >
           <img src={tag.src} alt="" class="size-4 md:size-5" />
           {tag.label}

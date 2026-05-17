@@ -34,7 +34,7 @@
 
   {#if overlay}
     <div
-      class="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-1 bg-black/80 p-2 text-[11px] text-white opacity-0 backdrop-blur-[3px] duration-150 group-focus-within:opacity-100 group-hover:opacity-100"
+      class="bg-neutral/80 pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-1 p-2 text-[11px] text-white opacity-0 backdrop-blur-[3px] duration-150 group-focus-within:opacity-100 group-hover:opacity-100"
     >
       <p class="text-center whitespace-pre-line">{overlay}</p>
     </div>

@@ -7,9 +7,10 @@
   default: true;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(23% 0.0354 263.08);
-  --color-base-200: oklch(20% 0.0337 263.46);
-  --color-base-300: oklch(17.5% 0.0299 262.93);
+  --color-base-100: oklch(17% 0.033 263);
+  --color-base-200: oklch(19% 0.033 263);
+  --color-base-300: oklch(21% 0.033 263);
+
   --color-base-content: oklch(91% 0.02 260.73);
   --color-primary: oklch(60.56% 0.2189 292.72);
   --color-primary-content: oklch(93% 0.034 272.788);
@@ -17,7 +18,7 @@
   --color-secondary-content: oklch(94% 0.028 342.258);
   --color-accent: oklch(51.03% 0.1766 294.08);
   --color-accent-content: oklch(38% 0.063 188.416);
-  --color-neutral: oklch(10% 0.0354 263.08);
+  --color-neutral: oklch(12% 0.033 263);
   --color-neutral-content: oklch(89.36% 0.0076 260.73);
   --color-info: oklch(74% 0.16 232.661);
   --color-info-content: oklch(29% 0.066 243.157);
@@ -39,6 +40,7 @@
 
 * {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
 }
 
 body {

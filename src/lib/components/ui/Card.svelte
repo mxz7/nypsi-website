@@ -22,7 +22,7 @@
   const activeClasses = $derived.by(() => {
     const output = [
       "bg-base-200",
-      "hover:border-primary/30",
+      "hover:border-primary/20",
       "w-full",
       "gap-2",
       "rounded-xl",
@@ -32,9 +32,9 @@
     ];
 
     if (focused) {
-      output.push("border-primary/20 ");
-    } else {
       output.push("border-primary/10");
+    } else {
+      output.push("border-primary/5");
     }
 
     if (classes) {
