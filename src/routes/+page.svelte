@@ -87,16 +87,18 @@
       <h1 class="animation-1 text-8xl font-black text-white lg:text-9xl">nypsi</h1>
       <p class="animation-2 py-6 text-lg font-medium">the best discord bot</p>
       <div class="px-4 lg:px-0">
-        <a
-          href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
-          class="animation-3 btn btn-primary btn-lg flex gap-3 bg-linear-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
-          target="_blank"
-          data-umami-event="add-to-discord"
-          data-umami-event-user={auth.value?.authenticated ? auth.value.user.id : undefined}
-        >
-          <Discord class="h-6 w-6 lg:h-7 lg:w-7" />
-          <span class="lg:text-2xl">add to discord</span>
-        </a>
+        <div class="animation-3 lg:w-fit">
+          <a
+            href="https://discord.com/oauth2/authorize?client_id=678711738845102087&permissions=1377879583830&scope=bot%20applications.commands"
+            class="btn-shine btn btn-primary btn-lg flex gap-3 bg-linear-to-r from-violet-600 to-purple-600 fill-white text-lg text-white lg:w-fit"
+            target="_blank"
+            data-umami-event="add-to-discord"
+            data-umami-event-user={auth.value?.authenticated ? auth.value.user.id : undefined}
+          >
+            <Discord class="h-6 w-6 lg:h-7 lg:w-7" />
+            <span class="lg:text-2xl">add to discord</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -174,6 +176,22 @@
 
   .fly-up {
     animation: fly-up 1250ms ease normal forwards;
+  }
+
+  .btn-shine {
+    background-image: linear-gradient(to right, #7c3aed, #9333ea, #8b5cf6, #c084fc) !important;
+    background-size: 200% auto !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    transition:
+      background-position 0.5s ease,
+      box-shadow 0.3s ease,
+      transform 0.2s ease !important;
+  }
+
+  .btn-shine:hover {
+    background-position: right center !important;
+    box-shadow: 0 0 14px rgba(139, 92, 246, 0.4);
+    transform: scale(1.03);
   }
 
   /* mobile animations */
