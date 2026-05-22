@@ -5,6 +5,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 1
 
   # node packages
   - package-ecosystem: "npm"
@@ -12,6 +14,8 @@ updates:
     schedule:
       interval: "daily"
     versioning-strategy: increase
+    cooldown:
+      default-days: 1
     groups:
       prisma:
         patterns:
