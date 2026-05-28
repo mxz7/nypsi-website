@@ -605,6 +605,66 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
     );
   },
 
+  "sudoku-solved": async () => {
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    right join "SudokuGame" on "SudokuGame"."userId" = "User"."id"
+    left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    where "SudokuGame"."state" = 'completed'
+    group by "SudokuGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    order by "value" desc limit 100`.then(
+      (
+        i: {
+          value: bigint;
+          userId: string;
+          lastKnownUsername: string;
+          tagId: string;
+          privacy: boolean;
+        }[],
+      ) => {
+        return i.map((i, index) => ({
+          value: i.value.toLocaleString(),
+          position: index + 1,
+          user: {
+            username: !i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: !i.privacy ? i.userId : undefined,
+            tag: !i.privacy ? i.tagId : undefined,
+          },
+        }));
+      },
+    );
+  },
+
+  "sudoku-fastest": async () => {
+    return await prisma.$queryRaw`select "User"."id" as "userId", min(extract(epoch from ("SudokuGame"."completedAt" - "SudokuGame"."startedAt")) * 1000) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    right join "SudokuGame" on "SudokuGame"."userId" = "User"."id"
+    left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
+    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    where "SudokuGame"."state" = 'completed' and "SudokuGame"."completedAt" is not null
+    group by "SudokuGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    order by "value" asc limit 100`.then(
+      (
+        i: {
+          value: number;
+          userId: string;
+          lastKnownUsername: string;
+          tagId: string;
+          privacy: boolean;
+        }[],
+      ) => {
+        return i.map((i, index) => ({
+          value: formatTime(Number(i.value)),
+          position: index + 1,
+          user: {
+            username: !i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: !i.privacy ? i.userId : undefined,
+            tag: !i.privacy ? i.tagId : undefined,
+          },
+        }));
+      },
+    );
+  },
+
   "chatreaction-alltime": async () => {
     return await prisma.chatReactionLeaderboards
       .findMany({
@@ -732,6 +792,8 @@ const knownTypes: Record<string, { title: string; descriptor?: string }> = {
   "chatreaction-alltime": { title: "chat reactions all time fastest" },
   "flag-wins": { title: "guess the flag wins", descriptor: "wins" },
   "flag-time": { title: "guess the flag fastest win" },
+  "sudoku-solved": { title: "sudoku most solved", descriptor: "solved" },
+  "sudoku-fastest": { title: "sudoku fastest solve" },
 };
 
 export const getLeaderboardMetadata = query(z.string(), async (type) => {

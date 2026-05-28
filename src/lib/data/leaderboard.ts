@@ -51,4 +51,12 @@ export const leaderboards: LeaderboardsData = {
       time: { name: "fastest win", path: "/leaderboards/flag/time" },
     },
   },
+  sudoku: {
+    name: "sudoku",
+    path: "/leaderboards/sudoku",
+    children: {
+      solved: { name: "most solved", path: "/leaderboards/sudoku/solved" },
+      fastest: { name: "fastest solve", path: "/leaderboards/sudoku/fastest" },
+    },
+  },
 };

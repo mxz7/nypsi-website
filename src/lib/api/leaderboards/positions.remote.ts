@@ -460,6 +460,62 @@ const knownPositionQueries: Record<
       value: formatTime(toNumber(row.value)),
     };
   },
+
+  "sudoku-solved": async (userId) => {
+    const rows = await prisma.$queryRaw<{ position: bigint; value: bigint }[]>`
+      WITH totals AS (
+        SELECT "userId", COUNT(*) AS value
+        FROM "SudokuGame"
+        WHERE state = 'completed'
+        GROUP BY "userId"
+      ),
+      ranked AS (
+        SELECT "userId", value,
+        ROW_NUMBER() OVER (ORDER BY value DESC) AS position
+        FROM totals
+      )
+      SELECT position, value
+      FROM ranked
+      WHERE "userId" = ${userId}
+      LIMIT 1
+    `;
+
+    const row = rows[0];
+    if (!row) return null;
+
+    return {
+      position: toNumber(row.position),
+      value: toNumber(row.value).toLocaleString(),
+    };
+  },
+
+  "sudoku-fastest": async (userId) => {
+    const rows = await prisma.$queryRaw<{ position: bigint; value: number }[]>`
+      WITH totals AS (
+        SELECT "userId", MIN(EXTRACT(EPOCH FROM ("completedAt" - "startedAt")) * 1000) AS value
+        FROM "SudokuGame"
+        WHERE state = 'completed' AND "completedAt" IS NOT NULL
+        GROUP BY "userId"
+      ),
+      ranked AS (
+        SELECT "userId", value,
+        ROW_NUMBER() OVER (ORDER BY value ASC) AS position
+        FROM totals
+      )
+      SELECT position, value
+      FROM ranked
+      WHERE "userId" = ${userId}
+      LIMIT 1
+    `;
+
+    const row = rows[0];
+    if (!row) return null;
+
+    return {
+      position: toNumber(row.position),
+      value: formatTime(toNumber(row.value)),
+    };
+  },
 };
 
 async function getKnownUserPositionInternal(type: LeaderboardType, userId: string) {

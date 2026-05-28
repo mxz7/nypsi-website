@@ -19,6 +19,8 @@ export const LeaderboardTypeSchema = z.enum([
   "chatreaction-alltime",
   "flag-wins",
   "flag-time",
+  "sudoku-solved",
+  "sudoku-fastest",
 ]);
 
 export type LeaderboardType = z.infer<typeof LeaderboardTypeSchema>;
