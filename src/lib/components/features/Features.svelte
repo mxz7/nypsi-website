@@ -7,6 +7,7 @@
     ChessKnight,
     Coins,
     Flag,
+    Grid3x3,
     Hammer,
     Keyboard,
     Leaf,
@@ -56,6 +57,18 @@
   />
 
   <FeaturesSection
+    title="sudoku"
+    list={[
+      "play sudoku right in discord!",
+      "a range of different difficulties for all skill levels",
+      "rise to the top of the leaderboards",
+    ]}
+    image="sudoku"
+    Icon={Grid3x3}
+    flipped={true}
+  />
+
+  <FeaturesSection
     title="farms"
     list={[
       "grow plants and make money from your yield",
@@ -64,7 +77,7 @@
     ]}
     image="farm"
     Icon={Leaf}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -77,7 +90,7 @@
     ]}
     image="tmdb"
     Icon={Popcorn}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -91,7 +104,7 @@
     ]}
     image="chatreaction"
     Icon={Keyboard}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -103,7 +116,7 @@
     ]}
     image="guesstheflag"
     Icon={Flag}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -116,7 +129,7 @@
     ]}
     image="gambling"
     Icon={Coins}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -130,7 +143,7 @@
     ]}
     image="moderation"
     Icon={Hammer}
-    flipped={false}
+    flipped={true}
   />
 
   <FeaturesSection
@@ -143,7 +156,7 @@
     ]}
     image="reactionroles"
     Icon={Book}
-    flipped={true}
+    flipped={false}
   />
 
   <FeaturesSection
@@ -155,6 +168,6 @@
     ]}
     image="mentions"
     Icon={Bell}
-    flipped={false}
+    flipped={true}
   />
 </section>
