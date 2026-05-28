@@ -8,6 +8,106 @@ datasource db {
   provider = "postgresql"
 }
 
+enum BoosterScope {
+  global
+  user
+}
+
+enum CarUpgradeType {
+  engine
+  turbo
+  wheel
+}
+
+enum ChatReactionWordList {
+  english_1k
+  english_5k
+  english_10k
+  custom
+}
+
+enum EconomyGuildRole {
+  member
+  admin
+  owner
+}
+
+enum LevelDmSetting {
+  Disabled
+  All
+  OnlyReward
+}
+
+enum OrderType {
+  buy
+  sell
+}
+
+enum ProfileViewSource {
+  WEB
+  BOT
+}
+
+enum RatingType {
+  tv
+  movie
+}
+
+enum ReactionRoleMode {
+  MANY
+  UNIQUE
+}
+
+enum SudokuCoordMode {
+  box
+  coordinates
+}
+
+enum SudokuDifficulty {
+  easy
+  medium
+  hard
+  expert
+}
+
+enum SudokuState {
+  active
+  completed
+  resigned
+}
+
+enum TaskType {
+  daily
+  weekly
+}
+
+enum ToolPreferenceSelection {
+  terrible
+  normal
+  incredible
+  highest
+}
+
+enum TrackingType {
+  MEMBERS
+  HUMANS
+  BOOSTS
+  RICHEST_MEMBER
+  TOTAL_ITEM
+  TOTAL_BALANCE
+}
+
+enum TransactionType {
+  money
+  item
+}
+
+enum WorkerDmSetting {
+  Disabled
+  All
+  OnlyWhenFull
+}
+
 // user specific tables (economy etc.)
 
 model User {
@@ -52,6 +152,10 @@ model User {
   EventContribution        EventContribution[]
   tmdbRatings              tmdbRatings[]
   ChessPuzzleStats         ChessPuzzleStats?
+  AiChatConversation       AiChatConversation[]
+  RoleplayStat             RoleplayStat[]
+  RoleplayStatTarget       RoleplayStat[]             @relation(name: "target")
+  SudokuGame               SudokuGame[]
 }
 
 model ProfileView {
@@ -71,9 +175,24 @@ model ProfileView {
   @@index([userId])
 }
 
-enum ProfileViewSource {
-  WEB
-  BOT
+model SudokuGame {
+  id String @id @default(uuid(7))
+
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  puzzle     String
+  solution   String
+  difficulty SudokuDifficulty
+
+  board    String
+  state    SudokuState @default(active)
+  mistakes Int         @default(0)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, state])
 }
 
 model Tags {
@@ -129,28 +248,17 @@ model DMSettings {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-enum WorkerDmSetting {
-  Disabled
-  All
-  OnlyWhenFull
-}
-
-enum LevelDmSetting {
-  Disabled
-  All
-  OnlyReward
-}
-
 model Preferences {
   userId String @id
 
-  duelRequests   Boolean @default(true)
-  offers         Int     @default(3)
-  leaderboards   Boolean @default(true)
-  tips           Boolean @default(true)
-  marketConfirm  BigInt  @default(25000000)
-  marketDelay    Int     @default(300) // seconds
-  mentionsGlobal Boolean @default(false)
+  duelRequests    Boolean         @default(true)
+  offers          Int             @default(3)
+  leaderboards    Boolean         @default(true)
+  tips            Boolean         @default(true)
+  marketConfirm   BigInt          @default(25000000)
+  marketDelay     Int             @default(300) // seconds
+  mentionsGlobal  Boolean         @default(false)
+  sudokuCoordMode SudokuCoordMode @default(box)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -241,13 +349,6 @@ model Economy {
   FarmUpgrades       FarmUpgrades[]
 }
 
-enum ToolPreferenceSelection {
-  terrible
-  normal
-  incredible
-  highest
-}
-
 model Farm {
   id      Int    @id @default(autoincrement())
   userId  String
@@ -300,12 +401,6 @@ model CarUpgrade {
   @@id([carId, type])
 }
 
-enum CarUpgradeType {
-  engine
-  turbo
-  wheel
-}
-
 model Task {
   user_id   String
   task_id   String
@@ -318,11 +413,6 @@ model Task {
   economy Economy @relation(fields: [user_id], references: [userId], onDelete: Cascade)
 
   @@id([user_id, task_id])
-}
-
-enum TaskType {
-  daily
-  weekly
 }
 
 model Upgrades {
@@ -429,11 +519,6 @@ model EconomyWorkerUpgrades {
   worker EconomyWorker @relation(fields: [userId, workerId], references: [userId, workerId], onDelete: Cascade)
 
   @@id([userId, workerId, upgradeId])
-}
-
-enum BoosterScope {
-  global
-  user
 }
 
 model Booster {
@@ -547,6 +632,22 @@ model FlagGame {
   @@index([userId])
 }
 
+model RoleplayStat {
+  userId   String
+  targetId String
+
+  action String
+  count  Int    @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  target User @relation(fields: [targetId], references: [id], name: "target", onDelete: Cascade)
+
+  @@id([userId, action, targetId])
+}
+
 model ChessPuzzleStats {
   userId               String @id
   solved               Int    @default(0)
@@ -558,11 +659,6 @@ model ChessPuzzleStats {
   averageSolveTime     Float?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-enum OrderType {
-  buy
-  sell
 }
 
 model Market {
@@ -722,11 +818,6 @@ model ReactionRole {
   @@index([messageId])
 }
 
-enum ReactionRoleMode {
-  MANY
-  UNIQUE
-}
-
 model ReactionRoleRoles {
   messageId String
   roleId    String
@@ -766,15 +857,6 @@ model GuildCounter {
 
   guild   Guild  @relation(fields: [guildId], references: [id], onDelete: Cascade)
   guildId String
-}
-
-enum TrackingType {
-  MEMBERS
-  HUMANS
-  BOOSTS
-  RICHEST_MEMBER
-  TOTAL_ITEM
-  TOTAL_BALANCE
 }
 
 model GuildCountdown {
@@ -879,13 +961,6 @@ model ChatReaction {
   ChatReactionStats ChatReactionStats[]
 }
 
-enum ChatReactionWordList {
-  english_1k
-  english_5k
-  english_10k
-  custom
-}
-
 model ChatReactionStats {
   userId String
   wins   Int    @default(0)
@@ -917,12 +992,6 @@ model EconomyGuild {
 
   members  EconomyGuildMember[]
   upgrades EconomyGuildUpgrades[]
-}
-
-enum EconomyGuildRole {
-  member
-  admin
-  owner
 }
 
 model EconomyGuildMember {
@@ -985,6 +1054,35 @@ model SupportRequestMessage {
   content          String
 
   supportRequest SupportRequest @relation(fields: [supportRequestId], references: [userId], onDelete: Cascade)
+}
+
+model AiChatConversation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  messages AiChatMessage[]
+}
+
+model AiChatMessage {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  conversationId Int
+
+  userQuery  String
+  aiResponse String?
+
+  model             String
+  inputTokens       Int?
+  cachedInputTokens Int?
+  outputTokens      Int?
+
+  conversation AiChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
 }
 
 model Purchases {
@@ -1096,11 +1194,6 @@ model zKicks {
   @@id([userId, targetId])
 }
 
-enum RatingType {
-  tv
-  movie
-}
-
 model tmdbRatings {
   userId String
 
@@ -1112,11 +1205,6 @@ model tmdbRatings {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, type, id])
-}
-
-enum TransactionType {
-  money
-  item
 }
 
 model Transaction {
