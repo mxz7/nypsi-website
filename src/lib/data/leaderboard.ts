@@ -19,22 +19,6 @@ export const leaderboards: LeaderboardsData = {
       fastest: { name: "fastest solve", path: "/leaderboards/chess/fastest" },
     },
   },
-  vote: {
-    name: "vote",
-    path: "/leaderboards/vote",
-    children: {
-      month: { name: "votes this month", path: "/leaderboards/vote/month" },
-      streak: { name: "vote streak", path: "/leaderboards/vote/streak" },
-    },
-  },
-  wordle: {
-    name: "wordle",
-    path: "/leaderboards/wordle",
-    children: {
-      wins: { name: "wins", path: "/leaderboards/wordle/wins" },
-      time: { name: "fastest win", path: "/leaderboards/wordle/time" },
-    },
-  },
   chatreaction: {
     name: "chat reactions",
     path: "/leaderboards/chatreaction",
@@ -57,6 +41,22 @@ export const leaderboards: LeaderboardsData = {
     children: {
       solved: { name: "most solved", path: "/leaderboards/sudoku/solved" },
       fastest: { name: "fastest solve", path: "/leaderboards/sudoku/fastest" },
+    },
+  },
+  vote: {
+    name: "vote",
+    path: "/leaderboards/vote",
+    children: {
+      month: { name: "votes this month", path: "/leaderboards/vote/month" },
+      streak: { name: "vote streak", path: "/leaderboards/vote/streak" },
+    },
+  },
+  wordle: {
+    name: "wordle",
+    path: "/leaderboards/wordle",
+    children: {
+      wins: { name: "wins", path: "/leaderboards/wordle/wins" },
+      time: { name: "fastest win", path: "/leaderboards/wordle/time" },
     },
   },
 };
