@@ -17,8 +17,7 @@
 
   let { baseData, lastSeen, marriagePartner, gems }: Props = $props();
 
-  const tagData = await getTagsRemote();
-  const itemsData = await getItemsRemote();
+  const [tagData, itemsData] = await Promise.all([getTagsRemote(), getItemsRemote()]);
 
   const premiumMap = new Map([
     [
