@@ -11,7 +11,7 @@
 </script>
 
 {#snippet content()}
-  <a href="#{id}" class={page.url.hash === `#${anchor}` ? "link" : "link-hover"}>{text}</a>
+  <a href="#{id}" class={page.url.hash === `#${id}` ? "link" : "link-hover"}>{text}</a>
 {/snippet}
 
 {#if header === "h1"}
