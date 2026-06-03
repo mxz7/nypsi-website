@@ -21,7 +21,7 @@
   onMount(async () => {
     await tick();
     if (!auth.value) {
-      const authData = await getAuthedUser().run();
+      const authData = await getAuthedUser();
 
       if (!authData) {
         auth.value = { authenticated: false };
