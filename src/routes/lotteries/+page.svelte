@@ -55,9 +55,6 @@
 <Main class="space-y-4 px-3 lg:px-0">
   <header class="text-center">
     <h1 class="text-4xl font-black text-white">lotteries</h1>
-    <p class="text-base-content/70 mt-2 text-sm">
-      track countdowns, winnings, and complete draw history
-    </p>
   </header>
 
   <CountdownCards {now} />

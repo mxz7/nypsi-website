@@ -89,12 +89,15 @@ export type LotteryHistoryEntry = {
   date: Date;
   type: LotteryType;
   winnerId: string | null;
-  winner: {
-    id: string;
-    username: string;
-  } | null;
+  winner:
+    | {
+        id: string;
+        username: string;
+      }
+    | string;
   winnerTickets: number;
   totalTickets: number;
+  totalWin: number;
 };
 
 export type LotteryHistoryResult = {
@@ -136,10 +139,16 @@ export const getLotteryHistory = query(lotteryHistorySchema, async (page) => {
         winnerId: true,
         winnerTickets: true,
         totalTickets: true,
+        totalWin: true,
         winner: {
           select: {
             id: true,
             lastKnownUsername: true,
+            Preferences: {
+              select: {
+                leaderboards: true,
+              },
+            },
           },
         },
       },
@@ -149,20 +158,31 @@ export const getLotteryHistory = query(lotteryHistorySchema, async (page) => {
   const result: LotteryHistoryResult = {
     page,
     totalPages: Math.max(1, Math.ceil(totalCount / take)),
-    draws: draws.map((draw) => ({
-      id: draw.id,
-      date: draw.date,
-      type: draw.type,
-      winnerId: draw.winnerId,
-      winner: draw.winner
-        ? {
-            id: draw.winner.id,
-            username: draw.winner.lastKnownUsername,
-          }
-        : null,
-      winnerTickets: Number(draw.winnerTickets),
-      totalTickets: Number(draw.totalTickets),
-    })),
+    draws: draws.map((draw) => {
+      let winner: LotteryHistoryEntry["winner"];
+
+      if (!draw.winner) {
+        winner = "unknown";
+      } else if (!draw.winner?.Preferences?.leaderboards) {
+        winner = "hidden";
+      } else {
+        winner = {
+          id: draw.winner.id,
+          username: draw.winner.lastKnownUsername,
+        };
+      }
+
+      return {
+        id: draw.id,
+        date: draw.date,
+        type: draw.type,
+        winnerId: draw.winnerId,
+        winner: winner,
+        winnerTickets: Number(draw.winnerTickets),
+        totalTickets: Number(draw.totalTickets),
+        totalWin: Number(draw.totalWin),
+      };
+    }),
   };
 
   await lotteryHistoryCache.set(page.toString(), result);

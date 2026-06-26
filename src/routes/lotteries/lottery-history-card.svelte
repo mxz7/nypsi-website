@@ -2,6 +2,7 @@
   import { getUserLocale } from "$lib/api/locale.remote";
   import type { LotteryChartRange, LotteryHistoryResult } from "$lib/api/lottery.remote";
   import Card from "$lib/components/ui/Card.svelte";
+  import { formatNumberPretty } from "$lib/functions/string";
   import { History } from "@lucide/svelte";
 
   interface Props {
@@ -56,15 +57,23 @@
                       })}
                     </p>
 
-                    {#if draw.winner}
+                    {#if typeof draw.winner === "string"}
+                      <p class="text-base-content/70 mt-1 text-sm">
+                        {#if draw.winner === "unknown"}
+                          winner not recorded
+                        {:else}
+                          <a class="link link-primary" href="/wiki/economy/user-settings/hidden"
+                            >[hidden]</a
+                          >
+                        {/if}
+                      </p>
+                    {:else}
                       <p class="mt-1 text-sm">
                         winner:
                         <a class="link link-primary" href="/users/{draw.winner.id}"
                           >{draw.winner.username}</a
                         >
                       </p>
-                    {:else}
-                      <p class="text-base-content/70 mt-1 text-sm">no winner recorded</p>
                     {/if}
                   </div>
                 </article></td
@@ -72,11 +81,14 @@
 
               <td>
                 <dl class="ml-auto grid w-fit grid-cols-2 gap-x-4 gap-y-1 text-sm lg:text-right">
+                  <dt class="text-base-content/60">winnings</dt>
+                  <dd class="font-semibold text-white">${formatNumberPretty(draw.totalWin)}</dd>
+
                   <dt class="text-base-content/60">winning tickets</dt>
                   <dd class="font-semibold text-white">{draw.winnerTickets.toLocaleString()}</dd>
 
-                  <dt class="text-base-content/60">total pool</dt>
-                  <dd class="font-semibold text-white">${draw.totalTickets.toLocaleString()}</dd>
+                  <dt class="text-base-content/60">total tickets</dt>
+                  <dd class="font-semibold text-white">{draw.totalTickets.toLocaleString()}</dd>
                 </dl>
               </td>
             </tr>
