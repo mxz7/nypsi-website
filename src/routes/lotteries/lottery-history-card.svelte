@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getUserLocale } from "$lib/api/locale.remote";
   import type { LotteryChartRange, LotteryHistoryResult } from "$lib/api/lottery.remote";
   import Card from "$lib/components/ui/Card.svelte";
   import { History } from "@lucide/svelte";
@@ -10,6 +11,8 @@
   }
 
   let { historyData, currentPage, range }: Props = $props();
+
+  const locale = await getUserLocale();
 </script>
 
 <Card mode="section" class="mx-auto w-full max-w-6xl overflow-x-auto">
@@ -35,14 +38,16 @@
                   <div>
                     <header class="mb-1 flex items-center gap-2">
                       <h3 class="text-lg font-bold text-white">draw #{draw.id.toLocaleString()}</h3>
-                      <span
-                        class="badge {draw.type === 'superdraw'
-                          ? 'badge-warning badge-outline'
-                          : 'badge-primary badge-outline'}">{draw.type}</span
-                      >
+                      {#if draw.type === "superdraw"}
+                        <span class="badge badge-warning badge-outline">superdraw</span>
+                      {/if}
                     </header>
 
-                    <p class="text-base-content/70 text-sm">{new Date(draw.date).toUTCString()}</p>
+                    <p class="text-base-content/70 text-sm">
+                      {new Date(draw.date).toLocaleDateString(locale)}, {new Date(
+                        draw.date,
+                      ).toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" })}
+                    </p>
 
                     {#if draw.winner}
                       <p class="mt-1 text-sm">
