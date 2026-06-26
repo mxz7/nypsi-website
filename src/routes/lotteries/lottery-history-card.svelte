@@ -11,8 +11,6 @@
   }
 
   let { historyData, currentPage, range }: Props = $props();
-
-  const locale = await getUserLocale();
 </script>
 
 <Card mode="section" class="mx-auto w-full max-w-6xl overflow-x-auto">
@@ -28,6 +26,12 @@
   {:else}
     <div class="overflow-x-auto">
       <table class="table-sm table w-full">
+        <thead class="sr-only">
+          <tr>
+            <th class="w-1/2">draw</th>
+            <th class="w-1/2">stats</th>
+          </tr>
+        </thead>
         <tbody>
           {#each historyData.draws as draw}
             <tr class="border-base-300 border-b last:border-b-0">
@@ -44,9 +48,12 @@
                     </header>
 
                     <p class="text-base-content/70 text-sm">
-                      {new Date(draw.date).toLocaleDateString(locale)}, {new Date(
+                      {new Date(draw.date).toLocaleDateString(await getUserLocale())}, {new Date(
                         draw.date,
-                      ).toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" })}
+                      ).toLocaleTimeString(await getUserLocale(), {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </p>
 
                     {#if draw.winner}
@@ -60,15 +67,17 @@
                       <p class="text-base-content/70 mt-1 text-sm">no winner recorded</p>
                     {/if}
                   </div>
+                </article></td
+              >
 
-                  <dl class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm lg:text-right">
-                    <dt class="text-base-content/60">winning tickets</dt>
-                    <dd class="font-semibold text-white">{draw.winnerTickets.toLocaleString()}</dd>
+              <td>
+                <dl class="ml-auto grid w-fit grid-cols-2 gap-x-4 gap-y-1 text-sm lg:text-right">
+                  <dt class="text-base-content/60">winning tickets</dt>
+                  <dd class="font-semibold text-white">{draw.winnerTickets.toLocaleString()}</dd>
 
-                    <dt class="text-base-content/60">total pool</dt>
-                    <dd class="font-semibold text-white">${draw.totalTickets.toLocaleString()}</dd>
-                  </dl>
-                </article>
+                  <dt class="text-base-content/60">total pool</dt>
+                  <dd class="font-semibold text-white">${draw.totalTickets.toLocaleString()}</dd>
+                </dl>
               </td>
             </tr>
           {/each}
