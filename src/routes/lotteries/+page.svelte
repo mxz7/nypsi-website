@@ -1,10 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import {
-    getLotteryHistory,
-    getLotteryWinningsChart,
-    type LotteryChartRange,
-  } from "$lib/api/lottery.remote";
+  import { type LotteryChartRange } from "$lib/api/lottery.remote";
   import Main from "$lib/components/ui/Main.svelte";
   import { onDestroy, onMount } from "svelte";
   import CountdownCards from "./countdown-cards.svelte";
@@ -42,9 +38,6 @@
 
   const range = $derived(getRangeParam(page.url.searchParams.get("range")));
   const currentPage = $derived(getPageParam(page.url.searchParams.get("page")));
-
-  const chartData = $derived(await getLotteryWinningsChart(range));
-  const historyData = $derived(await getLotteryHistory(currentPage));
 </script>
 
 <svelte:head>
@@ -58,6 +51,6 @@
   </header>
 
   <CountdownCards {now} />
-  <WinningsChartCard {range} {chartData} />
-  <LotteryHistoryCard {historyData} {currentPage} {range} />
+  <WinningsChartCard {range} />
+  <LotteryHistoryCard {currentPage} {range} />
 </Main>

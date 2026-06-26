@@ -1,17 +1,18 @@
 <script lang="ts">
   import { getUserLocale } from "$lib/api/locale.remote";
-  import type { LotteryChartRange, LotteryHistoryResult } from "$lib/api/lottery.remote";
+  import { getLotteryHistory, type LotteryChartRange } from "$lib/api/lottery.remote";
   import Card from "$lib/components/ui/Card.svelte";
   import { formatNumberPretty } from "$lib/functions/string";
   import { History } from "@lucide/svelte";
 
   interface Props {
-    historyData: LotteryHistoryResult;
     currentPage: number;
     range: LotteryChartRange;
   }
 
-  let { historyData, currentPage, range }: Props = $props();
+  let { currentPage, range }: Props = $props();
+
+  const historyData = $derived(await getLotteryHistory(currentPage));
 </script>
 
 <Card mode="section" class="mx-auto w-full max-w-6xl overflow-x-auto">

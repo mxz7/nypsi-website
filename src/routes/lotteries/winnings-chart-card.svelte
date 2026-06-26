@@ -1,17 +1,16 @@
 <script lang="ts">
-  import type { LotteryChartRange } from "$lib/api/lottery.remote";
+  import { getLotteryWinningsChart, type LotteryChartRange } from "$lib/api/lottery.remote";
   import Chart from "$lib/components/Chart.svelte";
   import Card from "$lib/components/ui/Card.svelte";
   import { formatNumberPretty } from "$lib/functions/string";
   import { Gem } from "@lucide/svelte";
-  import type { ChartConfiguration, ChartOptions } from "chart.js";
+  import type { ChartOptions } from "chart.js";
 
   interface Props {
     range: LotteryChartRange;
-    chartData: ChartConfiguration;
   }
 
-  let { range, chartData }: Props = $props();
+  let { range }: Props = $props();
 
   const lotteryChartOptions: ChartOptions = {
     plugins: {
@@ -65,6 +64,8 @@
     { value: "1y", label: "1 year" },
     { value: "all", label: "all time" },
   ] as const;
+
+  const chartData = $derived(await getLotteryWinningsChart(range));
 </script>
 
 <Card mode="section" class="mx-auto w-full max-w-6xl">
