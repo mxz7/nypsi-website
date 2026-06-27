@@ -109,7 +109,7 @@
         <span class="hidden lg:inline">
           {["solved", "wins"].includes(descriptor)
             ? descriptor
-            : pluralize(descriptor, Number(value) || 1, descriptorPlural)}</span
+            : pluralize(descriptor, Number(value.replaceAll(",", "")) || 1, descriptorPlural)}</span
         >
       {/if}
     </td>
