@@ -79,7 +79,9 @@
       <span>next lottery</span>
     </h2>
 
-    <p class="mb-1 text-3xl font-bold text-white tabular-nums">{MStoTime(nextLotteryMs, true)}</p>
+    <p class="mb-1 text-3xl font-bold text-white tabular-nums">
+      {MStoTime(nextLotteryMs, { long: true, showSeconds: false })}
+    </p>
     <p class="text-base-content/60 mt-2 text-xs">every 8 hours</p>
   </Card>
 
@@ -94,8 +96,8 @@
       <span>next superdraw</span>
     </h2>
 
-    <p class="mb-1 text-3xl font-black text-amber-300 tabular-nums">
-      {MStoTime(nextSuperdrawMs, true)}
+    <p class="mb-1 text-3xl font-extrabold text-amber-300 tabular-nums">
+      {MStoTime(nextSuperdrawMs, { long: true, showSeconds: false })}
     </p>
     <p class="mt-auto text-xs text-amber-100/70">every {superdrawScheduleText}</p>
   </Card>

@@ -1,4 +1,14 @@
-export function MStoTime(ms: number, long = false) {
+interface MStoTimeConfig {
+  long?: boolean;
+  showSeconds?: boolean;
+}
+
+export function MStoTime(
+  ms: number,
+  config: MStoTimeConfig = { showSeconds: true, long: false },
+): string {
+  const { long, showSeconds } = config;
+
   const days = Math.floor(ms / (24 * 60 * 60 * 1000));
   const daysms = ms % (24 * 60 * 60 * 1000);
   const hours = Math.floor(daysms / (60 * 60 * 1000));
@@ -36,7 +46,7 @@ export function MStoTime(ms: number, long = false) {
     }
   }
 
-  if (sec > 0) {
+  if (sec > 0 && showSeconds) {
     output = output + sec;
     if (long) {
       output += ` second${sec == 1 ? "" : "s"} `;
