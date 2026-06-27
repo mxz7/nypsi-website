@@ -311,6 +311,50 @@ export default {
   },
   "11": {
     started: new Date("2025-12-27"),
+    ended: new Date("2026-06-27"),
+    winners: [
+      {
+        id: "282930932074414081",
+        username: "bharati2",
+        value: "$94,233,893,526",
+      },
+      {
+        id: "601637842103304195",
+        username: "ryn2valid",
+        value: "$62,080,463,980",
+      },
+      {
+        id: "1258264640480088068",
+        username: "ummmmm9274747",
+        value: "$60,048,367,828",
+      },
+      {
+        id: "1249263830522134603",
+        username: "argjenti._.",
+        value: "$24,644,540,944",
+      },
+      { id: "846019969753415711", username: "blackalice1st", value: "$16,195,958,991" },
+      { id: "1349366095617982526", username: "typhial.", value: "$9,860,159,776" },
+      { id: "901750812550774834", username: "requimm", value: "$8,210,054,079" },
+      { id: "905408146128908299", username: "stupidityat_itsfinest", value: "$6,221,079,847" },
+      { id: "424923021585940500", username: "elleussy", value: "$4,352,865,062" },
+      { id: "672793821850894347", username: "m.axz", value: "$3,996,094,035" },
+    ],
+    topGuilds: [
+      { id: "xo", value: "236" },
+      { id: "MTF", value: "163" },
+      { id: "67", value: "56" },
+      { id: "OGs", value: "37" },
+      { id: "supernova", value: "8" },
+      { id: "nothing", value: "7" },
+      { id: "oresama", value: "6" },
+      { id: "albanians", value: "4" },
+      { id: "stupidville", value: "4" },
+      { id: "EFN", value: "4" },
+    ],
+  },
+  "12": {
+    started: new Date("2026-06-27"),
   },
 } as {
   [key: string]: {
