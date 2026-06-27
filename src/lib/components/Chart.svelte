@@ -1,8 +1,14 @@
 <script lang="ts">
-  import { Chart, registerables, type ChartConfiguration, type ChartOptions } from "chart.js";
-  import { onMount } from "svelte";
+  import {
+    Chart as ChartJS,
+    registerables,
+    type ChartConfiguration,
+    type ChartOptions,
+  } from "chart.js";
+  import { onDestroy, onMount } from "svelte";
 
   let chartCanvas: HTMLCanvasElement = $state();
+  let chartInstance: ChartJS | null = $state(null);
 
   interface Props {
     chartData: ChartConfiguration;
@@ -11,13 +17,26 @@
 
   let { chartData, chartOptions = {} }: Props = $props();
 
-  Chart.register(...registerables);
+  ChartJS.register(...registerables);
 
   onMount(() => {
-    new Chart(chartCanvas, {
+    chartInstance = new ChartJS(chartCanvas, {
       ...chartData,
       options: chartOptions,
     });
+  });
+
+  $effect(() => {
+    if (!chartInstance) return;
+
+    chartInstance.data = chartData.data;
+    chartInstance.options = chartOptions;
+    chartInstance.update();
+  });
+
+  onDestroy(() => {
+    chartInstance?.destroy();
+    chartInstance = null;
   });
 </script>
 

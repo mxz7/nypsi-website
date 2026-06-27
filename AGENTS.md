@@ -60,6 +60,10 @@ Use `RedisCache<T>` from [`src/lib/server/cache.ts`](src/lib/server/cache.ts) â€
 - `+page.server.ts` â€” server-only; use for authenticated/private data; access `locals.auth`
 - Cascade via `parent()` to get data from layout loads
 
+### Components
+
+Use kebab-case naming for component files.
+
 ### Auth
 
 - Session cookie: `auth_session`; validated by [`src/lib/server/auth/sessions.ts`](src/lib/server/auth/sessions.ts)
