@@ -83,3 +83,15 @@ The client is generated to a custom path. Import from the generated location, no
 import prisma from "$lib/server/database";
 // NOT: import { PrismaClient } from "@prisma/client"
 ```
+
+## Further Knowledge and Helping Future Agents
+
+Check [.agents/readme.md](.agents/readme.md) first – it's a maintained index of the other files in that directory. If a file there covers what you're working on, read it before searching the codebase yourself.
+
+If you dedicate time to searching the codebase for non-obvious information, add your findings to an existing file in `.agents/` (if the topic overlaps) or create a new one and add it to the index in `readme.md`. Keep explanations brief and to the point.
+
+Update these files if you are changing details they describe, and correct or remove notes you notice are stale/wrong even if unrelated to your current task.
+
+This directory is committed to the repo and shared across any agent/tool working on it – prefer it over a private or tool-specific memory system for anything durable that future agents/contributors should see.
+
+You may also update this AGENTS.md file directly if you believe something is wrong, shouldn't be here, should be added or if it should be moved to the `.agents` folder.
