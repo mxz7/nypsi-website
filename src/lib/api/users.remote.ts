@@ -326,7 +326,7 @@ export const getActiveTag = query(z.string(), async (userId) => {
     select: { tagId: true },
   });
 
-  await activeTagCache.set(userId, { value: activeTag.tagId || null });
+  await activeTagCache.set(userId, { value: activeTag?.tagId || null });
 
-  return activeTag.tagId || null;
+  return activeTag?.tagId || null;
 });
