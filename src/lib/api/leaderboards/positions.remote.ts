@@ -135,20 +135,21 @@ const knownPositionQueries: Record<
   },
 
   lottery: async (userId) => {
-    const rows = await prisma.$queryRaw<{ position: bigint; progress: bigint }[]>`
-      WITH ranked AS (
-        SELECT "userId", progress,
-        ROW_NUMBER() OVER (ORDER BY progress DESC) AS position
-        FROM "Achievements"
-        WHERE (
-          (completed = false AND "achievementId" LIKE 'lucky_%')
-          OR (completed = true AND "achievementId" = 'lucky_v')
-        )
+    const rows = await prisma.$queryRaw<{ position: bigint; wins: bigint }[]>`
+      WITH win_counts AS (
+        SELECT "winnerId" as "userId", COUNT(*) as wins
+        FROM "Lottery"
+        WHERE "winnerId" IS NOT NULL
+        GROUP BY "winnerId"
+      ),
+      ranked AS (
+        SELECT "userId", wins,
+        ROW_NUMBER() OVER (ORDER BY wins DESC) AS position
+        FROM win_counts
       )
-      SELECT position, progress
+      SELECT position, wins
       FROM ranked
       WHERE "userId" = ${userId}
-      ORDER BY position ASC
       LIMIT 1
     `;
 
@@ -157,7 +158,7 @@ const knownPositionQueries: Record<
 
     return {
       position: toNumber(row.position),
-      value: toNumber(row.progress).toLocaleString(),
+      value: toNumber(row.wins).toLocaleString(),
     };
   },
 

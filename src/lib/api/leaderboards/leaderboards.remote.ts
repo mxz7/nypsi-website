@@ -179,45 +179,52 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   lottery: async () => {
-    return await prisma.achievements
-      .findMany({
-        where: {
-          OR: [
-            { AND: [{ completed: false }, { achievementId: { startsWith: "lucky_" } }] },
-            { AND: [{ completed: true }, { achievementId: { equals: "lucky_v" } }] },
-          ],
-        },
-        select: {
-          userId: true,
-          progress: true,
-          user: {
-            select: {
-              id: true,
-              lastKnownUsername: true,
-              Preferences: { select: { leaderboards: true } },
-              Tags: { select: { tagId: true }, where: { selected: true } },
-            },
-          },
-        },
-        orderBy: { progress: "desc" },
-        take: 100,
-      })
-      .then((r) => {
+    return await prisma.$queryRaw`
+      WITH win_counts AS (
+        SELECT "winnerId" as "userId", COUNT(*) as wins
+        FROM "Lottery"
+        WHERE "winnerId" IS NOT NULL
+        GROUP BY "winnerId"
+      )
+      SELECT
+        u.id as "userId",
+        u."lastKnownUsername",
+        COALESCE(wc.wins, 0) as wins,
+        "Preferences"."leaderboards" as privacy,
+        "Tags"."tagId"
+      FROM "User" u
+      LEFT JOIN win_counts wc ON u.id = wc."userId"
+      LEFT JOIN "Preferences" ON "Preferences"."userId" = u.id
+      LEFT JOIN "Tags" ON "Tags"."userId" = u.id AND "Tags"."selected" = true
+      WHERE COALESCE(wc.wins, 0) > 0
+      ORDER BY wins DESC
+      LIMIT 100
+    `.then(
+      (
+        r: {
+          userId: string;
+          lastKnownUsername: string;
+          wins: bigint;
+          privacy: boolean;
+          tagId: string | null;
+        }[],
+      ) => {
         let count = 0;
         return r.map((x) => {
           count++;
-          const user = x.user.lastKnownUsername.split("#")[0];
+          const user = x.lastKnownUsername.split("#")[0];
           return {
-            value: x.progress.toLocaleString(),
+            value: Number(x.wins).toLocaleString(),
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
-              tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
+              username: !x.privacy ? user : "[hidden]",
+              id: !x.privacy ? x.userId : undefined,
+              tag: !x.privacy && x.tagId ? x.tagId : null,
             },
             position: count,
           };
         });
-      });
+      },
+    );
   },
 
   commands: async () => {
