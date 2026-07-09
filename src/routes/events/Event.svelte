@@ -97,6 +97,7 @@
       {/if}
     {:else}
       <span>
+        total:
         {Math.round(progress.current).toLocaleString()}
       </span>
     {/if}

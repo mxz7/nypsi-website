@@ -1,5 +1,5 @@
-import { getEventData } from "$lib/functions/items.js";
 import { getAuthedUser } from "$lib/api/auth.remote";
+import { getEventData } from "$lib/functions/items.js";
 import {
   getEvent,
   getEventProgress,
@@ -31,7 +31,7 @@ export async function load({ locals, fetch, depends }) {
   }
 
   const totalContribution = getEventProgress(event.id, false).then((value) =>
-    Math.min(value, Number(event.target)),
+    event.target ? Math.min(value, Number(event.target)) : value,
   );
 
   return {
