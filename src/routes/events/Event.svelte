@@ -113,7 +113,7 @@
       </p>
     {:else if event.expiresAt}
       <p>
-        ends {#if event.expiresAt.getTime() - Date.now() > ms("1 day")}
+        ends {#if new Date(event.expiresAt).getTime() - Date.now() > ms("1 day")}
           in {daysUntil(event.expiresAt)} {pluralize("day", daysUntil(event.expiresAt))}
         {:else}
           at {event.expiresAt.toLocaleTimeString()}
