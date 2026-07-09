@@ -7,6 +7,8 @@
 
 captchas are used to help prevent people from automating commands on nypsi and gaining an unfair advantage over other players.
 
+you must complete the captcha to be unlocked and continue using nypsi
+
 <DocsHeader header='h2' text="why did i get a captcha?" />
 
 often captchas are given randomly. there is a lot going on behind the scenes to help detect potential automation, including simply giving captchas randomly.
