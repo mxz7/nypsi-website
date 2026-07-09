@@ -30,16 +30,15 @@ prisma/schema.prisma       # DB schema — edit here
 src/generated/prisma/      # Generated Prisma client — DO NOT edit manually
 ```
 
-## Key Conventions
+## Skills — Further Knowledge and Helping Future Agents
 
-See [.agents/conventions.md](.agents/conventions.md) and [.agents/auth.md](.agents/auth.md) for remote function patterns, caching, data loading, Svelte 5 usage, Prisma client import, and auth details.
+Non-obvious, durable knowledge about this project is captured as **skills** under [`.agents/skills/`](.agents/skills/), following the [Agent Skills](https://agentskills.io) open standard: each skill is a directory containing a `SKILL.md` with YAML frontmatter (`name`, `description`) plus instructions. Skills are discovered automatically — no need to maintain an index here.
 
-## Further Knowledge and Helping Future Agents
+**This is an evolving system, not a fixed reference.** If you spend time digging up non-obvious information (from the codebase, docs, or the user) that a future agent would benefit from, capture it as a skill:
 
-Check [.agents/readme.md](.agents/readme.md) first – it's a maintained index of the other files in that directory. If a file there covers what you're working on, read it before searching the codebase yourself.
-
-If you dedicate time to searching the codebase for non-obvious information, add your findings to an existing file in `.agents/` (if the topic overlaps) or create a new one and add it to the index in `readme.md`. Keep explanations brief and to the point.
-
-Update these files if you are changing details they describe, and correct or remove notes you notice are stale/wrong even if unrelated to your current task.
+- If it clearly overlaps with an existing skill, update that skill's `SKILL.md` instead of creating a duplicate.
+- Otherwise, create a new directory under `.agents/skills/<skill-name>/SKILL.md` with a clear `name` and a `description` that states what it covers and when to use it (so it surfaces for the right future tasks).
+- Update a skill immediately if you change something it describes, and correct or remove notes you notice are stale/wrong even if unrelated to your current task.
+- Keep each `SKILL.md` focused and brief; split out `references/`, `scripts/`, or `assets/` subdirectories inside the skill folder if it grows large.
 
 This directory is committed to the repo and shared across any agent/tool working on it – prefer it over a private or tool-specific memory system for anything durable that future agents/contributors should see.

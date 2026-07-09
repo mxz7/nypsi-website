@@ -1,3 +1,8 @@
+---
+name: architecture
+description: UI architecture patterns for nypsi-website, e.g. how to fetch guild data for the user profile page tabs. Use when working on the user profile page or deciding how a UI section should fetch its data.
+---
+
 # Architecture Notes
 
 ## User Profile Tabs

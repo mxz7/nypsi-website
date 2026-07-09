@@ -1,3 +1,8 @@
+---
+name: conventions
+description: Covers remote function patterns (query/form + Zod + Redis caching), the BigInt caching pitfall, preferring remote functions over API routes, data loading (+page.ts vs +page.server.ts), component naming, Svelte 5 runes usage, and the custom Prisma client import path. Use for any work involving src/lib/api/*.remote.ts, caching, data loading, components, or Prisma.
+---
+
 # Conventions
 
 ## Remote Functions (`src/lib/api/*.remote.ts`)
@@ -16,7 +21,7 @@ export const getUserId = query(z.string().toLowerCase(), async (username) => {
 
 ## Caching — BigInt pitfall
 
-Use `RedisCache<T>` from [`src/lib/server/cache.ts`](../src/lib/server/cache.ts) — it handles BigInt serialization internally. Do **not** call `redisSerialize` / `redisDeserialize` directly or use plain `JSON.stringify` on Prisma results, as both will throw on `BigInt` fields.
+Use `RedisCache<T>` from [`src/lib/server/cache.ts`](../../../src/lib/server/cache.ts) — it handles BigInt serialization internally. Do **not** call `redisSerialize` / `redisDeserialize` directly or use plain `JSON.stringify` on Prisma results, as both will throw on `BigInt` fields.
 
 ## API Routes (`src/routes/api/`)
 
