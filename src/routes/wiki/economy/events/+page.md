@@ -16,16 +16,16 @@ events will end when the target is hit, or when the time runs out, depending on 
 
 <DocsHeader header='h2' text="event rewards" />
 
-| group      | reward                                                                             |
-| ---------- | ---------------------------------------------------------------------------------- |
-| #1         | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> guaranteed              |
-| #1 - #5    | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
-| #1 - #10   | 200x <ItemModal item="dabloon">dabloons</ItemModal> randomly given to group        |
-| top 2.5%   | event achievement progress                                                         |
-| top 5%     | 5x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
-| top 10%    | 7x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
-| top 50%    | 5x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
-| bottom 50% | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| group      | reward                                                                              |
+| ---------- | ----------------------------------------------------------------------------------- |
+| #1         | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> guaranteed               |
+| #1 - #5    | 7x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group  |
+| #1 - #10   | 2,000x <ItemModal item="dabloon">dabloons</ItemModal> randomly given to group       |
+| top 2.5%   | event achievement progress                                                          |
+| top 5%     | 10x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| top 10%    | 15x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| top 50%    | 10x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| bottom 50% | 7x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group  |
 
 **randomly given to group** means that x amount of pandora boxes will be given to x random users in that group.
 
