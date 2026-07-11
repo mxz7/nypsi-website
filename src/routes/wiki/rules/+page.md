@@ -35,6 +35,10 @@ there's a command for that you imbecile.
 creating orders/offers with a ridiculous value with the intent to disrupt the value of a
 given item is not allowed.
 
+<DocsHeader header='h3' text="account sharing" />
+
+account sharing is prohibited, it's a big security risk for players, and a player's profile is theirs and theirs only.
+
 <DocsHeader header='h3' text="don't be a prick" />
 
 this gives staff leniency to ban for things that may not necessarily be on here but are still
