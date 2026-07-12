@@ -6,7 +6,7 @@
 
 <DocsTemplate title='bank' description="learn how the bank works in nypsi: boost bank size with stolen credit cards, keep money safe, level up faster, and master bankrob strategies." />
 
-your bank is the little '💳' icon in `$balance` and `$profile`. it is used for levelling up.
+your bank is the little '💳' icon in `$balance` and `$profile`. it is used for levelling up. to level up you will have to deposit money into your bank (`$depost`), you can also withdraw any extra money from your bank if needed (`$withdraw`).
 
 <DocsHeader header='h2' text="increasing the size of your bank" />
 
