@@ -21,12 +21,12 @@ events will end when the target is hit, or when the time runs out, depending on 
 | #1         | 3x <ItemModal item="pandora_box">pandora's box</ItemModal> guaranteed               |
 | #1 - #5    | 7x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group  |
 | #1 - #10   | 2,000x <ItemModal item="dabloon">dabloons</ItemModal> randomly given to group       |
-| top 2.5%   | event achievement progress                                                          |
 | top 5%     | 10x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
+| top 7.5%   | event achievement progress                                                          |
 | top 10%    | 15x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
 | top 50%    | 10x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group |
 | bottom 50% | 7x <ItemModal item="pandora_box">pandora's box</ItemModal> randomly given to group  |
 
 **randomly given to group** means that x amount of pandora boxes will be given to x random users in that group.
 
-example: 3x boxes will be given to 3 members **randomly** chosen from the top 50% group.
+example: 10x boxes will be given to 3 members **randomly** chosen from the top 50% group.
