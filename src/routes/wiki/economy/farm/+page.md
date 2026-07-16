@@ -34,6 +34,14 @@ fertilising is the exact same story. except they only need to be fertilised arou
 
 to stay efficient, don't fertilise until your plants are unhealthy, you could be wasting fertiliser!
 
+<DocsHeader header='h2' text="jeremy" />
+
+<ItemModal item="jeremy">jeremy</ItemModal> (also known as `clarkson`) is a non-stackable farm booster that lasts for 24 hours. while active, jeremy automatically waters your entire farm and harvests all claimable produce once per hour.
+
+automatic harvests use the usual farm calculations, including farm output boosters and upgrades, achievements, and progress for active farming events. your farm will show **“👨🏼‍🌾 jeremy is hard at work”** while the booster is active.
+
+when jeremy expires, the normal booster-expiry notification includes an itemised summary of everything he harvested.
+
 <DocsHeader header='h2' text="farm upgrades" />
 
 there are certain items that you can use to upgrade farms. these upgrades apply for all plants of a single plant type.
