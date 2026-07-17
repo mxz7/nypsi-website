@@ -8,10 +8,12 @@ SvelteKit website for [nypsi.xyz](https://nypsi.xyz), a Discord bot platform. Us
 pnpm dev            # development server
 pnpm build          # production build
 pnpm check          # type-check (svelte-check + tsc)
-pnpm lint           # prettier + eslint check
+pnpm checks         # full checks
 pnpm format         # auto-format
 npx prisma generate # regenerate Prisma client after schema changes
 ```
+
+Run `pnpm checks` after making changes to ensure no linting or formatting errors.
 
 ## Architecture
 
