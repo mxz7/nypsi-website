@@ -9,7 +9,26 @@ export async function load({ parent }) {
   return {
     mutes: await getMutes(user.id),
     bans: await getBans(user.id),
+    nypsiPunishments: await getNypsiPunishments(user.id),
   };
+}
+
+async function getNypsiPunishments(userId: string) {
+  return prisma.punishment.findMany({
+    where: {
+      userId,
+      endedAt: null,
+      OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+    },
+    select: {
+      id: true,
+      type: true,
+      reason: true,
+      createdAt: true,
+      expiresAt: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
 }
 
 async function getMutes(userId: string): Promise<

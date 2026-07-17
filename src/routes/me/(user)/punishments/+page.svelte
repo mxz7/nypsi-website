@@ -1,5 +1,6 @@
 <script lang="ts">
   import Punishment from "./Punishment.svelte";
+  import NypsiPunishment from "./nypsi-punishment.svelte";
 
   let { data } = $props();
 </script>
@@ -10,7 +11,7 @@
 
 <h1 class="text-center text-3xl font-bold text-white">your punishments</h1>
 
-{#if data.mutes.length === 0 && data.bans.length === 0}
+{#if data.mutes.length === 0 && data.bans.length === 0 && data.nypsiPunishments.length === 0}
   <p class="mt-4">you have no active punishments. yay!</p>
 {:else}
   {#if data.mutes.length > 0}
@@ -39,6 +40,22 @@
             name={ban.guild.name ?? ban.guildId}
             icon={ban.guild.icon}
             expires={new Date(ban.expire)}
+          />
+        {/each}
+      </div>
+    </section>
+  {/if}
+
+  {#if data.nypsiPunishments.length > 0}
+    <section class="mt-4">
+      <h2 class="text-xl font-semibold text-white">nypsi bot punishments</h2>
+
+      <div class="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
+        {#each data.nypsiPunishments as punishment}
+          <NypsiPunishment
+            type={punishment.type}
+            reason={punishment.reason}
+            expires={punishment.expiresAt ? new Date(punishment.expiresAt) : undefined}
           />
         {/each}
       </div>
