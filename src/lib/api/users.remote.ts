@@ -4,6 +4,7 @@ import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
 import { error } from "@sveltejs/kit";
 import z from "zod";
+import { getAuthedUser } from "./auth.remote";
 import { checkPrivacyHelper, getUserIdHelper } from "./helpers";
 
 type UsernameLookupCacheData = { value: { id: string; lastKnownUsername: string } | null };
@@ -15,6 +16,7 @@ type InventoryCacheData = Awaited<ReturnType<typeof getInventoryFromDatabase>>;
 type MuseumCacheData = Awaited<ReturnType<typeof getMuseumFromDatabase>>;
 type MarriagePartnerCacheData = { value: { id: string; lastKnownUsername: string } | null };
 type ActiveTagCacheData = { value: string | null };
+type PunishmentHistoryCacheData = Awaited<ReturnType<typeof getPunishmentHistoryFromDatabase>>;
 
 const usernameToIdCache = new RedisCache<UsernameLookupCacheData>(
   RedisKey.users.USERNAME_TO_ID,
@@ -31,6 +33,10 @@ const marriagePartnerCache = new RedisCache<MarriagePartnerCacheData>(
   600,
 );
 const activeTagCache = new RedisCache<ActiveTagCacheData>(RedisKey.users.ACTIVE_TAG, 600);
+const punishmentHistoryCache = new RedisCache<PunishmentHistoryCacheData>(
+  RedisKey.users.PUNISHMENTS,
+  300,
+);
 
 export const getUserId = query<z.ZodString, ApiResult<{ id: string; username: string }>>(
   z.string().toLowerCase(),
@@ -330,3 +336,63 @@ export const getActiveTag = query(z.string(), async (userId) => {
 
   return activeTag?.tagId || null;
 });
+
+async function getPunishmentHistoryFromDatabase(userId: string, page: number) {
+  const pageSize = 25;
+  const punishments = await prisma.punishment.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+    take: pageSize + 1,
+    skip: pageSize * (page - 1),
+    select: {
+      id: true,
+      type: true,
+      reason: true,
+      createdAt: true,
+      expiresAt: true,
+      season: true,
+      endedAt: true,
+      endReason: true,
+      endNote: true,
+      moderator: {
+        select: {
+          id: true,
+          lastKnownUsername: true,
+          avatar: true,
+        },
+      },
+      endedBy: {
+        select: {
+          id: true,
+          lastKnownUsername: true,
+          avatar: true,
+        },
+      },
+    },
+  });
+
+  const hasMore = punishments.length > pageSize;
+  if (hasMore) punishments.pop();
+
+  return { punishments, hasMore };
+}
+
+export const getPunishmentHistory = query(
+  z.object({ userId: z.string(), page: z.number().int().min(1).default(1) }),
+  async ({ userId, page }) => {
+    const authedUser = await getAuthedUser();
+    if (!authedUser || authedUser.adminLevel < 1) {
+      error(403, "punishment history is only available to admins");
+    }
+
+    userId = await getUserIdHelper(userId);
+    const cacheKey = `${userId}:p${page}`;
+    const cached = await punishmentHistoryCache.get(cacheKey);
+    if (cached !== null) return cached;
+
+    const result = await getPunishmentHistoryFromDatabase(userId, page);
+    await punishmentHistoryCache.set(cacheKey, result);
+
+    return result;
+  },
+);
