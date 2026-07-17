@@ -26,7 +26,6 @@ export interface UserApiResponsexd extends BaseUserApiResponse {
   Tags: { tagId: string; selected: boolean }[];
   Leaderboards: { position: number; leaderboard: string }[];
   Achievements: { achievementId: string }[];
-  blacklisted: boolean;
   CommandUse: {
     command: string;
     uses: number;
@@ -60,7 +59,6 @@ export interface UserApiResponsexd extends BaseUserApiResponse {
     money: number;
     bank: number;
     bankStorage: number;
-    banned: number;
     netWorth: number;
     prestige: number;
     level: number;
@@ -92,7 +90,6 @@ export type BaseUserData = {
   lastKnownUsername: string;
   avatar: string;
   lastCommand: Date;
-  blacklisted: boolean;
   Premium: {
     level: number;
     embedColor: string;

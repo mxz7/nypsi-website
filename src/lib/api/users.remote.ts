@@ -103,7 +103,6 @@ function getBaseDataFromDatabase(userId: string) {
     },
     select: {
       avatar: true,
-      blacklisted: true,
       lastCommand: true,
       id: true,
       lastKnownUsername: true,

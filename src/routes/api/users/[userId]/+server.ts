@@ -51,7 +51,6 @@ export const GET = async ({ params, setHeaders, fetch }) => {
         },
         take: 1,
       },
-      blacklisted: true,
       Economy: {
         select: {
           BakeryUpgrade: {
@@ -62,7 +61,6 @@ export const GET = async ({ params, setHeaders, fetch }) => {
           },
           bank: true,
           bankStorage: true,
-          banned: true,
           dailyStreak: true,
           xp: true,
           Inventory: {
