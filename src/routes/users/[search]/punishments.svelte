@@ -73,15 +73,15 @@
     <p class="text-base-content/70 py-6 text-center text-sm">no punishments found</p>
   {:else}
     <div class="overflow-x-auto">
-      <table class="table w-full">
+      <table class="table-fixed table w-full">
         <thead>
           <tr>
-            <th>date</th>
-            <th>status</th>
-            <th>type</th>
+            <th class="w-24">date</th>
+            <th class="w-20">status</th>
+            <th class="w-28">type</th>
             <th>reason</th>
-            <th>moderator</th>
-            <th>end</th>
+            <th class="w-36">moderator</th>
+            <th class="w-52">end</th>
           </tr>
         </thead>
         <tbody>
@@ -99,7 +99,7 @@
                 <span
                   class:badge-error={punishmentStatus === "active"}
                   class:badge-warning={punishmentStatus === "expired"}
-                  class:badge-neutral={punishmentStatus === "ended"}
+                  class:badge-info={punishmentStatus === "ended"}
                   class="badge badge-soft"
                 >{punishmentStatus}</span>
               </td>
@@ -113,10 +113,10 @@
                 {/if}
               </td>
 
-              <td class="min-w-64 max-w-sm whitespace-normal">{punishment.reason}</td>
-              <td>{@render user(punishment.moderator)}</td>
+              <td class="break-words whitespace-normal">{punishment.reason}</td>
+              <td class="break-words whitespace-normal">{@render user(punishment.moderator)}</td>
 
-              <td class="min-w-48 text-sm whitespace-normal">
+              <td class="break-words text-sm whitespace-normal">
                 {#if punishment.endedAt}
                   <p>
                     {punishment.endReason ? label(punishment.endReason) : "ended"} on
