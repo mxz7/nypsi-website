@@ -26,16 +26,16 @@
     inventory,
     authedUser,
   ] = $derived(
-      await Promise.all([
-        getAchievementsRemote(),
-        getBaseData(page.params.search),
-        getAchievements(page.params.search),
-        getCommandUses(page.params.search),
-        getMarriagePartner(page.params.search),
-        getInventory(page.params.search),
-        getAuthedUser(),
-      ]),
-    );
+    await Promise.all([
+      getAchievementsRemote(),
+      getBaseData(page.params.search),
+      getAchievements(page.params.search),
+      getCommandUses(page.params.search),
+      getMarriagePartner(page.params.search),
+      getInventory(page.params.search),
+      getAuthedUser(),
+    ]),
+  );
 
   const isAdmin = $derived(Boolean(authedUser && authedUser.adminLevel > 0));
 
@@ -110,7 +110,6 @@
 
   {#if baseData.Economy}
     <StatsGrid {baseData} {lastSeen} {commandUses} {achievementCompletion} />
-
   {/if}
 
   {#if baseData.Economy || isAdmin}

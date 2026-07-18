@@ -4,9 +4,7 @@
   import Card from "$lib/components/ui/Card.svelte";
   import { Gavel } from "@lucide/svelte";
 
-  type Punishment = Awaited<
-    ReturnType<typeof getPunishmentHistory>
-  >["punishments"][number];
+  type Punishment = Awaited<ReturnType<typeof getPunishmentHistory>>["punishments"][number];
   type RelatedUser = Punishment["moderator"];
 
   let currentPage = $state(1);
@@ -100,8 +98,8 @@
                   class:badge-error={punishmentStatus === "active"}
                   class:badge-warning={punishmentStatus === "expired"}
                   class:badge-info={punishmentStatus === "ended"}
-                  class="badge badge-soft"
-                >{punishmentStatus}</span>
+                  class="badge badge-soft">{punishmentStatus}</span
+                >
               </td>
 
               <td class="text-nowrap">
@@ -113,7 +111,7 @@
                 {/if}
               </td>
 
-              <td class="break-words whitespace-normal">{punishment.reason}</td>
+              <td class="break-words whitespace-normal">{@html punishment.reasonHtml}</td>
               <td class="break-words whitespace-normal">{@render user(punishment.moderator)}</td>
 
               <td class="break-words text-sm whitespace-normal">

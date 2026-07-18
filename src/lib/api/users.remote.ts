@@ -1,5 +1,5 @@
 import { query } from "$app/server";
-import { RedisKey } from "$lib/data/constants";
+import { Constants, RedisKey } from "$lib/data/constants";
 import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
 import { error } from "@sveltejs/kit";
@@ -373,7 +373,27 @@ async function getPunishmentHistoryFromDatabase(userId: string, page: number) {
   const hasMore = punishments.length > pageSize;
   if (hasMore) punishments.pop();
 
-  return { punishments, hasMore };
+  return {
+    punishments: punishments.map((punishment) => ({
+      ...punishment,
+      reasonHtml: renderMarkdownLinks(punishment.reason),
+    })),
+    hasMore,
+  };
+}
+
+function renderMarkdownLinks(value: string) {
+  const escaped = value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+  return escaped.replace(
+    Constants.MARKDOWN_LINK_REGEX,
+    '<a href="$2" target="_blank" rel="noreferrer" class="md-link">$1</a>',
+  );
 }
 
 export const getPunishmentHistory = query(
