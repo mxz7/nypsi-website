@@ -1,39 +1,33 @@
 # syntax = docker/dockerfile:1
 
-FROM node:24-slim as base
+FROM node:24-slim AS base
+
+WORKDIR /app
+
+FROM base AS build
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV CI="true"
 
-# SvelteKit/Prisma app lives here
-WORKDIR /app
-
 # install pnpm
-RUN corepack enable pnpm && corepack install -g pnpm@11
-
-# Throw-away build stage to reduce size of final image
-FROM base as build
-
-# Install packages needed to build node modules
-RUN apt update -qq && \
-    apt install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
+RUN corepack enable pnpm
 
 # dependencies
 COPY --link .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm fetch
-RUN pnpm install -r --offline
+RUN pnpm fetch && pnpm install --offline --frozen-lockfile
 
 COPY --link prisma ./prisma
+
+RUN pnpm exec prisma generate
+
 COPY --link . .
 
 # Builds sveltekit tsconfig which prisma needs
-RUN npx svelte-kit sync
-
-RUN npx prisma generate
+RUN pnpm exec svelte-kit sync
 
 # Build llms.txt
-RUN npx tsx src/lib/build/llms.ts
+RUN pnpm exec tsx src/lib/build/llms.ts
 
 RUN pnpm run build
 RUN pnpm prune --prod
@@ -41,22 +35,22 @@ RUN pnpm prune --prod
 # Final stage for app image
 FROM base
 
-# # # Install packages needed for deployment
-RUN apt update -qq && \
-    apt install --no-install-recommends -y openssl curl && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
 # Copy built application
-COPY --from=build /app/build /app/build
-COPY --from=build /app/node_modules /app/node_modules
-COPY --from=build /app/package.json /app/package.json
+COPY --chown=node:node --from=build /app/build /app/build
+COPY --chown=node:node --from=build /app/node_modules /app/node_modules
+COPY --chown=node:node --from=build /app/package.json /app/package.json
 
 # Set production environment
 ENV NODE_ENV="production"
 ENV ADDRESS_HEADER="cf-connecting-ip"
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+  CMD ["node", "-e", "const p=process.env.PORT||3000;fetch('http://127.0.0.1:'+p+'/api/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 
+USER node
+
 ENTRYPOINT ["node"]
-CMD [ "build/index.js" ]
+CMD ["build/index.js"]
