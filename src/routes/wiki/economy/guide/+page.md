@@ -1,6 +1,7 @@
 <script>
   import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
   import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
 </script>
 
 <DocsTemplate title='basic progression guide' description="get started with nypsi's economy: claim free rewards, complete tasks and achievements, gather items with fish, hunt and mine, then sell your loot or use the market." />
@@ -46,13 +47,19 @@ to list an item for other players to buy, use `/market manage` or create a sell 
 
 the `/sell` price is often much lower than what another player will pay for a valuable crate item. check `/item` and the market before selling collectables, tools, boosters or other rare items directly to nypsi.
 
-<DocsHeader header='h2' text="keep progressing" />
+<DocsHeader header='h2' text="level up" />
 
-repeat the reward, goal, gathering and selling loop to build up money, xp, tools and useful items. as your balance grows, you can deposit money into your [bank](/wiki/economy/bank) and [level up or prestige](/wiki/economy/level) for permanent progression and better rewards.
+using economy commands earns xp. each level requires a certain amount of xp and money in your [bank](/wiki/economy/bank), and you will level up automatically once you meet both requirements. use `/profile` to check your current level and progress.
+
+deposit money with `/deposit`. higher levels require more bank space, so you will eventually need to use <ItemModal item="stolen_credit_card">stolen credit cards</ItemModal> from crates, scratch cards or other players to increase your bank capacity.
+
+levelling gives rewards along the way and every 100 levels allows you to prestige. prestiging lowers your level by 100, increases your prestige level and gives you a random permanent upgrade. **you do not lose your money or items when you prestige.**
+
+repeat the reward, goal, gathering and selling loop to build up the money and xp needed for your next level. see the [levelling guide](/wiki/economy/level) for more information about bank size, level rewards and prestige upgrades.
 
 <DocsHeader header='h2' text="what to try next" />
 
-- [lottery](/wiki/economy/lottery): voting and crates can give lottery tickets, which are entered automatically for a chance to win money.
+- [lottery](/wiki/economy/lottery): voting and crates can give <ItemModal item="lottery_ticket" trailing=",">lottery tickets</ItemModal> which are entered automatically for a chance to win money.
 - [gambling](/wiki/economy/gambling): wager money in games such as blackjack, roulette and coinflip. gambling is risky and will often only make a profit when you have a high win multiplier and use gambling boosters, so do not bet money that you need for progression.
 - [events](/wiki/economy/events): community-wide goals that reward participation and high contributors.
 - [workers](/wiki/economy/workers): buy and upgrade workers to earn money passively, then claim their earnings regularly.
