@@ -15,6 +15,8 @@ npx prisma generate # regenerate Prisma client after schema changes
 
 Run `pnpm checks` after making changes to ensure no linting or formatting errors.
 
+Use `pnpm install` for adding packages, optionally specifying `-D`, you will very rarely have to add any other fancy options
+
 ## Architecture
 
 ```
