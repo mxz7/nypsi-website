@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Design"
+  short_description: "Apply nypsi interface and table patterns"
+  default_prompt: "Use $ui-design to build this interface consistently with nypsi."

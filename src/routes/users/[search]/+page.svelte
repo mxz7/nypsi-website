@@ -2,6 +2,7 @@
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
   import { getAchievementsRemote } from "$lib/api/achievements.remote";
+  import { getAuthedUser } from "$lib/api/auth.remote";
   import {
     getAchievements,
     getBaseData,
@@ -16,8 +17,15 @@
   import StatsGrid from "./stats-grid.svelte";
   import TabHandler from "./tab-handler.svelte";
 
-  const [achievementsData, baseData, achievements, commandsData, marriagePartner, inventory] =
-    $derived(
+  const [
+    achievementsData,
+    baseData,
+    achievements,
+    commandsData,
+    marriagePartner,
+    inventory,
+    authedUser,
+  ] = $derived(
       await Promise.all([
         getAchievementsRemote(),
         getBaseData(page.params.search),
@@ -25,8 +33,11 @@
         getCommandUses(page.params.search),
         getMarriagePartner(page.params.search),
         getInventory(page.params.search),
+        getAuthedUser(),
       ]),
     );
+
+  const isAdmin = $derived(Boolean(authedUser && authedUser.adminLevel > 0));
 
   const title = $derived(`${baseData.lastKnownUsername}'s profile | nypsi`);
   const lastSeen = $derived.by(() => {
@@ -100,9 +111,13 @@
   {#if baseData.Economy}
     <StatsGrid {baseData} {lastSeen} {commandUses} {achievementCompletion} />
 
+  {/if}
+
+  {#if baseData.Economy || isAdmin}
     <TabHandler
       username={baseData.lastKnownUsername}
-      guildName={baseData.Economy.EconomyGuildMember?.guildName}
+      guildName={baseData.Economy?.EconomyGuildMember?.guildName}
+      {isAdmin}
     />
   {/if}
 </Main>

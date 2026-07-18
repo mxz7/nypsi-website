@@ -4,22 +4,30 @@
   import Guild from "./guild.svelte";
   import Inventory from "./inventory.svelte";
   import Museum from "./museum.svelte";
+  import Punishments from "./punishments.svelte";
 
   type Item = { label: string; paramValue: string };
 
   type Props = {
     username: string;
     guildName?: string;
+    isAdmin: boolean;
   };
 
-  let { username, guildName }: Props = $props();
+  let { username, guildName, isAdmin }: Props = $props();
 
-  const items: Item[] = [
-    { label: "guild", paramValue: "guild" },
-    { label: "inventory", paramValue: "inventory" },
-    { label: "museum", paramValue: "museum" },
-    { label: "achievements", paramValue: "achievements" },
-  ];
+  const items = $derived.by(() => {
+    const tabs: Item[] = [
+      { label: "guild", paramValue: "guild" },
+      { label: "inventory", paramValue: "inventory" },
+      { label: "museum", paramValue: "museum" },
+      { label: "achievements", paramValue: "achievements" },
+    ];
+
+    if (isAdmin) tabs.push({ label: "punishments", paramValue: "punishments" });
+
+    return tabs;
+  });
 
   const activeTab = $derived(
     items.find((i) => i.paramValue === page.url.searchParams.get("tab")) ||
@@ -58,4 +66,6 @@
   <Museum />
 {:else if activeTab.label === "achievements"}
   <Achievements />
+{:else if activeTab.label === "punishments"}
+  <Punishments />
 {/if}

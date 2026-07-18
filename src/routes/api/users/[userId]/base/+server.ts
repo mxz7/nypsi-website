@@ -16,7 +16,6 @@ export async function GET({ params, fetch, setHeaders }) {
     },
     select: {
       avatar: true,
-      blacklisted: true,
       lastCommand: true,
       id: true,
       lastKnownUsername: true,

@@ -15,6 +15,7 @@ export const RedisKey = {
     MARRIAGE_PARTNER: "cache:user:marriagepartner",
     INVENTORY: "cache:user:inventory",
     MUSEUM: "cache:user:museum",
+    PUNISHMENTS: "cache:user:punishments",
     PRIVACY: "cache:user:privacy",
     ACTIVE_TAG: "cache:user:activetag",
   },
