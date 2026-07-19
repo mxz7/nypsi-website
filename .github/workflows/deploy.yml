@@ -48,6 +48,9 @@ jobs:
       - name: run pnpm check
         run: pnpm run check
 
+      - name: run unit tests
+        run: pnpm test
+
   build:
     needs: checks
     runs-on: ubuntu-latest
