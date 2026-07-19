@@ -8,11 +8,11 @@ export interface PathsData {
   [key: string]: { name: string; path: string; children?: PathsData };
 }
 
-const pathsData: PathsData = {};
+export function buildDocsTree(rawPaths: string[]) {
+  const pathsData: PathsData = {};
 
-for (const path of pathsRaw) {
   const func = (path: string, node: PathsData, parent?: string) => {
-    let hasChildren = path.split("/").length > 2;
+    const hasChildren = path.split("/").length > 2;
 
     const name = path.split("/")[0];
 
@@ -39,9 +39,13 @@ for (const path of pathsRaw) {
     }
   };
 
-  if (path === "+page.md") continue;
+  for (const path of rawPaths) {
+    if (path === "+page.md" || path === "+page.svx") continue;
 
-  func(path, pathsData);
+    func(path, pathsData);
+  }
+
+  return sort(Object.values(pathsData)).asc((i) => i.name);
 }
 
-export const paths = sort(Object.values(pathsData)).asc((i) => i.name);
+export const paths = buildDocsTree(pathsRaw);
