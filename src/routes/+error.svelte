@@ -25,6 +25,13 @@
   };
 
   const copy = $derived.by(() => {
+    if (page.error?.reconnectUrl) {
+      return {
+        title: "reconnect discord",
+        description: "reconnect your Discord account to continue.",
+      };
+    }
+
     switch (status) {
       case 404:
         return {
@@ -78,7 +85,12 @@
   <p class="mx-auto mt-3 max-w-xl text-slate-300">{description}</p>
 
   <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-    <a href="/" class="btn btn-soft btn-primary btn-wide">go home</a>
+    {#if page.error?.reconnectUrl}
+      <a href={page.error.reconnectUrl} class="btn btn-primary btn-wide">reconnect discord</a>
+      <a href="/" class="btn btn-soft btn-wide">go home</a>
+    {:else}
+      <a href="/" class="btn btn-soft btn-primary btn-wide">go home</a>
+    {/if}
   </div>
 
   {#if page.error?.message && page.error.message !== description}

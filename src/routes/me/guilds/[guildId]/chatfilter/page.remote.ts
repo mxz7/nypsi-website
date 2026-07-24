@@ -3,6 +3,7 @@ import { env } from "$env/dynamic/private";
 import { getAuthedUser } from "$lib/api/auth.remote";
 import { Constants } from "$lib/data/constants";
 import { canModifyGuild } from "$lib/functions/discordapi/permissions";
+import { discordReconnectRequired } from "$lib/server/auth/discord-tokens";
 import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
 import { error, invalid, redirect } from "@sveltejs/kit";
@@ -32,8 +33,7 @@ export const createFilter = form(newFilterSchema, async (data, issue) => {
 
   const guilds = await getGuilds(authedUser, locals);
 
-  if (!guilds) error(400, "unknown guilds error");
-  if (typeof guilds === "number") error(guilds, "discord api error");
+  if (!guilds) discordReconnectRequired(url);
 
   const guild = guilds.find((g) => g.id === data.guildId);
 

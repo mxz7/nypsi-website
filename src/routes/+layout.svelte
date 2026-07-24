@@ -42,6 +42,13 @@
         }, 250);
       }
 
+      if (page.url.searchParams.get("reconnected")) {
+        params.delete("reconnected");
+        setTimeout(() => {
+          toast.success("Discord reconnected");
+        }, 250);
+      }
+
       const loginError = page.url.searchParams.get("loginerror");
       if (loginError) {
         params.delete("loginerror");

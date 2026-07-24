@@ -1,6 +1,7 @@
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
 import { getAuthedUser } from "$lib/api/auth.remote";
-import { error, redirect } from "@sveltejs/kit";
+import { discordReconnectRequired } from "$lib/server/auth/discord-tokens";
+import { redirect } from "@sveltejs/kit";
 
 export async function load({ locals, url }) {
   const authedUser = await getAuthedUser();
@@ -9,9 +10,7 @@ export async function load({ locals, url }) {
 
   const guilds = await getGuilds(authedUser, locals);
 
-  if (!guilds) return error(400, "unknown guilds error");
-
-  if (typeof guilds === "number") return error(guilds, "discord api error");
+  if (!guilds) discordReconnectRequired(url);
 
   return { user: authedUser, guilds };
 }

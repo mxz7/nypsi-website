@@ -1,6 +1,7 @@
 import { env } from "$env/dynamic/private";
 import { getAuthedUser } from "$lib/api/auth.remote";
 import { canModifyGuild } from "$lib/functions/discordapi/permissions";
+import { discordReconnectRequired } from "$lib/server/auth/discord-tokens";
 import prisma from "$lib/server/database.js";
 import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
 import { error, fail, redirect } from "@sveltejs/kit";
@@ -41,9 +42,7 @@ export const actions = {
 
     const guilds = await getGuilds(authedUser, locals);
 
-    if (!guilds) return error(400, "unknown guilds error");
-
-    if (typeof guilds === "number") return error(guilds, "discord api error");
+    if (!guilds) discordReconnectRequired(request.url);
 
     const guild = guilds.find((g) => g.id === params.guildId);
 
@@ -79,9 +78,7 @@ export const actions = {
 
     const guilds = await getGuilds(authedUser, locals);
 
-    if (!guilds) return error(400, "unknown guilds error");
-
-    if (typeof guilds === "number") return error(guilds, "discord api error");
+    if (!guilds) discordReconnectRequired(request.url);
 
     const guild = guilds.find((g) => g.id === params.guildId);
 

@@ -8,6 +8,7 @@ declare global {
   namespace App {
     interface Error {
       requestId?: string;
+      reconnectUrl?: string;
     }
     // interface PageData {}
     // interface Platform {}

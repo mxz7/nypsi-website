@@ -1,4 +1,5 @@
 import { dev } from "$app/environment";
+import { deleteDiscordAccessToken, getDiscordAccessToken } from "$lib/server/auth/discord-tokens";
 import prisma from "$lib/server/database";
 import redis from "$lib/server/redis";
 import type { User } from "$lib/types/Auth";
@@ -7,7 +8,7 @@ import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
 
 export async function getGuilds(user: User, locals?: any): Promise<null | DiscordGuild[]> {
-  const accessToken = await redis.get(`discord:accesstoken:${user.id}`);
+  let accessToken = await getDiscordAccessToken(user.id);
 
   if (!accessToken) return null;
 
@@ -15,20 +16,23 @@ export async function getGuilds(user: User, locals?: any): Promise<null | Discor
 
   if (cache) return JSON.parse(cache) as DiscordGuild[];
 
-  const guildsResponse = await fetch(`https://discord.com/api/v10/users/@me/guilds`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  let guildsResponse = await fetchGuilds(accessToken);
+
+  if (guildsResponse.status === 401) {
+    await deleteDiscordAccessToken(user.id);
+    accessToken = await getDiscordAccessToken(user.id);
+
+    if (!accessToken) return null;
+
+    guildsResponse = await fetchGuilds(accessToken);
+  }
 
   if (!guildsResponse.ok) {
-    if (guildsResponse.status === 401) {
-      await redis.del(`discord:accesstoken:${user.id}`);
-    }
-
     if (dev) console.error(guildsResponse);
 
-    locals.error = JSON.stringify(guildsResponse);
+    if (locals) {
+      locals.error = `discord guilds request failed: ${guildsResponse.status} ${guildsResponse.statusText}`;
+    }
 
     error(guildsResponse.status, guildsResponse.statusText);
   }
@@ -49,4 +53,12 @@ export async function getGuilds(user: User, locals?: any): Promise<null | Discor
   await redis.set(`discord:guilds:${user.id}`, JSON.stringify(guilds), "EX", 60);
 
   return guilds;
+}
+
+function fetchGuilds(accessToken: string) {
+  return fetch("https://discord.com/api/v10/users/@me/guilds", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }

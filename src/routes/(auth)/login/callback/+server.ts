@@ -1,8 +1,9 @@
 import { env } from "$env/dynamic/public";
+import { getAuthedUser } from "$lib/api/auth.remote";
 import { discord } from "$lib/server/auth/oauth.js";
+import { storeDiscordTokens } from "$lib/server/auth/discord-tokens";
 import { createSession, setSessionCookie } from "$lib/server/auth/sessions";
 import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis.js";
 import { OAuth2RequestError } from "arctic";
 
 function loginError(message: string): Response {
@@ -16,6 +17,7 @@ export async function GET({ cookies, url }) {
   const state = url.searchParams.get("state");
   const storedState = cookies.get("oauth_state") ?? null;
   const next = cookies.get("login_next") ?? "/";
+  const reconnectUserId = cookies.get("oauth_reconnect_user") ?? null;
 
   if (!code || !state || !storedState || state !== storedState) {
     let message: string;
@@ -40,6 +42,11 @@ export async function GET({ cookies, url }) {
         Authorization: `Bearer ${tokens.accessToken()}`,
       },
     });
+
+    if (!response.ok) {
+      return loginError("Failed to load your Discord account");
+    }
+
     const user: DiscordUser = await response.json();
 
     const existingUser = await prisma.user.findUnique({
@@ -47,7 +54,13 @@ export async function GET({ cookies, url }) {
       select: { id: true },
     });
 
-    if (existingUser) {
+    if (reconnectUserId) {
+      const authedUser = await getAuthedUser();
+
+      if (!authedUser || authedUser.id !== reconnectUserId || user.id !== reconnectUserId) {
+        return loginError("Please reconnect the same Discord account");
+      }
+    } else if (existingUser) {
       const { expiresAt, token } = await createSession(existingUser.id);
 
       setSessionCookie(cookies, token, expiresAt);
@@ -56,16 +69,20 @@ export async function GET({ cookies, url }) {
       return loginError("unknown user");
     }
 
-    await redis.set(
-      `discord:accesstoken:${user.id}`,
-      tokens.accessToken(),
-      "EX",
-      tokens.accessTokenExpiresInSeconds(),
-    );
+    await storeDiscordTokens(user.id, tokens);
 
-    const nextUrl = new URL(`${env.PUBLIC_URL}${next ? next : ""}`);
+    const publicUrl = new URL(env.PUBLIC_URL);
+    let nextUrl = new URL(next, publicUrl);
 
-    nextUrl.searchParams.set("loggedin", "true");
+    if (nextUrl.origin !== publicUrl.origin) {
+      nextUrl = new URL("/", publicUrl);
+    }
+
+    nextUrl.searchParams.set(reconnectUserId ? "reconnected" : "loggedin", "true");
+
+    cookies.delete("oauth_state", { path: "/" });
+    cookies.delete("login_next", { path: "/" });
+    cookies.delete("oauth_reconnect_user", { path: "/" });
 
     return new Response(null, { status: 302, headers: { Location: nextUrl.toString() } });
   } catch (e) {
