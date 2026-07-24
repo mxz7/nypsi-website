@@ -47,16 +47,20 @@
 <ul class="mt-4 grid w-full grid-cols-2 gap-4">
   {#each allowedGuilds as guildData}
     {@render guild(guildData, true)}
+  {:else}
+    <p>no servers available</p>
   {/each}
 </ul>
 
-<h2 class="mt-6 text-2xl font-bold">unavailable servers</h2>
-<p class="text-base-content/75 text-sm">
-  you don't have the 'manage server' permission in these servers
-</p>
+{#if notAllowedGuilds.length > 0}
+  <h2 class="mt-6 text-2xl font-bold">unavailable servers</h2>
+  <p class="text-base-content/75 text-sm">
+    you don't have the 'manage server' permission in these servers
+  </p>
 
-<ul class="mt-4 grid w-full grid-cols-2 gap-4">
-  {#each notAllowedGuilds as guildData}
-    {@render guild(guildData, false)}
-  {/each}
-</ul>
+  <ul class="mt-4 grid w-full grid-cols-2 gap-4">
+    {#each notAllowedGuilds as guildData}
+      {@render guild(guildData, false)}
+    {/each}
+  </ul>
+{/if}
