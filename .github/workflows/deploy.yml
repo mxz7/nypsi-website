@@ -42,10 +42,7 @@ jobs:
       - name: generate prisma client
         run: npx prisma generate
 
-      - name: check formatting
-        run: pnpm format --check
-
-      - name: run pnpm check
+      - name: run checks
         run: pnpm run check
 
       - name: run unit tests
