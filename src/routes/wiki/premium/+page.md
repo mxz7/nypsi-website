@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='premium ranks' description="discover nypsi discord bot premium ranks — learn how to purchase, access benefits, manage credits, get premium crates, and buy items via ko-fi." />

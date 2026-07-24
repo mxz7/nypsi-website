@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
-  import DocsHeader from "$lib/components/wiki/DocsHeader.svelte";
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import ItemModal from "$lib/components/wiki/item-modal.svelte"
+  import DocsHeader from "$lib/components/wiki/docs-header.svelte";
 </script>
 
 <DocsTemplate title='fish hunt mine' description="learn how to obtain, upgrade and optimally use fishing rods, pickaxes, and guns in fish hunt mine using crates, shop, boosters, and manage item durability efficiently." />

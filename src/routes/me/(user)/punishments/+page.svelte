@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Punishment from "./Punishment.svelte";
+  import Punishment from "./punishment.svelte";
   import NypsiPunishment from "./nypsi-punishment.svelte";
 
   let { data } = $props();

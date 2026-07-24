@@ -10,7 +10,7 @@
     getInventory,
     getMarriagePartner,
   } from "$lib/api/users.remote";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { daysAgo } from "$lib/functions/time";
   import dayjs from "dayjs";
   import Profile from "./profile.svelte";

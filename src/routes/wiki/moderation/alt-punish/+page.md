@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='automatic alt punishments' description="automatic alt punishments link user accounts so all are penalized if one is punished, helping prevent ban evasion. easy setup and alt tracking included." />

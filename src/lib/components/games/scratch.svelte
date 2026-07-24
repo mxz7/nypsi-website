@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Game } from "$lib/types/Game";
 
-  import DiscordButton from "./DiscordButton.svelte";
+  import DiscordButton from "./discord-button.svelte";
 
   interface Props {
     game: Game;

@@ -3,9 +3,9 @@
   import { onNavigate, replaceState } from "$app/navigation";
   import { page } from "$app/state";
   import { getAuthedUser } from "$lib/api/auth.remote";
-  import Footer from "$lib/components/layout/Footer.svelte";
-  import LoadBar from "$lib/components/layout/LoadBar.svelte";
-  import Navbar from "$lib/components/layout/nav/NavBar.svelte";
+  import Footer from "$lib/components/layout/footer.svelte";
+  import LoadBar from "$lib/components/layout/load-bar.svelte";
+  import Navbar from "$lib/components/layout/nav/nav-bar.svelte";
   import { auth, initialLoad } from "$lib/state.svelte";
   import "@fontsource-variable/inter";
   import { onMount, tick, type Snippet } from "svelte";

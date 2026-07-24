@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import type { getEventData } from "$lib/functions/items";
   import { pluralize } from "$lib/functions/string";
   import { daysUntil } from "$lib/functions/time";
@@ -9,7 +9,7 @@
   import { onDestroy, onMount } from "svelte";
   import { cubicOut } from "svelte/easing";
   import { Tween } from "svelte/motion";
-  import EventUser from "./EventUser.svelte";
+  import EventUser from "./event-user.svelte";
 
   interface Props {
     event: NypsiEvent;

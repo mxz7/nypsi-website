@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Chart from "$lib/components/Chart.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Chart from "$lib/components/chart.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { guildSearchTerm } from "$lib/state.svelte";
   import type { ChartConfiguration, ChartOptions } from "chart.js";
-  import Guild from "./Guild.svelte";
+  import Guild from "./guild.svelte";
 
   let { data } = $props();
   const title = $derived(

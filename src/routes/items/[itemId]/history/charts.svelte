@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getItemChartData } from "$lib/api/items-history.remote";
-  import Chart from "$lib/components/Chart.svelte";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Chart from "$lib/components/chart.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import {
     itemPriceChartOptions,
     worldItemCountChartOptions,

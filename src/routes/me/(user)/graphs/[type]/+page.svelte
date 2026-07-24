@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
-  import Chart from "$lib/components/Chart.svelte";
+  import Chart from "$lib/components/chart.svelte";
   import type { ChartOptions } from "chart.js";
 
   const moneyChartOptions: ChartOptions = {

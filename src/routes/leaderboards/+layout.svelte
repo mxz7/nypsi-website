@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import LeaderboardItemSearch from "$lib/components/items/leaderboard-item-search.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
 
   let { children } = $props();

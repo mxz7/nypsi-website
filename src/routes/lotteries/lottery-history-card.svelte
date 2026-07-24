@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getUserLocale } from "$lib/api/locale.remote";
   import { getLotteryHistory, type LotteryChartRange } from "$lib/api/lottery.remote";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import { formatNumberPretty } from "$lib/functions/string";
   import { History } from "@lucide/svelte";
 

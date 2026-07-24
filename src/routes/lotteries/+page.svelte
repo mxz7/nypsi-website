@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { type LotteryChartRange } from "$lib/api/lottery.remote";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { onDestroy, onMount } from "svelte";
   import CountdownCards from "./countdown-cards.svelte";
   import LotteryHistoryCard from "./lottery-history-card.svelte";

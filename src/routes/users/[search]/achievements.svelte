@@ -2,7 +2,7 @@
   import { page } from "$app/state";
   import { getAchievementsRemote } from "$lib/api/achievements.remote";
   import { getAchievements } from "$lib/api/users.remote";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import parseEmoji from "$lib/functions/parseEmoji";
 
   const [achievementsData, userAchievements] = $derived(

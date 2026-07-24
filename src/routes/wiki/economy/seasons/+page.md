@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='seasons' description="learn about nypsi seasons: periodic economy resets, prestige and rewards, top player prizes including premium membership and real money via safe methods." />

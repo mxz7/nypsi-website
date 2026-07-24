@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { getItem } from "$lib/api/items.remote";
-  import ItemMarket from "$lib/components/items/ItemMarket.svelte";
-  import Card from "$lib/components/ui/Card.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import ItemMarket from "$lib/components/items/item-market.svelte";
+  import Card from "$lib/components/ui/card.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { Store } from "@lucide/svelte";
   import Charts from "./charts.svelte";
 

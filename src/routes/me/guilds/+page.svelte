@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import { canModifyGuild } from "$lib/functions/discordapi/permissions.js";
   import { guildsData } from "$lib/state.svelte.js";
   import type { DiscordGuild } from "$lib/types/Discord.js";

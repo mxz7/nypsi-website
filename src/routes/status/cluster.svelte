@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import { MStoTime } from "$lib/functions/time";
   import { sort } from "fast-sort";
 

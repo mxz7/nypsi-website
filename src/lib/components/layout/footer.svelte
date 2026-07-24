@@ -1,6 +1,6 @@
 <script>
   import { BadgeDollarSign, Code, FileText, Hammer, Lock } from "@lucide/svelte";
-  import FooterLink from "./FooterLink.svelte";
+  import FooterLink from "./footer-link.svelte";
 </script>
 
 <footer class="bg-base-200 mt-24 flex w-full justify-center py-5">

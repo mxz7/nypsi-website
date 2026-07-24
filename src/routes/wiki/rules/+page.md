@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='rules' description="nypsi discord bot and server rules explained, covering automation, exploits, trading, market use, and respectful behavior. follow these guidelines to avoid bans and ensure a positive experience." />

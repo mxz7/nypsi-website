@@ -13,7 +13,7 @@
     Leaf,
     Popcorn,
   } from "@lucide/svelte";
-  import FeaturesSection from "./FeaturesSection.svelte";
+  import FeaturesSection from "./features-section.svelte";
 </script>
 
 <section id="features">

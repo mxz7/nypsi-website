@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import ItemModal from "$lib/components/wiki/item-modal.svelte"
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='levelling' description="learn how levelling, rewards, bank size, and prestiging work in our system. discover xp boosters, upgrades, stolen credit cards, and more." />

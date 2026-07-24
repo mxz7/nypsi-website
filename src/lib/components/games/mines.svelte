@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DiscordButton from "./DiscordButton.svelte";
+  import DiscordButton from "./discord-button.svelte";
 
   interface Props {
     outcome: {

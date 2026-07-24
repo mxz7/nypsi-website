@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { createFilter } from "./page.remote";
-  import Table from "./Table.svelte";
+  import Table from "./table.svelte";
 
   let { data } = $props();
 

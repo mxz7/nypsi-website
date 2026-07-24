@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DeleteButton from "./DeleteButton.svelte";
+  import DeleteButton from "./delete-button.svelte";
 
   let { data } = $props();
 </script>

@@ -3,7 +3,7 @@
   import logo from "$lib/assets/logo.svg";
   import { auth } from "$lib/state.svelte";
   import { Menu } from "@lucide/svelte";
-  import MobileScreen from "./MobileNav.svelte";
+  import MobileScreen from "./mobile-nav.svelte";
 
   let sidebarVisible = $state(false);
 </script>

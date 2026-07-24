@@ -1,6 +1,6 @@
 <script lang="ts">
   import { preloadData } from "$app/navigation";
-  import Table from "./modlogs/Table.svelte";
+  import Table from "./modlogs/table.svelte";
 
   let { data } = $props();
 

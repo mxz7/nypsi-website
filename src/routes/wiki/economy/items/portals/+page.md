@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import ItemModal from "$lib/components/wiki/item-modal.svelte"
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='portals' description="discover how to obtain and use nether and end portals to mine, hunt, and get rare items in other dimensions. learn crafting, buying, and effects." />

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DocsHeader from "./DocsHeader.svelte";
+  import DocsHeader from "./docs-header.svelte";
 
   interface Props {
     title: string;

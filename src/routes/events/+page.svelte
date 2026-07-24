@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Card from "$lib/components/ui/Card.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Card from "$lib/components/ui/card.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { auth } from "$lib/state.svelte";
   import { onMount } from "svelte";
-  import Event from "./Event.svelte";
+  import Event from "./event.svelte";
 
   let { data } = $props();
 

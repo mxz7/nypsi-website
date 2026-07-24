@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Main from "$lib/components/ui/Main.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { auth } from "$lib/state.svelte";
   import { onMount } from "svelte";
-  import Event from "../Event.svelte";
+  import Event from "../event.svelte";
 
   let { data } = $props();
 

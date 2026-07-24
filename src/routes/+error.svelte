@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/state";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Main from "$lib/components/ui/main.svelte";
 
   const status = $derived(page.status ?? 500);
   const standardMessageByStatus = {

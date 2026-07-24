@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte";
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte";
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title="nypsi wiki" description="nypsi wiki provides setup guides, general info, and tips for the nypsi discord bot. contribute updates via github or get help in the discord server. learn how to improve or update the wiki easily." />

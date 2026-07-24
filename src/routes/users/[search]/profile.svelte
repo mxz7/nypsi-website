@@ -2,7 +2,7 @@
   import { getItemsRemote } from "$lib/api/items.remote";
   import { getTagsRemote } from "$lib/api/tags.remote";
   import type { getBaseData, getMarriagePartner } from "$lib/api/users.remote";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import badges from "$lib/data/badges";
   import { handleFallbackImage } from "$lib/functions/image";
   import dayjs from "dayjs";

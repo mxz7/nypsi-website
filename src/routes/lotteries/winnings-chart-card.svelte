@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getLotteryWinningsChart, type LotteryChartRange } from "$lib/api/lottery.remote";
-  import Chart from "$lib/components/Chart.svelte";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Chart from "$lib/components/chart.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import { formatNumberPretty } from "$lib/functions/string";
   import { Gem } from "@lucide/svelte";
   import type { ChartOptions } from "chart.js";

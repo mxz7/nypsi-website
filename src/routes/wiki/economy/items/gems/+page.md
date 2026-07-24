@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
   import GemChance from "./gem-chance.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 
   let selected = $state("green gem");
   const tabs = ["green gem", "blue gem", "purple gem", "pink gem", "white gem", "crystal heart"];

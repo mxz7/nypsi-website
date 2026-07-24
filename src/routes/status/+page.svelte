@@ -1,14 +1,14 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import Card from "$lib/components/ui/Card.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Card from "$lib/components/ui/card.svelte";
+  import Main from "$lib/components/ui/main.svelte";
   import { MStoTime } from "$lib/functions/time.js";
   import { RefreshCw } from "@lucide/svelte";
   import dayjs from "dayjs";
   import { onDestroy, onMount } from "svelte";
   import { toast } from "svelte-sonner";
-  import Cluster from "./Cluster.svelte";
-  import Shard from "./Shard.svelte";
+  import Cluster from "./cluster.svelte";
+  import Shard from "./shard.svelte";
 
   let { data } = $props();
 

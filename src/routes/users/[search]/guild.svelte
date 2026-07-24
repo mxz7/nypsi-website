@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getGuildByName } from "$lib/api/guilds.remote";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
 
   type Props = {
     guildName: string;

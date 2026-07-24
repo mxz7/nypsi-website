@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { getPunishmentHistory } from "$lib/api/users.remote";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import { Gavel } from "@lucide/svelte";
 
   type Punishment = Awaited<ReturnType<typeof getPunishmentHistory>>["punishments"][number];

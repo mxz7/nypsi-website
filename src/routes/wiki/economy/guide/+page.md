@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
-  import ItemModal from "$lib/components/wiki/ItemModal.svelte"
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
+  import ItemModal from "$lib/components/wiki/item-modal.svelte"
 </script>
 
 <DocsTemplate title='basic progression guide' description="get started with nypsi's economy: claim free rewards, complete tasks and achievements, gather items with fish, hunt and mine, then sell your loot or use the market." />

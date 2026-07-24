@@ -1,12 +1,12 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import Blackjack from "$lib/components/games/Blackjack.svelte";
-  import Mines from "$lib/components/games/Mines.svelte";
-  import RockPaperScissors from "$lib/components/games/RockPaperScissors.svelte";
-  import Roulette from "$lib/components/games/Roulette.svelte";
-  import Scratch from "$lib/components/games/Scratch.svelte";
-  import Slots from "$lib/components/games/Slots.svelte";
-  import Tower from "$lib/components/games/Tower.svelte";
+  import Blackjack from "$lib/components/games/blackjack.svelte";
+  import Mines from "$lib/components/games/mines.svelte";
+  import RockPaperScissors from "$lib/components/games/rock-paper-scissors.svelte";
+  import Roulette from "$lib/components/games/roulette.svelte";
+  import Scratch from "$lib/components/games/scratch.svelte";
+  import Slots from "$lib/components/games/slots.svelte";
+  import Tower from "$lib/components/games/tower.svelte";
   import { fly } from "svelte/transition";
 
   let { data } = $props();

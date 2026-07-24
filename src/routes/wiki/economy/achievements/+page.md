@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/DocsTemplate.svelte"
+  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
   import Achievements from "./achievements.svelte"
-  import DocsHeader from '$lib/components/wiki/DocsHeader.svelte';
+  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='achievements' description="discover all nypsi achievements, track your progress, view rewards, and learn how to use the /achievements command to unlock exclusive tags and prizes." />

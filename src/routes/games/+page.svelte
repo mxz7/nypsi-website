@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import Loading from "$lib/components/Loading.svelte";
+  import Loading from "$lib/components/loading.svelte";
   import type { Game } from "$lib/types/Game.js";
   import dayjs from "dayjs";
   import { fly } from "svelte/transition";

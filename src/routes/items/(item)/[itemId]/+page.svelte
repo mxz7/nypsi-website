@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getItemsRemote } from "$lib/api/items.remote.js";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import { ChartArea, Crown } from "@lucide/svelte";
   import { sort } from "fast-sort";
   import { fade } from "svelte/transition";

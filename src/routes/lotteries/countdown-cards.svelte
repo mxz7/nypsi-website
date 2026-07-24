@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getUserLocale } from "$lib/api/locale.remote";
-  import Card from "$lib/components/ui/Card.svelte";
+  import Card from "$lib/components/ui/card.svelte";
   import { MStoTime } from "$lib/functions/time";
   import { Crown, Timer } from "@lucide/svelte";
 
