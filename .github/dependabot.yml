@@ -15,7 +15,7 @@ updates:
       interval: "daily"
     versioning-strategy: increase
     cooldown:
-      default-days: 1
+      default-days: 2
     groups:
       prisma:
         patterns:
