@@ -1,4 +1,5 @@
 import prisma from "$lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
 import type { Prisma } from "@generated/prisma";
 import { error, json } from "@sveltejs/kit";
 
@@ -29,7 +30,7 @@ export async function GET({ url, setHeaders }) {
       economy: {
         select: {
           user: {
-            select: { lastKnownUsername: true, Preferences: { select: { leaderboards: true } } },
+            select: { lastKnownUsername: true, Preferences: privacyPreferenceSelection },
           },
         },
       },
@@ -97,7 +98,7 @@ export async function GET({ url, setHeaders }) {
     economy?: {
       user?: {
         lastKnownUsername: string;
-        Preferences: { leaderboards: boolean };
+        Preferences: { value: unknown }[];
       };
     };
   }[] = await prisma.game.findMany(options);
@@ -114,9 +115,9 @@ export async function GET({ url, setHeaders }) {
         id: game.id,
         outcome: game.outcome,
         userId: game.userId,
-        username: game.economy?.user?.Preferences.leaderboards
-          ? game.economy?.user?.lastKnownUsername
-          : "[hidden]",
+        username: isPrivate(game.economy?.user?.Preferences)
+          ? "[hidden]"
+          : game.economy?.user?.lastKnownUsername,
         win: game.win,
         xpEarned: game.xpEarned,
       };

@@ -1,4 +1,5 @@
 import prisma from "$lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET({ params, fetch, setHeaders }) {
@@ -31,21 +32,13 @@ export async function GET({ params, fetch, setHeaders }) {
           embedColor: true,
         },
       },
-      Preferences: {
-        select: {
-          leaderboards: true,
-        },
-      },
+      Preferences: privacyPreferenceSelection,
     },
   });
 
   if (!query) return error(404, "unknown user");
 
-  if (query.Preferences) {
-    if (query.Preferences.leaderboards) {
-      return error(403, "private profile");
-    }
-  }
+  if (isPrivate(query.Preferences)) return error(403, "private profile");
 
   return json(query);
 }

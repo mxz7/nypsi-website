@@ -2,6 +2,7 @@ import { query } from "$app/server";
 import { RedisKey } from "$lib/data/constants";
 import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
+import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
 import type { LeaderboardData } from "$lib/types/leaderboards";
 import { error } from "@sveltejs/kit";
 import { z } from "zod";
@@ -21,7 +22,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -37,8 +38,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `$${x.money.toLocaleString()}`,
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -57,7 +58,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -73,8 +74,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `$${x.netWorth.toLocaleString()}`,
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -96,7 +97,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -112,8 +113,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `P${x.prestige} L${x.level}`,
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -152,7 +153,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -168,8 +169,8 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `${x.dailyStreak.toLocaleString()}`,
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag: x.user.Tags.length > 0 ? x.user.Tags[0].tagId : null,
             },
             position: count,
@@ -190,11 +191,11 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
         u.id as "userId",
         u."lastKnownUsername",
         COALESCE(wc.wins, 0) as wins,
-        "Preferences"."leaderboards" as privacy,
+        COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy,
         "Tags"."tagId"
       FROM "User" u
       LEFT JOIN win_counts wc ON u.id = wc."userId"
-      LEFT JOIN "Preferences" ON "Preferences"."userId" = u.id
+      LEFT JOIN "Preferences" p ON p."userId" = u.id AND p."key" = 'leaderboards'
       LEFT JOIN "Tags" ON "Tags"."userId" = u.id AND "Tags"."selected" = true
       WHERE COALESCE(wc.wins, 0) > 0
       ORDER BY wins DESC
@@ -228,11 +229,11 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   commands: async () => {
-    return await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" from "User"
+    return await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "CommandUse" on "CommandUse"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    left join "Preferences" on "Preferences"."userId" = "User"."id"
-    group by "CommandUse"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
+    group by "CommandUse"."userId", "User"."id", "Tags"."tagId", p."value"
     order by "value" desc limit 100`.then(
       (
         i: {
@@ -240,16 +241,16 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           userId: string;
           lastKnownUsername: string;
           tagId: string;
-          leaderboards: boolean;
+          privacy: boolean;
         }[],
       ) => {
         return i.map((i, index) => ({
           value: i.value.toLocaleString(),
           position: index + 1,
           user: {
-            username: !i.leaderboards ? i.lastKnownUsername : "[hidden]",
-            id: !i.leaderboards ? i.userId : undefined,
-            tag: !i.leaderboards ? i.tagId : undefined,
+            username: !i.privacy ? i.lastKnownUsername : "[hidden]",
+            id: !i.privacy ? i.userId : undefined,
+            tag: !i.privacy ? i.tagId : undefined,
           },
         }));
       },
@@ -268,7 +269,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -284,10 +285,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `${x.monthVote}`,
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag:
-                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                !isPrivate(x.user.Preferences) && x.user.Tags.length > 0
                   ? x.user.Tags[0].tagId
                   : null,
             },
@@ -307,7 +308,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -323,10 +324,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: `${x.voteStreak}`,
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag:
-                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                !isPrivate(x.user.Preferences) && x.user.Tags.length > 0
                   ? x.user.Tags[0].tagId
                   : null,
             },
@@ -337,12 +338,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "wordle-wins": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
     where "WordleGame"."won" = true
-    group by "WordleGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    group by "WordleGame"."userId", "User"."id", "Tags"."tagId", p."value"
     order by "value" desc limit 100`.then(
       (
         i: {
@@ -367,12 +368,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "wordle-time": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
     where "WordleGame"."won" = true and "WordleGame"."time" > 0
-    group by "WordleGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    group by "WordleGame"."userId", "User"."id", "Tags"."tagId", p."value"
     order by "value" asc limit 100`.then(
       (
         i: {
@@ -406,7 +407,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -422,10 +423,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: x.solved.toLocaleString(),
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag:
-                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                !isPrivate(x.user.Preferences) && x.user.Tags.length > 0
                   ? x.user.Tags[0].tagId
                   : null,
             },
@@ -445,7 +446,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -461,10 +462,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: (x.averageWinningRating ?? 0).toFixed(0),
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag:
-                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                !isPrivate(x.user.Preferences) && x.user.Tags.length > 0
                   ? x.user.Tags[0].tagId
                   : null,
             },
@@ -484,7 +485,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -500,10 +501,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: formatTime(x.fastestSolve ?? 0),
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag:
-                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                !isPrivate(x.user.Preferences) && x.user.Tags.length > 0
                   ? x.user.Tags[0].tagId
                   : null,
             },
@@ -523,7 +524,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -539,10 +540,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: formatTime(x.time * 1000),
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag:
-                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                !isPrivate(x.user.Preferences) && x.user.Tags.length > 0
                   ? x.user.Tags[0].tagId
                   : null,
             },
@@ -553,12 +554,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "flag-wins": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "FlagGame" on "FlagGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
     where "FlagGame"."won" = true
-    group by "FlagGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    group by "FlagGame"."userId", "User"."id", "Tags"."tagId", p."value"
     order by "value" desc limit 100`.then(
       (
         i: {
@@ -583,12 +584,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "flag-time": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", min("FlagGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", min("FlagGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "FlagGame" on "FlagGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
     where "FlagGame"."won" = true and "FlagGame"."time" > 0
-    group by "FlagGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    group by "FlagGame"."userId", "User"."id", "Tags"."tagId", p."value"
     order by "value" asc limit 100`.then(
       (
         i: {
@@ -613,12 +614,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "sudoku-solved": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "SudokuGame" on "SudokuGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
     where "SudokuGame"."state" = 'completed'
-    group by "SudokuGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    group by "SudokuGame"."userId", "User"."id", "Tags"."tagId", p."value"
     order by "value" desc limit 100`.then(
       (
         i: {
@@ -643,12 +644,12 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "sudoku-fastest": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", min(extract(epoch from ("SudokuGame"."completedAt" - "SudokuGame"."startedAt")) * 1000) as value, "User"."lastKnownUsername", "Tags"."tagId", "Preferences"."leaderboards" as "privacy" from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", min(extract(epoch from ("SudokuGame"."completedAt" - "SudokuGame"."startedAt")) * 1000) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "SudokuGame" on "SudokuGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    left join "Preferences" on "Preferences"."userId" = "User"."id"
+    left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
     where "SudokuGame"."state" = 'completed' and "SudokuGame"."completedAt" is not null
-    group by "SudokuGame"."userId", "User"."id", "Tags"."tagId", "Preferences"."leaderboards"
+    group by "SudokuGame"."userId", "User"."id", "Tags"."tagId", p."value"
     order by "value" asc limit 100`.then(
       (
         i: {
@@ -682,7 +683,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           user: {
             select: {
               Tags: { where: { selected: true }, select: { tagId: true } },
-              Preferences: { select: { leaderboards: true } },
+              Preferences: privacyPreferenceSelection,
               lastKnownUsername: true,
             },
           },
@@ -698,10 +699,10 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           return {
             value: formatTime(x.time * 1000),
             user: {
-              username: !x.user.Preferences?.leaderboards ? user : "[hidden]",
-              id: !x.user.Preferences?.leaderboards ? x.userId : undefined,
+              username: !isPrivate(x.user.Preferences) ? user : "[hidden]",
+              id: !isPrivate(x.user.Preferences) ? x.userId : undefined,
               tag:
-                !x.user.Preferences?.leaderboards && x.user.Tags.length > 0
+                !isPrivate(x.user.Preferences) && x.user.Tags.length > 0
                   ? x.user.Tags[0].tagId
                   : null,
             },
@@ -746,7 +747,7 @@ export const getItemLeaderboard = query(z.string(), async (itemId) => {
             user: {
               select: {
                 Tags: { where: { selected: true }, select: { tagId: true } },
-                Preferences: { select: { leaderboards: true } },
+                Preferences: privacyPreferenceSelection,
                 lastKnownUsername: true,
               },
             },
@@ -764,10 +765,10 @@ export const getItemLeaderboard = query(z.string(), async (itemId) => {
         return {
           value: `${x.amount.toLocaleString()}`,
           user: {
-            username: !x.economy.user.Preferences?.leaderboards ? user : "[hidden]",
-            id: !x.economy.user.Preferences?.leaderboards ? x.userId : undefined,
+            username: !isPrivate(x.economy.user.Preferences) ? user : "[hidden]",
+            id: !isPrivate(x.economy.user.Preferences) ? x.userId : undefined,
             tag:
-              !x.economy.user.Preferences?.leaderboards && x.economy.user.Tags.length > 0
+              !isPrivate(x.economy.user.Preferences) && x.economy.user.Tags.length > 0
                 ? x.economy.user.Tags[0].tagId
                 : null,
           },
