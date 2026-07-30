@@ -1,5 +1,24 @@
+import { env } from "$env/dynamic/private";
 import { canModifyGuild } from "$lib/functions/discordapi/permissions";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
+
+type DashboardData = {
+  channels: {
+    id: string;
+    name: string;
+    parentId: string | null;
+    parentName: string | null;
+    position: number;
+  }[];
+  settings: {
+    altPunish: boolean;
+    disabledChannels: string[];
+    modlogsChannelId: string | null;
+    modlogsEnabled: boolean;
+    prefixes: string[];
+    slashOnly: boolean;
+  };
+};
 
 export async function load({ parent, params }) {
   const parentData = await parent();
@@ -11,5 +30,19 @@ export async function load({ parent, params }) {
 
   const hasPermission = canModifyGuild(guild);
 
-  return { guild, hasPermission };
+  if (!hasPermission) return { guild, hasPermission, dashboard: null };
+
+  const response = await fetch(`${env.BOT_SERVER_URL}/guilds/${guild.id}/settings`, {
+    headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
+  });
+
+  if (!response.ok) {
+    error(502, "unable to load server settings from nypsi");
+  }
+
+  return {
+    guild,
+    hasPermission,
+    dashboard: (await response.json()) as DashboardData,
+  };
 }

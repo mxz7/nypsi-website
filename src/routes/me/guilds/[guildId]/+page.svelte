@@ -1,5 +1,6 @@
 <script lang="ts">
   import { preloadData } from "$app/navigation";
+  import GuildSettings from "./guild-settings.svelte";
   import Table from "./modlogs/table.svelte";
 
   let { data } = $props();
@@ -52,9 +53,14 @@
   </div>
 
   {#if modLogsData.length > 0}
-    <h2 class="mt-4 text-xl font-semibold text-white">modlogs</h2>
+    <h2 class="mt-8 text-xl font-semibold text-white">recent modlogs</h2>
 
     <Table tableData={modLogsData} />
+  {/if}
+
+  {#if data.dashboard}
+    <h2 class="mt-8 text-xl font-semibold text-white">server settings</h2>
+    <GuildSettings guildId={data.guild.id} dashboard={data.dashboard} />
   {/if}
 {:else}
   <p class="text-error mt-4">you do not have the 'manage server' permission in {data.guild.name}</p>
