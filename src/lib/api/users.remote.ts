@@ -2,6 +2,7 @@ import { query } from "$app/server";
 import { Constants, RedisKey } from "$lib/data/constants";
 import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
+import { isPrivate } from "$lib/server/preferences";
 import { error } from "@sveltejs/kit";
 import z from "zod";
 import { getAuthedUser } from "./auth.remote";
@@ -80,20 +81,16 @@ export const getPrivacy = query(z.string(), async (userId) => {
     return cache;
   }
 
-  const query = await prisma.preferences.findUnique({
-    where: { userId },
-    select: { leaderboards: true },
+  const preference = await prisma.preferences.findUnique({
+    where: { userId_key: { userId, key: "leaderboards" } },
+    select: { value: true },
   });
 
-  let isPrivate = false;
+  const privateProfile = isPrivate(preference ? [preference] : null);
 
-  if (query && query.leaderboards) {
-    isPrivate = true;
-  }
+  await privacyCache.set(userId, privateProfile);
 
-  await privacyCache.set(userId, isPrivate);
-
-  return isPrivate;
+  return privateProfile;
 });
 
 function getBaseDataFromDatabase(userId: string) {

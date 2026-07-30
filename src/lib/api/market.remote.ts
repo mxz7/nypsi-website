@@ -1,5 +1,6 @@
 import { query } from "$app/server";
 import prisma from "$lib/server/database";
+import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
 import redis from "$lib/server/redis";
 import type { OrderType } from "@generated/prisma";
 import { sort } from "fast-sort";
@@ -56,11 +57,7 @@ export const getOrders = query(
                 id: true,
                 lastKnownUsername: true,
                 avatar: true,
-                Preferences: {
-                  select: {
-                    leaderboards: true,
-                  },
-                },
+                Preferences: privacyPreferenceSelection,
               },
             },
           },
@@ -88,11 +85,7 @@ export const getOrders = query(
                 id: true,
                 lastKnownUsername: true,
                 avatar: true,
-                Preferences: {
-                  select: {
-                    leaderboards: true,
-                  },
-                },
+                Preferences: privacyPreferenceSelection,
               },
             },
           },
@@ -101,7 +94,7 @@ export const getOrders = query(
     });
 
     const transformedOrders: MarketOrder[] = marketOrders.map((order) => {
-      const shouldAnonymize = order.owner.user.Preferences?.leaderboards;
+      const shouldAnonymize = isPrivate(order.owner.user.Preferences);
 
       const owner = shouldAnonymize
         ? null
@@ -118,7 +111,7 @@ export const getOrders = query(
     });
 
     const transformedOffers: MarketOrder[] = offers.map((offer) => {
-      const shouldAnonymize = offer.owner.user.Preferences?.leaderboards;
+      const shouldAnonymize = isPrivate(offer.owner.user.Preferences);
 
       const owner = shouldAnonymize
         ? null

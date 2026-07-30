@@ -1,4 +1,5 @@
 import prisma from "$lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
 import type { APIUserCheck } from "$lib/types/api/UserCheck.js";
 import { error, json } from "@sveltejs/kit";
 
@@ -13,12 +14,10 @@ export async function GET({ setHeaders, params }) {
 
   const res: APIUserCheck = { ok: true, exists: false, private: false };
 
-  const query = await prisma.preferences.findUnique({
-    where: {
-      userId: id,
-    },
+  const query = await prisma.user.findUnique({
+    where: { id },
     select: {
-      leaderboards: true,
+      Preferences: privacyPreferenceSelection,
     },
   });
 
@@ -26,11 +25,7 @@ export async function GET({ setHeaders, params }) {
     res.exists = false;
   } else {
     res.exists = true;
-    if (!query.leaderboards) {
-      res.private = false;
-    } else {
-      res.private = true;
-    }
+    res.private = isPrivate(query.Preferences);
   }
 
   return json(res);

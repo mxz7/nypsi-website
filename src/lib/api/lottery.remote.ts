@@ -1,6 +1,7 @@
 import { query } from "$app/server";
 import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
+import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
 import type { LotteryType } from "@generated/prisma";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
@@ -144,11 +145,7 @@ export const getLotteryHistory = query(lotteryHistorySchema, async (page) => {
           select: {
             id: true,
             lastKnownUsername: true,
-            Preferences: {
-              select: {
-                leaderboards: true,
-              },
-            },
+            Preferences: privacyPreferenceSelection,
           },
         },
       },
@@ -163,7 +160,7 @@ export const getLotteryHistory = query(lotteryHistorySchema, async (page) => {
 
       if (!draw.winner) {
         winner = "unknown";
-      } else if (!draw.winner?.Preferences?.leaderboards) {
+      } else if (isPrivate(draw.winner.Preferences)) {
         winner = "hidden";
       } else {
         winner = {
