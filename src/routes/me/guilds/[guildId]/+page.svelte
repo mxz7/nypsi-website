@@ -1,30 +1,13 @@
 <script lang="ts">
-  import { preloadData } from "$app/navigation";
   import GuildSettings from "./guild-settings.svelte";
+  import { getRecentModlogs } from "./modlogs.remote";
   import Table from "./modlogs/table.svelte";
 
   let { data } = $props();
 
   const settings = [{ name: "chat filter", href: "chatfilter" }];
 
-  let modLogsData = $state<
-    {
-      user: string;
-      caseId: number;
-      type: string;
-      moderator: string;
-      command: string;
-    }[]
-  >([]);
-
-  $effect(() => {
-    modLogsData = [];
-    preloadData(`/me/guilds/${data.guild.id}/modlogs`).then((result) => {
-      if (result.type === "loaded" && result.status === 200) {
-        modLogsData = result.data.modlogs;
-      }
-    });
-  });
+  const modlogs = $derived(data.hasPermission ? await getRecentModlogs(data.guild.id) : []);
 </script>
 
 <svelte:head>
@@ -54,13 +37,17 @@
 
   {#if data.dashboard}
     <h2 class="mt-8 text-xl font-semibold text-white">server settings</h2>
-    <GuildSettings guildId={data.guild.id} dashboard={data.dashboard} />
+    {#key data.guild.id}
+      <GuildSettings guildId={data.guild.id} dashboard={data.dashboard} />
+    {/key}
   {/if}
 
-  {#if modLogsData.length > 0}
+  {#if modlogs.length > 0}
     <h2 class="mt-8 text-xl font-semibold text-white">recent modlogs</h2>
 
-    <Table tableData={modLogsData} />
+    {#key data.guild.id}
+      <Table tableData={modlogs} />
+    {/key}
   {/if}
 {:else}
   <p class="text-error mt-4">you do not have the 'manage server' permission in {data.guild.name}</p>

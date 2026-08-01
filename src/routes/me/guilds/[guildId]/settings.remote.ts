@@ -1,11 +1,8 @@
 import { form, getRequestEvent } from "$app/server";
 import { env } from "$env/dynamic/private";
-import { getAuthedUser } from "$lib/api/auth.remote";
 import { Constants } from "$lib/data/constants";
-import { canModifyGuild } from "$lib/functions/discordapi/permissions";
-import { discordReconnectRequired } from "$lib/server/auth/discord-tokens";
-import { getGuilds } from "$lib/server/functions/discordapi/guilds";
-import { error, invalid, redirect } from "@sveltejs/kit";
+import { requireGuildAccess } from "$lib/server/functions/discordapi/guild-access";
+import { invalid } from "@sveltejs/kit";
 import z from "zod";
 
 const prefixSchema = z
@@ -32,22 +29,6 @@ const modlogsSchema = z.object({
   channelId: z.union([z.literal(""), z.string().regex(Constants.SNOWFLAKE_REGEX)]),
   guildId: z.string().regex(Constants.SNOWFLAKE_REGEX, "invalid guild"),
 });
-
-async function requireGuildAccess(guildId: string) {
-  const { locals, url } = getRequestEvent();
-  const authedUser = await getAuthedUser();
-
-  if (!authedUser) redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
-
-  const guilds = await getGuilds(authedUser, locals);
-
-  if (!guilds) discordReconnectRequired(url);
-
-  const guild = guilds.find((item) => item.id === guildId);
-
-  if (!guild) redirect(302, "/me/guilds");
-  if (!canModifyGuild(guild)) error(403, "you don't have permission to modify this guild");
-}
 
 async function updateBot(path: string, body: object) {
   const { fetch } = getRequestEvent();
