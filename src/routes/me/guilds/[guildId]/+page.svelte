@@ -45,22 +45,22 @@
 {#if data.hasPermission}
   <h2 class="mt-4 text-xl font-semibold text-white">settings</h2>
   <div class="mt-1 flex gap-4">
-    {#each settings as setting}
+    {#each settings as setting (setting.href)}
       <a href="/me/guilds/{data.guild.id}/{setting.href}" class="btn">
         {setting.name}
       </a>
     {/each}
   </div>
 
+  {#if data.dashboard}
+    <h2 class="mt-8 text-xl font-semibold text-white">server settings</h2>
+    <GuildSettings guildId={data.guild.id} dashboard={data.dashboard} />
+  {/if}
+
   {#if modLogsData.length > 0}
     <h2 class="mt-8 text-xl font-semibold text-white">recent modlogs</h2>
 
     <Table tableData={modLogsData} />
-  {/if}
-
-  {#if data.dashboard}
-    <h2 class="mt-8 text-xl font-semibold text-white">server settings</h2>
-    <GuildSettings guildId={data.guild.id} dashboard={data.dashboard} />
   {/if}
 {:else}
   <p class="text-error mt-4">you do not have the 'manage server' permission in {data.guild.name}</p>
