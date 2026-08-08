@@ -191,7 +191,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
         u.id as "userId",
         u."lastKnownUsername",
         COALESCE(wc.wins, 0) as wins,
-        COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy,
+        COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy,
         "Tags"."tagId"
       FROM "User" u
       LEFT JOIN win_counts wc ON u.id = wc."userId"
@@ -229,7 +229,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   commands: async () => {
-    return await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
+    return await prisma.$queryRaw`select sum("CommandUse"."uses") as value, "CommandUse"."userId", "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "CommandUse" on "CommandUse"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
@@ -338,7 +338,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "wordle-wins": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
@@ -368,7 +368,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "wordle-time": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", min("WordleGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "WordleGame" on "WordleGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
@@ -554,7 +554,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "flag-wins": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "FlagGame" on "FlagGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
@@ -584,7 +584,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "flag-time": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", min("FlagGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", min("FlagGame"."time") as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "FlagGame" on "FlagGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
@@ -614,7 +614,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "sudoku-solved": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", count(*) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "SudokuGame" on "SudokuGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
@@ -644,7 +644,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   },
 
   "sudoku-fastest": async () => {
-    return await prisma.$queryRaw`select "User"."id" as "userId", min(extract(epoch from ("SudokuGame"."completedAt" - "SudokuGame"."startedAt")) * 1000) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb as privacy from "User"
+    return await prisma.$queryRaw`select "User"."id" as "userId", min(extract(epoch from ("SudokuGame"."completedAt" - "SudokuGame"."startedAt")) * 1000) as value, "User"."lastKnownUsername", "Tags"."tagId", COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb as privacy from "User"
     right join "SudokuGame" on "SudokuGame"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
     left join "Preferences" p on p."userId" = "User"."id" and p."key" = 'leaderboards'
