@@ -7,9 +7,9 @@ export async function load({ fetch }) {
   >`select "User".id, "User"."lastKnownUsername" as username, "Tags"."tagId" from "User"
     inner join "Purchases" on "Purchases"."userId" = "User"."id"
     left join "Tags" on "Tags"."userId" = "User"."id" and "Tags"."selected" = true
-    inner join "Preferences" on "Preferences"."userId" = "User"."id"
+    left join "Preferences" on "Preferences"."userId" = "User"."id"
       and "Preferences"."key" = 'leaderboards'
-      and "Preferences"."value" = 'false'::jsonb
+    where "Preferences"."value" is null or "Preferences"."value" = 'false'::jsonb
     group by "User"."id", "Tags"."tagId"
     order by sum("Purchases".cost) desc`;
 

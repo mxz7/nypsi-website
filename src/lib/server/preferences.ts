@@ -5,5 +5,5 @@ export const privacyPreferenceSelection = {
 } as const;
 
 export function isPrivate(preferences: readonly { value: unknown }[] | null | undefined) {
-  return preferences?.[0]?.value !== false;
+  return preferences?.[0]?.value === true;
 }
