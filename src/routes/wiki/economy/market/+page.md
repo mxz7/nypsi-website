@@ -3,28 +3,40 @@
   import DocsHeader from '$lib/components/wiki/docs-header.svelte';
 </script>
 
-<DocsTemplate title='the market' description="buy and sell items with other players on the nypsi market. create and fill orders, get alerts, use trade requests, and manage offers easily with commands." />
+<DocsTemplate title='the market' description="buy and sell items with other players on the nypsi market. buy or sell instantly, create limit orders, get alerts, use trade requests, and manage offers easily with commands." />
 
 <DocsHeader header='h2' text="how it works" />
 
 the market is a place where you can buy and sell items with other players. to access it, use `/market`.
 
-<DocsHeader header='h2' text="buy and sell orders" />
+<DocsHeader header='h2' text="buy and sell" />
 
-buy and sell orders are created through `/market manage`. this menu also lets you see the most recent buy and sell orders.
-
-you can also make one with a single command, example:
+the command format is:
 
 ```
-/market create <item> <buy|sell> <amount> <price>
-$mk c <item> <b|s> <amount> <price>
+/market <buy|sell> <item> [amount] [price]
 ```
 
-<DocsHeader header='h2' text="filling orders" />
+`amount` is optional and defaults to `1`. use `buy` to buy from the lowest-priced sell orders, or `sell` to sell to the highest-priced buy orders. nypsi uses the available orders in the best-price order until it has filled your amount.
 
-to access the market of an item, do `/market search <item>`. here, you can sell to buy orders or buy from sell orders.
+you can use `$mk b` and `$mk s` as shorter versions of `$market buy` and `$market sell`.
 
-you can also view a 'live feed' of the entire market in the [official nypsi discord server](/discord), where you can also fulfill orders.
+if you include a price, that will act as your minimum (sell) or maximum (buy) price per item. the market will work to fulfill your request, and create a buy/sell order if unable to fully complete your request.
+
+<DocsHeader header='h2' text="create a buy or sell order" />
+
+add `price` to the same command to create a limit order. a buy price is the most you will pay per item; a sell price is the least you will accept per item. the order will still fill existing favourable orders first, then any amount left over is posted as your new order.
+
+```
+/market buy <item> <amount> <maximum price per item>
+/market sell <item> <amount> <minimum price per item>
+```
+
+the money for a buy order, or the items for a sell order, are held until the order is filled or you cancel it. use `/market manage` to view and cancel your active buy and sell orders.
+
+<DocsHeader header='h2' text="browse the market" />
+
+use `/market search <item>` or `$mk v <item>` to see that item's buy and sell orders before choosing a price. you can also view a live feed of the entire market in the [official nypsi discord server](/discord), where you can fulfill orders.
 
 <DocsHeader header='h2' text="market watch" />
 
