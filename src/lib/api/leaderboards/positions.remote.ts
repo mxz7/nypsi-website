@@ -189,6 +189,30 @@ const knownPositionQueries: Record<
     };
   },
 
+  clicks: async (userId) => {
+    const rows = await prisma.$queryRaw<{ position: bigint; clicks: number }[]>`
+      WITH ranked AS (
+        SELECT c."userId", c.clicks,
+        ROW_NUMBER() OVER (ORDER BY c.clicks DESC, u."lastKnownUsername" ASC) AS position
+        FROM "Clicks" c
+        INNER JOIN "User" u ON u.id = c."userId"
+        WHERE c.clicks > 0
+      )
+      SELECT position, clicks
+      FROM ranked
+      WHERE "userId" = ${userId}
+      LIMIT 1
+    `;
+
+    const row = rows[0];
+    if (!row) return null;
+
+    return {
+      position: toNumber(row.position),
+      value: row.clicks.toLocaleString(),
+    };
+  },
+
   "vote-month": async (userId) => {
     const rows = await prisma.$queryRaw<{ position: bigint; monthVote: number }[]>`
       WITH ranked AS (

@@ -10,6 +10,7 @@ export const leaderboards: LeaderboardsData = {
   "daily-streak": { name: "daily-streak", path: "/leaderboards/streak" },
   lottery: { name: "lottery", path: "/leaderboards/lottery" },
   commands: { name: "commands", path: "/leaderboards/commands" },
+  clicks: { name: "clicks", path: "/leaderboards/clicks" },
   chess: {
     name: "chess",
     path: "/leaderboards/chess",

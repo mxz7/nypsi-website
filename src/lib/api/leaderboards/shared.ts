@@ -8,6 +8,7 @@ export const LeaderboardTypeSchema = z.enum([
   "streak",
   "lottery",
   "commands",
+  "clicks",
   "vote-month",
   "vote-streak",
   "wordle-wins",

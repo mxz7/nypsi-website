@@ -257,6 +257,50 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
     );
   },
 
+  clicks: async () => {
+    return await prisma.clicks
+      .findMany({
+        where: { clicks: { gt: 0 } },
+        select: {
+          userId: true,
+          clicks: true,
+          user: {
+            select: {
+              user: {
+                select: {
+                  Tags: { where: { selected: true }, select: { tagId: true } },
+                  Preferences: privacyPreferenceSelection,
+                  lastKnownUsername: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: [{ clicks: "desc" }, { user: { user: { lastKnownUsername: "asc" } } }],
+        take: 100,
+      })
+      .then((rows) =>
+        rows.map((row, index) => {
+          const privateLeaderboard = isPrivate(row.user.user.Preferences);
+
+          return {
+            value: row.clicks.toLocaleString(),
+            position: index + 1,
+            user: {
+              username: !privateLeaderboard
+                ? row.user.user.lastKnownUsername.split("#")[0]
+                : "[hidden]",
+              id: !privateLeaderboard ? row.userId : undefined,
+              tag:
+                !privateLeaderboard && row.user.user.Tags.length > 0
+                  ? row.user.user.Tags[0].tagId
+                  : undefined,
+            },
+          };
+        }),
+      );
+  },
+
   "vote-month": async () => {
     return await prisma.economy
       .findMany({
@@ -789,6 +833,7 @@ const knownTypes: Record<string, { title: string; descriptor?: string }> = {
   streak: { title: "top daily streak" },
   lottery: { title: "top lottery wins", descriptor: "wins" },
   commands: { title: "top command uses", descriptor: "uses" },
+  clicks: { title: "top clicks", descriptor: "click" },
   "vote-month": { title: "votes this month" },
   "vote-streak": { title: "vote streak" },
   "wordle-wins": { title: "wordle wins", descriptor: "wins" },

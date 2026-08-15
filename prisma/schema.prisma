@@ -115,17 +115,18 @@ enum TransactionType {
 // user specific tables (economy etc.)
 
 model User {
-  id                String   @id
+  id                String    @id
   lastKnownUsername String
-  usernameUpdatedAt DateTime @default("1970-01-01T14:21:00+02:00")
-  avatar            String   @default("https://cdn.discordapp.com/embed/avatars/0.png")
-  karma             Int      @default(1)
+  usernameUpdatedAt DateTime  @default("1970-01-01T14:21:00+02:00")
+  avatar            String    @default("https://cdn.discordapp.com/embed/avatars/0.png")
+  karma             Int       @default(1)
   lastCommand       DateTime
-  tracking          Boolean  @default(true)
+  firstSeen         DateTime?
+  tracking          Boolean   @default(true)
   lastfmUsername    String?
-  email             String?  @unique
-  adminLevel        Int      @default(0)
-  booster           Boolean  @default(false)
+  email             String?   @unique
+  adminLevel        Int       @default(0)
+  booster           Boolean   @default(false)
 
   birthday         DateTime?
   birthdayAnnounce Boolean   @default(true)
@@ -332,6 +333,7 @@ model Economy {
   MarketWatch        MarketWatch[]
   Boosters           Booster[]
   EconomyWorker      EconomyWorker[]
+  pets               Pet[]
   Inventory          Inventory[]
   Museum             Museum[]
   Crafting           Crafting[]
@@ -349,6 +351,7 @@ model Economy {
   CustomCar          CustomCar[]
   Farm               Farm[]
   FarmUpgrades       FarmUpgrades[]
+  clicks             Clicks[]
 }
 
 model Farm {
@@ -471,6 +474,15 @@ model Inventory {
   @@id([userId, item])
 }
 
+model ItemSourceStats {
+  itemId String
+  season Int
+  source String
+  amount BigInt @default(0)
+
+  @@id([itemId, season, source])
+}
+
 model Museum {
   userId String
 
@@ -521,6 +533,20 @@ model EconomyWorkerUpgrades {
   worker EconomyWorker @relation(fields: [userId, workerId], references: [userId, workerId], onDelete: Cascade)
 
   @@id([userId, workerId, upgradeId])
+}
+
+model Pet {
+  userId String
+  petId  String
+
+  level       Int     @default(1)
+  active      Boolean @default(false)
+  activations BigInt  @default(0)
+  name        String?
+
+  economy Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@id([userId, petId])
 }
 
 model Booster {
@@ -748,6 +774,13 @@ model Lottery {
   winnerTickets BigInt
   totalTickets  BigInt
   totalWin      BigInt?
+}
+
+model Clicks {
+  userId String @id
+  clicks Int    @default(0)
+
+  user Economy @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
 
 // guild specific tables
