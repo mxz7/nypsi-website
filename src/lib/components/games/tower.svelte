@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { parseTowerRows, type TowerCell } from "$lib/functions/tower";
+
   import DiscordButton from "./discord-button.svelte";
 
   interface Props {
@@ -7,40 +9,30 @@
 
   let { outcome }: Props = $props();
 
-  const difficulty = $derived(outcome.split("difficulty: ")[1].split("\n")[0].trim());
+  type ButtonData = {
+    style: 1 | 2 | 3 | 4;
+    emoji?: { id?: string; name: string };
+  };
 
-  const rows: { style: 1 | 2 | 3 | 4; emoji?: { id?: string; name: string } }[][] = $derived(
-    outcome
-      .split("bad click")[1]
-      .trim()
-      .split("\n")
-      .map((row) => {
-        if (row.length === 5) {
-          row.replace("gc", "m");
-        }
-        return row;
-      })
-      .map((row) =>
-        row.split("").map((item) => {
-          switch (item.toLowerCase()) {
-            case "a":
-              return { style: 2 };
-            case "b":
-              return { style: 2, emoji: { name: "🥚" } };
-            case "g":
-              return { style: 2, emoji: { name: "blue_gem", id: "1046866209326514206" } };
-            case "c":
-              return { style: 3, emoji: { name: "🥚" } };
-            case "m":
-              return { style: 3, emoji: { name: "blue_gem", id: "1046866209326514206" } };
-            case "x":
-              return { style: 4 };
-            default:
-              return { style: 2 };
-          }
-        }),
-      ),
-  );
+  function toButtonData(item: TowerCell): ButtonData {
+    switch (item) {
+      case "B":
+        return { style: 2, emoji: { name: "🥚" } };
+      case "G":
+        return { style: 2, emoji: { name: "blue_gem", id: "1046866209326514206" } };
+      case "C":
+        return { style: 3, emoji: { name: "🥚" } };
+      case "GC":
+        return { style: 3, emoji: { name: "blue_gem", id: "1046866209326514206" } };
+      case "X":
+        return { style: 4 };
+      default:
+        return { style: 2 };
+    }
+  }
+
+  const rows = $derived(parseTowerRows(outcome).map((row) => row.map(toButtonData)));
+  const columnCount = $derived(rows[0]?.length ?? 1);
 
   /**
    * nothing = a
@@ -58,19 +50,11 @@
 
 <div class="flex items-center justify-center">
   <div
-    style="grid-template-columns: repeat({difficulty === 'easy'
-      ? '4'
-      : difficulty === 'medium'
-        ? '3'
-        : difficulty === 'hard'
-          ? '2'
-          : difficulty === 'expert'
-            ? '4'
-            : '3'}, minmax(0, 1fr))"
+    style:grid-template-columns="repeat({columnCount}, minmax(0, 1fr))"
     class="grid w-fit gap-1 sm:gap-2"
   >
-    {#each rows as row}
-      {#each row as item}
+    {#each rows as row, rowIndex (rowIndex)}
+      {#each row as item, columnIndex (`${rowIndex}-${columnIndex}`)}
         <DiscordButton data={item} />
       {/each}
     {/each}
