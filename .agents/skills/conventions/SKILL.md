@@ -1,11 +1,13 @@
 ---
 name: conventions
-description: Covers remote function patterns (query/form + Zod + Redis caching), the BigInt caching pitfall, preferring remote functions over API routes, data loading (+page.ts vs +page.server.ts), component naming, Svelte 5 runes usage, and the custom Prisma client import path. Use for any work involving src/lib/api/*.remote.ts, caching, data loading, components, or Prisma.
+description: Covers the required remote-function-only data-access pattern (query/form + Zod + Redis caching), the BigInt caching pitfall, component naming, Svelte 5 runes usage, and the custom Prisma client import path. Use for any work involving src/lib/api/*.remote.ts, caching, data loading, components, or Prisma.
 ---
 
 # Conventions
 
 ## Remote Functions (`src/lib/api/*.remote.ts`)
+
+Remote functions are required for all new feature data access and client/server communication. Do not add `+page.server.ts`, feature `+server.ts` endpoints, form actions, or client fetches to local API routes. Use `query` for reads, `query.live` for streaming data, `form` for progressively enhanced forms, and `command` for imperative mutations.
 
 Use the `query()` / `form()` wrappers with a Zod schema. Always check Redis cache before hitting the database:
 
@@ -19,19 +21,19 @@ export const getUserId = query(z.string().toLowerCase(), async (username) => {
 });
 ```
 
-## Caching — BigInt pitfall
+## Structured Redis data — BigInt pitfall
 
-Use `RedisCache<T>` from [`src/lib/server/cache.ts`](../../../src/lib/server/cache.ts) — it handles BigInt serialization internally. Do **not** call `redisSerialize` / `redisDeserialize` directly or use plain `JSON.stringify` on Prisma results, as both will throw on `BigInt` fields.
+Use `RedisCache<T>` from [`src/lib/server/cache.ts`](../../../src/lib/server/cache.ts) for caches; it handles BigInt serialization internally. Plain `JSON.stringify` throws on Prisma results containing `BigInt` fields.
+
+All structured values sent through Redis must use `redisSerialize` and `redisDeserialize`, including pub/sub messages. Import the codec directly from `src/lib/server/functions/redis-json.ts`; do not re-export it through cache or transport modules. Ordinary cache consumers should continue using `RedisCache<T>` rather than calling the codec directly. Never use plain `JSON.stringify` / `JSON.parse` for structured Redis data.
 
 ## API Routes (`src/routes/api/`)
 
-Prefer using Remote Functions if possible over API routes.
+Do not add API routes for feature data access or client/server communication. Existing API routes are reserved for integrations that require an HTTP endpoint, such as webhooks.
 
 ## Data Loading
 
-- `+page.ts` — client-side load; use for public data fetched via `fetch`
-- `+page.server.ts` — server-only; use for authenticated/private data; access `locals.auth`
-- Cascade via `parent()` to get data from layout loads
+Load feature data directly in components through remote functions. Do not add `+page.ts` or `+page.server.ts` load functions for feature data. Put each operation in `src/lib/api/*.remote.ts` and call it from the component that consumes it.
 
 ## Components
 
