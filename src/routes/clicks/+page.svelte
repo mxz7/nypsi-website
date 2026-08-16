@@ -4,7 +4,7 @@
   import Main from "$lib/components/ui/main.svelte";
   import { onMount } from "svelte";
   import { flip } from "svelte/animate";
-  import { slide } from "svelte/transition";
+  import { scale, slide } from "svelte/transition";
 
   const clickUpdates = getClickUpdates();
   const initialUpdate = await clickUpdates;
@@ -113,7 +113,7 @@
             </div>
           {/if}
 
-          <div class="list-col-grow min-w-0">
+          <div class="list-col-grow min-w-0 self-center">
             {#if entry.userId}
               <a class="link-hover block truncate font-semibold" href="/users/{entry.userId}">
                 {entry.username}
@@ -131,7 +131,11 @@
           <span
             class="text-base-content/50 self-center whitespace-nowrap text-right text-xs tabular-nums"
           >
-            {entry.clicks.toLocaleString()} total clicks
+            {#key entry.clicks}
+              <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
+                {entry.clicks.toLocaleString()} total clicks
+              </span>
+            {/key}
           </span>
         </li>
       {/each}

@@ -33,9 +33,8 @@ type ClickUser = {
 
 type PublicClickUser = Pick<ClickUser, "avatar" | "lastKnownUsername">;
 
-function getClickKey(userId: string, clicks: number, lastClick: Date) {
-  const userKey = createHash("sha256").update(userId).digest("hex").slice(0, 16);
-  return `${userKey}:${clicks}:${lastClick.getTime()}`;
+function getClickKey(userId: string) {
+  return createHash("sha256").update(userId).digest("hex").slice(0, 16);
 }
 
 function getPublicClickUser(user: ClickUser): PublicClickUser | undefined {
@@ -51,7 +50,7 @@ function toClickRow(
   const publicUser = getPublicClickUser(user);
 
   return {
-    key: getClickKey(click.userId, click.clicks, click.lastClick),
+    key: getClickKey(click.userId),
     userId: publicUser ? click.userId : undefined,
     username: publicUser?.lastKnownUsername.split("#")[0] || "[hidden]",
     avatar: publicUser?.avatar,
@@ -110,7 +109,7 @@ export function getClickRow(event: ClickEvent, user?: PublicClickUser): ClickRow
     return null;
 
   return {
-    key: getClickKey(event.userId, event.clicks, lastClick),
+    key: getClickKey(event.userId),
     userId: user ? event.userId : undefined,
     username: user?.lastKnownUsername.split("#")[0] || "[hidden]",
     avatar: user?.avatar,
