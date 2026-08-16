@@ -33,6 +33,12 @@ type ClickUser = {
 
 type PublicClickUser = Pick<ClickUser, "avatar" | "lastKnownUsername">;
 
+function getTodayStart() {
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  return today;
+}
+
 function getClickKey(userId: string) {
   return createHash("sha256").update(userId).digest("hex").slice(0, 16);
 }
@@ -63,7 +69,7 @@ export async function getClickSnapshot(): Promise<ClickSnapshot> {
   const where = { clicks: { gt: 0 } } as const;
   const [clicks, totals] = await Promise.all([
     prisma.clicks.findMany({
-      where,
+      where: { ...where, lastClick: { gte: getTodayStart() } },
       select: {
         userId: true,
         clicks: true,
@@ -104,7 +110,8 @@ export function getClickRow(event: ClickEvent, user?: PublicClickUser): ClickRow
     !event.userId ||
     !Number.isSafeInteger(event.clicks) ||
     event.clicks < 1 ||
-    Number.isNaN(lastClick.getTime())
+    Number.isNaN(lastClick.getTime()) ||
+    lastClick < getTodayStart()
   )
     return null;
 

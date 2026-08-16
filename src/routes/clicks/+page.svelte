@@ -138,6 +138,8 @@
             {/key}
           </span>
         </li>
+      {:else}
+        <li class="text-base-content/50 px-4 py-10 text-center text-sm">no clicks yet today</li>
       {/each}
     </ul>
   </Card>
