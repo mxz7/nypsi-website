@@ -7,10 +7,10 @@ description: Explains how nypsi's sparse key-value preferences must be queried b
 
 `Preferences` has a composite `(userId, key)` primary key and a JSON value. Rows only exist when a value differs from its application default.
 
-Use `privacyPreferenceSelection` and `isPrivate()` from `src/lib/server/preferences.ts` for Prisma relation queries. The `leaderboards` preference defaults to `true`, meaning private; an explicit JSON boolean `false` makes the user public. Missing or malformed values must remain private.
+Use `privacyPreferenceSelection` and `isPrivate()` from `src/lib/server/preferences.ts` for Prisma relation queries. The `leaderboards` preference defaults to `false`, meaning public; an explicit JSON boolean `true` makes the user private. Missing or malformed values remain public.
 
-Raw SQL must join on both `userId` and `key = 'leaderboards'`. Resolve a missing value to JSON boolean `true`, for example:
+Raw SQL must join on both `userId` and `key = 'leaderboards'`. Resolve a missing value to JSON boolean `false`, for example:
 
 ```sql
-COALESCE(p."value", 'true'::jsonb) = 'true'::jsonb AS privacy
+COALESCE(p."value", 'false'::jsonb) = 'true'::jsonb AS privacy
 ```
