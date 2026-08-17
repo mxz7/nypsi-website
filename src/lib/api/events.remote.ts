@@ -92,6 +92,7 @@ type EventProgressEvent = {
 };
 
 export type EventProgressUpdate = EventProgressEvent & {
+  type: "update";
   user: {
     id: string;
     avatar: string;
@@ -99,9 +100,13 @@ export type EventProgressUpdate = EventProgressEvent & {
   };
 };
 
+type EventProgressMessage = { type: "snapshot"; totalProgress: number } | EventProgressUpdate;
+
 export const getEventUpdates = query.live(
   z.number().int().positive(),
-  async function* (eventId): AsyncGenerator<EventProgressUpdate> {
+  async function* (eventId): AsyncGenerator<EventProgressMessage> {
+    yield { type: "snapshot", totalProgress: await getEventProgress(eventId) };
+
     const signal = getRequestEvent().request.signal;
     const pubsub = new RedisPubSub<EventProgressEvent>(redis, EVENT_PROGRESS_CHANNEL);
     const queuedEvents: EventProgressEvent[] = [];
@@ -143,7 +148,7 @@ export const getEventUpdates = query.live(
           select: { id: true, avatar: true, lastKnownUsername: true },
         });
 
-        if (user) yield { ...event, user };
+        if (user) yield { type: "update", ...event, user };
       }
     } finally {
       signal.removeEventListener("abort", abort);

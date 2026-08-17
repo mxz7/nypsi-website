@@ -22,8 +22,16 @@
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
   const eventUpdates = $derived(event.endedAt ? undefined : getEventUpdates(event.id));
+  const initialEventUpdate = $derived(eventUpdates ? await eventUpdates : undefined);
+
   const progress = $derived.by(() => {
-    const total = eventUpdates?.current?.totalProgress ?? totalContribution;
+    const currentEventUpdate = eventUpdates?.current;
+    const total =
+      currentEventUpdate?.type === "update"
+        ? currentEventUpdate.totalProgress
+        : (initialEventUpdate?.totalProgress ??
+          currentEventUpdate?.totalProgress ??
+          totalContribution);
     return event.target ? Math.min(total, Number(event.target)) : total;
   });
   let contributions = $derived(event.contributions);
@@ -45,7 +53,7 @@
 
   $effect(() => {
     const update = eventUpdates?.current;
-    if (update)
+    if (update?.type === "update")
       contributions = mergeContribution(
         untrack(() => contributions),
         update,
