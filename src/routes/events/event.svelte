@@ -8,7 +8,7 @@
   import ms from "ms";
   import { untrack } from "svelte";
   import { flip } from "svelte/animate";
-  import { slide } from "svelte/transition";
+  import { scale, slide } from "svelte/transition";
   import EventUser from "./event-user.svelte";
 
   interface Props {
@@ -86,7 +86,12 @@
   <div class=" my-4 flex flex-col gap-1">
     {#if event.target}
       <span class="text-xs">
-        {progress.toLocaleString()} / {event.target.toLocaleString()}
+        {#key progress}
+          <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
+            {progress.toLocaleString()}
+          </span>
+        {/key}
+        / {event.target.toLocaleString()}
       </span>
 
       {#if progress}
@@ -98,7 +103,11 @@
     {:else}
       <span>
         total:
-        {progress.toLocaleString()}
+        {#key progress}
+          <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
+            {progress.toLocaleString()}
+          </span>
+        {/key}
       </span>
     {/if}
   </div>
