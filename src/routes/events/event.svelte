@@ -7,6 +7,8 @@
   import type { NypsiEvent } from "$lib/server/functions/event";
   import ms from "ms";
   import { untrack } from "svelte";
+  import { flip } from "svelte/animate";
+  import { slide } from "svelte/transition";
   import EventUser from "./event-user.svelte";
 
   interface Props {
@@ -148,7 +150,9 @@
 
   <ol class="flex flex-col gap-2">
     {#each contributions as user, i (user.user.id)}
-      <EventUser position={i + 1} {user} />
+      <li in:slide={{ duration: 180 }} animate:flip={{ duration: 180 }}>
+        <EventUser position={i + 1} {user} />
+      </li>
     {/each}
   </ol>
 </Card>

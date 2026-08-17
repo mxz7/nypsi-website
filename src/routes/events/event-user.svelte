@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { NypsiEvent } from "$lib/server/functions/event";
   import { auth } from "$lib/state.svelte";
+  import { scale } from "svelte/transition";
 
   interface Props {
     position: number;
@@ -10,7 +11,7 @@
   let { position, user }: Props = $props();
 </script>
 
-<li class="bg-base-300 flex w-full items-center gap-3 rounded-lg p-3">
+<div class="bg-base-300 flex w-full items-center gap-3 rounded-lg p-3">
   <span class="w-8 shrink-0 text-right text-slate-400">#{position}</span>
 
   <!-- Make user info flex-grow, truncate inside span -->
@@ -40,6 +41,10 @@
   </div>
 
   <span class="shrink-0 text-right">
-    {Number(user.contribution).toLocaleString()}
+    {#key user.contribution}
+      <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
+        {Number(user.contribution).toLocaleString()}
+      </span>
+    {/key}
   </span>
-</li>
+</div>
