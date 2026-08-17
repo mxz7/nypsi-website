@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { NypsiEvent } from "$lib/server/functions/event";
   import { auth } from "$lib/state.svelte";
-  import { cubicOut } from "svelte/easing";
-  import { Tween } from "svelte/motion";
 
   interface Props {
     position: number;
@@ -10,13 +8,6 @@
   }
 
   let { position, user }: Props = $props();
-
-  // svelte-ignore state_referenced_locally - doing this on purpose, don't want it to make a new tweened every time the thing updates
-  const value = new Tween(Number(user.contribution), { easing: cubicOut, duration: 1500 });
-
-  $effect(() => {
-    value.set(Number(user.contribution));
-  });
 </script>
 
 <li class="bg-base-300 flex w-full items-center gap-3 rounded-lg p-3">
@@ -49,6 +40,6 @@
   </div>
 
   <span class="shrink-0 text-right">
-    {Math.round(value.current).toLocaleString()}
+    {Number(user.contribution).toLocaleString()}
   </span>
 </li>

@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { invalidate } from "$app/navigation";
+  import { getEventUpdates, type EventProgressUpdate } from "$lib/api/events.remote";
   import Card from "$lib/components/ui/card.svelte";
   import type { getEventData } from "$lib/functions/items";
   import { pluralize } from "$lib/functions/string";
   import { daysUntil } from "$lib/functions/time";
   import type { NypsiEvent } from "$lib/server/functions/event";
   import ms from "ms";
-  import { onDestroy, onMount } from "svelte";
-  import { cubicOut } from "svelte/easing";
-  import { Tween } from "svelte/motion";
+  import { untrack } from "svelte";
   import EventUser from "./event-user.svelte";
 
   interface Props {
@@ -21,44 +19,35 @@
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
 
-  // svelte-ignore state_referenced_locally - doing this on purpose, don't want it to make a new tweened every time the thing updates
-  const progress = new Tween(totalContribution, { easing: cubicOut, duration: 1500 });
-  // svelte-ignore state_referenced_locally - doing this on purpose, don't want it to make a new tweened every time the thing updates
-  const progressBar = new Tween(totalContribution / Number(event.target || 0), {
-    easing: cubicOut,
-    duration: 1500,
+  const eventUpdates = $derived(event.endedAt ? undefined : getEventUpdates(event.id));
+  const progress = $derived.by(() => {
+    const total = eventUpdates?.current?.totalProgress ?? totalContribution;
+    return event.target ? Math.min(total, Number(event.target)) : total;
   });
+  let contributions = $derived(event.contributions);
 
-  let timeout: ReturnType<typeof setTimeout>;
+  function mergeContribution(current: NypsiEvent["contributions"], update: EventProgressUpdate) {
+    const contribution = {
+      contribution: BigInt(update.userProgress),
+      user: update.user,
+    };
 
-  function setValues() {
-    progress.set(totalContribution);
-    progressBar.set(totalContribution / Number(event.target));
+    return [contribution, ...current.filter((entry) => entry.user.id !== update.userId)]
+      .toSorted(
+        (a, b) =>
+          Number(b.contribution - a.contribution) ||
+          a.user.lastKnownUsername.localeCompare(b.user.lastKnownUsername),
+      )
+      .slice(0, 10);
   }
 
-  async function update() {
-    if (event.endedAt) {
-      // don't update an ended event idiot
-      return;
-    }
-
-    console.log("updating data");
-    await invalidate("event");
-    setValues();
-
-    timeout = setTimeout(() => {
-      update();
-    }, 10000);
-  }
-
-  onMount(() => {
-    timeout = setTimeout(() => {
-      update();
-    }, 10000);
-  });
-
-  onDestroy(() => {
-    clearTimeout(timeout);
+  $effect(() => {
+    const update = eventUpdates?.current;
+    if (update)
+      contributions = mergeContribution(
+        untrack(() => contributions),
+        update,
+      );
   });
 </script>
 
@@ -87,18 +76,19 @@
   <div class=" my-4 flex flex-col gap-1">
     {#if event.target}
       <span class="text-xs">
-        {Math.round(progress.current).toLocaleString()} / {event.target.toLocaleString()}
+        {progress.toLocaleString()} / {event.target.toLocaleString()}
       </span>
 
-      {#if progressBar?.current}
-        <progress class="progress progress-primary w-full" value={progressBar?.current}></progress>
+      {#if progress}
+        <progress class="progress progress-primary w-full" value={progress / Number(event.target)}
+        ></progress>
       {:else}
         <progress class="progress progress-primary w-full"></progress>
       {/if}
     {:else}
       <span>
         total:
-        {Math.round(progress.current).toLocaleString()}
+        {progress.toLocaleString()}
       </span>
     {/if}
   </div>
@@ -126,11 +116,15 @@
   {#if !event.endedAt}
     <div
       class="tooltip tooltip-left tooltip-success absolute right-4 inline-grid *:[grid-area:1/1]"
-      aria-label="live updates"
-      data-tip="live updates"
+      aria-label={eventUpdates?.connected ? "live updates" : "reconnecting"}
+      data-tip={eventUpdates?.connected ? "live updates" : "reconnecting"}
     >
-      <span class="status status-success animate-ping" aria-hidden={true}></span>
-      <span class="status status-success" aria-hidden={true}></span>
+      {#if eventUpdates?.connected}
+        <span class="status status-success animate-ping" aria-hidden={true}></span>
+        <span class="status status-success" aria-hidden={true}></span>
+      {:else}
+        <span class="status status-warning" aria-hidden={true}></span>
+      {/if}
     </div>
   {/if}
 </Card>
@@ -153,7 +147,7 @@
   {/if}
 
   <ol class="flex flex-col gap-2">
-    {#each event.contributions as user, i}
+    {#each contributions as user, i (user.user.id)}
       <EventUser position={i + 1} {user} />
     {/each}
   </ol>
