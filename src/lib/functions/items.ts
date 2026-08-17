@@ -1,24 +1,20 @@
-import { browser } from "$app/environment";
-import { eventsData } from "$lib/state.svelte";
+import { RedisCache } from "$lib/server/cache";
 import type { Event } from "$lib/types/Item";
+
+const eventDataCache = new RedisCache<Record<string, Event>>("cache:events:data", 3600);
 
 export async function getEventData(
   fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
 ): Promise<{ [key: string]: Event }> {
-  if (!browser) {
-    const eventsData = await fetch(
-      "https://raw.githubusercontent.com/mxz7/nypsi/refs/heads/main/data/events.json",
-    ).then((r) => r.json());
+  const cached = await eventDataCache.get("all");
 
-    return eventsData as { [key: string]: Event };
-  }
+  if (cached !== null) return cached;
 
-  if (eventsData.value) return eventsData.value;
-
-  const eventsDataFetched = await fetch(
+  const eventData = await fetch(
     "https://raw.githubusercontent.com/mxz7/nypsi/refs/heads/main/data/events.json",
-  ).then((r) => r.json());
-  eventsData.value = eventsDataFetched;
+  ).then((response) => response.json() as Promise<Record<string, Event>>);
 
-  return eventsDataFetched as { [key: string]: Event };
+  await eventDataCache.set("all", eventData);
+
+  return eventData;
 }

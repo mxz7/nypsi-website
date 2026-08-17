@@ -15,7 +15,7 @@
     event: NypsiEvent;
     totalContribution: number;
     userPosition?: number;
-    totalUsers?: Promise<number>;
+    totalUsers?: number;
     eventsData: Awaited<ReturnType<typeof getEventData>>;
   }
 
@@ -138,13 +138,9 @@
     {@const word = event.endedAt ? "were" : "are"}
 
     <p class="text-center text-sm">
-      {#await totalUsers}
-        you {word} <span class="text-primary">#{userPosition.toLocaleString()}</span>
-      {:then totalUsers}
-        you {word} <span class="text-primary">#{userPosition.toLocaleString()}</span><span
-          class="opacity-60">/{totalUsers.toLocaleString()}</span
-        >
-      {/await}
+      you {word} <span class="text-primary">#{userPosition.toLocaleString()}</span><span
+        class="opacity-60">/{totalUsers.toLocaleString()}</span
+      >
     </p>
   {/if}
 

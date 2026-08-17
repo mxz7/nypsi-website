@@ -1,20 +1,10 @@
 <script lang="ts">
+  import { getEventsPageData } from "$lib/api/events.remote";
   import Card from "$lib/components/ui/card.svelte";
   import Main from "$lib/components/ui/main.svelte";
-  import { auth } from "$lib/state.svelte";
-  import { onMount } from "svelte";
   import Event from "./event.svelte";
 
-  let { data } = $props();
-
-  onMount(() => {
-    if (data.auth) {
-      auth.value = {
-        ...data.auth,
-        authenticated: true,
-      };
-    }
-  });
+  const data = await getEventsPageData();
 </script>
 
 <svelte:head>
@@ -35,28 +25,26 @@
     <h1 class="text-center text-3xl font-bold text-white">no active event</h1>
   {/if}
 
-  {#await data.pastEvents then pastEvents}
-    {#if pastEvents.length > 0}
-      <section class="mt-3">
-        <h2 class="text-2xl font-bold text-white">past events</h2>
+  {#if data.pastEvents.length > 0}
+    <section class="mt-3">
+      <h2 class="text-2xl font-bold text-white">past events</h2>
 
-        <ol class="mt-2 grid grid-cols-2 gap-3">
-          {#each pastEvents as event}
-            <Card mode="anchor" href="/events/{event.id}">
-              <header class="text-lg font-semibold">
-                <span class="text-slate-400">#{event.id}</span>
-                <h3 class="inline text-white">
-                  {data.eventsData[event.type].name}
-                </h3>
-              </header>
+      <ol class="mt-2 grid grid-cols-2 gap-3">
+        {#each data.pastEvents as event (event.id)}
+          <Card mode="anchor" href="/events/{event.id}">
+            <header class="text-lg font-semibold">
+              <span class="text-slate-400">#{event.id}</span>
+              <h3 class="inline text-white">
+                {data.eventsData[event.type].name}
+              </h3>
+            </header>
 
-              <p class="text-sm opacity-75">
-                completed {new Date(event.endedAt).toLocaleDateString()}
-              </p>
-            </Card>
-          {/each}
-        </ol>
-      </section>
-    {/if}
-  {/await}
+            <p class="text-sm opacity-75">
+              completed {new Date(event.endedAt!).toLocaleDateString()}
+            </p>
+          </Card>
+        {/each}
+      </ol>
+    </section>
+  {/if}
 </Main>
