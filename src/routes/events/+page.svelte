@@ -2,6 +2,7 @@
   import { getEventsPageData } from "$lib/api/events.remote";
   import Card from "$lib/components/ui/card.svelte";
   import Main from "$lib/components/ui/main.svelte";
+  import { History } from "@lucide/svelte";
   import Event from "./event.svelte";
 
   const data = await getEventsPageData();
@@ -27,13 +28,18 @@
 
   {#if data.pastEvents.length > 0}
     <section class="mt-3">
-      <h2 class="text-2xl font-bold text-white">past events</h2>
+      <h2 class="mb-3 flex items-center gap-2 text-xl font-bold">
+        <span class="rounded-box bg-base-300 p-2">
+          <History class="text-primary size-5" aria-hidden={true} />
+        </span>
+        past events
+      </h2>
 
-      <ol class="mt-2 grid grid-cols-2 gap-3">
+      <ol class="grid grid-cols-2 gap-3">
         {#each data.pastEvents as event (event.id)}
           <Card mode="anchor" href="/events/{event.id}">
             <header class="text-lg font-semibold">
-              <span class="text-slate-400">#{event.id}</span>
+              <span class="text-base-content/50">#{event.id}</span>
               <h3 class="inline text-white">
                 {data.eventsData[event.type].name}
               </h3>

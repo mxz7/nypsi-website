@@ -35,6 +35,8 @@ Do not add API routes for feature data access or client/server communication. Ex
 
 Load feature data directly in components through remote functions. Do not add `+page.ts` or `+page.server.ts` load functions for feature data. Put each operation in `src/lib/api/*.remote.ts` and call it from the component that consumes it.
 
+For `query.live`, make the first yielded SSR snapshot complete enough to render the current view. Pub/sub updates only cover changes received after subscription, so a partial snapshot can leave hydrated state stale until navigation or the next matching update.
+
 ## Components
 
 Use kebab-case naming for component files.

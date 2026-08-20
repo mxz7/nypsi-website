@@ -4,6 +4,7 @@ import prisma from "$lib/server/database";
 import {
   getEvent,
   getEventProgress,
+  getEventProgressSnapshot,
   getPastEvents,
   getTotalUsers,
   getUserPosition,
@@ -100,13 +101,13 @@ export type EventProgressUpdate = EventProgressEvent & {
   };
 };
 
-type EventProgressMessage = { type: "snapshot"; totalProgress: number } | EventProgressUpdate;
+type EventProgressMessage =
+  | ({ type: "snapshot" } & Awaited<ReturnType<typeof getEventProgressSnapshot>>)
+  | EventProgressUpdate;
 
 export const getEventUpdates = query.live(
   z.number().int().positive(),
   async function* (eventId): AsyncGenerator<EventProgressMessage> {
-    yield { type: "snapshot", totalProgress: await getEventProgress(eventId) };
-
     const signal = getRequestEvent().request.signal;
     const pubsub = new RedisPubSub<EventProgressEvent>(redis, EVENT_PROGRESS_CHANNEL);
     const queuedEvents: EventProgressEvent[] = [];
@@ -133,6 +134,10 @@ export const getEventUpdates = query.live(
           queuedEvents.push(event);
         }
       });
+
+      if (aborted) return;
+
+      yield { type: "snapshot", ...(await getEventProgressSnapshot(eventId)) };
 
       while (!aborted) {
         const event =
