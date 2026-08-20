@@ -177,7 +177,7 @@
 
       {#if progressChartData}
         <div
-          class="mt-2 h-28 min-w-0 sm:mt-0 sm:h-32"
+          class="mt-2 h-16 min-w-0 sm:mt-0 sm:h-20"
           role="img"
           aria-label="Event progress over time"
         >
