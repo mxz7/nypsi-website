@@ -1,5 +1,6 @@
 import { getRequestEvent, query } from "$app/server";
 import { getEventData } from "$lib/functions/items";
+import { RedisCache } from "$lib/server/cache";
 import prisma from "$lib/server/database";
 import {
   getEvent,
@@ -17,7 +18,36 @@ import { getAuthedUser } from "./auth.remote";
 
 const EVENT_PROGRESS_CHANNEL = "nypsi:event-progress";
 
+type EventProgressPoint = {
+  createdAt: number;
+  value: number;
+};
+
+const eventProgressHistoryCache = new RedisCache<EventProgressPoint[]>(
+  "cache:events:progress-history",
+  300,
+);
+
 export const getEventsData = query(() => getEventData(getRequestEvent().fetch));
+
+export const getEventProgressHistory = query(z.number().int().positive(), async (eventId) => {
+  const cached = await eventProgressHistoryCache.get(eventId.toString());
+  if (cached) return cached;
+
+  const history = await prisma.botMetrics.findMany({
+    where: { category: `event_progress_${eventId}` },
+    orderBy: { createdAt: "asc" },
+    select: { createdAt: true, value: true },
+  });
+
+  const points =
+    history.length >= 24
+      ? history.map((point) => ({ createdAt: point.createdAt.getTime(), value: point.value }))
+      : [];
+
+  await eventProgressHistoryCache.set(eventId.toString(), points);
+  return points;
+});
 
 export const getEventsPageData = query(async () => {
   const event = await getEvent();

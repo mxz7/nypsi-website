@@ -1,11 +1,17 @@
 <script lang="ts">
-  import { getEventUpdates, type EventProgressUpdate } from "$lib/api/events.remote";
+  import {
+    getEventProgressHistory,
+    getEventUpdates,
+    type EventProgressUpdate,
+  } from "$lib/api/events.remote";
+  import Chart from "$lib/components/chart.svelte";
   import Card from "$lib/components/ui/card.svelte";
   import type { getEventData } from "$lib/functions/items";
   import { pluralize } from "$lib/functions/string";
   import { daysUntil } from "$lib/functions/time";
   import type { NypsiEvent } from "$lib/server/functions/event";
   import { Trophy } from "@lucide/svelte";
+  import type { ChartConfiguration, ChartOptions } from "chart.js";
   import ms from "ms";
   import { untrack } from "svelte";
   import { flip } from "svelte/animate";
@@ -21,6 +27,65 @@
   }
 
   let { event, userPosition, eventsData, totalUsers, totalContribution }: Props = $props();
+
+  const progressHistory = await getEventProgressHistory(untrack(() => event.id));
+
+  const progressChartData: ChartConfiguration | undefined = progressHistory.length
+    ? {
+        type: "line",
+        data: {
+          labels: progressHistory.map((point) => point.createdAt),
+          datasets: [
+            {
+              label: "event progress",
+              data: progressHistory.map((point) =>
+                event.target ? Math.min(point.value, Number(event.target)) : point.value,
+              ),
+              fill: true,
+              borderColor: "#8b5cf6",
+              borderWidth: 2,
+              backgroundColor: (context: {
+                chart: {
+                  ctx: CanvasRenderingContext2D;
+                  chartArea?: { top: number; bottom: number };
+                };
+              }) => {
+                const { chart } = context;
+                const { ctx, chartArea } = chart;
+
+                if (!chartArea) return "rgba(139, 92, 246, 0.22)";
+
+                const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                gradient.addColorStop(0, "rgba(139, 92, 246, 0.48)");
+                gradient.addColorStop(0.65, "rgba(139, 92, 246, 0.12)");
+                gradient.addColorStop(1, "rgba(139, 92, 246, 0)");
+                return gradient;
+              },
+            },
+          ],
+        },
+      }
+    : undefined;
+
+  const progressChartOptions: ChartOptions = {
+    animation: false,
+    events: [],
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false },
+    },
+    elements: {
+      line: { cubicInterpolationMode: "monotone", tension: 0.25 },
+      point: { radius: 0 },
+    },
+    layout: { padding: 2 },
+    scales: {
+      x: { display: false },
+      y: { display: false },
+    },
+  };
 
   const eventUpdates = $derived(event.endedAt ? undefined : getEventUpdates(event.id));
   const initialEventUpdate = $derived(eventUpdates ? await eventUpdates : undefined);
@@ -77,32 +142,49 @@
   </p>
 
   <div class="border-base-300 border-y py-4">
-    <p class="text-base-content/50 text-sm">
-      {event.target ? "progress" : "total contributions"}
-    </p>
-    <div class="mt-1 flex items-end justify-between gap-3">
-      <p class="text-3xl font-bold tracking-tight text-white tabular-nums">
-        {#key progress}
-          <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
-            {progress.toLocaleString()}
-          </span>
-        {/key}
-      </p>
+    <div
+      class:grid={progressChartData}
+      class="gap-5 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+    >
+      <div class="flex min-w-0 flex-col justify-center">
+        <p class="text-base-content/50 text-sm">
+          {event.target ? "progress" : "total contributions"}
+        </p>
+        <div class="mt-1 flex items-end justify-between gap-3">
+          <p class="text-3xl font-bold tracking-tight text-white tabular-nums">
+            {#key progress}
+              <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
+                {progress.toLocaleString()}
+              </span>
+            {/key}
+          </p>
 
-      {#if event.target}
-        <span class="text-base-content/60 pb-1 text-sm tabular-nums">
-          / {event.target.toLocaleString()}
-        </span>
+          {#if event.target}
+            <span class="text-base-content/60 pb-1 text-sm tabular-nums">
+              / {event.target.toLocaleString()}
+            </span>
+          {/if}
+        </div>
+
+        {#if event.target}
+          <progress
+            class="progress progress-primary mt-3 block w-full"
+            value={progress}
+            max={Number(event.target)}
+          ></progress>
+        {/if}
+      </div>
+
+      {#if progressChartData}
+        <div
+          class="mt-2 h-28 min-w-0 sm:mt-0 sm:h-32"
+          role="img"
+          aria-label="Event progress over time"
+        >
+          <Chart chartData={progressChartData} chartOptions={progressChartOptions} />
+        </div>
       {/if}
     </div>
-
-    {#if event.target}
-      <progress
-        class="progress progress-primary mt-3 block w-full"
-        value={progress}
-        max={Number(event.target)}
-      ></progress>
-    {/if}
   </div>
 
   <footer class="text-base-content/60 flex flex-wrap items-center justify-between gap-3 text-sm">
