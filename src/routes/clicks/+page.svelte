@@ -76,7 +76,7 @@
 
   <Card mode="section" class="mt-6 overflow-hidden p-0">
     <div class="stats stats-horizontal w-full bg-transparent">
-      <div class="stat place-items-center border-r border-base-300 px-4 py-4">
+      <div class="stat border-base-300 place-items-center border-r px-4 py-4">
         <div class="stat-title text-xs">global clicks</div>
         <div class="stat-value text-2xl">{globalClicks.toLocaleString()}</div>
       </div>
@@ -129,7 +129,7 @@
           </div>
 
           <span
-            class="text-base-content/50 self-center whitespace-nowrap text-right text-xs tabular-nums"
+            class="text-base-content/50 self-center text-right text-xs whitespace-nowrap tabular-nums"
           >
             {#key entry.clicks}
               <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
