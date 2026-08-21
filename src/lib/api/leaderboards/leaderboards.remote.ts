@@ -126,7 +126,7 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
   guilds: async () => {
     return await prisma.economyGuild
       .findMany({
-        select: { guildName: true, level: true },
+        select: { avatarId: true, guildName: true, level: true },
         orderBy: [{ level: "desc" }, { xp: "desc" }, { balance: "desc" }, { guildName: "asc" }],
         take: 100,
       })
@@ -136,7 +136,11 @@ const leaderboardQueries: Record<LeaderboardType, () => Promise<LeaderboardData>
           count++;
           return {
             value: `level ${x.level}`,
-            user: { username: x.guildName, id: x.guildName },
+            user: {
+              username: x.guildName,
+              id: x.guildName,
+              avatar: x.avatarId ? `https://cdn.nypsi.xyz/${x.avatarId}` : undefined,
+            },
             position: count,
           };
         });
