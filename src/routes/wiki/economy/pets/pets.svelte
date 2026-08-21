@@ -10,7 +10,7 @@
   });
 </script>
 
-<div class="grid grid-cols-1 gap-3 lg:grid-cols-2 mt-2">
+<div class="mt-2 grid grid-cols-1 gap-3 lg:grid-cols-2">
   {#if pets.length === 0}
     <span class="loading loading-spinner"></span>
   {:else}

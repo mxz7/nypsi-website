@@ -43,7 +43,7 @@
   </a>
 </div>
 
-<span class="self-center whitespace-nowrap text-right font-medium tabular-nums">
+<span class="self-center text-right font-medium whitespace-nowrap tabular-nums">
   {#key user.contribution}
     <span class="inline-block" in:scale={{ duration: 220, start: 0.65 }}>
       {Number(user.contribution).toLocaleString()}

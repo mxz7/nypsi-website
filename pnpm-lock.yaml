@@ -130,8 +130,8 @@ importers:
         specifier: 4.1.1
         version: 4.1.1(prettier@3.8.4)(svelte@5.56.9)
       prettier-plugin-tailwindcss:
-        specifier: 0.7.2
-        version: 0.7.2(prettier-plugin-svelte@4.1.1(prettier@3.8.4)(svelte@5.56.9))(prettier@3.8.4)
+        specifier: 0.8.1
+        version: 0.8.1(prettier-plugin-svelte@4.1.1(prettier@3.8.4)(svelte@5.56.9))(prettier@3.8.4)
       prisma:
         specifier: 7.9.1
         version: 7.9.1(@types/react@19.2.18)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
@@ -2280,8 +2280,8 @@ packages:
       prettier: ^3.0.0
       svelte: ^5.0.0
 
-  prettier-plugin-tailwindcss@0.7.2:
-    resolution: {integrity: sha512-LkphyK3Fw+q2HdMOoiEHWf93fNtYJwfamoKPl7UwtjFQdei/iIBoX11G6j706FzN3ymX9mPVi97qIY8328vdnA==}
+  prettier-plugin-tailwindcss@0.8.1:
+    resolution: {integrity: sha512-iaFMYqDsE4ffdDkn5qup0j5f2aCEBFZrdrZnvu9QKTlWx/iGPeQ4HHu7b7fCPMxeo9nwQBiOAh2nSypdFYWJkw==}
     engines: {node: '>=20.19'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -4721,7 +4721,7 @@ snapshots:
       prettier: 3.8.4
       svelte: 5.56.9
 
-  prettier-plugin-tailwindcss@0.7.2(prettier-plugin-svelte@4.1.1(prettier@3.8.4)(svelte@5.56.9))(prettier@3.8.4):
+  prettier-plugin-tailwindcss@0.8.1(prettier-plugin-svelte@4.1.1(prettier@3.8.4)(svelte@5.56.9))(prettier@3.8.4):
     dependencies:
       prettier: 3.8.4
     optionalDependencies:

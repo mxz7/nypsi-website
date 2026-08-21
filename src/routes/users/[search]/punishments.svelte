@@ -71,7 +71,7 @@
     <p class="text-base-content/70 py-6 text-center text-sm">no punishments found</p>
   {:else}
     <div class="overflow-x-auto">
-      <table class="table-fixed table w-full">
+      <table class="table w-full table-fixed">
         <thead>
           <tr>
             <th class="w-24">date</th>
@@ -114,7 +114,7 @@
               <td class="break-words whitespace-normal">{@html punishment.reasonHtml}</td>
               <td class="break-words whitespace-normal">{@render user(punishment.moderator)}</td>
 
-              <td class="break-words text-sm whitespace-normal">
+              <td class="text-sm break-words whitespace-normal">
                 {#if punishment.endedAt}
                   <p>
                     {punishment.endReason ? label(punishment.endReason) : "ended"} on
