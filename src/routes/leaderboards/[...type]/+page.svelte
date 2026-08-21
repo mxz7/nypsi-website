@@ -50,11 +50,16 @@
   <link rel="canonical" href="https://nypsi.xyz{page.url.pathname}" />
 </svelte:head>
 
-<Leaderboard
-  title={meta.title}
-  data={await getData(normalizedType)}
-  userRoute={meta.typeKind === "known" && normalizedType.includes("guilds") ? "/guilds" : "/users"}
-  descriptor={meta.descriptor}
-  descriptorPlural={meta.descriptorPlural}
-  {loading}
-/>
+{#key normalizedType}
+  <Leaderboard
+    title={meta.title}
+    leaderboardType={normalizedType}
+    data={await getData(normalizedType)}
+    userRoute={meta.typeKind === "known" && normalizedType.includes("guilds")
+      ? "/guilds"
+      : "/users"}
+    descriptor={meta.descriptor}
+    descriptorPlural={meta.descriptorPlural}
+    {loading}
+  />
+{/key}

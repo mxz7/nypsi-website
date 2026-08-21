@@ -34,3 +34,36 @@ export function formatTime(ms: number): string {
   }
   return `${minutes > 0 ? `${minutes}m` : ""}${seconds}s`;
 }
+
+const ascendingLeaderboards = new Set([
+  "wordle-time",
+  "chess-fastest",
+  "chatreaction-daily",
+  "chatreaction-alltime",
+  "flag-time",
+  "sudoku-fastest",
+]);
+
+function parseTime(value: string) {
+  const match = value.match(/^(?:(\d+)m)?([\d.]+)s$/);
+  if (!match) return 0;
+  return Number(match[1] ?? 0) * 60_000 + Number(match[2]) * 1_000;
+}
+
+function parseLeaderboardValue(type: string, value: string) {
+  if (ascendingLeaderboards.has(type)) return [parseTime(value)];
+  return (value.replaceAll(",", "").match(/\d+(?:\.\d+)?/g) ?? ["0"]).map(Number);
+}
+
+export function compareLeaderboardValues(type: string, a: string, b: string) {
+  const left = parseLeaderboardValue(type, a);
+  const right = parseLeaderboardValue(type, b);
+  const length = Math.max(left.length, right.length);
+
+  for (let index = 0; index < length; index++) {
+    const compared = (left[index] ?? 0) - (right[index] ?? 0);
+    if (compared !== 0) return ascendingLeaderboards.has(type) ? compared : -compared;
+  }
+
+  return 0;
+}
