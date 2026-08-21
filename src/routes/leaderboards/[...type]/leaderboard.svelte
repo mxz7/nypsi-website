@@ -66,8 +66,14 @@
     const existing = rows.find((row) => row.user?.id === update.event.entityId);
     if (!existing) return;
 
+    const value = update.event.increment
+      ? (
+          BigInt(existing.value.replaceAll(",", "").replace("$", "").replace("level ", "")) +
+          BigInt(update.event.value)
+        ).toString()
+      : update.event.value;
     const nextRows = rows.filter((row) => row.user?.id !== update.event.entityId);
-    nextRows.push({ ...existing, value: formatValue(update.event.value) });
+    nextRows.push({ ...existing, value: formatValue(value) });
 
     rows = nextRows
       .toSorted((a, b) => compareLeaderboardValues(leaderboardType, a.value, b.value))

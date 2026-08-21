@@ -23,4 +23,5 @@ export function getLeaderboardUpdatesChannel(leaderboard: string) {
 export type LeaderboardUpdateEvent = {
   entityId: string;
   value: string;
+  increment?: true;
 };

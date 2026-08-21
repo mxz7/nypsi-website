@@ -27,10 +27,13 @@ Payload:
 type LeaderboardUpdateEvent = {
   entityId: string;
   value: string;
+  increment?: true;
 };
 ```
 
 `entityId` is the user ID, except for the `guilds` leaderboard where it is the guild name. For ordinary scores, counts, currency, item amounts, ratings, and times, `value` is the unformatted numeric string; times are milliseconds. The unique `level` leaderboard value remains a preformatted string such as `"P2 L47"`. Publish structured messages with the shared Redis serializer.
+
+Omit `increment` to replace the current value. Set `increment: true` to add `value` to the current value for integer aggregate leaderboards such as `commands`. Increment values may be negative. Do not use increment mode for `level`, time, or rating leaderboards.
 
 Except for the unique prestige/level value, the bot does not format display strings. The Svelte component adds currency symbols, thousands separators, guild level labels, rating rounding, and time formatting.
 

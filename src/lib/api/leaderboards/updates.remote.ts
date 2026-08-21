@@ -9,6 +9,7 @@ import { LeaderboardTypeSchema, type LeaderboardType } from "./shared";
 const leaderboardUpdateEventSchema = z.object({
   entityId: z.string().min(1).max(100),
   value: z.string().min(1).max(100),
+  increment: z.literal(true).optional(),
 });
 
 export type LeaderboardStreamMessage =
