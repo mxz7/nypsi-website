@@ -45,7 +45,7 @@
     "tsx": "^4.23.12",
     "typescript": "5.9.3",
     "vite": "^8.2.1",
-    "vitest": "^4.1.10",
+    "vitest": "^4.1.11",
     "zod": "^4.3.6"
   },
   "type": "module",
@@ -57,7 +57,7 @@
     "@prisma/client": "7.9.1",
     "arctic": "^3.7.0",
     "chart.js": "^4.5.1",
-    "dayjs": "1.11.22",
+    "dayjs": "1.11.23",
     "fast-sort": "3.4.1",
     "ioredis": "^5.10.1",
     "ms": "2.1.3",
