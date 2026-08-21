@@ -19,7 +19,7 @@
     "@lucide/svelte": "^1.8.0",
     "@sveltejs/adapter-node": "^5.5.7",
     "@sveltejs/kit": "^2.61.1",
-    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "@twemoji/parser": "^17.0.2",
     "@types/ms": "2.1.0",
