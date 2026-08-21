@@ -37,7 +37,7 @@
 {/snippet}
 
 <Main>
-  <div class="flex gap-8">
+  <div class="flex gap-6">
     <!-- Desktop Navigation -->
     <nav class="hidden lg:block">
       <ul class="menu rounded-box bg-base-200 h-fit w-56 p-4">
