@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getTagsRemote } from "$lib/api/tags.remote";
+  import { handleFallbackImage } from "$lib/functions/image";
   import { pluralize } from "$lib/functions/string";
   import { Crown, LoaderCircle } from "@lucide/svelte";
   import { fade } from "svelte/transition";
@@ -14,8 +14,6 @@
     descriptorPlural?: string;
     loading: boolean;
   }
-
-  const tags = await getTagsRemote();
 
   let { title, data, userRoute, descriptor, descriptorPlural, loading }: LeaderboardProps =
     $props();
@@ -42,47 +40,45 @@
 {#snippet row(
   position: number,
   value: string,
-  user?: { id: string; username: string; tag?: string },
+  user?: { id: string; username: string; avatar?: string },
 )}
   <tr>
     <td
-      class="w-14 rounded-l-lg py-3 pr-1 pl-1 text-center font-mono text-sm whitespace-nowrap md:py-5 md:pl-3 {position ===
+      class="text-base-content/50 w-14 rounded-l-lg py-4 pr-1 pl-1 text-center whitespace-nowrap md:pl-3 {position ===
       1
-        ? 'text-primary font-semibold'
-        : 'text-base-content/75'}"
+        ? 'text-primary'
+        : ''}"
     >
       {#if position === 1}
         <Crown size={20} class="inline" />
       {:else}
-        {position.toLocaleString()}
+        #{position.toLocaleString()}
       {/if}
     </td>
 
-    <td class="w-full min-w-0 py-3 pl-2 md:py-5">
-      <span class="flex min-w-0 items-center gap-1">
+    <td class="w-full min-w-0 py-4 pl-2">
+      <div class="flex min-w-0 items-center gap-3">
         {#if user?.id}
-          {#if user.tag}
-            <span
-              class="tooltip tooltip-top flex flex-none items-center"
-              data-tip={tags[user.tag]?.name}
-            >
-              [
-              <img
-                class="h-5 w-5 object-contain"
-                height="32"
-                width="32"
-                src={tags[user.tag]?.emoji}
-                alt=""
-                decoding="async"
-              />
-              ]
-            </span>
+          {#if user.avatar}
+            <div class="avatar flex-none">
+              <div class="{position === 1 ? 'size-10' : 'size-9'} rounded-full">
+                <img
+                  src={user.avatar}
+                  width={position === 1 ? 40 : 36}
+                  height={position === 1 ? 40 : 36}
+                  onerror={handleFallbackImage}
+                  alt=""
+                  decoding="async"
+                  loading={position <= 10 ? "eager" : "lazy"}
+                />
+              </div>
+            </div>
           {/if}
           <a
             href={`${userRoute}/${user.id.replaceAll(" ", "-")}`}
             class="{position === 1
-              ? 'text-primary font-semibold'
-              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap md:text-base"
+              ? 'text-primary text-lg'
+              : 'text-base'} link-hover block min-w-0 overflow-hidden font-semibold text-ellipsis whitespace-nowrap"
           >
             {user.username}
           </a>
@@ -90,18 +86,19 @@
           <a
             href="/wiki/economy/user-settings/hidden"
             class="{position === 1
-              ? 'text-primary font-semibold'
-              : ''} link-hover block min-w-0 overflow-hidden text-sm text-ellipsis whitespace-nowrap md:text-base"
+              ? 'text-primary text-lg'
+              : 'text-base'} link-hover block min-w-0 overflow-hidden font-semibold text-ellipsis whitespace-nowrap"
           >
-            {"[hidden]"}
+            [hidden]
           </a>
         {/if}
-      </span>
+      </div>
     </td>
 
     <td
-      class="rounded-r-lg py-3 pr-2 text-right text-sm md:py-5 md:pr-3 md:text-base {position === 1
-        ? 'text-primary font-semibold'
+      class="rounded-r-lg py-4 pr-2 text-right text-base font-medium whitespace-nowrap tabular-nums md:pr-3 {position ===
+      1
+        ? 'text-primary'
         : ''}"
     >
       <span class="whitespace-nowrap">{value}</span>
@@ -116,7 +113,7 @@
   </tr>
 {/snippet}
 
-<h1 class="text-2xl font-bold md:text-4xl">{title}</h1>
+<h1 class="text-3xl font-bold text-white">{title}</h1>
 
 {#key data}
   <div class="mt-4 px-0">
@@ -151,11 +148,11 @@
           {@render head()}
 
           <tbody>
-            {#each data.data as { position, user, value }, i}
+            {#each data.data as { position, user, value } (user?.id ?? position)}
               {@render row(
                 position,
                 value,
-                user.id ? { id: user.id, username: user.username, tag: user.tag } : null,
+                user.id ? { id: user.id, username: user.username, avatar: user.avatar } : null,
               )}
             {/each}
           </tbody>

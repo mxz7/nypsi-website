@@ -2,7 +2,7 @@ export type LeaderboardData = {
   user?: {
     id?: string;
     username: string;
-    tag?: string;
+    avatar?: string;
   };
   guild?: {
     id: string;
