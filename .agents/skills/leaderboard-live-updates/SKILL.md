@@ -1,6 +1,6 @@
 ---
 name: leaderboard-live-updates
-description: Explains the Nypsi website/bot Redis contract and website behavior for live standard and item leaderboard value updates. Use when changing leaderboard pub/sub, query.live streaming, channel names, payloads, filtering, or row animations.
+description: Explains the Nypsi website/bot Redis contracts and website behavior for live standard, item, and event leaderboard updates. Use when changing leaderboard pub/sub, query.live streaming, channel names, payloads, filtering, identity lookups, or row animations.
 ---
 
 # Leaderboard Live Updates
@@ -50,3 +50,9 @@ The bot owns privacy filtering. It must not publish updates for private users.
 - Do not version the leaderboard cache for this feature.
 
 The channel helper and event type live in `src/lib/types/leaderboards.ts`. Callers must add the `item-` namespace before passing an item leaderboard identifier to the channel helper. Standard leaderboard identifiers are defined in `src/lib/api/leaderboards/shared.ts`; any other valid route type is treated as an item ID.
+
+## Event leaderboard
+
+The event leaderboard uses `nypsi:event-progress`. Page data supplies the initial total progress and leaderboard rows. The live query reads the cached event from `getEvent(eventId)` only to initialize its private top-10 filter, converts cached contributions back to BigInt, and first yields `{ type: "ready" }`; do not send those rows to the client again. Every matching event must still be yielded so total progress remains current.
+
+Track the top 10 inside the live query. Redis events contain absolute `userProgress` and `totalProgress` values. For a user outside the top 10, send the client only `{ type: "update", totalProgress }`. For an existing top-10 user, also send `userId` and `userProgress`; the client reuses identity from its current row. For a user newly entering the top 10, additionally send their username and avatar. Compare unknown users with the current tenth-place contribution and query identity only when they can enter; treat an equal contribution as eligible because username is the tie-breaker.

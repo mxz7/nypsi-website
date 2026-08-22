@@ -13,7 +13,7 @@
   import { Trophy } from "@lucide/svelte";
   import type { ChartConfiguration, ChartOptions } from "chart.js";
   import ms from "ms";
-  import { untrack } from "svelte";
+  import { onMount, untrack } from "svelte";
   import { flip } from "svelte/animate";
   import { scale, slide } from "svelte/transition";
   import EventUser from "./event-user.svelte";
@@ -91,25 +91,24 @@
   const initialEventUpdate = $derived(eventUpdates ? await eventUpdates : undefined);
 
   const progress = $derived.by(() => {
-    const currentEventUpdate = eventUpdates?.current;
+    const currentEventUpdate = eventUpdates?.current ?? initialEventUpdate;
     const total =
-      currentEventUpdate?.type === "update"
-        ? currentEventUpdate.totalProgress
-        : (initialEventUpdate?.totalProgress ??
-          currentEventUpdate?.totalProgress ??
-          totalContribution);
+      currentEventUpdate?.type === "update" ? currentEventUpdate.totalProgress : totalContribution;
     return event.target ? Math.min(total, Number(event.target)) : total;
   });
-  let contributions = $derived(
-    initialEventUpdate?.type === "snapshot"
-      ? initialEventUpdate.contributions
-      : event.contributions,
-  );
+  let contributions = $state(untrack(() => event.contributions));
 
   function mergeContribution(current: NypsiEvent["contributions"], update: EventProgressUpdate) {
+    if (!update.userId || update.userProgress === undefined) return current;
+
+    const existing = current.find((entry) => entry.user.id === update.userId);
+    const user =
+      existing?.user ?? (update.user ? { id: update.userId, ...update.user } : undefined);
+    if (!user) return current;
+
     const contribution = {
       contribution: BigInt(update.userProgress),
-      user: update.user,
+      user,
     };
 
     return [contribution, ...current.filter((entry) => entry.user.id !== update.userId)]
@@ -121,13 +120,28 @@
       .slice(0, 10);
   }
 
-  $effect(() => {
-    const update = eventUpdates?.current;
-    if (update?.type === "update")
-      contributions = mergeContribution(
-        untrack(() => contributions),
-        update,
-      );
+  onMount(() => {
+    const iterator = eventUpdates?.[Symbol.asyncIterator]();
+    if (!iterator) return;
+
+    let active = true;
+
+    const consumeUpdates = async () => {
+      while (active) {
+        const { value, done } = await iterator.next();
+        if (done || !active) break;
+        if (value.type === "update" && value.userId) {
+          contributions = mergeContribution(contributions, value);
+        }
+      }
+    };
+
+    void consumeUpdates().catch(() => {});
+
+    return () => {
+      active = false;
+      void iterator.return?.();
+    };
   });
 </script>
 

@@ -5,7 +5,6 @@ import prisma from "$lib/server/database";
 import {
   getEvent,
   getEventProgress,
-  getEventProgressSnapshot,
   getPastEvents,
   getTotalUsers,
   getUserPosition,
@@ -122,18 +121,18 @@ type EventProgressEvent = {
   totalProgress: number;
 };
 
-export type EventProgressUpdate = EventProgressEvent & {
+export type EventProgressUpdate = {
   type: "update";
-  user: {
-    id: string;
+  totalProgress: number;
+  userId?: string;
+  userProgress?: number;
+  user?: {
     avatar: string;
     lastKnownUsername: string;
   };
 };
 
-type EventProgressMessage =
-  | ({ type: "snapshot" } & Awaited<ReturnType<typeof getEventProgressSnapshot>>)
-  | EventProgressUpdate;
+type EventProgressMessage = { type: "ready" } | EventProgressUpdate;
 
 export const getEventUpdates = query.live(
   z.number().int().positive(),
@@ -167,7 +166,15 @@ export const getEventUpdates = query.live(
 
       if (aborted) return;
 
-      yield { type: "snapshot", ...(await getEventProgressSnapshot(eventId)) };
+      const event = await getEvent(eventId);
+      let contributions =
+        event?.contributions.slice(0, 10).map((entry) => ({
+          ...entry,
+          contribution: BigInt(entry.contribution),
+        })) ?? [];
+      const users = new Map(contributions.map((entry) => [entry.user.id, entry.user]));
+
+      yield { type: "ready" };
 
       while (!aborted) {
         const event =
@@ -178,12 +185,50 @@ export const getEventUpdates = query.live(
 
         if (!event) break;
 
-        const user = await prisma.user.findUnique({
-          where: { id: event.userId },
-          select: { id: true, avatar: true, lastKnownUsername: true },
-        });
+        const contribution = BigInt(event.userProgress);
+        const isListed = contributions.some((entry) => entry.user.id === event.userId);
+        const lastContribution = contributions.at(-1)?.contribution;
+        const canEnterLeaderboard =
+          isListed || contributions.length < 10 || contribution >= (lastContribution ?? 0n);
 
-        if (user) yield { type: "update", ...event, user };
+        if (!canEnterLeaderboard) {
+          yield { type: "update", totalProgress: event.totalProgress };
+          continue;
+        }
+
+        const user =
+          users.get(event.userId) ??
+          (await prisma.user.findUnique({
+            where: { id: event.userId },
+            select: { id: true, avatar: true, lastKnownUsername: true },
+          }));
+
+        if (!user) {
+          yield { type: "update", totalProgress: event.totalProgress };
+          continue;
+        }
+
+        users.set(user.id, user);
+        contributions = [
+          { contribution, user },
+          ...contributions.filter((entry) => entry.user.id !== event.userId),
+        ]
+          .toSorted(
+            (a, b) =>
+              Number(b.contribution - a.contribution) ||
+              a.user.lastKnownUsername.localeCompare(b.user.lastKnownUsername),
+          )
+          .slice(0, 10);
+
+        yield {
+          type: "update",
+          totalProgress: event.totalProgress,
+          userId: event.userId,
+          userProgress: event.userProgress,
+          user: isListed
+            ? undefined
+            : { avatar: user.avatar, lastKnownUsername: user.lastKnownUsername },
+        };
       }
     } finally {
       signal.removeEventListener("abort", abort);

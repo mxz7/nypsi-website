@@ -96,29 +96,6 @@ async function getEventProgressNoCache(id: number) {
   return query._sum.contribution;
 }
 
-export async function getEventProgressSnapshot(id: number) {
-  const [progress, contributions] = await Promise.all([
-    getEventProgressNoCache(id),
-    prisma.eventContribution.findMany({
-      where: { eventId: id },
-      take: 10,
-      orderBy: [{ contribution: "desc" }, { user: { lastKnownUsername: "asc" } }],
-      select: {
-        contribution: true,
-        user: {
-          select: {
-            lastKnownUsername: true,
-            avatar: true,
-            id: true,
-          },
-        },
-      },
-    }),
-  ]);
-
-  return { totalProgress: Number(progress), contributions };
-}
-
 export async function getEventProgress(id: number, longCache = false) {
   const cache = await redis.get(`cache:events:progress:${id}`);
 
