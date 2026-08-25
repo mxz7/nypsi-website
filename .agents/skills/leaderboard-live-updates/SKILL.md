@@ -5,7 +5,7 @@ description: Explains the Nypsi website/bot Redis contracts and website behavior
 
 # Leaderboard Live Updates
 
-The bot publishes value changes and the website applies them only to entities already present in its cached top 100. Slight inaccuracy near the bottom is intentional until the leaderboard cache refreshes.
+The bot publishes value changes and the website applies them to entities already present in its cached top 100, plus the current authenticated user on user-ID leaderboards. Slight inaccuracy near the bottom is intentional until the leaderboard cache refreshes.
 
 ## Redis contract
 
@@ -44,10 +44,11 @@ The bot owns privacy filtering. It must not publish updates for private users.
 - `getData` supplies the initial leaderboard rows to the page.
 - `getLeaderboardUpdates` in `src/lib/api/leaderboards/updates.remote.ts` subscribes to the selected leaderboard channel with `query.live`.
 - The live query reads the cached leaderboard server-side only to build its trusted entity-ID filter. It must not query user or guild identity data.
+- For user-ID leaderboards, add the authenticated user's ID to the entity filter so their separate `your position` row can update even outside the top 100. Do not do this for `guilds`, whose event entity is a guild name.
 - The live query's first client message is `{ type: "ready" }`; do not yield the cached leaderboard because `getData` already sent it.
-- Ignore events whose `entityId` is not in the cached top 100. Do not fetch or insert outsiders.
+- Ignore events whose `entityId` is neither in the cached top 100 nor the authenticated user's ID. Do not fetch or insert other outsiders.
 - Yield matching updates. Absolute updates replace the row value. Increment updates retain their original Redis `value` and receive a stream-local cumulative `incrementTotal` plus `streamId`; the component applies the difference from the last received total. This is required because SvelteKit `query.live` is latest-wins under backpressure, so intermediate `+1` messages may be dropped. Do not query the database for a total or convert high-frequency publishers to absolute updates.
-- The component formats the value, re-sorts known rows, recalculates positions, and animates value/rank changes.
+- The component formats the value, re-sorts known rows, recalculates positions, and animates value/rank changes. It also keeps `userPosition` as local reactive state: matching authenticated-user events update its value, and when that user is in the top 100 its position follows the re-sorted row. Outside the top 100, the exact position remains cached because the stream does not contain enough neighboring rows to recalculate it.
 - Do not version the leaderboard cache for this feature.
 
 The channel helper and event type live in `src/lib/types/leaderboards.ts`. Callers must add the `item-` namespace before passing an item leaderboard identifier to the channel helper. Standard leaderboard identifiers are defined in `src/lib/api/leaderboards/shared.ts`; any other valid route type is treated as an item ID.

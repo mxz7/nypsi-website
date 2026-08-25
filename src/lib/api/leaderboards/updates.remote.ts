@@ -1,4 +1,5 @@
 import { getRequestEvent, query } from "$app/server";
+import { getAuthedUser } from "$lib/api/auth.remote";
 import { RedisPubSub } from "$lib/server/pubsub";
 import redis from "$lib/server/redis";
 import { getLeaderboardUpdatesChannel, type LeaderboardUpdateEvent } from "$lib/types/leaderboards";
@@ -68,10 +69,14 @@ export const getLeaderboardUpdates = query.live(
 
       if (aborted) return;
 
-      const snapshot = await (knownType.success
-        ? getLeaderboard(knownType.data as LeaderboardType)
-        : getItemLeaderboard(type));
+      const [snapshot, authedUser] = await Promise.all([
+        knownType.success
+          ? getLeaderboard(knownType.data as LeaderboardType)
+          : getItemLeaderboard(type),
+        type === "guilds" ? null : getAuthedUser(),
+      ]);
       const entityIds = new Set(snapshot.flatMap((row) => (row.user?.id ? [row.user.id] : [])));
+      if (authedUser) entityIds.add(authedUser.id);
 
       yield { type: "ready" };
 

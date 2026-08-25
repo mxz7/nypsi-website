@@ -37,6 +37,7 @@
   await leaderboardUpdates;
 
   let rows = $state(untrack(() => data.data));
+  let userPosition = $state(untrack(() => data.userPosition));
   // The live query can coalesce increment events; retain the last stream total
   // so the next received event can include all missed increments.
   const incrementStates = new Map<string, { streamId: string; total: bigint }>();
@@ -63,6 +64,17 @@
     return BigInt(value).toLocaleString();
   }
 
+  function applyEventValue(currentValue: string, eventValue: string, increment?: bigint) {
+    const value =
+      increment === undefined
+        ? eventValue
+        : (
+            BigInt(currentValue.replaceAll(",", "").replace("$", "").replace("level ", "")) +
+            increment
+          ).toString();
+    return formatValue(value);
+  }
+
   function applyUpdate(update: LeaderboardStreamMessage) {
     if (update.type === "ready") {
       incrementStates.clear();
@@ -87,21 +99,41 @@
     }
 
     const existing = rows.find((row) => row.user?.id === event.entityId);
-    if (!existing) return;
 
-    const value = event.increment
-      ? (
-          BigInt(existing.value.replaceAll(",", "").replace("$", "").replace("level ", "")) +
-          increment
-        ).toString()
-      : event.value;
-    const nextRows = rows.filter((row) => row.user?.id !== event.entityId);
-    nextRows.push({ ...existing, value: formatValue(value) });
+    if (existing) {
+      const value = applyEventValue(
+        existing.value,
+        event.value,
+        event.increment ? increment : undefined,
+      );
+      const nextRows = rows.filter((row) => row.user?.id !== event.entityId);
+      nextRows.push({ ...existing, value });
 
-    rows = nextRows
-      .toSorted((a, b) => compareLeaderboardValues(leaderboardType, a.value, b.value))
-      .slice(0, 100)
-      .map((row, index) => ({ ...row, position: index + 1 }));
+      rows = nextRows
+        .toSorted((a, b) => compareLeaderboardValues(leaderboardType, a.value, b.value))
+        .slice(0, 100)
+        .map((row, index) => ({ ...row, position: index + 1 }));
+    }
+
+    if (userPosition && data.userData) {
+      const currentUserRow = rows.find((row) => row.user?.id === data.userData?.id);
+
+      if (currentUserRow) {
+        userPosition = {
+          position: currentUserRow.position,
+          value: currentUserRow.value,
+        };
+      } else if (event.entityId === data.userData.id) {
+        userPosition = {
+          ...userPosition,
+          value: applyEventValue(
+            userPosition.value,
+            event.value,
+            event.increment ? increment : undefined,
+          ),
+        };
+      }
+    }
   }
 
   onMount(() => {
@@ -235,8 +267,8 @@
         "[&_tbody_tr:nth-child(odd)]:bg-base-200 [&_tbody_td]:border-b-0 [&_tbody_tr:nth-child(even)]:bg-transparent"}
 
       <div in:fade={{ duration: 200, delay: 100 }} out:fade={{ duration: 100 }}>
-        {#if data.userPosition}
-          {@const pos = data.userPosition}
+        {#if userPosition}
+          {@const pos = userPosition}
 
           <h2 class="text-base-content/50 font-semibold">your position</h2>
           <table class={twMerge(tableClasses, tableModifiers, "mt-1")}>
