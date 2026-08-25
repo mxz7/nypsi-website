@@ -12,9 +12,21 @@ const leaderboardUpdateEventSchema = z.object({
   increment: z.literal(true).optional(),
 });
 
+type LeaderboardStreamEvent = LeaderboardUpdateEvent & {
+  /** Running increment total for this entity's increment sequence. */
+  incrementTotal?: string;
+  /** Identifies the sequence that owns incrementTotal. */
+  streamId?: string;
+};
+
+type IncrementState = {
+  streamId: string;
+  total: bigint;
+};
+
 export type LeaderboardStreamMessage =
   | { type: "ready" }
-  | { type: "update"; event: LeaderboardUpdateEvent };
+  | { type: "update"; event: LeaderboardStreamEvent };
 
 export const getLeaderboardUpdates = query.live(
   z.string().min(1).max(100),
@@ -26,6 +38,9 @@ export const getLeaderboardUpdates = query.live(
       getLeaderboardUpdatesChannel(knownType.success ? type : `item-${type}`),
     );
     const queuedEvents: LeaderboardUpdateEvent[] = [];
+    // query.live is latest-wins, so keep a running delta per entity for the
+    // client to recover increments from intermediate values it does not see.
+    const incrementStates = new Map<string, IncrementState>();
     let resolveNext: ((event: LeaderboardUpdateEvent | null) => void) | undefined;
     let aborted = signal.aborted;
 
@@ -70,7 +85,34 @@ export const getLeaderboardUpdates = query.live(
         if (!event) break;
 
         if (!entityIds.has(event.entityId)) continue;
-        yield { type: "update", event };
+
+        let streamEvent: LeaderboardStreamEvent = event;
+
+        if (event.increment) {
+          let increment: bigint;
+
+          try {
+            increment = BigInt(event.value);
+          } catch {
+            continue;
+          }
+
+          const state: IncrementState = incrementStates.get(event.entityId) ?? {
+            streamId: crypto.randomUUID(),
+            total: 0n,
+          };
+          state.total += increment;
+          incrementStates.set(event.entityId, state);
+          streamEvent = {
+            ...event,
+            incrementTotal: state.total.toString(),
+            streamId: state.streamId,
+          };
+        } else {
+          incrementStates.delete(event.entityId);
+        }
+
+        yield { type: "update", event: streamEvent };
       }
     } finally {
       signal.removeEventListener("abort", abort);

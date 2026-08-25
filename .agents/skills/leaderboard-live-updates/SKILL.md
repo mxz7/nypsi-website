@@ -46,7 +46,8 @@ The bot owns privacy filtering. It must not publish updates for private users.
 - The live query reads the cached leaderboard server-side only to build its trusted entity-ID filter. It must not query user or guild identity data.
 - The live query's first client message is `{ type: "ready" }`; do not yield the cached leaderboard because `getData` already sent it.
 - Ignore events whose `entityId` is not in the cached top 100. Do not fetch or insert outsiders.
-- Yield matching raw updates. The component formats the value, re-sorts known rows, recalculates positions, and animates value/rank changes.
+- Yield matching updates. Absolute updates replace the row value. Increment updates retain their original Redis `value` and receive a stream-local cumulative `incrementTotal` plus `streamId`; the component applies the difference from the last received total. This is required because SvelteKit `query.live` is latest-wins under backpressure, so intermediate `+1` messages may be dropped. Do not query the database for a total or convert high-frequency publishers to absolute updates.
+- The component formats the value, re-sorts known rows, recalculates positions, and animates value/rank changes.
 - Do not version the leaderboard cache for this feature.
 
 The channel helper and event type live in `src/lib/types/leaderboards.ts`. Callers must add the `item-` namespace before passing an item leaderboard identifier to the channel helper. Standard leaderboard identifiers are defined in `src/lib/api/leaderboards/shared.ts`; any other valid route type is treated as an item ID.

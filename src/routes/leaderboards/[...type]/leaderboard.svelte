@@ -37,6 +37,9 @@
   await leaderboardUpdates;
 
   let rows = $state(untrack(() => data.data));
+  // The live query can coalesce increment events; retain the last stream total
+  // so the next received event can include all missed increments.
+  const incrementStates = new Map<string, { streamId: string; total: bigint }>();
 
   function formatValue(value: string) {
     if (leaderboardType === "level") return value;
@@ -61,18 +64,38 @@
   }
 
   function applyUpdate(update: LeaderboardStreamMessage) {
-    if (update.type === "ready") return;
+    if (update.type === "ready") {
+      incrementStates.clear();
+      return;
+    }
 
-    const existing = rows.find((row) => row.user?.id === update.event.entityId);
+    const { event } = update;
+    let increment = 0n;
+
+    if (event.increment) {
+      increment = BigInt(event.value);
+
+      if (event.incrementTotal !== undefined && event.streamId !== undefined) {
+        const total = BigInt(event.incrementTotal);
+        const previous = incrementStates.get(event.entityId);
+        const previousTotal = previous?.streamId === event.streamId ? previous.total : 0n;
+        increment = total - previousTotal;
+        incrementStates.set(event.entityId, { streamId: event.streamId, total });
+      }
+    } else {
+      incrementStates.delete(event.entityId);
+    }
+
+    const existing = rows.find((row) => row.user?.id === event.entityId);
     if (!existing) return;
 
-    const value = update.event.increment
+    const value = event.increment
       ? (
           BigInt(existing.value.replaceAll(",", "").replace("$", "").replace("level ", "")) +
-          BigInt(update.event.value)
+          increment
         ).toString()
-      : update.event.value;
-    const nextRows = rows.filter((row) => row.user?.id !== update.event.entityId);
+      : event.value;
+    const nextRows = rows.filter((row) => row.user?.id !== event.entityId);
     nextRows.push({ ...existing, value: formatValue(value) });
 
     rows = nextRows
