@@ -7,6 +7,7 @@
   import LoadBar from "$lib/components/layout/load-bar.svelte";
   import Navbar from "$lib/components/layout/nav/nav-bar.svelte";
   import { auth, initialLoad } from "$lib/state.svelte";
+  import type { User } from "$lib/types/Auth";
   import "@fontsource-variable/inter";
   import { onMount, tick, type Snippet } from "svelte";
   import { toast, Toaster } from "svelte-sonner";
@@ -18,6 +19,12 @@
 
   let { children }: Props = $props();
 
+  function identifyUmamiUser(user: User) {
+    window.umami?.identify(user.id, {
+      username: user.lastKnownUsername,
+    });
+  }
+
   onMount(async () => {
     await tick();
     if (!auth.value) {
@@ -28,6 +35,10 @@
       } else {
         auth.value = { authenticated: true, user: authData };
       }
+    }
+
+    if (auth.value?.authenticated) {
+      identifyUmamiUser(auth.value.user);
     }
 
     setTimeout(() => {
@@ -108,6 +119,12 @@
     <script
       defer
       src="https://analytics.maxz.dev/script.js"
+      data-website-id="d0bd590b-cc67-4315-b725-0105ada8ce61"
+      data-performance="true"
+    ></script>
+    <script
+      defer
+      src="https://analytics.maxz.dev/recorder.js"
       data-website-id="d0bd590b-cc67-4315-b725-0105ada8ce61"
     ></script>
   {/if}

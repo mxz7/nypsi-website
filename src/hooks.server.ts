@@ -35,6 +35,10 @@ export async function handle({ event, resolve }) {
     res.headers.set("cache-control", "no-cache");
   }
 
+  if (!dev && res.headers.get("content-type")?.includes("text/html")) {
+    res.headers.set("content-security-policy", "frame-ancestors 'self' https://analytics.maxz.dev");
+  }
+
   logRequest(res.status, event);
 
   return res;

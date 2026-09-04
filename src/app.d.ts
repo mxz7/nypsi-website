@@ -5,6 +5,12 @@ import type { Logger } from "pino";
 
 // for information about these interfaces
 declare global {
+  interface Window {
+    umami?: {
+      identify(uniqueId: string, data: Record<string, string>): void;
+    };
+  }
+
   namespace App {
     interface Error {
       requestId?: string;
