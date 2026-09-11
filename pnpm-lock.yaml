@@ -103,8 +103,8 @@ importers:
         specifier: 5.62.0
         version: 5.62.0(eslint@8.57.1(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
       daisyui:
-        specifier: ^5.7.28
-        version: 5.7.28
+        specifier: ^5.7.32
+        version: 5.7.32
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
@@ -1413,8 +1413,8 @@ packages:
     resolution: {integrity: sha512-VqKjzBLejbSMT4IgbmVgDjpkYrNWUYJnbCGo874u7MMKIWsILRX+OpX/gTk8MqjpT1A/c6HY2dCA77ZN0lkQ2Q==}
     engines: {node: '>=12'}
 
-  daisyui@5.7.28:
-    resolution: {integrity: sha512-BxQap2QOj7NQy5nEsjTHRmybmUZP3t+O5G6vfdidZuptBsh/QyKN9wbdrGDZk198fMI3UyYnA/rCWlggZIhGnw==}
+  daisyui@5.7.32:
+    resolution: {integrity: sha512-8JQFneb+okHxzPimTGvRKX+5XF03GyAwGw7BaV6+6XpzW0klGuzc4rdfUpLQxIYPKEziwwlrsYfcxoltF2Rowg==}
 
   dayjs@1.11.23:
     resolution: {integrity: sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==}
@@ -3931,7 +3931,7 @@ snapshots:
     dependencies:
       d3-array: 3.2.4
 
-  daisyui@5.7.28: {}
+  daisyui@5.7.32: {}
 
   dayjs@1.11.23: {}
 
