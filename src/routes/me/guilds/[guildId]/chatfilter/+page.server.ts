@@ -1,5 +1,5 @@
 import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
-import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { requireAuth } from "#lib/api/auth.remote.js";
 import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
 import { discordReconnectRequired } from "#lib/server/auth/discord-tokens.js";
 import prisma from "#lib/server/database.js";
@@ -36,9 +36,8 @@ export async function load({ parent, params }) {
 
 export const actions = {
   delete: async ({ request, params, locals }) => {
-    const authedUser = await getAuthedUser();
-
-    if (!authedUser) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
+    const returnUrl = new URL(request.url);
+    const authedUser = await requireAuth(returnUrl.pathname + returnUrl.search);
 
     const guilds = await getGuilds(authedUser, locals);
 
@@ -72,9 +71,8 @@ export const actions = {
     });
   },
   edit: async ({ request, params, locals }) => {
-    const authedUser = await getAuthedUser();
-
-    if (!authedUser) return redirect(302, "/login?next=" + encodeURIComponent(request.url));
+    const returnUrl = new URL(request.url);
+    const authedUser = await requireAuth(returnUrl.pathname + returnUrl.search);
 
     const guilds = await getGuilds(authedUser, locals);
 

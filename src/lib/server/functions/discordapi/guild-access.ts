@@ -1,5 +1,5 @@
 import { getRequestEvent } from "$app/server";
-import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { requireAuth } from "#lib/api/auth.remote.js";
 import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
 import { discordReconnectRequired } from "#lib/server/auth/discord-tokens.js";
 import { error, redirect } from "@sveltejs/kit";
@@ -7,9 +7,7 @@ import { getGuilds } from "./guilds";
 
 export async function requireGuildAccess(guildId: string) {
   const { locals, url } = getRequestEvent();
-  const authedUser = await getAuthedUser();
-
-  if (!authedUser) redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
+  const authedUser = await requireAuth(url.pathname + url.search);
 
   const guilds = await getGuilds(authedUser, locals);
 

@@ -1,10 +1,7 @@
-import { getAuthedUser } from "#lib/api/auth.remote.js";
-import { redirect } from "@sveltejs/kit";
+import { requireAuth } from "#lib/api/auth.remote.js";
 
 export async function load({ locals, url }) {
-  const authedUser = await getAuthedUser();
-
-  if (!authedUser) return redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
+  const authedUser = await requireAuth(url.pathname + url.search);
 
   return { user: authedUser };
 }

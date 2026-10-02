@@ -1,12 +1,9 @@
 import { getGuilds } from "#lib/server/functions/discordapi/guilds.js";
-import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { requireAuth } from "#lib/api/auth.remote.js";
 import { discordReconnectRequired } from "#lib/server/auth/discord-tokens.js";
-import { redirect } from "@sveltejs/kit";
 
 export async function load({ locals, url }) {
-  const authedUser = await getAuthedUser();
-
-  if (!authedUser) return redirect(302, "/login?next=" + encodeURIComponent(url.pathname));
+  const authedUser = await requireAuth(url.pathname + url.search);
 
   const guilds = await getGuilds(authedUser, locals);
 

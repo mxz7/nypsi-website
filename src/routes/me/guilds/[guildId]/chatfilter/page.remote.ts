@@ -1,6 +1,6 @@
 import { form, getRequestEvent } from "$app/server";
 import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
-import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { requireAuth } from "#lib/api/auth.remote.js";
 import { Constants } from "#lib/data/constants.js";
 import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
 import { discordReconnectRequired } from "#lib/server/auth/discord-tokens.js";
@@ -25,11 +25,7 @@ const newFilterSchema = z.object({
 
 export const createFilter = form(newFilterSchema, async (data, issue) => {
   const { fetch, locals, url } = getRequestEvent();
-  const authedUser = await getAuthedUser();
-
-  if (!authedUser) {
-    redirect(302, "/login?next=" + encodeURIComponent(url.href));
-  }
+  const authedUser = await requireAuth(url.pathname + url.search);
 
   const guilds = await getGuilds(authedUser, locals);
 

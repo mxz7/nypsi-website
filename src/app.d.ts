@@ -25,12 +25,13 @@ declare global {
       startTimer: number;
       error: string;
       errorStackTrace: string;
+      authedUser?: User | null;
       logger: Logger;
       message: unknown;
       auth?: {
         user: User;
         session: Session;
-      };
+      } | null;
     }
   }
 }
