@@ -14,7 +14,7 @@ export const getAchievementsRemote = query(async () => {
     "https://raw.githubusercontent.com/mxz7/nypsi/main/data/achievements.json",
   );
   if (res.status !== 200) {
-    error(res.status, { message: res.statusText });
+    error(res.status, res.statusText);
   }
 
   const achievementData: { [key: string]: Achievement } = await res.json();

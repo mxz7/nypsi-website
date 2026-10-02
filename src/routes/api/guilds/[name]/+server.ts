@@ -1,5 +1,4 @@
 import prisma from "#lib/server/database.js";
-import { json } from "@sveltejs/kit";
 
 export async function GET({ params, setHeaders }) {
   setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
@@ -51,11 +50,11 @@ export async function GET({ params, setHeaders }) {
   });
 
   if (query)
-    return json({
+    return Response.json({
       success: true,
       guild: JSON.parse(
         JSON.stringify(query, (key, value) => (typeof value === "bigint" ? Number(value) : value)),
       ),
     });
-  return json({ success: false });
+  return Response.json({ success: false });
 }

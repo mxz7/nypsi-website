@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { invalidateAll } from "$app/navigation";
+  import { refreshAll } from "$app/navigation";
   import { PUBLIC_HCAPTCHA_SITEKEY } from "$app/env/public";
   import { auth } from "#lib/state.svelte.js";
   import { Check } from "@lucide/svelte";
@@ -21,7 +21,7 @@
           form.submit();
         },
         "error-callback": () => {
-          invalidateAll();
+          refreshAll();
         },
       });
     }

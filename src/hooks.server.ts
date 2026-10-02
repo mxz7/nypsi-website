@@ -4,17 +4,18 @@ import { baseLogger, logRequest } from "#lib/server/logger.js";
 // selectively preload fonts
 const fonts = ["inter-latin-wght-normal"];
 
-export function handleError({ event, error, message, status }) {
-  if (dev) return console.error(error);
-  event.locals.error = error?.toString() || undefined;
-  event.locals.errorStackTrace = (error as Error)?.stack || undefined;
+export function handleError({ event, error, kind }) {
+  if (kind === "unknown") {
+    if (dev) console.error(error);
+    event.locals.error = String(error);
+    event.locals.errorStackTrace = error instanceof Error ? error.stack : undefined;
+  } else {
+    event.locals.error = error.message;
+  }
 
-  logRequest(status, event);
-
-  return {
-    message: message || "an unexpected error occured",
-    requestId: event.locals.logger?.bindings().requestId,
-  };
+  // Keep SvelteKit's safe message/status and app properties such as reconnectUrl.
+  // The handle hook logs the final response, avoiding duplicate request logs here.
+  return { requestId: event.locals.logger?.bindings().requestId };
 }
 
 export async function handle({ event, resolve }) {

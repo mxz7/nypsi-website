@@ -48,9 +48,10 @@
 
         docsItemModal[item] = data;
 
-        pushState(href, { docsItemModal });
+        await goto(href, { shallow: true, state: { docsItemModal } });
       } else {
-        goto(href);
+        // Error and redirect results need full navigation to show the error or follow the redirect.
+        await goto(href);
       }
     }}>{@render children()}</a
   >

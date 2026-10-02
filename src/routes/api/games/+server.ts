@@ -1,7 +1,7 @@
 import prisma from "#lib/server/database.js";
 import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
-import type { Prisma } from "@generated/prisma";
-import { error, json } from "@sveltejs/kit";
+import type { Prisma } from "#prisma";
+import { error } from "@sveltejs/kit";
 
 export async function GET({ url, setHeaders }) {
   setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
@@ -41,7 +41,7 @@ export async function GET({ url, setHeaders }) {
   };
 
   if (userId) {
-    if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
+    if (!userId.match(/^\d{17,19}$/)) return error(400, "invalid user id");
     (options.where.AND as Prisma.GameWhereInput[]).push({ userId });
   }
 
@@ -51,7 +51,7 @@ export async function GET({ url, setHeaders }) {
     try {
       new Date(Number(before));
     } catch {
-      return error(400, { message: "invalid before date value" });
+      return error(400, "invalid before date value");
     }
     (options.where.AND as Prisma.GameWhereInput[]).push({ date: { lt: new Date(Number(before)) } });
   }
@@ -60,7 +60,7 @@ export async function GET({ url, setHeaders }) {
     try {
       new Date(Number(after));
     } catch {
-      return error(400, { message: "invalid after date value" });
+      return error(400, "invalid after date value");
     }
     (options.where.AND as Prisma.GameWhereInput[]).push({ date: { gt: new Date(Number(after)) } });
   }
@@ -103,7 +103,7 @@ export async function GET({ url, setHeaders }) {
     };
   }[] = await prisma.game.findMany(options);
 
-  return json({
+  return Response.json({
     ok: true,
     games: query.map((game) => {
       return {

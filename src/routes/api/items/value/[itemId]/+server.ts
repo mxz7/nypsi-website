@@ -1,5 +1,4 @@
 import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
-import { json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params, fetch }) {
   setHeaders({ "cache-control": "public, max-age=3600, must-revalidate" });
@@ -14,5 +13,5 @@ export async function GET({ setHeaders, params, fetch }) {
     }
   });
 
-  return json({ value });
+  return Response.json({ value });
 }

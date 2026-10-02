@@ -1,3 +1,4 @@
+import type { ApiErrorResult } from "#lib/types/api/index.js";
 import { Constants } from "#lib/data/constants.js";
 import { error } from "@sveltejs/kit";
 import { getAuthedUser } from "./auth.remote";

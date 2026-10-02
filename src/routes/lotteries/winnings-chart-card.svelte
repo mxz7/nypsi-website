@@ -83,7 +83,7 @@
         <a
           href="?range={option.value}&page=1"
           class={focused ? "menu-active" : ""}
-          data-sveltekit-noscroll>{option.label}</a
+          data-sveltekit-reset={false}>{option.label}</a
         >
       </li>
     {/each}

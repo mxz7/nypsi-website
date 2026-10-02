@@ -58,10 +58,7 @@
               ? 'border-primary/50 hover:border-primary/50'
               : ''}"
           >
-            <a
-              href="/items/{item.id}"
-              data-sveltekit-noscroll={browser ? (innerWidth > 640 ? true : false) : false}
-            >
+            <a href="/items/{item.id}" data-sveltekit-reset={!(browser && innerWidth > 640)}>
               <div class="bg-base-300 h-16 p-3">
                 <img
                   src={item.emoji}

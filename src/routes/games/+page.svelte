@@ -20,7 +20,7 @@
     status = "loading";
     console.log("fetching more");
 
-    const params = page.url.searchParams;
+    const params = new URL(page.url.href).searchParams;
 
     params.set("take", "50");
     params.set("skip", games.length.toString());

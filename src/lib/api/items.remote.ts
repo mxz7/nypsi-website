@@ -17,7 +17,7 @@ export const getItemsRemote = query(async () => {
   const res = await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/items.json");
 
   if (res.status !== 200) {
-    error(res.status, { message: res.statusText });
+    error(res.status, res.statusText);
   }
 
   const itemsData: Item[] = Object.values(await res.json());
@@ -45,7 +45,7 @@ export const getItem = query(z.string(), async (itemId) => {
   const item = items.find((i) => i.id === itemId);
 
   if (!item) {
-    error(404, { message: "item not found" });
+    error(404, "item not found");
   }
 
   return item;

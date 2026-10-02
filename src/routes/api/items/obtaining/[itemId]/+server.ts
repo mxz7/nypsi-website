@@ -1,7 +1,6 @@
 import { dev } from "$app/env";
 import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
 import redis from "#lib/server/redis.js";
-import { json } from "@sveltejs/kit";
 
 type ApiData = {
   sources: string[];
@@ -21,7 +20,7 @@ export async function GET({ params, setHeaders }) {
   const cache = await redis.get(`cache:obtaining:${itemId}`);
 
   if (cache) {
-    return json(JSON.parse(cache));
+    return Response.json(JSON.parse(cache));
   }
 
   const response = await fetch(`${BOT_SERVER_URL}/items/${itemId}/obtaining`, {
@@ -124,5 +123,5 @@ export async function GET({ params, setHeaders }) {
     "cache-control": "public, max-age=3600, must-revalidate",
   });
 
-  return json(oddsData);
+  return Response.json(oddsData);
 }

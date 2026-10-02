@@ -1,3 +1,4 @@
+import type { ApiResult } from "#lib/types/api/index.js";
 import { query } from "$app/server";
 import { Constants, RedisKey } from "#lib/data/constants.js";
 import { RedisCache } from "#lib/server/cache.js";

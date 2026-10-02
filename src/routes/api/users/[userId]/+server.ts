@@ -1,6 +1,6 @@
 import prisma from "#lib/server/database.js";
 import { privacyCheck } from "#lib/server/functions/user/privacy.js";
-import { error, json } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 
 export const GET = async ({ params, setHeaders, fetch }) => {
   const userId = params.userId;
@@ -9,7 +9,7 @@ export const GET = async ({ params, setHeaders, fetch }) => {
     "cache-control": "public, max-age=600, must-revalidate",
   });
 
-  if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
+  if (!userId.match(/^\d{17,19}$/)) return error(400, "invalid user id");
 
   const cont = await privacyCheck(userId, fetch);
   if (cont !== "continue") throw cont;
@@ -116,7 +116,7 @@ export const GET = async ({ params, setHeaders, fetch }) => {
     },
   });
 
-  if (!query) return error(404, { message: "user not found" });
+  if (!query) return error(404, "user not found");
 
   query.lastKnownUsername = query.lastKnownUsername.split("#")[0];
 
@@ -139,5 +139,5 @@ export const GET = async ({ params, setHeaders, fetch }) => {
     }
   }
 
-  return json({ ...query, message: "success" });
+  return Response.json({ ...query, message: "success" });
 };

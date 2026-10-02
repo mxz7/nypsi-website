@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { invalidateAll } from "$app/navigation";
+  import { refreshAll } from "$app/navigation";
   import Card from "#lib/components/ui/card.svelte";
   import {
     Hash,
@@ -69,7 +69,7 @@
 
     if (success) {
       toast.success("server settings updated");
-      await invalidateAll();
+      await refreshAll();
     } else {
       toast.error(
         saveGuildSettings.fields.allIssues()?.[0]?.message ?? "unable to update settings",
@@ -178,7 +178,7 @@
         if (success) {
           modlogsEnabled = Boolean(modlogsChannelId);
           toast.success(modlogsEnabled ? "modlogs channel updated" : "modlogs disabled");
-          await invalidateAll();
+          await refreshAll();
         } else {
           toast.error(saveModlogs.fields.allIssues()?.[0]?.message ?? "unable to update modlogs");
         }

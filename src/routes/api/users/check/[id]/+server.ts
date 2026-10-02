@@ -1,7 +1,7 @@
 import prisma from "#lib/server/database.js";
 import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
 import type { APIUserCheck } from "#lib/types/api/UserCheck.js";
-import { error, json } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params }) {
   const { id } = params;
@@ -10,7 +10,7 @@ export async function GET({ setHeaders, params }) {
     "cache-control": "public, max-age=600, must-revalidate",
   });
 
-  if (!id.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
+  if (!id.match(/^\d{17,19}$/)) return error(400, "invalid user id");
 
   const res: APIUserCheck = { ok: true, exists: false, private: false };
 
@@ -28,5 +28,5 @@ export async function GET({ setHeaders, params }) {
     res.private = isPrivate(query.Preferences);
   }
 
-  return json(res);
+  return Response.json(res);
 }

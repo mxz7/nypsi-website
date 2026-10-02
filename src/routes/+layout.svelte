@@ -8,7 +8,7 @@
   import Navbar from "#lib/components/layout/nav/nav-bar.svelte";
   import { auth, initialLoad } from "#lib/state.svelte.js";
   import type { User } from "#lib/types/Auth.js";
-  import "@fontsource-variable/inter";
+  import "@fontsource-variable/inter/index.css";
   import { onMount, tick, type Snippet } from "svelte";
   import { toast, Toaster } from "svelte-sonner";
   import "../app.css";

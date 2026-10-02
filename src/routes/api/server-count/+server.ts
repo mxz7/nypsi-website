@@ -1,5 +1,4 @@
 import { TOPGG_TOKEN } from "$app/env/private";
-import { json } from "@sveltejs/kit";
 
 export const GET = async ({ setHeaders }) => {
   setHeaders({
@@ -14,5 +13,5 @@ export const GET = async ({ setHeaders }) => {
     }),
   );
 
-  return json(res);
+  return Response.json(res);
 };

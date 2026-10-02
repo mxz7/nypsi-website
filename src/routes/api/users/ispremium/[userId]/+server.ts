@@ -1,5 +1,5 @@
 import prisma from "#lib/server/database.js";
-import { error, json } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 
 export const GET = async ({ params, setHeaders }) => {
   const userId = params.userId;
@@ -8,7 +8,7 @@ export const GET = async ({ params, setHeaders }) => {
     "cache-control": "public, max-age=600, must-revalidate",
   });
 
-  if (!userId.match(/^\d{17,19}$/)) return error(400, { message: "invalid user id" });
+  if (!userId.match(/^\d{17,19}$/)) return error(400, "invalid user id");
 
   const query = await prisma.user.findUnique({
     where: {
@@ -25,9 +25,9 @@ export const GET = async ({ params, setHeaders }) => {
     },
   });
 
-  if (!query) return error(404, { message: "user not found" });
+  if (!query) return error(404, "user not found");
 
-  return json({
+  return Response.json({
     premium: Boolean(query?.booster || query?.Premium?.level || query?.adminLevel > 0),
   });
 };

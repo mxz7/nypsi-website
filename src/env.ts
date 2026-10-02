@@ -1,6 +1,8 @@
 import { defineEnvVars } from "@sveltejs/kit/env";
 
-// @migration-task Review usage of dynamic environment variables. They fall back to the empty string if not present, which may not be what you want.
+// Preserve the previous empty-string fallbacks so builds do not require runtime
+// service credentials. Deployment supplies service values; Loki is optional.
+// An unset Redis URL intentionally uses the Redis client’s local default.
 export const variables = defineEnvVars({
   BOT_SERVER_URL: { schema: (input) => input ?? "" },
   BOT_API_AUTH: { schema: (input) => input ?? "" },

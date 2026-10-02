@@ -50,6 +50,12 @@ This project uses Svelte 5. Use `$state`, `$derived`, `$effect`, `$props` — no
 The client is generated to a custom path. Import from the generated location, not the default:
 
 ```typescript
-import prisma from "$lib/server/database";
+import prisma from "#lib/server/database.js";
 // NOT: import { PrismaClient } from "@prisma/client"
 ```
+
+## SvelteKit 3
+
+Use Node subpath imports (`#lib/...` with an explicit file extension). Generated Prisma types use `#prisma`, mapped to `src/generated/prisma/client.ts` in `package.json`. Use `refreshAll` for navigation data refreshes and `goto(..., { shallow: true, state })` for shallow routing. Copy `page.url` before mutating it. Remote form controls must spread their own form field’s `.as(...)` attributes.
+
+`handleError` receives `{ kind, error, event }`; safe status/message and app error properties are inherited when omitted from its return value. Environment fallbacks in `src/env.ts` preserve credential-free builds and the Redis client’s local default; deployments supply service credentials and Loki remains optional.

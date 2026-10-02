@@ -1,5 +1,5 @@
 import prisma from "#lib/server/database.js";
-import { error, json } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 
 export async function GET({ params, setHeaders, fetch }) {
   setHeaders({
@@ -26,7 +26,7 @@ export async function GET({ params, setHeaders, fetch }) {
     game.user.lastKnownUsername = "[hidden]";
   }
 
-  return json(game);
+  return Response.json(game);
 }
 
 export type APIWordleGame = {

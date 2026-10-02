@@ -1,5 +1,5 @@
 import { DATABASE_URL } from "$app/env/private";
-import { PrismaClient } from "@generated/prisma";
+import { PrismaClient } from "#prisma";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({ connectionString: DATABASE_URL, max: 10 });

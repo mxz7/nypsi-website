@@ -13,7 +13,7 @@ export const getTagsRemote = query(async () => {
 
   const res = await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/tags.json");
   if (res.status !== 200) {
-    error(res.status, { message: res.statusText });
+    error(res.status, res.statusText);
   }
 
   const tagData: { [key: string]: Tag } = await res.json();
