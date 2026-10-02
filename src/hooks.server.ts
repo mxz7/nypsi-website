@@ -1,22 +1,28 @@
 import { dev } from "$app/env";
-import { baseLogger, logRequest } from "#lib/server/logger.js";
+import type { HandleServerError } from "@sveltejs/kit/hooks";
+import { baseLogger, logError, logRequest } from "#lib/server/logger.js";
 
 // selectively preload fonts
 const fonts = ["inter-latin-wght-normal"];
 
-export function handleError({ event, error, kind }) {
-  if (kind === "unknown") {
-    if (dev) console.error(error);
-    event.locals.error = String(error);
-    event.locals.errorStackTrace = error instanceof Error ? error.stack : undefined;
-  } else {
+export const handleError: HandleServerError = ({ event, error, kind, issues }) => {
+  const requestId = event.locals.logger?.bindings().requestId;
+  if (kind !== "unknown") {
     event.locals.error = error.message;
+    event.locals.errorId = kind === "app" ? error.errorId : undefined;
+    event.locals.errorStackTrace = undefined;
+    logError(error.status, kind, event, kind === "validation" ? issues.length : undefined);
+    return { ...error, requestId };
   }
 
-  // Keep SvelteKit's safe message/status and app properties such as reconnectUrl.
-  // The handle hook logs the final response, avoiding duplicate request logs here.
-  return { requestId: event.locals.logger?.bindings().requestId };
-}
+  const errorId = crypto.randomUUID();
+  event.locals.error = String(error);
+  event.locals.errorId = errorId;
+  event.locals.errorStackTrace = error instanceof Error ? error.stack : undefined;
+  logError(500, kind, event);
+
+  return { message: "An unexpected error occurred", errorId, requestId };
+};
 
 export async function handle({ event, resolve }) {
   event.locals.startTimer = performance.now();

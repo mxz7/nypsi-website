@@ -29,62 +29,82 @@ function buildTransport() {
 
 export const baseLogger = pino({ base: undefined }, buildTransport());
 
-export function logRequest(
-  statusCode: number,
-  event: RequestEvent<Partial<Record<string, string>>>,
-) {
-  if (building) return;
-
-  const error = event.locals?.error || undefined;
-  const errorStackTrace = event.locals?.errorStackTrace || undefined;
-
+function requestContext(event: RequestEvent) {
+  // event.url cannot be read inside remote queries.
+  const url = new URL(event.request.url);
+  const remoteAction = url.searchParams.get("/remote");
+  const remoteId = event.isRemoteRequest ? url.pathname.split("/remote/")[1] : remoteAction;
+  const remote = event.isRemoteRequest || remoteAction !== null;
   let referer: string | undefined;
 
-  if (event.request.headers.has("referer")) {
-    try {
-      referer = event.request.headers.get("referer");
-      if (new URL(referer)?.hostname === "nypsi.xyz") {
-        referer = `/${referer.split("/").slice(3).join("/")}`;
+  try {
+    const value = event.request.headers.get("referer");
+    if (value) {
+      const referrerUrl = new URL(value);
+      if (
+        referrerUrl.pathname === "/login/callback" ||
+        referrerUrl.pathname.includes("/remote/") ||
+        referrerUrl.searchParams.has("/remote")
+      ) {
+        referrerUrl.search = "";
       }
-    } catch (e) {
-      console.error(e);
-      console.error("failed to process referrer: " + referer);
+      referer =
+        referrerUrl.hostname === "nypsi.xyz"
+          ? referrerUrl.pathname + referrerUrl.search
+          : referrerUrl.href;
     }
-  }
+  } catch {}
 
   let address: string | undefined;
-
   try {
     address = event.getClientAddress();
   } catch {}
 
-  const path = event.url.pathname + event.url.search;
-
-  const logData: Record<string, any> = {
+  return {
     method: event.request.method,
-    status: statusCode,
-    path,
-    elapsed: performance.now() - event.locals.startTimer,
+    // Remote URLs contain serialized arguments; OAuth callbacks contain authorization codes.
+    path: remote || url.pathname === "/login/callback" ? url.pathname : url.pathname + url.search,
+    remote_function: remoteId?.split("/")[1] || undefined,
+    elapsed:
+      event.locals.startTimer === undefined
+        ? undefined
+        : performance.now() - event.locals.startTimer,
     ip_address: address,
     user_agent: event.request.headers.get("user-agent") || "",
     referer,
-    error,
-    error_stack_trace: errorStackTrace,
+    user_id: event.locals.authedUser?.id,
   };
+}
 
-  if (event.locals.auth) {
-    logData.user_id = event.locals.auth.user.id;
-  }
+export function logRequest(statusCode: number, event: RequestEvent) {
+  if (dev || building) return;
 
-  if (dev) return;
-
+  const logData = { ...requestContext(event), event_type: "request", status: statusCode };
   const logger = event.locals.logger || baseLogger;
+  if (statusCode >= 500) logger.error(logData);
+  else if (statusCode >= 400) logger.warn(logData);
+  else logger.info(logData);
+}
 
-  if (statusCode >= 500) {
-    logger.error(logData);
-  } else if (statusCode >= 400) {
-    logger.warn(logData);
-  } else {
-    logger.info(logData);
-  }
+export function logError(
+  statusCode: number,
+  kind: "app" | "framework" | "validation" | "unknown",
+  event: RequestEvent,
+  validationIssueCount?: number,
+) {
+  if (dev || building) return;
+
+  const logData = {
+    ...requestContext(event),
+    event_type: "error",
+    status: statusCode,
+    error_kind: kind,
+    error: event.locals.error,
+    error_id: event.locals.errorId,
+    error_stack_trace: event.locals.errorStackTrace,
+    validation_issue_count: validationIssueCount,
+  };
+  const logger = event.locals.logger || baseLogger;
+  if (statusCode >= 500) logger.error(logData);
+  else logger.warn(logData);
 }

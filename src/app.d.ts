@@ -14,6 +14,7 @@ declare global {
   namespace App {
     interface Error {
       requestId?: string;
+      errorId?: string;
       reconnectUrl?: string;
     }
     // interface PageData {}
@@ -25,6 +26,7 @@ declare global {
       startTimer: number;
       error: string;
       errorStackTrace: string;
+      errorId?: string;
       authedUser?: User | null;
       logger: Logger;
       message: unknown;
