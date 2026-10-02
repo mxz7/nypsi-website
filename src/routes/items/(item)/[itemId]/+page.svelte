@@ -122,7 +122,7 @@
       <section class="rounded-box bg-base-300 mt-2 w-full p-3">
         <h3 class="text-center font-medium text-white">obtaining</h3>
         <ol class="max-h-48 overflow-auto">
-          {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)), ) as foundEntry}
+          {#each sort(Object.entries(odds.found)).desc( (i) => parseFloat(i[1].substring(0, i[1].length - 1)) ) as foundEntry}
             {@const item = items.find((i) => i.id === foundEntry[0])}
             <li class="flex items-center gap-1">
               {#if item}
@@ -228,7 +228,7 @@
     <section class="rounded-box bg-base-300 mt-2 p-3">
       <h3 class="text-center font-medium text-white">used in recipe</h3>
       <ul class="grid max-h-48 grid-cols-2 overflow-auto">
-        {#each items.filter((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id), )) as item}
+        {#each items.filter((i) => i.craft && i.craft.ingredients.find( (j) => j.startsWith(data.item.id) )) as item}
           <li class="flex items-center gap-1">
             <div class="h-5 w-5">
               <img

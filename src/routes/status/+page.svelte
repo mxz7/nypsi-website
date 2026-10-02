@@ -208,7 +208,7 @@
   <div class="divider">shards</div>
 
   <ol class="grid w-full grid-cols-2 gap-4 lg:grid-cols-3">
-    {#each [].concat.apply( [], data.status.clusters.map((i) => i.shards), ) as shard}
+    {#each [].concat.apply( [], data.status.clusters.map((i) => i.shards) ) as shard}
       <li>
         <Shard
           selected={guild?.shard?.id === shard.id}
