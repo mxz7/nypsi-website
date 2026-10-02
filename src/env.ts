@@ -16,7 +16,8 @@ export const variables = defineEnvVars({
   LOKI_USERNAME: { schema: (input) => input ?? "" },
   LOKI_PASSWORD: { schema: (input) => input ?? "" },
   LOKI_HOST: { schema: (input) => input ?? "" },
-  REDIS_URL: { schema: required },
+  // An empty URL uses ioredis’s localhost default.
+  REDIS_URL: { schema: (input) => input ?? "" },
   DISCORD_OAUTH_CLIENTID: { schema: required },
   DISCORD_OAUTH_SECRET: { schema: required },
   DISCORD_OAUTH_REDIRECT: { schema: required },

@@ -11,7 +11,6 @@ const requiredNames = [
   "TOPGG_TOKEN",
   "PUBLIC_URL",
   "DATABASE_URL",
-  "REDIS_URL",
   "DISCORD_OAUTH_CLIENTID",
   "DISCORD_OAUTH_SECRET",
   "DISCORD_OAUTH_REDIRECT",
@@ -33,9 +32,9 @@ describe("environment configuration", () => {
     }
   });
 
-  it("allows Loki to be unconfigured", async () => {
+  it("allows Redis and Loki to be unconfigured", async () => {
     const { variables } = await import("../src/env");
-    for (const name of ["LOKI_HOST", "LOKI_USERNAME", "LOKI_PASSWORD"] as const) {
+    for (const name of ["REDIS_URL", "LOKI_HOST", "LOKI_USERNAME", "LOKI_PASSWORD"] as const) {
       expect(await variables[name].schema["~standard"].validate(undefined)).toEqual({ value: "" });
     }
   });
