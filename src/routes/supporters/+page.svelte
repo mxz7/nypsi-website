@@ -1,8 +1,8 @@
 <script>
-  import Card from "$lib/components/ui/card.svelte";
-  import Main from "$lib/components/ui/main.svelte";
-  import parseEmoji from "$lib/functions/parseEmoji";
-  import { tags } from "$lib/state.svelte";
+  import Card from "#lib/components/ui/card.svelte";
+  import Main from "#lib/components/ui/main.svelte";
+  import parseEmoji from "#lib/functions/parseEmoji.js";
+  import { tags } from "#lib/state.svelte.js";
   import { BadgeDollarSign, Code } from "@lucide/svelte";
   import { onMount } from "svelte";
 

@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { Session, User } from "$lib/types/Auth";
+import type { Session, User } from "#lib/types/Auth.js";
 import type { Logger } from "pino";
 
 // for information about these interfaces
@@ -14,6 +14,7 @@ declare global {
   namespace App {
     interface Error {
       requestId?: string;
+      errorId?: string;
       reconnectUrl?: string;
     }
     // interface PageData {}
@@ -25,12 +26,14 @@ declare global {
       startTimer: number;
       error: string;
       errorStackTrace: string;
+      errorId?: string;
+      authedUser?: User | null;
       logger: Logger;
       message: unknown;
       auth?: {
         user: User;
         session: Session;
-      };
+      } | null;
     }
   }
 }

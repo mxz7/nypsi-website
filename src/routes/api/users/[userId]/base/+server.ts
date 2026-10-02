@@ -1,6 +1,6 @@
-import prisma from "$lib/server/database.js";
-import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
-import { error, json } from "@sveltejs/kit";
+import prisma from "#lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
+import { error } from "@sveltejs/kit";
 
 export async function GET({ params, fetch, setHeaders }) {
   const userId = params.userId;
@@ -40,5 +40,5 @@ export async function GET({ params, fetch, setHeaders }) {
 
   if (isPrivate(query.Preferences)) return error(403, "private profile");
 
-  return json(query);
+  return Response.json(query);
 }

@@ -40,8 +40,7 @@ export async function deleteDiscordAccessToken(userId: string) {
 export function discordReconnectRequired(url: URL | string): never {
   const destination = typeof url === "string" ? new URL(url) : url;
 
-  error(401, {
-    message: "your Discord connection has expired. reconnect it to manage your servers.",
+  error(401, "your Discord connection has expired. reconnect it to manage your servers.", {
     reconnectUrl: `/login?reauthorize=true&next=${encodeURIComponent(
       destination.pathname + destination.search,
     )}`,

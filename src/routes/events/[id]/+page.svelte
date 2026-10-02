@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { getEventPageData } from "$lib/api/events.remote";
-  import Main from "$lib/components/ui/main.svelte";
+  import { getEventPageData } from "#lib/api/events.remote.js";
+  import Main from "#lib/components/ui/main.svelte";
   import Event from "../event.svelte";
 
   const data = $derived(await getEventPageData(page.params.id));

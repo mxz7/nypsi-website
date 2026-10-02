@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { getBaseData } from "$lib/api/users.remote";
-  import Card from "$lib/components/ui/card.svelte";
-  import { formatNumberPretty } from "$lib/functions/string";
+  import type { getBaseData } from "#lib/api/users.remote.js";
+  import Card from "#lib/components/ui/card.svelte";
+  import { formatNumberPretty } from "#lib/functions/string.js";
   import {
     Clock,
     CreditCard,

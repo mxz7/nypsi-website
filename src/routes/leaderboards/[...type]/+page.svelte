@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onNavigate } from "$app/navigation";
   import { page } from "$app/state";
-  import { getLeaderboardMetadata } from "$lib/api/leaderboards/leaderboards.remote";
+  import { getLeaderboardMetadata } from "#lib/api/leaderboards/leaderboards.remote.js";
   import Leaderboard from "./leaderboard.svelte";
   import { getData } from "./page.remote";
 
@@ -9,6 +9,7 @@
   let currentNavigation: number | null = null;
 
   onNavigate((nav) => {
+    if (nav.shallow) return;
     if (nav.from.url.toString() === nav.to.url.toString()) return;
     if (!nav.to.url.pathname.startsWith("/leaderboards")) return;
 

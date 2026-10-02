@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
-  import DocsHeader from "$lib/components/wiki/docs-header.svelte"
+  import DocsTemplate from "#lib/components/wiki/docs-template.svelte"
+  import DocsHeader from "#lib/components/wiki/docs-header.svelte"
   import Pets from "./pets.svelte"
 </script>
 

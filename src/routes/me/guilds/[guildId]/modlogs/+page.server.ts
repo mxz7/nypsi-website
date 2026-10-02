@@ -1,6 +1,6 @@
-import { canModifyGuild } from "$lib/functions/discordapi/permissions";
-import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis.js";
+import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ params, url, parent }) {

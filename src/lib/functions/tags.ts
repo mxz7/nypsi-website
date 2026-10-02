@@ -1,5 +1,5 @@
-import { browser } from "$app/environment";
-import { tags } from "$lib/state.svelte";
+import { browser } from "$app/env";
+import { tags } from "#lib/state.svelte.js";
 
 export type Tag = { tagId: string; emoji: string; name: string };
 

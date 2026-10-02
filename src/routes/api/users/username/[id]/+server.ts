@@ -1,5 +1,5 @@
-import prisma from "$lib/server/database.js";
-import { error, json } from "@sveltejs/kit";
+import prisma from "#lib/server/database.js";
+import { error } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params }) {
   setHeaders({ "cache-control": "public, max-age=600, must-revalidate" });
@@ -13,7 +13,7 @@ export async function GET({ setHeaders, params }) {
     },
   });
 
-  if (!query) return error(404, { message: "user not found" });
+  if (!query) return error(404, "user not found");
 
-  return json({ username: query.lastKnownUsername });
+  return Response.json({ username: query.lastKnownUsername });
 }

@@ -1,6 +1,6 @@
-import { dev } from "$app/environment";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import prisma from "$lib/server/database.js";
+import { dev } from "$app/env";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import prisma from "#lib/server/database.js";
 import dayjs from "dayjs";
 
 export async function POST({ params, request, getClientAddress }) {
@@ -26,7 +26,7 @@ export async function POST({ params, request, getClientAddress }) {
     where: {
       AND: [
         { createdAt: { gt: dayjs().subtract(1, "hour").toDate() } },
-        { userId: userId },
+        { userId },
         { OR: [{ viewerId: authedUser?.id }, { viewerIp: ip }] },
       ],
     },

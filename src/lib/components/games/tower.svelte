@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parseTowerRows, type TowerCell } from "$lib/functions/tower";
+  import { parseTowerRows, type TowerCell } from "#lib/functions/tower.js";
 
   import DiscordButton from "./discord-button.svelte";
 

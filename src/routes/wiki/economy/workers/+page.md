@@ -1,8 +1,8 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
-  import ItemModal from "$lib/components/wiki/item-modal.svelte"
+  import DocsTemplate from "#lib/components/wiki/docs-template.svelte"
+  import ItemModal from "#lib/components/wiki/item-modal.svelte"
   import Calculator from "./calculator.svelte"
-  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
+  import DocsHeader from '#lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='workers' description="earn passive income by buying and upgrading workers, claim earnings easily, and discover rare upgrades and special items to boost your profits in the game." />

@@ -1,8 +1,8 @@
 import { query } from "$app/server";
-import { Constants } from "$lib/data/constants";
-import parseEmoji from "$lib/functions/parseEmoji";
-import redis from "$lib/server/redis.js";
-import type { Item } from "$lib/types/Item";
+import { Constants } from "#lib/data/constants.js";
+import parseEmoji from "#lib/functions/parseEmoji.js";
+import redis from "#lib/server/redis.js";
+import type { Item } from "#lib/types/Item.js";
 import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
 import z from "zod";
@@ -17,7 +17,7 @@ export const getItemsRemote = query(async () => {
   const res = await fetch("https://raw.githubusercontent.com/mxz7/nypsi/main/data/items.json");
 
   if (res.status !== 200) {
-    error(res.status, { message: res.statusText });
+    error(res.status, res.statusText);
   }
 
   const itemsData: Item[] = Object.values(await res.json());
@@ -45,7 +45,7 @@ export const getItem = query(z.string(), async (itemId) => {
   const item = items.find((i) => i.id === itemId);
 
   if (!item) {
-    error(404, { message: "item not found" });
+    error(404, "item not found");
   }
 
   return item;

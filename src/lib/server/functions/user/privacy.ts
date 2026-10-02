@@ -1,4 +1,4 @@
-import type { APIUserCheck } from "$lib/types/api/UserCheck";
+import type { APIUserCheck } from "#lib/types/api/UserCheck.js";
 import { error } from "@sveltejs/kit";
 
 export async function privacyCheck(

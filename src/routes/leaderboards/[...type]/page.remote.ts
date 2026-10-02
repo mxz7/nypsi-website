@@ -1,13 +1,16 @@
 import { query } from "$app/server";
-import { getAuthedUser } from "$lib/api/auth.remote";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
 import {
   getItemLeaderboard,
   getLeaderboard,
   getLeaderboardMetadata,
-} from "$lib/api/leaderboards/leaderboards.remote";
-import { getItemUserPosition, getKnownUserPosition } from "$lib/api/leaderboards/positions.remote";
-import type { LeaderboardType } from "$lib/api/leaderboards/shared";
-import type { LeaderboardData, LeaderboardPosition } from "$lib/types/leaderboards";
+} from "#lib/api/leaderboards/leaderboards.remote.js";
+import {
+  getItemUserPosition,
+  getKnownUserPosition,
+} from "#lib/api/leaderboards/positions.remote.js";
+import type { LeaderboardType } from "#lib/api/leaderboards/shared.js";
+import type { LeaderboardData, LeaderboardPosition } from "#lib/types/leaderboards.js";
 import z from "zod";
 
 export const getData = query(z.string(), async (type) => {

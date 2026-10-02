@@ -1,7 +1,6 @@
-import { dev } from "$app/environment";
-import { env } from "$env/dynamic/private";
-import redis from "$lib/server/redis.js";
-import { json } from "@sveltejs/kit";
+import { dev } from "$app/env";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
+import redis from "#lib/server/redis.js";
 
 type ApiData = {
   sources: string[];
@@ -21,13 +20,11 @@ export async function GET({ params, setHeaders }) {
   const cache = await redis.get(`cache:obtaining:${itemId}`);
 
   if (cache) {
-    return json(JSON.parse(cache));
+    return Response.json(JSON.parse(cache));
   }
 
-  const response = await fetch(`${env.BOT_SERVER_URL}/items/${itemId}/obtaining`, {
-    headers: {
-      Authorization: `Bearer ${env.BOT_API_AUTH}`,
-    },
+  const response = await fetch(`${BOT_SERVER_URL}/items/${itemId}/obtaining`, {
+    headers: { Authorization: `Bearer ${BOT_API_AUTH}` },
   });
 
   if (!response.ok) {
@@ -126,5 +123,5 @@ export async function GET({ params, setHeaders }) {
     "cache-control": "public, max-age=3600, must-revalidate",
   });
 
-  return json(oddsData);
+  return Response.json(oddsData);
 }

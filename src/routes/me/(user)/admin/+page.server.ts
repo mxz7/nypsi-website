@@ -1,5 +1,5 @@
-import { env } from "$env/dynamic/private";
-import { getAuthedUser } from "$lib/api/auth.remote";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
 import { fail, redirect } from "@sveltejs/kit";
 
 export async function load({ locals, parent }) {
@@ -20,11 +20,9 @@ export const actions = {
 
     if (authedUser.adminLevel < 4) return fail(401);
 
-    const res = await fetch(`${env.BOT_SERVER_URL}/reboot`, {
+    const res = await fetch(`${BOT_SERVER_URL}/reboot`, {
       method: "post",
-      headers: {
-        authorization: `Bearer ${env.BOT_API_AUTH}`,
-      },
+      headers: { authorization: `Bearer ${BOT_API_AUTH}` },
     }).catch(() => ({ status: 500 }));
 
     if (res.status === 200) return { success: true };
@@ -37,11 +35,9 @@ export const actions = {
 
     if (authedUser.adminLevel < 4) return fail(401);
 
-    const res = await fetch(`${env.BOT_SERVER_URL}/pausestreak`, {
+    const res = await fetch(`${BOT_SERVER_URL}/pausestreak`, {
       method: "post",
-      headers: {
-        authorization: `Bearer ${env.BOT_API_AUTH}`,
-      },
+      headers: { authorization: `Bearer ${BOT_API_AUTH}` },
     }).catch(() => ({ status: 500 }));
 
     if (res.status === 200) return { success: true };

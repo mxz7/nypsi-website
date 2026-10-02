@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getItemsRemote } from "$lib/api/items.remote";
+  import { getItemsRemote } from "#lib/api/items.remote.js";
   import { onMount } from "svelte";
   import { cubicInOut } from "svelte/easing";
   import { tweened } from "svelte/motion";

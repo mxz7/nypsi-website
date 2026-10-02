@@ -1,4 +1,4 @@
-import prisma from "$lib/server/database";
+import prisma from "#lib/server/database.js";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";

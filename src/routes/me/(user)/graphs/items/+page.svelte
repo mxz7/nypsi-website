@@ -1,9 +1,9 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
-  import { getItemsRemote } from "$lib/api/items.remote";
-  import Chart from "$lib/components/chart.svelte";
-  import ItemSearch from "$lib/components/items/item-search.svelte";
+  import { getItemsRemote } from "#lib/api/items.remote.js";
+  import Chart from "#lib/components/chart.svelte";
+  import ItemSearch from "#lib/components/items/item-search.svelte";
   import type { ChartOptions } from "chart.js";
 
   const itemChartOptions: ChartOptions = {

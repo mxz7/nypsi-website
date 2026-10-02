@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import logo from "$lib/assets/logo.svg";
-  import { auth } from "$lib/state.svelte";
+  import logo from "#lib/assets/logo.svg";
+  import { auth } from "#lib/state.svelte.js";
   import { Menu } from "@lucide/svelte";
   import MobileScreen from "./mobile-nav.svelte";
 

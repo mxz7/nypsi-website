@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Card from "$lib/components/ui/card.svelte";
-  import type { Item } from "$lib/types/Item";
+  import Card from "#lib/components/ui/card.svelte";
+  import type { Item } from "#lib/types/Item.js";
 
   type Props = {
     item: Item;

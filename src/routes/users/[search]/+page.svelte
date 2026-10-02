@@ -1,17 +1,17 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
-  import { getAchievementsRemote } from "$lib/api/achievements.remote";
-  import { getAuthedUser } from "$lib/api/auth.remote";
+  import { getAchievementsRemote } from "#lib/api/achievements.remote.js";
+  import { getAuthedUser } from "#lib/api/auth.remote.js";
   import {
     getAchievements,
     getBaseData,
     getCommandUses,
     getInventory,
     getMarriagePartner,
-  } from "$lib/api/users.remote";
-  import Main from "$lib/components/ui/main.svelte";
-  import { daysAgo } from "$lib/functions/time";
+  } from "#lib/api/users.remote.js";
+  import Main from "#lib/components/ui/main.svelte";
+  import { daysAgo } from "#lib/functions/time.js";
   import dayjs from "dayjs";
   import Profile from "./profile.svelte";
   import StatsGrid from "./stats-grid.svelte";
@@ -66,6 +66,7 @@
     (achievements.filter((a) => a.completedAt).length / Object.values(achievementsData).length) *
       100,
   );
+
   const gems = $derived.by(() => {
     const gemOrder = [
       "crystal_heart",
@@ -86,15 +87,17 @@
   });
 
   $effect(() => {
-    fetch(resolve(`/api/users/${baseData.id}/view`), { method: "POST" });
+    fetch(resolve(`api/users/${baseData.id}/view`), { method: "POST" });
   });
 </script>
 
 <svelte:head>
   <title>{title || `${baseData.lastKnownUsername}'s profile | nypsi`}</title>
+
   <meta name="og:title" content="{baseData.lastKnownUsername}'s nypsi profile" />
 
   <meta name="description" content="view {baseData.lastKnownUsername}'s nypsi profile" />
+
   <meta name="og:description" content="view {baseData.lastKnownUsername}'s nypsi profile" />
 
   <meta name="og:image" content={baseData.avatar} />

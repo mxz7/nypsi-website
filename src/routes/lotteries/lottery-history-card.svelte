@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { getUserLocale } from "$lib/api/locale.remote";
-  import { getLotteryHistory, type LotteryChartRange } from "$lib/api/lottery.remote";
-  import Card from "$lib/components/ui/card.svelte";
-  import { formatNumberPretty } from "$lib/functions/string";
+  import { getUserLocale } from "#lib/api/locale.remote.js";
+  import { getLotteryHistory, type LotteryChartRange } from "#lib/api/lottery.remote.js";
+  import Card from "#lib/components/ui/card.svelte";
+  import { formatNumberPretty } from "#lib/functions/string.js";
   import { History } from "@lucide/svelte";
 
   interface Props {

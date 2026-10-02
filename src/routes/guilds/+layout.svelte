@@ -1,8 +1,7 @@
-<!-- @migration task: review uses of `navigating` -->
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { navigating, page } from "$app/state";
-  import { guildSearchTerm } from "$lib/state.svelte";
+  import { guildSearchTerm } from "#lib/state.svelte.js";
 
   let { children } = $props();
 
@@ -13,7 +12,7 @@
   <form
     onsubmit={(e) => {
       e.preventDefault();
-      goto(`/guild/${encodeURIComponent(guildSearchTerm.value.replaceAll(" ", "-"))}`);
+      goto(`/guilds/${encodeURIComponent(guildSearchTerm.value.replaceAll(" ", "-"))}`);
     }}
   >
     <input

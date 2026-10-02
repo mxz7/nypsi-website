@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import Loading from "$lib/components/loading.svelte";
-  import type { Game } from "$lib/types/Game.js";
+  import Loading from "#lib/components/loading.svelte";
+  import type { Game } from "#lib/types/Game.js";
   import dayjs from "dayjs";
   import { fly } from "svelte/transition";
 
@@ -20,7 +20,7 @@
     status = "loading";
     console.log("fetching more");
 
-    const params = page.url.searchParams;
+    const params = new URL(page.url.href).searchParams;
 
     params.set("take", "50");
     params.set("skip", games.length.toString());

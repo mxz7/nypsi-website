@@ -42,7 +42,7 @@
         <a
           class={activeTab.paramValue === paramValue && "menu-active"}
           href="?tab={paramValue}"
-          data-sveltekit-noscroll
+          data-sveltekit-reset={false}
         >
           {label}
         </a>

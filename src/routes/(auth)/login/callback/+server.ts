@@ -1,13 +1,13 @@
-import { env } from "$env/dynamic/public";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { discord } from "$lib/server/auth/oauth.js";
-import { storeDiscordTokens } from "$lib/server/auth/discord-tokens";
-import { createSession, setSessionCookie } from "$lib/server/auth/sessions";
-import prisma from "$lib/server/database.js";
+import { PUBLIC_URL } from "$app/env/public";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { discord } from "#lib/server/auth/oauth.js";
+import { storeDiscordTokens } from "#lib/server/auth/discord-tokens.js";
+import { createSession, setSessionCookie } from "#lib/server/auth/sessions.js";
+import prisma from "#lib/server/database.js";
 import { OAuth2RequestError } from "arctic";
 
 function loginError(message: string): Response {
-  const url = new URL(`${env.PUBLIC_URL}/`);
+  const url = new URL(`${PUBLIC_URL}/`);
   url.searchParams.set("loginerror", message);
   return new Response(null, { status: 302, headers: { Location: url.toString() } });
 }
@@ -71,7 +71,7 @@ export async function GET({ cookies, url }) {
 
     await storeDiscordTokens(user.id, tokens);
 
-    const publicUrl = new URL(env.PUBLIC_URL);
+    const publicUrl = new URL(PUBLIC_URL);
     let nextUrl = new URL(next, publicUrl);
 
     if (nextUrl.origin !== publicUrl.origin) {

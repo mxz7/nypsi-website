@@ -1,16 +1,16 @@
 import { getRequestEvent, query } from "$app/server";
-import { getEventData } from "$lib/functions/items";
-import { RedisCache } from "$lib/server/cache";
-import prisma from "$lib/server/database";
+import { getEventData } from "#lib/functions/items.js";
+import { RedisCache } from "#lib/server/cache.js";
+import prisma from "#lib/server/database.js";
 import {
   getEvent,
   getEventProgress,
   getPastEvents,
   getTotalUsers,
   getUserPosition,
-} from "$lib/server/functions/event";
-import { RedisPubSub } from "$lib/server/pubsub";
-import redis from "$lib/server/redis";
+} from "#lib/server/functions/event.js";
+import { RedisPubSub } from "#lib/server/pubsub.js";
+import redis from "#lib/server/redis.js";
 import { error, redirect } from "@sveltejs/kit";
 import z from "zod";
 import { getAuthedUser } from "./auth.remote";

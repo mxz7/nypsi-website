@@ -1,5 +1,5 @@
-import getGuildData from "$lib/server/functions/graphs/getGuildData.js";
-import { error, json } from "@sveltejs/kit";
+import getGuildData from "#lib/server/functions/graphs/getGuildData.js";
+import { error } from "@sveltejs/kit";
 
 export async function GET({ params, setHeaders }) {
   setHeaders({ "cache-control": "public, max-age=3600, must-revalidate" });
@@ -7,7 +7,7 @@ export async function GET({ params, setHeaders }) {
   if (!["balance", "xp", "level"].includes(params.graphData))
     return error(404, "invalid graph data");
 
-  return json({
+  return Response.json({
     data: await getGuildData(params.name, params.graphData as "balance" | "xp" | "level"),
   });
 }

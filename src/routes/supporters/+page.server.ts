@@ -1,5 +1,5 @@
-import { getTags } from "$lib/functions/tags";
-import prisma from "$lib/server/database";
+import { getTags } from "#lib/functions/tags.js";
+import prisma from "#lib/server/database.js";
 
 export async function load({ fetch }) {
   const supporters = prisma.$queryRaw<

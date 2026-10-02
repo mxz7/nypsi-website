@@ -1,5 +1,5 @@
-import { dev } from "$app/environment";
-import type { Session, User } from "$lib/types/Auth";
+import { dev } from "$app/env";
+import type { Session, User } from "#lib/types/Auth.js";
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
 import type { Cookies } from "@sveltejs/kit";

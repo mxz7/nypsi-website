@@ -1,5 +1,5 @@
-import { RedisCache } from "$lib/server/cache";
-import type { Event } from "$lib/types/Item";
+import { RedisCache } from "#lib/server/cache.js";
+import type { Event } from "#lib/types/Item.js";
 
 const eventDataCache = new RedisCache<Record<string, Event>>("cache:events:data", 3600);
 

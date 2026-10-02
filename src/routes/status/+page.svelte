@@ -1,8 +1,8 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import Card from "$lib/components/ui/card.svelte";
-  import Main from "$lib/components/ui/main.svelte";
-  import { MStoTime } from "$lib/functions/time.js";
+  import Card from "#lib/components/ui/card.svelte";
+  import Main from "#lib/components/ui/main.svelte";
+  import { MStoTime } from "#lib/functions/time.js";
   import { RefreshCw } from "@lucide/svelte";
   import dayjs from "dayjs";
   import { onDestroy, onMount } from "svelte";

@@ -2,10 +2,10 @@
   import {
     getLeaderboardUpdates,
     type LeaderboardStreamMessage,
-  } from "$lib/api/leaderboards/updates.remote";
-  import { compareLeaderboardValues, formatTime } from "$lib/api/leaderboards/shared";
-  import { handleFallbackImage } from "$lib/functions/image";
-  import { pluralize } from "$lib/functions/string";
+  } from "#lib/api/leaderboards/updates.remote.js";
+  import { compareLeaderboardValues, formatTime } from "#lib/api/leaderboards/shared.js";
+  import { handleFallbackImage } from "#lib/functions/image.js";
+  import { pluralize } from "#lib/functions/string.js";
   import { Crown, LoaderCircle } from "@lucide/svelte";
   import { onMount, untrack } from "svelte";
   import { flip } from "svelte/animate";

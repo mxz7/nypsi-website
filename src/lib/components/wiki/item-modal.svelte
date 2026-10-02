@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto, preloadData, pushState } from "$app/navigation";
+  import { goto, preloadData } from "$app/navigation";
   import { page } from "$app/state";
   import type { Snippet } from "svelte";
   import { cubicOut } from "svelte/easing";
@@ -22,8 +22,9 @@
         innerWidth < 640 || // bail if the screen is too small
         e.shiftKey || // or the link is opened in a new window
         e.metaKey ||
-        e.ctrlKey // or a new tab (mac: metaKey, win/linux: ctrlKey)
+        e.ctrlKey
       )
+        // or a new tab (mac: metaKey, win/linux: ctrlKey)
         return;
 
       e.preventDefault();
@@ -47,9 +48,10 @@
 
         docsItemModal[item] = data;
 
-        pushState(href, { docsItemModal });
+        await goto(href, { shallow: true, state: { docsItemModal } });
       } else {
-        goto(href);
+        // Error and redirect results need full navigation to show the error or follow the redirect.
+        await goto(href);
       }
     }}>{@render children()}</a
   >

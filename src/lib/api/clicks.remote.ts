@@ -6,9 +6,9 @@ import {
   type ClickEvent,
   type ClickRow,
   type ClickSnapshot,
-} from "$lib/server/clicks";
-import { RedisPubSub } from "$lib/server/pubsub";
-import redis from "$lib/server/redis";
+} from "#lib/server/clicks.js";
+import { RedisPubSub } from "#lib/server/pubsub.js";
+import redis from "#lib/server/redis.js";
 import { getBaseData, getPrivacy } from "./users.remote";
 
 export type { ClickRow };

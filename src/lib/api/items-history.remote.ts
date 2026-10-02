@@ -1,5 +1,5 @@
 import { query } from "$app/server";
-import getItemHistoryData from "$lib/server/functions/graphs/getItemHistoryData";
+import getItemHistoryData from "#lib/server/functions/graphs/getItemHistoryData.js";
 import { error } from "@sveltejs/kit";
 import { z } from "zod";
 import { getItemsRemote } from "./items.remote";

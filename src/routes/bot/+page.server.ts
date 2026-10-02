@@ -1,5 +1,5 @@
-import prisma from "$lib/server/database";
-import redis from "$lib/server/redis.js";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { sort } from "fast-sort";

@@ -1,8 +1,8 @@
 import { query } from "$app/server";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { RedisCache } from "$lib/server/cache";
-import prisma from "$lib/server/database";
-import type { LeaderboardPosition } from "$lib/types/leaderboards";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { RedisCache } from "#lib/server/cache.js";
+import prisma from "#lib/server/database.js";
+import type { LeaderboardPosition } from "#lib/types/leaderboards.js";
 import { z } from "zod";
 import { LeaderboardTypeSchema, formatTime, type LeaderboardType } from "./shared";
 

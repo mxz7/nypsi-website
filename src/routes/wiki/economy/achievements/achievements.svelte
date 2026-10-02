@@ -1,5 +1,5 @@
 <script lang="ts">
-  import parseEmoji from "$lib/functions/parseEmoji";
+  import parseEmoji from "#lib/functions/parseEmoji.js";
   import { onMount } from "svelte";
 
   let achievements: {

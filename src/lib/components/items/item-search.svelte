@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Item } from "$lib/types/Item";
+  import type { Item } from "#lib/types/Item.js";
 
   interface Props {
     items?: Item[];

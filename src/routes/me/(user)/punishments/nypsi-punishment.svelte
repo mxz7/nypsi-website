@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MStoTime } from "$lib/functions/time";
+  import { MStoTime } from "#lib/functions/time.js";
   import { onDestroy, onMount } from "svelte";
 
   type Props = {

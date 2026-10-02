@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Card from "$lib/components/ui/card.svelte";
-  import { MStoTime } from "$lib/functions/time";
+  import Card from "#lib/components/ui/card.svelte";
+  import { MStoTime } from "#lib/functions/time.js";
   import { sort } from "fast-sort";
 
   interface Props {

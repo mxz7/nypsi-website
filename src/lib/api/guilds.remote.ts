@@ -1,8 +1,8 @@
 import { query } from "$app/server";
-import { RedisKey } from "$lib/data/constants";
-import prisma from "$lib/server/database";
-import { redisDeserialize, redisSerialize } from "$lib/server/functions/redis-json";
-import redis from "$lib/server/redis";
+import { RedisKey } from "#lib/data/constants.js";
+import prisma from "#lib/server/database.js";
+import { redisDeserialize, redisSerialize } from "#lib/server/functions/redis-json.js";
+import redis from "#lib/server/redis.js";
 import { error } from "@sveltejs/kit";
 import z from "zod";
 

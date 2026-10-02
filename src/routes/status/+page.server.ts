@@ -1,7 +1,7 @@
-import { env } from "$env/dynamic/private";
-import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis";
-import type { BotStatus } from "$lib/types/Status";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
+import type { BotStatus } from "#lib/types/Status.js";
 
 export async function load({ depends }) {
   depends("status");
@@ -24,13 +24,14 @@ async function getStatus(): Promise<BotStatus> {
   const cache = await redis.get("cache:status");
 
   if (cache) {
-    return { ...JSON.parse(cache), age: 30 - ((await redis.ttl("cache:status")) || 0) };
+    return {
+      ...JSON.parse(cache),
+      age: 30 - ((await redis.ttl("cache:status")) || 0),
+    };
   }
 
-  const status = (await fetch(`${env.BOT_SERVER_URL}/status`, {
-    headers: {
-      Authorization: `Bearer ${env.BOT_API_AUTH}`,
-    },
+  const status = (await fetch(`${BOT_SERVER_URL}/status`, {
+    headers: { Authorization: `Bearer ${BOT_API_AUTH}` },
   }).then((r) => r.json())) as BotStatus;
 
   status.time = Date.now();

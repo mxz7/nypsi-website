@@ -1,7 +1,7 @@
 import { form, getRequestEvent } from "$app/server";
-import { env } from "$env/dynamic/private";
-import { Constants } from "$lib/data/constants";
-import { requireGuildAccess } from "$lib/server/functions/discordapi/guild-access";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
+import { Constants } from "#lib/data/constants.js";
+import { requireGuildAccess } from "#lib/server/functions/discordapi/guild-access.js";
 import { invalid } from "@sveltejs/kit";
 import z from "zod";
 
@@ -32,11 +32,11 @@ const modlogsSchema = z.object({
 
 async function updateBot(path: string, body: object) {
   const { fetch } = getRequestEvent();
-  const response = await fetch(`${env.BOT_SERVER_URL}${path}`, {
+  const response = await fetch(`${BOT_SERVER_URL}${path}`, {
     method: "PUT",
     body: JSON.stringify(body),
     headers: {
-      authorization: `Bearer ${env.BOT_API_AUTH}`,
+      authorization: `Bearer ${BOT_API_AUTH}`,
       "content-type": "application/json",
     },
   });

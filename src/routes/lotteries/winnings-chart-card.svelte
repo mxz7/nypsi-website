@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { getLotteryWinningsChart, type LotteryChartRange } from "$lib/api/lottery.remote";
-  import Chart from "$lib/components/chart.svelte";
-  import Card from "$lib/components/ui/card.svelte";
-  import { formatNumberPretty } from "$lib/functions/string";
+  import { getLotteryWinningsChart, type LotteryChartRange } from "#lib/api/lottery.remote.js";
+  import Chart from "#lib/components/chart.svelte";
+  import Card from "#lib/components/ui/card.svelte";
+  import { formatNumberPretty } from "#lib/functions/string.js";
   import { Gem } from "@lucide/svelte";
   import type { ChartOptions } from "chart.js";
 
@@ -83,7 +83,7 @@
         <a
           href="?range={option.value}&page=1"
           class={focused ? "menu-active" : ""}
-          data-sveltekit-noscroll>{option.label}</a
+          data-sveltekit-reset={false}>{option.label}</a
         >
       </li>
     {/each}

@@ -1,5 +1,5 @@
 <script>
-  import seasons from "$lib/data/seasons";
+  import seasons from "#lib/data/seasons.js";
   import SeasonButton from "./season-button.svelte";
 </script>
 

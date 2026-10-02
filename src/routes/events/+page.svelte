@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getEventsPageData } from "$lib/api/events.remote";
-  import Card from "$lib/components/ui/card.svelte";
-  import Main from "$lib/components/ui/main.svelte";
+  import { getEventsPageData } from "#lib/api/events.remote.js";
+  import Card from "#lib/components/ui/card.svelte";
+  import Main from "#lib/components/ui/main.svelte";
   import { History } from "@lucide/svelte";
   import Event from "./event.svelte";
 

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import prisma from "$lib/server/database";
-import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
+import prisma from "#lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
 
 export const CLICK_EVENTS_CHANNEL = "nypsi:clicks";
 

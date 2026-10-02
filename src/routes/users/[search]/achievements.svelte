@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { getAchievementsRemote } from "$lib/api/achievements.remote";
-  import { getAchievements } from "$lib/api/users.remote";
-  import Card from "$lib/components/ui/card.svelte";
-  import parseEmoji from "$lib/functions/parseEmoji";
+  import { getAchievementsRemote } from "#lib/api/achievements.remote.js";
+  import { getAchievements } from "#lib/api/users.remote.js";
+  import Card from "#lib/components/ui/card.svelte";
+  import parseEmoji from "#lib/functions/parseEmoji.js";
 
   const [achievementsData, userAchievements] = $derived(
     await Promise.all([getAchievementsRemote(), getAchievements(page.params.search)]),

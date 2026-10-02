@@ -50,6 +50,12 @@ This project uses Svelte 5. Use `$state`, `$derived`, `$effect`, `$props` — no
 The client is generated to a custom path. Import from the generated location, not the default:
 
 ```typescript
-import prisma from "$lib/server/database";
+import prisma from "#lib/server/database.js";
 // NOT: import { PrismaClient } from "@prisma/client"
 ```
+
+## SvelteKit 3
+
+Use Node subpath imports (`#lib/...` with an explicit file extension). Generated Prisma types use `#prisma`, mapped to `src/generated/prisma/client.ts` in `package.json`. Use `refreshAll` for navigation data refreshes and `goto(..., { shallow: true, state })` for shallow routing. Copy `page.url` before mutating it. Remote form controls must spread their own form field’s `.as(...)` attributes.
+
+`handleError` receives `{ kind, error, event }`; preserve safe status/message and app error properties (including Discord reconnect links). Access logs use `event_type: "request"` with the HTTP status; `logError` records `event_type: "error"` with the logical status and kind, since remote errors may travel in HTTP 200 responses. Both use the request child logger in production and are silent during development/builds. Operation logs remain available in development. SvelteKit 3 also logs dev HTTP responses through Vite; `vite.config.ts` filters those messages via `customLogger` while preserving other diagnostics. Unknown errors receive an error ID and server-only stack; validation logs contain issue counts only. Logging reads `event.request.url`, identifies client remote functions (including unenhanced forms), and omits their serialized arguments and OAuth callback codes. SSR remote calls use the overall page request log. In `src/env.ts`, bot API, database, OAuth, captcha, top.gg, and public URL settings must be nonempty at runtime. Their schema uses `building` from `$app/env` to allow credential-free builds. Loki credentials and `REDIS_URL` remain optional; an unset Redis URL uses ioredis’s localhost default.

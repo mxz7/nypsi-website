@@ -1,6 +1,6 @@
-import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis.js";
-import { error, json } from "@sveltejs/kit";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
+import { error } from "@sveltejs/kit";
 
 export const GET = async ({ params, setHeaders }) => {
   setHeaders({
@@ -17,10 +17,10 @@ export const GET = async ({ params, setHeaders }) => {
     });
 
     if (cacheData.id) {
-      return json({ id: cacheData.id, username: cacheData.lastKnownUsername });
+      return Response.json({ id: cacheData.id, username: cacheData.lastKnownUsername });
     }
 
-    return error(404, { message: "unknown user" });
+    return error(404, "unknown user");
   }
 
   const query = await prisma.user.findFirst({
@@ -36,8 +36,8 @@ export const GET = async ({ params, setHeaders }) => {
   await redis.set(`cache:usernametoid:${params.username}`, JSON.stringify(query || {}), "EX", 3600);
 
   if (!query) {
-    return error(404, { message: "unknown user" });
+    return error(404, "unknown user");
   }
 
-  return json({ id: query.id, username: query.lastKnownUsername });
+  return Response.json({ id: query.id, username: query.lastKnownUsername });
 };

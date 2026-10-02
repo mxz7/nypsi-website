@@ -1,5 +1,5 @@
-import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis.js";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
 
 export async function load({ parent }) {
   const { user } = await parent();

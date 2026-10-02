@@ -1,11 +1,11 @@
 import { form, getRequestEvent } from "$app/server";
-import { env } from "$env/dynamic/private";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { Constants } from "$lib/data/constants";
-import { canModifyGuild } from "$lib/functions/discordapi/permissions";
-import { discordReconnectRequired } from "$lib/server/auth/discord-tokens";
-import prisma from "$lib/server/database.js";
-import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
+import { requireAuth } from "#lib/api/auth.remote.js";
+import { Constants } from "#lib/data/constants.js";
+import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
+import { discordReconnectRequired } from "#lib/server/auth/discord-tokens.js";
+import prisma from "#lib/server/database.js";
+import { getGuilds } from "#lib/server/functions/discordapi/guilds.js";
 import { error, invalid, redirect } from "@sveltejs/kit";
 import z from "zod";
 
@@ -25,11 +25,7 @@ const newFilterSchema = z.object({
 
 export const createFilter = form(newFilterSchema, async (data, issue) => {
   const { fetch, locals, url } = getRequestEvent();
-  const authedUser = await getAuthedUser();
-
-  if (!authedUser) {
-    redirect(302, "/login?next=" + encodeURIComponent(url.href));
-  }
+  const authedUser = await requireAuth(url.pathname + url.search);
 
   const guilds = await getGuilds(authedUser, locals);
 
@@ -63,10 +59,10 @@ export const createFilter = form(newFilterSchema, async (data, issue) => {
       invalid(issue.content("already exists"));
     });
 
-  await fetch(`${env.BOT_SERVER_URL}/redis`, {
+  await fetch(`${BOT_SERVER_URL}/redis`, {
     method: "delete",
     body: `cache:guild:chatfilter:${data.guildId}`,
-    headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
+    headers: { authorization: `Bearer ${BOT_API_AUTH}` },
   });
 
   return { success: true };

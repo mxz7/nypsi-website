@@ -1,6 +1,6 @@
-import { getAuthedUser } from "$lib/api/auth.remote";
-import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis.js";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
 import { fail } from "@sveltejs/kit";
 
 export async function load({ parent }) {

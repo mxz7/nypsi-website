@@ -1,5 +1,5 @@
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { discord } from "$lib/server/auth/oauth.js";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { discord } from "#lib/server/auth/oauth.js";
 import { redirect } from "@sveltejs/kit";
 import { generateState } from "arctic";
 
@@ -33,5 +33,5 @@ export async function GET({ cookies, locals, url }) {
     cookies.delete("oauth_reconnect_user", { path: "/" });
   }
 
-  redirect(302, oauthUrl.toString());
+  redirect(302, oauthUrl, { external: ["https://discord.com"] });
 }

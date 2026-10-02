@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Card from "$lib/components/ui/card.svelte";
-  import type { GuildSuccess } from "$lib/types/Guild";
+  import Card from "#lib/components/ui/card.svelte";
+  import type { GuildSuccess } from "#lib/types/Guild.js";
   import { inPlaceSort } from "fast-sort";
 
   interface Props {

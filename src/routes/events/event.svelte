@@ -3,13 +3,13 @@
     getEventProgressHistory,
     getEventUpdates,
     type EventProgressUpdate,
-  } from "$lib/api/events.remote";
-  import Chart from "$lib/components/chart.svelte";
-  import Card from "$lib/components/ui/card.svelte";
-  import type { getEventData } from "$lib/functions/items";
-  import { pluralize } from "$lib/functions/string";
-  import { daysUntil } from "$lib/functions/time";
-  import type { NypsiEvent } from "$lib/server/functions/event";
+  } from "#lib/api/events.remote.js";
+  import Chart from "#lib/components/chart.svelte";
+  import Card from "#lib/components/ui/card.svelte";
+  import type { getEventData } from "#lib/functions/items.js";
+  import { pluralize } from "#lib/functions/string.js";
+  import { daysUntil } from "#lib/functions/time.js";
+  import type { NypsiEvent } from "#lib/server/functions/event.js";
   import { Trophy } from "@lucide/svelte";
   import type { ChartConfiguration, ChartOptions } from "chart.js";
   import ms from "ms";
