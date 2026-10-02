@@ -1,6 +1,6 @@
-import prisma from "$lib/server/database.js";
-import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
-import type { APIUserCheck } from "$lib/types/api/UserCheck.js";
+import prisma from "#lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
+import type { APIUserCheck } from "#lib/types/api/UserCheck.js";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params }) {

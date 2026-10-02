@@ -1,5 +1,5 @@
-import { building, dev } from "$app/environment";
-import { env } from "$env/dynamic/private";
+import { building, dev } from "$app/env";
+import { LOKI_USERNAME, LOKI_PASSWORD, LOKI_HOST } from "$app/env/private";
 import type { RequestEvent } from "@sveltejs/kit";
 import pino from "pino";
 import type { LokiOptions } from "pino-loki";
@@ -9,7 +9,7 @@ function buildTransport() {
     return undefined;
   }
 
-  if (!env.LOKI_USERNAME || !env.LOKI_PASSWORD || !env.LOKI_HOST) {
+  if (!LOKI_USERNAME || !LOKI_PASSWORD || !LOKI_HOST) {
     console.log("missing loki credentials, skipping loki transport");
     return undefined;
   }
@@ -19,11 +19,8 @@ function buildTransport() {
   return pino.transport<LokiOptions>({
     target: "pino-loki",
     options: {
-      host: env.LOKI_HOST,
-      basicAuth: {
-        username: env.LOKI_USERNAME,
-        password: env.LOKI_PASSWORD,
-      },
+      host: LOKI_HOST,
+      basicAuth: { username: LOKI_USERNAME, password: LOKI_PASSWORD },
       labels: { service_name: "nypsi-website" },
       headers: { "X-Scope-OrgID": "nypsi" },
     },

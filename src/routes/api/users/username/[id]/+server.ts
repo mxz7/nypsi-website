@@ -1,4 +1,4 @@
-import prisma from "$lib/server/database.js";
+import prisma from "#lib/server/database.js";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params }) {

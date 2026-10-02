@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Game } from "$lib/types/Game";
+  import type { Game } from "#lib/types/Game.js";
 
   import DiscordButton from "./discord-button.svelte";
 

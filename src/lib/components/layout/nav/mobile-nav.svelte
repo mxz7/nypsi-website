@@ -1,11 +1,11 @@
 <script lang="ts">
   import { navigating, page } from "$app/state";
-  import { logOut } from "$lib/api/auth.remote";
-  import LeaderboardItemSearch from "$lib/components/items/leaderboard-item-search.svelte";
-  import { paths, type PathsData } from "$lib/data/docs";
-  import { leaderboards, type LeaderboardsData } from "$lib/data/leaderboard";
-  import { canModifyGuild } from "$lib/functions/discordapi/permissions";
-  import { auth, guildsData } from "$lib/state.svelte";
+  import { logOut } from "#lib/api/auth.remote.js";
+  import LeaderboardItemSearch from "#lib/components/items/leaderboard-item-search.svelte";
+  import { paths, type PathsData } from "#lib/data/docs.js";
+  import { leaderboards, type LeaderboardsData } from "#lib/data/leaderboard.js";
+  import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
+  import { auth, guildsData } from "#lib/state.svelte.js";
   import {
     ArrowLeft,
     BadgePoundSterling,

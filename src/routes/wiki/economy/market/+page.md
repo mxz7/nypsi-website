@@ -1,6 +1,6 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
-  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
+  import DocsTemplate from "#lib/components/wiki/docs-template.svelte"
+  import DocsHeader from '#lib/components/wiki/docs-header.svelte';
 </script>
 
 <DocsTemplate title='the market' description="buy and sell items with other players on the nypsi market. buy or sell instantly, create limit orders, get alerts, use trade requests, and manage offers easily with commands." />

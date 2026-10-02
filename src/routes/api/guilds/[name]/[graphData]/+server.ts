@@ -1,4 +1,4 @@
-import getGuildData from "$lib/server/functions/graphs/getGuildData.js";
+import getGuildData from "#lib/server/functions/graphs/getGuildData.js";
 import { error, json } from "@sveltejs/kit";
 
 export async function GET({ params, setHeaders }) {

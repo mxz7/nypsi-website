@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import seasons from "$lib/data/seasons";
+  import seasons from "#lib/data/seasons.js";
   import MiniLeaderboard from "./mini-leaderboard.svelte";
 
   const season = seasons[page.params.season];

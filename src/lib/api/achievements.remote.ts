@@ -1,7 +1,7 @@
 import { query } from "$app/server";
-import { RedisKey } from "$lib/data/constants";
-import redis from "$lib/server/redis";
-import type { Achievement } from "$lib/types/achievements";
+import { RedisKey } from "#lib/data/constants.js";
+import redis from "#lib/server/redis.js";
+import type { Achievement } from "#lib/types/achievements.js";
 import { error } from "@sveltejs/kit";
 
 export const getAchievementsRemote = query(async () => {

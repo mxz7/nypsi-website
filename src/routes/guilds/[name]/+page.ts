@@ -1,4 +1,4 @@
-import type { ApiGuildResponse } from "$lib/types/Guild.js";
+import type { ApiGuildResponse } from "#lib/types/Guild.js";
 import type { APIGuildGraphData } from "../../api/guilds/[name]/[graphData]/+server.js";
 
 export const load = async ({ params, fetch, setHeaders }) => {

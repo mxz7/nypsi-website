@@ -1,7 +1,7 @@
 import { query } from "$app/server";
-import { RedisCache } from "$lib/server/cache";
-import prisma from "$lib/server/database";
-import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
+import { RedisCache } from "#lib/server/cache.js";
+import prisma from "#lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
 import type { LotteryType } from "@generated/prisma";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";

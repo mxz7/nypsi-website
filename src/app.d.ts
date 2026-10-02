@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { Session, User } from "$lib/types/Auth";
+import type { Session, User } from "#lib/types/Auth.js";
 import type { Logger } from "pino";
 
 // for information about these interfaces

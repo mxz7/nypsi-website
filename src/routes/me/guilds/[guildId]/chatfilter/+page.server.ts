@@ -1,9 +1,9 @@
-import { env } from "$env/dynamic/private";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { canModifyGuild } from "$lib/functions/discordapi/permissions";
-import { discordReconnectRequired } from "$lib/server/auth/discord-tokens";
-import prisma from "$lib/server/database.js";
-import { getGuilds } from "$lib/server/functions/discordapi/guilds.js";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
+import { discordReconnectRequired } from "#lib/server/auth/discord-tokens.js";
+import prisma from "#lib/server/database.js";
+import { getGuilds } from "#lib/server/functions/discordapi/guilds.js";
 import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ parent, params }) {
@@ -65,10 +65,10 @@ export const actions = {
       },
     });
 
-    await fetch(`${env.BOT_SERVER_URL}/redis`, {
+    await fetch(`${BOT_SERVER_URL}/redis`, {
       method: "delete",
       body: `cache:guild:chatfilter:${params.guildId}`,
-      headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
+      headers: { authorization: `Bearer ${BOT_API_AUTH}` },
     });
   },
   edit: async ({ request, params, locals }) => {
@@ -115,10 +115,10 @@ export const actions = {
       },
     });
 
-    await fetch(`${env.BOT_SERVER_URL}/redis`, {
+    await fetch(`${BOT_SERVER_URL}/redis`, {
       method: "delete",
       body: `cache:guild:chatfilter:${params.guildId}`,
-      headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
+      headers: { authorization: `Bearer ${BOT_API_AUTH}` },
     });
   },
 };

@@ -1,6 +1,6 @@
-import { browser } from "$app/environment";
-import { getItemsRemote } from "$lib/api/items.remote.js";
-import sleep from "$lib/functions/sleep";
+import { browser } from "$app/env";
+import { getItemsRemote } from "#lib/api/items.remote.js";
+import sleep from "#lib/functions/sleep.js";
 import { error } from "@sveltejs/kit";
 
 export async function load({ params, parent, fetch, setHeaders }) {

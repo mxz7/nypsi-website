@@ -1,5 +1,5 @@
 <script>
-  import badges from "$lib/data/badges";
+  import badges from "#lib/data/badges.js";
 </script>
 
 <svelte:head>

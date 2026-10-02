@@ -8,6 +8,7 @@
   let currentNavigation: number | null = null;
 
   onNavigate(async (nav) => {
+    if (nav.shallow) return;
     if (nav.from.url.toString() === nav.to.url.toString()) return;
     if (
       nav.from.url.pathname.startsWith("/leaderboards") &&

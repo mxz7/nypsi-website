@@ -1,5 +1,5 @@
-import { dev } from "$app/environment";
-import { baseLogger, logRequest } from "$lib/server/logger";
+import { dev } from "$app/env";
+import { baseLogger, logRequest } from "#lib/server/logger.js";
 
 // selectively preload fonts
 const fonts = ["inter-latin-wght-normal"];

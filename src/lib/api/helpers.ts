@@ -1,4 +1,4 @@
-import { Constants } from "$lib/data/constants";
+import { Constants } from "#lib/data/constants.js";
 import { error } from "@sveltejs/kit";
 import { getAuthedUser } from "./auth.remote";
 import { getPrivacy, getUserId } from "./users.remote";

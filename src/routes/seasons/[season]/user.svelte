@@ -1,7 +1,7 @@
 <script lang="ts">
-  import parseEmoji from "$lib/functions/parseEmoji";
-  import { getTags } from "$lib/functions/tags";
-  import type { BaseUserData } from "$lib/types/User";
+  import parseEmoji from "#lib/functions/parseEmoji.js";
+  import { getTags } from "#lib/functions/tags.js";
+  import type { BaseUserData } from "#lib/types/User.js";
   import { onMount } from "svelte";
 
   let { user, pos }: { user: { id?: string; username: string }; pos: number } = $props();

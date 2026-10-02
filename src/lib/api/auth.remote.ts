@@ -1,5 +1,5 @@
 import { form, getRequestEvent, query } from "$app/server";
-import { getSessionCookie, invalidateSession, validateSession } from "$lib/server/auth/sessions";
+import { getSessionCookie, invalidateSession, validateSession } from "#lib/server/auth/sessions.js";
 import { redirect } from "@sveltejs/kit";
 
 export const getAuthedUser = query(async () => {

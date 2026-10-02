@@ -1,13 +1,11 @@
-import { env } from "$env/dynamic/private";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ setHeaders, params, fetch }) {
   setHeaders({ "cache-control": "public, max-age=3600, must-revalidate" });
 
-  const value = await fetch(`${env.BOT_SERVER_URL}/items/${params.itemId}/value`, {
-    headers: {
-      Authorization: `Bearer ${env.BOT_API_AUTH}`,
-    },
+  const value = await fetch(`${BOT_SERVER_URL}/items/${params.itemId}/value`, {
+    headers: { Authorization: `Bearer ${BOT_API_AUTH}` },
   }).then((r) => {
     if (r.ok) {
       return r.json().then((r) => r.value as number);

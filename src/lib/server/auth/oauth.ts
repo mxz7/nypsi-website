@@ -1,8 +1,13 @@
-import { env } from "$env/dynamic/private";
+import {
+  DISCORD_OAUTH_CLIENTID,
+  DISCORD_OAUTH_SECRET,
+  DISCORD_OAUTH_REDIRECT,
+} from "$app/env/private";
+
 import { Discord } from "arctic";
 
 export const discord = new Discord(
-  env.DISCORD_OAUTH_CLIENTID,
-  env.DISCORD_OAUTH_SECRET,
-  env.DISCORD_OAUTH_REDIRECT,
+  DISCORD_OAUTH_CLIENTID,
+  DISCORD_OAUTH_SECRET,
+  DISCORD_OAUTH_REDIRECT,
 );

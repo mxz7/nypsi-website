@@ -1,7 +1,7 @@
 import { getRequestEvent } from "$app/server";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { canModifyGuild } from "$lib/functions/discordapi/permissions";
-import { discordReconnectRequired } from "$lib/server/auth/discord-tokens";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
+import { discordReconnectRequired } from "#lib/server/auth/discord-tokens.js";
 import { error, redirect } from "@sveltejs/kit";
 import { getGuilds } from "./guilds";
 

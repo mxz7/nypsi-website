@@ -1,9 +1,12 @@
-import { dev } from "$app/environment";
-import { deleteDiscordAccessToken, getDiscordAccessToken } from "$lib/server/auth/discord-tokens";
-import prisma from "$lib/server/database";
-import redis from "$lib/server/redis";
-import type { User } from "$lib/types/Auth";
-import type { DiscordGuild } from "$lib/types/Discord";
+import { dev } from "$app/env";
+import {
+  deleteDiscordAccessToken,
+  getDiscordAccessToken,
+} from "#lib/server/auth/discord-tokens.js";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
+import type { User } from "#lib/types/Auth.js";
+import type { DiscordGuild } from "#lib/types/Discord.js";
 import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
 

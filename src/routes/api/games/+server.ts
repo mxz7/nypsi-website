@@ -1,5 +1,5 @@
-import prisma from "$lib/server/database.js";
-import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
+import prisma from "#lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
 import type { Prisma } from "@generated/prisma";
 import { error, json } from "@sveltejs/kit";
 

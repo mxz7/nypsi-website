@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import type { PathsData } from "$lib/data/docs";
-  import { paths } from "$lib/data/docs";
+  import type { PathsData } from "#lib/data/docs.js";
+  import { paths } from "#lib/data/docs.js";
   import { fly } from "svelte/transition";
 
   let { children } = $props();

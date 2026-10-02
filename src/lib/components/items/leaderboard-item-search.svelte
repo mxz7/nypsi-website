@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { getItemsRemote } from "$lib/api/items.remote";
-  import type { Item } from "$lib/types/Item";
+  import { getItemsRemote } from "#lib/api/items.remote.js";
+  import type { Item } from "#lib/types/Item.js";
 
   interface Props {
     url?: string;

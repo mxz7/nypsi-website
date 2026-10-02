@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { getOrders } from "$lib/api/market.remote";
-  import { formatNumberPretty } from "$lib/functions/string";
+  import { getOrders } from "#lib/api/market.remote.js";
+  import { formatNumberPretty } from "#lib/functions/string.js";
 
   interface Props {
     itemId: string;

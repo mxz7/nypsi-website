@@ -1,5 +1,5 @@
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { discord } from "$lib/server/auth/oauth.js";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { discord } from "#lib/server/auth/oauth.js";
 import { redirect } from "@sveltejs/kit";
 import { generateState } from "arctic";
 

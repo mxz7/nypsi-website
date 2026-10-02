@@ -1,5 +1,5 @@
-import { getItemsRemote } from "$lib/api/items.remote";
-import getItemCountDataForUser from "$lib/server/functions/graphs/getItemCountDataForUser.js";
+import { getItemsRemote } from "#lib/api/items.remote.js";
+import getItemCountDataForUser from "#lib/server/functions/graphs/getItemCountDataForUser.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ parent, setHeaders, params, url }) {

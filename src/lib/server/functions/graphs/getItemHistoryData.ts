@@ -1,6 +1,6 @@
-import prisma from "$lib/server/database.js";
-import redis from "$lib/server/redis";
-import type { Item } from "$lib/types/Item";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
+import type { Item } from "#lib/types/Item.js";
 import type { ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";

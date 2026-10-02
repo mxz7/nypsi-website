@@ -1,5 +1,5 @@
-import prisma from "$lib/server/database.js";
-import { privacyCheck } from "$lib/server/functions/user/privacy.js";
+import prisma from "#lib/server/database.js";
+import { privacyCheck } from "#lib/server/functions/user/privacy.js";
 import { error, json } from "@sveltejs/kit";
 
 export const GET = async ({ params, setHeaders, fetch }) => {

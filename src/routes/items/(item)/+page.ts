@@ -1,4 +1,4 @@
-import { getItemsRemote } from "$lib/api/items.remote.js";
+import { getItemsRemote } from "#lib/api/items.remote.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load() {

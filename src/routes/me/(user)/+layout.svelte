@@ -1,7 +1,7 @@
 <script>
   import { page } from "$app/state";
-  import { logOut } from "$lib/api/auth.remote";
-  import { auth } from "$lib/state.svelte";
+  import { logOut } from "#lib/api/auth.remote.js";
+  import { auth } from "#lib/state.svelte.js";
   import {
     BadgePoundSterling,
     ChartArea,

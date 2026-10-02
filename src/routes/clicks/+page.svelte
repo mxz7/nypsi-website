@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getClickUpdates, type ClickRow } from "$lib/api/clicks.remote";
-  import Card from "$lib/components/ui/card.svelte";
-  import Main from "$lib/components/ui/main.svelte";
+  import { getClickUpdates, type ClickRow } from "#lib/api/clicks.remote.js";
+  import Card from "#lib/components/ui/card.svelte";
+  import Main from "#lib/components/ui/main.svelte";
   import { onMount } from "svelte";
   import { flip } from "svelte/animate";
   import { scale, slide } from "svelte/transition";

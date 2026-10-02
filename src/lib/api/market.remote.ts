@@ -1,7 +1,7 @@
 import { query } from "$app/server";
-import prisma from "$lib/server/database";
-import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
-import redis from "$lib/server/redis";
+import prisma from "#lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
+import redis from "#lib/server/redis.js";
 import type { OrderType } from "@generated/prisma";
 import { sort } from "fast-sort";
 import ms from "ms";

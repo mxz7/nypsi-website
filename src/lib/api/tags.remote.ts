@@ -1,6 +1,6 @@
 import { query } from "$app/server";
-import parseEmoji from "$lib/functions/parseEmoji";
-import redis from "$lib/server/redis";
+import parseEmoji from "#lib/functions/parseEmoji.js";
+import redis from "#lib/server/redis.js";
 import { error } from "@sveltejs/kit";
 
 export type Tag = { tagId: string; emoji: string; name: string };

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
-  import Card from "$lib/components/ui/card.svelte";
+  import Card from "#lib/components/ui/card.svelte";
   import {
     Hash,
     MessageSquareText,

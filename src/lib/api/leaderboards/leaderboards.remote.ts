@@ -1,9 +1,9 @@
 import { query } from "$app/server";
-import { RedisKey } from "$lib/data/constants";
-import { RedisCache } from "$lib/server/cache";
-import prisma from "$lib/server/database";
-import { isPrivate, privacyPreferenceSelection } from "$lib/server/preferences";
-import type { LeaderboardData } from "$lib/types/leaderboards";
+import { RedisKey } from "#lib/data/constants.js";
+import { RedisCache } from "#lib/server/cache.js";
+import prisma from "#lib/server/database.js";
+import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
+import type { LeaderboardData } from "#lib/types/leaderboards.js";
 import { error } from "@sveltejs/kit";
 import { z } from "zod";
 import { getItemsRemote } from "../items.remote";

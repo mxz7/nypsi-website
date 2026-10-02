@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
+  import { browser } from "$app/env";
   import { page } from "$app/state";
-  import { getItemsRemote } from "$lib/api/items.remote";
+  import { getItemsRemote } from "#lib/api/items.remote.js";
   import { Search } from "@lucide/svelte";
   import { sort } from "fast-sort";
 

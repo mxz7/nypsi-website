@@ -1,7 +1,7 @@
 <script>
   import { page } from "$app/state";
-  import { canModifyGuild } from "$lib/functions/discordapi/permissions.js";
-  import { auth } from "$lib/state.svelte";
+  import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
+  import { auth } from "#lib/state.svelte.js";
   import { ArrowLeft } from "@lucide/svelte";
   import { onMount } from "svelte";
 

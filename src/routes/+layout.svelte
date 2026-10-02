@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { dev } from "$app/environment";
-  import { onNavigate, replaceState } from "$app/navigation";
+  import { dev } from "$app/env";
+  import { onNavigate, goto } from "$app/navigation";
   import { page } from "$app/state";
-  import { getAuthedUser } from "$lib/api/auth.remote";
-  import Footer from "$lib/components/layout/footer.svelte";
-  import LoadBar from "$lib/components/layout/load-bar.svelte";
-  import Navbar from "$lib/components/layout/nav/nav-bar.svelte";
-  import { auth, initialLoad } from "$lib/state.svelte";
-  import type { User } from "$lib/types/Auth";
+  import { getAuthedUser } from "#lib/api/auth.remote.js";
+  import Footer from "#lib/components/layout/footer.svelte";
+  import LoadBar from "#lib/components/layout/load-bar.svelte";
+  import Navbar from "#lib/components/layout/nav/nav-bar.svelte";
+  import { auth, initialLoad } from "#lib/state.svelte.js";
+  import type { User } from "#lib/types/Auth.js";
   import "@fontsource-variable/inter";
   import { onMount, tick, type Snippet } from "svelte";
   import { toast, Toaster } from "svelte-sonner";
@@ -72,15 +72,17 @@
 
       if (params.toString() !== page.url.searchParams.toString()) {
         if (params.size === 0) {
-          replaceState(page.url.pathname, {});
+          goto(page.url.pathname, { shallow: true, replace: true });
         } else {
-          replaceState(`?${params.toString()}`, {});
+          goto(`?${params.toString()}`, { shallow: true, replace: true });
         }
       }
     }, 500);
   });
 
-  onNavigate(() => {
+  onNavigate(({ shallow }) => {
+    if (shallow) return;
+
     initialLoad.value = false;
   });
 </script>
@@ -101,6 +103,7 @@
   <link rel="icon" sizes="512x512" href="/favicon-512x512.png" type="image/png" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="msapplication-TileColor" content="#0f172a" />
+
   <meta name="msapplication-TileImage" content="/favicon-512x512.png" />
 
   <meta

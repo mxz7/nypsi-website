@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { getItemChartData } from "$lib/api/items-history.remote";
-  import Chart from "$lib/components/chart.svelte";
-  import Card from "$lib/components/ui/card.svelte";
+  import { getItemChartData } from "#lib/api/items-history.remote.js";
+  import Chart from "#lib/components/chart.svelte";
+  import Card from "#lib/components/ui/card.svelte";
   import {
     itemPriceChartOptions,
     worldItemCountChartOptions,
-  } from "$lib/functions/chart/chart-options";
+  } from "#lib/functions/chart/chart-options.js";
   import { DollarSign, Earth } from "@lucide/svelte";
 
   interface Props {

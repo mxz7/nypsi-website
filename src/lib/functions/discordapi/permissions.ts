@@ -1,4 +1,4 @@
-import type { DiscordGuild } from "$lib/types/Discord";
+import type { DiscordGuild } from "#lib/types/Discord.js";
 
 const MANAGER_SERVER = 0x20n;
 

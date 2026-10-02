@@ -1,5 +1,5 @@
 import { getRequestEvent } from "$app/server";
-import { redisDeserialize, redisSerialize } from "$lib/server/functions/redis-json";
+import { redisDeserialize, redisSerialize } from "#lib/server/functions/redis-json.js";
 import redis from "./redis";
 
 export class RedisCache<T> {

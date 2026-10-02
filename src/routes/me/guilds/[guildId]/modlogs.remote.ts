@@ -1,8 +1,8 @@
 import { query } from "$app/server";
-import { Constants } from "$lib/data/constants";
-import { RedisCache } from "$lib/server/cache";
-import prisma from "$lib/server/database";
-import { requireGuildAccess } from "$lib/server/functions/discordapi/guild-access";
+import { Constants } from "#lib/data/constants.js";
+import { RedisCache } from "#lib/server/cache.js";
+import prisma from "#lib/server/database.js";
+import { requireGuildAccess } from "#lib/server/functions/discordapi/guild-access.js";
 import z from "zod";
 
 const guildIdSchema = z.string().regex(Constants.SNOWFLAKE_REGEX, "invalid guild");

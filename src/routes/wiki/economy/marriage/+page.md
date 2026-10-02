@@ -1,7 +1,7 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
-  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
-  import ItemModal from "$lib/components/wiki/item-modal.svelte"
+  import DocsTemplate from "#lib/components/wiki/docs-template.svelte"
+  import DocsHeader from '#lib/components/wiki/docs-header.svelte';
+  import ItemModal from "#lib/components/wiki/item-modal.svelte"
 </script>
 
 <DocsTemplate title='marriage' description="learn how to get married with a ring or for free with the love command, and discover the rewards you can share with your partner." />

@@ -1,10 +1,10 @@
 <script>
-  import DocsTemplate from "$lib/components/wiki/docs-template.svelte"
-  import ItemModal from "$lib/components/wiki/item-modal.svelte"
+  import DocsTemplate from "#lib/components/wiki/docs-template.svelte"
+  import ItemModal from "#lib/components/wiki/item-modal.svelte"
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { page } from '$app/stores';
-  import DocsHeader from '$lib/components/wiki/docs-header.svelte';
+  import DocsHeader from '#lib/components/wiki/docs-header.svelte';
   
   let selected = $state("basic");
 

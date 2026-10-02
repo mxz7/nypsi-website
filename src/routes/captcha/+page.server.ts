@@ -1,7 +1,7 @@
-import { env } from "$env/dynamic/private";
-import { env as publicEnv } from "$env/dynamic/public";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import prisma from "$lib/server/database.js";
+import { HCAPTCHA_SECRET } from "$app/env/private";
+import { PUBLIC_HCAPTCHA_SITEKEY } from "$app/env/public";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import prisma from "#lib/server/database.js";
 import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ url, locals }) {
@@ -51,9 +51,9 @@ export const actions = {
     const token = formData.get("h-captcha-response");
 
     const body = new URLSearchParams({
-      secret: env.HCAPTCHA_SECRET,
+      secret: HCAPTCHA_SECRET,
       response: token as string,
-      sitekey: publicEnv.PUBLIC_HCAPTCHA_SITEKEY,
+      sitekey: PUBLIC_HCAPTCHA_SITEKEY,
     });
 
     const res = await fetch("https://hcaptcha.com/siteverify", {

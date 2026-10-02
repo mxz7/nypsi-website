@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { NypsiEvent } from "$lib/server/functions/event";
-  import { auth } from "$lib/state.svelte";
+  import type { NypsiEvent } from "#lib/server/functions/event.js";
+  import { auth } from "#lib/state.svelte.js";
   import { scale } from "svelte/transition";
 
   interface Props {

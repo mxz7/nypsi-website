@@ -1,4 +1,4 @@
-import type { Game } from "$lib/types/Game";
+import type { Game } from "#lib/types/Game.js";
 import dayjs from "dayjs";
 
 export async function load({ fetch, url }) {

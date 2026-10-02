@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Chart from "$lib/components/chart.svelte";
-  import Main from "$lib/components/ui/main.svelte";
-  import { guildSearchTerm } from "$lib/state.svelte";
+  import Chart from "#lib/components/chart.svelte";
+  import Main from "#lib/components/ui/main.svelte";
+  import { guildSearchTerm } from "#lib/state.svelte.js";
   import type { ChartConfiguration, ChartOptions } from "chart.js";
   import Guild from "./guild.svelte";
 

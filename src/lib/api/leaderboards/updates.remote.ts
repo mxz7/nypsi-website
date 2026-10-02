@@ -1,8 +1,11 @@
 import { getRequestEvent, query } from "$app/server";
-import { getAuthedUser } from "$lib/api/auth.remote";
-import { RedisPubSub } from "$lib/server/pubsub";
-import redis from "$lib/server/redis";
-import { getLeaderboardUpdatesChannel, type LeaderboardUpdateEvent } from "$lib/types/leaderboards";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
+import { RedisPubSub } from "#lib/server/pubsub.js";
+import redis from "#lib/server/redis.js";
+import {
+  getLeaderboardUpdatesChannel,
+  type LeaderboardUpdateEvent,
+} from "#lib/types/leaderboards.js";
 import z from "zod";
 import { getItemLeaderboard, getLeaderboard } from "./leaderboards.remote";
 import { LeaderboardTypeSchema, type LeaderboardType } from "./shared";

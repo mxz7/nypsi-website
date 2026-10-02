@@ -2,7 +2,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { navigating, page } from "$app/state";
-  import { guildSearchTerm } from "$lib/state.svelte";
+  import { guildSearchTerm } from "#lib/state.svelte.js";
 
   let { children } = $props();
 

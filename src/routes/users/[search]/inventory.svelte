@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { getItemsRemote } from "$lib/api/items.remote";
-  import { getInventory } from "$lib/api/users.remote";
+  import { getItemsRemote } from "#lib/api/items.remote.js";
+  import { getInventory } from "#lib/api/users.remote.js";
   import Item from "./item.svelte";
 
   const [inventory, itemsData] = $derived(

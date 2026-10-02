@@ -1,5 +1,5 @@
-import { env } from "$env/dynamic/private";
-import { canModifyGuild } from "$lib/functions/discordapi/permissions";
+import { BOT_SERVER_URL, BOT_API_AUTH } from "$app/env/private";
+import { canModifyGuild } from "#lib/functions/discordapi/permissions.js";
 import { error, redirect } from "@sveltejs/kit";
 
 type DashboardData = {
@@ -32,8 +32,8 @@ export async function load({ parent, params }) {
 
   if (!hasPermission) return { guild, hasPermission, dashboard: null };
 
-  const response = await fetch(`${env.BOT_SERVER_URL}/guilds/${guild.id}/settings`, {
-    headers: { authorization: `Bearer ${env.BOT_API_AUTH}` },
+  const response = await fetch(`${BOT_SERVER_URL}/guilds/${guild.id}/settings`, {
+    headers: { authorization: `Bearer ${BOT_API_AUTH}` },
   });
 
   if (!response.ok) {

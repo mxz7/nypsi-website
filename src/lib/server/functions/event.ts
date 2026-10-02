@@ -1,5 +1,5 @@
-import prisma from "$lib/server/database";
-import redis from "$lib/server/redis";
+import prisma from "#lib/server/database.js";
+import redis from "#lib/server/redis.js";
 import type { Event, Prisma } from "@generated/prisma";
 
 export type NypsiEvent = Awaited<ReturnType<typeof getEventNoCache>>;

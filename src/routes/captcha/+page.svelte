@@ -1,7 +1,7 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
-  import { env } from "$env/dynamic/public";
-  import { auth } from "$lib/state.svelte.js";
+  import { PUBLIC_HCAPTCHA_SITEKEY } from "$app/env/public";
+  import { auth } from "#lib/state.svelte.js";
   import { Check } from "@lucide/svelte";
   import { onMount } from "svelte";
 
@@ -15,7 +15,7 @@
     if (!data.solved && loaded) {
       // @ts-expect-error
       hcaptcha?.render(captchaElement, {
-        sitekey: env.PUBLIC_HCAPTCHA_SITEKEY,
+        sitekey: PUBLIC_HCAPTCHA_SITEKEY,
         theme: "dark",
         callback: () => {
           form.submit();

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Features from "$lib/components/features/features.svelte";
-  import Discord from "$lib/components/icons/discord.svelte";
-  import Main from "$lib/components/ui/main.svelte";
-  import { auth } from "$lib/state.svelte";
+  import Features from "#lib/components/features/features.svelte";
+  import Discord from "#lib/components/icons/discord.svelte";
+  import Main from "#lib/components/ui/main.svelte";
+  import { auth } from "#lib/state.svelte.js";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 

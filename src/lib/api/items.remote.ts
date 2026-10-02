@@ -1,8 +1,8 @@
 import { query } from "$app/server";
-import { Constants } from "$lib/data/constants";
-import parseEmoji from "$lib/functions/parseEmoji";
-import redis from "$lib/server/redis.js";
-import type { Item } from "$lib/types/Item";
+import { Constants } from "#lib/data/constants.js";
+import parseEmoji from "#lib/functions/parseEmoji.js";
+import redis from "#lib/server/redis.js";
+import type { Item } from "#lib/types/Item.js";
 import { error } from "@sveltejs/kit";
 import { inPlaceSort } from "fast-sort";
 import z from "zod";

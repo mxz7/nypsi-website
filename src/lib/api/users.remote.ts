@@ -1,8 +1,8 @@
 import { query } from "$app/server";
-import { Constants, RedisKey } from "$lib/data/constants";
-import { RedisCache } from "$lib/server/cache";
-import prisma from "$lib/server/database";
-import { isPrivate } from "$lib/server/preferences";
+import { Constants, RedisKey } from "#lib/data/constants.js";
+import { RedisCache } from "#lib/server/cache.js";
+import prisma from "#lib/server/database.js";
+import { isPrivate } from "#lib/server/preferences.js";
 import { error } from "@sveltejs/kit";
 import z from "zod";
 import { getAuthedUser } from "./auth.remote";

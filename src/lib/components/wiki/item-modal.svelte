@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto, preloadData, pushState } from "$app/navigation";
+  import { goto, preloadData } from "$app/navigation";
   import { page } from "$app/state";
   import type { Snippet } from "svelte";
   import { cubicOut } from "svelte/easing";
@@ -22,8 +22,9 @@
         innerWidth < 640 || // bail if the screen is too small
         e.shiftKey || // or the link is opened in a new window
         e.metaKey ||
-        e.ctrlKey // or a new tab (mac: metaKey, win/linux: ctrlKey)
+        e.ctrlKey
       )
+        // or a new tab (mac: metaKey, win/linux: ctrlKey)
         return;
 
       e.preventDefault();

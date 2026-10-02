@@ -1,4 +1,4 @@
-import { getAuthedUser } from "$lib/api/auth.remote";
+import { getAuthedUser } from "#lib/api/auth.remote.js";
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ locals, url }) {

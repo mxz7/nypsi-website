@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LeaderboardData } from "$lib/types/leaderboards";
+  import type { LeaderboardData } from "#lib/types/leaderboards.js";
   import Guild from "./guild.svelte";
   import User from "./user.svelte";
 
