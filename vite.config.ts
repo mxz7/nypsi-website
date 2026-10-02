@@ -4,8 +4,21 @@ import { mdsvex } from "mdsvex";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vitest/config";
+import { createLogger } from "vite";
+import { stripVTControlCharacters } from "node:util";
+
+const logger = createLogger();
+for (const level of ["info", "error"] as const) {
+  const log = logger[level].bind(logger);
+  logger[level] = (message, options) => {
+    // SvelteKit 3 logs HTTP responses through Vite separately from the app logger.
+    if (/^\d{3} [A-Z]+ \//.test(stripVTControlCharacters(message))) return;
+    log(message, options);
+  };
+}
 
 export default defineConfig({
+  customLogger: logger,
   plugins: [
     sveltekit({
       extensions: [".svelte", ".md"],
