@@ -36,7 +36,7 @@
   <ol
     class="[&>*:nth-child(1)]:text-primary flex flex-col justify-center gap-2 [&>*:nth-child(1)]:font-semibold"
   >
-    {#each inPlaceSort(guildData.guild.members).desc( [(i) => i.contributedXp, (i) => i.contributedMoney], ) as member, index}
+    {#each inPlaceSort(guildData.guild.members).desc( [(i) => i.contributedXp, (i) => i.contributedMoney] ) as member, index}
       <li class="bg-base-300 flex items-center gap-3 rounded-lg p-3">
         <img
           bind:this={avatars[index]}

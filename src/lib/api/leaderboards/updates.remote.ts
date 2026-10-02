@@ -29,8 +29,7 @@ type IncrementState = {
 };
 
 export type LeaderboardStreamMessage =
-  | { type: "ready" }
-  | { type: "update"; event: LeaderboardStreamEvent };
+  { type: "ready" } | { type: "update"; event: LeaderboardStreamEvent };
 
 export const getLeaderboardUpdates = query.live(
   z.string().min(1).max(100),

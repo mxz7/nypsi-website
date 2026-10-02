@@ -14,8 +14,7 @@ import { getBaseData, getPrivacy } from "./users.remote";
 export type { ClickRow };
 
 export type ClickStreamUpdate =
-  | { type: "snapshot"; snapshot: ClickSnapshot }
-  | { type: "click"; row: ClickRow };
+  { type: "snapshot"; snapshot: ClickSnapshot } | { type: "click"; row: ClickRow };
 
 export const getClickUpdates = query.live(async function* (): AsyncGenerator<ClickStreamUpdate> {
   const signal = getRequestEvent().request.signal;
