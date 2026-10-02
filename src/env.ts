@@ -1,21 +1,23 @@
+import { building } from "$app/env";
 import { defineEnvVars } from "@sveltejs/kit/env";
+import z from "zod";
 
-// Preserve the previous empty-string fallbacks so builds do not require runtime
-// service credentials. Deployment supplies service values; Loki is optional.
-// An unset Redis URL intentionally uses the Redis client’s local default.
+// Builds do not need service credentials, but runtime startup must fail if they are missing.
+const required = building ? z.string().default("") : z.string().min(1);
+
 export const variables = defineEnvVars({
-  BOT_SERVER_URL: { schema: (input) => input ?? "" },
-  BOT_API_AUTH: { schema: (input) => input ?? "" },
-  HCAPTCHA_SECRET: { schema: (input) => input ?? "" },
-  PUBLIC_HCAPTCHA_SITEKEY: { public: true, schema: (input) => input ?? "" },
-  TOPGG_TOKEN: { schema: (input) => input ?? "" },
-  PUBLIC_URL: { public: true, schema: (input) => input ?? "" },
-  DATABASE_URL: { schema: (input) => input ?? "" },
+  BOT_SERVER_URL: { schema: required },
+  BOT_API_AUTH: { schema: required },
+  HCAPTCHA_SECRET: { schema: required },
+  PUBLIC_HCAPTCHA_SITEKEY: { public: true, schema: required },
+  TOPGG_TOKEN: { schema: required },
+  PUBLIC_URL: { public: true, schema: required },
+  DATABASE_URL: { schema: required },
   LOKI_USERNAME: { schema: (input) => input ?? "" },
   LOKI_PASSWORD: { schema: (input) => input ?? "" },
   LOKI_HOST: { schema: (input) => input ?? "" },
-  REDIS_URL: { schema: (input) => input ?? "" },
-  DISCORD_OAUTH_CLIENTID: { schema: (input) => input ?? "" },
-  DISCORD_OAUTH_SECRET: { schema: (input) => input ?? "" },
-  DISCORD_OAUTH_REDIRECT: { schema: (input) => input ?? "" },
+  REDIS_URL: { schema: required },
+  DISCORD_OAUTH_CLIENTID: { schema: required },
+  DISCORD_OAUTH_SECRET: { schema: required },
+  DISCORD_OAUTH_REDIRECT: { schema: required },
 });
