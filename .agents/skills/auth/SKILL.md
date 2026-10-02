@@ -13,3 +13,4 @@ description: Explains the session cookie, server-side locals.auth, client-side a
 - Auth remote functions: [`src/lib/api/auth.remote.ts`](../../../src/lib/api/auth.remote.ts) — prefer using remote functions where possible, `+page(.server).ts` files will not be necessary with them
 - Discord OAuth tokens: use [`src/lib/server/auth/discord-tokens.ts`](../../../src/lib/server/auth/discord-tokens.ts). It stores refresh tokens, automatically refreshes expired access tokens, and provides `discordReconnectRequired(url)` for an actionable fallback.
 - Discord reconnect flow: `/login?reauthorize=true&next=<path>` permits a signed-in user to reconnect the same Discord account and return to the original page.
+- SvelteKit 3 rejects external redirects by default. Discord authorization allows only `https://discord.com` via `redirect`’s `external` allowlist. OAuth return destinations stay on `PUBLIC_URL`’s origin; reconnect callbacks must match the signed-in Discord account.

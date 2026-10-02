@@ -33,5 +33,5 @@ export async function GET({ cookies, locals, url }) {
     cookies.delete("oauth_reconnect_user", { path: "/" });
   }
 
-  redirect(302, oauthUrl.toString());
+  redirect(302, oauthUrl, { external: ["https://discord.com"] });
 }

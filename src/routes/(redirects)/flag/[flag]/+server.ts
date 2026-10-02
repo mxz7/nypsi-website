@@ -13,7 +13,7 @@ export async function GET({ params }) {
   const response = await fetch(url);
 
   if (response.status !== 200) {
-    return redirect(303, url);
+    return redirect(303, url, { external: ["https://flagcdn.com"] });
   }
 
   return new Response(await response.bytes(), {
