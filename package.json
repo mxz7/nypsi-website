@@ -56,7 +56,7 @@
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "7.10.1",
     "arctic": "^3.7.0",
-    "chart.js": "^4.5.1",
+    "chart.js": "^4.6.1",
     "dayjs": "1.11.23",
     "fast-sort": "3.4.1",
     "ioredis": "6.0.0",
