@@ -13,7 +13,7 @@ please note that when you buy anything from the online store, you **MUST** set y
 
 premium is for users that would like to donate some money to the creator of nypsi. in return, you
 receive benefits that give extra usability, faster commands and most importantly... bigger penises
-with `/pp`
+with `/rate pp`
 
 but really, premium is what funds nypsi. without premium members, nypsi wouldn't be able to exist. thank you (:
 

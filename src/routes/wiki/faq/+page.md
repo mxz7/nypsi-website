@@ -13,7 +13,7 @@ if this is not working for whatever reason, you can contact the owner directly: 
 
 <DocsHeader header='h2' text="when will the karma shop be open?" />
 
-the karma shop (`/karmashop view`) opens a few times a month. you can use the karma shop command to see when it is next scheduled to be opened. you can also join the [official nypsi server](https://discord.gg/hJTDNST), and give yourself the karma shop role, to be notified when it does open
+the karma shop (`/karma shop`) opens a few times a month. you can use the karma shop command to see when it is next scheduled to be opened. you can also join the [official nypsi server](https://discord.gg/hJTDNST), and give yourself the karma shop role, to be notified when it does open
 
 <DocsHeader header='h2' text="my server does not qualify to track mentions" />
 

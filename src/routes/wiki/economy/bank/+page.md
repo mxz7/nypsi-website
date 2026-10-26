@@ -6,7 +6,9 @@
 
 <DocsTemplate title='bank' description="learn how the bank works in nypsi: boost bank size with stolen credit cards, keep money safe, level up faster, and master bankrob strategies." />
 
-your bank is the little '💳' icon in `$balance` and `$profile`. it is used for levelling up. to level up you will have to deposit money into your bank (`$depost`), you can also withdraw any extra money from your bank if needed (`$withdraw`).
+your bank is the little '💳' icon in `$balance` and `$profile`. it is used for levelling up. to level up you will have to deposit money into your bank with `/bank deposit amount:<amount>`. you can also withdraw any extra money with `/bank withdraw amount:<amount>`.
+
+use `amount:all` to deposit as much as your bank can hold or withdraw your entire bank balance. the prefix shortcuts `$deposit` and `$withdraw` still work too.
 
 <DocsHeader header='h2' text="increasing the size of your bank" />
 
@@ -20,7 +22,7 @@ technically, yes, your money cannot be robbed from other players when it's in th
 
 bankrob is for stealing money from nypsi, money is given to nypsi when they pay tax, or under certain conditions in the market.
 
-bankrob allows you to rob from the nypsi bank
+use `/bank rob` to rob from the nypsi bank. the prefix shortcut `$bankrob` still works.
 
 <DocsHeader header='h3' text="nypsi bank is closed" />
 

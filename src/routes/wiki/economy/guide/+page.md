@@ -51,7 +51,7 @@ the `/sell` price is often much lower than what another player will pay for a va
 
 using economy commands earns xp. each level requires a certain amount of xp and money in your [bank](/wiki/economy/bank), and you will level up automatically once you meet both requirements. use `/profile` to check your current level and progress.
 
-deposit money with `/deposit`. higher levels require more bank space, so you will eventually need to use <ItemModal item="stolen_credit_card">stolen credit cards</ItemModal> from crates, scratch cards or other players to increase your bank capacity.
+deposit money with `/bank deposit amount:<amount>`, or use `amount:all` to deposit as much as your bank can hold. higher levels require more bank space, so you will eventually need to use <ItemModal item="stolen_credit_card">stolen credit cards</ItemModal> from crates, scratch cards or other players to increase your bank capacity.
 
 levelling gives rewards along the way and every 100 levels allows you to prestige. prestiging lowers your level by 100, increases your prestige level and gives you a random permanent upgrade. **you do not lose your money or items when you prestige.**
 

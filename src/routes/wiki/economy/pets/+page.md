@@ -10,7 +10,7 @@ pets are economy items that give you a chance of receiving a bonus when you use 
 
 <DocsHeader header='h2' text="unlocking and levelling pets" />
 
-use a pet item with `/use <pet>` to unlock it. using more copies of an unlocked pet levels it up instead.
+use `/use` and choose your pet item in the `item` option to unlock it. using more copies of an unlocked pet levels it up instead. the `amount` option is ignored for pets; each use unlocks the pet or upgrades it by one level, consuming the required number of copies.
 
 each level requires more copies of the pet item. higher levels improve the chance of the pet activating and may also improve its bonus. use `/pets` and select a pet to see its current level, effect, activation chance and how many items are needed for the next level.
 

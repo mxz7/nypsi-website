@@ -13,7 +13,20 @@ if you haven't already, a good start would be to invite nypsi to your server. yo
 
 <DocsHeader header='h2' text="slash commands vs prefix commands" />
 
-prefix commands are the 'old' way of using discord bots, where you would use some sort of symbol (nypsi uses $ by default), and then the command. discord introduced the very official method of doing commands called 'slash commands. a lot of discord users don't like using slash commands, since they're slower and bulkier than prefix commands. the upside is that they're great for complex commands, as they have autocomplete!!!
+prefix commands start with a symbol (nypsi uses `$` by default), followed by the command. slash commands start with `/` and let you choose commands, subcommands and options directly in discord, with autocomplete to help you fill them in.
+
+some slash commands are grouped together. if you can't find a command under its old name, look for it in one of these groups:
+
+| group            | slash commands                                                                                                                          |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| user information | `/user info`, `/user avatar`, `/user banner`, `/user avatar-history`, `/user username-history`, `/user join`                            |
+| ratings          | `/rate pp`, `/rate iq`, `/rate height`, `/rate hot`, `/rate gay`, `/rate furry`, `/rate horny`, `/rate ass`, `/rate boob`, `/rate slut` |
+| bank             | `/bank deposit`, `/bank withdraw`, `/bank rob`                                                                                          |
+| karma            | `/karma balance`, `/karma shop`, `/karma buy`, `/karma help`                                                                            |
+
+the old prefix shortcuts still work, including `$avatar`, `$pp`, `$deposit`, `$withdraw`, `$bankrob`, `$karma` and `$karmashop`. they don't create separate slash commands.
+
+you can also use `/help` to browse commands or look up a command, category or item. `/work`, `/tools`, `/level` and `/networth` are available as slash commands too. see the [inventory guide](/wiki/economy/items/inventory) for help with `/use`.
 
 if you decide to not want to allow prefix commands to be used at all, you can disable them with the slash commands only mode. use `/settings server slash-only` to customise this.
 

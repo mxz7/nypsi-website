@@ -38,4 +38,6 @@ you can get random items such as collectables and cars, but most notably being t
 
 <DocsHeader header='h2' text="opening your crates" />
 
-you can use the `$use <name of crate> <amount>` command to open specific number of a specific crate.
+use `/use` and choose your crate in the `item` option. enter how many to open in the separate `amount` option, for example `/use item:vote_crate amount:5`. leave `amount` empty to open one, or use `amount:all` to open as many as your per-command limit allows.
+
+you can open up to 10 crates per command by default, 20 with bronze or silver premium, and 50 with gold or platinum premium. the prefix command `$use <name of crate> <amount>` still works too.

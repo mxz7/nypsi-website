@@ -10,11 +10,11 @@ levels work on a 1-100 basis, each 100 levels acting as a new prestige, even if 
 
 <DocsHeader header='h2' text="levelling up" />
 
-level ups are handled automatically whenever you meet the xp and bank requirements (`/profile` or `$level`)
+level ups are handled automatically whenever you meet the xp and bank requirements (`/profile` or `/level`)
 
 <DocsHeader header='h3' text="how to deposit money into my bank?" />
 
-use the `/deposit` command to deposit money into your bank. once you get to higher levels you will need to increase your bank size with <ItemModal item="stolen_credit_card" trailing=".">stolen credit cards</ItemModal>
+use `/bank deposit amount:<amount>` to deposit money into your bank. once you get to higher levels you will need to increase your bank size with <ItemModal item="stolen_credit_card" trailing=".">stolen credit cards</ItemModal>
 
 <DocsHeader header='h2' text="increasing bank size" />
 
