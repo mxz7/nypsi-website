@@ -3,7 +3,7 @@ import { RedisCache } from "#lib/server/cache.js";
 import prisma from "#lib/server/database.js";
 import { isPrivate, privacyPreferenceSelection } from "#lib/server/preferences.js";
 import type { LotteryType } from "#prisma";
-import type { ChartConfiguration } from "chart.js";
+import type { ChartData } from "#lib/types/chart.js";
 import dayjs from "dayjs";
 import { z } from "zod";
 
@@ -18,70 +18,65 @@ const rangeSchema = z.enum(["30d", "90d", "1y", "all"]);
 
 export type LotteryChartRange = z.infer<typeof rangeSchema>;
 
-const lotteryChartCache = new RedisCache<ChartConfiguration>("cache:lottery:chart", 900);
+const lotteryChartCache = new RedisCache<ChartData>("cache:lottery:chart:v2", 900);
 
-export const getLotteryWinningsChart = query(
-  rangeSchema,
-  async (range): Promise<ChartConfiguration> => {
-    const cached = await lotteryChartCache.get(range);
+export const getLotteryWinningsChart = query(rangeSchema, async (range): Promise<ChartData> => {
+  const cached = await lotteryChartCache.get(range);
 
-    if (cached) {
-      return cached;
-    }
+  if (cached) {
+    return cached;
+  }
 
-    const days = rangeToDays[range as LotteryChartRange];
+  const days = rangeToDays[range as LotteryChartRange];
 
-    const history = await prisma.lottery.findMany({
-      where: days
-        ? {
-            date: {
-              gte: dayjs().subtract(days, "day").toDate(),
-            },
-          }
-        : undefined,
-      orderBy: {
-        date: "asc",
-      },
-      select: {
-        date: true,
-        totalWin: true,
-        totalTickets: true,
-      },
-    });
-
-    const winningsByDate = new Map<string, number>();
-
-    for (const draw of history) {
-      const date = dayjs(draw.date).format("YYYY-MM-DD");
-      const drawWinnings = Number(draw.totalWin ?? draw.totalTickets);
-      const currentValue = winningsByDate.get(date) ?? 0;
-      winningsByDate.set(date, currentValue + drawWinnings);
-    }
-
-    const labels = [...winningsByDate.keys()];
-    const winnings = labels.map((label) => winningsByDate.get(label) ?? 0);
-
-    const chartData: ChartConfiguration = {
-      type: "line",
-      data: {
-        labels,
-        datasets: [
-          {
-            label: "winnings",
-            data: winnings,
-            fill: true,
-            borderColor: "#8b5cf6",
-            backgroundColor: "#8b5cf633",
+  const history = await prisma.lottery.findMany({
+    where: days
+      ? {
+          date: {
+            gte: dayjs().subtract(days, "day").toDate(),
           },
-        ],
+        }
+      : undefined,
+    orderBy: {
+      date: "asc",
+    },
+    select: {
+      date: true,
+      totalWin: true,
+      totalTickets: true,
+    },
+  });
+
+  const winningsByDate = new Map<string, number>();
+
+  for (const draw of history) {
+    const date = dayjs(draw.date).format("YYYY-MM-DD");
+    const drawWinnings = Number(draw.totalWin ?? draw.totalTickets);
+    const currentValue = winningsByDate.get(date) ?? 0;
+    winningsByDate.set(date, currentValue + drawWinnings);
+  }
+
+  const labels = [...winningsByDate.keys()];
+  const winnings = labels.map((label) => winningsByDate.get(label) ?? 0);
+
+  const chartData: ChartData = {
+    kind: "line",
+    labels,
+    series: [
+      {
+        label: "winnings",
+        data: winnings,
+        fill: true,
+        color: "#8b5cf6",
+        fillColor: "#8b5cf633",
       },
-    };
+    ],
+  };
 
-    await lotteryChartCache.set(range, chartData);
+  await lotteryChartCache.set(range, chartData);
 
-    return chartData;
-  },
-);
+  return chartData;
+});
 
 const lotteryHistorySchema = z.number().int().min(1).default(1);
 

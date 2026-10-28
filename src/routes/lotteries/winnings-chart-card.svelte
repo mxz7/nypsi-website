@@ -4,7 +4,7 @@
   import Card from "#lib/components/ui/card.svelte";
   import { formatNumberPretty } from "#lib/functions/string.js";
   import { Gem } from "@lucide/svelte";
-  import type { ChartOptions } from "chart.js";
+  import type { ChartOptions } from "#lib/types/chart.js";
 
   interface Props {
     range: LotteryChartRange;
@@ -13,49 +13,8 @@
   let { range }: Props = $props();
 
   const lotteryChartOptions: ChartOptions = {
-    plugins: {
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return `${tooltipItem.dataset.label}: $${formatNumberPretty(Number(tooltipItem.raw))}`;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 7,
-        },
-      },
-      y: {
-        grid: {
-          display: false,
-        },
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return `$${formatNumberPretty(Number(tickValue))}`;
-          },
-        },
-      },
-    },
+    valueFormat: (value) => `$${formatNumberPretty(value)}`,
+    tooltipFormat: (value, label) => `${label}: $${formatNumberPretty(value)}`,
   };
 
   const rangeOptions = [
@@ -77,7 +36,7 @@
   </h2>
 
   <menu class="menu menu-horizontal rounded-box bg-base-200 mx-auto mb-4 flex justify-center gap-2">
-    {#each rangeOptions as option}
+    {#each rangeOptions as option (option.value)}
       {@const focused = range === option.value}
       <li>
         <a
@@ -89,7 +48,7 @@
     {/each}
   </menu>
 
-  {#if chartData.data?.labels && chartData.data.labels.length > 0}
+  {#if chartData.labels.length > 0}
     <div class="h-96 w-full">
       <Chart {chartData} chartOptions={lotteryChartOptions} />
     </div>

@@ -11,14 +11,14 @@ export const load = async ({ params, fetch, setHeaders }) => {
   return {
     guild: await guild,
     graphs: {
-      balance: fetch(`/api/guilds/${params.name.replaceAll("-", " ")}/balance`).then((r) =>
-        r.json().then((r) => r.data as APIGuildGraphData),
+      balance: fetch(`/api/guilds/${params.name.replaceAll("-", " ")}/balance?v=2`).then(
+        (r) => r.json() as Promise<APIGuildGraphData>,
       ),
-      xp: fetch(`/api/guilds/${params.name.replaceAll("-", " ")}/xp`).then((r) =>
-        r.json().then((r) => r.data as APIGuildGraphData),
+      xp: fetch(`/api/guilds/${params.name.replaceAll("-", " ")}/xp?v=2`).then(
+        (r) => r.json() as Promise<APIGuildGraphData>,
       ),
-      level: fetch(`/api/guilds/${params.name.replaceAll("-", " ")}/level`).then((r) =>
-        r.json().then((r) => r.data as APIGuildGraphData),
+      level: fetch(`/api/guilds/${params.name.replaceAll("-", " ")}/level?v=2`).then(
+        (r) => r.json() as Promise<APIGuildGraphData>,
       ),
     },
   };

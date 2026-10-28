@@ -2,96 +2,18 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import Chart from "#lib/components/chart.svelte";
-  import type { ChartOptions } from "chart.js";
+  import type { ChartOptions } from "#lib/types/chart.js";
 
   const moneyChartOptions: ChartOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return `$${tooltipItem.formattedValue}`;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-      y1: {
-        grid: {
-          display: false,
-        },
-        position: "left",
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
-          },
-        },
-      },
-    },
+    legend: false,
+    valueFormat: (value) => `$${Math.floor(value).toLocaleString()}`,
+    tooltipFormat: (value) => `$${value.toLocaleString()}`,
   };
 
   const karmaChartOptions: ChartOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return tooltipItem.formattedValue;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-      y1: {
-        grid: {
-          display: false,
-        },
-        position: "left",
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-        },
-      },
-    },
+    legend: false,
+    valueFormat: (value) => Math.floor(value).toLocaleString(),
+    tooltipFormat: (value) => value.toLocaleString(),
   };
 
   const dayOptions = ["14", "30", "60", "90", "180"];
@@ -115,7 +37,7 @@
 
 <div class="mt-4 flex w-full justify-center">
   <select class="select select-bordered w-full max-w-xs" bind:value={days}>
-    {#each dayOptions as dayOption}
+    {#each dayOptions as dayOption (dayOption)}
       {#if days === dayOption}
         <option value={dayOption} selected>{dayOption} days</option>
       {:else}

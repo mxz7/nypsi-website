@@ -1,10 +1,9 @@
 import prisma from "#lib/server/database.js";
-import redis from "#lib/server/redis.js";
+import { RedisCache } from "#lib/server/cache.js";
 import type { Item } from "#lib/types/Item.js";
-import type { ChartConfiguration } from "chart.js";
+import type { ChartData } from "#lib/types/chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
-import ms from "ms";
 
 type ProcessedGraphData = {
   labels: string[];
@@ -14,11 +13,16 @@ type ProcessedGraphData = {
   }[];
 };
 
+const itemHistoryCache = new RedisCache<ProcessedGraphData | "not enough data">(
+  "cache:item:history",
+  21600,
+);
+
 async function getRawData(item: string) {
-  const cache = await redis.get(`cache:item:history:${item}`);
+  const cache = await itemHistoryCache.get(item);
 
   if (cache) {
-    return JSON.parse(cache) as ProcessedGraphData | "not enough data";
+    return cache;
   }
 
   const orders = await prisma.market
@@ -81,7 +85,7 @@ async function getRawData(item: string) {
 
   if (orders.length < 2 && offers.length < 2 && itemCount.length < 2 && value.length < 2) {
     const result = "not enough data" as const;
-    await redis.set(`cache:item:history:${item}`, JSON.stringify(result), "EX", ms("6h") / 1000);
+    await itemHistoryCache.set(item, result);
     return result;
   }
 
@@ -203,7 +207,7 @@ async function getRawData(item: string) {
   }
 
   const result = { labels, datasets };
-  await redis.set(`cache:item:history:${item}`, JSON.stringify(result), "EX", ms("6h") / 1000);
+  await itemHistoryCache.set(item, result);
   return result;
 }
 
@@ -228,40 +232,36 @@ function filterDataByDays(data: ProcessedGraphData, days: number): ProcessedGrap
 }
 
 function buildCharts(data: ProcessedGraphData): {
-  priceData: ChartConfiguration;
-  itemCountData: ChartConfiguration;
+  priceData: ChartData;
+  itemCountData: ChartData;
 } {
   const datasetStyles = [
-    { fill: false, borderColor: "#0ea5e933", backgroundColor: "#0ea5e911" }, // market
-    { fill: false, borderColor: "#f43f5e33", backgroundColor: "#f43f5e11" }, // offers
-    { fill: false, borderColor: "#8b5cf6", backgroundColor: "#8b5cf633" }, // worth
-    { fill: true, borderColor: "#8b5cf6", backgroundColor: "#8b5cf633" }, // items in world
+    { fill: false, color: "#0ea5e933", fillColor: "#0ea5e911" }, // market
+    { fill: false, color: "#f43f5e33", fillColor: "#f43f5e11" }, // offers
+    { fill: false, color: "#8b5cf6", fillColor: "#8b5cf633" }, // worth
+    { fill: true, color: "#8b5cf6", fillColor: "#8b5cf633" }, // items in world
   ];
 
-  const priceChart: ChartConfiguration = {
-    type: "line",
-    data: {
-      labels: data.labels,
-      datasets: data.datasets.slice(0, 3).map((ds, idx) => ({
-        label: ds.label,
-        data: ds.data,
-        ...datasetStyles[idx],
-      })),
-    },
+  const priceChart: ChartData = {
+    kind: "line",
+    labels: data.labels,
+    series: data.datasets.slice(0, 3).map((ds, idx) => ({
+      label: ds.label,
+      data: ds.data,
+      ...datasetStyles[idx],
+    })),
   };
 
-  const itemCountChart: ChartConfiguration = {
-    type: "line",
-    data: {
-      labels: data.labels,
-      datasets: [
-        {
-          label: data.datasets[3].label,
-          data: data.datasets[3].data,
-          ...datasetStyles[3],
-        },
-      ],
-    },
+  const itemCountChart: ChartData = {
+    kind: "line",
+    labels: data.labels,
+    series: [
+      {
+        label: data.datasets[3].label,
+        data: data.datasets[3].data,
+        ...datasetStyles[3],
+      },
+    ],
   };
 
   return { priceData: priceChart, itemCountData: itemCountChart };

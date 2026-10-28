@@ -1,16 +1,25 @@
 import prisma from "#lib/server/database.js";
-import redis from "#lib/server/redis.js";
-import type { ChartConfiguration } from "chart.js";
+import { RedisCache } from "#lib/server/cache.js";
+import type { ChartData } from "#lib/types/chart.js";
 import dayjs from "dayjs";
 import { sort } from "fast-sort";
+
+type BotCharts = {
+  queryGraph: ChartData;
+  usersCommandsGraph: ChartData;
+  preprocessGraph: ChartData;
+  gamesGraph: ChartData;
+};
+
+const botChartCache = new RedisCache<BotCharts>("cache:bot_metrics:v2", 3600);
 
 export async function load({ url }) {
   const days = parseInt(url.searchParams.get("days") || "30") || 30;
 
-  const cache = await redis.get(`cache:bot_metrics:${days}`);
+  const cache = await botChartCache.get(String(days));
 
   if (cache) {
-    return JSON.parse(cache);
+    return cache;
   }
 
   const data = {
@@ -20,7 +29,7 @@ export async function load({ url }) {
     gamesGraph: await getGamesByType(days),
   };
 
-  await redis.set(`cache:bot_metrics:${days}`, JSON.stringify(data), "EX", 3600);
+  await botChartCache.set(String(days), data);
 
   return data;
 }
@@ -74,51 +83,47 @@ function calculateMovingAverage(data: { x: number; y: number }[], windowSize: nu
 }
 
 async function getDatabaseQueries(days: number) {
-  const queryGraph: ChartConfiguration = {
-    type: "scatter",
-    data: {
-      labels: [],
-      datasets: [
-        {
-          yAxisID: "1",
-          label: "average query time",
-          data: [],
-          fill: false,
-          borderColor: "#8b5cf677",
-          backgroundColor: "#8b5cf677",
-          radius: 1.3,
-        },
-        {
-          yAxisID: "2",
-          label: "hourly queries",
-          data: [],
-          fill: false,
-          borderColor: "#1e293b",
-          backgroundColor: "#1e293b",
-          radius: 1.3,
-        },
-        {
-          yAxisID: "1",
-          label: "query time average",
-          data: [],
-          type: "line",
-          fill: false,
-          borderColor: "#8b5cf6",
-          borderWidth: 3,
-          pointRadius: 0,
-        },
-        {
-          yAxisID: "2",
-          label: "hourly query average",
-          data: [],
-          type: "line",
-          fill: false,
-          borderColor: "#1e293b",
-          borderWidth: 3,
-          pointRadius: 0,
-        },
-      ],
-    },
+  const queryGraph: ChartData = {
+    kind: "scatter",
+    labels: [],
+    series: [
+      {
+        label: "average query time",
+        data: [],
+        fill: false,
+        color: "#8b5cf677",
+        fillColor: "#8b5cf677",
+        pointRadius: 1.3,
+      },
+      {
+        axis: "right",
+        label: "hourly queries",
+        data: [],
+        fill: false,
+        color: "#1e293b",
+        fillColor: "#1e293b",
+        pointRadius: 1.3,
+      },
+      {
+        label: "query time average",
+        data: [],
+        kind: "line",
+        fill: false,
+        color: "#8b5cf6",
+        width: 3,
+        pointRadius: 0,
+      },
+      {
+        axis: "right",
+        label: "hourly query average",
+        data: [],
+        kind: "line",
+        fill: false,
+        color: "#1e293b",
+        width: 3,
+        pointRadius: 0,
+      },
+    ],
   };
 
   const [queryTime, queryCount] = await Promise.all([
@@ -126,7 +131,7 @@ async function getDatabaseQueries(days: number) {
     getData("hourly_query", days),
   ]);
 
-  queryGraph.data.labels = [];
+  queryGraph.labels = [];
 
   for (const datesGroup of [
     queryTime.map((i) => i.createdAt),
@@ -134,49 +139,49 @@ async function getDatabaseQueries(days: number) {
   ]) {
     for (const date of datesGroup) {
       if (
-        !queryGraph.data.labels.includes(
+        !queryGraph.labels.includes(
           dayjs(date).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
         )
       )
-        queryGraph.data.labels.push(
+        queryGraph.labels.push(
           dayjs(date).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
         );
     }
   }
 
   for (const query of queryTime) {
-    const labelIndex = queryGraph.data.labels.indexOf(
+    const labelIndex = queryGraph.labels.indexOf(
       dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
     );
 
     if (labelIndex === -1) continue;
 
-    queryGraph.data.datasets[0].data.push({
+    queryGraph.series[0].data.push({
       x: dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
       y: query.value,
     });
   }
 
   for (const query of queryCount) {
-    const labelIndex = queryGraph.data.labels.indexOf(
+    const labelIndex = queryGraph.labels.indexOf(
       dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
     );
 
     if (labelIndex === -1) continue;
 
-    queryGraph.data.datasets[1].data.push({
+    queryGraph.series[1].data.push({
       x: dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
       y: query.value,
     });
   }
 
-  queryGraph.data.datasets[2].data = calculateMovingAverage(
-    queryGraph.data.datasets[0].data as { x: number; y: number }[],
+  queryGraph.series[2].data = calculateMovingAverage(
+    queryGraph.series[0].data as { x: number; y: number }[],
     15,
   );
 
-  queryGraph.data.datasets[3].data = calculateMovingAverage(
-    queryGraph.data.datasets[1].data as { x: number; y: number }[],
+  queryGraph.series[3].data = calculateMovingAverage(
+    queryGraph.series[1].data as { x: number; y: number }[],
     15,
   );
 
@@ -184,29 +189,26 @@ async function getDatabaseQueries(days: number) {
 }
 
 async function getActiveUsersAndCommands(days: number) {
-  const graph: ChartConfiguration = {
-    type: "line",
-    data: {
-      labels: [],
-      datasets: [
-        {
-          yAxisID: "1",
-          label: "active users",
-          data: [],
-          fill: false,
-          borderColor: "#8b5cf6",
-          backgroundColor: "#8b5cf6",
-        },
-        {
-          yAxisID: "2",
-          label: "commands",
-          data: [],
-          fill: false,
-          borderColor: "#1e293b",
-          backgroundColor: "#1e293b",
-        },
-      ],
-    },
+  const graph: ChartData = {
+    kind: "line",
+    labels: [],
+    series: [
+      {
+        label: "active users",
+        data: [],
+        fill: false,
+        color: "#8b5cf6",
+        fillColor: "#8b5cf6",
+      },
+      {
+        axis: "right",
+        label: "commands",
+        data: [],
+        fill: false,
+        color: "#1e293b",
+        fillColor: "#1e293b",
+      },
+    ],
   };
 
   const [users, commands] = await Promise.all([
@@ -214,88 +216,72 @@ async function getActiveUsersAndCommands(days: number) {
     getData("daily_commands", days),
   ]);
 
-  graph.data.labels = getLabels(
+  graph.labels = getLabels(
     users.map((i) => dayjs(i.createdAt).set("hours", 0).toDate()),
     commands.map((i) => dayjs(i.createdAt).set("hours", 0).toDate()),
   );
 
-  for (const query of users) {
-    const formattedDate = dayjs(query.createdAt)
-      .set("minutes", 0)
-      .set("seconds", 0)
-      .set("hours", 0)
-      .format("YYYY-MM-DD HH:mm");
+  const usersByDay = new Map(
+    users.map((entry) => [
+      dayjs(entry.createdAt).startOf("day").format("YYYY-MM-DD HH:mm"),
+      entry.value,
+    ]),
+  );
+  const commandsByDay = new Map(
+    commands.map((entry) => [
+      dayjs(entry.createdAt).startOf("day").format("YYYY-MM-DD HH:mm"),
+      entry.value,
+    ]),
+  );
 
-    const labelIndex = graph.data.labels.indexOf(formattedDate);
-
-    if (labelIndex === -1) continue;
-
-    graph.data.datasets[0].data.push(query.value);
-  }
-
-  for (const query of commands) {
-    const formattedDate = dayjs(query.createdAt)
-      .set("minutes", 0)
-      .set("seconds", 0)
-      .set("hours", 0)
-      .format("YYYY-MM-DD HH:mm");
-
-    const labelIndex = graph.data.labels.indexOf(formattedDate);
-
-    if (labelIndex === -1) continue;
-
-    graph.data.datasets[1].data.push(query.value);
-  }
+  graph.series[0].data = graph.labels.map((label) => usersByDay.get(String(label)) ?? null);
+  graph.series[1].data = graph.labels.map((label) => commandsByDay.get(String(label)) ?? null);
 
   return graph;
 }
 
 async function getPreprocess(days: number) {
-  const queryGraph: ChartConfiguration = {
-    type: "scatter",
-    data: {
-      labels: [],
-      datasets: [
-        {
-          yAxisID: "1",
-          label: "average preprocess time",
-          data: [],
-          fill: false,
-          borderColor: "#8b5cf677",
-          backgroundColor: "#8b5cf677",
-          radius: 1.3,
-        },
-        {
-          yAxisID: "2",
-          label: "hourly commands",
-          data: [],
-          fill: false,
-          borderColor: "#1e293b",
-          backgroundColor: "#1e293b",
-          radius: 1.3,
-        },
-        {
-          yAxisID: "1",
-          label: "preprocess time average",
-          data: [],
-          type: "line",
-          fill: false,
-          borderColor: "#8b5cf6",
-          borderWidth: 3,
-          pointRadius: 0,
-        },
-        {
-          yAxisID: "2",
-          label: "hourly commands average",
-          data: [],
-          type: "line",
-          fill: false,
-          borderColor: "#1e293b",
-          borderWidth: 3,
-          pointRadius: 0,
-        },
-      ],
-    },
+  const queryGraph: ChartData = {
+    kind: "scatter",
+    labels: [],
+    series: [
+      {
+        label: "average preprocess time",
+        data: [],
+        fill: false,
+        color: "#8b5cf677",
+        fillColor: "#8b5cf677",
+        pointRadius: 1.3,
+      },
+      {
+        axis: "right",
+        label: "hourly commands",
+        data: [],
+        fill: false,
+        color: "#1e293b",
+        fillColor: "#1e293b",
+        pointRadius: 1.3,
+      },
+      {
+        label: "preprocess time average",
+        data: [],
+        kind: "line",
+        fill: false,
+        color: "#8b5cf6",
+        width: 3,
+        pointRadius: 0,
+      },
+      {
+        axis: "right",
+        label: "hourly commands average",
+        data: [],
+        kind: "line",
+        fill: false,
+        color: "#1e293b",
+        width: 3,
+        pointRadius: 0,
+      },
+    ],
   };
 
   const [queryTime, queryCount] = await Promise.all([
@@ -303,7 +289,7 @@ async function getPreprocess(days: number) {
     getData("hourly_preprocess", days),
   ]);
 
-  queryGraph.data.labels = [];
+  queryGraph.labels = [];
 
   for (const datesGroup of [
     queryTime.map((i) => i.createdAt),
@@ -311,49 +297,49 @@ async function getPreprocess(days: number) {
   ]) {
     for (const date of datesGroup) {
       if (
-        !queryGraph.data.labels.includes(
+        !queryGraph.labels.includes(
           dayjs(date).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
         )
       )
-        queryGraph.data.labels.push(
+        queryGraph.labels.push(
           dayjs(date).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
         );
     }
   }
 
   for (const query of queryTime) {
-    const labelIndex = queryGraph.data.labels.indexOf(
+    const labelIndex = queryGraph.labels.indexOf(
       dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
     );
 
     if (labelIndex === -1) continue;
 
-    queryGraph.data.datasets[0].data.push({
+    queryGraph.series[0].data.push({
       x: dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
       y: query.value,
     });
   }
 
   for (const query of queryCount) {
-    const labelIndex = queryGraph.data.labels.indexOf(
+    const labelIndex = queryGraph.labels.indexOf(
       dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
     );
 
     if (labelIndex === -1) continue;
 
-    queryGraph.data.datasets[1].data.push({
+    queryGraph.series[1].data.push({
       x: dayjs(query.createdAt).set("minutes", 0).set("seconds", 0).set("ms", 0).valueOf(),
       y: query.value,
     });
   }
 
-  queryGraph.data.datasets[2].data = calculateMovingAverage(
-    queryGraph.data.datasets[0].data as { x: number; y: number }[],
+  queryGraph.series[2].data = calculateMovingAverage(
+    queryGraph.series[0].data as { x: number; y: number }[],
     15,
   );
 
-  queryGraph.data.datasets[3].data = calculateMovingAverage(
-    queryGraph.data.datasets[1].data as { x: number; y: number }[],
+  queryGraph.series[3].data = calculateMovingAverage(
+    queryGraph.series[1].data as { x: number; y: number }[],
     15,
   );
 
@@ -361,12 +347,10 @@ async function getPreprocess(days: number) {
 }
 
 async function getGamesByType(days: number) {
-  const graph: ChartConfiguration = {
-    type: "line",
-    data: {
-      labels: [],
-      datasets: [],
-    },
+  const graph: ChartData = {
+    kind: "line",
+    labels: [],
+    series: [],
   };
 
   const fromDate = dayjs().subtract(days, "days").startOf("day").toDate();
@@ -395,7 +379,7 @@ async function getGamesByType(days: number) {
   const labels = Array.from(labelSet).sort((a, b) => a - b);
   const types = Array.from(typesSet).slice(0, 25);
 
-  graph.data.labels = labels as any;
+  graph.labels = labels;
 
   const colors = [
     "#ef4444",
@@ -423,15 +407,14 @@ async function getGamesByType(days: number) {
     const t = types[i];
 
     const dataset = {
-      yAxisID: "1",
       label: t,
       data: (labels as number[]).map((l) => ({ x: l, y: counts[t]?.[l] || 0 })),
       fill: false,
-      borderColor: colors[i % colors.length],
-      backgroundColor: colors[i % colors.length],
+      color: colors[i % colors.length],
+      fillColor: colors[i % colors.length],
     };
 
-    graph.data.datasets.push(dataset as any);
+    graph.series.push(dataset);
   }
 
   return graph;

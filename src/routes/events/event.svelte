@@ -11,7 +11,7 @@
   import { daysUntil } from "#lib/functions/time.js";
   import type { NypsiEvent } from "#lib/server/functions/event.js";
   import { Trophy } from "@lucide/svelte";
-  import type { ChartConfiguration, ChartOptions } from "chart.js";
+  import type { ChartData, ChartOptions } from "#lib/types/chart.js";
   import ms from "ms";
   import { onMount, untrack } from "svelte";
   import { flip } from "svelte/animate";
@@ -30,62 +30,25 @@
 
   const progressHistory = await getEventProgressHistory(untrack(() => event.id));
 
-  const progressChartData: ChartConfiguration | undefined = progressHistory.length
+  const progressChartData: ChartData | undefined = progressHistory.length
     ? {
-        type: "line",
-        data: {
-          labels: progressHistory.map((point) => point.createdAt),
-          datasets: [
-            {
-              label: "event progress",
-              data: progressHistory.map((point) =>
-                event.target ? Math.min(point.value, Number(event.target)) : point.value,
-              ),
-              fill: true,
-              borderColor: "#8b5cf6",
-              borderWidth: 2,
-              backgroundColor: (context: {
-                chart: {
-                  ctx: CanvasRenderingContext2D;
-                  chartArea?: { top: number; bottom: number };
-                };
-              }) => {
-                const { chart } = context;
-                const { ctx, chartArea } = chart;
-
-                if (!chartArea) return "rgba(139, 92, 246, 0.22)";
-
-                const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                gradient.addColorStop(0, "rgba(139, 92, 246, 0.48)");
-                gradient.addColorStop(0.65, "rgba(139, 92, 246, 0.12)");
-                gradient.addColorStop(1, "rgba(139, 92, 246, 0)");
-                return gradient;
-              },
-            },
-          ],
-        },
+        kind: "line",
+        labels: progressHistory.map((point) => point.createdAt),
+        series: [
+          {
+            label: "event progress",
+            data: progressHistory.map((point) =>
+              event.target ? Math.min(point.value, Number(event.target)) : point.value,
+            ),
+            fill: true,
+            color: "var(--color-primary)",
+            width: 2,
+          },
+        ],
       }
     : undefined;
 
-  const progressChartOptions: ChartOptions = {
-    animation: false,
-    events: [],
-    maintainAspectRatio: false,
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: { enabled: false },
-    },
-    elements: {
-      line: { cubicInterpolationMode: "monotone", tension: 0.25 },
-      point: { radius: 0 },
-    },
-    layout: { padding: 2 },
-    scales: {
-      x: { display: false },
-      y: { display: false },
-    },
-  };
+  const progressChartOptions: ChartOptions = { sparkline: true };
 
   const eventUpdates = $derived(event.endedAt ? undefined : getEventUpdates(event.id));
   const initialEventUpdate = $derived(eventUpdates ? await eventUpdates : undefined);
@@ -157,8 +120,7 @@
 
   <div class="border-base-300 border-y py-4">
     <div
-      class:grid={progressChartData}
-      class="gap-5 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+      class={["gap-5 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]", { grid: progressChartData }]}
     >
       <div class="flex min-w-0 flex-col justify-center">
         <p class="text-base-content/50 text-sm">

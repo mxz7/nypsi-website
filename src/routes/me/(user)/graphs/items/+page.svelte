@@ -4,48 +4,12 @@
   import { getItemsRemote } from "#lib/api/items.remote.js";
   import Chart from "#lib/components/chart.svelte";
   import ItemSearch from "#lib/components/items/item-search.svelte";
-  import type { ChartOptions } from "chart.js";
+  import type { ChartOptions } from "#lib/types/chart.js";
 
   const itemChartOptions: ChartOptions = {
-    plugins: {
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return tooltipItem.formattedValue;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-      y1: {
-        grid: {
-          display: false,
-        },
-        position: "left",
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-        },
-      },
-    },
+    legend: true,
+    valueFormat: (value) => Math.floor(value).toLocaleString(),
+    tooltipFormat: (value) => value.toLocaleString(),
   };
 
   const dayOptions = ["14", "30", "60", "90"];
@@ -62,7 +26,7 @@
 
 <div class="mt-4 flex w-full justify-center">
   <select class="select select-bordered w-full max-w-xs" bind:value={days}>
-    {#each dayOptions as dayOption}
+    {#each dayOptions as dayOption (dayOption)}
       {#if days === dayOption}
         <option value={dayOption} selected>{dayOption} days</option>
       {:else}

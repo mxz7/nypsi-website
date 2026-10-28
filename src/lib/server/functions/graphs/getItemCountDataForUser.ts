@@ -1,6 +1,6 @@
 import prisma from "#lib/server/database.js";
 import type { Item } from "#lib/types/Item.js";
-import type { ChartConfiguration } from "chart.js";
+import type { ChartData } from "#lib/types/chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
@@ -36,17 +36,14 @@ export default async function getItemCountDataForUser(
   if (categories.length === 1 && Array.from(results.values())[0].length < 3)
     return "not enough data";
 
-  const graphData: ChartConfiguration = {
-    type: "line",
-    data: {
-      labels: [],
-      datasets: [],
-    },
+  const graphData: ChartData = {
+    kind: "line",
+    labels: [],
+    series: [],
   };
 
   if (results.size === 1) {
-    graphData.data.datasets.push({
-      yAxisID: "y1",
+    graphData.series.push({
       label: categories[0].includes("item")
         ? items.find((i) => i.id === categories[0].split("-")[2]).name
         : await prisma.user
@@ -57,13 +54,12 @@ export default async function getItemCountDataForUser(
             .then((q) => q?.lastKnownUsername || ""),
       data: [],
       fill: true,
-      borderColor: "#8b5cf6",
-      backgroundColor: "#8b5cf644",
+      color: "#8b5cf6",
+      fillColor: "#8b5cf644",
     });
   } else {
     for (const [key] of results.entries()) {
-      graphData.data.datasets.push({
-        yAxisID: "y1",
+      graphData.series.push({
         label: items.find((i) => i.id === key.split("-")[2]).name,
         data: [],
         fill: true,
@@ -73,46 +69,46 @@ export default async function getItemCountDataForUser(
 
   for (const result of results.values()) {
     for (const i of result) {
-      if (!graphData.data.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
-        graphData.data.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
+      if (!graphData.labels.includes(dayjs(i.date).format("YYYY-MM-DD")))
+        graphData.labels.push(dayjs(i.date).format("YYYY-MM-DD"));
     }
   }
 
-  inPlaceSort(graphData.data.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
+  inPlaceSort(graphData.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
 
   // ensures theres a label for every day
-  for (let i = 0; i < graphData.data.labels.length; i++) {
-    if (!graphData.data.labels[i + 1]) break;
+  for (let i = 0; i < graphData.labels.length; i++) {
+    if (!graphData.labels[i + 1]) break;
 
-    const date1 = dayjs(graphData.data.labels[i] as string, "YYYY-MM-DD");
-    const date2 = dayjs(graphData.data.labels[i + 1] as string, "YYYY-MM-DD");
+    const date1 = dayjs(graphData.labels[i] as string, "YYYY-MM-DD");
+    const date2 = dayjs(graphData.labels[i + 1] as string, "YYYY-MM-DD");
 
     if (!date1.add(1, "day").isSame(date2)) {
-      graphData.data.labels.splice(i + 1, 0, date1.add(1, "day").format("YYYY-MM-DD"));
+      graphData.labels.splice(i + 1, 0, date1.add(1, "day").format("YYYY-MM-DD"));
     }
   }
 
-  for (const dateString of graphData.data.labels as string[]) {
+  for (const dateString of graphData.labels as string[]) {
     for (const [key, value] of results.entries()) {
       if (value.find((i) => dayjs(i.date).format("YYYY-MM-DD") === dateString)) {
-        if (graphData.data.datasets.length > 1) {
-          graphData.data.datasets
+        if (graphData.series.length > 1) {
+          graphData.series
             .find((i) => i.label === items.find((i) => i.id === key.split("-")[2]).name)
             .data.push(
               Number(value.find((i) => dayjs(i.date).format("YYYY-MM-DD") === dateString).value),
             );
         } else {
-          graphData.data.datasets[0].data.push(
+          graphData.series[0].data.push(
             Number(value.find((i) => dayjs(i.date).format("YYYY-MM-DD") === dateString).value),
           );
         }
       } else {
-        if (graphData.data.datasets.length > 1) {
-          graphData.data.datasets
+        if (graphData.series.length > 1) {
+          graphData.series
             .find((i) => i.label === items.find((i) => i.id === key.split("-")[2]).name)
             .data.push(0);
         } else {
-          graphData.data.datasets[0].data.push(0);
+          graphData.series[0].data.push(0);
         }
       }
     }

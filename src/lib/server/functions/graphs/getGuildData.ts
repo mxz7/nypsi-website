@@ -1,5 +1,5 @@
 import prisma from "#lib/server/database.js";
-import type { ChartConfiguration } from "chart.js";
+import type { ChartData } from "#lib/types/chart.js";
 import dayjs from "dayjs";
 import { inPlaceSort } from "fast-sort";
 
@@ -25,50 +25,47 @@ export default async function getGuildData(guild: string, type: "balance" | "xp"
     counts.set(dayjs(item.date).format("YYYY-MM-DD"), Number(item.value));
   }
 
-  const graphData: ChartConfiguration<"line"> = {
-    type: "line",
-    data: {
-      labels: [],
-      datasets: [
-        {
-          yAxisID: "y1",
-          label: type,
-          data: [],
-          fill: true,
-          borderColor: "#8b5cf6",
-          backgroundColor: "#8b5cf644",
-        },
-      ],
-    },
+  const graphData: ChartData = {
+    kind: "line",
+    labels: [],
+    series: [
+      {
+        label: type,
+        data: [],
+        fill: true,
+        color: "#8b5cf6",
+        fillColor: "#8b5cf644",
+      },
+    ],
   };
 
   for (const key of counts.keys()) {
-    if (!graphData.data.labels.includes(dayjs(key).format("YYYY-MM-DD")))
-      graphData.data.labels.push(dayjs(key).format("YYYY-MM-DD"));
+    if (!graphData.labels.includes(dayjs(key).format("YYYY-MM-DD")))
+      graphData.labels.push(dayjs(key).format("YYYY-MM-DD"));
   }
 
-  inPlaceSort(graphData.data.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
+  inPlaceSort(graphData.labels as string[]).asc((i) => dayjs(i, "YYYY-MM-DD").unix());
 
-  for (let i = 0; i < graphData.data.labels.length; i++) {
-    if (!graphData.data.labels[i + 1]) break;
+  for (let i = 0; i < graphData.labels.length; i++) {
+    if (!graphData.labels[i + 1]) break;
 
-    const date1 = dayjs(graphData.data.labels[i] as string, "YYYY-MM-DD");
-    const date2 = dayjs(graphData.data.labels[i + 1] as string, "YYYY-MM-DD");
+    const date1 = dayjs(graphData.labels[i] as string, "YYYY-MM-DD");
+    const date2 = dayjs(graphData.labels[i + 1] as string, "YYYY-MM-DD");
 
     if (!date1.add(1, "day").isSame(date2)) {
-      graphData.data.labels.splice(i + 1, 0, date1.add(1, "day").format("YYYY-MM-DD"));
+      graphData.labels.splice(i + 1, 0, date1.add(1, "day").format("YYYY-MM-DD"));
     }
   }
 
-  for (const dateString of graphData.data.labels as string[]) {
-    const index = graphData.data.labels.indexOf(dateString);
+  for (const dateString of graphData.labels as string[]) {
+    const index = graphData.labels.indexOf(dateString);
 
     if (counts.has(dateString)) {
-      graphData.data.datasets[0].data.push(counts.get(dateString));
+      graphData.series[0].data.push(counts.get(dateString));
     } else if (index > 0) {
-      graphData.data.datasets[0].data.push(graphData.data.datasets[0].data[index - 1]);
+      graphData.series[0].data.push(graphData.series[0].data[index - 1]);
     } else {
-      graphData.data.datasets[0].data.push(0);
+      graphData.series[0].data.push(0);
     }
   }
 

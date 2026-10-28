@@ -2,7 +2,7 @@
   import Chart from "#lib/components/chart.svelte";
   import Main from "#lib/components/ui/main.svelte";
   import { guildSearchTerm } from "#lib/state.svelte.js";
-  import type { ChartConfiguration, ChartOptions } from "chart.js";
+  import type { ChartData, ChartOptions } from "#lib/types/chart.js";
   import Guild from "./guild.svelte";
 
   let { data } = $props();
@@ -15,101 +15,24 @@
   });
 
   const moneyChartOptions: ChartOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return `$${tooltipItem.formattedValue}`;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-      y1: {
-        grid: {
-          display: false,
-        },
-        position: "left",
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return `$${Math.floor(Number(tickValue)).toLocaleString()}`;
-          },
-        },
-      },
-    },
+    legend: false,
+    valueFormat: (value) => `$${Math.floor(value).toLocaleString()}`,
+    tooltipFormat: (value) => `$${value.toLocaleString()}`,
   };
 
   const numberChartOptions: ChartOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            return tooltipItem.formattedValue;
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    elements: {
-      line: {
-        tension: 0.15,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-      y1: {
-        grid: {
-          display: false,
-        },
-        position: "left",
-        min: 0,
-        ticks: {
-          callback(tickValue) {
-            return Math.floor(Number(tickValue)).toLocaleString();
-          },
-        },
-      },
-    },
+    legend: false,
+    valueFormat: (value) => Math.floor(value).toLocaleString(),
+    tooltipFormat: (value) => value.toLocaleString(),
   };
 
-  function hasChartData(graphData: unknown): graphData is ChartConfiguration {
+  function hasChartData(graphData: unknown): graphData is ChartData {
     return (
       typeof graphData === "object" &&
       graphData !== null &&
-      "type" in graphData &&
-      "data" in graphData
+      "kind" in graphData &&
+      "labels" in graphData &&
+      "series" in graphData
     );
   }
 </script>

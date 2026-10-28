@@ -1,237 +1,48 @@
 <script lang="ts">
   import Chart from "#lib/components/chart.svelte";
-  import type { ChartOptions } from "chart.js";
+  import type { ChartOptions } from "#lib/types/chart.js";
   import dayjs from "dayjs";
 
   let { data } = $props();
 
-  const queryChartOptions: ChartOptions = $derived({
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            if (tooltipItem.formattedValue.includes("(")) return null;
-
-            return `${tooltipItem.dataset.label}: ${tooltipItem.formattedValue}`;
-          },
-          title(meow) {
-            return dayjs(meow[0].label).format("YYYY-MM-DD HH:mm:ss");
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.2,
-      },
-      point: {
-        radius: 2,
-      },
-    },
-    scales: {
-      x: {
-        min: data.queryGraph.data.labels[0] as number,
-        max: data.queryGraph.data.labels[data.queryGraph.data.labels.length - 1] as number,
-        ticks: {
-          maxTicksLimit: 7,
-          callback(tickValue, index, ticks) {
-            return dayjs(tickValue).format("YYYY-MM-DD HH:mm:ss");
-          },
-        },
-      },
-      2: {
-        grid: {
-          display: false,
-        },
-        position: "right",
-        beginAtZero: true,
-      },
-      1: {
-        position: "left",
-        beginAtZero: true,
-      },
-    },
-  });
-
-  const userChartOptions: ChartOptions = $derived({
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.2,
-      },
-      point: {
-        radius: 1,
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          maxTicksLimit: 7,
-        },
-      },
-      2: {
-        grid: {
-          display: false,
-        },
-        position: "right",
-        beginAtZero: true,
-      },
-      1: {
-        position: "left",
-        beginAtZero: true,
-      },
-    },
-  });
-
-  const cmdChartOptions: ChartOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        callbacks: {
-          label(tooltipItem) {
-            if (tooltipItem.formattedValue.includes("(")) return null;
-
-            return `${tooltipItem.dataset.label}: ${tooltipItem.formattedValue}`;
-          },
-          title(meow) {
-            return dayjs(meow[0].label).format("YYYY-MM-DD HH:mm:ss");
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.2,
-      },
-      point: {
-        radius: 2,
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          maxTicksLimit: 7,
-          callback(tickValue, index, ticks) {
-            return dayjs(tickValue).format("YYYY-MM-DD HH:mm:ss");
-          },
-        },
-      },
-      2: {
-        beginAtZero: true,
-        grid: {
-          display: false,
-        },
-        position: "right",
-      },
-      1: {
-        beginAtZero: true,
-        position: "left",
-      },
-    },
+  const queryChartOptions: ChartOptions = {
+    legend: false,
+    points: 2,
+    xFormat: (value) => dayjs(value).format("YYYY-MM-DD HH:mm:ss"),
   };
 
-  const gamesChartOptions: ChartOptions = $derived({
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        intersect: false,
-        mode: "index",
-        itemSort(a, b) {
-          const va =
-            a.parsed && typeof a.parsed === "object"
-              ? // @ts-expect-error it works
-                (a.parsed.y ?? a.parsed)
-              : (a.parsed ?? a.raw ?? 0);
-          const vb =
-            b.parsed && typeof b.parsed === "object"
-              ? // @ts-expect-error it works
-                (b.parsed.y ?? b.parsed)
-              : (b.parsed ?? b.raw ?? 0);
+  const userChartOptions: ChartOptions = {
+    legend: false,
+    points: 1,
+  };
 
-          return (vb as number) - (va as number);
-        },
-        callbacks: {
-          title(items) {
-            const v = items[0]?.parsed?.x ?? items[0]?.label;
-            return dayjs(v).format("YYYY-MM-DD");
-          },
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.2,
-      },
-      point: {
-        radius: 1,
-      },
-    },
-    scales: {
-      x: {
-        type: "linear",
-        min: data.gamesGraph.data.labels[0] as number,
-        max: data.gamesGraph.data.labels[data.gamesGraph.data.labels.length - 1] as number,
-        ticks: {
-          maxTicksLimit: 7,
-          callback(tickValue, index, ticks) {
-            return dayjs(tickValue).format("YYYY-MM-DD");
-          },
-        },
-      },
-      1: {
-        position: "left",
-        beginAtZero: true,
-      },
-    },
-  });
+  const gamesChartOptions: ChartOptions = {
+    legend: false,
+    points: 1,
+    xFormat: (value) => dayjs(value).format("YYYY-MM-DD"),
+    sortTooltip: true,
+  };
 </script>
 
 <div class="flex w-full justify-center">
   <div class="mt-14 w-full max-w-6xl">
     <h2 class="text-center text-3xl font-bold">database queries</h2>
-    <div class="mt-6 w-full">
+    <div class="mt-6 h-96 w-full">
       <Chart chartData={data.queryGraph} chartOptions={queryChartOptions} />
     </div>
 
     <h2 class="mt-16 text-center text-3xl font-bold">active users and commands</h2>
-    <div class="mt-6 w-full">
+    <div class="mt-6 h-96 w-full">
       <Chart chartData={data.usersCommandsGraph} chartOptions={userChartOptions} />
     </div>
 
     <h2 class="mt-16 text-center text-3xl font-bold">command preprocessing</h2>
-    <div class="mt-6 w-full">
-      <Chart chartData={data.preprocessGraph} chartOptions={cmdChartOptions} />
+    <div class="mt-6 h-96 w-full">
+      <Chart chartData={data.preprocessGraph} chartOptions={queryChartOptions} />
     </div>
 
     <h2 class="mt-16 text-center text-3xl font-bold">games by type (daily)</h2>
-    <div class="mt-6 w-full">
+    <div class="mt-6 h-96 w-full">
       <Chart chartData={data.gamesGraph} chartOptions={gamesChartOptions} />
     </div>
   </div>
