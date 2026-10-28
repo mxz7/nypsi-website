@@ -131,46 +131,50 @@
               />
             {/if}
           {/if}
-          {#each plot.series as series (series.index)}
-            {#if !hidden.has(series.index)}
-              {@const isLine = (series.kind ?? chartData.kind) === "line"}
-              {#if series.fill && isLine}
-                <Area
-                  data={series.points}
-                  x="x"
-                  y1="y"
-                  y0={() => series.baseline}
-                  defined={(point: PlotPoint) => point.value !== null}
-                  curve={curveMonotoneX}
-                  fill={sparkline ? `url(#${gradientId})` : (series.fillColor ?? series.color)}
-                  fillOpacity={series.fillColor || sparkline ? 1 : 0.2}
-                  motion={{ type: "none" }}
-                />
-              {/if}
-              {#if isLine}
-                <Spline
-                  data={series.points}
-                  x="x"
-                  y="y"
-                  defined={(point: PlotPoint) => point.value !== null}
-                  curve={curveMonotoneX}
-                  stroke={series.color}
-                  strokeWidth={series.width ?? 2}
-                  motion={{ type: "none" }}
-                />
-              {/if}
-              {@const radius = series.pointRadius ?? chartOptions.points ?? (isLine ? 0 : 2)}
-              {#if radius > 0 || series.points.length === 1}
-                <Points
-                  data={series.points.filter((point) => point.value !== null)}
-                  x="x"
-                  y="y"
-                  r={radius || 2}
-                  fill={series.color}
-                />
-              {/if}
-            {/if}
-          {/each}
+          {#key chartData}
+            <g class="chart-reveal">
+              {#each plot.series as series (series.index)}
+                {#if !hidden.has(series.index)}
+                  {@const isLine = (series.kind ?? chartData.kind) === "line"}
+                  {#if series.fill && isLine}
+                    <Area
+                      data={series.points}
+                      x="x"
+                      y1="y"
+                      y0={() => series.baseline}
+                      defined={(point: PlotPoint) => point.value !== null}
+                      curve={curveMonotoneX}
+                      fill={sparkline ? `url(#${gradientId})` : (series.fillColor ?? series.color)}
+                      fillOpacity={series.fillColor || sparkline ? 1 : 0.2}
+                      motion={{ type: "none" }}
+                    />
+                  {/if}
+                  {#if isLine}
+                    <Spline
+                      data={series.points}
+                      x="x"
+                      y="y"
+                      defined={(point: PlotPoint) => point.value !== null}
+                      curve={curveMonotoneX}
+                      stroke={series.color}
+                      strokeWidth={series.width ?? 2}
+                      motion={{ type: "none" }}
+                    />
+                  {/if}
+                  {@const radius = series.pointRadius ?? chartOptions.points ?? (isLine ? 0 : 2)}
+                  {#if radius > 0 || series.points.length === 1}
+                    <Points
+                      data={series.points.filter((point) => point.value !== null)}
+                      x="x"
+                      y="y"
+                      r={radius || 2}
+                      fill={series.color}
+                    />
+                  {/if}
+                {/if}
+              {/each}
+            </g>
+          {/key}
           {#if !sparkline}
             <Highlight lines axis="x" />
           {/if}
@@ -202,3 +206,21 @@
     </Chart>
   </div>
 </div>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .chart-reveal {
+      animation: chart-reveal 1000ms cubic-bezier(0.25, 0.1, 0.65, 1);
+    }
+  }
+
+  @keyframes chart-reveal {
+    from {
+      clip-path: inset(-8px 100% -8px -8px) fill-box;
+    }
+
+    to {
+      clip-path: inset(-8px) fill-box;
+    }
+  }
+</style>
