@@ -16,7 +16,7 @@ export async function GET({ params }) {
     return redirect(303, url, { external: ["https://flagcdn.com"] });
   }
 
-  return new Response(await response.bytes(), {
+  return new Response(response.body, {
     headers: { "content-type": "image/png", "cache-control": "max-age=31536000" },
   });
 }
